@@ -29,7 +29,7 @@ jobs:
       - name: Configure
         run: xmake f --use-llvm=y -m debug
       - name: Build
-        run: xmake b
+        run: xmake -v
       - name: Test
         run: xmake run uwvm --version
   # ---------------------------------------------------------------------------
@@ -51,7 +51,7 @@ jobs:
       - name: Configure
         run: xmake f -p mingw --use-llvm=y -m debug
       - name: Build
-        run: xmake b
+        run: xmake -v
       - name: Test
         run: xmake run uwvm --version
   # ---------------------------------------------------------------------------
@@ -70,6 +70,6 @@ jobs:
       - name: Configure
         run: xmake f -m debug --root
       - name: Build
-        run: xmake b
+        run: xmake -v
       - name: Test
         run: xmake run uwvm --version
