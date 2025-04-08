@@ -23,7 +23,7 @@
 /// @brief      The following are the macros used by uwvm. 
 /// @details    Use `push_macro` to avoid side effects on existing macros. Please use `pop_macro` in conjunction.
 
-// #pragma once /// pragma once is not necessary
+#pragma once
 
 /// @brief      uwvm's macros
 #pragma pop_macro("UWVM_GNU_USED")

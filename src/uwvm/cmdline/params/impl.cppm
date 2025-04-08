@@ -28,3 +28,7 @@ export import :run;
 export import :help;
 export import :mode;
 export import :wasm_abi;
+
+#ifdef _DEBUG
+export import :test;
+#endif

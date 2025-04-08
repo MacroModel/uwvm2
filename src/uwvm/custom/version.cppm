@@ -33,6 +33,8 @@ export import utils.version;  // print defined method should be export
 
 export namespace uwvm::custom
 {
+    /// @brief      UWVM Version
+    /// @details    2.major.minor.patch
 #if defined(UWVM_VERSION_X) && defined(UWVM_VERSION_Y) && defined(UWVM_VERSION_Z) && defined(UWVM_VERSION_S)
     inline constexpr ::utils::version uwvm_version{UWVM_VERSION_X, UWVM_VERSION_Y, UWVM_VERSION_Z, UWVM_VERSION_S};
 #else

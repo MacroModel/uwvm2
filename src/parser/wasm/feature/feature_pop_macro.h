@@ -5,11 +5,9 @@
  ********************************************************/
 
 /**
- * @brief       The wasm file that will be run
- * @details     "--run" or "-r"
  * @author      MacroModel
  * @version     2.0.0
- * @date        2025-03-31
+ * @date        2025-04-01
  * @copyright   APL-2 License
  */
 
@@ -22,6 +20,12 @@
  *                                      *
  ****************************************/
 
-export module uwvm.wasm.base;
-export import :abi;
-export import :mode;
+#pragma once
+
+#pragma pop_macro("UWVM_WASM_SUPPORT_FP128")
+#pragma pop_macro("UWVM_WASM_SUPPORT_BF16")
+#pragma pop_macro("UWVM_WASM_SUPPORT_FP16")
+
+#pragma pop_macro("UWVM_WASM_SUPPORT_WASM3")
+#pragma pop_macro("UWVM_WASM_SUPPORT_WASM2")
+#pragma pop_macro("UWVM_WASM_SUPPORT_WASM1")

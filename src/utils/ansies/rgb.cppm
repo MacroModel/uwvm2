@@ -60,7 +60,7 @@ export namespace utils::ansies
         inline constexpr char_type* rgb_print_reserve_impl(char_type* iter, ::std::uint_least32_t r, ::std::uint_least32_t g, ::std::uint_least32_t b) noexcept
         {
             // Multiple copies of one char will not exceed the boundary, and the efficiency will become higher.
-            ::fast_io::freestanding::my_memcpy(iter, u8"\033[38;2;", 8u);
+            ::fast_io::freestanding::my_memcpy(iter, u8"\033[38;2;\0", 8u);
             char_type* curr_pos{iter + 7u};
             curr_pos = ::fast_io::pr_rsv_to_iterator_unchecked(curr_pos, r);
             *curr_pos = static_cast<char_type>(u8';');

@@ -26,6 +26,7 @@
 #include <utils/ansies/ansi_push_macro.h>
 
 import fast_io;
+import fast_io_crypto;
 import utils.io;
 import utils.cmdline;
 import utils.install_path;
@@ -51,6 +52,7 @@ namespace uwvm::cmdline::paras::details
                                                              u8"|" UWVM_AES_U8_RGB(189, 37, 206) u8" Ultimate " UWVM_AES_U8_RGB(152, 37, 206) u8"WebAssembly "     UWVM_AES_U8_RGB(113, 37, 206) u8" Virtual "    UWVM_AES_U8_RGB(70, 37, 206) u8"  Machine"  UWVM_AES_U8_RGB(72, 61, 139) u8" |" u8"\n"
                                                              u8" ----------------------------------------- \n\n"
                                 // uwvm
+                                UWVM_AES_U8_RST_ALL
                                 UWVM_AES_U8_WHITE
                                 u8"Ultimate WebAssembly Virtual Machine\n"
         // Debug Mode
@@ -269,6 +271,12 @@ namespace uwvm::cmdline::paras::details
 # if defined(__FMA__)
                                 u8"FMA "
 # endif
+# if defined(__BMI__)
+                                u8"BMI "
+# endif
+# if defined(__BMI2__)
+                                u8"BMI2 "
+# endif
 # if defined(__AVX__)
                                 u8"AVX "
 # endif
@@ -313,35 +321,53 @@ namespace uwvm::cmdline::paras::details
 #if defined(__CYGWIN__)
                                 u8"Cygwin"
 #elif defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__) || defined(_WIN32_WINNT) ||                     \
-    defined(_WIN32_WINDOWS)
+    defined(_WIN32_WINDOWS) || defined(_WINNT) || defined(_WINDOWS)
                                 u8"Microsoft Windows"
 # if defined(_WIN32_WINDOWS)
                                 u8" - "
 #  if _WIN32_WINDOWS >= 0x0490
-                                u8"Windows ME"
+                                u8"Windows 9x 4.9 (WINME)"
 #  elif _WIN32_WINDOWS >= 0x0410
-                                u8"Windows 98"
+                                u8"Windows 9x 4.1 (WIN98)"
 #  elif _WIN32_WINDOWS >= 0x0400
-                                u8"Windows 95"
+                                u8"Windows 9x 4.0 (WIN95)"
 #  endif
 # elif defined(_WIN32_WINNT)
                                 u8" - "
 #  if _WIN32_WINNT >= 0x0A00
-                                u8"Windows 10"
+                                u8"Windows NT 10.0 (WS25, WIN11, WS22, WS19, WS16, WIN10)"
 #  elif _WIN32_WINNT >= 0x0603
-                                u8"Windows 8.1"
+                                u8"Windows NT 6.3 (WS12R2, WINBLUE)"
 #  elif _WIN32_WINNT >= 0x0602
-                                u8"Windows 8"
+                                u8"Windows NT 6.2 (WS12, WIN8)"
 #  elif _WIN32_WINNT >= 0x0601
-                                u8"Windows 7"
+                                u8"Windows NT 6.1 (WS08R2, WIN7)"
 #  elif _WIN32_WINNT >= 0x0600
-                                u8"Windows Server 2008, Windows Vista"
+                                u8"Windows NT 6.0 (WS08, VISTA)"
 #  elif _WIN32_WINNT >= 0x0502
-                                u8"Windows Server 2003 with SP1, Windows XP with SP2"
+                                u8"Windows NT 5.2 (WS03SP1, WINXPSP2)"
 #  elif _WIN32_WINNT >= 0x0501
-                                u8"Windows Server 2003, Windows XP"
+                                u8"Windows NT 5.1 (WS03, WINXP)"
 #  elif _WIN32_WINNT >= 0x0500
-                                u8"Windows 2000"
+                                u8"Windows NT 5.0 (WS2K, WIN2K)"
+#  endif
+# elif defined(_WINNT)
+#  if _WINNT >= 0x0400
+                                u8"Windows NT 4.0"
+#  elif _WINNT >= 0x0351
+                                u8"Windows NT 3.51"
+#  elif _WINNT >= 0x0350
+                                u8"Windows NT 3.50"
+#  elif _WINNT >= 0x0310
+                                u8"Windows NT 3.10"
+#  endif
+# elif defined(_WINDOWS)
+#  if _WINDOWS >= 0x0300
+                                u8"Windows 3.0"
+#  elif _WINDOWS >= 0x0200
+                                u8"Windows 2.0"
+#  elif _WINDOWS >= 0x0310
+                                u8"Windows 1.0"
 #  endif
 # endif
 #elif defined(__MSDOS__)

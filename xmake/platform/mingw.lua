@@ -135,7 +135,10 @@ function mingw_target()
             -- MinGW only supports 32-bit processors of the x86 family.
             add_cxflags("-march=i686")
         end
-    elseif opt_name == "WS03R2" then
+    elseif 
+        opt_name == "WS03SP1" or
+        opt_name == "WINXPSP2"
+            then
         add_defines("_WIN32_WINNT=0x0502")
         add_defines("WINVER=0x0502")
         add_ldflags("-Wl,--major-subsystem-version=5", "-Wl,--minor-subsystem-version=2", {force = true})
@@ -149,7 +152,7 @@ function mingw_target()
     elseif 
         opt_name == "WS03" or
         opt_name == "WINXP"
-    then
+            then
         add_defines("_WIN32_WINNT=0x0501")
         add_defines("WINVER=0x0501")
         add_ldflags("-Wl,--major-subsystem-version=5", "-Wl,--minor-subsystem-version=1", {force = true})
@@ -163,7 +166,7 @@ function mingw_target()
     elseif 
         opt_name == "WS2K" or
         opt_name == "WIN2K"
-    then
+            then
         add_defines("_WIN32_WINNT=0x0500")
         add_defines("WINVER=0x0500")
         add_ldflags("-Wl,--major-subsystem-version=5", "-Wl,--minor-subsystem-version=0", {force = true})
@@ -255,7 +258,7 @@ function mingw_target()
     end
 
     local march = get_config("march")
-    if not (not march or march == "default") then
+    if not (not march or march == "none" or march == "default") then
         local march_target = "-march=" .. march
         add_cxflags(march_target)
     end

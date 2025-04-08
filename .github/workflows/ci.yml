@@ -1,0 +1,75 @@
+name: CI
+on:
+  pull_request:
+    paths-ignore:
+      - "documents/**"
+      - "**.md"
+  push:
+    paths-ignore:
+      - "documents/**"
+      - "**.md"
+  workflow_dispatch:
+
+jobs:
+  # ---------------------------------------------------------------------------
+  linux:
+    name: Linux
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        run: |
+          wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/llvm.asc
+          sudo add-apt-repository ppa:xmake-io/xmake
+          sudo add-apt-repository "deb http://apt.llvm.org/noble/ llvm-toolchain-noble-20 main"
+          sudo apt-get install -t llvm-toolchain-noble-20 clang-20 clang-tools-20
+          sudo apt-get install xmake
+      - name: Workaround for clang-scan-deps
+        run: sudo ln -s /usr/lib/llvm-20/bin/clang-scan-deps /usr/bin/clang-scan-deps
+      - name: Configure
+        run: xmake f --use-llvm=y -m debug
+      - name: Build
+        run: xmake b
+      - name: Test
+        run: xmake run uwvm --version
+  # ---------------------------------------------------------------------------
+  msys2-clang64:
+    name: MSYS2 CLANG64
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: CLANG64
+          update: true
+          install: |
+            mingw-w64-clang-x86_64-cc
+            mingw-w64-clang-x86_64-xmake
+      - name: Configure
+        run: xmake f -p mingw --use-llvm=y -m debug
+      - name: Build
+        run: xmake b
+      - name: Test
+        run: xmake run uwvm --version
+  # ---------------------------------------------------------------------------
+  freebsd:
+    name: FreeBSD
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: freebsd {0}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: vmactions/freebsd-vm@v1
+        with:
+          prepare: |
+            pkg install -y llvm20 xmake-io
+      - name: Configure
+        run: xmake f -m debug --root
+      - name: Build
+        run: xmake b
+      - name: Test
+        run: xmake run uwvm --version

@@ -20,7 +20,7 @@
  *                                      *
  ****************************************/
 
-// #pragma once /// pragma once is not necessary
+#pragma once
 
 #if defined(_MSC_VER) && !defined(__clang__)
 # pragma warning(push)

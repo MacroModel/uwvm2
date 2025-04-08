@@ -1,0 +1,4 @@
+# wasm parser concept
+Extensions are realized through concepts. 
+The root defines the concept of a segment, the second layer of mvp defines the most basic segments with in-segment parsing policy, the policy provides the concept of extension, the next extension or standard extends a segment or a policy extension left in the mvp segment, which can be subsequently continued to be extended, and ultimately form a wasm tree. 
+This allows each update of the standard without moving the existing implementation, only need to meet the concept can be extended, can be easily extended, while ensuring the correctness of the implementation of the

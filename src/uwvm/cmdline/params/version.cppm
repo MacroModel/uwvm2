@@ -46,7 +46,7 @@ export namespace uwvm::cmdline::paras
 
     inline constexpr ::utils::cmdline::parameter version{
         .name{u8"--version"},
-        .describe{UWVM_AES_U8_WHITE u8"Output version information. " UWVM_AES_U8_CYAN u8"Usage: [--version|-v]"},
+        .describe{u8"Output version information."},
         .alias{::utils::cmdline::kns_u8_str_scatter_t{details::version_alias.data(), details::version_alias.size()}},
         .handle{::std::addressof(details::version_callback)},
         .is_exist{::std::addressof(details::version_is_exist)}};

@@ -32,6 +32,7 @@ module;
 export module utils.cmdline:handle;
 
 import fast_io;
+import fast_io_crypto;
 
 export namespace utils::cmdline
 {
@@ -146,16 +147,25 @@ export namespace utils::cmdline
                                          char8_t const* const* argv_end,
                                          ::fast_io::vector<parameter_parsing_results>& pr) noexcept;
 
+    /// @brief Categorization of parameter types for help displays
+    enum class categorization : unsigned
+    {
+        global = 0u,
+        wasm,
+    };
+
     /// @brief User-defined parameters and handlers
     /// @brief Command line arguments will be encoded in ascii and will not be specialized for encodings such as ebcdic.
     struct parameter
     {
         ::fast_io::u8string_view const name{};      // parameter name
         ::fast_io::u8string_view const describe{};  // describtion shown in help
+        ::fast_io::u8string_view const usage{};     // usage shown in help
         kns_u8_str_scatter_t alias{};               // alias names
         handle_func_type handle{};                  // formal processing results
         parameter_func_type pretreatment{};         // pretreatment
         bool* is_exist{};                           // When it is not nullptr, repeated errors will be reported
+        categorization cate{};                      // Categorization of parameter types for help displays
     };
 
     /// @brief      sort the parameter const* const [N]
@@ -203,9 +213,7 @@ export namespace utils::cmdline
                 case u8'\\': [[fallthrough]];
                 case u8':': [[fallthrough]];
                 case u8'*': [[fallthrough]];
-#if 0
                 case u8'?': [[fallthrough]];
-#endif
                 case u8'\"': [[fallthrough]];
                 case u8'<': [[fallthrough]];
                 case u8'>': [[fallthrough]];
@@ -271,6 +279,15 @@ export namespace utils::cmdline
             }
         }
         return res;
+    }
+
+    /// @brief      Calculate max parameter principal name size
+    template <::std::size_t N>
+    inline consteval ::std::size_t calculate_max_principal_name_size(::fast_io::array<parameter const*, N> const& punsort) noexcept
+    {
+        ::std::size_t max_size{};
+        for(::std::size_t i{}; i < N; ++i) { max_size = ::std::max(max_size, punsort.index_unchecked(i)->name.size()); }
+        return max_size;
     }
 
     /// @brief      Calculate max parameter size

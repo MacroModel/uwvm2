@@ -6,7 +6,7 @@
 
 /**
  * @author      MacroModel
- * @run     2.0.0
+ * @version     2.0.0
  * @date        2025-03-27
  * @copyright   APL-2 License
  */
@@ -40,8 +40,8 @@ export namespace uwvm::cmdline::paras
         inline constexpr ::fast_io::u8string_view run_alias{u8"-r"};
     }  // namespace details
 
-    inline constexpr ::utils::cmdline::parameter run{
-        .name{u8"--run"},
-        .describe{UWVM_AES_U8_WHITE u8"Run WebAssembly. " UWVM_AES_U8_CYAN u8"Usage: [--run|-r] <file> <arg1> <arg2> ..."},
-        .alias{::utils::cmdline::kns_u8_str_scatter_t{::std::addressof(details::run_alias), 1}}};
+    inline constexpr ::utils::cmdline::parameter run{.name{u8"--run"},
+                                                     .describe{u8"Run WebAssembly."},
+                                                     .usage{u8"<file> <argv[1]> <arg[2]> ..."},
+                                                     .alias{::utils::cmdline::kns_u8_str_scatter_t{::std::addressof(details::run_alias), 1}}};
 }  // namespace uwvm::cmdline::paras

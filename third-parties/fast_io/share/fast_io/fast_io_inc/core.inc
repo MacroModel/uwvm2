@@ -12,6 +12,8 @@ using ::fast_io::print_reserve_size;
 using ::fast_io::print_reserve_define;
 using ::fast_io::print_define_internal_shift;
 
+using ::fast_io::print_scatter_define;
+
 using ::fast_io::scan_contiguous_define;
 using ::fast_io::scan_context_type;
 using ::fast_io::scan_context_define;
@@ -23,6 +25,79 @@ using ::fast_io::noexcept_call;
 using ::fast_io::error;
 using ::fast_io::cstr_len;
 using ::fast_io::cstr_nlen;
+
+#if !defined(__clang__) // The gcc and msvc module does not support non-exported functions adl matching
+using ::fast_io::input_stream_ref_define;
+using ::fast_io::output_stream_ref_define;
+using ::fast_io::io_stream_ref_define;
+
+using ::fast_io::input_decorators_ref_define;
+using ::fast_io::output_decorators_ref_define;
+// using ::fast_io::io_decorators_ref_define;
+
+using ::fast_io::ibuffer_begin;
+using ::fast_io::ibuffer_curr;
+using ::fast_io::ibuffer_end;
+using ::fast_io::ibuffer_set_curr;
+// using ::fast_io::status_scan_define;
+using ::fast_io::read_some_underflow_define;
+// using ::fast_io::read_all_underflow_define;
+using ::fast_io::read_some_bytes_underflow_define;
+#ifdef _WIN32
+using ::fast_io::read_all_bytes_underflow_define;
+#endif
+// using ::fast_io::scatter_read_some_bytes_underflow_define;
+// using ::fast_io::scatter_read_all_bytes_underflow_define;
+using ::fast_io::scatter_read_some_underflow_define;
+//  using ::fast_io::scatter_read_all_underflow_define;
+// using ::fast_io::ibuffer_underflow_never_define;
+using ::fast_io::pread_some_bytes_underflow_define;
+// using ::fast_io::pread_all_bytes_underflow_define;
+using ::fast_io::scatter_pread_some_bytes_underflow_define;
+// using ::fast_io::scatter_pread_all_bytes_underflow_define;
+using ::fast_io::pread_some_underflow_define;
+using ::fast_io::pread_all_underflow_define;
+using ::fast_io::scatter_pread_some_underflow_define;
+using ::fast_io::scatter_pread_all_underflow_define;
+using ::fast_io::ibuffer_minimum_size_define;
+using ::fast_io::ibuffer_minimum_size_underflow_all_prepare_define;
+// using ::fast_io::input_stream_mutex_ref_define;
+// using ::fast_io::output_stream_mutex_ref_define;
+using ::fast_io::io_stream_mutex_ref_define;
+using ::fast_io::input_stream_unlocked_ref_define;
+using ::fast_io::output_stream_unlocked_ref_define;
+using ::fast_io::io_stream_unlocked_ref_define;
+using ::fast_io::obuffer_begin;
+using ::fast_io::obuffer_curr;
+using ::fast_io::obuffer_end;
+using ::fast_io::obuffer_set_curr;
+// using ::fast_io::status_print_define;
+using ::fast_io::write_some_overflow_define;
+using ::fast_io::write_all_overflow_define;
+using ::fast_io::write_some_bytes_overflow_define;
+using ::fast_io::write_all_bytes_overflow_define;
+// using ::fast_io::scatter_write_some_bytes_overflow_define;
+// using ::fast_io::scatter_write_all_bytes_overflow_define;
+using ::fast_io::scatter_write_some_overflow_define;
+using ::fast_io::scatter_write_all_overflow_define;
+// using ::fast_io::obuffer_overflow_never_define;
+// using ::fast_io::output_stream_char_put_overflow_define;
+using ::fast_io::pwrite_some_bytes_overflow_define;
+using ::fast_io::pwrite_all_bytes_overflow_define;
+using ::fast_io::scatter_pwrite_some_bytes_overflow_define;
+// using ::fast_io::scatter_pwrite_all_bytes_overflow_define;
+using ::fast_io::pwrite_some_overflow_define;
+using ::fast_io::pwrite_all_overflow_define;
+using ::fast_io::scatter_pwrite_some_overflow_define;
+using ::fast_io::scatter_pwrite_all_overflow_define;
+// using ::fast_io::obuffer_is_line_buffering_define;
+using ::fast_io::input_stream_require_secure_clear_define;
+// using ::fast_io::output_stream_require_secure_clear_define;
+using ::fast_io::io_stream_require_secure_clear_define;
+// using ::fast_io::input_stream_buffer_flush_define;
+using ::fast_io::output_stream_buffer_flush_define;
+using ::fast_io::io_stream_buffer_flush_define;
+#endif
 
 namespace manipulators
 {
@@ -91,6 +166,12 @@ using ::fast_io::manipulators::comma_general;
 using ::fast_io::manipulators::comma_fixed;
 using ::fast_io::manipulators::comma_scientific;
 using ::fast_io::manipulators::comma_hexfloat;
+
+using ::fast_io::manipulators::width;
+using ::fast_io::manipulators::left;
+using ::fast_io::manipulators::middle;
+using ::fast_io::manipulators::right;
+using ::fast_io::manipulators::internal;
 
 using ::fast_io::manipulators::bitfieldvw;
 
@@ -222,4 +303,32 @@ using ::fast_io::ipv4_scan_state_t;
 using ::fast_io::ipv6_scan_state_t;
 using ::fast_io::ip_port_scan_state_t;
 #endif
+
+using ::fast_io::basic_timestamp;
+using ::fast_io::unix_timestamp;
+using ::fast_io::win32_timestamp;
+using ::fast_io::csharp_timestamp;
+using ::fast_io::year0_timestamp;
+using ::fast_io::universe_timestamp;
+
+using ::fast_io::operator==;
+using ::fast_io::operator!=;
+using ::fast_io::operator<=>;
+using ::fast_io::operator+;
+using ::fast_io::operator-;
+using ::fast_io::operator/;
+using ::fast_io::operator+=;
+using ::fast_io::operator-=;
+using ::fast_io::operator/=;
+using ::fast_io::operator*;
+using ::fast_io::operator~;
+using ::fast_io::operator&;
+using ::fast_io::operator|;
+using ::fast_io::operator^;
+using ::fast_io::operator&=;
+using ::fast_io::operator|=;
+using ::fast_io::operator^=;
+
+using ::fast_io::operator++;
+
 } // namespace fast_io

@@ -28,9 +28,9 @@ export module uwvm.crtmain:global;
 /// @brief      import utils.global
 import utils.global;
 
-/// @brief      For msvc, set the initialization order of this global value to user
+/// @brief      For msvc, set the initialization order of this global value to library
 #if !__has_cpp_attribute(__gnu__::__init_priority__)
-# pragma init_seg("user")
+# pragma init_seg(library)
 #endif
 
 export namespace uwvm::global
@@ -41,7 +41,7 @@ export namespace uwvm::global
 
     /// @brief      Automatically setup windows consolecp with ansi
 #if (defined(_WIN32) && !defined(__CYGWIN__)) && !defined(_WIN32_WINDOWS)
-    /// @brief      set win32 console output and windows cp to  utf8
+    /// @brief      set win32 console output and windows cp to utf8
 # if __has_cpp_attribute(__gnu__::__init_priority__)
     [[__gnu__::__init_priority__(400)]]
 # endif

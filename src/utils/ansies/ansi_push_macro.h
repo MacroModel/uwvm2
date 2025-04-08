@@ -23,7 +23,7 @@
 /// @brief      The following are the macros used by ansi escape sequences.
 /// @details    Use `push_macro` to avoid side effects on existing macros. Please use `pop_macro` in conjunction.
 
-// #pragma once /// pragma once is not necessary
+#pragma once
 
 /// @brief Text color variables:
 

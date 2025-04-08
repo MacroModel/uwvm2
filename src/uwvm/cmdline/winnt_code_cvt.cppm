@@ -51,7 +51,7 @@ import utils.io;
 
 /// @brief      For msvc, set the initialization order of this global value to user
 #if !__has_cpp_attribute(__gnu__::__init_priority__)
-# pragma init_seg("user")
+# pragma init_seg(user)
 #endif
 
 export namespace uwvm::cmdline
@@ -139,8 +139,9 @@ export namespace uwvm::cmdline
     }
 
     /// @brief      Global variable storage argc, argv with string
+    /// @details    [priority] after set ansi
 # if __has_cpp_attribute(__gnu__::__init_priority__)
-    [[__gnu__::__init_priority__(300)]]
+    [[__gnu__::__init_priority__(500)]]
 # endif
     inline nt_code_cvt_argv_storage const u8_cmdline{nt_code_cvt_argv()};
 #endif

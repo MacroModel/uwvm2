@@ -37,7 +37,7 @@ function linux_target()
     --add_cxflags("-fno-asynchronous-unwind-tables") -- disable asynchronous unwind tables
 
     local march = get_config("march")
-    if not march then
+    if not march or march == "none" then
     elseif march == "default" then
         add_cxflags("-march=native")
     else

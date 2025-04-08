@@ -12,16 +12,16 @@
 * SunOS: (sparc, x86)-(sunos, solaris)-gnu
 
 ## Windows NT
-* Supported system versions: Windows 2000 (Windows Server 2000), Windows XP (Windows Server 2003), Windows Server 2003 R2, Windows Vista (Windows Server 2008), Windows 7 (Windows Server 2008 R2), Windows 8 (Windows Server 2012), Windows Blue (Windows Server 2012 R2), Windows 10 (Windows Server 2016, Windows Server 2019, Windows Server 2022), Windows 11 (Windows Server 2025)
+* Supported system versions: Windows 2000 (Windows Server 2000), Windows XP (Windows Server 2003), Windows XP SP2 (Windows Server 2003 SP1), Windows Vista (Windows Server 2008), Windows 7 (Windows Server 2008 R2), Windows 8 (Windows Server 2012), Windows Blue (Windows Server 2012 R2), Windows 10 (Windows Server 2016, Windows Server 2019, Windows Server 2022), Windows 11 (Windows Server 2025)
 * MSVC: (x86\_64, i686, aarch64, arm)-windows-msvc
-* MinGW: (x86\_64, i686, aarch64, arm)-windows-gnu (aka. unknown-w64-mingw32)
+* MinGW: (x86\_64, i686, aarch64, arm)-windows-gnu (aka. unknown(4)-w64-mingw32)
 
 ## Windows 9x
 * Supported system versions: Windows 95, Windows 98, Windows ME
 * MinGW: i686-windows-gnu (aka. i686-w64-mingw32)
 
 ## DOS
-* MS-DOS, FreeDOS (DJGPP): i386-msdosdjgpp
+* MS-DOS, FreeDOS (DJGPP): i586-msdosdjgpp
 
 ## Host C Library Environment
 * newlib: unknown-elf; (x86\_64, i386, etc.)-(cygwin, msys2)
@@ -34,11 +34,11 @@
 - Full ISO C++26
 
 # Compiler Support
-- GCC >= 15
-- Clang >= 21
+- LLVM Clang >= 20 (recommended)
+- (The GCC module does not support non-exported functions adl matching, not supported at this time)
 - (MSVC has bugs in module handling, not supported at this time)
 
 # C++ standard library support (Version is the same as the version released with the corresponding supported compiler)
-- GNU libstdc++
+- GNU libstdc++ (recommended)
 - LLVM libc++
 - MSVC STL

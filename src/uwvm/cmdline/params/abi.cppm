@@ -6,7 +6,7 @@
 
 /**
  * @author      MacroModel
- * @run     2.0.0
+ * @version     2.0.0
  * @date        2025-03-31
  * @copyright   APL-2 License
  */
@@ -45,11 +45,11 @@ export namespace uwvm::cmdline::paras
 
     }  // namespace details
 
-    inline constexpr ::utils::cmdline::parameter wasm_abi{
-        .name{u8"--wasm-abi"},
-        .describe{
-            UWVM_AES_U8_WHITE u8"Specifies the ABI used by the WASM module (Default auto-detection). " UWVM_AES_U8_CYAN u8"Usage: [--wasm-abi|-Wa] [bare|emscripten|wasip1|wasip2|wasix]"},
-        .alias{::utils::cmdline::kns_u8_str_scatter_t{::std::addressof(details::wasm_abi_alias), 1}},
-        .handle{::std::addressof(details::wasm_abi_callback)},
-        .is_exist{::std::addressof(details::wasm_abi_is_exist)}};
+    inline constexpr ::utils::cmdline::parameter wasm_abi{.name{u8"--wasm-abi"},
+                                                          .describe{u8"Specifies the ABI used by the WASM module, (DEFAULT: auto-detection)."},
+                                                          .usage{u8"[bare|emscripten|wasip1|wasip2|wasix]"},
+                                                          .alias{::utils::cmdline::kns_u8_str_scatter_t{::std::addressof(details::wasm_abi_alias), 1}},
+                                                          .handle{::std::addressof(details::wasm_abi_callback)},
+                                                          .is_exist{::std::addressof(details::wasm_abi_is_exist)},
+                                                          .cate{::utils::cmdline::categorization::wasm}};
 }  // namespace uwvm::cmdline::paras

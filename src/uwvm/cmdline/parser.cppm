@@ -35,6 +35,10 @@ export module uwvm.cmdline:parser;
 import fast_io;
 import utils.io;
 import utils.cmdline;
+#ifdef UWVM_TIMER
+import utils.debug;
+#endif
+import uwvm.cmdline.params; // ::uwvm::cmdline::paras::run
 import :params;
 
 export namespace uwvm::cmdline
@@ -54,6 +58,10 @@ export namespace uwvm::cmdline
     /// @brief parsing cmdline
     inline constexpr parsing_return_val parsing(::std::size_t argc, char8_t const* const* argv) noexcept
     {
+#ifdef UWVM_TIMER
+        ::utils::debug::timer parsing_timer{u8"parsing parameters"};
+#endif
+
         auto& pr{parsing_result};
         auto const& ht{::uwvm::cmdline::hash_table};
 
@@ -125,7 +133,7 @@ export namespace uwvm::cmdline
                         ::fast_io::io::perr(
                             ::utils::u8err,
                             UWVM_AES_U8_RST_ALL
-                                UWVM_AES_U8_WHITE u8"uwvm: " UWVM_AES_U8_RED u8"[error] " UWVM_AES_U8_WHITE u8"Usage: " UWVM_AES_U8_CYAN u8"[--run|-r] " UWVM_AES_U8_GREEN u8"<file> <argv1> <argv2> ..." UWVM_AES_U8_RST_ALL u8"\n\n");
+                                UWVM_AES_U8_WHITE u8"uwvm: " UWVM_AES_U8_RED u8"[error] " UWVM_AES_U8_WHITE u8"Usage: " u8"[" UWVM_AES_U8_GREEN u8"--run" UWVM_AES_U8_WHITE u8"|" UWVM_AES_U8_GREEN u8"-r" UWVM_AES_U8_WHITE u8"] " UWVM_AES_U8_YELLOW u8"<file> <argv[1]> <argv[2]> ..." UWVM_AES_U8_RST_ALL u8"\n\n");
 
                         return parsing_return_val::returnm1;
                     }

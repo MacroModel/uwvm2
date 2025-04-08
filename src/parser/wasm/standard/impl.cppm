@@ -5,11 +5,10 @@
  ********************************************************/
 
 /**
- * @brief       The wasm file that will be run
- * @details     "--run" or "-r"
+ * @brief       WebAssembly Standard
  * @author      MacroModel
  * @version     2.0.0
- * @date        2025-03-31
+ * @date        2025-04-02
  * @copyright   APL-2 License
  */
 
@@ -24,19 +23,13 @@
 
 module;
 
-export module uwvm.wasm.base:abi;
-
-export namespace uwvm::wasm::base
-{
-    /// @brief Default automatic import of wasm libraries
-    enum class abi : unsigned
-    {
-        detect,
-        bare,
-        emscripten,
-        wasip1,
-        wasip2,
-        wasix
-    };
-
-}  // namespace uwvm::wasm::base
+export module parser.wasm.standard;
+export import parser.wasm.standard.wasm1;
+export import parser.wasm.standard.wasm1p1;
+export import parser.wasm.standard.wasm2;
+export import parser.wasm.standard.wasm2_MultiMemory;
+export import parser.wasm.standard.wasm2_TailCalls;
+export import parser.wasm.standard.wasm2_TailCalls_FunctionReference;
+export import parser.wasm.standard.wasm2_TailCalls_FunctionReference_GC;
+export import parser.wasm.standard.wasm2_thread;
+export import parser.wasm.standard.wasm3;

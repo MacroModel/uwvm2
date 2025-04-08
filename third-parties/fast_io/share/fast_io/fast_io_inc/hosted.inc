@@ -92,4 +92,7 @@ using ::fast_io::posix_stderr;
     using ::fast_io::native_dll_file;
 #endif
 
+using ::fast_io::posix_clock_id;
+using ::fast_io::posix_clock_gettime;
+
 } // namespace fast_io

@@ -32,9 +32,9 @@ export module utils.io:io_device;
 /// @brief      import fast_io module
 import fast_io;
 
-/// @brief      For msvc, set the initialization order of this global value to lib
+/// @brief      For msvc, set the initialization order of this global value to compiler
 #if !__has_cpp_attribute(__gnu__::__init_priority__)
-# pragma init_seg("lib")
+# pragma init_seg(compiler)
 #endif
 
 export namespace utils

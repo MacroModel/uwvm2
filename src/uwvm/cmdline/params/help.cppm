@@ -6,7 +6,7 @@
 
 /**
  * @author      MacroModel
- * @help     2.0.0
+ * @version     2.0.0
  * @date        2025-03-30
  * @copyright   APL-2 License
  */
@@ -37,7 +37,7 @@ export namespace uwvm::cmdline::paras
     namespace details
     {
         inline bool help_is_exist{};
-        inline constexpr ::fast_io::array<::fast_io::u8string_view, 2> help_alias{u8"-h", u8"-?"};
+        inline constexpr ::fast_io::u8string_view help_alias{u8"-h"};
         extern "C++" ::utils::cmdline::parameter_return_type help_callback(::utils::cmdline::parameter_parsing_results*,
                                                                            ::utils::cmdline::parameter_parsing_results*,
                                                                            ::utils::cmdline::parameter_parsing_results*) noexcept;
@@ -45,8 +45,9 @@ export namespace uwvm::cmdline::paras
     }  // namespace details
 
     inline constexpr ::utils::cmdline::parameter help{.name{u8"--help"},
-                                                      .describe{UWVM_AES_U8_WHITE u8"Get help information." UWVM_AES_U8_CYAN " Usage: [--help|-h|-?]"},
-                                                      .alias{::utils::cmdline::kns_u8_str_scatter_t{details::help_alias.data(), details::help_alias.size()}},
+                                                      .describe{u8"Get help information."},
+                                                      .usage{u8"[<null>|all|global|wasm]"},
+                                                      .alias{::utils::cmdline::kns_u8_str_scatter_t{::std::addressof(details::help_alias), 1}},
                                                       .handle{::std::addressof(details::help_callback)},
                                                       .is_exist{::std::addressof(details::help_is_exist)}};
 }  // namespace uwvm::cmdline::paras

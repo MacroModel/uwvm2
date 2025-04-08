@@ -97,7 +97,10 @@ function windows_target()
         add_defines("WINVER=0x0600")
         add_ldflags("-SUBSYSTEM:CONSOLE,6.00")
         add_syslinks("ntdll")
-    elseif opt_name == "WS03R2" then
+    elseif 
+        opt_name == "WS03SP1" or
+        opt_name == "WINXPSP2"
+            then
         add_defines("_WIN32_WINNT=0x0502")
         add_defines("WINVER=0x0502")
         add_ldflags("-SUBSYSTEM:CONSOLE,5.02")
@@ -105,7 +108,7 @@ function windows_target()
     elseif 
         opt_name == "WS03" or
         opt_name == "WINXP"
-    then
+            then
         add_defines("_WIN32_WINNT=0x0501")
         add_defines("WINVER=0x0501")
         add_ldflags("-SUBSYSTEM:CONSOLE,5.01")

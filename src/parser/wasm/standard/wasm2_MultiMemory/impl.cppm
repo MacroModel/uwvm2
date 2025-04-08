@@ -5,11 +5,11 @@
  ********************************************************/
 
 /**
- * @brief       The wasm file that will be run
- * @details     "--run" or "-r"
+ * @brief       WebAssembly Release 2.0 + multi-memory (Draft 2024-09-04)
+ * @details     antecedent dependency: WebAssembly Release 2.0 (Draft 2025-01-30)
  * @author      MacroModel
  * @version     2.0.0
- * @date        2025-03-31
+ * @date        2025-04-04
  * @copyright   APL-2 License
  */
 
@@ -24,14 +24,5 @@
 
 module;
 
-export module uwvm.wasm.base:mode;
-
-export namespace uwvm::wasm::base
-{
-    /// @brief wasm running mode
-    enum class mode : unsigned
-    {
-        objdump
-    };
-
-}  // namespace uwvm::wasm::base
+export module parser.wasm.standard.wasm2_MultiMemory;
+export import parser.wasm.standard.wasm2;
