@@ -65,7 +65,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
     ///////////////////////////
 
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
-    struct type_section_storage_t UWVM_TRIVIALLY_RELOCATABLE_IF_ELIGIBLE;
+    struct type_section_storage_t ;
 
     /// @brief Define functions for checking value_type to provide extensibility
     template <typename... Fs>
@@ -146,7 +146,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
     /////////////////////////////
 
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
-    struct import_section_storage_t UWVM_TRIVIALLY_RELOCATABLE_IF_ELIGIBLE;
+    struct import_section_storage_t ;
 
     /// @deprecated The wasm standard states that the standard sections follow a sequence, which can never happen
 #if 0
@@ -572,7 +572,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
     /// @brief function section ///
     ///////////////////////////////
 
-    struct function_section_storage_t UWVM_TRIVIALLY_RELOCATABLE_IF_ELIGIBLE;
+    struct function_section_storage_t ;
 
     enum class vectypeidx_minimize_storage_mode : unsigned
     {
@@ -1215,7 +1215,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
     ////////////////////////////
 
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
-    struct table_section_storage_t UWVM_TRIVIALLY_RELOCATABLE_IF_ELIGIBLE;
+    struct table_section_storage_t ;
 
     /// @brief Define functions for handle table section table
     template <typename... Fs>
@@ -1234,7 +1234,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
     /////////////////////////////
 
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
-    struct memory_section_storage_t UWVM_TRIVIALLY_RELOCATABLE_IF_ELIGIBLE;
+    struct memory_section_storage_t ;
 
     /// @brief Define functions for handle memory section memory
     template <typename... Fs>
@@ -1254,7 +1254,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
     /////////////////////////////
 
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
-    struct global_section_storage_t UWVM_TRIVIALLY_RELOCATABLE_IF_ELIGIBLE;
+    struct global_section_storage_t ;
 
     /// @brief Define functions for handle global section global
     template <typename... Fs>
@@ -1290,7 +1290,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
     /////////////////////////////
 
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
-    struct export_section_storage_t UWVM_TRIVIALLY_RELOCATABLE_IF_ELIGIBLE;
+    struct export_section_storage_t ;
 
     union wasm1_final_export_storage_t
     {
@@ -1492,7 +1492,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
     //////////////////////////////
 
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
-    struct element_section_storage_t UWVM_TRIVIALLY_RELOCATABLE_IF_ELIGIBLE;
+    struct element_section_storage_t ;
 
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
     struct wasm1_elem_storage_t UWVM_TRIVIALLY_RELOCATABLE_IF_ELIGIBLE
@@ -1801,7 +1801,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
     ///////////////////////////
 
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
-    struct code_section_storage_t UWVM_TRIVIALLY_RELOCATABLE_IF_ELIGIBLE;
+    struct code_section_storage_t ;
 
     struct code_body_t
     {
@@ -1837,7 +1837,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
     ///////////////////////////
 
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
-    struct data_section_storage_t UWVM_TRIVIALLY_RELOCATABLE_IF_ELIGIBLE;
+    struct data_section_storage_t ;
 
     struct wasm1_data_init_t
     {
