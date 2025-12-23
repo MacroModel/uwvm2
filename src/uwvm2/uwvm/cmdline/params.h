@@ -68,6 +68,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline
             ::std::addressof(::uwvm2::uwvm::cmdline::params::wasm_list_weak_symbol_module),
 #endif
             ::std::addressof(::uwvm2::uwvm::cmdline::params::wasm_memory_grow_strict),
+            ::std::addressof(::uwvm2::uwvm::cmdline::params::wasm_mmap_file_to_memory),
 
         // wasi
 #if defined(UWVM_IMPORT_WASI)

@@ -31,4 +31,5 @@
 # include "preloaded_dl.h"
 # include "weak_symbol.h"
 # include "all_module.h"
+# include "mmap_file.h"
 #endif

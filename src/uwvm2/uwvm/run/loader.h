@@ -274,6 +274,24 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::run
     inline int load_weak_symbol_modules() noexcept
     { return ::uwvm2::uwvm::run::load_weak_symbol_modules_details(::uwvm2::uwvm::wasm::storage::wasm_parameter); }
 
+    namespace details
+    {
+        struct wasip1_wasm64_local_imported_module_t
+        {
+            // wasi uextension: memory64
+            // Since wasmp1 itself does not support memory64, the memory64 API is provided here.
+            ::uwvm2::utils::container::u8string_view module_name{};
+    
+        };
+    }
+
+    inline int load_mmap_memory_modules() noexcept
+    { 
+        ::uwvm2::uwvm::wasm::storage::preload_local_imported.emplace_back(
+            ::uwvm2::uwvm::imported::wasi::wasip1::local_imported::wasip1_local_imported_module);
+        
+    }
+
 }  // namespace uwvm2::uwvm::run
 
 #ifndef UWVM_MODULE

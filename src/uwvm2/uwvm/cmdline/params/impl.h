@@ -40,6 +40,7 @@
 # include "wasm_set_parser_limit.h"
 # include "wasm_list_weak_symbol_module.h"
 # include "wasm_memory_grow_strict.h"
+# include "wasm_mmap_file_to_memory.h"
 
 // wasi
 # include "wasi_disable_utf8_check.h"

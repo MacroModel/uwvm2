@@ -70,6 +70,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::run
         // load weak symbol modules
         if(auto const ret{::uwvm2::uwvm::run::load_weak_symbol_modules()}; ret != static_cast<int>(::uwvm2::uwvm::run::retval::ok)) [[unlikely]] { return ret; }
 
+        // load mmap memory modules
+        if(auto const ret{::uwvm2::uwvm::run::load_mmap_memory_modules()}; ret != static_cast<int>(::uwvm2::uwvm::run::retval::ok)) [[unlikely]] { return ret; }
+
         // check duplicate module and construct ::uwvm2::uwvm::wasm::storage::all_module
         if(auto const ret{::uwvm2::uwvm::wasm::loader::construct_all_module_and_check_duplicate_module()};
            ret != ::uwvm2::uwvm::wasm::loader::load_and_check_modules_rtl::ok) [[unlikely]]

@@ -40,6 +40,7 @@ export import :wasm_depend_recursion_limit;
 export import :wasm_set_parser_limit;
 export import :wasm_list_weak_symbol_module;
 export import :wasm_memory_grow_strict;
+export import :wasm_mmap_file_to_memory;
 
 // wasi
 export import :wasi_disable_utf8_check;
