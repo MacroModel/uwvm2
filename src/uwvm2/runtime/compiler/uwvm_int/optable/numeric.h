@@ -296,15 +296,23 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             else if constexpr(Op == int_binop::rotl)
             {
                 constexpr unsigned mask{static_cast<unsigned>(sizeof(UnsignedT) * 8u - 1u)};
-                int const sh{static_cast<int>(static_cast<unsigned>(to_unsigned_bits<SignedT, UnsignedT>(rhs)) & mask)};
-                UnsignedT const out{::std::rotl(to_unsigned_bits<SignedT, UnsignedT>(lhs), sh)};
+                // Avoid `std::rotl`/`std::rotr` here: libc++'s header implementation often materializes a
+                // (sh == 0) fixup, which shows up as extra `tst`+`csel` in hot Wasm rotate-heavy kernels.
+                // With Wasm semantics (masked shift), we can implement rotate via shift/or without UB and
+                // let the compiler lower it to a single `ror` on AArch64.
+                constexpr unsigned bits{static_cast<unsigned>(sizeof(UnsignedT) * 8u)};
+                unsigned const sh{static_cast<unsigned>(to_unsigned_bits<SignedT, UnsignedT>(rhs)) & mask};
+                UnsignedT const u{to_unsigned_bits<SignedT, UnsignedT>(lhs)};
+                UnsignedT const out{static_cast<UnsignedT>((u << sh) | (u >> ((bits - sh) & mask)))};
                 return from_unsigned_bits<SignedT, UnsignedT>(out);
             }
             else if constexpr(Op == int_binop::rotr)
             {
                 constexpr unsigned mask{static_cast<unsigned>(sizeof(UnsignedT) * 8u - 1u)};
-                int const sh{static_cast<int>(static_cast<unsigned>(to_unsigned_bits<SignedT, UnsignedT>(rhs)) & mask)};
-                UnsignedT const out{::std::rotr(to_unsigned_bits<SignedT, UnsignedT>(lhs), sh)};
+                constexpr unsigned bits{static_cast<unsigned>(sizeof(UnsignedT) * 8u)};
+                unsigned const sh{static_cast<unsigned>(to_unsigned_bits<SignedT, UnsignedT>(rhs)) & mask};
+                UnsignedT const u{to_unsigned_bits<SignedT, UnsignedT>(lhs)};
+                UnsignedT const out{static_cast<UnsignedT>((u >> sh) | (u << ((bits - sh) & mask)))};
                 return from_unsigned_bits<SignedT, UnsignedT>(out);
             }
             else if constexpr(Op == int_binop::div_s)
@@ -339,14 +347,90 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             }
         }
 
+        template <typename FloatT>
+        UWVM_ALWAYS_INLINE inline constexpr bool float_isnan(FloatT v) noexcept
+        {
+#if defined(__GNUC__) || defined(__clang__)
+            return __builtin_isnan(v);
+#else
+            return ::std::isnan(v);
+#endif
+        }
+
+        template <typename FloatT>
+        UWVM_ALWAYS_INLINE inline constexpr bool float_signbit(FloatT v) noexcept
+        {
+#if defined(__GNUC__) || defined(__clang__)
+            return __builtin_signbit(v);
+#else
+            return ::std::signbit(v);
+#endif
+        }
+
         template <float_unop Op, typename FloatT>
         UWVM_ALWAYS_INLINE inline constexpr FloatT eval_float_unop(FloatT v) noexcept
         {
-            if constexpr(Op == float_unop::abs) { return ::std::fabs(v); }
+            if constexpr(Op == float_unop::abs)
+            {
+#if defined(__GNUC__) || defined(__clang__)
+                if constexpr(::std::same_as<FloatT, wasm_f32>) { return __builtin_fabsf(v); }
+                else if constexpr(::std::same_as<FloatT, wasm_f64>) { return __builtin_fabs(v); }
+                else
+                {
+                    static_assert(::std::same_as<FloatT, wasm_f32> || ::std::same_as<FloatT, wasm_f64>,
+                                  "eval_float_unop(abs): GCC/Clang builtin path expects wasm_f32/wasm_f64 only");
+                    return {};
+                }
+#else
+                return ::std::fabs(v);
+#endif
+            }
             else if constexpr(Op == float_unop::neg) { return -v; }
-            else if constexpr(Op == float_unop::ceil) { return ::std::ceil(v); }
-            else if constexpr(Op == float_unop::floor) { return ::std::floor(v); }
-            else if constexpr(Op == float_unop::trunc) { return ::std::trunc(v); }
+            else if constexpr(Op == float_unop::ceil)
+            {
+#if defined(__GNUC__) || defined(__clang__)
+                if constexpr(::std::same_as<FloatT, wasm_f32>) { return __builtin_ceilf(v); }
+                else if constexpr(::std::same_as<FloatT, wasm_f64>) { return __builtin_ceil(v); }
+                else
+                {
+                    static_assert(::std::same_as<FloatT, wasm_f32> || ::std::same_as<FloatT, wasm_f64>,
+                                  "eval_float_unop(ceil): GCC/Clang builtin path expects wasm_f32/wasm_f64 only");
+                    return {};
+                }
+#else
+                return ::std::ceil(v);
+#endif
+            }
+            else if constexpr(Op == float_unop::floor)
+            {
+#if defined(__GNUC__) || defined(__clang__)
+                if constexpr(::std::same_as<FloatT, wasm_f32>) { return __builtin_floorf(v); }
+                else if constexpr(::std::same_as<FloatT, wasm_f64>) { return __builtin_floor(v); }
+                else
+                {
+                    static_assert(::std::same_as<FloatT, wasm_f32> || ::std::same_as<FloatT, wasm_f64>,
+                                  "eval_float_unop(floor): GCC/Clang builtin path expects wasm_f32/wasm_f64 only");
+                    return {};
+                }
+#else
+                return ::std::floor(v);
+#endif
+            }
+            else if constexpr(Op == float_unop::trunc)
+            {
+#if defined(__GNUC__) || defined(__clang__)
+                if constexpr(::std::same_as<FloatT, wasm_f32>) { return __builtin_truncf(v); }
+                else if constexpr(::std::same_as<FloatT, wasm_f64>) { return __builtin_trunc(v); }
+                else
+                {
+                    static_assert(::std::same_as<FloatT, wasm_f32> || ::std::same_as<FloatT, wasm_f64>,
+                                  "eval_float_unop(trunc): GCC/Clang builtin path expects wasm_f32/wasm_f64 only");
+                    return {};
+                }
+#else
+                return ::std::trunc(v);
+#endif
+            }
             else if constexpr(Op == float_unop::nearest)
             {
                 // NOTE:
@@ -381,7 +465,11 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 #  if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
                     if(::std::fegetround() != FE_TONEAREST) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
 #  endif
+#  if defined(__GNUC__) || defined(__clang__)
+                    return __builtin_nearbyintf(v);
+#  else
                     return ::std::nearbyint(v);
+#  endif
 # endif
                 }
                 else if constexpr(::std::same_as<FloatT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>)
@@ -394,7 +482,11 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 #  if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
                     if(::std::fegetround() != FE_TONEAREST) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
 #  endif
+#  if defined(__GNUC__) || defined(__clang__)
+                    return __builtin_nearbyint(v);
+#  else
                     return ::std::nearbyint(v);
+#  endif
 # endif
                 }
                 else
@@ -436,7 +528,11 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 #  if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
                     if(::std::fegetround() != FE_TONEAREST) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
 #  endif
+#  if defined(__GNUC__) || defined(__clang__)
+                    return __builtin_nearbyintf(v);
+#  else
                     return ::std::nearbyint(v);
+#  endif
 # endif
                 }
                 else if constexpr(::std::same_as<FloatT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>)
@@ -451,7 +547,11 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 #  if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
                     if(::std::fegetround() != FE_TONEAREST) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
 #  endif
+#  if defined(__GNUC__) || defined(__clang__)
+                    return __builtin_nearbyint(v);
+#  else
                     return ::std::nearbyint(v);
+#  endif
 # endif
                 }
                 else
@@ -489,10 +589,35 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 # if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
                 if(::std::fegetround() != FE_TONEAREST) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
 # endif
+# if defined(__GNUC__) || defined(__clang__)
+                if constexpr(::std::same_as<FloatT, wasm_f32>) { return __builtin_nearbyintf(v); }
+                else if constexpr(::std::same_as<FloatT, wasm_f64>) { return __builtin_nearbyint(v); }
+                else
+                {
+                    static_assert(::std::same_as<FloatT, wasm_f32> || ::std::same_as<FloatT, wasm_f64>,
+                                  "eval_float_unop(nearest): GCC/Clang builtin path expects wasm_f32/wasm_f64 only");
+                    return {};
+                }
+# else
                 return ::std::nearbyint(v);
+# endif
 #endif
             }
-            else if constexpr(Op == float_unop::sqrt) { return ::std::sqrt(v); }
+            else if constexpr(Op == float_unop::sqrt)
+            {
+#if defined(__GNUC__) || defined(__clang__)
+                if constexpr(::std::same_as<FloatT, wasm_f32>) { return __builtin_sqrtf(v); }
+                else if constexpr(::std::same_as<FloatT, wasm_f64>) { return __builtin_sqrt(v); }
+                else
+                {
+                    static_assert(::std::same_as<FloatT, wasm_f32> || ::std::same_as<FloatT, wasm_f64>,
+                                  "eval_float_unop(sqrt): GCC/Clang builtin path expects wasm_f32/wasm_f64 only");
+                    return {};
+                }
+#else
+                return ::std::sqrt(v);
+#endif
+            }
             else
             {
                 return {};
@@ -525,17 +650,31 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             else if constexpr(Op == float_binop::sub) { return lhs - rhs; }
             else if constexpr(Op == float_binop::mul) { return lhs * rhs; }
             else if constexpr(Op == float_binop::div) { return lhs / rhs; }
-            else if constexpr(Op == float_binop::copysign) { return ::std::copysign(lhs, rhs); }
+            else if constexpr(Op == float_binop::copysign)
+            {
+#if defined(__GNUC__) || defined(__clang__)
+                if constexpr(::std::same_as<FloatT, wasm_f32>) { return __builtin_copysignf(lhs, rhs); }
+                else if constexpr(::std::same_as<FloatT, wasm_f64>) { return __builtin_copysign(lhs, rhs); }
+                else
+                {
+                    static_assert(::std::same_as<FloatT, wasm_f32> || ::std::same_as<FloatT, wasm_f64>,
+                                  "eval_float_binop(copysign): GCC/Clang builtin path expects wasm_f32/wasm_f64 only");
+                    return {};
+                }
+#else
+                return ::std::copysign(lhs, rhs);
+#endif
+            }
             else if constexpr(Op == float_binop::min)
             {
-                if(::std::isnan(lhs) || ::std::isnan(rhs)) { return ::std::numeric_limits<FloatT>::quiet_NaN(); }
-                if(lhs == rhs) { return ::std::signbit(lhs) ? lhs : rhs; }
+                if(float_isnan(lhs) || float_isnan(rhs)) { return ::std::numeric_limits<FloatT>::quiet_NaN(); }
+                if(lhs == rhs) { return float_signbit(lhs) ? lhs : rhs; }
                 return ::std::min(lhs, rhs);
             }
             else if constexpr(Op == float_binop::max)
             {
-                if(::std::isnan(lhs) || ::std::isnan(rhs)) { return ::std::numeric_limits<FloatT>::quiet_NaN(); }
-                if(lhs == rhs) { return ::std::signbit(lhs) ? rhs : lhs; }
+                if(float_isnan(lhs) || float_isnan(rhs)) { return ::std::numeric_limits<FloatT>::quiet_NaN(); }
+                if(lhs == rhs) { return float_signbit(lhs) ? rhs : lhs; }
                 return ::std::max(lhs, rhs);
             }
             else
@@ -897,6 +1036,192 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
         UWVM_MUSTTAIL return next_interpreter(type...);
     }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, ::std::size_t curr_stack_top, uwvm_int_stack_top_type... Type>
+        requires (CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_i32_div_u(Type... type) UWVM_THROWS
+    {
+        using wasm_i32 = numeric_details::wasm_i32;
+        using wasm_u32 = numeric_details::wasm_u32;
+
+        if constexpr(numeric_details::stacktop_enabled_for<CompileOption, wasm_i32>())
+        {
+            constexpr ::std::size_t begin{numeric_details::range_begin<CompileOption, wasm_i32>()};
+            constexpr ::std::size_t end{numeric_details::range_end<CompileOption, wasm_i32>()};
+            static_assert(begin <= curr_stack_top && curr_stack_top < end);
+
+            constexpr ::std::size_t ring_sz{end - begin};
+            static_assert(ring_sz != 0uz);
+            constexpr ::std::size_t next_pos{details::ring_next_pos(curr_stack_top, begin, end)};
+
+            wasm_i32 const rhs{get_curr_val_from_operand_stack_top<CompileOption, wasm_i32, curr_stack_top>(type...)};
+            wasm_i32 lhs;  // no init
+            if constexpr(ring_sz >= 2uz) { lhs = get_curr_val_from_operand_stack_top<CompileOption, wasm_i32, next_pos>(type...); }
+            else
+            {
+                // Ring too small to hold both operands: keep RHS in cache, load LHS from operand stack memory (no pop).
+                lhs = peek_curr_val_from_operand_stack_cache<wasm_i32>(type...);
+            }
+
+            wasm_u32 const urhs{numeric_details::to_unsigned_bits<wasm_i32, wasm_u32>(rhs)};
+            if(urhs == wasm_u32{0}) [[unlikely]] { UWVM_MUSTTAIL return numeric_details::trap_integer_divide_by_zero_tail<CompileOption>(type...); }
+
+            wasm_u32 const out_u{static_cast<wasm_u32>(numeric_details::to_unsigned_bits<wasm_i32, wasm_u32>(lhs) / urhs)};
+            wasm_i32 const out{numeric_details::from_unsigned_bits<wasm_i32, wasm_u32>(out_u)};
+
+            if constexpr(ring_sz >= 2uz) { details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, next_pos>(out, type...); }
+            else
+            {
+                // Binary op: result replaces NOS in operand stack memory (stack height -1).
+                set_curr_val_to_operand_stack_cache_top(out, type...);
+            }
+        }
+        else
+        {
+            wasm_i32 const rhs{get_curr_val_from_operand_stack_cache<wasm_i32>(type...)};
+            wasm_i32 const lhs{get_curr_val_from_operand_stack_cache<wasm_i32>(type...)};
+
+            wasm_u32 const urhs{numeric_details::to_unsigned_bits<wasm_i32, wasm_u32>(rhs)};
+            if(urhs == wasm_u32{0}) [[unlikely]] { UWVM_MUSTTAIL return numeric_details::trap_integer_divide_by_zero_tail<CompileOption>(type...); }
+
+            wasm_u32 const out_u{static_cast<wasm_u32>(numeric_details::to_unsigned_bits<wasm_i32, wasm_u32>(lhs) / urhs)};
+            wasm_i32 const out{numeric_details::from_unsigned_bits<wasm_i32, wasm_u32>(out_u)};
+
+            ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
+            type...[1u] += sizeof(out);
+        }
+
+        type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
+        uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
+        ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
+        UWVM_MUSTTAIL return next_interpreter(type...);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, ::std::size_t curr_stack_top, uwvm_int_stack_top_type... Type>
+        requires (CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_i32_rem_s(Type... type) UWVM_THROWS
+    {
+        using wasm_i32 = numeric_details::wasm_i32;
+
+        if constexpr(numeric_details::stacktop_enabled_for<CompileOption, wasm_i32>())
+        {
+            constexpr ::std::size_t begin{numeric_details::range_begin<CompileOption, wasm_i32>()};
+            constexpr ::std::size_t end{numeric_details::range_end<CompileOption, wasm_i32>()};
+            static_assert(begin <= curr_stack_top && curr_stack_top < end);
+
+            constexpr ::std::size_t ring_sz{end - begin};
+            static_assert(ring_sz != 0uz);
+            constexpr ::std::size_t next_pos{details::ring_next_pos(curr_stack_top, begin, end)};
+
+            wasm_i32 const rhs{get_curr_val_from_operand_stack_top<CompileOption, wasm_i32, curr_stack_top>(type...)};
+            wasm_i32 lhs;  // no init
+            if constexpr(ring_sz >= 2uz) { lhs = get_curr_val_from_operand_stack_top<CompileOption, wasm_i32, next_pos>(type...); }
+            else
+            {
+                // Ring too small to hold both operands: keep RHS in cache, load LHS from operand stack memory (no pop).
+                lhs = peek_curr_val_from_operand_stack_cache<wasm_i32>(type...);
+            }
+
+            if(rhs == wasm_i32{0}) [[unlikely]] { UWVM_MUSTTAIL return numeric_details::trap_integer_divide_by_zero_tail<CompileOption>(type...); }
+
+            wasm_i32 out;  // no init
+            if(lhs == ::std::numeric_limits<wasm_i32>::min() && rhs == wasm_i32{-1}) [[unlikely]] { out = wasm_i32{0}; }
+            else
+            {
+                out = static_cast<wasm_i32>(lhs % rhs);
+            }
+
+            if constexpr(ring_sz >= 2uz) { details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, next_pos>(out, type...); }
+            else
+            {
+                // Binary op: result replaces NOS in operand stack memory (stack height -1).
+                set_curr_val_to_operand_stack_cache_top(out, type...);
+            }
+        }
+        else
+        {
+            wasm_i32 const rhs{get_curr_val_from_operand_stack_cache<wasm_i32>(type...)};
+            wasm_i32 const lhs{get_curr_val_from_operand_stack_cache<wasm_i32>(type...)};
+
+            if(rhs == wasm_i32{0}) [[unlikely]] { UWVM_MUSTTAIL return numeric_details::trap_integer_divide_by_zero_tail<CompileOption>(type...); }
+
+            wasm_i32 out;  // no init
+            if(lhs == ::std::numeric_limits<wasm_i32>::min() && rhs == wasm_i32{-1}) [[unlikely]] { out = wasm_i32{0}; }
+            else
+            {
+                out = static_cast<wasm_i32>(lhs % rhs);
+            }
+
+            ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
+            type...[1u] += sizeof(out);
+        }
+
+        type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
+        uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
+        ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
+        UWVM_MUSTTAIL return next_interpreter(type...);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, ::std::size_t curr_stack_top, uwvm_int_stack_top_type... Type>
+        requires (CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_i32_rem_u(Type... type) UWVM_THROWS
+    {
+        using wasm_i32 = numeric_details::wasm_i32;
+        using wasm_u32 = numeric_details::wasm_u32;
+
+        if constexpr(numeric_details::stacktop_enabled_for<CompileOption, wasm_i32>())
+        {
+            constexpr ::std::size_t begin{numeric_details::range_begin<CompileOption, wasm_i32>()};
+            constexpr ::std::size_t end{numeric_details::range_end<CompileOption, wasm_i32>()};
+            static_assert(begin <= curr_stack_top && curr_stack_top < end);
+
+            constexpr ::std::size_t ring_sz{end - begin};
+            static_assert(ring_sz != 0uz);
+            constexpr ::std::size_t next_pos{details::ring_next_pos(curr_stack_top, begin, end)};
+
+            wasm_i32 const rhs{get_curr_val_from_operand_stack_top<CompileOption, wasm_i32, curr_stack_top>(type...)};
+            wasm_i32 lhs;  // no init
+            if constexpr(ring_sz >= 2uz) { lhs = get_curr_val_from_operand_stack_top<CompileOption, wasm_i32, next_pos>(type...); }
+            else
+            {
+                // Ring too small to hold both operands: keep RHS in cache, load LHS from operand stack memory (no pop).
+                lhs = peek_curr_val_from_operand_stack_cache<wasm_i32>(type...);
+            }
+
+            wasm_u32 const urhs{numeric_details::to_unsigned_bits<wasm_i32, wasm_u32>(rhs)};
+            if(urhs == wasm_u32{0}) [[unlikely]] { UWVM_MUSTTAIL return numeric_details::trap_integer_divide_by_zero_tail<CompileOption>(type...); }
+
+            wasm_u32 const out_u{static_cast<wasm_u32>(numeric_details::to_unsigned_bits<wasm_i32, wasm_u32>(lhs) % urhs)};
+            wasm_i32 const out{numeric_details::from_unsigned_bits<wasm_i32, wasm_u32>(out_u)};
+
+            if constexpr(ring_sz >= 2uz) { details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, next_pos>(out, type...); }
+            else
+            {
+                // Binary op: result replaces NOS in operand stack memory (stack height -1).
+                set_curr_val_to_operand_stack_cache_top(out, type...);
+            }
+        }
+        else
+        {
+            wasm_i32 const rhs{get_curr_val_from_operand_stack_cache<wasm_i32>(type...)};
+            wasm_i32 const lhs{get_curr_val_from_operand_stack_cache<wasm_i32>(type...)};
+
+            wasm_u32 const urhs{numeric_details::to_unsigned_bits<wasm_i32, wasm_u32>(rhs)};
+            if(urhs == wasm_u32{0}) [[unlikely]] { UWVM_MUSTTAIL return numeric_details::trap_integer_divide_by_zero_tail<CompileOption>(type...); }
+
+            wasm_u32 const out_u{static_cast<wasm_u32>(numeric_details::to_unsigned_bits<wasm_i32, wasm_u32>(lhs) % urhs)};
+            wasm_i32 const out{numeric_details::from_unsigned_bits<wasm_i32, wasm_u32>(out_u)};
+
+            ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
+            type...[1u] += sizeof(out);
+        }
+
+        type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
+        uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
+        ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
+        UWVM_MUSTTAIL return next_interpreter(type...);
+    }
+
     template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeRef>
         requires (!CompileOption.is_tail_call)
     UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_i32_div_s(TypeRef & ... typeref) UWVM_THROWS
@@ -1124,6 +1449,192 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
         UWVM_MUSTTAIL return next_interpreter(type...);
     }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, ::std::size_t curr_stack_top, uwvm_int_stack_top_type... Type>
+        requires (CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_i64_div_u(Type... type) UWVM_THROWS
+    {
+        using wasm_i64 = numeric_details::wasm_i64;
+        using wasm_u64 = numeric_details::wasm_u64;
+
+        if constexpr(numeric_details::stacktop_enabled_for<CompileOption, wasm_i64>())
+        {
+            constexpr ::std::size_t begin{numeric_details::range_begin<CompileOption, wasm_i64>()};
+            constexpr ::std::size_t end{numeric_details::range_end<CompileOption, wasm_i64>()};
+            static_assert(begin <= curr_stack_top && curr_stack_top < end);
+
+            constexpr ::std::size_t ring_sz{end - begin};
+            static_assert(ring_sz != 0uz);
+            constexpr ::std::size_t next_pos{details::ring_next_pos(curr_stack_top, begin, end)};
+
+            wasm_i64 const rhs{get_curr_val_from_operand_stack_top<CompileOption, wasm_i64, curr_stack_top>(type...)};
+            wasm_i64 lhs;  // no init
+            if constexpr(ring_sz >= 2uz) { lhs = get_curr_val_from_operand_stack_top<CompileOption, wasm_i64, next_pos>(type...); }
+            else
+            {
+                // Ring too small to hold both operands: keep RHS in cache, load LHS from operand stack memory (no pop).
+                lhs = peek_curr_val_from_operand_stack_cache<wasm_i64>(type...);
+            }
+
+            wasm_u64 const urhs{numeric_details::to_unsigned_bits<wasm_i64, wasm_u64>(rhs)};
+            if(urhs == wasm_u64{0}) [[unlikely]] { UWVM_MUSTTAIL return numeric_details::trap_integer_divide_by_zero_tail<CompileOption>(type...); }
+
+            wasm_u64 const out_u{static_cast<wasm_u64>(numeric_details::to_unsigned_bits<wasm_i64, wasm_u64>(lhs) / urhs)};
+            wasm_i64 const out{numeric_details::from_unsigned_bits<wasm_i64, wasm_u64>(out_u)};
+
+            if constexpr(ring_sz >= 2uz) { details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, next_pos>(out, type...); }
+            else
+            {
+                // Binary op: result replaces NOS in operand stack memory (stack height -1).
+                set_curr_val_to_operand_stack_cache_top(out, type...);
+            }
+        }
+        else
+        {
+            wasm_i64 const rhs{get_curr_val_from_operand_stack_cache<wasm_i64>(type...)};
+            wasm_i64 const lhs{get_curr_val_from_operand_stack_cache<wasm_i64>(type...)};
+
+            wasm_u64 const urhs{numeric_details::to_unsigned_bits<wasm_i64, wasm_u64>(rhs)};
+            if(urhs == wasm_u64{0}) [[unlikely]] { UWVM_MUSTTAIL return numeric_details::trap_integer_divide_by_zero_tail<CompileOption>(type...); }
+
+            wasm_u64 const out_u{static_cast<wasm_u64>(numeric_details::to_unsigned_bits<wasm_i64, wasm_u64>(lhs) / urhs)};
+            wasm_i64 const out{numeric_details::from_unsigned_bits<wasm_i64, wasm_u64>(out_u)};
+
+            ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
+            type...[1u] += sizeof(out);
+        }
+
+        type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
+        uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
+        ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
+        UWVM_MUSTTAIL return next_interpreter(type...);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, ::std::size_t curr_stack_top, uwvm_int_stack_top_type... Type>
+        requires (CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_i64_rem_s(Type... type) UWVM_THROWS
+    {
+        using wasm_i64 = numeric_details::wasm_i64;
+
+        if constexpr(numeric_details::stacktop_enabled_for<CompileOption, wasm_i64>())
+        {
+            constexpr ::std::size_t begin{numeric_details::range_begin<CompileOption, wasm_i64>()};
+            constexpr ::std::size_t end{numeric_details::range_end<CompileOption, wasm_i64>()};
+            static_assert(begin <= curr_stack_top && curr_stack_top < end);
+
+            constexpr ::std::size_t ring_sz{end - begin};
+            static_assert(ring_sz != 0uz);
+            constexpr ::std::size_t next_pos{details::ring_next_pos(curr_stack_top, begin, end)};
+
+            wasm_i64 const rhs{get_curr_val_from_operand_stack_top<CompileOption, wasm_i64, curr_stack_top>(type...)};
+            wasm_i64 lhs;  // no init
+            if constexpr(ring_sz >= 2uz) { lhs = get_curr_val_from_operand_stack_top<CompileOption, wasm_i64, next_pos>(type...); }
+            else
+            {
+                // Ring too small to hold both operands: keep RHS in cache, load LHS from operand stack memory (no pop).
+                lhs = peek_curr_val_from_operand_stack_cache<wasm_i64>(type...);
+            }
+
+            if(rhs == wasm_i64{0}) [[unlikely]] { UWVM_MUSTTAIL return numeric_details::trap_integer_divide_by_zero_tail<CompileOption>(type...); }
+
+            wasm_i64 out;  // no init
+            if(lhs == ::std::numeric_limits<wasm_i64>::min() && rhs == wasm_i64{-1}) [[unlikely]] { out = wasm_i64{0}; }
+            else
+            {
+                out = static_cast<wasm_i64>(lhs % rhs);
+            }
+
+            if constexpr(ring_sz >= 2uz) { details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, next_pos>(out, type...); }
+            else
+            {
+                // Binary op: result replaces NOS in operand stack memory (stack height -1).
+                set_curr_val_to_operand_stack_cache_top(out, type...);
+            }
+        }
+        else
+        {
+            wasm_i64 const rhs{get_curr_val_from_operand_stack_cache<wasm_i64>(type...)};
+            wasm_i64 const lhs{get_curr_val_from_operand_stack_cache<wasm_i64>(type...)};
+
+            if(rhs == wasm_i64{0}) [[unlikely]] { UWVM_MUSTTAIL return numeric_details::trap_integer_divide_by_zero_tail<CompileOption>(type...); }
+
+            wasm_i64 out;  // no init
+            if(lhs == ::std::numeric_limits<wasm_i64>::min() && rhs == wasm_i64{-1}) [[unlikely]] { out = wasm_i64{0}; }
+            else
+            {
+                out = static_cast<wasm_i64>(lhs % rhs);
+            }
+
+            ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
+            type...[1u] += sizeof(out);
+        }
+
+        type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
+        uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
+        ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
+        UWVM_MUSTTAIL return next_interpreter(type...);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, ::std::size_t curr_stack_top, uwvm_int_stack_top_type... Type>
+        requires (CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_i64_rem_u(Type... type) UWVM_THROWS
+    {
+        using wasm_i64 = numeric_details::wasm_i64;
+        using wasm_u64 = numeric_details::wasm_u64;
+
+        if constexpr(numeric_details::stacktop_enabled_for<CompileOption, wasm_i64>())
+        {
+            constexpr ::std::size_t begin{numeric_details::range_begin<CompileOption, wasm_i64>()};
+            constexpr ::std::size_t end{numeric_details::range_end<CompileOption, wasm_i64>()};
+            static_assert(begin <= curr_stack_top && curr_stack_top < end);
+
+            constexpr ::std::size_t ring_sz{end - begin};
+            static_assert(ring_sz != 0uz);
+            constexpr ::std::size_t next_pos{details::ring_next_pos(curr_stack_top, begin, end)};
+
+            wasm_i64 const rhs{get_curr_val_from_operand_stack_top<CompileOption, wasm_i64, curr_stack_top>(type...)};
+            wasm_i64 lhs;  // no init
+            if constexpr(ring_sz >= 2uz) { lhs = get_curr_val_from_operand_stack_top<CompileOption, wasm_i64, next_pos>(type...); }
+            else
+            {
+                // Ring too small to hold both operands: keep RHS in cache, load LHS from operand stack memory (no pop).
+                lhs = peek_curr_val_from_operand_stack_cache<wasm_i64>(type...);
+            }
+
+            wasm_u64 const urhs{numeric_details::to_unsigned_bits<wasm_i64, wasm_u64>(rhs)};
+            if(urhs == wasm_u64{0}) [[unlikely]] { UWVM_MUSTTAIL return numeric_details::trap_integer_divide_by_zero_tail<CompileOption>(type...); }
+
+            wasm_u64 const out_u{static_cast<wasm_u64>(numeric_details::to_unsigned_bits<wasm_i64, wasm_u64>(lhs) % urhs)};
+            wasm_i64 const out{numeric_details::from_unsigned_bits<wasm_i64, wasm_u64>(out_u)};
+
+            if constexpr(ring_sz >= 2uz) { details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, next_pos>(out, type...); }
+            else
+            {
+                // Binary op: result replaces NOS in operand stack memory (stack height -1).
+                set_curr_val_to_operand_stack_cache_top(out, type...);
+            }
+        }
+        else
+        {
+            wasm_i64 const rhs{get_curr_val_from_operand_stack_cache<wasm_i64>(type...)};
+            wasm_i64 const lhs{get_curr_val_from_operand_stack_cache<wasm_i64>(type...)};
+
+            wasm_u64 const urhs{numeric_details::to_unsigned_bits<wasm_i64, wasm_u64>(rhs)};
+            if(urhs == wasm_u64{0}) [[unlikely]] { UWVM_MUSTTAIL return numeric_details::trap_integer_divide_by_zero_tail<CompileOption>(type...); }
+
+            wasm_u64 const out_u{static_cast<wasm_u64>(numeric_details::to_unsigned_bits<wasm_i64, wasm_u64>(lhs) % urhs)};
+            wasm_i64 const out{numeric_details::from_unsigned_bits<wasm_i64, wasm_u64>(out_u)};
+
+            ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
+            type...[1u] += sizeof(out);
+        }
+
+        type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
+        uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
+        ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
+        UWVM_MUSTTAIL return next_interpreter(type...);
+    }
+
     template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeRef>
         requires (!CompileOption.is_tail_call)
     UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_i64_div_s(TypeRef & ... typeref) UWVM_THROWS
@@ -1594,33 +2105,33 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             {
                 template <uwvm_interpreter_translate_option_t Opt, ::std::size_t Pos, uwvm_int_stack_top_type... Type>
                 inline static constexpr uwvm_interpreter_opfunc_t<Type...> fptr() noexcept
-                { return uwvmint_i32_binop<Opt, numeric_details::int_binop::div_u, Pos, Type...>; }
+                { return uwvmint_i32_div_u<Opt, Pos, Type...>; }
 
                 template <uwvm_interpreter_translate_option_t Opt, uwvm_int_stack_top_type... Type>
                 inline static constexpr uwvm_interpreter_opfunc_byref_t<Type...> fptr_byref() noexcept
-                { return uwvmint_i32_binop<Opt, numeric_details::int_binop::div_u, Type...>; }
+                { return uwvmint_i32_div_u<Opt, Type...>; }
             };
 
             struct num_i32_rem_s_op
             {
                 template <uwvm_interpreter_translate_option_t Opt, ::std::size_t Pos, uwvm_int_stack_top_type... Type>
                 inline static constexpr uwvm_interpreter_opfunc_t<Type...> fptr() noexcept
-                { return uwvmint_i32_binop<Opt, numeric_details::int_binop::rem_s, Pos, Type...>; }
+                { return uwvmint_i32_rem_s<Opt, Pos, Type...>; }
 
                 template <uwvm_interpreter_translate_option_t Opt, uwvm_int_stack_top_type... Type>
                 inline static constexpr uwvm_interpreter_opfunc_byref_t<Type...> fptr_byref() noexcept
-                { return uwvmint_i32_binop<Opt, numeric_details::int_binop::rem_s, Type...>; }
+                { return uwvmint_i32_rem_s<Opt, Type...>; }
             };
 
             struct num_i32_rem_u_op
             {
                 template <uwvm_interpreter_translate_option_t Opt, ::std::size_t Pos, uwvm_int_stack_top_type... Type>
                 inline static constexpr uwvm_interpreter_opfunc_t<Type...> fptr() noexcept
-                { return uwvmint_i32_binop<Opt, numeric_details::int_binop::rem_u, Pos, Type...>; }
+                { return uwvmint_i32_rem_u<Opt, Pos, Type...>; }
 
                 template <uwvm_interpreter_translate_option_t Opt, uwvm_int_stack_top_type... Type>
                 inline static constexpr uwvm_interpreter_opfunc_byref_t<Type...> fptr_byref() noexcept
-                { return uwvmint_i32_binop<Opt, numeric_details::int_binop::rem_u, Type...>; }
+                { return uwvmint_i32_rem_u<Opt, Type...>; }
             };
 
             struct num_i32_and_op
@@ -1793,33 +2304,33 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             {
                 template <uwvm_interpreter_translate_option_t Opt, ::std::size_t Pos, uwvm_int_stack_top_type... Type>
                 inline static constexpr uwvm_interpreter_opfunc_t<Type...> fptr() noexcept
-                { return uwvmint_i64_binop<Opt, numeric_details::int_binop::div_u, Pos, Type...>; }
+                { return uwvmint_i64_div_u<Opt, Pos, Type...>; }
 
                 template <uwvm_interpreter_translate_option_t Opt, uwvm_int_stack_top_type... Type>
                 inline static constexpr uwvm_interpreter_opfunc_byref_t<Type...> fptr_byref() noexcept
-                { return uwvmint_i64_binop<Opt, numeric_details::int_binop::div_u, Type...>; }
+                { return uwvmint_i64_div_u<Opt, Type...>; }
             };
 
             struct num_i64_rem_s_op
             {
                 template <uwvm_interpreter_translate_option_t Opt, ::std::size_t Pos, uwvm_int_stack_top_type... Type>
                 inline static constexpr uwvm_interpreter_opfunc_t<Type...> fptr() noexcept
-                { return uwvmint_i64_binop<Opt, numeric_details::int_binop::rem_s, Pos, Type...>; }
+                { return uwvmint_i64_rem_s<Opt, Pos, Type...>; }
 
                 template <uwvm_interpreter_translate_option_t Opt, uwvm_int_stack_top_type... Type>
                 inline static constexpr uwvm_interpreter_opfunc_byref_t<Type...> fptr_byref() noexcept
-                { return uwvmint_i64_binop<Opt, numeric_details::int_binop::rem_s, Type...>; }
+                { return uwvmint_i64_rem_s<Opt, Type...>; }
             };
 
             struct num_i64_rem_u_op
             {
                 template <uwvm_interpreter_translate_option_t Opt, ::std::size_t Pos, uwvm_int_stack_top_type... Type>
                 inline static constexpr uwvm_interpreter_opfunc_t<Type...> fptr() noexcept
-                { return uwvmint_i64_binop<Opt, numeric_details::int_binop::rem_u, Pos, Type...>; }
+                { return uwvmint_i64_rem_u<Opt, Pos, Type...>; }
 
                 template <uwvm_interpreter_translate_option_t Opt, uwvm_int_stack_top_type... Type>
                 inline static constexpr uwvm_interpreter_opfunc_byref_t<Type...> fptr_byref() noexcept
-                { return uwvmint_i64_binop<Opt, numeric_details::int_binop::rem_u, Type...>; }
+                { return uwvmint_i64_rem_u<Opt, Type...>; }
             };
 
             struct num_i64_and_op

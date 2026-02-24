@@ -127,10 +127,10 @@ end)
 option("static", function()
     set_description
     (
-        "The static flag is used to enable static linking of libraries instead of dynamic linking.",
+        "The static flag is used to enable static linking of libraries instead of dynamic linking and use lld when linking",
         "static linking is disable by default"
     )
-    set_default(false)
+    set_default(true)
 end)
 
 option("use-llvm", function()
@@ -195,6 +195,18 @@ option("enable-uwvm-int-combine-ops", function()
     )
     set_default("heavy")
     set_values("none", "soft", "heavy", "extra")
+end)
+
+option("enable-uwvm-int-delay-local", function()
+    set_description
+    (
+        "Enable delay-local variantization for uwvm-int.",
+        [[    none: disable delay-local fusions.]],
+        [[    soft: enable minimal delay-local fusions (default).]],
+        [[    heavy: enable soft + extended delay-local fusions.]]
+    )
+    set_default("heavy")
+    set_values("none", "soft", "heavy")
 end)
 
 option("detailed-debug-check", function()

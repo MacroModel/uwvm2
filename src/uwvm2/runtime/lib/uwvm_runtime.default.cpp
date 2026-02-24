@@ -130,36 +130,28 @@ namespace uwvm2::runtime::uwvm_int
 
         struct call_stack_tls_state
         {
-            static constexpr ::std::size_t kCallStackMaxDepth{4096uz};
+            inline static constexpr ::std::size_t kCallStackMaxDepth{4096uz};
 
             using thread_local_allocator = ::fast_io::native_thread_local_allocator;
             ::uwvm2::utils::container::vector<call_stack_frame, thread_local_allocator> frames{};
 
-            bool overflowed{};
+            inline call_stack_tls_state() noexcept { frames.reserve(kCallStackMaxDepth); }
 
-            UWVM_ALWAYS_INLINE inline void ensure_reserved() noexcept
-            {
-                if(frames.capacity() < kCallStackMaxDepth) [[unlikely]] { frames.reserve(kCallStackMaxDepth); }
-            }
+            inline void push(call_stack_frame fr) noexcept { frames.push_back(fr); }
 
-            [[nodiscard]] UWVM_ALWAYS_INLINE inline bool push(call_stack_frame fr) noexcept
+            inline void pop() noexcept
             {
-                ensure_reserved();
-                if(frames.size() < kCallStackMaxDepth) [[likely]]
-                {
-                    frames.push_back(fr);
-                    return true;
-                }
-                overflowed = true;
-                return false;
-            }
-
-            UWVM_ALWAYS_INLINE inline void pop() noexcept
-            {
-                if(!frames.empty()) [[likely]] { frames.pop_back(); }
+                if(!frames.empty()) [[likely]] { frames.pop_back_unchecked(); }
             }
         };
 
+#if UWVM_HAS_CPP_ATTRIBUTE(__gnu__::__tls_model__)
+# ifdef UWVM
+        [[__gnu__::__tls_model__("local-exec")]]
+# else
+        [[__gnu__::__tls_model__("local-dynamic")]]
+# endif
+#endif
         inline thread_local call_stack_tls_state g_call_stack{};  // [global] [thread_local]
 
         [[nodiscard]] inline compiled_defined_func_info const* find_defined_func_info(runtime_local_func_storage_t const* f) noexcept
@@ -195,18 +187,13 @@ namespace uwvm2::runtime::uwvm_int
 
         struct call_stack_guard
         {
-            bool active{};
-
             inline constexpr explicit call_stack_guard(::std::size_t module_id, ::std::size_t function_index) noexcept
-            { active = g_call_stack.push(call_stack_frame{module_id, function_index}); }
+            { g_call_stack.push(call_stack_frame{module_id, function_index}); }
 
             call_stack_guard(call_stack_guard const&) = delete;
             call_stack_guard& operator= (call_stack_guard const&) = delete;
 
-            inline constexpr ~call_stack_guard()
-            {
-                if(active) [[likely]] { g_call_stack.pop(); }
-            }
+            inline constexpr ~call_stack_guard() { g_call_stack.pop(); }
         };
 
         enum class trap_kind : unsigned
@@ -367,18 +354,6 @@ namespace uwvm2::runtime::uwvm_int
                 }
 
                 ::fast_io::io::perrln(u8log_output_ul, ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL));
-            }
-
-            if(g_call_stack.overflowed) [[unlikely]]
-            {
-                ::fast_io::io::perrln(u8log_output_ul,
-                                      ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL_AND_SET_WHITE),
-                                      u8"uwvm: ",
-                                      ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
-                                      u8"[warn]  ",
-                                      ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
-                                      u8"Call stack overflowed; frames truncated.",
-                                      ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL));
             }
 
             ::fast_io::io::perrln(u8log_output_ul);
@@ -1114,7 +1089,7 @@ namespace uwvm2::runtime::uwvm_int
 
         UWVM_ALWAYS_INLINE inline void zero_bytes_small(::std::byte* dst, ::std::size_t n) noexcept
         {
-            if(n != 0uz) [[likely]]{ ::std::memset(dst, 0, n); }
+            if(n != 0uz) [[likely]] { ::std::memset(dst, 0, n); }
         }
 
         [[nodiscard]] UWVM_ALWAYS_INLINE inline ::std::byte* align_ptr_up(::std::byte* p, ::std::size_t align) noexcept
@@ -1134,7 +1109,6 @@ namespace uwvm2::runtime::uwvm_int
 
             auto* const stack_top{*stack_top_ptr};
             auto* const args_begin{stack_top - info.param_bytes};
-            if(info.result_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
 
             auto const load_u32{[](::std::byte const* p) noexcept -> ::std::uint_least32_t
                                 {
@@ -1149,15 +1123,30 @@ namespace uwvm2::runtime::uwvm_int
 
             switch(info.trivial_kind)
             {
+                case trivial_kind_t::nop_void:
+                {
+                    if(info.result_bytes != 0uz) [[unlikely]] { ::fast_io::fast_terminate(); }
+                    *stack_top_ptr = args_begin;
+                    return true;
+                }
+                case trivial_kind_t::const_i32:
+                {
+                    if(info.result_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
+                    store_u32(args_begin, imm_u32);
+                    *stack_top_ptr = args_begin + 4uz;
+                    return true;
+                }
                 case trivial_kind_t::param0_i32:
                 {
                     // Keep the first i32 argument and drop the rest.
+                    if(info.result_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     if(info.param_bytes < 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     *stack_top_ptr = args_begin + 4uz;
                     return true;
                 }
                 case trivial_kind_t::add_const_i32:
                 {
+                    if(info.result_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     if(info.param_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     ::std::uint_least32_t const a{load_u32(args_begin)};
                     store_u32(args_begin, static_cast<::std::uint_least32_t>(a + imm_u32));
@@ -1166,6 +1155,7 @@ namespace uwvm2::runtime::uwvm_int
                 }
                 case trivial_kind_t::mul_add_const_i32:
                 {
+                    if(info.result_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     if(info.param_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     ::std::uint_least32_t const a{load_u32(args_begin)};
                     store_u32(args_begin, static_cast<::std::uint_least32_t>((a * imm_u32) + imm2_u32));
@@ -1174,6 +1164,7 @@ namespace uwvm2::runtime::uwvm_int
                 }
                 case trivial_kind_t::xor_i32:
                 {
+                    if(info.result_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     if(info.param_bytes != 8uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     ::std::uint_least32_t const a{load_u32(args_begin)};
                     ::std::uint_least32_t const b{load_u32(args_begin + 4uz)};
@@ -1183,6 +1174,7 @@ namespace uwvm2::runtime::uwvm_int
                 }
                 case trivial_kind_t::xor_add_const_i32:
                 {
+                    if(info.result_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     if(info.param_bytes != 8uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     ::std::uint_least32_t const a{load_u32(args_begin)};
                     ::std::uint_least32_t const b{load_u32(args_begin + 4uz)};
@@ -1192,6 +1184,7 @@ namespace uwvm2::runtime::uwvm_int
                 }
                 case trivial_kind_t::sub_or_const_i32:
                 {
+                    if(info.result_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     if(info.param_bytes != 8uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     ::std::uint_least32_t const a{load_u32(args_begin)};
                     ::std::uint_least32_t const b{load_u32(args_begin + 4uz)};
@@ -1201,6 +1194,7 @@ namespace uwvm2::runtime::uwvm_int
                 }
                 case trivial_kind_t::sum8_xor_const_i32:
                 {
+                    if(info.result_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     if(info.param_bytes != 32uz) [[unlikely]] { ::fast_io::fast_terminate(); }
                     ::std::uint_least32_t acc{};
                     for(::std::size_t i{}; i != 8uz; ++i) { acc += load_u32(args_begin + i * 4uz); }
