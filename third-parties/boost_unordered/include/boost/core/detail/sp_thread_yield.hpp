@@ -18,7 +18,7 @@
 // Distributed under the Boost Software License, Version 1.0
 // https://www.boost.org/LICENSE_1_0.txt
 
-#include "../minconfig.hpp"
+#include "../../minconfig.hpp"
 
 #if defined( _WIN32 ) || defined( __WIN32__ ) || defined( __CYGWIN__ )
 
@@ -37,7 +37,11 @@ namespace detail
 
 inline void sp_thread_yield() noexcept
 {
+#if (!defined(_WIN32_WINNT) || (defined(_WIN32_WINNT) && _WIN32_WINNT >= 0x0500)) && !defined(_WIN32_WINDOWS)
     SwitchToThread();
+#else
+	  Sleep(0);
+#endif
 }
 
 } // namespace detail
