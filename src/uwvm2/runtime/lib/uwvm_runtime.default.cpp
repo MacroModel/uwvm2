@@ -1262,6 +1262,18 @@ namespace uwvm2::runtime::uwvm_int
                     *stack_top_ptr = args_begin + 4uz;
                     return true;
                 }
+                case trivial_kind_t::xorshift32_i32:
+                {
+                    if(info.result_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
+                    if(info.param_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }
+                    ::std::uint_least32_t x{load_u32(args_begin)};
+                    x ^= static_cast<::std::uint_least32_t>(x << 13u);
+                    x ^= static_cast<::std::uint_least32_t>(x >> 17u);
+                    x ^= static_cast<::std::uint_least32_t>(x << 5u);
+                    store_u32(args_begin, x);
+                    *stack_top_ptr = args_begin + 4uz;
+                    return true;
+                }
                 case trivial_kind_t::mul_add_const_i32:
                 {
                     if(info.result_bytes != 4uz) [[unlikely]] { ::fast_io::fast_terminate(); }

@@ -137,6 +137,85 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                         return false;
                                     }};
 
+            // Pattern: xorshift32 (i32 -> i32)
+            // local.get 0
+            // local.get 0 ; i32.const 13 ; i32.shl ; i32.xor ; local.set 0
+            // local.get 0 ; i32.const 17 ; i32.shr_u ; i32.xor ; local.set 0
+            // local.get 0 ; i32.const 5  ; i32.shl ; i32.xor ; local.set 0
+            // local.get 0 ; end
+            //
+            // Notes:
+            // - This is a common tiny PRNG step used in microbenchmarks and hash-like code.
+            // - We match the exact canonical form (locals only, no extra ops) to avoid false positives.
+            auto const match_xorshift32_i32{[&]() noexcept -> bool
+                                            {
+                                                auto const* const begin{curr};
+                                                auto fail{[&]() noexcept
+                                                          {
+                                                              curr = begin;
+                                                              return false;
+                                                          }};
+
+                                                auto expect_op{[&](wasm1_code expected) noexcept -> bool
+                                                               {
+                                                                   wasm1_code op{};  // no init
+                                                                   if(!read_op(op) || op != expected) { return false; }
+                                                                   return true;
+                                                               }};
+                                                auto expect_local0{[&](wasm1_code op_kind) noexcept -> bool
+                                                                   {
+                                                                       if(!expect_op(op_kind)) { return false; }
+                                                                       ::std::uint32_t idx{};
+                                                                       if(!read_u32_leb(idx) || idx != 0u) { return false; }
+                                                                       return true;
+                                                                   }};
+                                                auto expect_i32_const{[&](wasm_i32 expected) noexcept -> bool
+                                                                      {
+                                                                          if(!expect_op(wasm1_code::i32_const)) { return false; }
+                                                                          wasm_i32 imm{};  // no init
+                                                                          if(!read_i32_leb(imm) || imm != expected) { return false; }
+                                                                          return true;
+                                                                      }};
+
+                                                // local.get 0
+                                                if(!expect_local0(wasm1_code::local_get)) { return fail(); }
+
+                                                // local.get 0 ; i32.const 13 ; i32.shl ; i32.xor ; local.set 0
+                                                if(!expect_local0(wasm1_code::local_get)) { return fail(); }
+                                                if(!expect_i32_const(static_cast<wasm_i32>(13))) { return fail(); }
+                                                if(!expect_op(wasm1_code::i32_shl)) { return fail(); }
+                                                if(!expect_op(wasm1_code::i32_xor)) { return fail(); }
+                                                if(!expect_local0(wasm1_code::local_set)) { return fail(); }
+
+                                                // local.get 0 ; local.get 0 ; i32.const 17 ; i32.shr_u ; i32.xor ; local.set 0
+                                                if(!expect_local0(wasm1_code::local_get)) { return fail(); }
+                                                if(!expect_local0(wasm1_code::local_get)) { return fail(); }
+                                                if(!expect_i32_const(static_cast<wasm_i32>(17))) { return fail(); }
+                                                if(!expect_op(wasm1_code::i32_shr_u)) { return fail(); }
+                                                if(!expect_op(wasm1_code::i32_xor)) { return fail(); }
+                                                if(!expect_local0(wasm1_code::local_set)) { return fail(); }
+
+                                                // local.get 0 ; local.get 0 ; i32.const 5 ; i32.shl ; i32.xor ; local.set 0
+                                                if(!expect_local0(wasm1_code::local_get)) { return fail(); }
+                                                if(!expect_local0(wasm1_code::local_get)) { return fail(); }
+                                                if(!expect_i32_const(static_cast<wasm_i32>(5))) { return fail(); }
+                                                if(!expect_op(wasm1_code::i32_shl)) { return fail(); }
+                                                if(!expect_op(wasm1_code::i32_xor)) { return fail(); }
+                                                if(!expect_local0(wasm1_code::local_set)) { return fail(); }
+
+                                                // local.get 0 ; end
+                                                if(!expect_local0(wasm1_code::local_get)) { return fail(); }
+                                                if(!expect_op(wasm1_code::end)) { return fail(); }
+                                                if(curr != end) { return fail(); }
+                                                return true;
+                                            }};
+
+            if(match_xorshift32_i32())
+            {
+                res.kind = trivial_call_inline_kind::xorshift32_i32;
+                return res;
+            }
+
             wasm1_code op0{};
             if(!read_op(op0)) { return res; }
             if(op0 == wasm1_code::end && curr == end)
@@ -20569,6 +20648,17 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                     {
                         validate_numeric_unary(u8"f64.ceil", curr_operand_stack_value_type::f64, curr_operand_stack_value_type::f64);
                         namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+#if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
+                        if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::f64)
+                        {
+                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_ceil_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64);
+                            conbine_pending.kind = conbine_pending_kind::none;
+                            break;
+                        }
+#endif
                         emit_opfunc_to(bytecode, translate::get_uwvmint_f64_ceil_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
 
                         break;
@@ -20577,6 +20667,18 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                     {
                         validate_numeric_unary(u8"f64.floor", curr_operand_stack_value_type::f64, curr_operand_stack_value_type::f64);
                         namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+#if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
+                        if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::f64)
+                        {
+                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_floor_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64);
+                            conbine_pending.kind = conbine_pending_kind::none;
+                            break;
+                        }
+#endif
                         emit_opfunc_to(bytecode, translate::get_uwvmint_f64_floor_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
 
                         break;
@@ -20585,6 +20687,18 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                     {
                         validate_numeric_unary(u8"f64.trunc", curr_operand_stack_value_type::f64, curr_operand_stack_value_type::f64);
                         namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+#if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
+                        if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::f64)
+                        {
+                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_trunc_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64);
+                            conbine_pending.kind = conbine_pending_kind::none;
+                            break;
+                        }
+#endif
                         emit_opfunc_to(bytecode, translate::get_uwvmint_f64_trunc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
 
                         break;
@@ -20593,6 +20707,18 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                     {
                         validate_numeric_unary(u8"f64.nearest", curr_operand_stack_value_type::f64, curr_operand_stack_value_type::f64);
                         namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+#if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
+                        if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::f64)
+                        {
+                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_nearest_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64);
+                            conbine_pending.kind = conbine_pending_kind::none;
+                            break;
+                        }
+#endif
                         emit_opfunc_to(bytecode, translate::get_uwvmint_f64_nearest_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
 
                         break;
@@ -22123,6 +22249,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             ok = (param_n == 1uz) && (res_n == 1uz) && is_i32(ft->parameter.begin[0]) && is_i32(ft->result.begin[0]);
                             break;
                         case trivial_kind_t::rotr_add_const_i32:
+                            ok = (param_n == 1uz) && (res_n == 1uz) && is_i32(ft->parameter.begin[0]) && is_i32(ft->result.begin[0]);
+                            break;
+                        case trivial_kind_t::xorshift32_i32:
                             ok = (param_n == 1uz) && (res_n == 1uz) && is_i32(ft->parameter.begin[0]) && is_i32(ft->result.begin[0]);
                             break;
                         case trivial_kind_t::mul_add_const_i32:
