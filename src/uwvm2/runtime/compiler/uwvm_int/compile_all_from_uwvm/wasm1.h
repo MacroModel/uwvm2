@@ -3482,6 +3482,76 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                     }
                 }};
 
+            // Bulk drop modeling without emitting any canonical fills.
+            // Used to coalesce long stack-shape repair sequences (br/br_if/br_table/return) into one `drop_bytes` opfunc.
+            [[maybe_unused]] auto const emit_drop_to_stack_size_no_fill{
+                [&](bytecode_vec_t& dst, ::std::size_t target_size) constexpr UWVM_THROWS
+                {
+                    if constexpr(!stacktop_enabled)
+                    {
+                        // Fallback: preserve existing behavior (emit per-value drops).
+                        auto const curr_size{operand_stack.size()};
+                        if(curr_size <= target_size) { return; }
+                        for(::std::size_t i{curr_size}; i > target_size; --i)
+                        {
+                            emit_drop_typed_to_no_fill(dst, operand_stack.index_unchecked(i - 1uz).type);
+                        }
+                        return;
+                    }
+
+                    if(is_polymorphic)
+                    {
+                        // Unreachable region: do not mutate compiler-side stack-top model; emit real drops.
+                        auto const curr_size{operand_stack.size()};
+                        if(curr_size <= target_size) { return; }
+                        for(::std::size_t i{curr_size}; i > target_size; --i)
+                        {
+                            emit_drop_typed_to_no_fill(dst, operand_stack.index_unchecked(i - 1uz).type);
+                        }
+                        return;
+                    }
+
+                    auto const curr_size{codegen_operand_stack.size()};
+                    if(curr_size <= target_size) { return; }
+
+                    ::std::size_t const drop_n{curr_size - target_size};
+
+                    // Top `stacktop_cache_count` values are resident in registers (cache); remaining are in operand-stack memory.
+                    ::std::size_t const cache_pops{stacktop_cache_count < drop_n ? stacktop_cache_count : drop_n};
+                    ::std::size_t const mem_pops{drop_n - cache_pops};
+
+                    if(mem_pops != 0uz)
+                    {
+                        ::std::size_t bytes_total{};
+                        ::std::size_t const mem_end{curr_size - cache_pops};
+                        for(::std::size_t i{target_size}; i < mem_end; ++i) { bytes_total += operand_stack_valtype_size(codegen_operand_stack.index_unchecked(i).type); }
+
+                        if(bytes_total != 0uz)
+                        {
+                            using drop_bytes_imm_t = ::std::uint_least32_t;
+
+                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+
+                            ::std::size_t remaining{bytes_total};
+                            while(remaining != 0uz)
+                            {
+                                auto const chunk_sz{remaining > ::std::numeric_limits<drop_bytes_imm_t>::max()
+                                                        ? static_cast<::std::size_t>(::std::numeric_limits<drop_bytes_imm_t>::max())
+                                                        : remaining};
+                                drop_bytes_imm_t const chunk{static_cast<drop_bytes_imm_t>(chunk_sz)};
+
+                                emit_opfunc_to(dst, translate::get_uwvmint_drop_bytes_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                                emit_imm_to(dst, chunk);
+
+                                remaining -= chunk_sz;
+                            }
+                        }
+                    }
+
+                    stacktop_commit_pop_n(drop_n);
+                    codegen_stack_pop_n(drop_n);
+                }};
+
             auto const emit_local_get_typed_to{
                 [&](bytecode_vec_t& dst, curr_operand_stack_value_type vt, local_offset_t off) constexpr UWVM_THROWS
                 {
@@ -9023,10 +9093,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                 // Safety: `target_base` must be <= `curr_size` in the non-polymorphic path.
                                 if(!fused_extra_heavy_loop_run && curr_size > target_base)
                                 {
-                                    for(::std::size_t i{curr_size}; i > target_base; --i)
-                                    {
-                                        emit_drop_typed_to_no_fill(bytecode, operand_stack.index_unchecked(i - 1uz).type);
-                                    }
+                                    emit_drop_to_stack_size_no_fill(bytecode, target_base);
 
                                     if constexpr(stacktop_enabled)
                                     {
@@ -9068,9 +9135,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                     emit_local_set_typed_to_no_fill(bytecode, result_type, internal_temp_local_off);
 
                                     // Drop values between [target_base .. curr_size-2].
-                                    for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
+                                    if constexpr(stacktop_enabled)
                                     {
-                                        emit_drop_typed_to_no_fill(bytecode, operand_stack.index_unchecked(i).type);
+                                        emit_drop_to_stack_size_no_fill(bytecode, target_base);
+                                    }
+                                    else
+                                    {
+                                        for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
+                                        {
+                                            emit_drop_typed_to_no_fill(bytecode, operand_stack.index_unchecked(i).type);
+                                        }
                                     }
 
                                     if constexpr(stacktop_enabled)
@@ -10939,18 +11013,22 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                             {
                                                 if(target_arity == 0uz)
                                                 {
-                                                    for(::std::size_t i{curr_size}; i > target_base; --i)
-                                                    {
-                                                        emit_drop_typed_to_no_fill(thunks, operand_stack.index_unchecked(i - 1uz).type);
-                                                    }
+                                                    emit_drop_to_stack_size_no_fill(thunks, target_base);
                                                 }
                                                 else
                                                 {
                                                     auto const result_type{target_frame.result.begin[0]};
                                                     emit_local_set_typed_to_no_fill(thunks, result_type, internal_temp_local_off);
-                                                    for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
+                                                    if constexpr(stacktop_enabled)
                                                     {
-                                                        emit_drop_typed_to_no_fill(thunks, operand_stack.index_unchecked(i).type);
+                                                        emit_drop_to_stack_size_no_fill(thunks, target_base);
+                                                    }
+                                                    else
+                                                    {
+                                                        for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
+                                                        {
+                                                            emit_drop_typed_to_no_fill(thunks, operand_stack.index_unchecked(i).type);
+                                                        }
                                                     }
                                                     emit_local_get_typed_to(thunks, result_type, internal_temp_local_off);
                                                 }
@@ -10984,10 +11062,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                             else if(target_arity == 0uz)
                                             {
                                                 // Safety: `target_base` must be <= `curr_size` in the non-polymorphic path.
-                                                for(::std::size_t i{curr_size}; i > target_base; --i)
-                                                {
-                                                    emit_drop_typed_to_no_fill(thunks, operand_stack.index_unchecked(i - 1uz).type);
-                                                }
+                                                emit_drop_to_stack_size_no_fill(thunks, target_base);
                                                 stacktop_fill_to_canonical(thunks);
                                                 if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
                                                 {
@@ -11003,9 +11078,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                                 auto const result_type{target_frame.result.begin[0]};
                                                 emit_local_set_typed_to_no_fill(thunks, result_type, internal_temp_local_off);
 
-                                                for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
+                                                if constexpr(stacktop_enabled)
                                                 {
-                                                    emit_drop_typed_to_no_fill(thunks, operand_stack.index_unchecked(i).type);
+                                                    emit_drop_to_stack_size_no_fill(thunks, target_base);
+                                                }
+                                                else
+                                                {
+                                                    for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
+                                                    {
+                                                        emit_drop_typed_to_no_fill(thunks, operand_stack.index_unchecked(i).type);
+                                                    }
                                                 }
 
                                                 stacktop_fill_to_canonical(thunks);
@@ -11129,10 +11211,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                 {
                                     if(target_arity == 0uz)
                                     {
-                                        for(::std::size_t i{curr_size}; i > target_base; --i)
-                                        {
-                                            emit_drop_typed_to_no_fill(thunks, operand_stack.index_unchecked(i - 1uz).type);
-                                        }
+                                        emit_drop_to_stack_size_no_fill(thunks, target_base);
                                         if constexpr(stacktop_enabled)
                                         {
                                             if constexpr(!strict_cf_entry_like_call) { stacktop_fill_to_canonical(thunks); }
@@ -11142,9 +11221,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                     {
                                         auto const result_type{target_frame.result.begin[0]};
                                         emit_local_set_typed_to_no_fill(thunks, result_type, internal_temp_local_off);
-                                        for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
+                                        if constexpr(stacktop_enabled)
                                         {
-                                            emit_drop_typed_to_no_fill(thunks, operand_stack.index_unchecked(i).type);
+                                            emit_drop_to_stack_size_no_fill(thunks, target_base);
+                                        }
+                                        else
+                                        {
+                                            for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
+                                            {
+                                                emit_drop_typed_to_no_fill(thunks, operand_stack.index_unchecked(i).type);
+                                            }
                                         }
                                         if constexpr(stacktop_enabled)
                                         {
@@ -11546,10 +11632,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                 {
                                     if(expected_arity == 0uz)
                                     {
-                                        for(::std::size_t i{curr_size}; i > target_base; --i)
-                                        {
-                                            emit_drop_typed_to_no_fill(thunks, operand_stack.index_unchecked(i - 1uz).type);
-                                        }
+                                        emit_drop_to_stack_size_no_fill(thunks, target_base);
                                         if constexpr(stacktop_enabled)
                                         {
                                             if constexpr(!strict_cf_entry_like_call) { stacktop_fill_to_canonical(thunks); }
@@ -11558,9 +11641,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                     else
                                     {
                                         emit_local_set_typed_to_no_fill(thunks, expected_type, internal_temp_local_off);
-                                        for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
+                                        if constexpr(stacktop_enabled)
                                         {
-                                            emit_drop_typed_to_no_fill(thunks, operand_stack.index_unchecked(i).type);
+                                            emit_drop_to_stack_size_no_fill(thunks, target_base);
+                                        }
+                                        else
+                                        {
+                                            for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
+                                            {
+                                                emit_drop_typed_to_no_fill(thunks, operand_stack.index_unchecked(i).type);
+                                            }
                                         }
                                         if constexpr(stacktop_enabled)
                                         {
@@ -11690,10 +11780,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             if(return_arity == 0uz)
                             {
                                 // Safety: `target_base` must be <= `curr_size` in the non-polymorphic path.
-                                for(::std::size_t i{curr_size}; i > target_base; --i)
-                                {
-                                    emit_drop_typed_to_no_fill(bytecode, operand_stack.index_unchecked(i - 1uz).type);
-                                }
+                                emit_drop_to_stack_size_no_fill(bytecode, target_base);
                                 emit_return_to(bytecode);
                             }
                             else
@@ -11703,9 +11790,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                 if(curr_size > target_base + 1uz)
                                 {
                                     emit_local_set_typed_to_no_fill(bytecode, result_type, internal_temp_local_off);
-                                    for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
+                                    if constexpr(stacktop_enabled)
                                     {
-                                        emit_drop_typed_to_no_fill(bytecode, operand_stack.index_unchecked(i).type);
+                                        emit_drop_to_stack_size_no_fill(bytecode, target_base);
+                                    }
+                                    else
+                                    {
+                                        for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
+                                        {
+                                            emit_drop_typed_to_no_fill(bytecode, operand_stack.index_unchecked(i).type);
+                                        }
                                     }
                                     emit_local_get_typed_to(bytecode, result_type, internal_temp_local_off);
                                 }
@@ -13411,6 +13505,117 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             else
                             {
                                 if(try_add_reduce(8uz)) { break; }
+                            }
+                        }
+#endif
+
+#if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
+                        // Heavy combine: collapse the hot chain
+                        // `local.get src; f{32,64}.const mul; f{32,64}.mul; f{32,64}.const add; f{32,64}.add; local.set src`
+                        // into one opfunc dispatch (net stack effect 0).
+                        if(!is_polymorphic && conbine_pending.kind == conbine_pending_kind::none &&
+                           (curr_local_type == curr_operand_stack_value_type::f32 || curr_local_type == curr_operand_stack_value_type::f64) &&
+                           code_curr != code_end)
+                        {
+                            using wasm_f32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32;
+                            using wasm_f64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64;
+
+                            auto const local_off{local_offset_from_index(local_index)};
+
+                            auto const try_emit_affine_update{
+                                [&]<typename FpT>(wasm1_code const const_op,
+                                                  wasm1_code const mul_op,
+                                                  wasm1_code const add_op) constexpr UWVM_THROWS -> bool
+                                {
+                                    ::std::byte const* scan{code_curr};
+                                    ::std::byte const* const endp{code_end};
+
+                                    auto const need_n{static_cast<::std::size_t>((endp - scan))};
+                                    constexpr ::std::size_t min_n{1uz + sizeof(FpT) + 1uz + 1uz + sizeof(FpT) + 1uz + 1uz};
+                                    if(need_n < min_n) { return false; }
+
+                                    wasm1_code op{};  // init
+                                    ::std::memcpy(::std::addressof(op), scan, sizeof(op));
+                                    if(op != const_op) { return false; }
+                                    ++scan;
+
+                                    FpT mul{};  // init
+                                    ::std::memcpy(::std::addressof(mul), scan, sizeof(mul));
+                                    scan += sizeof(mul);
+
+                                    ::std::memcpy(::std::addressof(op), scan, sizeof(op));
+                                    if(op != mul_op) { return false; }
+                                    ++scan;
+
+                                    ::std::memcpy(::std::addressof(op), scan, sizeof(op));
+                                    if(op != const_op) { return false; }
+                                    ++scan;
+
+                                    FpT add{};  // init
+                                    ::std::memcpy(::std::addressof(add), scan, sizeof(add));
+                                    scan += sizeof(add);
+
+                                    ::std::memcpy(::std::addressof(op), scan, sizeof(op));
+                                    if(op != add_op) { return false; }
+                                    ++scan;
+
+                                    ::std::memcpy(::std::addressof(op), scan, sizeof(op));
+                                    if(op != wasm1_code::local_set) { return false; }
+                                    ++scan;
+
+                                    wasm_u32 dst_local_index{};
+                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
+                                    auto const [dst_next, dst_err]{
+                                        ::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(scan),
+                                                                 reinterpret_cast<char8_t_const_may_alias_ptr>(endp),
+                                                                 ::fast_io::mnp::leb128_get(dst_local_index))};
+                                    if(dst_err != ::fast_io::parse_code::ok || dst_local_index != local_index) { return false; }
+                                    scan = reinterpret_cast<::std::byte const*>(dst_next);
+
+                                    // Ensure `src` local read is covered by the zero-init prefix.
+                                    auto const local_size{operand_stack_valtype_size(curr_local_type)};
+                                    if(local_size != 0uz)
+                                    {
+                                        auto const end_off{static_cast<local_offset_t>(local_off + local_size)};
+                                        if(end_off > local_bytes_zeroinit_end) { local_bytes_zeroinit_end = end_off; }
+                                    }
+
+                                    namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+                                    if constexpr(::std::same_as<FpT, wasm_f32>)
+                                    {
+                                        emit_opfunc_to(
+                                            bytecode,
+                                            translate::get_uwvmint_f32_mul_add_2imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop,
+                                                                                                                          interpreter_tuple));
+                                    }
+                                    else
+                                    {
+                                        emit_opfunc_to(
+                                            bytecode,
+                                            translate::get_uwvmint_f64_mul_add_2imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop,
+                                                                                                                          interpreter_tuple));
+                                    }
+                                    emit_imm_to(bytecode, local_off);
+                                    emit_imm_to(bytecode, mul);
+                                    emit_imm_to(bytecode, add);
+
+                                    code_curr = scan;
+                                    return true;
+                                }};
+
+                            if(curr_local_type == curr_operand_stack_value_type::f32)
+                            {
+                                if(try_emit_affine_update.template operator()<wasm_f32>(wasm1_code::f32_const, wasm1_code::f32_mul, wasm1_code::f32_add))
+                                {
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                if(try_emit_affine_update.template operator()<wasm_f64>(wasm1_code::f64_const, wasm1_code::f64_mul, wasm1_code::f64_add))
+                                {
+                                    break;
+                                }
                             }
                         }
 #endif
