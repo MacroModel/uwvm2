@@ -141,6 +141,7 @@ namespace uwvm2::runtime::uwvm_int
         struct call_stack_tls_state
         {
             inline static constexpr ::std::size_t kCallStackMaxDepth{4096uz};
+            inline static constexpr ::std::size_t kCallIndirectCacheEntries{8uz};
 
             using thread_local_allocator = ::fast_io::native_thread_local_allocator;
             ::uwvm2::utils::container::vector<call_stack_frame, thread_local_allocator> frames{};
@@ -159,7 +160,8 @@ namespace uwvm2::runtime::uwvm_int
                 cached_import_target const* imported_tgt{};
             };
 
-            call_indirect_cache_entry call_indirect_cache{};
+            static_assert((kCallIndirectCacheEntries & (kCallIndirectCacheEntries - 1uz)) == 0uz, "cache size must be power-of-two.");
+            ::uwvm2::utils::container::array<call_indirect_cache_entry, kCallIndirectCacheEntries> call_indirect_cache{};
 
             inline call_stack_tls_state() noexcept
             {
@@ -1870,27 +1872,12 @@ namespace uwvm2::runtime::uwvm_int
             auto const* const expected_ft_ptr{type_begin + type_index};
             if(expected_ft_ptr == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
 
-            // Fast signature check: compare canonical type indices (deduplicated by signature) to avoid scanning long param lists on every call.
-            auto const& canon{module_rec.type_canon_index};
-            bool const canon_ok{canon.size() == type_total};
-            auto const expected_canon{canon_ok ? canon.index_unchecked(type_index) : type_index};
-            auto const type_begin_addr{reinterpret_cast<::std::uintptr_t>(type_begin)};
-            auto const type_end_addr{reinterpret_cast<::std::uintptr_t>(type_end)};
-            constexpr ::std::size_t kFTSize{sizeof(*type_begin)};
-
-            auto const sig_from_ft{[](::uwvm2::uwvm::runtime::storage::wasm_binfmt1_final_function_type_t const* ft) constexpr noexcept -> func_sig_view
-                                   {
-                                       return {
-                                           {valtype_kind::wasm_enum, ft->parameter.begin, static_cast<::std::size_t>(ft->parameter.end - ft->parameter.begin)},
-                                           {valtype_kind::wasm_enum, ft->result.begin,    static_cast<::std::size_t>(ft->result.end - ft->result.begin)      }
-                                       };
-                                   }};
-
             // Inline cache: the common hot case is a stable (table, selector, expected-type) triple inside a loop.
             // Cache the resolved call target to avoid repeating signature checks, pointer arithmetic and cache lookups.
+            void const* const elems_data{table->elems.data()};
+            auto const cache_index{static_cast<::std::size_t>(selector_u32) & (call_stack_tls_state::kCallIndirectCacheEntries - 1uz)};
             {
-                auto& ic{call_stack.call_indirect_cache};
-                void const* const elems_data{table->elems.data()};
+                auto& ic{call_stack.call_indirect_cache[cache_index]};
                 if(ic.table == table && ic.elems_data == elems_data && ic.selector == selector_u32 && ic.expected_ft_ptr == expected_ft_ptr &&
                    ic.elem_type == elem.type && ic.target_ptr != nullptr)
                 {
@@ -1948,6 +1935,22 @@ namespace uwvm2::runtime::uwvm_int
                 }
             }
 
+            // Fast signature check (miss path): compare canonical type indices (deduplicated by signature) to avoid scanning long param lists.
+            auto const& canon{module_rec.type_canon_index};
+            bool const canon_ok{canon.size() == type_total};
+            auto const expected_canon{canon_ok ? canon.index_unchecked(type_index) : type_index};
+            auto const type_begin_addr{reinterpret_cast<::std::uintptr_t>(type_begin)};
+            auto const type_end_addr{reinterpret_cast<::std::uintptr_t>(type_end)};
+            constexpr ::std::size_t kFTSize{sizeof(*type_begin)};
+
+            auto const sig_from_ft{[](::uwvm2::uwvm::runtime::storage::wasm_binfmt1_final_function_type_t const* ft) constexpr noexcept -> func_sig_view
+                                   {
+                                       return {
+                                           {valtype_kind::wasm_enum, ft->parameter.begin, static_cast<::std::size_t>(ft->parameter.end - ft->parameter.begin)},
+                                           {valtype_kind::wasm_enum, ft->result.begin,    static_cast<::std::size_t>(ft->result.end - ft->result.begin)      }
+                                       };
+                                   }};
+
             switch(elem.type)
             {
                 case ::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_type_t::func_ref_defined:
@@ -1996,7 +1999,7 @@ namespace uwvm2::runtime::uwvm_int
 
                     // Update inline cache.
                     {
-                        auto& ic{call_stack.call_indirect_cache};
+                        auto& ic{call_stack.call_indirect_cache[cache_index]};
                         ic.table = table;
                         ic.elems_data = table->elems.data();
                         ic.selector = selector_u32;
@@ -2064,7 +2067,7 @@ namespace uwvm2::runtime::uwvm_int
 
                     // Update inline cache.
                     {
-                        auto& ic{call_stack.call_indirect_cache};
+                        auto& ic{call_stack.call_indirect_cache[cache_index]};
                         ic.table = table;
                         ic.elems_data = table->elems.data();
                         ic.selector = selector_u32;

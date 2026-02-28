@@ -13387,7 +13387,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             auto const try_add_reduce{
                                 [&](::std::size_t want) constexpr UWVM_THROWS -> bool
                                 {
-                                    ::std::array<local_offset_t, 12uz> offs{};  // max (f64)
+                                    ::uwvm2::utils::container::array<local_offset_t, 12uz> offs{};  // max (f64)
                                     offs[0] = local_offset_from_index(local_index);
 
                                     ::std::byte const* scan{code_curr};

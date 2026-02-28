@@ -1874,7 +1874,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                                              }()};
         constexpr ::std::size_t scratch_bytes{param_bytes >= result_bytes ? param_bytes : result_bytes};
 
-        ::std::array<::std::byte, (scratch_bytes == 0uz ? 1uz : scratch_bytes)> scratch{};  // zero-init: keeps tools happy on debug builds
+        ::uwvm2::utils::container::array<::std::byte, (scratch_bytes == 0uz ? 1uz : scratch_bytes)> scratch{};  // zero-init: keeps tools happy on debug builds
         ::std::byte* scratch_top{scratch.data() + param_bytes};
 
         // Write params in canonical memory order (param0 .. paramN-1).
@@ -1944,7 +1944,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         type...[0] += sizeof(call_function);
 
         constexpr ::std::size_t param_bytes{ParamCount * sizeof(wasm_i32)};
-        ::std::array<::std::byte, param_bytes> scratch;  // uninit: fully written below (and overwritten by bridge)
+        ::uwvm2::utils::container::array<::std::byte, param_bytes> scratch;  // uninit: fully written below (and overwritten by bridge)
         ::std::byte* scratch_top{scratch.data() + param_bytes};
 
         [&]<::std::size_t... Is>(::std::index_sequence<Is...>) constexpr UWVM_THROWS
@@ -2004,7 +2004,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const local_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
 
         constexpr ::std::size_t param_bytes{ParamCount * sizeof(wasm_i32)};
-        ::std::array<::std::byte, param_bytes> scratch;
+        ::uwvm2::utils::container::array<::std::byte, param_bytes> scratch;
         ::std::byte* scratch_top{scratch.data() + param_bytes};
 
         [&]<::std::size_t... Is>(::std::index_sequence<Is...>) constexpr UWVM_THROWS
@@ -2093,7 +2093,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                                              }()};
         constexpr ::std::size_t scratch_bytes{arg_bytes >= result_bytes ? arg_bytes : result_bytes};
 
-        ::std::array<::std::byte, (scratch_bytes == 0uz ? 1uz : scratch_bytes)> scratch{};  // zero-init: keeps tools happy on debug builds
+        ::uwvm2::utils::container::array<::std::byte, (scratch_bytes == 0uz ? 1uz : scratch_bytes)> scratch{};  // zero-init: keeps tools happy on debug builds
         ::std::byte* scratch_top{scratch.data() + arg_bytes};
 
         // Write params in canonical order (param0..paramN-1). Stack layout at site: [params..., selector], currpos points at selector.
@@ -2172,7 +2172,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         constexpr ::std::size_t selector_bytes{sizeof(wasm_i32)};
         constexpr ::std::size_t arg_bytes{param_bytes + selector_bytes};
 
-        ::std::array<::std::byte, arg_bytes> scratch;  // uninit: fully written below (and overwritten by bridge)
+        ::uwvm2::utils::container::array<::std::byte, arg_bytes> scratch;  // uninit: fully written below (and overwritten by bridge)
         ::std::byte* scratch_top{scratch.data() + arg_bytes};
 
         // Write params in canonical order (param0..paramN-1). Stack layout at site: [params..., selector], currpos points at selector.
@@ -2243,7 +2243,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         constexpr ::std::size_t selector_bytes{sizeof(wasm_i32)};
         constexpr ::std::size_t arg_bytes{param_bytes + selector_bytes};
 
-        ::std::array<::std::byte, arg_bytes> scratch;
+        ::uwvm2::utils::container::array<::std::byte, arg_bytes> scratch;
         ::std::byte* scratch_top{scratch.data() + arg_bytes};
 
         [&]<::std::size_t... Is>(::std::index_sequence<Is...>) constexpr UWVM_THROWS
@@ -2334,7 +2334,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                                              }()};
         constexpr ::std::size_t scratch_bytes{param_bytes >= result_bytes ? param_bytes : result_bytes};
 
-        ::std::array<::std::byte, (scratch_bytes == 0uz ? 1uz : scratch_bytes)> scratch{};  // zero-init: keeps tools happy on debug builds
+        ::uwvm2::utils::container::array<::std::byte, (scratch_bytes == 0uz ? 1uz : scratch_bytes)> scratch{};  // zero-init: keeps tools happy on debug builds
         ::std::byte* scratch_top{scratch.data() + param_bytes};
 
         // Write params in canonical memory order (param0 .. paramN-1).
@@ -2428,7 +2428,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                                              }()};
         constexpr ::std::size_t scratch_bytes{param_bytes >= result_bytes ? param_bytes : result_bytes};
 
-        ::std::array<::std::byte, (scratch_bytes == 0uz ? 1uz : scratch_bytes)> scratch{};  // zero-init: keeps tools happy on debug builds
+        ::uwvm2::utils::container::array<::std::byte, (scratch_bytes == 0uz ? 1uz : scratch_bytes)> scratch{};  // zero-init: keeps tools happy on debug builds
         ::std::byte* scratch_top{scratch.data() + param_bytes};
 
         // Write params in canonical memory order (param0 .. paramN-1).
