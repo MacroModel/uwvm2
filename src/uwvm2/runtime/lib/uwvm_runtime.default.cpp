@@ -141,7 +141,17 @@ namespace uwvm2::runtime::uwvm_int
 
             inline call_stack_tls_state() noexcept { frames.reserve(kCallStackMaxDepth); }
 
-            inline void push(call_stack_frame fr) noexcept { frames.push_back(fr); }
+            inline void push(call_stack_frame fr) noexcept
+            {
+                if(frames.size() < frames.capacity()) [[likely]]
+                {
+                    frames.push_back_unchecked(fr);
+                }
+                else
+                {
+                    frames.push_back(fr);
+                }
+            }
 
             inline void pop() noexcept
             {
