@@ -3492,10 +3492,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                         // Fallback: preserve existing behavior (emit per-value drops).
                         auto const curr_size{operand_stack.size()};
                         if(curr_size <= target_size) { return; }
-                        for(::std::size_t i{curr_size}; i > target_size; --i)
-                        {
-                            emit_drop_typed_to_no_fill(dst, operand_stack.index_unchecked(i - 1uz).type);
-                        }
+                        for(::std::size_t i{curr_size}; i > target_size; --i) { emit_drop_typed_to_no_fill(dst, operand_stack.index_unchecked(i - 1uz).type); }
                         return;
                     }
 
@@ -3504,10 +3501,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                         // Unreachable region: do not mutate compiler-side stack-top model; emit real drops.
                         auto const curr_size{operand_stack.size()};
                         if(curr_size <= target_size) { return; }
-                        for(::std::size_t i{curr_size}; i > target_size; --i)
-                        {
-                            emit_drop_typed_to_no_fill(dst, operand_stack.index_unchecked(i - 1uz).type);
-                        }
+                        for(::std::size_t i{curr_size}; i > target_size; --i) { emit_drop_typed_to_no_fill(dst, operand_stack.index_unchecked(i - 1uz).type); }
                         return;
                     }
 
@@ -3524,7 +3518,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                     {
                         ::std::size_t bytes_total{};
                         ::std::size_t const mem_end{curr_size - cache_pops};
-                        for(::std::size_t i{target_size}; i < mem_end; ++i) { bytes_total += operand_stack_valtype_size(codegen_operand_stack.index_unchecked(i).type); }
+                        for(::std::size_t i{target_size}; i < mem_end; ++i)
+                        {
+                            bytes_total += operand_stack_valtype_size(codegen_operand_stack.index_unchecked(i).type);
+                        }
 
                         if(bytes_total != 0uz)
                         {
@@ -5098,42 +5095,42 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                 f64_mul_imm_local_settee_same,  // off1=local, imm_f64
                 f64_sub_imm_local_settee_same,  // off1=local, imm_f64
 
-	                // heavy: update_local (acc += f.unop(local.get x) -> acc)  (local.set acc)
-	                f32_acc_add_floor_localget_wait_add,    // off1=acc, off2=x
-	                f32_acc_add_ceil_localget_wait_add,     // off1=acc, off2=x
-	                f32_acc_add_trunc_localget_wait_add,    // off1=acc, off2=x
-	                f32_acc_add_nearest_localget_wait_add,  // off1=acc, off2=x
-	                f32_acc_add_abs_localget_wait_add,      // off1=acc, off2=x
-	                f32_acc_add_negabs_localget_wait_const,     // off1=acc, off2=x (next: f32.const -1.0)
-	                f32_acc_add_negabs_localget_wait_copysign,  // off1=acc, off2=x (next: f32.copysign)
-	                f32_acc_add_negabs_localget_wait_add,       // off1=acc, off2=x (next: f32.add)
+                // heavy: update_local (acc += f.unop(local.get x) -> acc)  (local.set acc)
+                f32_acc_add_floor_localget_wait_add,        // off1=acc, off2=x
+                f32_acc_add_ceil_localget_wait_add,         // off1=acc, off2=x
+                f32_acc_add_trunc_localget_wait_add,        // off1=acc, off2=x
+                f32_acc_add_nearest_localget_wait_add,      // off1=acc, off2=x
+                f32_acc_add_abs_localget_wait_add,          // off1=acc, off2=x
+                f32_acc_add_negabs_localget_wait_const,     // off1=acc, off2=x (next: f32.const -1.0)
+                f32_acc_add_negabs_localget_wait_copysign,  // off1=acc, off2=x (next: f32.copysign)
+                f32_acc_add_negabs_localget_wait_add,       // off1=acc, off2=x (next: f32.add)
 
-	                f32_acc_add_floor_localget_set_acc,    // off1=acc, off2=x
-	                f32_acc_add_ceil_localget_set_acc,     // off1=acc, off2=x
-	                f32_acc_add_trunc_localget_set_acc,    // off1=acc, off2=x
-	                f32_acc_add_nearest_localget_set_acc,  // off1=acc, off2=x
-	                f32_acc_add_abs_localget_set_acc,      // off1=acc, off2=x
-	                f32_acc_add_negabs_localget_set_acc,   // off1=acc, off2=x
+                f32_acc_add_floor_localget_set_acc,    // off1=acc, off2=x
+                f32_acc_add_ceil_localget_set_acc,     // off1=acc, off2=x
+                f32_acc_add_trunc_localget_set_acc,    // off1=acc, off2=x
+                f32_acc_add_nearest_localget_set_acc,  // off1=acc, off2=x
+                f32_acc_add_abs_localget_set_acc,      // off1=acc, off2=x
+                f32_acc_add_negabs_localget_set_acc,   // off1=acc, off2=x
 
-	                f64_acc_add_floor_localget_wait_add,    // off1=acc, off2=x
-	                f64_acc_add_ceil_localget_wait_add,     // off1=acc, off2=x
-	                f64_acc_add_trunc_localget_wait_add,    // off1=acc, off2=x
-	                f64_acc_add_nearest_localget_wait_add,  // off1=acc, off2=x
-	                f64_acc_add_abs_localget_wait_add,      // off1=acc, off2=x
-	                f64_acc_add_negabs_localget_wait_const,     // off1=acc, off2=x (next: f64.const -1.0)
-	                f64_acc_add_negabs_localget_wait_copysign,  // off1=acc, off2=x (next: f64.copysign)
-	                f64_acc_add_negabs_localget_wait_add,       // off1=acc, off2=x (next: f64.add)
+                f64_acc_add_floor_localget_wait_add,        // off1=acc, off2=x
+                f64_acc_add_ceil_localget_wait_add,         // off1=acc, off2=x
+                f64_acc_add_trunc_localget_wait_add,        // off1=acc, off2=x
+                f64_acc_add_nearest_localget_wait_add,      // off1=acc, off2=x
+                f64_acc_add_abs_localget_wait_add,          // off1=acc, off2=x
+                f64_acc_add_negabs_localget_wait_const,     // off1=acc, off2=x (next: f64.const -1.0)
+                f64_acc_add_negabs_localget_wait_copysign,  // off1=acc, off2=x (next: f64.copysign)
+                f64_acc_add_negabs_localget_wait_add,       // off1=acc, off2=x (next: f64.add)
 
-	                f64_acc_add_floor_localget_set_acc,    // off1=acc, off2=x
-	                f64_acc_add_ceil_localget_set_acc,     // off1=acc, off2=x
-	                f64_acc_add_trunc_localget_set_acc,    // off1=acc, off2=x
-	                f64_acc_add_nearest_localget_set_acc,  // off1=acc, off2=x
-	                f64_acc_add_abs_localget_set_acc,      // off1=acc, off2=x
-	                f64_acc_add_negabs_localget_set_acc,   // off1=acc, off2=x
+                f64_acc_add_floor_localget_set_acc,    // off1=acc, off2=x
+                f64_acc_add_ceil_localget_set_acc,     // off1=acc, off2=x
+                f64_acc_add_trunc_localget_set_acc,    // off1=acc, off2=x
+                f64_acc_add_nearest_localget_set_acc,  // off1=acc, off2=x
+                f64_acc_add_abs_localget_set_acc,      // off1=acc, off2=x
+                f64_acc_add_negabs_localget_set_acc,   // off1=acc, off2=x
 
-	                // heavy: const-first / imm-stack float patterns
-	                const_f32,                       // imm_f32
-	                const_f64,                       // imm_f64
+                // heavy: const-first / imm-stack float patterns
+                const_f32,                       // imm_f32
+                const_f64,                       // imm_f64
                 const_f32_localget,              // off1=src, imm_f32
                 const_f64_localget,              // off1=src, imm_f64
                 f32_div_from_imm_localtee_wait,  // off1=src, imm_f32
@@ -5289,14 +5286,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                                                  return u8"f32_acc_add_trunc_localget_wait_add";
                                                              case conbine_pending_kind::f32_acc_add_nearest_localget_wait_add:
                                                                  return u8"f32_acc_add_nearest_localget_wait_add";
-	                                                             case conbine_pending_kind::f32_acc_add_abs_localget_wait_add:
-	                                                                 return u8"f32_acc_add_abs_localget_wait_add";
-	                                                             case conbine_pending_kind::f32_acc_add_negabs_localget_wait_const:
-	                                                                 return u8"f32_acc_add_negabs_localget_wait_const";
-	                                                             case conbine_pending_kind::f32_acc_add_negabs_localget_wait_copysign:
-	                                                                 return u8"f32_acc_add_negabs_localget_wait_copysign";
-	                                                             case conbine_pending_kind::f32_acc_add_negabs_localget_wait_add:
-	                                                                 return u8"f32_acc_add_negabs_localget_wait_add";
+                                                             case conbine_pending_kind::f32_acc_add_abs_localget_wait_add:
+                                                                 return u8"f32_acc_add_abs_localget_wait_add";
+                                                             case conbine_pending_kind::f32_acc_add_negabs_localget_wait_const:
+                                                                 return u8"f32_acc_add_negabs_localget_wait_const";
+                                                             case conbine_pending_kind::f32_acc_add_negabs_localget_wait_copysign:
+                                                                 return u8"f32_acc_add_negabs_localget_wait_copysign";
+                                                             case conbine_pending_kind::f32_acc_add_negabs_localget_wait_add:
+                                                                 return u8"f32_acc_add_negabs_localget_wait_add";
                                                              case conbine_pending_kind::f32_acc_add_floor_localget_set_acc:
                                                                  return u8"f32_acc_add_floor_localget_set_acc";
                                                              case conbine_pending_kind::f32_acc_add_ceil_localget_set_acc:
@@ -5305,10 +5302,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                                                  return u8"f32_acc_add_trunc_localget_set_acc";
                                                              case conbine_pending_kind::f32_acc_add_nearest_localget_set_acc:
                                                                  return u8"f32_acc_add_nearest_localget_set_acc";
-	                                                             case conbine_pending_kind::f32_acc_add_abs_localget_set_acc:
-	                                                                 return u8"f32_acc_add_abs_localget_set_acc";
-	                                                             case conbine_pending_kind::f32_acc_add_negabs_localget_set_acc:
-	                                                                 return u8"f32_acc_add_negabs_localget_set_acc";
+                                                             case conbine_pending_kind::f32_acc_add_abs_localget_set_acc:
+                                                                 return u8"f32_acc_add_abs_localget_set_acc";
+                                                             case conbine_pending_kind::f32_acc_add_negabs_localget_set_acc:
+                                                                 return u8"f32_acc_add_negabs_localget_set_acc";
                                                              case conbine_pending_kind::f64_acc_add_floor_localget_wait_add:
                                                                  return u8"f64_acc_add_floor_localget_wait_add";
                                                              case conbine_pending_kind::f64_acc_add_ceil_localget_wait_add:
@@ -5317,14 +5314,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                                                  return u8"f64_acc_add_trunc_localget_wait_add";
                                                              case conbine_pending_kind::f64_acc_add_nearest_localget_wait_add:
                                                                  return u8"f64_acc_add_nearest_localget_wait_add";
-	                                                             case conbine_pending_kind::f64_acc_add_abs_localget_wait_add:
-	                                                                 return u8"f64_acc_add_abs_localget_wait_add";
-	                                                             case conbine_pending_kind::f64_acc_add_negabs_localget_wait_const:
-	                                                                 return u8"f64_acc_add_negabs_localget_wait_const";
-	                                                             case conbine_pending_kind::f64_acc_add_negabs_localget_wait_copysign:
-	                                                                 return u8"f64_acc_add_negabs_localget_wait_copysign";
-	                                                             case conbine_pending_kind::f64_acc_add_negabs_localget_wait_add:
-	                                                                 return u8"f64_acc_add_negabs_localget_wait_add";
+                                                             case conbine_pending_kind::f64_acc_add_abs_localget_wait_add:
+                                                                 return u8"f64_acc_add_abs_localget_wait_add";
+                                                             case conbine_pending_kind::f64_acc_add_negabs_localget_wait_const:
+                                                                 return u8"f64_acc_add_negabs_localget_wait_const";
+                                                             case conbine_pending_kind::f64_acc_add_negabs_localget_wait_copysign:
+                                                                 return u8"f64_acc_add_negabs_localget_wait_copysign";
+                                                             case conbine_pending_kind::f64_acc_add_negabs_localget_wait_add:
+                                                                 return u8"f64_acc_add_negabs_localget_wait_add";
                                                              case conbine_pending_kind::f64_acc_add_floor_localget_set_acc:
                                                                  return u8"f64_acc_add_floor_localget_set_acc";
                                                              case conbine_pending_kind::f64_acc_add_ceil_localget_set_acc:
@@ -5333,10 +5330,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                                                  return u8"f64_acc_add_trunc_localget_set_acc";
                                                              case conbine_pending_kind::f64_acc_add_nearest_localget_set_acc:
                                                                  return u8"f64_acc_add_nearest_localget_set_acc";
-	                                                             case conbine_pending_kind::f64_acc_add_abs_localget_set_acc:
-	                                                                 return u8"f64_acc_add_abs_localget_set_acc";
-	                                                             case conbine_pending_kind::f64_acc_add_negabs_localget_set_acc:
-	                                                                 return u8"f64_acc_add_negabs_localget_set_acc";
+                                                             case conbine_pending_kind::f64_acc_add_abs_localget_set_acc:
+                                                                 return u8"f64_acc_add_abs_localget_set_acc";
+                                                             case conbine_pending_kind::f64_acc_add_negabs_localget_set_acc:
+                                                                 return u8"f64_acc_add_negabs_localget_set_acc";
                                                              case conbine_pending_kind::const_f32: return u8"const_f32";
                                                              case conbine_pending_kind::const_f64: return u8"const_f64";
                                                              case conbine_pending_kind::const_f32_localget: return u8"const_f32_localget";
@@ -5673,335 +5670,329 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             emit_const_f32_to(bytecode, conbine_pending.imm_f32);
                             break;
                         }
-	                        case conbine_pending_kind::local_get_const_f64:
-	                        {
-	                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-	                            emit_const_f64_to(bytecode, conbine_pending.imm_f64);
-	                            break;
-	                        }
-	                        case conbine_pending_kind::f32_add_imm_local_settee_same:
-	                        {
-	                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32); }
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f32_add_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f32);
-	                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32); }
-	                            break;
-	                        }
-	                        case conbine_pending_kind::f32_mul_imm_local_settee_same:
-	                        {
-	                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32); }
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f32_mul_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f32);
-	                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32); }
-	                            break;
-	                        }
-	                        case conbine_pending_kind::f32_sub_imm_local_settee_same:
-	                        {
-	                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-	                            emit_const_f32_to(bytecode, conbine_pending.imm_f32);
-	                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_sub_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-	                            break;
-	                        }
-	                        case conbine_pending_kind::f64_add_imm_local_settee_same:
-	                        {
-	                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_add_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f64);
-	                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-	                            break;
-	                        }
-	                        case conbine_pending_kind::f64_mul_imm_local_settee_same:
-	                        {
-	                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_mul_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f64);
-	                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-	                            break;
-	                        }
-	                        case conbine_pending_kind::f64_sub_imm_local_settee_same:
-	                        {
-	                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-	                            emit_const_f64_to(bytecode, conbine_pending.imm_f64);
-	                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_sub_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-	                            break;
-	                        }
-		                        case conbine_pending_kind::f32_acc_add_floor_localget_wait_add:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_floor_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_ceil_localget_wait_add:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_ceil_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_trunc_localget_wait_add:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_trunc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_nearest_localget_wait_add:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_nearest_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_abs_localget_wait_add:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32); }
-		                            emit_opfunc_to(bytecode,
-		                                           translate::get_uwvmint_f32_abs_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            emit_imm_to(bytecode, conbine_pending.off2);
-		                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32); }
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_negabs_localget_wait_const:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_negabs_localget_wait_copysign:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
-		                            emit_const_f32_to(bytecode, static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>(-1.0f));
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_negabs_localget_wait_add:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
-		                            emit_const_f32_to(bytecode, static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>(-1.0f));
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_copysign_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f64_acc_add_floor_localget_wait_add:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-		                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_floor_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off2);
-	                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-	                            break;
-	                        }
-	                        case conbine_pending_kind::f64_acc_add_ceil_localget_wait_add:
-	                        {
-	                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-	                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_ceil_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off2);
-	                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-	                            break;
-	                        }
-	                        case conbine_pending_kind::f64_acc_add_trunc_localget_wait_add:
-	                        {
-	                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-	                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_trunc_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off2);
-	                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-	                            break;
-	                        }
-	                        case conbine_pending_kind::f64_acc_add_nearest_localget_wait_add:
-	                        {
-	                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-	                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_nearest_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off2);
-	                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-	                            break;
-	                        }
-		                        case conbine_pending_kind::f64_acc_add_abs_localget_wait_add:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-		                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-		                            emit_opfunc_to(bytecode,
-		                                           translate::get_uwvmint_f64_abs_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            emit_imm_to(bytecode, conbine_pending.off2);
-		                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f64_acc_add_negabs_localget_wait_const:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off2);
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f64_acc_add_negabs_localget_wait_copysign:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off2);
-		                            emit_const_f64_to(bytecode, static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>(-1.0));
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f64_acc_add_negabs_localget_wait_add:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off2);
-		                            emit_const_f64_to(bytecode, static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>(-1.0));
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_copysign_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_floor_localget_set_acc:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_floor_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_ceil_localget_set_acc:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_ceil_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_trunc_localget_set_acc:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_trunc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_nearest_localget_set_acc:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_nearest_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_abs_localget_set_acc:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32); }
-		                            emit_opfunc_to(bytecode,
-		                                           translate::get_uwvmint_f32_abs_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            emit_imm_to(bytecode, conbine_pending.off2);
-		                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32); }
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_negabs_localget_set_acc:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
-		                            emit_const_f32_to(bytecode, static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>(-1.0f));
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_copysign_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-		                            break;
-		                        }
-	                        case conbine_pending_kind::f64_acc_add_floor_localget_set_acc:
-	                        {
-	                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-	                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_floor_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off2);
-	                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-	                            break;
-	                        }
-	                        case conbine_pending_kind::f64_acc_add_ceil_localget_set_acc:
-	                        {
-	                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-	                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_ceil_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off2);
-	                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-	                            break;
-	                        }
-	                        case conbine_pending_kind::f64_acc_add_trunc_localget_set_acc:
-	                        {
-	                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-	                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_trunc_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off2);
-	                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-	                            break;
-	                        }
-	                        case conbine_pending_kind::f64_acc_add_nearest_localget_set_acc:
-	                        {
-	                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-	                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_nearest_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off2);
-	                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-	                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-	                            break;
-	                        }
-		                        case conbine_pending_kind::f64_acc_add_abs_localget_set_acc:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-		                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-		                            emit_opfunc_to(bytecode,
-		                                           translate::get_uwvmint_f64_abs_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            emit_imm_to(bytecode, conbine_pending.off2);
-		                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-		                            break;
-		                        }
-		                        case conbine_pending_kind::f64_acc_add_negabs_localget_set_acc:
-		                        {
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
-		                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off2);
-		                            emit_const_f64_to(bytecode, static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>(-1.0));
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_copysign_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-		                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-		                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
-		                            break;
-		                        }
-	                        case conbine_pending_kind::const_f32:
-	                        {
-	                            emit_const_f32_to(bytecode, conbine_pending.imm_f32);
-	                            break;
-	                        }
+                        case conbine_pending_kind::local_get_const_f64:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            emit_const_f64_to(bytecode, conbine_pending.imm_f64);
+                            break;
+                        }
+                        case conbine_pending_kind::f32_add_imm_local_settee_same:
+                        {
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32); }
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f32_add_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f32);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32); }
+                            break;
+                        }
+                        case conbine_pending_kind::f32_mul_imm_local_settee_same:
+                        {
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32); }
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f32_mul_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f32);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32); }
+                            break;
+                        }
+                        case conbine_pending_kind::f32_sub_imm_local_settee_same:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_const_f32_to(bytecode, conbine_pending.imm_f32);
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_sub_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_add_imm_local_settee_same:
+                        {
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_add_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f64);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_mul_imm_local_settee_same:
+                        {
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_mul_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f64);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_sub_imm_local_settee_same:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            emit_const_f64_to(bytecode, conbine_pending.imm_f64);
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_sub_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_floor_localget_wait_add:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_floor_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_ceil_localget_wait_add:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_ceil_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_trunc_localget_wait_add:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_trunc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_nearest_localget_wait_add:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_nearest_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_abs_localget_wait_add:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_abs_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off2);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32); }
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_negabs_localget_wait_const:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_negabs_localget_wait_copysign:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
+                            emit_const_f32_to(bytecode, static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>(-1.0f));
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_negabs_localget_wait_add:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
+                            emit_const_f32_to(bytecode, static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>(-1.0f));
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_copysign_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_floor_localget_wait_add:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_floor_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off2);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_ceil_localget_wait_add:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_ceil_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off2);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_trunc_localget_wait_add:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_trunc_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off2);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_nearest_localget_wait_add:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_nearest_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off2);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_abs_localget_wait_add:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_abs_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off2);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_negabs_localget_wait_const:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off2);
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_negabs_localget_wait_copysign:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off2);
+                            emit_const_f64_to(bytecode, static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>(-1.0));
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_negabs_localget_wait_add:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off2);
+                            emit_const_f64_to(bytecode, static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>(-1.0));
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_copysign_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_floor_localget_set_acc:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_floor_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_ceil_localget_set_acc:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_ceil_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_trunc_localget_set_acc:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_trunc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_nearest_localget_set_acc:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_nearest_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_abs_localget_set_acc:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_abs_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off2);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f32_acc_add_negabs_localget_set_acc:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f32, conbine_pending.off2);
+                            emit_const_f32_to(bytecode, static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>(-1.0f));
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_copysign_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_floor_localget_set_acc:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_floor_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off2);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_ceil_localget_set_acc:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_ceil_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off2);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_trunc_localget_set_acc:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_trunc_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off2);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_nearest_localget_set_acc:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_nearest_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off2);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_abs_localget_set_acc:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_abs_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off2);
+                            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::f64_acc_add_negabs_localget_set_acc:
+                        {
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off1);
+                            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::f64, conbine_pending.off2);
+                            emit_const_f64_to(bytecode, static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>(-1.0));
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_copysign_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            emit_opfunc_to(bytecode, translate::get_uwvmint_f64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            if constexpr(stacktop_enabled) { stacktop_after_pop_n_if_reachable(bytecode, 1uz); }
+                            break;
+                        }
+                        case conbine_pending_kind::const_f32:
+                        {
+                            emit_const_f32_to(bytecode, conbine_pending.imm_f32);
+                            break;
+                        }
                         case conbine_pending_kind::const_f64:
                         {
                             emit_const_f64_to(bytecode, conbine_pending.imm_f64);
@@ -6928,108 +6919,108 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                         {
                             return op == wasm1_code::local_tee;
                         }
-	                        case conbine_pending_kind::i32_add_imm_local_settee_same:
-	                        {
-	                            return op == wasm1_code::local_set || op == wasm1_code::local_tee;
-	                        }
+                        case conbine_pending_kind::i32_add_imm_local_settee_same:
+                        {
+                            return op == wasm1_code::local_set || op == wasm1_code::local_tee;
+                        }
 # ifdef UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS
-	                        case conbine_pending_kind::f32_add_imm_local_settee_same: [[fallthrough]];
-	                        case conbine_pending_kind::f32_mul_imm_local_settee_same: [[fallthrough]];
-	                        case conbine_pending_kind::f32_sub_imm_local_settee_same: [[fallthrough]];
-	                        case conbine_pending_kind::f64_add_imm_local_settee_same: [[fallthrough]];
-	                        case conbine_pending_kind::f64_mul_imm_local_settee_same: [[fallthrough]];
-	                        case conbine_pending_kind::f64_sub_imm_local_settee_same:
-	                        {
-	                            return op == wasm1_code::local_set;
-	                        }
-	                        case conbine_pending_kind::f32_acc_add_floor_localget_wait_add:
-	                        {
-	                            return op == wasm1_code::f32_floor || op == wasm1_code::f32_add;
-	                        }
-	                        case conbine_pending_kind::f32_acc_add_ceil_localget_wait_add:
-	                        {
-	                            return op == wasm1_code::f32_ceil || op == wasm1_code::f32_add;
-	                        }
-	                        case conbine_pending_kind::f32_acc_add_trunc_localget_wait_add:
-	                        {
-	                            return op == wasm1_code::f32_trunc || op == wasm1_code::f32_add;
-	                        }
-	                        case conbine_pending_kind::f32_acc_add_nearest_localget_wait_add:
-	                        {
-	                            return op == wasm1_code::f32_nearest || op == wasm1_code::f32_add;
-	                        }
-		                        case conbine_pending_kind::f32_acc_add_abs_localget_wait_add:
-		                        {
-		                            return op == wasm1_code::f32_abs || op == wasm1_code::f32_add;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_negabs_localget_wait_const:
-		                        {
-		                            return op == wasm1_code::f32_const;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_negabs_localget_wait_copysign:
-		                        {
-		                            return op == wasm1_code::f32_copysign;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_negabs_localget_wait_add:
-		                        {
-		                            return op == wasm1_code::f32_add;
-		                        }
-		                        case conbine_pending_kind::f32_acc_add_floor_localget_set_acc: [[fallthrough]];
-		                        case conbine_pending_kind::f32_acc_add_ceil_localget_set_acc: [[fallthrough]];
-		                        case conbine_pending_kind::f32_acc_add_trunc_localget_set_acc: [[fallthrough]];
-		                        case conbine_pending_kind::f32_acc_add_nearest_localget_set_acc: [[fallthrough]];
-		                        case conbine_pending_kind::f32_acc_add_abs_localget_set_acc: [[fallthrough]];
-		                        case conbine_pending_kind::f32_acc_add_negabs_localget_set_acc:
-		                        {
-		                            return op == wasm1_code::local_set;
-		                        }
-	                        case conbine_pending_kind::f64_acc_add_floor_localget_wait_add:
-	                        {
-	                            return op == wasm1_code::f64_floor || op == wasm1_code::f64_add;
-	                        }
-	                        case conbine_pending_kind::f64_acc_add_ceil_localget_wait_add:
-	                        {
-	                            return op == wasm1_code::f64_ceil || op == wasm1_code::f64_add;
-	                        }
-	                        case conbine_pending_kind::f64_acc_add_trunc_localget_wait_add:
-	                        {
-	                            return op == wasm1_code::f64_trunc || op == wasm1_code::f64_add;
-	                        }
-	                        case conbine_pending_kind::f64_acc_add_nearest_localget_wait_add:
-	                        {
-	                            return op == wasm1_code::f64_nearest || op == wasm1_code::f64_add;
-	                        }
-		                        case conbine_pending_kind::f64_acc_add_abs_localget_wait_add:
-		                        {
-		                            return op == wasm1_code::f64_abs || op == wasm1_code::f64_add;
-		                        }
-		                        case conbine_pending_kind::f64_acc_add_negabs_localget_wait_const:
-		                        {
-		                            return op == wasm1_code::f64_const;
-		                        }
-		                        case conbine_pending_kind::f64_acc_add_negabs_localget_wait_copysign:
-		                        {
-		                            return op == wasm1_code::f64_copysign;
-		                        }
-		                        case conbine_pending_kind::f64_acc_add_negabs_localget_wait_add:
-		                        {
-		                            return op == wasm1_code::f64_add;
-		                        }
-		                        case conbine_pending_kind::f64_acc_add_floor_localget_set_acc: [[fallthrough]];
-		                        case conbine_pending_kind::f64_acc_add_ceil_localget_set_acc: [[fallthrough]];
-		                        case conbine_pending_kind::f64_acc_add_trunc_localget_set_acc: [[fallthrough]];
-		                        case conbine_pending_kind::f64_acc_add_nearest_localget_set_acc: [[fallthrough]];
-		                        case conbine_pending_kind::f64_acc_add_abs_localget_set_acc: [[fallthrough]];
-		                        case conbine_pending_kind::f64_acc_add_negabs_localget_set_acc:
-		                        {
-		                            return op == wasm1_code::local_set;
-		                        }
+                        case conbine_pending_kind::f32_add_imm_local_settee_same: [[fallthrough]];
+                        case conbine_pending_kind::f32_mul_imm_local_settee_same: [[fallthrough]];
+                        case conbine_pending_kind::f32_sub_imm_local_settee_same: [[fallthrough]];
+                        case conbine_pending_kind::f64_add_imm_local_settee_same: [[fallthrough]];
+                        case conbine_pending_kind::f64_mul_imm_local_settee_same: [[fallthrough]];
+                        case conbine_pending_kind::f64_sub_imm_local_settee_same:
+                        {
+                            return op == wasm1_code::local_set;
+                        }
+                        case conbine_pending_kind::f32_acc_add_floor_localget_wait_add:
+                        {
+                            return op == wasm1_code::f32_floor || op == wasm1_code::f32_add;
+                        }
+                        case conbine_pending_kind::f32_acc_add_ceil_localget_wait_add:
+                        {
+                            return op == wasm1_code::f32_ceil || op == wasm1_code::f32_add;
+                        }
+                        case conbine_pending_kind::f32_acc_add_trunc_localget_wait_add:
+                        {
+                            return op == wasm1_code::f32_trunc || op == wasm1_code::f32_add;
+                        }
+                        case conbine_pending_kind::f32_acc_add_nearest_localget_wait_add:
+                        {
+                            return op == wasm1_code::f32_nearest || op == wasm1_code::f32_add;
+                        }
+                        case conbine_pending_kind::f32_acc_add_abs_localget_wait_add:
+                        {
+                            return op == wasm1_code::f32_abs || op == wasm1_code::f32_add;
+                        }
+                        case conbine_pending_kind::f32_acc_add_negabs_localget_wait_const:
+                        {
+                            return op == wasm1_code::f32_const;
+                        }
+                        case conbine_pending_kind::f32_acc_add_negabs_localget_wait_copysign:
+                        {
+                            return op == wasm1_code::f32_copysign;
+                        }
+                        case conbine_pending_kind::f32_acc_add_negabs_localget_wait_add:
+                        {
+                            return op == wasm1_code::f32_add;
+                        }
+                        case conbine_pending_kind::f32_acc_add_floor_localget_set_acc: [[fallthrough]];
+                        case conbine_pending_kind::f32_acc_add_ceil_localget_set_acc: [[fallthrough]];
+                        case conbine_pending_kind::f32_acc_add_trunc_localget_set_acc: [[fallthrough]];
+                        case conbine_pending_kind::f32_acc_add_nearest_localget_set_acc: [[fallthrough]];
+                        case conbine_pending_kind::f32_acc_add_abs_localget_set_acc: [[fallthrough]];
+                        case conbine_pending_kind::f32_acc_add_negabs_localget_set_acc:
+                        {
+                            return op == wasm1_code::local_set;
+                        }
+                        case conbine_pending_kind::f64_acc_add_floor_localget_wait_add:
+                        {
+                            return op == wasm1_code::f64_floor || op == wasm1_code::f64_add;
+                        }
+                        case conbine_pending_kind::f64_acc_add_ceil_localget_wait_add:
+                        {
+                            return op == wasm1_code::f64_ceil || op == wasm1_code::f64_add;
+                        }
+                        case conbine_pending_kind::f64_acc_add_trunc_localget_wait_add:
+                        {
+                            return op == wasm1_code::f64_trunc || op == wasm1_code::f64_add;
+                        }
+                        case conbine_pending_kind::f64_acc_add_nearest_localget_wait_add:
+                        {
+                            return op == wasm1_code::f64_nearest || op == wasm1_code::f64_add;
+                        }
+                        case conbine_pending_kind::f64_acc_add_abs_localget_wait_add:
+                        {
+                            return op == wasm1_code::f64_abs || op == wasm1_code::f64_add;
+                        }
+                        case conbine_pending_kind::f64_acc_add_negabs_localget_wait_const:
+                        {
+                            return op == wasm1_code::f64_const;
+                        }
+                        case conbine_pending_kind::f64_acc_add_negabs_localget_wait_copysign:
+                        {
+                            return op == wasm1_code::f64_copysign;
+                        }
+                        case conbine_pending_kind::f64_acc_add_negabs_localget_wait_add:
+                        {
+                            return op == wasm1_code::f64_add;
+                        }
+                        case conbine_pending_kind::f64_acc_add_floor_localget_set_acc: [[fallthrough]];
+                        case conbine_pending_kind::f64_acc_add_ceil_localget_set_acc: [[fallthrough]];
+                        case conbine_pending_kind::f64_acc_add_trunc_localget_set_acc: [[fallthrough]];
+                        case conbine_pending_kind::f64_acc_add_nearest_localget_set_acc: [[fallthrough]];
+                        case conbine_pending_kind::f64_acc_add_abs_localget_set_acc: [[fallthrough]];
+                        case conbine_pending_kind::f64_acc_add_negabs_localget_set_acc:
+                        {
+                            return op == wasm1_code::local_set;
+                        }
 # endif
-	                        case conbine_pending_kind::local_get_eqz_i32: [[fallthrough]];
-	                        case conbine_pending_kind::local_get_const_i32_cmp_brif:
-	                        {
-	                            return op == wasm1_code::br_if;
-	                        }
+                        case conbine_pending_kind::local_get_eqz_i32: [[fallthrough]];
+                        case conbine_pending_kind::local_get_const_i32_cmp_brif:
+                        {
+                            return op == wasm1_code::br_if;
+                        }
                         case conbine_pending_kind::local_get_const_i32:
                         {
                             switch(op)
@@ -9135,10 +9126,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                     emit_local_set_typed_to_no_fill(bytecode, result_type, internal_temp_local_off);
 
                                     // Drop values between [target_base .. curr_size-2].
-                                    if constexpr(stacktop_enabled)
-                                    {
-                                        emit_drop_to_stack_size_no_fill(bytecode, target_base);
-                                    }
+                                    if constexpr(stacktop_enabled) { emit_drop_to_stack_size_no_fill(bytecode, target_base); }
                                     else
                                     {
                                         for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
@@ -11011,18 +10999,12 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                             // Taken path: repair (if needed), then canonicalize (empty cache) before jumping.
                                             if(need_repair)
                                             {
-                                                if(target_arity == 0uz)
-                                                {
-                                                    emit_drop_to_stack_size_no_fill(thunks, target_base);
-                                                }
+                                                if(target_arity == 0uz) { emit_drop_to_stack_size_no_fill(thunks, target_base); }
                                                 else
                                                 {
                                                     auto const result_type{target_frame.result.begin[0]};
                                                     emit_local_set_typed_to_no_fill(thunks, result_type, internal_temp_local_off);
-                                                    if constexpr(stacktop_enabled)
-                                                    {
-                                                        emit_drop_to_stack_size_no_fill(thunks, target_base);
-                                                    }
+                                                    if constexpr(stacktop_enabled) { emit_drop_to_stack_size_no_fill(thunks, target_base); }
                                                     else
                                                     {
                                                         for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
@@ -11078,10 +11060,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                                 auto const result_type{target_frame.result.begin[0]};
                                                 emit_local_set_typed_to_no_fill(thunks, result_type, internal_temp_local_off);
 
-                                                if constexpr(stacktop_enabled)
-                                                {
-                                                    emit_drop_to_stack_size_no_fill(thunks, target_base);
-                                                }
+                                                if constexpr(stacktop_enabled) { emit_drop_to_stack_size_no_fill(thunks, target_base); }
                                                 else
                                                 {
                                                     for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
@@ -11221,10 +11200,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                     {
                                         auto const result_type{target_frame.result.begin[0]};
                                         emit_local_set_typed_to_no_fill(thunks, result_type, internal_temp_local_off);
-                                        if constexpr(stacktop_enabled)
-                                        {
-                                            emit_drop_to_stack_size_no_fill(thunks, target_base);
-                                        }
+                                        if constexpr(stacktop_enabled) { emit_drop_to_stack_size_no_fill(thunks, target_base); }
                                         else
                                         {
                                             for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
@@ -11641,10 +11617,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                     else
                                     {
                                         emit_local_set_typed_to_no_fill(thunks, expected_type, internal_temp_local_off);
-                                        if constexpr(stacktop_enabled)
-                                        {
-                                            emit_drop_to_stack_size_no_fill(thunks, target_base);
-                                        }
+                                        if constexpr(stacktop_enabled) { emit_drop_to_stack_size_no_fill(thunks, target_base); }
                                         else
                                         {
                                             for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
@@ -11790,10 +11763,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                 if(curr_size > target_base + 1uz)
                                 {
                                     emit_local_set_typed_to_no_fill(bytecode, result_type, internal_temp_local_off);
-                                    if constexpr(stacktop_enabled)
-                                    {
-                                        emit_drop_to_stack_size_no_fill(bytecode, target_base);
-                                    }
+                                    if constexpr(stacktop_enabled) { emit_drop_to_stack_size_no_fill(bytecode, target_base); }
                                     else
                                     {
                                         for(::std::size_t i{curr_size - 1uz}; i-- > target_base;)
@@ -13523,9 +13493,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             auto const local_off{local_offset_from_index(local_index)};
 
                             auto const try_emit_affine_update{
-                                [&]<typename FpT>(wasm1_code const const_op,
-                                                  wasm1_code const mul_op,
-                                                  wasm1_code const add_op) constexpr UWVM_THROWS -> bool
+                                [&]<typename FpT>(wasm1_code const const_op, wasm1_code const mul_op, wasm1_code const add_op) constexpr UWVM_THROWS -> bool
                                 {
                                     ::std::byte const* scan{code_curr};
                                     ::std::byte const* const endp{code_end};
@@ -13565,10 +13533,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
 
                                     wasm_u32 dst_local_index{};
                                     using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
-                                    auto const [dst_next, dst_err]{
-                                        ::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(scan),
-                                                                 reinterpret_cast<char8_t_const_may_alias_ptr>(endp),
-                                                                 ::fast_io::mnp::leb128_get(dst_local_index))};
+                                    auto const [dst_next, dst_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(scan),
+                                                                                            reinterpret_cast<char8_t_const_may_alias_ptr>(endp),
+                                                                                            ::fast_io::mnp::leb128_get(dst_local_index))};
                                     if(dst_err != ::fast_io::parse_code::ok || dst_local_index != local_index) { return false; }
                                     scan = reinterpret_cast<::std::byte const*>(dst_next);
 
@@ -13586,14 +13553,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                         emit_opfunc_to(
                                             bytecode,
                                             translate::get_uwvmint_f32_mul_add_2imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop,
-                                                                                                                          interpreter_tuple));
+                                                                                                                                  interpreter_tuple));
                                     }
                                     else
                                     {
                                         emit_opfunc_to(
                                             bytecode,
                                             translate::get_uwvmint_f64_mul_add_2imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop,
-                                                                                                                          interpreter_tuple));
+                                                                                                                                  interpreter_tuple));
                                     }
                                     emit_imm_to(bytecode, local_off);
                                     emit_imm_to(bytecode, mul);
@@ -13823,7 +13790,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                     // Heavy: `local.get acc; local.get x; f.unop; f.add; local.set acc` -> one mega-op (`acc += unop(x)`).
                                     // This is a big win for local-heavy kernels (e.g. round_f32/round_f64 dense loops) without enabling a generic 2-local
                                     // pending window.
-                                    if(!is_polymorphic && (curr_local_type == curr_operand_stack_value_type::f32 || curr_local_type == curr_operand_stack_value_type::f64) &&
+                                    if(!is_polymorphic &&
+                                       (curr_local_type == curr_operand_stack_value_type::f32 || curr_local_type == curr_operand_stack_value_type::f64) &&
                                        code_curr != code_end)
                                     {
                                         // Heavy: `acc += copysign(x, -1.0)` (`local.get acc; local.get x; f.const -1; f.copysign; f.add; local.set acc`)
@@ -13850,11 +13818,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                                 {
                                                     wasm_u32 next_local_index{};
                                                     using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
-                                                    auto const [next_local_index_next,
-                                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(
-                                                                                                                   code_curr + 4uz + sizeof(wasm_f32)),
-                                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-                                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
+                                                    auto const [next_local_index_next, next_local_index_err]{::fast_io::parse_by_scan(
+                                                        reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 4uz + sizeof(wasm_f32)),
+                                                        reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                        ::fast_io::mnp::leb128_get(next_local_index))};
                                                     (void)next_local_index_next;
                                                     if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
                                                        local_offset_from_index(next_local_index) == conbine_pending.off1 &&
@@ -13884,11 +13851,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                                 {
                                                     wasm_u32 next_local_index{};
                                                     using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
-                                                    auto const [next_local_index_next,
-                                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(
-                                                                                                                   code_curr + 4uz + sizeof(wasm_f64)),
-                                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-                                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
+                                                    auto const [next_local_index_next, next_local_index_err]{::fast_io::parse_by_scan(
+                                                        reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 4uz + sizeof(wasm_f64)),
+                                                        reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                        ::fast_io::mnp::leb128_get(next_local_index))};
                                                     (void)next_local_index_next;
                                                     if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
                                                        local_offset_from_index(next_local_index) == conbine_pending.off1 &&
@@ -13946,10 +13912,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                             {
                                                 wasm_u32 next_local_index{};
                                                 using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
-                                                auto const [next_local_index_next,
-                                                            next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 3uz),
-                                                                                                           reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-                                                                                                           ::fast_io::mnp::leb128_get(next_local_index))};
+                                                auto const [next_local_index_next, next_local_index_err]{
+                                                    ::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 3uz),
+                                                                             reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                             ::fast_io::mnp::leb128_get(next_local_index))};
                                                 (void)next_local_index_next;
                                                 if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
                                                    local_offset_from_index(next_local_index) == conbine_pending.off1 &&
@@ -14435,207 +14401,209 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                         }
 # endif
                         // Conbine: `local.get + const + add + local.set` (same local).
-	                        if(curr_local_type == curr_operand_stack_value_type::i32 &&
-	                           conbine_pending.kind == conbine_pending_kind::i32_add_imm_local_settee_same && local_off == conbine_pending.off1)
-	                        {
-	                            if(have_set_operand) { operand_stack_pop_unchecked(); }
-	                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_i32_add_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_i32);
-	                            conbine_pending.kind = conbine_pending_kind::none;
-	                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-	                            break;
-	                        }
+                        if(curr_local_type == curr_operand_stack_value_type::i32 &&
+                           conbine_pending.kind == conbine_pending_kind::i32_add_imm_local_settee_same && local_off == conbine_pending.off1)
+                        {
+                            if(have_set_operand) { operand_stack_pop_unchecked(); }
+                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_i32_add_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_i32);
+                            conbine_pending.kind = conbine_pending_kind::none;
+                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+                            break;
+                        }
 # ifdef UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS
-	                        // Conbine (heavy): `local.get + const + f.add/mul/sub + local.set` (same local) -> update-local mega-op.
-	                        if(curr_local_type == curr_operand_stack_value_type::f32 && conbine_pending.kind == conbine_pending_kind::f32_add_imm_local_settee_same &&
-	                           local_off == conbine_pending.off1)
-	                        {
-	                            if(have_set_operand) { operand_stack_pop_unchecked(); }
-	                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f32_add_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f32);
-	                            conbine_pending.kind = conbine_pending_kind::none;
-	                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-	                            break;
-	                        }
-	                        if(curr_local_type == curr_operand_stack_value_type::f32 && conbine_pending.kind == conbine_pending_kind::f32_mul_imm_local_settee_same &&
-	                           local_off == conbine_pending.off1)
-	                        {
-	                            if(have_set_operand) { operand_stack_pop_unchecked(); }
-	                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f32_mul_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f32);
-	                            conbine_pending.kind = conbine_pending_kind::none;
-	                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-	                            break;
-	                        }
-	                        if(curr_local_type == curr_operand_stack_value_type::f32 && conbine_pending.kind == conbine_pending_kind::f32_sub_imm_local_settee_same &&
-	                           local_off == conbine_pending.off1)
-	                        {
-	                            if(have_set_operand) { operand_stack_pop_unchecked(); }
-	                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f32_sub_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f32);
-	                            conbine_pending.kind = conbine_pending_kind::none;
-	                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-	                            break;
-	                        }
-	                        if(curr_local_type == curr_operand_stack_value_type::f64 && conbine_pending.kind == conbine_pending_kind::f64_add_imm_local_settee_same &&
-	                           local_off == conbine_pending.off1)
-	                        {
-	                            if(have_set_operand) { operand_stack_pop_unchecked(); }
-	                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_add_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f64);
-	                            conbine_pending.kind = conbine_pending_kind::none;
-	                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-	                            break;
-	                        }
-	                        if(curr_local_type == curr_operand_stack_value_type::f64 && conbine_pending.kind == conbine_pending_kind::f64_mul_imm_local_settee_same &&
-	                           local_off == conbine_pending.off1)
-	                        {
-	                            if(have_set_operand) { operand_stack_pop_unchecked(); }
-	                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_mul_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f64);
-	                            conbine_pending.kind = conbine_pending_kind::none;
-	                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-	                            break;
-	                        }
-	                        if(curr_local_type == curr_operand_stack_value_type::f64 && conbine_pending.kind == conbine_pending_kind::f64_sub_imm_local_settee_same &&
-	                           local_off == conbine_pending.off1)
-	                        {
-	                            if(have_set_operand) { operand_stack_pop_unchecked(); }
-	                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_sub_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f64);
-	                            conbine_pending.kind = conbine_pending_kind::none;
-	                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-	                            break;
-	                        }
+                        // Conbine (heavy): `local.get + const + f.add/mul/sub + local.set` (same local) -> update-local mega-op.
+                        if(curr_local_type == curr_operand_stack_value_type::f32 &&
+                           conbine_pending.kind == conbine_pending_kind::f32_add_imm_local_settee_same && local_off == conbine_pending.off1)
+                        {
+                            if(have_set_operand) { operand_stack_pop_unchecked(); }
+                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f32_add_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f32);
+                            conbine_pending.kind = conbine_pending_kind::none;
+                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+                            break;
+                        }
+                        if(curr_local_type == curr_operand_stack_value_type::f32 &&
+                           conbine_pending.kind == conbine_pending_kind::f32_mul_imm_local_settee_same && local_off == conbine_pending.off1)
+                        {
+                            if(have_set_operand) { operand_stack_pop_unchecked(); }
+                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f32_mul_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f32);
+                            conbine_pending.kind = conbine_pending_kind::none;
+                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+                            break;
+                        }
+                        if(curr_local_type == curr_operand_stack_value_type::f32 &&
+                           conbine_pending.kind == conbine_pending_kind::f32_sub_imm_local_settee_same && local_off == conbine_pending.off1)
+                        {
+                            if(have_set_operand) { operand_stack_pop_unchecked(); }
+                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f32_sub_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f32);
+                            conbine_pending.kind = conbine_pending_kind::none;
+                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+                            break;
+                        }
+                        if(curr_local_type == curr_operand_stack_value_type::f64 &&
+                           conbine_pending.kind == conbine_pending_kind::f64_add_imm_local_settee_same && local_off == conbine_pending.off1)
+                        {
+                            if(have_set_operand) { operand_stack_pop_unchecked(); }
+                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_add_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f64);
+                            conbine_pending.kind = conbine_pending_kind::none;
+                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+                            break;
+                        }
+                        if(curr_local_type == curr_operand_stack_value_type::f64 &&
+                           conbine_pending.kind == conbine_pending_kind::f64_mul_imm_local_settee_same && local_off == conbine_pending.off1)
+                        {
+                            if(have_set_operand) { operand_stack_pop_unchecked(); }
+                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_mul_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f64);
+                            conbine_pending.kind = conbine_pending_kind::none;
+                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+                            break;
+                        }
+                        if(curr_local_type == curr_operand_stack_value_type::f64 &&
+                           conbine_pending.kind == conbine_pending_kind::f64_sub_imm_local_settee_same && local_off == conbine_pending.off1)
+                        {
+                            if(have_set_operand) { operand_stack_pop_unchecked(); }
+                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_sub_imm_local_set_same_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f64);
+                            conbine_pending.kind = conbine_pending_kind::none;
+                            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+                            break;
+                        }
 
-	                        // Conbine (heavy): `local.get acc; local.get x; f.unop; f.add; local.set acc` -> one mega-op (`acc += unop(x)`).
-	                        if(curr_local_type == curr_operand_stack_value_type::f32 && local_off == conbine_pending.off1)
-	                        {
-	                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
-	                            auto emit_acc_add_unop{[&](auto fptr) constexpr UWVM_THROWS
-	                                                   {
-	                                                       if(have_set_operand) { operand_stack_pop_unchecked(); }
-	                                                       emit_opfunc_to(bytecode, fptr);
-	                                                       emit_imm_to(bytecode, conbine_pending.off2);  // x_off
-	                                                       emit_imm_to(bytecode, conbine_pending.off1);  // acc_off
-	                                                       conbine_pending.kind = conbine_pending_kind::none;
-	                                                       conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-	                                                   }};
+                        // Conbine (heavy): `local.get acc; local.get x; f.unop; f.add; local.set acc` -> one mega-op (`acc += unop(x)`).
+                        if(curr_local_type == curr_operand_stack_value_type::f32 && local_off == conbine_pending.off1)
+                        {
+                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+                            auto emit_acc_add_unop{[&](auto fptr) constexpr UWVM_THROWS
+                                                   {
+                                                       if(have_set_operand) { operand_stack_pop_unchecked(); }
+                                                       emit_opfunc_to(bytecode, fptr);
+                                                       emit_imm_to(bytecode, conbine_pending.off2);  // x_off
+                                                       emit_imm_to(bytecode, conbine_pending.off1);  // acc_off
+                                                       conbine_pending.kind = conbine_pending_kind::none;
+                                                       conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+                                                   }};
 
-	                            if(conbine_pending.kind == conbine_pending_kind::f32_acc_add_floor_localget_set_acc)
-	                            {
-	                                emit_acc_add_unop(
-	                                    translate::get_uwvmint_f32_acc_add_floor_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                                break;
-	                            }
-	                            if(conbine_pending.kind == conbine_pending_kind::f32_acc_add_ceil_localget_set_acc)
-	                            {
-	                                emit_acc_add_unop(
-	                                    translate::get_uwvmint_f32_acc_add_ceil_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                                break;
-	                            }
-	                            if(conbine_pending.kind == conbine_pending_kind::f32_acc_add_trunc_localget_set_acc)
-	                            {
-	                                emit_acc_add_unop(
-	                                    translate::get_uwvmint_f32_acc_add_trunc_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                                break;
-	                            }
-	                            if(conbine_pending.kind == conbine_pending_kind::f32_acc_add_nearest_localget_set_acc)
-	                            {
-	                                emit_acc_add_unop(
-	                                    translate::get_uwvmint_f32_acc_add_nearest_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                                break;
-	                            }
-	                            if(conbine_pending.kind == conbine_pending_kind::f32_acc_add_abs_localget_set_acc)
-	                            {
-	                                emit_acc_add_unop(
-	                                    translate::get_uwvmint_f32_acc_add_abs_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                                break;
-	                            }
-	                            if(conbine_pending.kind == conbine_pending_kind::f32_acc_add_negabs_localget_set_acc)
-	                            {
-	                                emit_acc_add_unop(
-	                                    translate::get_uwvmint_f32_acc_add_negabs_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                                break;
-	                            }
-	                        }
-	                        if(curr_local_type == curr_operand_stack_value_type::f64 && local_off == conbine_pending.off1)
-	                        {
-	                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
-	                            auto emit_acc_add_unop{[&](auto fptr) constexpr UWVM_THROWS
-	                                                   {
-	                                                       if(have_set_operand) { operand_stack_pop_unchecked(); }
-	                                                       emit_opfunc_to(bytecode, fptr);
-	                                                       emit_imm_to(bytecode, conbine_pending.off2);  // x_off
-	                                                       emit_imm_to(bytecode, conbine_pending.off1);  // acc_off
-	                                                       conbine_pending.kind = conbine_pending_kind::none;
-	                                                       conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-	                                                   }};
+                            if(conbine_pending.kind == conbine_pending_kind::f32_acc_add_floor_localget_set_acc)
+                            {
+                                emit_acc_add_unop(
+                                    translate::get_uwvmint_f32_acc_add_floor_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                                break;
+                            }
+                            if(conbine_pending.kind == conbine_pending_kind::f32_acc_add_ceil_localget_set_acc)
+                            {
+                                emit_acc_add_unop(
+                                    translate::get_uwvmint_f32_acc_add_ceil_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                                break;
+                            }
+                            if(conbine_pending.kind == conbine_pending_kind::f32_acc_add_trunc_localget_set_acc)
+                            {
+                                emit_acc_add_unop(
+                                    translate::get_uwvmint_f32_acc_add_trunc_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                                break;
+                            }
+                            if(conbine_pending.kind == conbine_pending_kind::f32_acc_add_nearest_localget_set_acc)
+                            {
+                                emit_acc_add_unop(
+                                    translate::get_uwvmint_f32_acc_add_nearest_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop,
+                                                                                                                               interpreter_tuple));
+                                break;
+                            }
+                            if(conbine_pending.kind == conbine_pending_kind::f32_acc_add_abs_localget_set_acc)
+                            {
+                                emit_acc_add_unop(
+                                    translate::get_uwvmint_f32_acc_add_abs_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                                break;
+                            }
+                            if(conbine_pending.kind == conbine_pending_kind::f32_acc_add_negabs_localget_set_acc)
+                            {
+                                emit_acc_add_unop(translate::get_uwvmint_f32_acc_add_negabs_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop,
+                                                                                                                                            interpreter_tuple));
+                                break;
+                            }
+                        }
+                        if(curr_local_type == curr_operand_stack_value_type::f64 && local_off == conbine_pending.off1)
+                        {
+                            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+                            auto emit_acc_add_unop{[&](auto fptr) constexpr UWVM_THROWS
+                                                   {
+                                                       if(have_set_operand) { operand_stack_pop_unchecked(); }
+                                                       emit_opfunc_to(bytecode, fptr);
+                                                       emit_imm_to(bytecode, conbine_pending.off2);  // x_off
+                                                       emit_imm_to(bytecode, conbine_pending.off1);  // acc_off
+                                                       conbine_pending.kind = conbine_pending_kind::none;
+                                                       conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+                                                   }};
 
-	                            if(conbine_pending.kind == conbine_pending_kind::f64_acc_add_floor_localget_set_acc)
-	                            {
-	                                emit_acc_add_unop(
-	                                    translate::get_uwvmint_f64_acc_add_floor_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                                break;
-	                            }
-	                            if(conbine_pending.kind == conbine_pending_kind::f64_acc_add_ceil_localget_set_acc)
-	                            {
-	                                emit_acc_add_unop(
-	                                    translate::get_uwvmint_f64_acc_add_ceil_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                                break;
-	                            }
-	                            if(conbine_pending.kind == conbine_pending_kind::f64_acc_add_trunc_localget_set_acc)
-	                            {
-	                                emit_acc_add_unop(
-	                                    translate::get_uwvmint_f64_acc_add_trunc_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                                break;
-	                            }
-	                            if(conbine_pending.kind == conbine_pending_kind::f64_acc_add_nearest_localget_set_acc)
-	                            {
-	                                emit_acc_add_unop(
-	                                    translate::get_uwvmint_f64_acc_add_nearest_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                                break;
-	                            }
-	                            if(conbine_pending.kind == conbine_pending_kind::f64_acc_add_abs_localget_set_acc)
-	                            {
-	                                emit_acc_add_unop(
-	                                    translate::get_uwvmint_f64_acc_add_abs_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                                break;
-	                            }
-	                            if(conbine_pending.kind == conbine_pending_kind::f64_acc_add_negabs_localget_set_acc)
-	                            {
-	                                emit_acc_add_unop(
-	                                    translate::get_uwvmint_f64_acc_add_negabs_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                                break;
-	                            }
-	                        }
+                            if(conbine_pending.kind == conbine_pending_kind::f64_acc_add_floor_localget_set_acc)
+                            {
+                                emit_acc_add_unop(
+                                    translate::get_uwvmint_f64_acc_add_floor_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                                break;
+                            }
+                            if(conbine_pending.kind == conbine_pending_kind::f64_acc_add_ceil_localget_set_acc)
+                            {
+                                emit_acc_add_unop(
+                                    translate::get_uwvmint_f64_acc_add_ceil_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                                break;
+                            }
+                            if(conbine_pending.kind == conbine_pending_kind::f64_acc_add_trunc_localget_set_acc)
+                            {
+                                emit_acc_add_unop(
+                                    translate::get_uwvmint_f64_acc_add_trunc_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                                break;
+                            }
+                            if(conbine_pending.kind == conbine_pending_kind::f64_acc_add_nearest_localget_set_acc)
+                            {
+                                emit_acc_add_unop(
+                                    translate::get_uwvmint_f64_acc_add_nearest_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop,
+                                                                                                                               interpreter_tuple));
+                                break;
+                            }
+                            if(conbine_pending.kind == conbine_pending_kind::f64_acc_add_abs_localget_set_acc)
+                            {
+                                emit_acc_add_unop(
+                                    translate::get_uwvmint_f64_acc_add_abs_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                                break;
+                            }
+                            if(conbine_pending.kind == conbine_pending_kind::f64_acc_add_negabs_localget_set_acc)
+                            {
+                                emit_acc_add_unop(translate::get_uwvmint_f64_acc_add_negabs_localget_set_acc_fptr_from_tuple<CompileOption>(curr_stacktop,
+                                                                                                                                            interpreter_tuple));
+                                break;
+                            }
+                        }
 # endif
 # ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
-	                        // Conbine (heavy): `local.get a; local.get b; f32.add; local.set dst`
-	                        if(curr_local_type == curr_operand_stack_value_type::f32 && conbine_pending.kind == conbine_pending_kind::f32_add_2localget_local_set &&
-	                           local_off == conbine_pending.off3)
-	                        {
+                        // Conbine (heavy): `local.get a; local.get b; f32.add; local.set dst`
+                        if(curr_local_type == curr_operand_stack_value_type::f32 && conbine_pending.kind == conbine_pending_kind::f32_add_2localget_local_set &&
+                           local_off == conbine_pending.off3)
+                        {
                             if(have_set_operand) { operand_stack_pop_unchecked(); }
                             namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
                             emit_opfunc_to(bytecode,
@@ -14678,27 +14646,27 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             break;
                         }
 # endif
-	                        if(conbine_pending.kind == conbine_pending_kind::i32_add_imm_local_settee_same) { flush_conbine_pending(); }
+                        if(conbine_pending.kind == conbine_pending_kind::i32_add_imm_local_settee_same) { flush_conbine_pending(); }
 # ifdef UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS
-	                        if(conbine_pending.kind == conbine_pending_kind::f32_add_imm_local_settee_same ||
-	                           conbine_pending.kind == conbine_pending_kind::f32_mul_imm_local_settee_same ||
-	                           conbine_pending.kind == conbine_pending_kind::f32_sub_imm_local_settee_same ||
-	                           conbine_pending.kind == conbine_pending_kind::f64_add_imm_local_settee_same ||
-	                           conbine_pending.kind == conbine_pending_kind::f64_mul_imm_local_settee_same ||
-	                           conbine_pending.kind == conbine_pending_kind::f64_sub_imm_local_settee_same ||
-	                           conbine_pending.kind == conbine_pending_kind::f32_acc_add_floor_localget_set_acc ||
-	                           conbine_pending.kind == conbine_pending_kind::f32_acc_add_ceil_localget_set_acc ||
-	                           conbine_pending.kind == conbine_pending_kind::f32_acc_add_trunc_localget_set_acc ||
-	                           conbine_pending.kind == conbine_pending_kind::f32_acc_add_nearest_localget_set_acc ||
-	                           conbine_pending.kind == conbine_pending_kind::f32_acc_add_abs_localget_set_acc ||
-	                           conbine_pending.kind == conbine_pending_kind::f64_acc_add_floor_localget_set_acc ||
-	                           conbine_pending.kind == conbine_pending_kind::f64_acc_add_ceil_localget_set_acc ||
-	                           conbine_pending.kind == conbine_pending_kind::f64_acc_add_trunc_localget_set_acc ||
-	                           conbine_pending.kind == conbine_pending_kind::f64_acc_add_nearest_localget_set_acc ||
-	                           conbine_pending.kind == conbine_pending_kind::f64_acc_add_abs_localget_set_acc)
-	                        {
-	                            flush_conbine_pending();
-	                        }
+                        if(conbine_pending.kind == conbine_pending_kind::f32_add_imm_local_settee_same ||
+                           conbine_pending.kind == conbine_pending_kind::f32_mul_imm_local_settee_same ||
+                           conbine_pending.kind == conbine_pending_kind::f32_sub_imm_local_settee_same ||
+                           conbine_pending.kind == conbine_pending_kind::f64_add_imm_local_settee_same ||
+                           conbine_pending.kind == conbine_pending_kind::f64_mul_imm_local_settee_same ||
+                           conbine_pending.kind == conbine_pending_kind::f64_sub_imm_local_settee_same ||
+                           conbine_pending.kind == conbine_pending_kind::f32_acc_add_floor_localget_set_acc ||
+                           conbine_pending.kind == conbine_pending_kind::f32_acc_add_ceil_localget_set_acc ||
+                           conbine_pending.kind == conbine_pending_kind::f32_acc_add_trunc_localget_set_acc ||
+                           conbine_pending.kind == conbine_pending_kind::f32_acc_add_nearest_localget_set_acc ||
+                           conbine_pending.kind == conbine_pending_kind::f32_acc_add_abs_localget_set_acc ||
+                           conbine_pending.kind == conbine_pending_kind::f64_acc_add_floor_localget_set_acc ||
+                           conbine_pending.kind == conbine_pending_kind::f64_acc_add_ceil_localget_set_acc ||
+                           conbine_pending.kind == conbine_pending_kind::f64_acc_add_trunc_localget_set_acc ||
+                           conbine_pending.kind == conbine_pending_kind::f64_acc_add_nearest_localget_set_acc ||
+                           conbine_pending.kind == conbine_pending_kind::f64_acc_add_abs_localget_set_acc)
+                        {
+                            flush_conbine_pending();
+                        }
 # endif
 
 # ifdef UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS
@@ -15545,18 +15513,17 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                                     {
                                         wasm_u32 local_index{};
                                         using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
-                                        auto const [next_ip, parse_err]{
-                                            ::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
-                                                                     reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-                                                                     ::fast_io::mnp::leb128_get(local_index))};
+                                        auto const [next_ip, parse_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
+                                                                                                 reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                                                 ::fast_io::mnp::leb128_get(local_index))};
                                         if(parse_err == ::fast_io::parse_code::ok && local_index < all_local_count &&
                                            local_type_from_index(local_index) == curr_operand_stack_value_type::i64)
                                         {
-                                            emit_opfunc_to(bytecode,
-                                                           translate::get_uwvmint_i64_load_localget_set_local_fptr_from_tuple<CompileOption>(
-                                                               curr_stacktop,
-                                                               *resolved_memory0.memory_p,
-                                                               interpreter_tuple));
+                                            emit_opfunc_to(
+                                                bytecode,
+                                                translate::get_uwvmint_i64_load_localget_set_local_fptr_from_tuple<CompileOption>(curr_stacktop,
+                                                                                                                                  *resolved_memory0.memory_p,
+                                                                                                                                  interpreter_tuple));
                                             emit_imm_to(bytecode, conbine_pending.off1);
                                             emit_imm_to(bytecode, local_offset_from_index(local_index));
                                             emit_imm_to(bytecode, resolved_memory0.memory_p);
@@ -15575,8 +15542,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
 
                                 emit_opfunc_to(bytecode,
                                                translate::get_uwvmint_i64_load_localget_off_fptr_from_tuple<CompileOption>(curr_stacktop,
-                                                                                                                            *resolved_memory0.memory_p,
-                                                                                                                            interpreter_tuple));
+                                                                                                                           *resolved_memory0.memory_p,
+                                                                                                                           interpreter_tuple));
                                 emit_imm_to(bytecode, conbine_pending.off1);
                                 emit_imm_to(bytecode, resolved_memory0.memory_p);
                                 emit_imm_to(bytecode, offset);
@@ -17072,10 +17039,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
 # ifdef UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS
                         if(!is_polymorphic && conbine_pending.kind == conbine_pending_kind::f32_acc_add_negabs_localget_wait_const)
                         {
-                            if(imm == static_cast<wasm_f32>(-1.0f))
-                            {
-                                conbine_pending.kind = conbine_pending_kind::f32_acc_add_negabs_localget_wait_copysign;
-                            }
+                            if(imm == static_cast<wasm_f32>(-1.0f)) { conbine_pending.kind = conbine_pending_kind::f32_acc_add_negabs_localget_wait_copysign; }
                             else
                             {
                                 flush_conbine_pending();
@@ -17191,10 +17155,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
 # ifdef UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS
                         if(!is_polymorphic && conbine_pending.kind == conbine_pending_kind::f64_acc_add_negabs_localget_wait_const)
                         {
-                            if(imm == static_cast<wasm_f64>(-1.0))
-                            {
-                                conbine_pending.kind = conbine_pending_kind::f64_acc_add_negabs_localget_wait_copysign;
-                            }
+                            if(imm == static_cast<wasm_f64>(-1.0)) { conbine_pending.kind = conbine_pending_kind::f64_acc_add_negabs_localget_wait_copysign; }
                             else
                             {
                                 flush_conbine_pending();
@@ -18933,14 +18894,38 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             }
                             if(!is_polymorphic && next_op == wasm1_code::local_tee)
                             {
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_i32_binop_localget_rhs_local_tee_fptr_from_tuple<
-                                        CompileOption,
-                                        ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::add>(curr_stacktop, interpreter_tuple));
-                                emit_imm_to(bytecode, conbine_pending.off1);
-                                conbine_pending.kind = conbine_pending_kind::none;
-                                break;
+                                // If `local.tee` is immediately followed by `br_if`, the translator may fuse them into
+                                // `br_if_local_tee_nz`, which means the original `local.tee` opfunc will not be
+                                // emitted as a standalone bytecode op. The delay-local `*_local_tee` mega-op relies
+                                // on skipping that standalone `local.tee` opfunc, so avoid this variant and let the
+                                // `local.tee + br_if` fusion handle the store+branch.
+                                bool const local_tee_followed_by_br_if{
+                                    [&]() constexpr UWVM_THROWS
+                                    {
+                                        wasm_u32 tmp_local_index{};
+                                        using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
+                                        auto const [next_code, parse_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
+                                                                                                   reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                                                   ::fast_io::mnp::leb128_get(tmp_local_index))};
+                                        if(parse_err != ::fast_io::parse_code::ok) { return false; }
+                                        auto const* const next_code_bytes{reinterpret_cast<::std::byte const*>(next_code)};
+                                        if(next_code_bytes == code_end) { return false; }
+                                        wasm1_code after_tee{};  // init
+                                        ::std::memcpy(::std::addressof(after_tee), next_code_bytes, sizeof(after_tee));
+                                        return after_tee == wasm1_code::br_if;
+                                    }()};
+
+                                if(!local_tee_followed_by_br_if)
+                                {
+                                    emit_opfunc_to(
+                                        bytecode,
+                                        translate::get_uwvmint_i32_binop_localget_rhs_local_tee_fptr_from_tuple<
+                                            CompileOption,
+                                            ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::add>(curr_stacktop, interpreter_tuple));
+                                    emit_imm_to(bytecode, conbine_pending.off1);
+                                    conbine_pending.kind = conbine_pending_kind::none;
+                                    break;
+                                }
                             }
 
                             emit_opfunc_to(
@@ -19720,14 +19705,33 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             }
                             if(!is_polymorphic && next_op == wasm1_code::local_tee)
                             {
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_i32_binop_localget_rhs_local_tee_fptr_from_tuple<
-                                        CompileOption,
-                                        ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::xor_>(curr_stacktop, interpreter_tuple));
-                                emit_imm_to(bytecode, conbine_pending.off1);
-                                conbine_pending.kind = conbine_pending_kind::none;
-                                break;
+                                bool const local_tee_followed_by_br_if{
+                                    [&]() constexpr UWVM_THROWS
+                                    {
+                                        wasm_u32 tmp_local_index{};
+                                        using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
+                                        auto const [next_code, parse_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
+                                                                                                   reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                                                   ::fast_io::mnp::leb128_get(tmp_local_index))};
+                                        if(parse_err != ::fast_io::parse_code::ok) { return false; }
+                                        auto const* const next_code_bytes{reinterpret_cast<::std::byte const*>(next_code)};
+                                        if(next_code_bytes == code_end) { return false; }
+                                        wasm1_code after_tee{};  // init
+                                        ::std::memcpy(::std::addressof(after_tee), next_code_bytes, sizeof(after_tee));
+                                        return after_tee == wasm1_code::br_if;
+                                    }()};
+
+                                if(!local_tee_followed_by_br_if)
+                                {
+                                    emit_opfunc_to(
+                                        bytecode,
+                                        translate::get_uwvmint_i32_binop_localget_rhs_local_tee_fptr_from_tuple<
+                                            CompileOption,
+                                            ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::xor_>(curr_stacktop, interpreter_tuple));
+                                    emit_imm_to(bytecode, conbine_pending.off1);
+                                    conbine_pending.kind = conbine_pending_kind::none;
+                                    break;
+                                }
                             }
 
                             emit_opfunc_to(
@@ -21400,37 +21404,37 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             break;
                         }
 # endif
-	                        if(conbine_pending.kind == conbine_pending_kind::local_get_const_f32)
-	                        {
-	                            // Conbine: `local.get + const + add + local.set` (same local) -> update-local mega-op.
-	                            if(!is_polymorphic && code_curr != code_end)
-	                            {
-	                                wasm1_code next_op{};  // init
-	                                ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
-	                                if(next_op == wasm1_code::local_set)
-	                                {
-	                                    wasm_u32 next_local_index{};
-	                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
-	                                    auto const [next_local_index_next,
-	                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
-	                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-	                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
-	                                    (void)next_local_index_next;
-	                                    if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
-	                                       local_offset_from_index(next_local_index) == conbine_pending.off1 &&
-	                                       local_type_from_index(next_local_index) == curr_operand_stack_value_type::f32)
-	                                    {
-	                                        conbine_pending.kind = conbine_pending_kind::f32_add_imm_local_settee_same;
-	                                        break;
-	                                    }
-	                                }
-	                            }
+                        if(conbine_pending.kind == conbine_pending_kind::local_get_const_f32)
+                        {
+                            // Conbine: `local.get + const + add + local.set` (same local) -> update-local mega-op.
+                            if(!is_polymorphic && code_curr != code_end)
+                            {
+                                wasm1_code next_op{};  // init
+                                ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
+                                if(next_op == wasm1_code::local_set)
+                                {
+                                    wasm_u32 next_local_index{};
+                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
+                                    auto const [next_local_index_next,
+                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
+                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
+                                    (void)next_local_index_next;
+                                    if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
+                                       local_offset_from_index(next_local_index) == conbine_pending.off1 &&
+                                       local_type_from_index(next_local_index) == curr_operand_stack_value_type::f32)
+                                    {
+                                        conbine_pending.kind = conbine_pending_kind::f32_add_imm_local_settee_same;
+                                        break;
+                                    }
+                                }
+                            }
 
-	                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32);
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f32_add_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f32);
+                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32);
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f32_add_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f32);
                             stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32);
                             conbine_pending.kind = conbine_pending_kind::none;
 
@@ -21541,51 +21545,51 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             conbine_pending.kind = conbine_pending_kind::none;
                             break;
                         }
-	                        if(conbine_pending.kind == conbine_pending_kind::const_f32_localget)
-	                        {
-	                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32);
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f32_sub_from_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f32);
-	                            stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32);
-	                            conbine_pending.kind = conbine_pending_kind::none;
+                        if(conbine_pending.kind == conbine_pending_kind::const_f32_localget)
+                        {
+                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32);
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f32_sub_from_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f32);
+                            stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32);
+                            conbine_pending.kind = conbine_pending_kind::none;
 
-	                            break;
-	                        }
-	                        if(conbine_pending.kind == conbine_pending_kind::local_get_const_f32)
-	                        {
-	                            // Conbine: `local.get + const + sub + local.set` (same local) -> update-local mega-op.
-	                            if(!is_polymorphic && code_curr != code_end)
-	                            {
-	                                wasm1_code next_op{};  // init
-	                                ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
-	                                if(next_op == wasm1_code::local_set)
-	                                {
-	                                    wasm_u32 next_local_index{};
-	                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
-	                                    auto const [next_local_index_next,
-	                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
-	                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-	                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
-	                                    (void)next_local_index_next;
-	                                    if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
-	                                       local_offset_from_index(next_local_index) == conbine_pending.off1 &&
-	                                       local_type_from_index(next_local_index) == curr_operand_stack_value_type::f32)
-	                                    {
-	                                        conbine_pending.kind = conbine_pending_kind::f32_sub_imm_local_settee_same;
-	                                        break;
-	                                    }
-	                                }
-	                            }
+                            break;
+                        }
+                        if(conbine_pending.kind == conbine_pending_kind::local_get_const_f32)
+                        {
+                            // Conbine: `local.get + const + sub + local.set` (same local) -> update-local mega-op.
+                            if(!is_polymorphic && code_curr != code_end)
+                            {
+                                wasm1_code next_op{};  // init
+                                ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
+                                if(next_op == wasm1_code::local_set)
+                                {
+                                    wasm_u32 next_local_index{};
+                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
+                                    auto const [next_local_index_next,
+                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
+                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
+                                    (void)next_local_index_next;
+                                    if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
+                                       local_offset_from_index(next_local_index) == conbine_pending.off1 &&
+                                       local_type_from_index(next_local_index) == curr_operand_stack_value_type::f32)
+                                    {
+                                        conbine_pending.kind = conbine_pending_kind::f32_sub_imm_local_settee_same;
+                                        break;
+                                    }
+                                }
+                            }
 
-	                            flush_conbine_pending();
-	                        }
-	                        if(conbine_pending.kind == conbine_pending_kind::float_mul_2localget_local3 && conbine_pending.vt == curr_operand_stack_value_type::f32)
-	                        {
-	                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32);
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f32_mul_sub_3localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            flush_conbine_pending();
+                        }
+                        if(conbine_pending.kind == conbine_pending_kind::float_mul_2localget_local3 && conbine_pending.vt == curr_operand_stack_value_type::f32)
+                        {
+                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32);
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f32_mul_sub_3localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
                             emit_imm_to(bytecode, conbine_pending.off1);
                             emit_imm_to(bytecode, conbine_pending.off2);
                             emit_imm_to(bytecode, conbine_pending.off3);
@@ -21679,37 +21683,37 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
 
                             break;
                         }
-	                        if(conbine_pending.kind == conbine_pending_kind::local_get_const_f32)
-	                        {
-	                            // Conbine: `local.get + const + mul + local.set` (same local) -> update-local mega-op.
-	                            if(!is_polymorphic && code_curr != code_end)
-	                            {
-	                                wasm1_code next_op{};  // init
-	                                ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
-	                                if(next_op == wasm1_code::local_set)
-	                                {
-	                                    wasm_u32 next_local_index{};
-	                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
-	                                    auto const [next_local_index_next,
-	                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
-	                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-	                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
-	                                    (void)next_local_index_next;
-	                                    if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
-	                                       local_offset_from_index(next_local_index) == conbine_pending.off1 &&
-	                                       local_type_from_index(next_local_index) == curr_operand_stack_value_type::f32)
-	                                    {
-	                                        conbine_pending.kind = conbine_pending_kind::f32_mul_imm_local_settee_same;
-	                                        break;
-	                                    }
-	                                }
-	                            }
+                        if(conbine_pending.kind == conbine_pending_kind::local_get_const_f32)
+                        {
+                            // Conbine: `local.get + const + mul + local.set` (same local) -> update-local mega-op.
+                            if(!is_polymorphic && code_curr != code_end)
+                            {
+                                wasm1_code next_op{};  // init
+                                ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
+                                if(next_op == wasm1_code::local_set)
+                                {
+                                    wasm_u32 next_local_index{};
+                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
+                                    auto const [next_local_index_next,
+                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
+                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
+                                    (void)next_local_index_next;
+                                    if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
+                                       local_offset_from_index(next_local_index) == conbine_pending.off1 &&
+                                       local_type_from_index(next_local_index) == curr_operand_stack_value_type::f32)
+                                    {
+                                        conbine_pending.kind = conbine_pending_kind::f32_mul_imm_local_settee_same;
+                                        break;
+                                    }
+                                }
+                            }
 
-	                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32);
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f32_mul_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f32);
+                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32);
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f32_mul_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f32);
                             stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32);
                             conbine_pending.kind = conbine_pending_kind::none;
 
@@ -22333,37 +22337,37 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             break;
                         }
 # endif
-	                        if(conbine_pending.kind == conbine_pending_kind::local_get_const_f64)
-	                        {
-	                            // Conbine: `local.get + const + add + local.set` (same local) -> update-local mega-op.
-	                            if(!is_polymorphic && code_curr != code_end)
-	                            {
-	                                wasm1_code next_op{};  // init
-	                                ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
-	                                if(next_op == wasm1_code::local_set)
-	                                {
-	                                    wasm_u32 next_local_index{};
-	                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
-	                                    auto const [next_local_index_next,
-	                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
-	                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-	                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
-	                                    (void)next_local_index_next;
-	                                    if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
-	                                       local_offset_from_index(next_local_index) == conbine_pending.off1 &&
-	                                       local_type_from_index(next_local_index) == curr_operand_stack_value_type::f64)
-	                                    {
-	                                        conbine_pending.kind = conbine_pending_kind::f64_add_imm_local_settee_same;
-	                                        break;
-	                                    }
-	                                }
-	                            }
+                        if(conbine_pending.kind == conbine_pending_kind::local_get_const_f64)
+                        {
+                            // Conbine: `local.get + const + add + local.set` (same local) -> update-local mega-op.
+                            if(!is_polymorphic && code_curr != code_end)
+                            {
+                                wasm1_code next_op{};  // init
+                                ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
+                                if(next_op == wasm1_code::local_set)
+                                {
+                                    wasm_u32 next_local_index{};
+                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
+                                    auto const [next_local_index_next,
+                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
+                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
+                                    (void)next_local_index_next;
+                                    if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
+                                       local_offset_from_index(next_local_index) == conbine_pending.off1 &&
+                                       local_type_from_index(next_local_index) == curr_operand_stack_value_type::f64)
+                                    {
+                                        conbine_pending.kind = conbine_pending_kind::f64_add_imm_local_settee_same;
+                                        break;
+                                    }
+                                }
+                            }
 
-	                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_add_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f64);
+                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_add_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f64);
                             stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64);
 
                             conbine_pending.kind = conbine_pending_kind::none;
@@ -22474,50 +22478,50 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
                             conbine_pending.kind = conbine_pending_kind::none;
                             break;
                         }
-	                        if(conbine_pending.kind == conbine_pending_kind::const_f64_localget)
-	                        {
-	                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_sub_from_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f64);
-	                            stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64);
-	                            conbine_pending.kind = conbine_pending_kind::none;
-	                            break;
-	                        }
-	                        if(conbine_pending.kind == conbine_pending_kind::local_get_const_f64)
-	                        {
-	                            // Conbine: `local.get + const + sub + local.set` (same local) -> update-local mega-op.
-	                            if(!is_polymorphic && code_curr != code_end)
-	                            {
-	                                wasm1_code next_op{};  // init
-	                                ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
-	                                if(next_op == wasm1_code::local_set)
-	                                {
-	                                    wasm_u32 next_local_index{};
-	                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
-	                                    auto const [next_local_index_next,
-	                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
-	                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-	                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
-	                                    (void)next_local_index_next;
-	                                    if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
-	                                       local_offset_from_index(next_local_index) == conbine_pending.off1 &&
-	                                       local_type_from_index(next_local_index) == curr_operand_stack_value_type::f64)
-	                                    {
-	                                        conbine_pending.kind = conbine_pending_kind::f64_sub_imm_local_settee_same;
-	                                        break;
-	                                    }
-	                                }
-	                            }
+                        if(conbine_pending.kind == conbine_pending_kind::const_f64_localget)
+                        {
+                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_sub_from_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f64);
+                            stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64);
+                            conbine_pending.kind = conbine_pending_kind::none;
+                            break;
+                        }
+                        if(conbine_pending.kind == conbine_pending_kind::local_get_const_f64)
+                        {
+                            // Conbine: `local.get + const + sub + local.set` (same local) -> update-local mega-op.
+                            if(!is_polymorphic && code_curr != code_end)
+                            {
+                                wasm1_code next_op{};  // init
+                                ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
+                                if(next_op == wasm1_code::local_set)
+                                {
+                                    wasm_u32 next_local_index{};
+                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
+                                    auto const [next_local_index_next,
+                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
+                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
+                                    (void)next_local_index_next;
+                                    if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
+                                       local_offset_from_index(next_local_index) == conbine_pending.off1 &&
+                                       local_type_from_index(next_local_index) == curr_operand_stack_value_type::f64)
+                                    {
+                                        conbine_pending.kind = conbine_pending_kind::f64_sub_imm_local_settee_same;
+                                        break;
+                                    }
+                                }
+                            }
 
-	                            flush_conbine_pending();
-	                        }
-	                        if(conbine_pending.kind == conbine_pending_kind::float_mul_2localget_local3 && conbine_pending.vt == curr_operand_stack_value_type::f64)
-	                        {
-	                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_mul_sub_3localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            flush_conbine_pending();
+                        }
+                        if(conbine_pending.kind == conbine_pending_kind::float_mul_2localget_local3 && conbine_pending.vt == curr_operand_stack_value_type::f64)
+                        {
+                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_mul_sub_3localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
                             emit_imm_to(bytecode, conbine_pending.off1);
                             emit_imm_to(bytecode, conbine_pending.off2);
                             emit_imm_to(bytecode, conbine_pending.off3);
@@ -22611,37 +22615,37 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_all_fro
 
                             break;
                         }
-	                        if(conbine_pending.kind == conbine_pending_kind::local_get_const_f64)
-	                        {
-	                            // Conbine: `local.get + const + mul + local.set` (same local) -> update-local mega-op.
-	                            if(!is_polymorphic && code_curr != code_end)
-	                            {
-	                                wasm1_code next_op{};  // init
-	                                ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
-	                                if(next_op == wasm1_code::local_set)
-	                                {
-	                                    wasm_u32 next_local_index{};
-	                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
-	                                    auto const [next_local_index_next,
-	                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
-	                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-	                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
-	                                    (void)next_local_index_next;
-	                                    if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
-	                                       local_offset_from_index(next_local_index) == conbine_pending.off1 &&
-	                                       local_type_from_index(next_local_index) == curr_operand_stack_value_type::f64)
-	                                    {
-	                                        conbine_pending.kind = conbine_pending_kind::f64_mul_imm_local_settee_same;
-	                                        break;
-	                                    }
-	                                }
-	                            }
+                        if(conbine_pending.kind == conbine_pending_kind::local_get_const_f64)
+                        {
+                            // Conbine: `local.get + const + mul + local.set` (same local) -> update-local mega-op.
+                            if(!is_polymorphic && code_curr != code_end)
+                            {
+                                wasm1_code next_op{};  // init
+                                ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
+                                if(next_op == wasm1_code::local_set)
+                                {
+                                    wasm_u32 next_local_index{};
+                                    using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
+                                    auto const [next_local_index_next,
+                                                next_local_index_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1),
+                                                                                               reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                                               ::fast_io::mnp::leb128_get(next_local_index))};
+                                    (void)next_local_index_next;
+                                    if(next_local_index_err == ::fast_io::parse_code::ok && next_local_index < all_local_count &&
+                                       local_offset_from_index(next_local_index) == conbine_pending.off1 &&
+                                       local_type_from_index(next_local_index) == curr_operand_stack_value_type::f64)
+                                    {
+                                        conbine_pending.kind = conbine_pending_kind::f64_mul_imm_local_settee_same;
+                                        break;
+                                    }
+                                }
+                            }
 
-	                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
-	                            emit_opfunc_to(bytecode,
-	                                           translate::get_uwvmint_f64_mul_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-	                            emit_imm_to(bytecode, conbine_pending.off1);
-	                            emit_imm_to(bytecode, conbine_pending.imm_f64);
+                            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
+                            emit_opfunc_to(bytecode,
+                                           translate::get_uwvmint_f64_mul_imm_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                            emit_imm_to(bytecode, conbine_pending.off1);
+                            emit_imm_to(bytecode, conbine_pending.imm_f64);
                             stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64);
                             conbine_pending.kind = conbine_pending_kind::none;
 
