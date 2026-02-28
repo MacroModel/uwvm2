@@ -388,11 +388,11 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         UWVM_ALWAYS_INLINE inline constexpr ::uwvm2::parser::wasm::standard::wasm1p1::type::wasm_v128 make_v128_slot_low_from_scalar(Scalar v) noexcept
         {
             using wasm_v128 = ::uwvm2::parser::wasm::standard::wasm1p1::type::wasm_v128;
-            using wasm_f32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32;
-            using wasm_f64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64;
+            using wasm_f32 [[maybe_unused]] = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32;
+            using wasm_f64 [[maybe_unused]] = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64;
             static_assert(sizeof(Scalar) <= sizeof(wasm_v128));
 
-#if defined(__ARM_NEON) & UWVM_INTERPRETER_FORCE_USE_ARM_NEON_TO_SPLIT_V128
+#if defined(__ARM_NEON) && UWVM_INTERPRETER_FORCE_USE_ARM_NEON_TO_SPLIT_V128
 # if UWVM_HAS_BUILTIN(__builtin_shufflevector)
             if constexpr(::std::endian::native != ::std::endian::big)
             {
