@@ -90,7 +90,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
         }
 
         if(
-# if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
+# if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER)
             ::uwvm2::uwvm::runtime::runtime_mode::is_runtime_mode_code_int_existed ||
 # endif
 # if defined(UWVM_RUNTIME_DEBUG_INTERPRETER)
@@ -112,7 +112,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
                                 u8"Conflicting runtime parameters: only one shortcut runtime mode parameter is allowed "
                                 u8"("
-# if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
+# if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER)
                                 u8"--runtime-int"
 #  if defined(UWVM_RUNTIME_LLVM_JIT)
                                 ,
@@ -131,7 +131,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                                 u8"--runtime-aot"
 # endif
 # if defined(UWVM_RUNTIME_DEBUG_INTERPRETER)
-#  if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_LLVM_JIT)
+#  if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER) || defined(UWVM_RUNTIME_LLVM_JIT)
                                 ,
                                 u8"|"
 #  endif

@@ -170,8 +170,11 @@ Controls the interpreter backend selection.
   - `none`: Disable interpreter support (`UWVM_DISABLE_INT`).
   - `default`: Enable and use the default interpreter (`UWVM_USE_DEFAULT_INT`).
   - `uwvm-int`: Enable and use the UWVM interpreter (`UWVM_USE_UWVM_INT`).
+  - `m3int`: Select the wasm3 interpreter transplantation optables (`UWVM_USE_M3_INT`).
+- **Impact:** `m3int` currently enables the transplanted m3-style optable set and build-time mode selection; full uwvm runtime entry-path integration remains staged separately.
 - **Example:**
   - `xmake f --enable-int=uwvm-int`
+  - `xmake f --enable-int=m3int`
 
 ### `--enable-jit=ENABLE-JIT`
 

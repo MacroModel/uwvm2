@@ -37,6 +37,9 @@
 # if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
 #  include <uwvm2/runtime/lib/uwvm_runtime.h>
 # endif
+# if defined(UWVM_RUNTIME_M3_INTERPRETER)
+#  include <uwvm2/runtime/lib/m3_runtime.h>
+# endif
 // import
 # include <fast_io.h>
 # include <uwvm2/utils/ansies/impl.h>
@@ -430,6 +433,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::run
                                 ::uwvm2::runtime::uwvm_int::full_compile_run_config cfg{};
                                 cfg.entry_function_index = resolve_default_first_entry_function_index(::uwvm2::uwvm::wasm::storage::execute_wasm.module_name);
                                 ::uwvm2::runtime::uwvm_int::full_compile_and_run_main_module(::uwvm2::uwvm::wasm::storage::execute_wasm.module_name, cfg);
+
+                                break;
+                            }
+#endif
+#if defined(UWVM_RUNTIME_M3_INTERPRETER)
+                            case ::uwvm2::uwvm::runtime::runtime_mode::runtime_compiler_t::m3_interpreter_only:
+                            {
+                                ::uwvm2::runtime::m3_int::full_compile_run_config cfg{};
+                                cfg.entry_function_index = resolve_default_first_entry_function_index(::uwvm2::uwvm::wasm::storage::execute_wasm.module_name);
+                                ::uwvm2::runtime::m3_int::full_compile_and_run_main_module(::uwvm2::uwvm::wasm::storage::execute_wasm.module_name, cfg);
 
                                 break;
                             }

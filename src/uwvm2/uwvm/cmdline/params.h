@@ -78,7 +78,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline
 #if defined(UWVM_RUNTIME_DEBUG_INTERPRETER)
             ::std::addressof(::uwvm2::uwvm::cmdline::params::runtime_debug),
 #endif
-#if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
+#if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER)
             ::std::addressof(::uwvm2::uwvm::cmdline::params::runtime_int),
 #endif
 #if defined(UWVM_RUNTIME_LLVM_JIT)

@@ -1037,8 +1037,11 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 #ifdef UWVM_RUNTIME_UWVM_INTERPRETER
                             u8" UWVM2-Interpreter"
 #endif
+#ifdef UWVM_RUNTIME_M3_INTERPRETER
+                            u8" wasm3-m3int"
+#endif
 #ifdef UWVM_RUNTIME_LLVM_JIT
-# ifdef UWVM_RUNTIME_UWVM_INTERPRETER
+# if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER)
                             u8","
 # endif
                             u8" LLVM-JIT"
@@ -1047,7 +1050,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                             u8", UWVM2-Interpreter + LLVM-JIT (Tiered)"
 #endif
 #ifdef UWVM_RUNTIME_DEBUG_INTERPRETER
-# if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_LLVM_JIT)
+# if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER) || defined(UWVM_RUNTIME_LLVM_JIT)
                             u8","
 # endif
                             u8" Debug Interpreter"

@@ -66,21 +66,24 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params
 #if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
                u8"int"
 #endif
-#if defined(UWVM_RUNTIME_UWVM_INTERPRETER) && defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
+#if defined(UWVM_RUNTIME_M3_INTERPRETER)
+               u8"m3int"
+#endif
+#if (defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER)) && defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
                u8"|"
 #endif
 #if defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
                u8"tiered"
 #endif
 #if (defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED) && defined(UWVM_RUNTIME_LLVM_JIT)) ||                                                              \
-    (defined(UWVM_RUNTIME_UWVM_INTERPRETER) && defined(UWVM_RUNTIME_LLVM_JIT))
+    ((defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER)) && defined(UWVM_RUNTIME_LLVM_JIT))
                u8"|"
 #endif
 #if defined(UWVM_RUNTIME_LLVM_JIT)
                u8"jit"
 #endif
 #if defined(UWVM_RUNTIME_DEBUG_INTERPRETER)
-# if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_LLVM_JIT)
+# if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER) || defined(UWVM_RUNTIME_LLVM_JIT)
                u8"|"
 # endif
                u8"debug-int"

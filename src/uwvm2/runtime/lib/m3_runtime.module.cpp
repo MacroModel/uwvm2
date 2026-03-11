@@ -1,4 +1,4 @@
-﻿/*************************************************************
+/*************************************************************
  * Ultimate WebAssembly Virtual Machine (Version 2)          *
  * Copyright (c) 2025-present UlteSoft. All rights reserved. *
  * Licensed under the APL-2.0 License (see LICENSE file).    *
@@ -7,7 +7,6 @@
 /**
  * @author      MacroModel
  * @version     2.0.0
- * @date        2025-03-23
  * @copyright   APL-2.0 License
  */
 
@@ -20,14 +19,9 @@
  *                                      *
  ****************************************/
 
-/// @brief      The following are the macros used by uwvm.
-/// @details    Use `push_macro` to avoid side effects on existing macros. Please use `pop_macro` in conjunction.
+import fast_io;
+import uwvm2.runtime.compiler.m3_int.straight_line;
+import uwvm2.uwvm.io;
+import uwvm2.uwvm.runtime.storage;
 
-// #pragma once
-
-#pragma pop_macro("UWVM_RUNTIME_DEBUG_INTERPRETER")
-#pragma pop_macro("UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED")
-#pragma pop_macro("UWVM_RUNTIME_LLVM_JIT")
-#pragma pop_macro("UWVM_RUNTIME_M3_INTERPRETER")
-#pragma pop_macro("UWVM_RUNTIME_UWVM_INTERPRETER")
-
+#include "m3_runtime.default.cpp"

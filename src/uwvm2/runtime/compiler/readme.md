@@ -7,6 +7,7 @@ This directory contains UWVM2 “runtime compiler” components: implementations
 - `uwvm_int/`: high-performance threaded interpreter pipeline (“u2”), including the register-ring stack-top cache design. See `uwvm_int/readme.md`.
 - `debug_int/`: debug interpreter focused on full semantic coverage and observability. See `debug_int/readme.md`.
 - `llvm_jit/`: JIT-related work (in-memory native code generation; currently sparse / work-in-progress).
+- `m3_int/`: wasm3 interpreter transplantation (`m3int`) with template-based opcode families for the m3-style execution model. See `m3_int/readme.md`.
 
 ## Notes
 

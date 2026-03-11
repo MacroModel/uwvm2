@@ -42,7 +42,7 @@
 
 UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params
 {
-#if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
+#if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER)
 
     namespace details
     {
@@ -63,7 +63,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params
 # endif
     inline constexpr ::uwvm2::utils::cmdline::parameter runtime_int{
         .name{u8"--runtime-int"},
-        .describe{u8"Shortcut selection of runtime: interpreter (lazy compile + uwvm interpreter only)."},
+        .describe{u8"Shortcut selection of runtime: interpreter (lazy compile + configured interpreter backend)."},
         .alias{::uwvm2::utils::cmdline::kns_u8_str_scatter_t{::std::addressof(details::runtime_int_alias), 1uz}},
         .handle{::std::addressof(details::runtime_int_callback)},
         .is_exist{::std::addressof(::uwvm2::uwvm::runtime::runtime_mode::is_runtime_mode_code_int_existed)},

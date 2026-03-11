@@ -94,6 +94,8 @@ function def_build()
 		add_defines("UWVM_USE_DEFAULT_INT")
 	elseif enable_int == "uwvm-int" then
 		add_defines("UWVM_USE_UWVM_INT")
+	elseif enable_int == "m3int" then
+		add_defines("UWVM_USE_M3_INT")
 	end
 
 	local enable_jit = get_config("enable-jit")
@@ -343,9 +345,11 @@ target("uwvm")
 		add_files("src/uwvm2/uwvm/main.default.cpp")
 	end
 
-	-- uwvm_runtime (uwvm_runtime interpreter runtime unit)
+	-- interpreter runtime units
 	if get_config("enable-int") == "uwvm-int" or get_config("enable-int") == "default" then
 		add_deps("uwvm_runtime")
+	elseif get_config("enable-int") == "m3int" then
+		add_deps("m3_runtime")
 	end
 
 target_end()
@@ -400,6 +404,37 @@ if get_config("enable-int") == "uwvm-int" or get_config("enable-int") == "defaul
 			add_files("src/uwvm2/runtime/lib/uwvm_runtime.default.cpp")
 		end
 		
+	target_end()
+elseif get_config("enable-int") == "m3int" then
+	target("m3_runtime")
+		set_kind("object")
+		def_build()
+		
+		add_cxflags("-fno-math-errno", "-fno-trapping-math", "-fno-rounding-math", "-ffp-contract=off")
+
+		add_includedirs("third-parties/fast_io/include")
+		add_includedirs("third-parties/bizwen/include")
+		add_includedirs("third-parties/boost_unordered/include")
+		add_includedirs("src/")
+
+		add_defines("UWVM=2")
+
+		if enable_cxx_module then
+			add_files("src/uwvm2/uwvm_predefine/**.cppm", { public = is_debug_mode })
+			add_files("src/uwvm2/utils/**.cppm", { public = is_debug_mode })
+			add_files("src/uwvm2/object/**.cppm", { public = is_debug_mode })
+			add_files("src/uwvm2/imported/**.cppm", { public = is_debug_mode })
+			add_files("src/uwvm2/parser/**.cppm", { public = is_debug_mode })
+			add_files("src/uwvm2/uwvm/**.cppm", { public = is_debug_mode })
+			add_files("src/uwvm2/runtime/compiler/m3_int/**.cppm", { public = is_debug_mode })
+		end
+
+		if enable_cxx_module then
+			add_files("src/uwvm2/runtime/lib/m3_runtime.module.cpp")
+		else
+			add_files("src/uwvm2/runtime/lib/m3_runtime.default.cpp")
+		end
+
 	target_end()
 end
 

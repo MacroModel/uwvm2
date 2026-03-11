@@ -35,6 +35,9 @@ module;
 #if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
 # include <uwvm2/runtime/lib/uwvm_runtime.h>
 #endif
+#if defined(UWVM_RUNTIME_M3_INTERPRETER)
+# include <uwvm2/runtime/lib/m3_runtime.h>
+#endif
 
 export module uwvm2.uwvm.run:run;
 

@@ -1,4 +1,4 @@
-﻿/*************************************************************
+/*************************************************************
  * Ultimate WebAssembly Virtual Machine (Version 2)          *
  * Copyright (c) 2025-present UlteSoft. All rights reserved. *
  * Licensed under the APL-2.0 License (see LICENSE file).    *
@@ -7,7 +7,6 @@
 /**
  * @author      MacroModel
  * @version     2.0.0
- * @date        2025-03-23
  * @copyright   APL-2.0 License
  */
 
@@ -20,14 +19,25 @@
  *                                      *
  ****************************************/
 
-/// @brief      The following are the macros used by uwvm.
-/// @details    Use `push_macro` to avoid side effects on existing macros. Please use `pop_macro` in conjunction.
+#pragma once
 
-// #pragma once
+#include <cstddef>
 
-#pragma pop_macro("UWVM_RUNTIME_DEBUG_INTERPRETER")
-#pragma pop_macro("UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED")
-#pragma pop_macro("UWVM_RUNTIME_LLVM_JIT")
-#pragma pop_macro("UWVM_RUNTIME_M3_INTERPRETER")
-#pragma pop_macro("UWVM_RUNTIME_UWVM_INTERPRETER")
+#ifndef UWVM_MODULE
+# include <uwvm2/utils/container/impl.h>
+#endif
 
+#ifndef UWVM_MODULE_EXPORT
+# define UWVM_MODULE_EXPORT
+#endif
+
+UWVM_MODULE_EXPORT namespace uwvm2::runtime::m3_int
+{
+    struct full_compile_run_config
+    {
+        ::std::size_t entry_function_index{};
+    };
+
+    extern "C++" void full_compile_and_run_main_module(::uwvm2::utils::container::u8string_view main_module_name,
+                                                        full_compile_run_config) noexcept;
+}  // namespace uwvm2::runtime::m3_int

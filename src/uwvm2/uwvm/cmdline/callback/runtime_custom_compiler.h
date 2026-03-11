@@ -62,7 +62,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
         //      ^^ para_curr
 
         if(
-#if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
+#if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER)
             ::uwvm2::uwvm::runtime::runtime_mode::is_runtime_mode_code_int_existed ||
 #endif
 #if defined(UWVM_RUNTIME_DEBUG_INTERPRETER)
@@ -91,7 +91,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
                                 u8"\" conflicts with shortcut runtime mode parameters "
                                 u8"("
-#if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
+#if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER)
                                 u8"--runtime-int"
 # if defined(UWVM_RUNTIME_LLVM_JIT)
                                 ,
@@ -110,7 +110,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                                 u8"--runtime-aot"
 #endif
 #if defined(UWVM_RUNTIME_DEBUG_INTERPRETER)
-# if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_LLVM_JIT)
+# if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER) || defined(UWVM_RUNTIME_LLVM_JIT)
                                 ,
                                 u8"|"
 # endif
@@ -165,6 +165,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
         if(currp1_str == u8"int")
         {
             ::uwvm2::uwvm::runtime::runtime_mode::global_runtime_compiler = ::uwvm2::uwvm::runtime::runtime_mode::runtime_compiler_t::uwvm_interpreter_only;
+        }
+        else
+#endif
+#if defined(UWVM_RUNTIME_M3_INTERPRETER)
+        if(currp1_str == u8"m3int" || currp1_str == u8"int")
+        {
+            ::uwvm2::uwvm::runtime::runtime_mode::global_runtime_compiler = ::uwvm2::uwvm::runtime::runtime_mode::runtime_compiler_t::m3_interpreter_only;
         }
         else
 #endif

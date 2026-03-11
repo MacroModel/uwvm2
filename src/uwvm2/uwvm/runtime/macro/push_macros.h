@@ -33,13 +33,17 @@
 // macro definitions
 #pragma push_macro("UWVM_RUNTIME_UWVM_INTERPRETER")
 #undef UWVM_RUNTIME_UWVM_INTERPRETER
+#pragma push_macro("UWVM_RUNTIME_M3_INTERPRETER")
+#undef UWVM_RUNTIME_M3_INTERPRETER
 #ifndef UWVM_DISABLE_INT
 # if defined(UWVM_USE_DEFAULT_INT)
 #  define UWVM_RUNTIME_UWVM_INTERPRETER
 # elif defined(UWVM_USE_UWVM_INT)
 #  define UWVM_RUNTIME_UWVM_INTERPRETER
+# elif defined(UWVM_USE_M3_INT)
+#  define UWVM_RUNTIME_M3_INTERPRETER
 # else
-#  error "Invalid interpreter mode. Please check the UWVM_USE_DEFAULT_INT or UWVM_USE_UWVM_INT macro."
+#  error "Invalid interpreter mode. Please check the UWVM_USE_DEFAULT_INT, UWVM_USE_UWVM_INT, or UWVM_USE_M3_INT macro."
 # endif
 #endif
 

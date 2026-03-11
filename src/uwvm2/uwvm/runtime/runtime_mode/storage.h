@@ -45,7 +45,7 @@
 # define UWVM_MODULE_EXPORT
 #endif
 
-#if !defined(UWVM_RUNTIME_UWVM_INTERPRETER) && !defined(UWVM_RUNTIME_LLVM_JIT) && !defined(UWVM_RUNTIME_DEBUG_INTERPRETER)
+#if !defined(UWVM_RUNTIME_UWVM_INTERPRETER) && !defined(UWVM_RUNTIME_M3_INTERPRETER) && !defined(UWVM_RUNTIME_LLVM_JIT) && !defined(UWVM_RUNTIME_DEBUG_INTERPRETER)
 # error "No runtime backend selected. Include <uwvm2/uwvm/runtime/macro/push_macros.h> before this header (or enable interpreter/JIT in build flags)."
 #endif
 
@@ -54,9 +54,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::runtime_mode
     inline bool custom_runtime_mode_existed{};      // [global]
     inline bool custom_runtime_compiler_existed{};  // [global]
 
-#if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
+#if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_M3_INTERPRETER)
     /// @brief   Whether the runtime mode is code interpreted.
-    /// @details lazy_compile + uwvm_interpreter_only
+    /// @details lazy_compile + uwvm_interpreter_only / m3_interpreter_only
     inline bool is_runtime_mode_code_int_existed{};  // [global]
 #endif
 
@@ -104,9 +104,17 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::runtime_mode
         ::uwvm2::uwvm::runtime::runtime_mode::runtime_compiler_t::llvm_jit_only
 # elif defined(UWVM_RUNTIME_UWVM_INTERPRETER)
         ::uwvm2::uwvm::runtime::runtime_mode::runtime_compiler_t::uwvm_interpreter_only
+# elif defined(UWVM_RUNTIME_M3_INTERPRETER)
+        ::uwvm2::uwvm::runtime::runtime_mode::runtime_compiler_t::m3_interpreter_only
 # endif
 #else
+# if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
         ::uwvm2::uwvm::runtime::runtime_mode::runtime_compiler_t::uwvm_interpreter_only
+# elif defined(UWVM_RUNTIME_M3_INTERPRETER)
+        ::uwvm2::uwvm::runtime::runtime_mode::runtime_compiler_t::m3_interpreter_only
+# elif defined(UWVM_RUNTIME_LLVM_JIT)
+        ::uwvm2::uwvm::runtime::runtime_mode::runtime_compiler_t::llvm_jit_only
+# endif
 #endif
     };  // [global]
 }

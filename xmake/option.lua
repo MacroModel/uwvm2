@@ -161,18 +161,21 @@ option("use-thread-local", function()
 end)
 
 option("enable-int", function()
+    set_showmenu(true)
     set_description
     (
         "enable interpreter",
         [[    none: disable interpreter.]],
         [[    defualt: use default interpreter.]],
-        [[    uwvm-int: use uwvm interpreter.]]
+        [[    uwvm-int: use uwvm interpreter.]],
+        [[    m3int: use wasm3 interpreter transplantation optables.]]
     )
     set_default("default")
-    set_values("none", "default", "uwvm-int")
+    set_values("none", "default", "uwvm-int", "m3int")
 end)
 
 option("enable-jit", function()
+    set_showmenu(true)
     set_description
     (
         "enable just-in-time compilation",
