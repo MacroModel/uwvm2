@@ -16,6 +16,7 @@ set_allowedplats("windows", "mingw", "cygwin", "linux", "djgpp", "unix", "bsd", 
 
 includes("xmake/impl.lua")
 includes("xmake/platform/impl.lua")
+add_moduledirs("xmake")
 
 -- Currently, there are no plugins.
 -- add_plugindirs("xmake/plugins")
@@ -24,6 +25,11 @@ set_defaultmode("release")
 set_allowedmodes(support_rules_table)
 
 function def_build()
+	local enable_jit = get_config("enable-jit")
+	if is_plat("macosx") and (enable_jit == "llvm" or enable_jit == "default") then
+		set_policy("build.optimization.lto", false)
+	end
+
 	if is_mode("debug") then
 		add_rules("debug")
 	elseif is_mode("release") then
@@ -96,7 +102,6 @@ function def_build()
 		add_defines("UWVM_USE_UWVM_INT")
 	end
 
-	local enable_jit = get_config("enable-jit")
 	if not enable_jit or enable_jit == "none" then
 		add_defines("UWVM_DISABLE_JIT")
 	elseif enable_jit == "default" then
@@ -176,9 +181,16 @@ function def_build()
 		-- Since neither LLVM nor Wextra supports this parameter by default, this addition prevents compilation.
 		add_cxflags("-Wimplicit-fallthrough", { force = true })
 	else
-		if not is_plat("windows") then
-			add_cxflags("-Wno-maybe-musttail-local-addr", { force = true })
-		end
+		-- Intentionally keep the non-LLVM toolchain path conservative here.
+		-- Apple clang rejects `-Wno-maybe-musttail-local-addr`, and this flag is not required for correctness.
+	end
+
+	if is_plat("macosx") and (use_llvm_toolchain or enable_jit == "llvm" or enable_jit == "default") then
+		local macos_sdk = "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk"
+		add_cxflags("-isysroot", macos_sdk, { force = true })
+		add_ldflags("-isysroot", macos_sdk, { force = true })
+		add_cxflags("-fno-lto", { force = true })
+		add_ldflags("-fno-lto", { force = true })
 	end
 
 	before_build(
@@ -283,8 +295,73 @@ function def_build()
 	)
 end
 
+local function split_whitespace_flags(text)
+	local flags = {}
+	if not text then
+		return flags
+	end
+	for token in tostring(text):gmatch("%S+") do
+		table.insert(flags, token)
+	end
+	return flags
+end
+
+local function apply_llvm_jit_compile_settings()
+	on_load(function(target)
+		import("utility.utility")
+		local raw_info = utility.get_llvm_jit_buildinfo()
+		if not raw_info then
+			return
+		end
+
+		target:add("sysincludedirs", raw_info.includedir)
+		target:add("defines", "__STDC_CONSTANT_MACROS", "__STDC_FORMAT_MACROS", "__STDC_LIMIT_MACROS")
+	end)
+end
+
+local function apply_llvm_jit_link_settings()
+	on_load(function(target)
+		import("utility.utility")
+		local raw_info = utility.get_llvm_jit_buildinfo()
+		if not raw_info then
+			return
+		end
+
+		local links = {}
+		local syslinks = {}
+
+		for _, token in ipairs(split_whitespace_flags(raw_info.libs)) do
+			if token:startswith("-l") and #token > 2 then
+				table.insert(links, token:sub(3))
+			end
+		end
+
+		for _, token in ipairs(split_whitespace_flags(raw_info.system_libs)) do
+			if token:startswith("-l") and #token > 2 then
+				table.insert(syslinks, token:sub(3))
+			end
+		end
+
+		target:add("linkdirs", raw_info.libdir)
+		target:add("rpathdirs", raw_info.libdir)
+		if #links ~= 0 then
+			target:add("links", table.unpack(links))
+		end
+		if #syslinks ~= 0 then
+			target:add("syslinks", table.unpack(syslinks))
+		end
+	end)
+end
+
 target("uwvm")
 	set_kind("binary")
+	if get_config("enable-jit") == "llvm" or get_config("enable-jit") == "default" then
+		set_toolchains("llvm")
+		if is_plat("macosx") then
+			set_toolset("ld", "/Library/Developer/CommandLineTools/usr/bin/clang++")
+			set_toolset("sh", "/Library/Developer/CommandLineTools/usr/bin/clang++")
+		end
+	end
 	def_build()
 
 	-- uwvm uses precise floating-point model to ensure determinism.
@@ -349,17 +426,29 @@ target("uwvm")
 	end
 
 	-- uwvm_runtime (uwvm_runtime interpreter runtime unit)
-	if get_config("enable-int") == "uwvm-int" or get_config("enable-int") == "default" then
+	if get_config("enable-int") == "uwvm-int" or get_config("enable-int") == "default" or
+	   get_config("enable-jit") == "llvm" or get_config("enable-jit") == "default" then
 		add_deps("uwvm_runtime")
+	end
+
+	if get_config("enable-jit") == "llvm" or get_config("enable-jit") == "default" then
+		apply_llvm_jit_link_settings()
 	end
 
 target_end()
 
 -- uwvm_runtime: build the interpreter/runtime execution unit separately so it can use its own FP flags.
-if get_config("enable-int") == "uwvm-int" or get_config("enable-int") == "default" then
+if get_config("enable-int") == "uwvm-int" or get_config("enable-int") == "default" or
+   get_config("enable-jit") == "llvm" or get_config("enable-jit") == "default" then
 	target("uwvm_runtime")
 		set_kind("object")
+		if get_config("enable-jit") == "llvm" or get_config("enable-jit") == "default" then
+			set_toolchains("llvm")
+			set_policy("build.optimization.lto", false)
+		end
 		def_build()
+		local is_debug_mode = is_mode("debug")
+		local enable_cxx_module = get_config("use-cxx-module")
 			
 		-- Interpreter/runtime execution unit: disable observable floating-point side effects
 		-- (errno, traps, dynamic rounding, and FMA contraction) to preserve WebAssembly FP semantics.
@@ -381,6 +470,10 @@ if get_config("enable-int") == "uwvm-int" or get_config("enable-int") == "defaul
 		add_includedirs("src/")
 
 		add_defines("UWVM=2")
+
+		if get_config("enable-jit") == "llvm" or get_config("enable-jit") == "default" then
+			apply_llvm_jit_compile_settings()
+		end
 
 		if enable_cxx_module then
 			-- uwvm predefine
@@ -411,9 +504,15 @@ if get_config("enable-int") == "uwvm-int" or get_config("enable-int") == "defaul
 		if enable_cxx_module then
 			-- uwvm int main
 			add_files("src/uwvm2/runtime/lib/uwvm_runtime.module.cpp")
+			if get_config("enable-jit") == "llvm" or get_config("enable-jit") == "default" then
+				add_files("src/uwvm2/runtime/lib/llvm_jit_runtime.module.cpp")
+			end
 		else
 			-- uwvm int main
 			add_files("src/uwvm2/runtime/lib/uwvm_runtime.default.cpp")
+			if get_config("enable-jit") == "llvm" or get_config("enable-jit") == "default" then
+				add_files("src/uwvm2/runtime/lib/llvm_jit_runtime.default.cpp")
+			end
 		end
 		
 	target_end()

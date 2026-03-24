@@ -174,6 +174,31 @@ function get_sysroot_option()
     end
 end
 
+---Get LLVM JIT build info from llvm-config
+---@return table<string, any> | nil
+function get_llvm_jit_buildinfo()
+    local enable_jit = get_config("enable-jit")
+    if enable_jit ~= "llvm" and enable_jit ~= "default" then
+        return nil
+    end
+
+    local includedir = try { function() return string.trim(os.iorunv("llvm-config", { "--includedir" })) end }
+    local libdir = try { function() return string.trim(os.iorunv("llvm-config", { "--libdir" })) end }
+    local libs = try { function() return os.iorunv("llvm-config", { "--libs", "core", "executionengine", "mcjit", "native", "orcjit" }) end }
+    local system_libs = try { function() return os.iorunv("llvm-config", { "--system-libs", "core", "executionengine", "mcjit", "native", "orcjit" }) end }
+
+    if not includedir or includedir == "" or not libdir or libdir == "" then
+        raise("LLVM JIT is enabled but llvm-config was not found or returned an incomplete configuration.")
+    end
+
+    return {
+        includedir = includedir,
+        libdir = libdir,
+        libs = libs or "",
+        system_libs = system_libs or ""
+    }
+end
+
 ---Get march options
 ---@param target string --Target platform
 ---@param toolchain string --Type of toolchain

@@ -68,9 +68,11 @@ namespace uwvm2::runtime::uwvm_int
     {
         using wasm_value_type = ::uwvm2::parser::wasm::standard::wasm1::type::value_type;
         using wasm_i32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32;
+        using wasm_u32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32;
 
         using runtime_module_storage_t = ::uwvm2::uwvm::runtime::storage::wasm_module_storage_t;
         using runtime_imported_func_storage_t = ::uwvm2::uwvm::runtime::storage::imported_function_storage_t;
+        using runtime_imported_memory_storage_t = ::uwvm2::uwvm::runtime::storage::imported_memory_storage_t;
         using runtime_local_func_storage_t = ::uwvm2::uwvm::runtime::storage::local_defined_function_storage_t;
         using runtime_table_storage_t = ::uwvm2::uwvm::runtime::storage::local_defined_table_storage_t;
         using runtime_table_elem_storage_t = ::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_t;
@@ -2206,6 +2208,79 @@ namespace uwvm2::runtime::uwvm_int
             };
         }
 
+        struct resolved_native_memory_bridge_t
+        {
+            native_memory_t* memory_p{};
+            ::std::size_t max_limit_memory_length{};
+        };
+
+        template <typename LimitsT>
+        [[nodiscard]] inline constexpr ::std::size_t max_limit_memory_length_from_limits(LimitsT const& limits) noexcept
+        {
+            if(!limits.present_max) { return ::std::numeric_limits<::std::size_t>::max(); }
+
+            ::std::size_t const max_pages{static_cast<::std::size_t>(limits.max)};
+            constexpr ::std::size_t wasm_page_bytes{65536uz};
+            if(max_pages > (::std::numeric_limits<::std::size_t>::max() / wasm_page_bytes)) { return ::std::numeric_limits<::std::size_t>::max(); }
+            return max_pages * wasm_page_bytes;
+        }
+
+        [[nodiscard]] inline bool
+            resolve_native_memory_bridge(runtime_module_storage_t const& module,
+                                         ::std::size_t memory_index,
+                                         resolved_native_memory_bridge_t& resolved) noexcept
+        {
+            auto const imported_count{module.imported_memory_vec_storage.size()};
+            if(memory_index < imported_count)
+            {
+                auto const& imported_memory{module.imported_memory_vec_storage.index_unchecked(memory_index)};
+                auto const* const import_type_ptr{imported_memory.import_type_ptr};
+                if(import_type_ptr == nullptr) [[unlikely]] { return false; }
+
+                resolved.max_limit_memory_length = max_limit_memory_length_from_limits(import_type_ptr->imports.storage.memory.limits);
+
+                auto const* curr{::std::addressof(imported_memory)};
+                for(;;)
+                {
+                    if(curr == nullptr) [[unlikely]] { return false; }
+
+                    using memory_link_kind = runtime_imported_memory_storage_t::imported_memory_link_kind;
+                    switch(curr->link_kind)
+                    {
+                        case memory_link_kind::imported:
+                        {
+                            curr = curr->target.imported_ptr;
+                            continue;
+                        }
+                        case memory_link_kind::defined:
+                        {
+                            auto* const def{curr->target.defined_ptr};
+                            if(def == nullptr) [[unlikely]] { return false; }
+                            resolved.memory_p = ::std::addressof(def->memory);
+                            return true;
+                        }
+                        case memory_link_kind::local_imported: [[fallthrough]];
+                        case memory_link_kind::unresolved: [[fallthrough]];
+                        default:
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            auto const local_index{memory_index - imported_count};
+            if(local_index >= module.local_defined_memory_vec_storage.size()) [[unlikely]] { return false; }
+
+            auto& local_memory{module.local_defined_memory_vec_storage.index_unchecked(local_index)};
+            auto const* const memory_type_ptr{local_memory.memory_type_ptr};
+            if(memory_type_ptr == nullptr) [[unlikely]] { return false; }
+
+            resolved.memory_p = const_cast<native_memory_t*>(::std::addressof(local_memory.memory));
+            resolved.max_limit_memory_length = max_limit_memory_length_from_limits(memory_type_ptr->limits);
+            return true;
+        }
+
         inline void ensure_bridges_initialized() noexcept;
         inline void compile_all_modules_if_needed() noexcept;
 
@@ -2220,6 +2295,129 @@ namespace uwvm2::runtime::uwvm_int
         inline void trap_integer_divide_by_zero() noexcept { trap_fatal(trap_kind::integer_divide_by_zero); }
 
         inline void trap_integer_overflow() noexcept { trap_fatal(trap_kind::integer_overflow); }
+
+        inline void memory_grow_bridge_impl(::std::size_t wasm_module_id, ::std::size_t memory_index, ::std::byte** stack_top_ptr) UWVM_THROWS
+        {
+            if(stack_top_ptr == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+            if(wasm_module_id >= g_runtime.modules.size()) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+            auto const& module_rec{g_runtime.modules.index_unchecked(wasm_module_id)};
+            auto const* const runtime_module{module_rec.runtime_module};
+            if(runtime_module == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+            resolved_native_memory_bridge_t resolved{};
+            if(!resolve_native_memory_bridge(*runtime_module, memory_index, resolved) || resolved.memory_p == nullptr) [[unlikely]]
+            {
+                ::fast_io::fast_terminate();
+            }
+
+            wasm_i32 delta_i32{};
+            *stack_top_ptr -= sizeof(delta_i32);
+            ::std::memcpy(::std::addressof(delta_i32), *stack_top_ptr, sizeof(delta_i32));
+
+            auto* const memory_p{resolved.memory_p};
+            auto const delta_pages{static_cast<::std::size_t>(static_cast<::std::uint_least32_t>(delta_i32))};
+            auto const old_pages{static_cast<::std::size_t>(memory_p->get_page_size())};
+
+            wasm_i32 result_pages{};
+            if(::uwvm2::object::memory::flags::grow_strict)
+            {
+                bool const ok{memory_p->grow_strictly(delta_pages, resolved.max_limit_memory_length)};
+                result_pages = ok ? static_cast<wasm_i32>(old_pages) : static_cast<wasm_i32>(-1);
+            }
+            else
+            {
+                auto const limit_pages{resolved.max_limit_memory_length >> memory_p->custom_page_size_log2};
+                if(old_pages > limit_pages || delta_pages > (limit_pages - old_pages)) [[unlikely]]
+                {
+                    result_pages = static_cast<wasm_i32>(-1);
+                }
+                else
+                {
+                    memory_p->grow_silently(delta_pages, resolved.max_limit_memory_length);
+                    result_pages = static_cast<wasm_i32>(old_pages);
+                }
+            }
+
+            ::std::memcpy(*stack_top_ptr, ::std::addressof(result_pages), sizeof(result_pages));
+            *stack_top_ptr += sizeof(result_pages);
+        }
+
+        inline void memory_i32_load_bridge_impl(::std::size_t wasm_module_id,
+                                                ::std::size_t memory_index,
+                                                ::std::size_t static_offset,
+                                                ::std::byte** stack_top_ptr) UWVM_THROWS
+        {
+            if(stack_top_ptr == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+            if(wasm_module_id >= g_runtime.modules.size()) [[unlikely]] { ::fast_io::fast_terminate(); }
+            if(static_offset > ::std::numeric_limits<wasm_u32>::max()) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+            auto const& module_rec{g_runtime.modules.index_unchecked(wasm_module_id)};
+            auto const* const runtime_module{module_rec.runtime_module};
+            if(runtime_module == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+            resolved_native_memory_bridge_t resolved{};
+            if(!resolve_native_memory_bridge(*runtime_module, memory_index, resolved) || resolved.memory_p == nullptr) [[unlikely]]
+            {
+                ::fast_io::fast_terminate();
+            }
+
+            wasm_i32 addr{};
+            *stack_top_ptr -= sizeof(addr);
+            ::std::memcpy(::std::addressof(addr), *stack_top_ptr, sizeof(addr));
+
+            auto const eff65{
+                ::uwvm2::runtime::compiler::uwvm_int::optable::details::wasm32_effective_offset(addr, static_cast<wasm_u32>(static_offset))};
+            auto const& memory{*resolved.memory_p};
+            [[maybe_unused]] auto guard{::uwvm2::runtime::compiler::uwvm_int::optable::details::lock_memory(memory)};
+            ::uwvm2::runtime::compiler::uwvm_int::optable::details::check_memory_bounds_unlocked(
+                memory, memory_index, static_cast<::std::uint_least64_t>(static_offset), eff65, 4uz);
+
+            auto const eff{static_cast<::std::size_t>(eff65.offset)};
+            auto const out{::uwvm2::runtime::compiler::uwvm_int::optable::details::load_i32_le(
+                ::uwvm2::runtime::compiler::uwvm_int::optable::details::ptr_add_u64(memory.memory_begin, eff))};
+
+            ::std::memcpy(*stack_top_ptr, ::std::addressof(out), sizeof(out));
+            *stack_top_ptr += sizeof(out);
+        }
+
+        inline void memory_i32_store_bridge_impl(::std::size_t wasm_module_id,
+                                                 ::std::size_t memory_index,
+                                                 ::std::size_t static_offset,
+                                                 ::std::byte** stack_top_ptr) UWVM_THROWS
+        {
+            if(stack_top_ptr == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+            if(wasm_module_id >= g_runtime.modules.size()) [[unlikely]] { ::fast_io::fast_terminate(); }
+            if(static_offset > ::std::numeric_limits<wasm_u32>::max()) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+            auto const& module_rec{g_runtime.modules.index_unchecked(wasm_module_id)};
+            auto const* const runtime_module{module_rec.runtime_module};
+            if(runtime_module == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+            resolved_native_memory_bridge_t resolved{};
+            if(!resolve_native_memory_bridge(*runtime_module, memory_index, resolved) || resolved.memory_p == nullptr) [[unlikely]]
+            {
+                ::fast_io::fast_terminate();
+            }
+
+            wasm_i32 value{};
+            wasm_i32 addr{};
+            *stack_top_ptr -= sizeof(value);
+            ::std::memcpy(::std::addressof(value), *stack_top_ptr, sizeof(value));
+            *stack_top_ptr -= sizeof(addr);
+            ::std::memcpy(::std::addressof(addr), *stack_top_ptr, sizeof(addr));
+
+            auto const eff65{
+                ::uwvm2::runtime::compiler::uwvm_int::optable::details::wasm32_effective_offset(addr, static_cast<wasm_u32>(static_offset))};
+            auto const& memory{*resolved.memory_p};
+            [[maybe_unused]] auto guard{::uwvm2::runtime::compiler::uwvm_int::optable::details::lock_memory(memory)};
+            ::uwvm2::runtime::compiler::uwvm_int::optable::details::check_memory_bounds_unlocked(
+                memory, memory_index, static_cast<::std::uint_least64_t>(static_offset), eff65, 4uz);
+
+            auto const eff{static_cast<::std::size_t>(eff65.offset)};
+            ::uwvm2::runtime::compiler::uwvm_int::optable::details::store_i32_le(
+                ::uwvm2::runtime::compiler::uwvm_int::optable::details::ptr_add_u64(memory.memory_begin, eff), value);
+        }
 
         inline void call_bridge(::std::size_t wasm_module_id, ::std::size_t func_index, ::std::byte** stack_top_ptr) UWVM_THROWS
         {
@@ -2999,6 +3197,73 @@ namespace uwvm2::runtime::uwvm_int
         // Currently only main-thread execution exists. Clean up current thread state on exit to avoid state growth and
         // possible thread-id reuse issues. Do NOT `clear()` here: main-thread exit does not imply other threads exit.
         erase_current_thread_state();
+    }
+
+    void ensure_runtime_ready() noexcept { compile_all_modules_if_needed(); }
+
+    [[nodiscard]] ::std::size_t runtime_module_id_from_name(::uwvm2::utils::container::u8string_view module_name) noexcept
+    {
+        compile_all_modules_if_needed();
+
+        auto const it{g_runtime.module_name_to_id.find(module_name)};
+        if(it == g_runtime.module_name_to_id.end()) [[unlikely]] { return ::std::numeric_limits<::std::size_t>::max(); }
+        return it->second;
+    }
+
+    [[nodiscard]] bool runtime_defined_call_info_at(::std::size_t module_id,
+                                                    ::std::size_t local_function_index,
+                                                    ::uwvm2::runtime::compiler::uwvm_int::optable::compiled_defined_call_info* out) noexcept
+    {
+        if(out == nullptr) [[unlikely]] { return false; }
+
+        compile_all_modules_if_needed();
+
+        if(module_id >= g_runtime.modules.size()) [[unlikely]] { return false; }
+
+        auto const& module_rec{g_runtime.modules.index_unchecked(module_id)};
+        if(local_function_index >= module_rec.compiled.local_defined_call_info.size()) [[unlikely]] { return false; }
+
+        *out = module_rec.compiled.local_defined_call_info.index_unchecked(local_function_index);
+        return true;
+    }
+
+    void invoke_function_bridge(::std::size_t module_id, ::std::size_t function_index, ::std::byte** stack_top_ptr) noexcept
+    {
+        compile_all_modules_if_needed();
+        call_bridge(module_id, function_index, stack_top_ptr);
+    }
+
+    void invoke_function_call_indirect_bridge(::std::size_t module_id,
+                                              ::std::size_t type_index,
+                                              ::std::size_t table_index,
+                                              ::std::byte** stack_top_ptr) noexcept
+    {
+        compile_all_modules_if_needed();
+        call_indirect_bridge(module_id, type_index, table_index, stack_top_ptr);
+    }
+
+    void invoke_memory_grow_bridge(::std::size_t module_id, ::std::size_t memory_index, ::std::byte** stack_top_ptr) noexcept
+    {
+        compile_all_modules_if_needed();
+        memory_grow_bridge_impl(module_id, memory_index, stack_top_ptr);
+    }
+
+    void invoke_memory_i32_load_bridge(::std::size_t module_id,
+                                       ::std::size_t memory_index,
+                                       ::std::size_t static_offset,
+                                       ::std::byte** stack_top_ptr) noexcept
+    {
+        compile_all_modules_if_needed();
+        memory_i32_load_bridge_impl(module_id, memory_index, static_offset, stack_top_ptr);
+    }
+
+    void invoke_memory_i32_store_bridge(::std::size_t module_id,
+                                        ::std::size_t memory_index,
+                                        ::std::size_t static_offset,
+                                        ::std::byte** stack_top_ptr) noexcept
+    {
+        compile_all_modules_if_needed();
+        memory_i32_store_bridge_impl(module_id, memory_index, static_offset, stack_top_ptr);
     }
 
     [[nodiscard]] ::std::size_t preload_memory_descriptor_count_host_api() noexcept { return preload_memory_descriptor_count_impl(); }
