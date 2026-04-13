@@ -1,3 +1,155 @@
+#if defined(UWVM_LLVM_JIT_EMIT_OPCODE_CASES)
+
+case wasm1_code::drop:
+{
+    ++code_curr;
+
+    if(operand_stack.empty()) [[unlikely]] { return result; }
+    operand_stack.pop_back();
+    break;
+}
+case wasm1_code::select:
+{
+    ++code_curr;
+
+    if(operand_stack.size() < 3uz) [[unlikely]] { return result; }
+
+    auto const condition{operand_stack.back()};
+    operand_stack.pop_back();
+    auto const false_value{operand_stack.back()};
+    operand_stack.pop_back();
+    auto const true_value{operand_stack.back()};
+    operand_stack.pop_back();
+
+    if(condition.type != runtime_operand_stack_value_type::i32 || condition.value == nullptr || false_value.value == nullptr || true_value.value == nullptr ||
+       true_value.type != false_value.type) [[unlikely]]
+    {
+        return result;
+    }
+
+    auto* zero{::llvm::ConstantInt::get(condition.value->getType(), 0u)};
+    auto* cond_i1{ir_builder.CreateICmpNE(condition.value, zero)};
+    push_operand(true_value.type, ir_builder.CreateSelect(cond_i1, true_value.value, false_value.value));
+    break;
+}
+case wasm1_code::local_get:
+{
+    ++code_curr;
+
+    validation_module_traits_t::wasm_u32 local_index{};
+    if(!parse_wasm_leb128_immediate(code_curr, code_end, local_index)) [[unlikely]] { return result; }
+
+    auto const idx{static_cast<::std::size_t>(local_index)};
+    if(idx >= local_pointers.size()) [[unlikely]] { return result; }
+
+    auto const local_type{local_types[idx]};
+    auto* llvm_local_type{get_llvm_type_from_wasm_value_type(llvm_context, local_type)};
+    if(llvm_local_type == nullptr) [[unlikely]] { return result; }
+
+    push_operand(local_type, ir_builder.CreateLoad(llvm_local_type, local_pointers[idx], "local.get"));
+    break;
+}
+case wasm1_code::local_set:
+{
+    ++code_curr;
+
+    validation_module_traits_t::wasm_u32 local_index{};
+    if(!parse_wasm_leb128_immediate(code_curr, code_end, local_index)) [[unlikely]] { return result; }
+
+    auto const idx{static_cast<::std::size_t>(local_index)};
+    if(idx >= local_pointers.size() || operand_stack.empty()) [[unlikely]] { return result; }
+
+    auto const value{operand_stack.back()};
+    operand_stack.pop_back();
+
+    if(value.type != local_types[idx] || value.value == nullptr) [[unlikely]] { return result; }
+
+    ir_builder.CreateStore(value.value, local_pointers[idx]);
+    break;
+}
+case wasm1_code::local_tee:
+{
+    ++code_curr;
+
+    validation_module_traits_t::wasm_u32 local_index{};
+    if(!parse_wasm_leb128_immediate(code_curr, code_end, local_index)) [[unlikely]] { return result; }
+
+    auto const idx{static_cast<::std::size_t>(local_index)};
+    if(idx >= local_pointers.size() || operand_stack.empty()) [[unlikely]] { return result; }
+
+    auto const& value{operand_stack.back()};
+    if(value.type != local_types[idx] || value.value == nullptr) [[unlikely]] { return result; }
+
+    ir_builder.CreateStore(value.value, local_pointers[idx]);
+    break;
+}
+case wasm1_code::global_get:
+{
+    ++code_curr;
+
+    auto const* runtime_module_ptr{local_func_storage.runtime_module_ptr};
+    if(runtime_module_ptr == nullptr) [[unlikely]] { return result; }
+
+    validation_module_traits_t::wasm_u32 global_index{};
+    if(!parse_wasm_leb128_immediate(code_curr, code_end, global_index)) [[unlikely]] { return result; }
+
+    auto const global_access_info{resolve_runtime_global_access_info(*runtime_module_ptr, global_index)};
+    auto* llvm_global_type{get_llvm_type_from_wasm_value_type(llvm_context, global_access_info.value_type)};
+    if(llvm_global_type == nullptr) [[unlikely]] { return result; }
+
+    if(global_access_info.storage_ptr != nullptr)
+    {
+        auto* global_pointer{get_llvm_global_storage_pointer(llvm_context, global_access_info.storage_ptr, global_access_info.value_type)};
+        if(global_pointer == nullptr) [[unlikely]] { return result; }
+
+        push_operand(global_access_info.value_type, ir_builder.CreateLoad(llvm_global_type, global_pointer, "global.get"));
+        break;
+    }
+
+    if(global_access_info.local_imported_module_ptr == nullptr) [[unlikely]] { return result; }
+    auto* bridge_call{emit_local_imported_global_get_bridge_call(global_access_info, llvm_global_type)};
+    if(bridge_call == nullptr) [[unlikely]] { return result; }
+
+    push_operand(global_access_info.value_type, bridge_call);
+    break;
+}
+case wasm1_code::global_set:
+{
+    ++code_curr;
+
+    auto const* runtime_module_ptr{local_func_storage.runtime_module_ptr};
+    if(runtime_module_ptr == nullptr) [[unlikely]] { return result; }
+
+    validation_module_traits_t::wasm_u32 global_index{};
+    if(!parse_wasm_leb128_immediate(code_curr, code_end, global_index)) [[unlikely]] { return result; }
+
+    auto const global_access_info{resolve_runtime_global_access_info(*runtime_module_ptr, global_index)};
+    if(!global_access_info.is_mutable || operand_stack.empty()) [[unlikely]] { return result; }
+
+    auto const value{operand_stack.back()};
+    operand_stack.pop_back();
+    if(value.type != global_access_info.value_type || value.value == nullptr) [[unlikely]] { return result; }
+
+    if(global_access_info.storage_ptr != nullptr)
+    {
+        auto* global_pointer{get_llvm_global_storage_pointer(llvm_context, global_access_info.storage_ptr, global_access_info.value_type)};
+        if(global_pointer == nullptr) [[unlikely]] { return result; }
+
+        ir_builder.CreateStore(value.value, global_pointer);
+        break;
+    }
+
+    if(global_access_info.local_imported_module_ptr == nullptr) [[unlikely]] { return result; }
+
+    auto* llvm_value_type{get_llvm_type_from_wasm_value_type(llvm_context, global_access_info.value_type)};
+    if(llvm_value_type == nullptr) [[unlikely]] { return result; }
+    auto* bridge_call{emit_local_imported_global_set_bridge_call(global_access_info, llvm_value_type, value.value)};
+    if(bridge_call == nullptr) [[unlikely]] { return result; }
+    break;
+}
+
+#else
+
 case wasm1_code::drop:
 {
     // drop   ...
@@ -552,3 +704,5 @@ case wasm1_code::global_set:
 
     break;
 }
+
+#endif

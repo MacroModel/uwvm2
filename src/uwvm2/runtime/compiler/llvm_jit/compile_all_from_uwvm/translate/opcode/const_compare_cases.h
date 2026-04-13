@@ -1,3 +1,492 @@
+#if defined(UWVM_LLVM_JIT_EMIT_OPCODE_CASES)
+
+case wasm1_code::i32_const:
+{
+    ++code_curr;
+
+    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32 imm{};
+    if(!parse_wasm_leb128_immediate(code_curr, code_end, imm)) [[unlikely]] { return result; }
+
+    push_operand(runtime_operand_stack_value_type::i32,
+                 ::llvm::ConstantInt::getSigned(::llvm::Type::getInt32Ty(llvm_context), static_cast<::std::int_least64_t>(imm)));
+    break;
+}
+case wasm1_code::i64_const:
+{
+    ++code_curr;
+
+    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64 imm{};
+    if(!parse_wasm_leb128_immediate(code_curr, code_end, imm)) [[unlikely]] { return result; }
+
+    push_operand(runtime_operand_stack_value_type::i64,
+                 ::llvm::ConstantInt::getSigned(::llvm::Type::getInt64Ty(llvm_context), static_cast<::std::int_least64_t>(imm)));
+    break;
+}
+case wasm1_code::f32_const:
+{
+    ++code_curr;
+
+    ::std::uint_least32_t bits{};
+    if(!parse_wasm_little_endian_immediate(code_curr, code_end, bits)) [[unlikely]] { return result; }
+
+    push_operand(runtime_operand_stack_value_type::f32, get_llvm_f32_constant_from_bits(llvm_context, bits));
+    break;
+}
+case wasm1_code::f64_const:
+{
+    ++code_curr;
+
+    ::std::uint_least64_t bits{};
+    if(!parse_wasm_little_endian_immediate(code_curr, code_end, bits)) [[unlikely]] { return result; }
+
+    push_operand(runtime_operand_stack_value_type::f64, get_llvm_f64_constant_from_bits(llvm_context, bits));
+    break;
+}
+case wasm1_code::i32_eqz:
+{
+    ++code_curr;
+
+    if(!emit_unary(runtime_operand_stack_value_type::i32,
+                   runtime_operand_stack_value_type::i32,
+                   [&](llvm_jit_stack_value_t const& operand)
+                   { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpEQ(operand.value, ::llvm::ConstantInt::get(operand.value->getType(), 0u))); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i64_eqz:
+{
+    ++code_curr;
+
+    if(!emit_unary(runtime_operand_stack_value_type::i64,
+                   runtime_operand_stack_value_type::i32,
+                   [&](llvm_jit_stack_value_t const& operand)
+                   { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpEQ(operand.value, ::llvm::ConstantInt::get(operand.value->getType(), 0u))); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i32_eq:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpEQ(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i32_ne:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpNE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i32_lt_s:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpSLT(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i32_lt_u:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpULT(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i32_gt_s:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpSGT(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i32_gt_u:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpUGT(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i32_le_s:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpSLE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i32_le_u:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpULE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i32_ge_s:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpSGE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i32_ge_u:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpUGE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i64_eq:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpEQ(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i64_ne:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpNE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i64_lt_s:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpSLT(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i64_lt_u:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpULT(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i64_gt_s:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpSGT(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i64_gt_u:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpUGT(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i64_le_s:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpSLE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i64_le_u:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpULE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i64_ge_s:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpSGE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::i64_ge_u:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::i64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateICmpUGE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::f32_eq:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::f32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateFCmpOEQ(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::f32_ne:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::f32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateFCmpUNE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::f32_lt:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::f32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateFCmpOLT(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::f32_gt:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::f32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateFCmpOGT(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::f32_le:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::f32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateFCmpOLE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::f32_ge:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::f32,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateFCmpOGE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::f64_eq:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::f64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateFCmpOEQ(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::f64_ne:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::f64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateFCmpUNE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::f64_lt:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::f64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateFCmpOLT(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::f64_gt:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::f64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateFCmpOGT(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::f64_le:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::f64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateFCmpOLE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+case wasm1_code::f64_ge:
+{
+    ++code_curr;
+
+    if(!emit_binary(runtime_operand_stack_value_type::f64,
+                    runtime_operand_stack_value_type::i32,
+                    [&](llvm_jit_stack_value_t const& left, llvm_jit_stack_value_t const& right)
+                    { return coerce_llvm_bool_to_i32(ir_builder, ir_builder.CreateFCmpOGE(left.value, right.value)); }))
+    {
+        return result;
+    }
+    break;
+}
+
+#else
+
 case wasm1_code::i32_const:
 {
     // i32.const i32 ...
@@ -346,3 +835,5 @@ case wasm1_code::f64_ge:
     validate_numeric_binary(u8"f64.ge", curr_operand_stack_value_type::f64, curr_operand_stack_value_type::i32);
     break;
 }
+
+#endif

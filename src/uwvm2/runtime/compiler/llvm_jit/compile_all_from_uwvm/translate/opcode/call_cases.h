@@ -1,3 +1,183 @@
+#if defined(UWVM_LLVM_JIT_EMIT_OPCODE_CASES)
+
+case wasm1_code::call:
+{
+    ++code_curr;
+
+    auto const* runtime_module_ptr{local_func_storage.runtime_module_ptr};
+    if(runtime_module_ptr == nullptr) [[unlikely]] { return result; }
+
+    validation_module_traits_t::wasm_u32 func_index{};
+    if(!parse_wasm_leb128_immediate(code_curr, code_end, func_index)) [[unlikely]] { return result; }
+
+    auto const* callee_type_ptr{resolve_runtime_callee_function_type(*runtime_module_ptr, func_index)};
+    if(callee_type_ptr == nullptr) [[unlikely]] { return result; }
+
+    auto const prepared_call{prepare_wasm_call_operands(*callee_type_ptr)};
+    if(!prepared_call.valid) [[unlikely]] { return result; }
+
+    auto const abi_layout{prepared_call.abi_layout};
+
+    auto const import_func_count{runtime_module_ptr->imported_function_vec_storage.size()};
+    if(static_cast<::std::size_t>(func_index) < import_func_count)
+    {
+        auto const callee_resolution{resolve_runtime_direct_callee(*runtime_module_ptr, func_index)};
+        if(!callee_resolution.state_valid) [[unlikely]] { return result; }
+
+        if(callee_resolution.direct_callable && callee_resolution.function_type_ptr != nullptr &&
+           runtime_wasm_function_types_equal(*callee_resolution.function_type_ptr, *callee_type_ptr))
+        {
+            auto* call_value{
+                emit_direct_wasm_call_value(*runtime_module_ptr, callee_resolution.func_index, *callee_resolution.function_type_ptr, prepared_call.arguments)};
+            if(!push_wasm_call_result(prepared_call, call_value)) [[unlikely]] { return result; }
+            break;
+        }
+
+        auto* llvm_intptr_type{::llvm::Type::getIntNTy(llvm_context, static_cast<unsigned>(sizeof(::std::uintptr_t) * 8u))};
+        auto* llvm_i32_type{::llvm::Type::getInt32Ty(llvm_context)};
+        auto const raw_bridge_result{emit_runtime_raw_host_bridge_call(
+            *callee_type_ptr,
+            {prepared_call.arguments.data(), prepared_call.arguments.size()},
+            "call.params",
+            "call.result.buf",
+            [&](llvm_jit_runtime_raw_call_buffers_t const& raw_call_buffers) -> ::llvm::CallInst*
+            {
+                auto* bridge_function_type{get_llvm_runtime_raw_call_bridge_function_type(llvm_context)};
+                return emit_runtime_bridge_call(::uwvm2::runtime::lib::llvm_jit_call_raw_host_api,
+                                               bridge_function_type,
+                                               {::llvm::ConstantInt::get(llvm_intptr_type, reinterpret_cast<::std::uintptr_t>(runtime_module_ptr)),
+                                                ::llvm::ConstantInt::get(llvm_i32_type, func_index),
+                                                raw_call_buffers.result_buffer_address,
+                                                ::llvm::ConstantInt::get(llvm_intptr_type, abi_layout.result_bytes),
+                                                raw_call_buffers.param_buffer_address,
+                                                ::llvm::ConstantInt::get(llvm_intptr_type, abi_layout.parameter_bytes)});
+            })};
+        if(!raw_bridge_result.valid) [[unlikely]] { return result; }
+
+        if(!push_wasm_call_result(prepared_call, raw_bridge_result.result_value)) [[unlikely]] { return result; }
+        break;
+    }
+
+    auto* call_value{emit_direct_wasm_call_value(*runtime_module_ptr, func_index, *callee_type_ptr, prepared_call.arguments)};
+    if(!push_wasm_call_result(prepared_call, call_value)) [[unlikely]] { return result; }
+    break;
+}
+case wasm1_code::call_indirect:
+{
+    ++code_curr;
+
+    auto const* runtime_module_ptr{local_func_storage.runtime_module_ptr};
+    if(runtime_module_ptr == nullptr) [[unlikely]] { return result; }
+
+    validation_module_traits_t::wasm_u32 type_index{};
+    validation_module_traits_t::wasm_u32 table_index{};
+    if(!parse_wasm_leb128_immediate(code_curr, code_end, type_index) || !parse_wasm_leb128_immediate(code_curr, code_end, table_index))
+        [[unlikely]]
+    {
+        return result;
+    }
+
+    auto const all_table_count{
+        runtime_module_ptr->imported_table_vec_storage.size() + runtime_module_ptr->local_defined_table_vec_storage.size()};
+    if(static_cast<::std::size_t>(table_index) >= all_table_count) [[unlikely]] { return result; }
+
+    auto const* callee_type_ptr{resolve_runtime_type_section_function_type(*runtime_module_ptr, type_index)};
+    if(callee_type_ptr == nullptr) [[unlikely]] { return result; }
+
+    auto const abi_layout{get_runtime_wasm_call_abi_layout(*callee_type_ptr)};
+    if(!abi_layout.valid || operand_stack.size() < abi_layout.parameter_count + 1uz)
+        [[unlikely]]
+    {
+        return result;
+    }
+
+    auto const selector{operand_stack.back()};
+    operand_stack.pop_back();
+    if(selector.type != runtime_operand_stack_value_type::i32 || selector.value == nullptr) [[unlikely]] { return result; }
+
+    auto const prepared_call{prepare_wasm_call_operands(*callee_type_ptr)};
+    if(!prepared_call.valid) [[unlikely]] { return result; }
+
+    auto* llvm_i32_type{::llvm::Type::getInt32Ty(llvm_context)};
+    auto* llvm_intptr_type{::llvm::Type::getIntNTy(llvm_context, static_cast<unsigned>(sizeof(::std::uintptr_t) * 8u))};
+
+    auto const expected_type_id{resolve_runtime_canonical_type_id(*runtime_module_ptr, type_index)};
+    if(expected_type_id == invalid_runtime_canonical_type_id()) [[unlikely]] { return result; }
+
+    auto const* table_view_begin{runtime_module_ptr->llvm_jit_call_indirect_table_views.data()};
+    if(table_view_begin == nullptr) [[unlikely]] { return result; }
+
+    auto const raw_bridge_result{emit_runtime_raw_host_bridge_call(
+        *callee_type_ptr,
+        {prepared_call.arguments.data(), prepared_call.arguments.size()},
+        "call_indirect.params",
+        "call_indirect.result.buf",
+        [&](llvm_jit_runtime_raw_call_buffers_t const& raw_call_buffers) -> ::llvm::CallInst*
+        {
+            auto* raw_entry_function_type{get_llvm_runtime_raw_call_target_entry_function_type(llvm_context)};
+            auto* raw_target_struct_type{get_llvm_runtime_raw_call_target_struct_type(llvm_context)};
+            auto* table_view_struct_type{get_llvm_runtime_call_indirect_table_view_struct_type(llvm_context)};
+            if(raw_entry_function_type == nullptr || raw_target_struct_type == nullptr || table_view_struct_type == nullptr) [[unlikely]]
+            {
+                return nullptr;
+            }
+
+            auto* table_view_base_ptr{
+                get_llvm_host_pointer_constant(reinterpret_cast<::std::uintptr_t>(table_view_begin), get_llvm_pointer_type(table_view_struct_type))};
+            if(table_view_base_ptr == nullptr) [[unlikely]] { return nullptr; }
+
+            auto* selector_index{ir_builder.CreateZExt(selector.value, llvm_intptr_type, "call_indirect.selector.index")};
+            auto* table_view_ptr{ir_builder.CreateInBoundsGEP(table_view_struct_type,
+                                                              table_view_base_ptr,
+                                                              {::llvm::ConstantInt::get(llvm_intptr_type, table_index)},
+                                                              "call_indirect.table_view.ptr")};
+            auto* table_data_address_ptr{ir_builder.CreateStructGEP(table_view_struct_type, table_view_ptr, 0u, "call_indirect.table.data.addr.ptr")};
+            auto* table_size_ptr{ir_builder.CreateStructGEP(table_view_struct_type, table_view_ptr, 1u, "call_indirect.table.size.ptr")};
+            auto* table_data_address{ir_builder.CreateLoad(llvm_intptr_type, table_data_address_ptr, "call_indirect.table.data.addr")};
+            auto* table_size{ir_builder.CreateLoad(llvm_intptr_type, table_size_ptr, "call_indirect.table.size")};
+
+            emit_llvm_conditional_trap(*llvm_module, ir_builder, ir_builder.CreateICmpUGE(selector_index, table_size));
+            emit_llvm_conditional_trap(*llvm_module,
+                                       ir_builder,
+                                       ir_builder.CreateICmpEQ(table_data_address, ::llvm::ConstantInt::get(llvm_intptr_type, 0u)));
+
+            auto* target_base_ptr{
+                ir_builder.CreateIntToPtr(table_data_address, get_llvm_pointer_type(raw_target_struct_type), "call_indirect.target.base.ptr")};
+            auto* target_ptr{
+                ir_builder.CreateInBoundsGEP(raw_target_struct_type, target_base_ptr, selector_index, "call_indirect.target.ptr")};
+            auto* entry_address_ptr{ir_builder.CreateStructGEP(raw_target_struct_type, target_ptr, 0u, "call_indirect.entry.addr.ptr")};
+            auto* context_address_ptr{ir_builder.CreateStructGEP(raw_target_struct_type, target_ptr, 1u, "call_indirect.context.addr.ptr")};
+            auto* encoded_type_id_ptr{ir_builder.CreateStructGEP(raw_target_struct_type, target_ptr, 2u, "call_indirect.type.id.ptr")};
+            auto* entry_address{ir_builder.CreateLoad(llvm_intptr_type, entry_address_ptr, "call_indirect.entry.addr")};
+            auto* context_address{ir_builder.CreateLoad(llvm_intptr_type, context_address_ptr, "call_indirect.context.addr")};
+            auto* encoded_type_id{ir_builder.CreateLoad(llvm_i32_type, encoded_type_id_ptr, "call_indirect.type.id")};
+
+            emit_llvm_conditional_trap(*llvm_module, ir_builder, ir_builder.CreateICmpEQ(entry_address, ::llvm::ConstantInt::get(llvm_intptr_type, 0u)));
+            emit_llvm_conditional_trap(
+                *llvm_module, ir_builder, ir_builder.CreateICmpNE(encoded_type_id, ::llvm::ConstantInt::get(llvm_i32_type, expected_type_id)));
+
+            auto* raw_entry_function_ptr{
+                ir_builder.CreateIntToPtr(entry_address, get_llvm_pointer_type(raw_entry_function_type), "call_indirect.entry.ptr")};
+            return ir_builder.CreateCall(raw_entry_function_type,
+                                         raw_entry_function_ptr,
+                                         {context_address,
+                                          raw_call_buffers.result_buffer_address,
+                                          ::llvm::ConstantInt::get(llvm_intptr_type, abi_layout.result_bytes),
+                                          raw_call_buffers.param_buffer_address,
+                                          ::llvm::ConstantInt::get(llvm_intptr_type, abi_layout.parameter_bytes)});
+        })};
+    if(!raw_bridge_result.valid) [[unlikely]] { return result; }
+
+    if(prepared_call.has_result)
+    {
+        if(raw_bridge_result.result_value == nullptr) [[unlikely]] { return result; }
+        push_operand(prepared_call.result_type, raw_bridge_result.result_value);
+    }
+    break;
+}
+
+#else
+
 case wasm1_code::call:
 {
     // call     func_index ...
@@ -264,3 +444,5 @@ case wasm1_code::call_indirect:
 
     break;
 }
+
+#endif

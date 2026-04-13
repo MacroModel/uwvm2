@@ -1,3 +1,188 @@
+#if defined(UWVM_LLVM_JIT_EMIT_OPCODE_CASES)
+
+case wasm1_code::unreachable:
+{
+    ++code_curr;
+
+    auto* trap_intrinsic{::llvm::Intrinsic::getOrInsertDeclaration(::std::addressof(*llvm_module), ::llvm::Intrinsic::trap, {})};
+    ir_builder.CreateCall(trap_intrinsic);
+    ir_builder.CreateUnreachable();
+    enter_unreachable_control_context();
+    break;
+}
+case wasm1_code::nop:
+{
+    ++code_curr;
+    break;
+}
+case wasm1_code::block:
+{
+    ++code_curr;
+
+    runtime_block_result_type block_result{};
+    if(!parse_wasm_block_result_type(code_curr, code_end, block_result)) [[unlikely]] { return result; }
+
+    auto* end_block{::llvm::BasicBlock::Create(llvm_context, "block.end", llvm_function)};
+    auto* end_phi{create_optional_result_phi(end_block, block_result, "block.result")};
+    if(get_runtime_block_result_count(block_result) == 1uz && end_phi == nullptr) [[unlikely]] { return result; }
+
+    auto const control_stack_index{control_stack.size()};
+    control_stack.push_back({.type = llvm_jit_control_context_type::block,
+                             .result = block_result,
+                             .end_block = end_block,
+                             .end_phi = end_phi,
+                             .else_block = nullptr,
+                             .outer_stack_size = operand_stack.size(),
+                             .outer_branch_target_stack_size = branch_target_stack.size(),
+                             .is_reachable = true,
+                             .end_block_has_incoming = false});
+    branch_target_stack.push_back(
+        {.params = block_result, .block = end_block, .phi = end_phi, .control_stack_index = control_stack_index});
+    break;
+}
+case wasm1_code::loop:
+{
+    ++code_curr;
+
+    runtime_block_result_type block_result{};
+    if(!parse_wasm_block_result_type(code_curr, code_end, block_result)) [[unlikely]] { return result; }
+
+    auto* current_block{ir_builder.GetInsertBlock()};
+    if(current_block == nullptr || current_block->getTerminator() != nullptr) [[unlikely]] { return result; }
+
+    auto* loop_body_block{::llvm::BasicBlock::Create(llvm_context, "loop.body", llvm_function)};
+    auto* end_block{::llvm::BasicBlock::Create(llvm_context, "loop.end", llvm_function)};
+    auto* end_phi{create_optional_result_phi(end_block, block_result, "loop.result")};
+    if(get_runtime_block_result_count(block_result) == 1uz && end_phi == nullptr) [[unlikely]] { return result; }
+
+    ir_builder.CreateBr(loop_body_block);
+    ir_builder.SetInsertPoint(loop_body_block);
+
+    auto const control_stack_index{control_stack.size()};
+    control_stack.push_back({.type = llvm_jit_control_context_type::loop,
+                             .result = block_result,
+                             .end_block = end_block,
+                             .end_phi = end_phi,
+                             .else_block = nullptr,
+                             .outer_stack_size = operand_stack.size(),
+                             .outer_branch_target_stack_size = branch_target_stack.size(),
+                             .is_reachable = true,
+                             .end_block_has_incoming = false});
+    branch_target_stack.push_back({.params = {}, .block = loop_body_block, .phi = nullptr, .control_stack_index = control_stack_index});
+    break;
+}
+case wasm1_code::if_:
+{
+    ++code_curr;
+
+    runtime_block_result_type block_result{};
+    if(!parse_wasm_block_result_type(code_curr, code_end, block_result)) [[unlikely]] { return result; }
+    if(operand_stack.empty()) [[unlikely]] { return result; }
+
+    auto const condition{operand_stack.back()};
+    operand_stack.pop_back();
+
+    if(condition.type != runtime_operand_stack_value_type::i32 || condition.value == nullptr) [[unlikely]] { return result; }
+
+    auto* current_block{ir_builder.GetInsertBlock()};
+    if(current_block == nullptr || current_block->getTerminator() != nullptr) [[unlikely]] { return result; }
+
+    auto* then_block{::llvm::BasicBlock::Create(llvm_context, "if.then", llvm_function)};
+    auto* else_block{::llvm::BasicBlock::Create(llvm_context, "if.else", llvm_function)};
+    auto* end_block{::llvm::BasicBlock::Create(llvm_context, "if.end", llvm_function)};
+    auto* end_phi{create_optional_result_phi(end_block, block_result, "if.result")};
+    if(get_runtime_block_result_count(block_result) == 1uz && end_phi == nullptr) [[unlikely]] { return result; }
+
+    auto* cond_i1{ir_builder.CreateICmpNE(condition.value, ::llvm::ConstantInt::get(condition.value->getType(), 0u))};
+    ir_builder.CreateCondBr(cond_i1, then_block, else_block);
+    ir_builder.SetInsertPoint(then_block);
+
+    auto const control_stack_index{control_stack.size()};
+    control_stack.push_back({.type = llvm_jit_control_context_type::if_then,
+                             .result = block_result,
+                             .end_block = end_block,
+                             .end_phi = end_phi,
+                             .else_block = else_block,
+                             .outer_stack_size = operand_stack.size(),
+                             .outer_branch_target_stack_size = branch_target_stack.size(),
+                             .is_reachable = true,
+                             .end_block_has_incoming = false});
+    branch_target_stack.push_back(
+        {.params = block_result, .block = end_block, .phi = end_phi, .control_stack_index = control_stack_index});
+    break;
+}
+case wasm1_code::else_:
+{
+    ++code_curr;
+
+    if(control_stack.empty()) [[unlikely]] { return result; }
+
+    auto const current_control_stack_index{control_stack.size() - 1uz};
+    auto& current_context{control_stack.back()};
+    if(current_context.type != llvm_jit_control_context_type::if_then || current_context.else_block == nullptr) [[unlikely]] { return result; }
+
+    if(current_context.is_reachable && !branch_to_control_context_end(current_control_stack_index)) [[unlikely]] { return result; }
+
+    truncate_operand_stack_to(current_context.outer_stack_size);
+    current_context.type = llvm_jit_control_context_type::if_else;
+    current_context.is_reachable = true;
+    ir_builder.SetInsertPoint(current_context.else_block);
+    break;
+}
+case wasm1_code::end:
+{
+    ++code_curr;
+
+    if(control_stack.empty()) [[unlikely]] { return result; }
+
+    auto const current_control_stack_index{control_stack.size() - 1uz};
+    auto& current_context{control_stack.back()};
+
+    if(current_context.type == llvm_jit_control_context_type::if_then)
+    {
+        if(get_runtime_block_result_count(current_context.result) != 0uz || current_context.else_block == nullptr) [[unlikely]] { return result; }
+        if(current_context.is_reachable && !branch_to_control_context_end(current_control_stack_index)) [[unlikely]] { return result; }
+
+        ::llvm::IRBuilder<> else_builder(current_context.else_block);
+        else_builder.CreateBr(current_context.end_block);
+        current_context.end_block_has_incoming = true;
+    }
+    else if(current_context.is_reachable && !branch_to_control_context_end(current_control_stack_index)) [[unlikely]]
+    {
+        return result;
+    }
+
+    auto const block_result{current_context.result};
+    auto* end_block{current_context.end_block};
+    auto* end_phi{current_context.end_phi};
+    auto const outer_stack_size{current_context.outer_stack_size};
+    auto const outer_branch_target_stack_size{current_context.outer_branch_target_stack_size};
+    auto const continuation_reachable{current_context.end_block_has_incoming};
+
+    control_stack.pop_back();
+    while(branch_target_stack.size() > outer_branch_target_stack_size) { branch_target_stack.pop_back(); }
+    truncate_operand_stack_to(outer_stack_size);
+
+    if(control_stack.empty())
+    {
+        if(code_curr != code_end) [[unlikely]] { return result; }
+        break;
+    }
+
+    control_stack.back().is_reachable = continuation_reachable;
+    if(!continuation_reachable) { break; }
+
+    ir_builder.SetInsertPoint(end_block);
+    if(get_runtime_block_result_count(block_result) == 1uz)
+    {
+        if(end_phi == nullptr) [[unlikely]] { return result; }
+        push_operand(get_runtime_block_single_result_type(block_result), end_phi);
+    }
+    break;
+}
+
+#else
+
 case wasm1_code::unreachable:
 {
     // `unreachable` makes the operand stack "polymorphic" (per Wasm validation rules):
@@ -569,8 +754,21 @@ case wasm1_code::end:
             ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
         }
 
+        if(emit_llvm_jit_active)
+        {
+            if(!try_emit_runtime_local_func_llvm_jit_instruction(llvm_jit_emit_state, op_begin, code_curr) ||
+               !finalize_runtime_local_func_llvm_jit_emit_state(llvm_jit_emit_state, *emitted_llvm_jit_ir_storage))
+                [[unlikely]]
+            {
+                emit_llvm_jit_active = false;
+                if(emitted_llvm_jit_ir_storage != nullptr) { *emitted_llvm_jit_ir_storage = {}; }
+            }
+        }
+
         return;
     }
 
     break;
 }
+
+#endif
