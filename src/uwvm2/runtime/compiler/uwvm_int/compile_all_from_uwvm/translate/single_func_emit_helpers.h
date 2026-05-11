@@ -410,6 +410,36 @@ auto const emit_opfunc_to{[&](bytecode_vec_t& dst, auto fptr) constexpr UWVM_THR
                               emit_imm_to(dst, fptr);
                           }};
 
+auto const emit_tiered_probe_to{[&](bytecode_vec_t& dst, ::uwvm2::runtime::lazy_validator::tiered_probe_kind_t kind) constexpr UWVM_THROWS
+                                {
+                                    if(!options.tiered_probe_enabled) { return; }
+
+                                    namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+                                    if(runtime_log_on) [[unlikely]]
+                                    {
+                                        if(runtime_log_emit_cf)
+                                        {
+                                            ::fast_io::io::print(::uwvm2::uwvm::io::u8runtime_log_output,
+                                                                 u8"[uwvm-int-translator] fn=",
+                                                                 function_index,
+                                                                 u8" ip=",
+                                                                 runtime_log_curr_ip,
+                                                                 u8" event=bytecode.emit.tiered_probe | kind=",
+                                                                 ::uwvm2::runtime::lazy_validator::tiered_probe_kind_name(kind),
+                                                                 u8" bc=",
+                                                                 runtime_log_bc_name(::std::addressof(dst) == ::std::addressof(thunks)),
+                                                                 u8" off=",
+                                                                 dst.size(),
+                                                                 u8"\n");
+                                        }
+                                    }
+
+                                    emit_opfunc_to(dst, translate::get_uwvmint_tiered_probe_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                                    emit_imm_to(dst, options.curr_wasm_id);
+                                    emit_imm_to(dst, function_index);
+                                    emit_imm_to(dst, ::uwvm2::runtime::lazy_validator::tiered_probe_kind_to_raw(kind));
+                                }};
+
 // ============================
 // Stack-top cache manipulation
 // ============================

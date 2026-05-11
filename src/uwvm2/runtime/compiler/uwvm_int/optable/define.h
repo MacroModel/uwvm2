@@ -381,10 +381,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     using interpreter_call_indirect_func_t =
         void (*)(::std::size_t wasm_module_id, ::std::size_t type_index, ::std::size_t table_index, ::std::byte** stack_top_ptr) UWVM_THROWS;
 
+    /// @details `tiered_probe` records runtime hotness for tiered compilation. The runtime decides whether to request promotion / prewarm.
+    using tiered_probe_func_t = void (*)(::std::size_t wasm_module_id, ::std::size_t func_index, ::std::uint_least32_t probe_kind) noexcept;
+
     struct compile_option
     {
         // Indicates the module number of the currently compiled WASM, used for external function calls.
         ::std::size_t curr_wasm_id{};
+        bool tiered_probe_enabled{};
     };
 
     template <uwvm_int_stack_top_type... Type>

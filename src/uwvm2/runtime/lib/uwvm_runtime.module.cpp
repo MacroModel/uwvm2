@@ -70,6 +70,7 @@ import uwvm2.runtime.compiler.uwvm_int.compile_all_from_uwvm;
 import uwvm2.runtime.compiler.uwvm_int.compile_cu_from_lazy_validator;
 import uwvm2.runtime.compiler.uwvm_int.utils;
 import uwvm2.runtime.compiler.uwvm_int.optable;
+import uwvm2.runtime.lazy_validator;
 import uwvm2.runtime.compiler.llvm_jit.compile_all_from_uwvm;
 import uwvm2.runtime.compiler.llvm_jit.compile_cu_from_lazy_validator;
 import uwvm2.utils.container;

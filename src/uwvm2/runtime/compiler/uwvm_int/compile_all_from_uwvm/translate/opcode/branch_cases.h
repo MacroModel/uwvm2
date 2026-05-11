@@ -84,6 +84,7 @@
     // Translate: `br` requires stack-shape repair before jumping because the interpreter `br` opcode does not unwind the operand stack.
     // In polymorphic (unreachable) regions we can skip repair.
     auto const target_label_id{get_branch_target_label_id(target_frame)};
+    bool const target_is_loop{target_frame.type == block_type::loop};
     if(!is_polymorphic)
     {
         auto const target_base{target_frame.operand_stack_base};
@@ -816,6 +817,7 @@
 
             if(!fused_extra_heavy_loop_run)
             {
+                if(target_is_loop) { emit_tiered_probe_to(bytecode, ::uwvm2::runtime::lazy_validator::tiered_probe_kind_t::loop_backedge); }
                 if constexpr(stacktop_enabled)
                 {
                     if constexpr(strict_cf_entry_like_call) { stacktop_canonicalize_edge_to_memory(bytecode); }
@@ -865,6 +867,7 @@
             {
                 if constexpr(strict_cf_entry_like_call) { stacktop_canonicalize_edge_to_memory(bytecode); }
             }
+            if(target_is_loop) { emit_tiered_probe_to(bytecode, ::uwvm2::runtime::lazy_validator::tiered_probe_kind_t::loop_backedge); }
             if constexpr(stacktop_enabled)
             {
                 if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
@@ -2799,6 +2802,10 @@ case wasm1_code::br_if:
                             }
                         }
 
+                        if(target_frame.type == block_type::loop)
+                        {
+                            emit_tiered_probe_to(thunks, ::uwvm2::runtime::lazy_validator::tiered_probe_kind_t::loop_backedge);
+                        }
                         stacktop_canonicalize_edge_to_memory(thunks);
                         if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
                         {
@@ -2899,11 +2906,12 @@ case wasm1_code::br_if:
                                            {
                                                if constexpr(stacktop_enabled && strict_cf_entry_like_call)
                                                {
-                                                   return need_repair || (stacktop_cache_count != 0uz);
+                                                   return need_repair || (stacktop_cache_count != 0uz) ||
+                                                          (target_frame.type == block_type::loop && options.tiered_probe_enabled);
                                                }
                                                else
                                                {
-                                                   return need_repair;
+                                                   return need_repair || (target_frame.type == block_type::loop && options.tiered_probe_enabled);
                                                }
                                            }()};
 
@@ -2995,6 +3003,10 @@ case wasm1_code::br_if:
                 }
             }
 
+            if(target_frame.type == block_type::loop)
+            {
+                emit_tiered_probe_to(thunks, ::uwvm2::runtime::lazy_validator::tiered_probe_kind_t::loop_backedge);
+            }
             if constexpr(stacktop_enabled)
             {
                 if constexpr(strict_cf_entry_like_call) { stacktop_canonicalize_edge_to_memory(thunks); }
@@ -3363,11 +3375,12 @@ case wasm1_code::br_table:
                                          {
                                              if constexpr(stacktop_enabled && strict_cf_entry_like_call)
                                              {
-                                                 return need_repair || (stacktop_cache_count != 0uz);
+                                                 return need_repair || (stacktop_cache_count != 0uz) ||
+                                                        (target_frame.type == block_type::loop && options.tiered_probe_enabled);
                                              }
                                              else
                                              {
-                                                 return need_repair;
+                                                 return need_repair || (target_frame.type == block_type::loop && options.tiered_probe_enabled);
                                              }
                                          }()};
             if(!strict_need_thunk)
@@ -3449,6 +3462,10 @@ case wasm1_code::br_table:
                 }
             }
 
+            if(target_frame.type == block_type::loop)
+            {
+                emit_tiered_probe_to(thunks, ::uwvm2::runtime::lazy_validator::tiered_probe_kind_t::loop_backedge);
+            }
             if constexpr(stacktop_enabled)
             {
                 if constexpr(strict_cf_entry_like_call) { stacktop_canonicalize_edge_to_memory(thunks); }

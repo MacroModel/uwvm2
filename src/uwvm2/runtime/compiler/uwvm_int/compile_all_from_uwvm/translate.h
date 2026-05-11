@@ -46,6 +46,7 @@
 # include <uwvm2/validation/error/impl.h>
 # include <uwvm2/object/impl.h>
 # include <uwvm2/uwvm/io/impl.h>
+# include <uwvm2/runtime/lazy_validator/impl.h>
 # include <uwvm2/uwvm/wasm/feature/impl.h>
 # include <uwvm2/uwvm/wasm/type/impl.h>
 # include <uwvm2/uwvm/runtime/storage/impl.h>

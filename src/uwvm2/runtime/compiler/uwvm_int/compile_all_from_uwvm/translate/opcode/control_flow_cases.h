@@ -126,6 +126,8 @@ case wasm1_code::block:
                                   .end_label_id = new_label(false),
                                   .else_label_id = SIZE_MAX});
 
+    emit_tiered_probe_to(bytecode, ::uwvm2::runtime::lazy_validator::tiered_probe_kind_t::block_entry);
+
     // Stack-polymorphism is scoped to the current control frame only.
     // Entering a nested frame starts it in reachable mode for validation.
     is_polymorphic = false;
@@ -284,6 +286,8 @@ case wasm1_code::loop:
                                   .end_label_id = new_label(false),
                                   .else_label_id = SIZE_MAX,
                                   .wasm_code_curr_at_start_label = code_curr});
+
+    emit_tiered_probe_to(bytecode, ::uwvm2::runtime::lazy_validator::tiered_probe_kind_t::block_entry);
 
     // Stack-polymorphism is scoped to the current control frame only.
     // Entering a nested frame starts it in reachable mode for validation.
@@ -524,6 +528,8 @@ case wasm1_code::if_:
                                   .start_label_id = SIZE_MAX,
                                   .end_label_id = end_label_id,
                                   .else_label_id = else_dest_label_id});
+
+    emit_tiered_probe_to(bytecode, ::uwvm2::runtime::lazy_validator::tiered_probe_kind_t::block_entry);
 
     // As in the spec's push_ctrl algorithm, the then-frame starts reachable even when the
     // surrounding frame is polymorphic.

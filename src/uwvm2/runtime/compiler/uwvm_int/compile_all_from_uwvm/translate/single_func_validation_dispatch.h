@@ -19,6 +19,8 @@ control_flow_stack.push_back({
     .else_label_id = SIZE_MAX
 });
 
+emit_tiered_probe_to(bytecode, ::uwvm2::runtime::lazy_validator::tiered_probe_kind_t::function_entry);
+
 // start parse the code
 auto code_curr{code_begin};
 
