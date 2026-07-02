@@ -164,7 +164,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f8: const i32 -> f32.convert_i32_s path (avoid local.get fusion; cover merged scalar ring codegen_stack_set_top)
+        // f8: const i32 -> f32.convert_i32_s path (avoid local.get fusion; cover merged scalar stack-top window codegen_stack_set_top)
         {
             func_type ty{{}, {k_val_i32}};
             func_body fb{};
@@ -182,7 +182,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f9: const i32 -> f32.convert_i32_u path (avoid local.get fusion; cover merged scalar ring codegen_stack_set_top)
+        // f9: const i32 -> f32.convert_i32_u path (avoid local.get fusion; cover merged scalar stack-top window codegen_stack_set_top)
         {
             func_type ty{{}, {k_val_i32}};
             func_body fb{};
@@ -200,7 +200,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f10: const i32 -> f64.convert_i32_s path (also used for merged scalar ring coverage; expected -6)
+        // f10: const i32 -> f64.convert_i32_s path (also used for merged scalar stack-top window coverage; expected -6)
         {
             func_type ty{{}, {k_val_i32}};
             func_body fb{};
@@ -236,7 +236,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f12: reinterpret i64 -> f64 -> i64 (param i64) bit-identity (covers merged scalar ring retype paths for i64<->f64)
+        // f12: reinterpret i64 -> f64 -> i64 (param i64) bit-identity (covers merged scalar stack-top window retype paths for i64<->f64)
         {
             func_type ty{{k_val_i64}, {k_val_i64}};
             func_body fb{};
@@ -386,16 +386,16 @@ namespace
         {
             constexpr optable::uwvm_interpreter_translate_option_t opt{
                 .is_tail_call = true,
-                .i32_stack_top_begin_pos = 3uz,
-                .i32_stack_top_end_pos = 5uz,
-                .i64_stack_top_begin_pos = 3uz,
-                .i64_stack_top_end_pos = 5uz,
-                .f32_stack_top_begin_pos = 3uz,
-                .f32_stack_top_end_pos = 5uz,
-                .f64_stack_top_begin_pos = 3uz,
-                .f64_stack_top_end_pos = 5uz,
-                .v128_stack_top_begin_pos = SIZE_MAX,
-                .v128_stack_top_end_pos = SIZE_MAX,
+                .i32_stack_top_begin_pos = SIZE_MAX,
+                .i32_stack_top_end_pos = SIZE_MAX,
+                .i64_stack_top_begin_pos = SIZE_MAX,
+                .i64_stack_top_end_pos = SIZE_MAX,
+                .f32_stack_top_begin_pos = 0uz,
+                .f32_stack_top_end_pos = 2uz,
+                .f64_stack_top_begin_pos = 0uz,
+                .f64_stack_top_end_pos = 2uz,
+                .v128_stack_top_begin_pos = 0uz,
+                .v128_stack_top_end_pos = 2uz,
             };
             static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
             UWVM2TEST_REQUIRE(run_convert_reinterpret_stacktop_scalar_all_merged_suite<opt>(rt) == 0);

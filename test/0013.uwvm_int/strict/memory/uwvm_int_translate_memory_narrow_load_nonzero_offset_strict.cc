@@ -31,7 +31,7 @@ namespace
     template <optable::uwvm_interpreter_translate_option_t Opt, ::std::size_t PushCount>
     [[nodiscard]] consteval optable::uwvm_interpreter_stacktop_currpos_t make_curr_after_i32_pushes() noexcept
     {
-        constexpr auto ring_prev = [](::std::size_t pos, ::std::size_t begin_pos, ::std::size_t end_pos) constexpr noexcept -> ::std::size_t
+        constexpr auto stacktop_window_prev = [](::std::size_t pos, ::std::size_t begin_pos, ::std::size_t end_pos) constexpr noexcept -> ::std::size_t
         {
             return pos == SIZE_MAX ? SIZE_MAX : (pos == begin_pos ? (end_pos - 1uz) : (pos - 1uz));
         };
@@ -42,7 +42,7 @@ namespace
             for(::std::size_t i{}; i != PushCount; ++i)
             {
                 curr.i32_stack_top_curr_pos =
-                    ring_prev(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
+                    stacktop_window_prev(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
             }
         }
         return curr;

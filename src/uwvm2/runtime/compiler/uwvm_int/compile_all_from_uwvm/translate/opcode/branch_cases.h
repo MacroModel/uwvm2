@@ -9,6 +9,7 @@ case wasm1_code::br:
     // ^^ code_curr
 
     auto const op_begin{code_curr};
+    local_spot_flush_dirty_all_and_invalidate_to(bytecode);
 
     // br     label_index ...
     // [safe] unsafe (could be the section_end)
@@ -818,7 +819,7 @@ case wasm1_code::br:
             if(!fused_extra_heavy_loop_run)
             {
 #if defined(UWVM_ENABLE_UWVM_INT_LOOP_UNWIND)
-                // Loop-unwind amortizes register-ring re-entry repair for simple final loop backedges.
+                // Loop-unwind amortizes stack-top window re-entry repair for simple final loop backedges.
                 // It is not a general dispatch-reduction unroller; empty-cache MVP loops should reject.
                 // See src/uwvm2/runtime/compiler/uwvm_int/loop_unwind.md.
                 if(target_frame.type == block_type::loop && label_index_uz == 0uz && curr_size == target_base &&
@@ -978,7 +979,12 @@ case wasm1_code::br:
                 }
                 if constexpr(stacktop_enabled)
                 {
-                    if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
+                    if(target_frame.type == block_type::loop && !stacktop_loop_entry_residence_matches(target_frame))
+                    {
+                        stacktop_restore_loop_entry_residence_to(bytecode, target_frame);
+                        emit_br_to(bytecode, target_label_id, false);
+                    }
+                    else if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
                     {
                         emit_br_to_with_stacktop_transform(bytecode, target_label_id, false);
                     }
@@ -1006,7 +1012,12 @@ case wasm1_code::br:
             }
             if constexpr(stacktop_enabled)
             {
-                if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
+                if(target_frame.type == block_type::loop && !stacktop_loop_entry_residence_matches(target_frame))
+                {
+                    stacktop_restore_loop_entry_residence_to(bytecode, target_frame);
+                    emit_br_to(bytecode, target_label_id, false);
+                }
+                else if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
                 {
                     emit_br_to_with_stacktop_transform(bytecode, target_label_id, false);
                 }
@@ -1041,9 +1052,10 @@ case wasm1_code::br:
                 target_frame.stacktop_memory_count_at_end = stacktop_memory_count;
                 target_frame.stacktop_cache_count_at_end = stacktop_cache_count;
                 target_frame.stacktop_cache_i32_count_at_end = stacktop_cache_i32_count;
-                target_frame.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
-                target_frame.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
-                target_frame.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                target_frame.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
+	                target_frame.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
+	                target_frame.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                target_frame.stacktop_cache_v128_count_at_end = stacktop_cache_v128_count;
                 target_frame.codegen_operand_stack_at_end = codegen_operand_stack;
             }
         }
@@ -1066,6 +1078,7 @@ case wasm1_code::br_if:
     // ^^ code_curr
 
     auto const op_begin{code_curr};
+    local_spot_flush_dirty_all_and_invalidate_to(bytecode);
 
     // br_if  label_index ...
     // [safe] unsafe (could be the section_end)
@@ -1569,14 +1582,14 @@ case wasm1_code::br_if:
                             ::std::memcpy(::std::addressof(cmp_imm), bytecode.data() + const_site + sizeof(stored_const), sizeof(cmp_imm));
 
                             auto pre_const_stacktop{fuse_stacktop_currpos};
-                            if constexpr(CompileOption.i32_stack_top_begin_pos != CompileOption.i32_stack_top_end_pos)
+                            if constexpr(stacktop_i32_begin_pos != stacktop_i32_end_pos)
                             {
-                                auto const begin{CompileOption.i32_stack_top_begin_pos};
-                                auto const end{CompileOption.i32_stack_top_end_pos};
+                                auto const begin{stacktop_i32_begin_pos};
+                                auto const end{stacktop_i32_end_pos};
                                 auto const curr{pre_const_stacktop.i32_stack_top_curr_pos};
                                 pre_const_stacktop.i32_stack_top_curr_pos = (curr + 1uz == end) ? begin : (curr + 1uz);
-                                if constexpr(CompileOption.i32_stack_top_begin_pos == CompileOption.i64_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.i64_stack_top_end_pos)
+                                if constexpr(stacktop_i32_begin_pos == stacktop_i64_begin_pos &&
+                                             stacktop_i32_end_pos == stacktop_i64_end_pos)
                                 {
                                     pre_const_stacktop.i64_stack_top_curr_pos = pre_const_stacktop.i32_stack_top_curr_pos;
                                 }
@@ -1607,17 +1620,17 @@ case wasm1_code::br_if:
                                           sizeof(offset_slot));
 
                             auto pre_load_stacktop{fuse_stacktop_currpos};
-                            if constexpr(CompileOption.i32_stack_top_begin_pos != CompileOption.i32_stack_top_end_pos)
+                            if constexpr(stacktop_i32_begin_pos != stacktop_i32_end_pos)
                             {
-                                auto const begin{CompileOption.i32_stack_top_begin_pos};
-                                auto const end{CompileOption.i32_stack_top_end_pos};
+                                auto const begin{stacktop_i32_begin_pos};
+                                auto const end{stacktop_i32_end_pos};
                                 auto curr{pre_load_stacktop.i32_stack_top_curr_pos};
                                 // Undo two pushes: `i32.load` and `i32.const`.
                                 curr = (curr + 1uz == end) ? begin : (curr + 1uz);
                                 curr = (curr + 1uz == end) ? begin : (curr + 1uz);
                                 pre_load_stacktop.i32_stack_top_curr_pos = curr;
-                                if constexpr(CompileOption.i32_stack_top_begin_pos == CompileOption.i64_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.i64_stack_top_end_pos)
+                                if constexpr(stacktop_i32_begin_pos == stacktop_i64_begin_pos &&
+                                             stacktop_i32_end_pos == stacktop_i64_end_pos)
                                 {
                                     pre_load_stacktop.i64_stack_top_curr_pos = pre_load_stacktop.i32_stack_top_curr_pos;
                                 }
@@ -1632,8 +1645,8 @@ case wasm1_code::br_if:
                                     ::uwvm2::utils::container::tuple<TypeInTuple...> const&) constexpr noexcept -> fptr_t
                                 {
                                     return translate::details::select_stacktop_fptr_or_default_with<CompileOption,
-                                                                                                    CompileOption.i32_stack_top_begin_pos,
-                                                                                                    CompileOption.i32_stack_top_end_pos,
+                                                                                                    stacktop_i32_begin_pos,
+                                                                                                    stacktop_i32_end_pos,
                                                                                                     translate::details::i32_load_localget_off_op_with,
                                                                                                     BoundsCheckFn,
                                                                                                     0uz,
@@ -1680,8 +1693,8 @@ case wasm1_code::br_if:
                                 [&]<typename... TypeInTuple>(::uwvm2::utils::container::tuple<TypeInTuple...> const&) constexpr noexcept -> fptr_t
                                 {
                                     return translate::details::select_stacktop_fptr_or_default_with<CompileOption,
-                                                                                                    CompileOption.i32_stack_top_begin_pos,
-                                                                                                    CompileOption.i32_stack_top_end_pos,
+                                                                                                    stacktop_i32_begin_pos,
+                                                                                                    stacktop_i32_end_pos,
                                                                                                     translate::details::i32_load_localget_off_op_with,
                                                                                                     &translate::details::op_details::bounds_check_allocator,
                                                                                                     0uz,
@@ -1697,12 +1710,14 @@ case wasm1_code::br_if:
                                                                                                 &translate::details::op_details::bounds_check_allocator,
                                                                                                 0uz,
                                                                                                 TypeInTuple...>(0uz);
-                            }(interpreter_tuple);
+	                            }(interpreter_tuple);
 #  endif
 
-                            bytecode.resize(load_site);
+                            if(mega_fptr == nullptr) { return false; }
 
-                            emit_opfunc_to(bytecode, mega_fptr);
+	                            bytecode.resize(load_site);
+
+	                            emit_opfunc_to(bytecode, mega_fptr);
                             emit_imm_to(bytecode, addr_off);
                             emit_imm_to(bytecode, cmp_imm);
                             emit_imm_to(bytecode, memory_p);
@@ -1715,7 +1730,7 @@ case wasm1_code::br_if:
                 }
             }
 # endif
-            if constexpr(stacktop_enabled)
+            if constexpr(stacktop_i32_enabled)
             {
                 // Fused br_if opfuncs read the i32 condition from stack-top cache. With tiny rings,
                 // the condition can be materialized in operand-stack memory (cache empty), in which
@@ -1993,6 +2008,8 @@ case wasm1_code::br_if:
                 }
             }
 
+            if(fused_fptr == nullptr) [[unlikely]] { return; }
+
             ::std::byte tmp[sizeof(fused_fptr)];
             ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
             ::std::memcpy(bytecode.data() + fuse_site, tmp, sizeof(fused_fptr));
@@ -2005,7 +2022,7 @@ case wasm1_code::br_if:
             patch_fused_brif();
             if(!fused_brif)
             {
-                if constexpr(stacktop_enabled)
+                if constexpr(stacktop_i32_enabled)
                 {
                     if(!brif_cond_cached_at_site)
                     {
@@ -2024,9 +2041,9 @@ case wasm1_code::br_if:
             emit_ptr_label_placeholder(label_id, false);
         }};
 
-    auto const emit_br_if_jump_conbine{
-        [&](::std::size_t label_id) constexpr UWVM_THROWS
-        {
+	    auto const emit_br_if_jump_conbine{
+	        [&](::std::size_t label_id) constexpr UWVM_THROWS
+	        {
 # ifdef UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS
 #  ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
             // Extra-heavy: mega-fuse the full `quick_branchy_i32` hot loop into one opfunc dispatch.
@@ -2223,8 +2240,8 @@ case wasm1_code::br_if:
                 }
 #  endif
 
-                emit_opfunc_to(bytecode,
-                               translate::get_uwvmint_for_i32_inc_f64_lt_u_eqz_br_if_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                auto const fptr{translate::get_uwvmint_for_i32_inc_f64_lt_u_eqz_br_if_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple)};
+                emit_opfunc_to(bytecode, fptr);
                 emit_imm_to(bytecode, conbine_brif_local_off);
                 emit_imm_to(bytecode, conbine_brif_local_off2);
                 emit_imm_to(bytecode, conbine_brif_step);
@@ -2234,7 +2251,8 @@ case wasm1_code::br_if:
 
             if(conbine_brif_for_i32_inc_lt_u)
             {
-                emit_opfunc_to(bytecode, translate::get_uwvmint_for_i32_inc_lt_u_br_if_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                auto const fptr{translate::get_uwvmint_for_i32_inc_lt_u_br_if_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple)};
+                emit_opfunc_to(bytecode, fptr);
                 emit_imm_to(bytecode, conbine_brif_local_off);
                 emit_imm_to(bytecode, conbine_brif_step);
                 emit_imm_to(bytecode, conbine_brif_end);
@@ -2245,7 +2263,8 @@ case wasm1_code::br_if:
 #  ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
             if(conbine_brif_for_ptr_inc_ne)
             {
-                emit_opfunc_to(bytecode, translate::get_uwvmint_for_ptr_inc_ne_br_if_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                auto const fptr{translate::get_uwvmint_for_ptr_inc_ne_br_if_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple)};
+                emit_opfunc_to(bytecode, fptr);
                 emit_imm_to(bytecode, conbine_brif_local_off);
                 emit_imm_to(bytecode, conbine_brif_local_off2);
                 emit_imm_to(bytecode, conbine_brif_step);
@@ -2469,7 +2488,7 @@ case wasm1_code::br_if:
                                          u8"\n");
                 }
             }
-            if constexpr(stacktop_enabled)
+            if constexpr(stacktop_i32_enabled)
             {
                 if(!brif_cond_cached_at_site)
                 {
@@ -2817,8 +2836,8 @@ case wasm1_code::br_if:
                                                       auto const vt{codegen_operand_stack.index_unchecked(stacktop_memory_count - 1uz).type};
                                                       ::std::size_t const begin_pos{stacktop_range_begin_pos(vt)};
                                                       ::std::size_t const end_pos{stacktop_range_end_pos(vt)};
-                                                      ::std::size_t const ring_size{end_pos - begin_pos};
-                                                      return stacktop_cache_count_for_range(begin_pos, end_pos) != ring_size;
+                                                      ::std::size_t const window_size{end_pos - begin_pos};
+                                                      return stacktop_cache_count_for_range(begin_pos, end_pos) != window_size;
                                                   }()};
 
                 if constexpr(strict_cf_entry_like_call)
@@ -2849,11 +2868,42 @@ case wasm1_code::br_if:
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
                         if constexpr(stacktop_enabled && CompileOption.is_tail_call && stacktop_regtransform_cf_entry && stacktop_regtransform_supported)
                         {
-                            if(target_frame.type == block_type::loop && stacktop_cache_count != 0uz)
+                            if(target_frame.type == block_type::loop &&
+                               (!stacktop_loop_entry_residence_matches(target_frame) || stacktop_cache_count != 0uz))
                             {
                                 auto const transform_thunk_label_id{new_label(true)};
                                 set_label_offset(transform_thunk_label_id, thunks.size());
-                                emit_br_to_with_stacktop_transform(thunks, target_label_id, true);
+
+                                auto const saved_curr_stacktop{curr_stacktop};
+                                auto const saved_memory_count{stacktop_memory_count};
+                                auto const saved_cache_count{stacktop_cache_count};
+                                auto const saved_cache_i32_count{stacktop_cache_i32_count};
+                                auto const saved_cache_i64_count{stacktop_cache_i64_count};
+                                auto const saved_cache_f32_count{stacktop_cache_f32_count};
+                                auto const saved_cache_f64_count{stacktop_cache_f64_count};
+                                auto const saved_cache_v128_count{stacktop_cache_v128_count};
+                                auto const saved_codegen_operand_stack{codegen_operand_stack};
+
+                                if(!stacktop_loop_entry_residence_matches(target_frame))
+                                {
+                                    stacktop_restore_loop_entry_residence_to(thunks, target_frame);
+                                    emit_br_to(thunks, target_label_id, true);
+                                }
+                                else
+                                {
+                                    emit_br_to_with_stacktop_transform(thunks, target_label_id, true);
+                                }
+
+                                curr_stacktop = saved_curr_stacktop;
+                                stacktop_memory_count = saved_memory_count;
+                                stacktop_cache_count = saved_cache_count;
+                                stacktop_cache_i32_count = saved_cache_i32_count;
+                                stacktop_cache_i64_count = saved_cache_i64_count;
+                                stacktop_cache_f32_count = saved_cache_f32_count;
+                                stacktop_cache_f64_count = saved_cache_f64_count;
+                                stacktop_cache_v128_count = saved_cache_v128_count;
+                                codegen_operand_stack = saved_codegen_operand_stack;
+
                                 brif_target_label_id = transform_thunk_label_id;
                             }
                         }
@@ -2872,9 +2922,10 @@ case wasm1_code::br_if:
                             target_frame_mut.stacktop_memory_count_at_end = stacktop_memory_count;
                             target_frame_mut.stacktop_cache_count_at_end = stacktop_cache_count;
                             target_frame_mut.stacktop_cache_i32_count_at_end = stacktop_cache_i32_count;
-                            target_frame_mut.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
-                            target_frame_mut.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
-                            target_frame_mut.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                            target_frame_mut.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
+	                            target_frame_mut.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
+	                            target_frame_mut.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                            target_frame_mut.stacktop_cache_v128_count_at_end = stacktop_cache_v128_count;
                             target_frame_mut.codegen_operand_stack_at_end = codegen_operand_stack;
                         }
 
@@ -2896,9 +2947,10 @@ case wasm1_code::br_if:
                 auto const post_pop_memory_count{stacktop_memory_count};
                 auto const post_pop_cache_count{stacktop_cache_count};
                 auto const post_pop_cache_i32_count{stacktop_cache_i32_count};
-                auto const post_pop_cache_i64_count{stacktop_cache_i64_count};
-                auto const post_pop_cache_f32_count{stacktop_cache_f32_count};
-                auto const post_pop_cache_f64_count{stacktop_cache_f64_count};
+	                auto const post_pop_cache_i64_count{stacktop_cache_i64_count};
+	                auto const post_pop_cache_f32_count{stacktop_cache_f32_count};
+	                auto const post_pop_cache_f64_count{stacktop_cache_f64_count};
+	                auto const post_pop_cache_v128_count{stacktop_cache_v128_count};
                 auto const post_pop_codegen_operand_stack{codegen_operand_stack};
 
                 // Emit taken thunk: fill-to-canonical, then optional repair, then jump.
@@ -2910,9 +2962,10 @@ case wasm1_code::br_if:
                     auto const saved_memory_count{stacktop_memory_count};
                     auto const saved_cache_count{stacktop_cache_count};
                     auto const saved_cache_i32_count{stacktop_cache_i32_count};
-                    auto const saved_cache_i64_count{stacktop_cache_i64_count};
-                    auto const saved_cache_f32_count{stacktop_cache_f32_count};
-                    auto const saved_cache_f64_count{stacktop_cache_f64_count};
+	                    auto const saved_cache_i64_count{stacktop_cache_i64_count};
+	                    auto const saved_cache_f32_count{stacktop_cache_f32_count};
+	                    auto const saved_cache_f64_count{stacktop_cache_f64_count};
+	                    auto const saved_cache_v128_count{stacktop_cache_v128_count};
                     auto const saved_codegen_operand_stack{codegen_operand_stack};
 
                     // Ensure thunk starts from the post-pop state.
@@ -2920,9 +2973,10 @@ case wasm1_code::br_if:
                     stacktop_memory_count = post_pop_memory_count;
                     stacktop_cache_count = post_pop_cache_count;
                     stacktop_cache_i32_count = post_pop_cache_i32_count;
-                    stacktop_cache_i64_count = post_pop_cache_i64_count;
-                    stacktop_cache_f32_count = post_pop_cache_f32_count;
-                    stacktop_cache_f64_count = post_pop_cache_f64_count;
+	                    stacktop_cache_i64_count = post_pop_cache_i64_count;
+	                    stacktop_cache_f32_count = post_pop_cache_f32_count;
+	                    stacktop_cache_f64_count = post_pop_cache_f64_count;
+	                    stacktop_cache_v128_count = post_pop_cache_v128_count;
                     codegen_operand_stack = post_pop_codegen_operand_stack;
 
                     if constexpr(strict_cf_entry_like_call)
@@ -2946,11 +3000,23 @@ case wasm1_code::br_if:
                     }
                     else
                     {
-                        stacktop_fill_to_canonical(thunks);
+                        if(target_frame.type == block_type::loop && !stacktop_loop_entry_residence_matches(target_frame))
+                        {
+                            stacktop_restore_loop_entry_residence_to(thunks, target_frame);
+                        }
+                        else
+                        {
+                            stacktop_fill_to_canonical(thunks);
+                        }
 
                         if(!need_repair)
                         {
-                            if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
+                            if(target_frame.type == block_type::loop && !stacktop_loop_entry_residence_matches(target_frame))
+                            {
+                                stacktop_restore_loop_entry_residence_to(thunks, target_frame);
+                                emit_br_to(thunks, target_label_id, true);
+                            }
+                            else if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
                             {
                                 emit_br_to_with_stacktop_transform(thunks, target_label_id, true);
                             }
@@ -2964,7 +3030,12 @@ case wasm1_code::br_if:
                             // Safety: `target_base` must be <= `curr_size` in the non-polymorphic path.
                             emit_drop_to_stack_size_no_fill(thunks, target_base);
                             stacktop_fill_to_canonical(thunks);
-                            if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
+                            if(target_frame.type == block_type::loop && !stacktop_loop_entry_residence_matches(target_frame))
+                            {
+                                stacktop_restore_loop_entry_residence_to(thunks, target_frame);
+                                emit_br_to(thunks, target_label_id, true);
+                            }
+                            else if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
                             {
                                 emit_br_to_with_stacktop_transform(thunks, target_label_id, true);
                             }
@@ -2976,7 +3047,12 @@ case wasm1_code::br_if:
                         else
                         {
                             emit_preserve_top_values_drop_to_base_restore(thunks, target_label_types, target_base, curr_size, true);
-                            if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
+                            if(target_frame.type == block_type::loop && !stacktop_loop_entry_residence_matches(target_frame))
+                            {
+                                stacktop_restore_loop_entry_residence_to(thunks, target_frame);
+                                emit_br_to(thunks, target_label_id, true);
+                            }
+                            else if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
                             {
                                 emit_br_to_with_stacktop_transform(thunks, target_label_id, true);
                             }
@@ -2993,9 +3069,10 @@ case wasm1_code::br_if:
                             target_frame_mut.stacktop_memory_count_at_end = stacktop_memory_count;
                             target_frame_mut.stacktop_cache_count_at_end = stacktop_cache_count;
                             target_frame_mut.stacktop_cache_i32_count_at_end = stacktop_cache_i32_count;
-                            target_frame_mut.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
-                            target_frame_mut.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
-                            target_frame_mut.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                            target_frame_mut.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
+	                            target_frame_mut.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
+	                            target_frame_mut.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                            target_frame_mut.stacktop_cache_v128_count_at_end = stacktop_cache_v128_count;
                             target_frame_mut.codegen_operand_stack_at_end = codegen_operand_stack;
                         }
                     }
@@ -3004,9 +3081,10 @@ case wasm1_code::br_if:
                     stacktop_memory_count = saved_memory_count;
                     stacktop_cache_count = saved_cache_count;
                     stacktop_cache_i32_count = saved_cache_i32_count;
-                    stacktop_cache_i64_count = saved_cache_i64_count;
-                    stacktop_cache_f32_count = saved_cache_f32_count;
-                    stacktop_cache_f64_count = saved_cache_f64_count;
+	                    stacktop_cache_i64_count = saved_cache_i64_count;
+	                    stacktop_cache_f32_count = saved_cache_f32_count;
+	                    stacktop_cache_f64_count = saved_cache_f64_count;
+	                    stacktop_cache_v128_count = saved_cache_v128_count;
                     codegen_operand_stack = saved_codegen_operand_stack;
                 }
 
@@ -3035,11 +3113,42 @@ case wasm1_code::br_if:
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
             if constexpr(stacktop_enabled && CompileOption.is_tail_call && stacktop_regtransform_cf_entry && stacktop_regtransform_supported)
             {
-                if(!is_polymorphic && target_frame.type == block_type::loop && stacktop_cache_count != 0uz)
+                if(!is_polymorphic && target_frame.type == block_type::loop &&
+                   (!stacktop_loop_entry_residence_matches(target_frame) || stacktop_cache_count != 0uz))
                 {
                     auto const transform_thunk_label_id{new_label(true)};
                     set_label_offset(transform_thunk_label_id, thunks.size());
-                    emit_br_to_with_stacktop_transform(thunks, target_label_id, true);
+
+                    auto const saved_curr_stacktop{curr_stacktop};
+                    auto const saved_memory_count{stacktop_memory_count};
+                    auto const saved_cache_count{stacktop_cache_count};
+                    auto const saved_cache_i32_count{stacktop_cache_i32_count};
+                    auto const saved_cache_i64_count{stacktop_cache_i64_count};
+                    auto const saved_cache_f32_count{stacktop_cache_f32_count};
+                    auto const saved_cache_f64_count{stacktop_cache_f64_count};
+                    auto const saved_cache_v128_count{stacktop_cache_v128_count};
+                    auto const saved_codegen_operand_stack{codegen_operand_stack};
+
+                    if(!stacktop_loop_entry_residence_matches(target_frame))
+                    {
+                        stacktop_restore_loop_entry_residence_to(thunks, target_frame);
+                        emit_br_to(thunks, target_label_id, true);
+                    }
+                    else
+                    {
+                        emit_br_to_with_stacktop_transform(thunks, target_label_id, true);
+                    }
+
+                    curr_stacktop = saved_curr_stacktop;
+                    stacktop_memory_count = saved_memory_count;
+                    stacktop_cache_count = saved_cache_count;
+                    stacktop_cache_i32_count = saved_cache_i32_count;
+                    stacktop_cache_i64_count = saved_cache_i64_count;
+                    stacktop_cache_f32_count = saved_cache_f32_count;
+                    stacktop_cache_f64_count = saved_cache_f64_count;
+                    stacktop_cache_v128_count = saved_cache_v128_count;
+                    codegen_operand_stack = saved_codegen_operand_stack;
+
                     brif_target_label_id = transform_thunk_label_id;
                 }
             }
@@ -3065,9 +3174,10 @@ case wasm1_code::br_if:
                         target_frame_mut.stacktop_memory_count_at_end = stacktop_memory_count;
                         target_frame_mut.stacktop_cache_count_at_end = stacktop_cache_count;
                         target_frame_mut.stacktop_cache_i32_count_at_end = stacktop_cache_i32_count;
-                        target_frame_mut.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
-                        target_frame_mut.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
-                        target_frame_mut.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                        target_frame_mut.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
+	                        target_frame_mut.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
+	                        target_frame_mut.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                        target_frame_mut.stacktop_cache_v128_count_at_end = stacktop_cache_v128_count;
                         target_frame_mut.codegen_operand_stack_at_end = codegen_operand_stack;
                     }
                 }
@@ -3085,9 +3195,10 @@ case wasm1_code::br_if:
             auto const saved_memory_count{stacktop_memory_count};
             auto const saved_cache_count{stacktop_cache_count};
             auto const saved_cache_i32_count{stacktop_cache_i32_count};
-            auto const saved_cache_i64_count{stacktop_cache_i64_count};
-            auto const saved_cache_f32_count{stacktop_cache_f32_count};
-            auto const saved_cache_f64_count{stacktop_cache_f64_count};
+	            auto const saved_cache_i64_count{stacktop_cache_i64_count};
+	            auto const saved_cache_f32_count{stacktop_cache_f32_count};
+	            auto const saved_cache_f64_count{stacktop_cache_f64_count};
+	            auto const saved_cache_v128_count{stacktop_cache_v128_count};
             auto const saved_codegen_operand_stack{codegen_operand_stack};
 
             if(need_repair)
@@ -3109,7 +3220,12 @@ case wasm1_code::br_if:
             }
             if constexpr(stacktop_enabled)
             {
-                if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
+                if(target_frame.type == block_type::loop && !stacktop_loop_entry_residence_matches(target_frame))
+                {
+                    stacktop_restore_loop_entry_residence_to(thunks, target_frame);
+                    emit_br_to(thunks, target_label_id, true);
+                }
+                else if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
                 {
                     emit_br_to_with_stacktop_transform(thunks, target_label_id, true);
                 }
@@ -3138,9 +3254,10 @@ case wasm1_code::br_if:
                         target_frame_mut.stacktop_memory_count_at_end = stacktop_memory_count;
                         target_frame_mut.stacktop_cache_count_at_end = stacktop_cache_count;
                         target_frame_mut.stacktop_cache_i32_count_at_end = stacktop_cache_i32_count;
-                        target_frame_mut.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
-                        target_frame_mut.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
-                        target_frame_mut.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                        target_frame_mut.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
+	                        target_frame_mut.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
+	                        target_frame_mut.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                        target_frame_mut.stacktop_cache_v128_count_at_end = stacktop_cache_v128_count;
                         target_frame_mut.codegen_operand_stack_at_end = codegen_operand_stack;
                     }
                 }
@@ -3150,9 +3267,10 @@ case wasm1_code::br_if:
             stacktop_memory_count = saved_memory_count;
             stacktop_cache_count = saved_cache_count;
             stacktop_cache_i32_count = saved_cache_i32_count;
-            stacktop_cache_i64_count = saved_cache_i64_count;
-            stacktop_cache_f32_count = saved_cache_f32_count;
-            stacktop_cache_f64_count = saved_cache_f64_count;
+	            stacktop_cache_i64_count = saved_cache_i64_count;
+	            stacktop_cache_f32_count = saved_cache_f32_count;
+	            stacktop_cache_f64_count = saved_cache_f64_count;
+	            stacktop_cache_v128_count = saved_cache_v128_count;
             codegen_operand_stack = saved_codegen_operand_stack;
 
             emit_br_if_jump_any(thunk_label_id);
@@ -3171,6 +3289,7 @@ case wasm1_code::br_table:
     // ^^ code_curr
 
     auto const op_begin{code_curr};
+    local_spot_flush_dirty_all_and_invalidate_to(bytecode);
 
     // br_table  target_count ...
     // [ safe ] unsafe (could be the section_end)
@@ -3493,9 +3612,10 @@ case wasm1_code::br_table:
                             target_frame_mut.stacktop_memory_count_at_end = stacktop_memory_count;
                             target_frame_mut.stacktop_cache_count_at_end = stacktop_cache_count;
                             target_frame_mut.stacktop_cache_i32_count_at_end = stacktop_cache_i32_count;
-                            target_frame_mut.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
-                            target_frame_mut.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
-                            target_frame_mut.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                            target_frame_mut.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
+	                            target_frame_mut.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
+	                            target_frame_mut.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                            target_frame_mut.stacktop_cache_v128_count_at_end = stacktop_cache_v128_count;
                             target_frame_mut.codegen_operand_stack_at_end = codegen_operand_stack;
                         }
                     }
@@ -3504,11 +3624,42 @@ case wasm1_code::br_table:
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
                 if constexpr(stacktop_enabled && CompileOption.is_tail_call && stacktop_regtransform_cf_entry && stacktop_regtransform_supported)
                 {
-                    if(!is_polymorphic && target_frame.type == block_type::loop && stacktop_cache_count != 0uz)
+                    if(!is_polymorphic && target_frame.type == block_type::loop &&
+                       (!stacktop_loop_entry_residence_matches(target_frame) || stacktop_cache_count != 0uz))
                     {
                         auto const transform_thunk_label_id{new_label(true)};
                         set_label_offset(transform_thunk_label_id, thunks.size());
-                        emit_br_to_with_stacktop_transform(thunks, target_label_id, true);
+
+                        auto const saved_curr_stacktop{curr_stacktop};
+                        auto const saved_memory_count{stacktop_memory_count};
+                        auto const saved_cache_count{stacktop_cache_count};
+                        auto const saved_cache_i32_count{stacktop_cache_i32_count};
+                        auto const saved_cache_i64_count{stacktop_cache_i64_count};
+                        auto const saved_cache_f32_count{stacktop_cache_f32_count};
+                        auto const saved_cache_f64_count{stacktop_cache_f64_count};
+                        auto const saved_cache_v128_count{stacktop_cache_v128_count};
+                        auto const saved_codegen_operand_stack{codegen_operand_stack};
+
+                        if(!stacktop_loop_entry_residence_matches(target_frame))
+                        {
+                            stacktop_restore_loop_entry_residence_to(thunks, target_frame);
+                            emit_br_to(thunks, target_label_id, true);
+                        }
+                        else
+                        {
+                            emit_br_to_with_stacktop_transform(thunks, target_label_id, true);
+                        }
+
+                        curr_stacktop = saved_curr_stacktop;
+                        stacktop_memory_count = saved_memory_count;
+                        stacktop_cache_count = saved_cache_count;
+                        stacktop_cache_i32_count = saved_cache_i32_count;
+                        stacktop_cache_i64_count = saved_cache_i64_count;
+                        stacktop_cache_f32_count = saved_cache_f32_count;
+                        stacktop_cache_f64_count = saved_cache_f64_count;
+                        stacktop_cache_v128_count = saved_cache_v128_count;
+                        codegen_operand_stack = saved_codegen_operand_stack;
+
                         br_table_target_label_id = transform_thunk_label_id;
                     }
                 }
@@ -3525,9 +3676,10 @@ case wasm1_code::br_table:
             auto const saved_memory_count{stacktop_memory_count};
             auto const saved_cache_count{stacktop_cache_count};
             auto const saved_cache_i32_count{stacktop_cache_i32_count};
-            auto const saved_cache_i64_count{stacktop_cache_i64_count};
-            auto const saved_cache_f32_count{stacktop_cache_f32_count};
-            auto const saved_cache_f64_count{stacktop_cache_f64_count};
+	            auto const saved_cache_i64_count{stacktop_cache_i64_count};
+	            auto const saved_cache_f32_count{stacktop_cache_f32_count};
+	            auto const saved_cache_f64_count{stacktop_cache_f64_count};
+	            auto const saved_cache_v128_count{stacktop_cache_v128_count};
             auto const saved_codegen_operand_stack{codegen_operand_stack};
 
             if(need_repair)
@@ -3552,7 +3704,12 @@ case wasm1_code::br_table:
             }
             if constexpr(stacktop_enabled)
             {
-                if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
+                if(target_frame.type == block_type::loop && !stacktop_loop_entry_residence_matches(target_frame))
+                {
+                    stacktop_restore_loop_entry_residence_to(thunks, target_frame);
+                    emit_br_to(thunks, target_label_id, true);
+                }
+                else if(target_frame.type == block_type::loop && stacktop_regtransform_cf_entry)
                 {
                     emit_br_to_with_stacktop_transform(thunks, target_label_id, true);
                 }
@@ -3578,9 +3735,10 @@ case wasm1_code::br_table:
                         target_frame_mut.stacktop_memory_count_at_end = stacktop_memory_count;
                         target_frame_mut.stacktop_cache_count_at_end = stacktop_cache_count;
                         target_frame_mut.stacktop_cache_i32_count_at_end = stacktop_cache_i32_count;
-                        target_frame_mut.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
-                        target_frame_mut.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
-                        target_frame_mut.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                        target_frame_mut.stacktop_cache_i64_count_at_end = stacktop_cache_i64_count;
+	                        target_frame_mut.stacktop_cache_f32_count_at_end = stacktop_cache_f32_count;
+	                        target_frame_mut.stacktop_cache_f64_count_at_end = stacktop_cache_f64_count;
+	                        target_frame_mut.stacktop_cache_v128_count_at_end = stacktop_cache_v128_count;
                         target_frame_mut.codegen_operand_stack_at_end = codegen_operand_stack;
                     }
                 }
@@ -3590,9 +3748,10 @@ case wasm1_code::br_table:
             stacktop_memory_count = saved_memory_count;
             stacktop_cache_count = saved_cache_count;
             stacktop_cache_i32_count = saved_cache_i32_count;
-            stacktop_cache_i64_count = saved_cache_i64_count;
-            stacktop_cache_f32_count = saved_cache_f32_count;
-            stacktop_cache_f64_count = saved_cache_f64_count;
+	            stacktop_cache_i64_count = saved_cache_i64_count;
+	            stacktop_cache_f32_count = saved_cache_f32_count;
+	            stacktop_cache_f64_count = saved_cache_f64_count;
+	            stacktop_cache_v128_count = saved_cache_v128_count;
             codegen_operand_stack = saved_codegen_operand_stack;
 
             emit_ptr_label_placeholder(thunk_label_id, false);

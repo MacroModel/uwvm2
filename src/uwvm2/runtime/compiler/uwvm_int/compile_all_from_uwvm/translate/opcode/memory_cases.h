@@ -91,17 +91,17 @@ case wasm1_code::i32_load:
             if(fuse_load_add_imm)
             {
                 emit_opfunc_to(bytecode,
-                               translate::get_uwvmint_i32_load_add_imm_fptr<CompileOption, ::std::byte const*, ::std::byte*, ::std::byte*>(curr_stacktop));
+                               translate::get_uwvmint_i32_load_add_imm_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
             }
             else if(fuse_load_and_imm)
             {
                 emit_opfunc_to(bytecode,
-                               translate::get_uwvmint_i32_load_and_imm_fptr<CompileOption, ::std::byte const*, ::std::byte*, ::std::byte*>(curr_stacktop));
+                               translate::get_uwvmint_i32_load_and_imm_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
             }
             else
             {
                 emit_opfunc_to(bytecode,
-                               translate::get_uwvmint_i32_load_localget_off_fptr<CompileOption, ::std::byte const*, ::std::byte*, ::std::byte*>(curr_stacktop));
+                               translate::get_uwvmint_i32_load_localget_off_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
             }
         }
         emit_imm_to(bytecode, conbine_pending.off1);
@@ -130,7 +130,7 @@ case wasm1_code::i32_load:
         else
         {
             emit_opfunc_to(bytecode,
-                           translate::get_uwvmint_i32_load_local_plus_imm_fptr<CompileOption, ::std::byte const*, ::std::byte*, ::std::byte*>(curr_stacktop));
+                           translate::get_uwvmint_i32_load_local_plus_imm_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
         }
         emit_imm_to(bytecode, conbine_pending.off1);
         emit_imm_to(bytecode, conbine_pending.imm_i32);
@@ -229,7 +229,7 @@ case wasm1_code::i64_load:
     if constexpr(stacktop_enabled_for_vt(curr_operand_stack_value_type::i64) &&
                  !stacktop_ranges_merged_for(curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i64))
     {
-        // i64.load is a pop(i32)+push(i64) op; ensure the destination ring has a free slot before the opfunc writes it.
+        // i64.load is a pop(i32)+push(i64) op; ensure the destination stack-top window has a free slot before the opfunc writes it.
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
     }
     if constexpr(CompileOption.is_tail_call)
@@ -263,68 +263,62 @@ case wasm1_code::f32_load:
     ensure_memory0_resolved();
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
-    if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(!CompileOption.is_tail_call)
     {
-        emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::i32, conbine_pending.off1);
-        conbine_pending.kind = conbine_pending_kind::local_get;
-        conbine_pending.off1 = conbine_pending.off2;
+        if(conbine_pending.kind != conbine_pending_kind::none) [[unlikely]] { flush_conbine_pending(); }
     }
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    else
     {
-        // Conbine: `local.get addr; f32.load` fused into `f32_load_localget_off`.
-        // Stack effect: push 1 (result), because the address is taken directly from the local.
-        if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32); }
-        if constexpr(CompileOption.is_tail_call)
+        if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
         {
+            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::i32, conbine_pending.off1);
+            conbine_pending.kind = conbine_pending_kind::local_get;
+            conbine_pending.off1 = conbine_pending.off2;
+        }
+        if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+        {
+            // Conbine: `local.get addr; f32.load` fused into `f32_load_localget_off`.
+            // Stack effect: push 1 (result), because the address is taken directly from the local.
+            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32); }
             emit_opfunc_to(
                 bytecode,
                 translate::get_uwvmint_f32_load_localget_off_fptr_from_tuple<CompileOption>(curr_stacktop, *resolved_memory0.memory_p, interpreter_tuple));
+            emit_imm_to(bytecode, conbine_pending.off1);
+            emit_imm_to(bytecode, resolved_memory0.memory_p);
+            emit_imm_to(bytecode, offset);
+            conbine_pending.kind = conbine_pending_kind::none;
+            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32); }
+            break;
         }
-        else
-        {
-            emit_opfunc_to(bytecode,
-                           translate::get_uwvmint_f32_load_localget_off_fptr<CompileOption, ::std::byte const*, ::std::byte*, ::std::byte*>(curr_stacktop));
-        }
-        emit_imm_to(bytecode, conbine_pending.off1);
-        emit_imm_to(bytecode, resolved_memory0.memory_p);
-        emit_imm_to(bytecode, offset);
-        conbine_pending.kind = conbine_pending_kind::none;
-        conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-        if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32); }
-        break;
     }
 #endif
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
-    if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32_add)
+    if constexpr(CompileOption.is_tail_call)
     {
-        // Conbine (heavy): `local.get addr; i32.const; i32.add; f32.load` fused into `f32_load_local_plus_imm`.
-        if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32); }
-        if constexpr(CompileOption.is_tail_call)
+        if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32_add)
         {
+            // Conbine (heavy): `local.get addr; i32.const; i32.add; f32.load` fused into `f32_load_local_plus_imm`.
+            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32); }
             emit_opfunc_to(
                 bytecode,
                 translate::get_uwvmint_f32_load_local_plus_imm_fptr_from_tuple<CompileOption>(curr_stacktop, *resolved_memory0.memory_p, interpreter_tuple));
+            emit_imm_to(bytecode, conbine_pending.off1);
+            emit_imm_to(bytecode, conbine_pending.imm_i32);
+            emit_imm_to(bytecode, resolved_memory0.memory_p);
+            emit_imm_to(bytecode, offset);
+            conbine_pending.kind = conbine_pending_kind::none;
+            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32); }
+            break;
         }
-        else
-        {
-            emit_opfunc_to(bytecode,
-                           translate::get_uwvmint_f32_load_local_plus_imm_fptr<CompileOption, ::std::byte const*, ::std::byte*, ::std::byte*>(curr_stacktop));
-        }
-        emit_imm_to(bytecode, conbine_pending.off1);
-        emit_imm_to(bytecode, conbine_pending.imm_i32);
-        emit_imm_to(bytecode, resolved_memory0.memory_p);
-        emit_imm_to(bytecode, offset);
-        conbine_pending.kind = conbine_pending_kind::none;
-        conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-        if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f32); }
-        break;
     }
 #endif
     if constexpr(stacktop_enabled_for_vt(curr_operand_stack_value_type::f32) &&
                  !stacktop_ranges_merged_for(curr_operand_stack_value_type::i32, curr_operand_stack_value_type::f32))
     {
-        // f32.load is a pop(i32)+push(f32) op; the opfunc writes into the f32 ring.
-        // Ensure the destination ring has a free slot before emitting the opfunc, or the runtime write may overwrite
+        // f32.load is a pop(i32)+push(f32) op; the opfunc writes into the f32 stack-top window.
+        // Ensure the destination stack-top window has a free slot before emitting the opfunc, or the runtime write may overwrite
         // the deepest cached value and corrupt subsequent computations (notably inside libc printf/vsnprintf paths).
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f32);
     }
@@ -348,7 +342,7 @@ case wasm1_code::f32_load:
         }
         else
         {
-            // i32 addr -> f32 result: cross-ring, depth unchanged => model as pop+push.
+            // i32 addr -> f32 result: cross-stack-top window, depth unchanged => model as pop+push.
             stacktop_after_pop_n_push1_typed_if_reachable(bytecode, 1uz, curr_operand_stack_value_type::f32);
         }
     }
@@ -360,67 +354,61 @@ case wasm1_code::f64_load:
     ensure_memory0_resolved();
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
-    if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(!CompileOption.is_tail_call)
     {
-        emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::i32, conbine_pending.off1);
-        conbine_pending.kind = conbine_pending_kind::local_get;
-        conbine_pending.off1 = conbine_pending.off2;
+        if(conbine_pending.kind != conbine_pending_kind::none) [[unlikely]] { flush_conbine_pending(); }
     }
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    else
     {
-        // Conbine: `local.get addr; f64.load` fused into `f64_load_localget_off`.
-        // Stack effect: push 1 (result), because the address is taken directly from the local.
-        if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-        if constexpr(CompileOption.is_tail_call)
+        if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
         {
+            emit_local_get_typed_to(bytecode, curr_operand_stack_value_type::i32, conbine_pending.off1);
+            conbine_pending.kind = conbine_pending_kind::local_get;
+            conbine_pending.off1 = conbine_pending.off2;
+        }
+        if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+        {
+            // Conbine: `local.get addr; f64.load` fused into `f64_load_localget_off`.
+            // Stack effect: push 1 (result), because the address is taken directly from the local.
+            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
             emit_opfunc_to(
                 bytecode,
                 translate::get_uwvmint_f64_load_localget_off_fptr_from_tuple<CompileOption>(curr_stacktop, *resolved_memory0.memory_p, interpreter_tuple));
+            emit_imm_to(bytecode, conbine_pending.off1);
+            emit_imm_to(bytecode, resolved_memory0.memory_p);
+            emit_imm_to(bytecode, offset);
+            conbine_pending.kind = conbine_pending_kind::none;
+            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+            break;
         }
-        else
-        {
-            emit_opfunc_to(bytecode,
-                           translate::get_uwvmint_f64_load_localget_off_fptr<CompileOption, ::std::byte const*, ::std::byte*, ::std::byte*>(curr_stacktop));
-        }
-        emit_imm_to(bytecode, conbine_pending.off1);
-        emit_imm_to(bytecode, resolved_memory0.memory_p);
-        emit_imm_to(bytecode, offset);
-        conbine_pending.kind = conbine_pending_kind::none;
-        conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-        if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-        break;
     }
 #endif
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
-    if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32_add)
+    if constexpr(CompileOption.is_tail_call)
     {
-        // Conbine (heavy): `local.get addr; i32.const; i32.add; f64.load` fused into `f64_load_local_plus_imm`.
-        if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
-        if constexpr(CompileOption.is_tail_call)
+        if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32_add)
         {
+            // Conbine (heavy): `local.get addr; i32.const; i32.add; f64.load` fused into `f64_load_local_plus_imm`.
+            if constexpr(stacktop_enabled) { stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64); }
             emit_opfunc_to(
                 bytecode,
                 translate::get_uwvmint_f64_load_local_plus_imm_fptr_from_tuple<CompileOption>(curr_stacktop, *resolved_memory0.memory_p, interpreter_tuple));
+            emit_imm_to(bytecode, conbine_pending.off1);
+            emit_imm_to(bytecode, conbine_pending.imm_i32);
+            emit_imm_to(bytecode, resolved_memory0.memory_p);
+            emit_imm_to(bytecode, offset);
+            conbine_pending.kind = conbine_pending_kind::none;
+            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+            if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
+            break;
         }
-        else
-        {
-            emit_opfunc_to(bytecode,
-                           translate::get_uwvmint_f64_load_local_plus_imm_fptr<CompileOption, ::std::byte const*, ::std::byte*, ::std::byte*>(curr_stacktop));
-        }
-        emit_imm_to(bytecode, conbine_pending.off1);
-        emit_imm_to(bytecode, conbine_pending.imm_i32);
-        emit_imm_to(bytecode, resolved_memory0.memory_p);
-        emit_imm_to(bytecode, offset);
-        conbine_pending.kind = conbine_pending_kind::none;
-        conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-        if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::f64); }
-        break;
     }
 #endif
     if constexpr(stacktop_enabled_for_vt(curr_operand_stack_value_type::f64) &&
                  !stacktop_ranges_merged_for(curr_operand_stack_value_type::i32, curr_operand_stack_value_type::f64))
     {
-        // f64.load is a pop(i32)+push(f64) op; ensure the destination ring has a free slot before emitting the opfunc.
+        // f64.load is a pop(i32)+push(f64) op; ensure the destination stack-top window has a free slot before emitting the opfunc.
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::f64);
     }
     if constexpr(CompileOption.is_tail_call)
@@ -443,7 +431,7 @@ case wasm1_code::f64_load:
         }
         else
         {
-            // i32 addr -> f64 result: cross-ring, depth unchanged => model as pop+push.
+            // i32 addr -> f64 result: cross-stack-top window, depth unchanged => model as pop+push.
             stacktop_after_pop_n_push1_typed_if_reachable(bytecode, 1uz, curr_operand_stack_value_type::f64);
         }
     }
@@ -854,7 +842,7 @@ case wasm1_code::i32_store:
         else
         {
             emit_opfunc_to(bytecode,
-                           translate::get_uwvmint_i32_store_local_plus_imm_fptr<CompileOption, ::std::byte const*, ::std::byte*, ::std::byte*>(curr_stacktop));
+                           translate::get_uwvmint_i32_store_local_plus_imm_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
         }
         emit_imm_to(bytecode, conbine_pending.off1);
         emit_imm_to(bytecode, conbine_pending.imm_i32);
@@ -912,6 +900,10 @@ case wasm1_code::i32_store:
     }
 #endif
 
+    if constexpr(stacktop_enabled)
+    {
+        if(!is_polymorphic) { stacktop_fill_to_canonical(bytecode); }
+    }
     if constexpr(CompileOption.is_tail_call)
     {
         emit_opfunc_to(bytecode, translate::get_uwvmint_i32_store_fptr_from_tuple<CompileOption>(curr_stacktop, *resolved_memory0.memory_p, interpreter_tuple));
@@ -956,6 +948,10 @@ case wasm1_code::i64_store:
     }
 #endif
 
+    if constexpr(stacktop_enabled)
+    {
+        if(!is_polymorphic) { stacktop_fill_to_canonical(bytecode); }
+    }
     if constexpr(CompileOption.is_tail_call)
     {
         emit_opfunc_to(bytecode, translate::get_uwvmint_i64_store_fptr_from_tuple<CompileOption>(curr_stacktop, *resolved_memory0.memory_p, interpreter_tuple));
@@ -978,31 +974,30 @@ case wasm1_code::f32_store:
     ensure_memory0_resolved();
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
-    if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32_add_localget && conbine_pending.vt == curr_operand_stack_value_type::f32)
+    if constexpr(CompileOption.is_tail_call)
     {
-        // Conbine (heavy): `local.get addr; i32.const; i32.add; local.get v; f32.store` fused into `f32_store_local_plus_imm`.
-        if constexpr(CompileOption.is_tail_call)
+        if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32_add_localget && conbine_pending.vt == curr_operand_stack_value_type::f32)
         {
+            // Conbine (heavy): `local.get addr; i32.const; i32.add; local.get v; f32.store` fused into `f32_store_local_plus_imm`.
             emit_opfunc_to(
                 bytecode,
                 translate::get_uwvmint_f32_store_local_plus_imm_fptr_from_tuple<CompileOption>(curr_stacktop, *resolved_memory0.memory_p, interpreter_tuple));
+            emit_imm_to(bytecode, conbine_pending.off1);
+            emit_imm_to(bytecode, conbine_pending.imm_i32);
+            emit_imm_to(bytecode, conbine_pending.off2);
+            emit_imm_to(bytecode, resolved_memory0.memory_p);
+            emit_imm_to(bytecode, offset);
+            conbine_pending.kind = conbine_pending_kind::none;
+            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+            break;
         }
-        else
-        {
-            emit_opfunc_to(bytecode,
-                           translate::get_uwvmint_f32_store_local_plus_imm_fptr<CompileOption, ::std::byte const*, ::std::byte*, ::std::byte*>(curr_stacktop));
-        }
-        emit_imm_to(bytecode, conbine_pending.off1);
-        emit_imm_to(bytecode, conbine_pending.imm_i32);
-        emit_imm_to(bytecode, conbine_pending.off2);
-        emit_imm_to(bytecode, resolved_memory0.memory_p);
-        emit_imm_to(bytecode, offset);
-        conbine_pending.kind = conbine_pending_kind::none;
-        conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-        break;
     }
 #endif
 
+    if constexpr(stacktop_enabled)
+    {
+        if(!is_polymorphic) { stacktop_fill_to_canonical(bytecode); }
+    }
     if constexpr(CompileOption.is_tail_call)
     {
         emit_opfunc_to(bytecode, translate::get_uwvmint_f32_store_fptr_from_tuple<CompileOption>(curr_stacktop, *resolved_memory0.memory_p, interpreter_tuple));
@@ -1026,31 +1021,30 @@ case wasm1_code::f64_store:
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
-    if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32_add_localget && conbine_pending.vt == curr_operand_stack_value_type::f64)
+    if constexpr(CompileOption.is_tail_call)
     {
-        // Conbine (heavy): `local.get addr; i32.const; i32.add; local.get v; f64.store` fused into `f64_store_local_plus_imm`.
-        if constexpr(CompileOption.is_tail_call)
+        if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32_add_localget && conbine_pending.vt == curr_operand_stack_value_type::f64)
         {
+            // Conbine (heavy): `local.get addr; i32.const; i32.add; local.get v; f64.store` fused into `f64_store_local_plus_imm`.
             emit_opfunc_to(
                 bytecode,
                 translate::get_uwvmint_f64_store_local_plus_imm_fptr_from_tuple<CompileOption>(curr_stacktop, *resolved_memory0.memory_p, interpreter_tuple));
+            emit_imm_to(bytecode, conbine_pending.off1);
+            emit_imm_to(bytecode, conbine_pending.imm_i32);
+            emit_imm_to(bytecode, conbine_pending.off2);
+            emit_imm_to(bytecode, resolved_memory0.memory_p);
+            emit_imm_to(bytecode, offset);
+            conbine_pending.kind = conbine_pending_kind::none;
+            conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+            break;
         }
-        else
-        {
-            emit_opfunc_to(bytecode,
-                           translate::get_uwvmint_f64_store_local_plus_imm_fptr<CompileOption, ::std::byte const*, ::std::byte*, ::std::byte*>(curr_stacktop));
-        }
-        emit_imm_to(bytecode, conbine_pending.off1);
-        emit_imm_to(bytecode, conbine_pending.imm_i32);
-        emit_imm_to(bytecode, conbine_pending.off2);
-        emit_imm_to(bytecode, resolved_memory0.memory_p);
-        emit_imm_to(bytecode, offset);
-        conbine_pending.kind = conbine_pending_kind::none;
-        conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
-        break;
     }
 #endif
 
+    if constexpr(stacktop_enabled)
+    {
+        if(!is_polymorphic) { stacktop_fill_to_canonical(bytecode); }
+    }
     if constexpr(CompileOption.is_tail_call)
     {
         emit_opfunc_to(bytecode, translate::get_uwvmint_f64_store_fptr_from_tuple<CompileOption>(curr_stacktop, *resolved_memory0.memory_p, interpreter_tuple));
@@ -1105,6 +1099,10 @@ case wasm1_code::i32_store8:
             break;
         }
 #endif
+        if constexpr(stacktop_enabled)
+        {
+            if(!is_polymorphic) { stacktop_fill_to_canonical(bytecode); }
+        }
         emit_opfunc_to(bytecode,
                        translate::get_uwvmint_i32_store8_fptr_from_tuple<CompileOption>(curr_stacktop, *resolved_memory0.memory_p, interpreter_tuple));
     }
@@ -1179,6 +1177,10 @@ case wasm1_code::i32_store16:
         }
 #endif
     }
+    if constexpr(stacktop_enabled)
+    {
+        if(!is_polymorphic) { stacktop_fill_to_canonical(bytecode); }
+    }
     if constexpr(CompileOption.is_tail_call)
     {
         emit_opfunc_to(bytecode,
@@ -1201,6 +1203,10 @@ case wasm1_code::i64_store8:
     wasm_u32 const offset{validate_mem_store(u8"i64.store8", 0u, wasm_value_type_u::i64)};
     ensure_memory0_resolved();
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+    if constexpr(stacktop_enabled)
+    {
+        if(!is_polymorphic) { stacktop_fill_to_canonical(bytecode); }
+    }
     if constexpr(CompileOption.is_tail_call)
     {
         emit_opfunc_to(bytecode,
@@ -1223,6 +1229,10 @@ case wasm1_code::i64_store16:
     wasm_u32 const offset{validate_mem_store(u8"i64.store16", 1u, wasm_value_type_u::i64)};
     ensure_memory0_resolved();
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+    if constexpr(stacktop_enabled)
+    {
+        if(!is_polymorphic) { stacktop_fill_to_canonical(bytecode); }
+    }
     if constexpr(CompileOption.is_tail_call)
     {
         emit_opfunc_to(bytecode,
@@ -1264,6 +1274,10 @@ case wasm1_code::i64_store32:
         }
     }
 #endif
+    if constexpr(stacktop_enabled)
+    {
+        if(!is_polymorphic) { stacktop_fill_to_canonical(bytecode); }
+    }
     if constexpr(CompileOption.is_tail_call)
     {
         emit_opfunc_to(bytecode,

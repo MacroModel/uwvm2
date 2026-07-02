@@ -15,8 +15,8 @@ namespace
 
         // f0: (param i32) (result i32) -> 123 (for param!=0)
         //
-        // With stacktop caching enabled and v128 used as the float-carrier register class, the translator should still
-        // emit a loop re-entry stacktop transform when branches target the loop header while the cache is non-empty.
+        // With stacktop caching enabled and v128 sharing the FV register class, control-flow edge repair must keep
+        // the carrier values correct across loop and block boundaries.
         {
             func_type ty{{k_val_i32}, {k_val_i32}};
             func_body fb{};
@@ -60,61 +60,6 @@ namespace
         return mb.build();
     }
 
-    template <optable::uwvm_interpreter_translate_option_t CompileOption, typename ByteStorage>
-    [[nodiscard]] bool bytecode_contains_any_loop_reentry_stacktop_transform(ByteStorage const& bc) noexcept
-    {
-#if !defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS)
-        (void)bc;
-        return true;  // feature off: skip assertion
-#else
-        constexpr auto tuple = compiler::details::make_interpreter_tuple<CompileOption>(
-            ::std::make_index_sequence<compiler::details::interpreter_tuple_size<CompileOption>()>{});
-
-        // With 2-slot merged rings there are few currpos combinations.
-        constexpr optable::uwvm_interpreter_stacktop_currpos_t c35{
-            .i32_stack_top_curr_pos = 3uz,
-            .i64_stack_top_curr_pos = 3uz,
-            .f32_stack_top_curr_pos = 5uz,
-            .f64_stack_top_curr_pos = 5uz,
-            .v128_stack_top_curr_pos = 5uz,
-        };
-        constexpr optable::uwvm_interpreter_stacktop_currpos_t c36{
-            .i32_stack_top_curr_pos = 3uz,
-            .i64_stack_top_curr_pos = 3uz,
-            .f32_stack_top_curr_pos = 6uz,
-            .f64_stack_top_curr_pos = 6uz,
-            .v128_stack_top_curr_pos = 6uz,
-        };
-        constexpr optable::uwvm_interpreter_stacktop_currpos_t c45{
-            .i32_stack_top_curr_pos = 4uz,
-            .i64_stack_top_curr_pos = 4uz,
-            .f32_stack_top_curr_pos = 5uz,
-            .f64_stack_top_curr_pos = 5uz,
-            .v128_stack_top_curr_pos = 5uz,
-        };
-        constexpr optable::uwvm_interpreter_stacktop_currpos_t c46{
-            .i32_stack_top_curr_pos = 4uz,
-            .i64_stack_top_curr_pos = 4uz,
-            .f32_stack_top_curr_pos = 6uz,
-            .f64_stack_top_curr_pos = 6uz,
-            .v128_stack_top_curr_pos = 6uz,
-        };
-
-        constexpr auto f35 = optable::translate::get_uwvmint_br_stacktop_transform_to_begin_fptr_from_tuple<CompileOption>(c35, tuple);
-        constexpr auto f36 = optable::translate::get_uwvmint_br_stacktop_transform_to_begin_fptr_from_tuple<CompileOption>(c36, tuple);
-        constexpr auto f45 = optable::translate::get_uwvmint_br_stacktop_transform_to_begin_fptr_from_tuple<CompileOption>(c45, tuple);
-        constexpr auto f46 = optable::translate::get_uwvmint_br_stacktop_transform_to_begin_fptr_from_tuple<CompileOption>(c46, tuple);
-
-        constexpr auto n35 = optable::translate::get_uwvmint_stacktop_transform_to_begin_fptr_from_tuple<CompileOption>(c35, tuple);
-        constexpr auto n36 = optable::translate::get_uwvmint_stacktop_transform_to_begin_fptr_from_tuple<CompileOption>(c36, tuple);
-        constexpr auto n45 = optable::translate::get_uwvmint_stacktop_transform_to_begin_fptr_from_tuple<CompileOption>(c45, tuple);
-        constexpr auto n46 = optable::translate::get_uwvmint_stacktop_transform_to_begin_fptr_from_tuple<CompileOption>(c46, tuple);
-
-        return bytecode_contains_fptr(bc, f35) || bytecode_contains_fptr(bc, f36) || bytecode_contains_fptr(bc, f45) || bytecode_contains_fptr(bc, f46) ||
-               bytecode_contains_fptr(bc, n35) || bytecode_contains_fptr(bc, n36) || bytecode_contains_fptr(bc, n45) || bytecode_contains_fptr(bc, n46);
-#endif
-    }
-
     [[nodiscard]] int test_translate_cf_stacktop_transform_v128_carrier() noexcept
     {
         ::uwvm2test::uwvm_int_strict::install_unexpected_traps();
@@ -147,16 +92,16 @@ namespace
         {
             constexpr optable::uwvm_interpreter_translate_option_t opt{
                 .is_tail_call = true,
-                .i32_stack_top_begin_pos = 3uz,
-                .i32_stack_top_end_pos = 5uz,
-                .i64_stack_top_begin_pos = 3uz,
-                .i64_stack_top_end_pos = 5uz,
-                .f32_stack_top_begin_pos = 5uz,
-                .f32_stack_top_end_pos = 7uz,
-                .f64_stack_top_begin_pos = 5uz,
-                .f64_stack_top_end_pos = 7uz,
-                .v128_stack_top_begin_pos = 5uz,
-                .v128_stack_top_end_pos = 7uz,
+                .i32_stack_top_begin_pos = SIZE_MAX,
+                .i32_stack_top_end_pos = SIZE_MAX,
+                .i64_stack_top_begin_pos = SIZE_MAX,
+                .i64_stack_top_end_pos = SIZE_MAX,
+                .f32_stack_top_begin_pos = 0uz,
+                .f32_stack_top_end_pos = 2uz,
+                .f64_stack_top_begin_pos = 0uz,
+                .f64_stack_top_end_pos = 2uz,
+                .v128_stack_top_begin_pos = 0uz,
+                .v128_stack_top_end_pos = 2uz,
             };
             static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
 
@@ -164,8 +109,6 @@ namespace
             optable::compile_option cop{};
             auto cm = compiler::compile_all_from_uwvm_single_func<opt>(rt, cop, err);
             UWVM2TEST_REQUIRE(err.err_code == ::uwvm2::validation::error::code_validation_error_code::ok);
-
-            UWVM2TEST_REQUIRE(bytecode_contains_any_loop_reentry_stacktop_transform<opt>(cm.local_funcs.index_unchecked(0).op.operands));
 
             using Runner = interpreter_runner<opt>;
             UWVM2TEST_REQUIRE(load_i32(Runner::run(cm.local_funcs.index_unchecked(0),

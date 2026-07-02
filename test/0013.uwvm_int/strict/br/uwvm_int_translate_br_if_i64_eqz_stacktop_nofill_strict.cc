@@ -95,21 +95,21 @@ namespace
             UWVM2TEST_REQUIRE(run_suite<opt>(rt) == 0);
         }
 
-        // Tailcall + stacktop caching: disjoint i64/i32 rings so compare->i32 is a cross-ring pop+push.
+        // Tailcall + stacktop caching: disjoint i64/i32 rings so compare->i32 is a cross-stack-top window pop+push.
         // This must model pop+push without emitting any fill ops when `br_if` immediately follows.
         {
             constexpr optable::uwvm_interpreter_translate_option_t opt{
                 .is_tail_call = true,
-                .i32_stack_top_begin_pos = 3uz,
-                .i32_stack_top_end_pos = 5uz,
-                .i64_stack_top_begin_pos = 5uz,
-                .i64_stack_top_end_pos = 7uz,
-                .f32_stack_top_begin_pos = 7uz,
-                .f32_stack_top_end_pos = 9uz,
-                .f64_stack_top_begin_pos = 9uz,
-                .f64_stack_top_end_pos = 11uz,
-                .v128_stack_top_begin_pos = SIZE_MAX,
-                .v128_stack_top_end_pos = SIZE_MAX,
+                .i32_stack_top_begin_pos = SIZE_MAX,
+                .i32_stack_top_end_pos = SIZE_MAX,
+                .i64_stack_top_begin_pos = SIZE_MAX,
+                .i64_stack_top_end_pos = SIZE_MAX,
+                .f32_stack_top_begin_pos = 0uz,
+                .f32_stack_top_end_pos = 4uz,
+                .f64_stack_top_begin_pos = 0uz,
+                .f64_stack_top_end_pos = 4uz,
+                .v128_stack_top_begin_pos = 0uz,
+                .v128_stack_top_end_pos = 4uz,
             };
             static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
             UWVM2TEST_REQUIRE(run_suite<opt>(rt) == 0);

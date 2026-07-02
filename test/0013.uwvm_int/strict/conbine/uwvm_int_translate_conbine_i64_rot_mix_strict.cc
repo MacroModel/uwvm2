@@ -170,14 +170,15 @@ namespace
 
             auto const make_rot_xor_add = [&](auto const& curr_variant) constexpr noexcept
             { return optable::translate::get_uwvmint_i64_rot_xor_add_fptr_from_tuple<Opt>(curr_variant, tuple); };
-
-            UWVM2TEST_REQUIRE(bytecode_contains_i64_variant<Opt>(cm.local_funcs.index_unchecked(0).op.operands, make_rot_xor_add));
 # if defined(UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS)
             auto const make_rotl_xor_set = [&](auto const& curr_variant) constexpr noexcept
             { return optable::translate::get_uwvmint_i64_rotl_xor_local_set_fptr_from_tuple<Opt>(curr_variant, tuple); };
             auto const make_rotl_xor_tee = [&](auto const& curr_variant) constexpr noexcept
             { return optable::translate::get_uwvmint_i64_rotl_xor_local_tee_fptr_from_tuple<Opt>(curr_variant, tuple); };
+# endif
 
+            UWVM2TEST_REQUIRE(bytecode_contains_i64_variant<Opt>(cm.local_funcs.index_unchecked(0).op.operands, make_rot_xor_add));
+# if defined(UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS)
             UWVM2TEST_REQUIRE(bytecode_contains_i64_variant<Opt>(cm.local_funcs.index_unchecked(1).op.operands, make_rotl_xor_set));
             UWVM2TEST_REQUIRE(bytecode_contains_i64_variant<Opt>(cm.local_funcs.index_unchecked(2).op.operands, make_rotl_xor_tee));
             UWVM2TEST_REQUIRE(!bytecode_contains_i64_variant<Opt>(cm.local_funcs.index_unchecked(6).op.operands, make_rotl_xor_set));
@@ -247,8 +248,10 @@ namespace
             })
         {
             ::std::uint64_t const exp{y ^ rotl64(x, 5u)};
-            UWVM2TEST_REQUIRE(run_i64_2(1uz, y, x) == exp);
-            UWVM2TEST_REQUIRE(run_i64_2(2uz, y, x) == exp);
+            auto const got1{run_i64_2(1uz, y, x)};
+            auto const got2{run_i64_2(2uz, y, x)};
+            UWVM2TEST_REQUIRE(got1 == exp);
+            UWVM2TEST_REQUIRE(got2 == exp);
             UWVM2TEST_REQUIRE(run_i32_2(6uz, y, x) == (exp == 0u ? 1 : 0));
         }
 

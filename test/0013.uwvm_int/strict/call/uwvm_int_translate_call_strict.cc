@@ -546,6 +546,54 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
+        // 21: param0_i32 (16 params) => param0
+        {
+            func_type ty{{k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32,
+                          k_val_i32},
+                         {k_val_i32}};
+            func_body fb{};
+            auto& c = fb.code;
+            op(c, wasm_op::local_get);
+            u32(c, 0u);
+            op(c, wasm_op::end);
+            (void)mb.add_func(::std::move(ty), ::std::move(fb));
+        }
+
+        // 22: caller_call_param0_16p_lset => local0 = param0_16p(1..16); return local0
+        {
+            func_type ty{{}, {k_val_i32}};
+            func_body fb{};
+            fb.locals.push_back({1u, k_val_i32});
+            auto& c = fb.code;
+            for(int v = 1; v <= 16; ++v)
+            {
+                op(c, wasm_op::i32_const);
+                i32(c, v);
+            }
+            op(c, wasm_op::call);
+            u32(c, 21u);
+            op(c, wasm_op::local_set);
+            u32(c, 0u);
+            op(c, wasm_op::local_get);
+            u32(c, 0u);
+            op(c, wasm_op::end);
+            (void)mb.add_func(::std::move(ty), ::std::move(fb));
+        }
+
         return mb.build();
     }
 
@@ -671,16 +719,16 @@ namespace
             constexpr optable::uwvm_interpreter_translate_option_t opt{
                 .is_tail_call = true,
                 // Fully merged scalar4 range (required by translate.h for mixed-typed operand stack correctness).
-                .i32_stack_top_begin_pos = 3uz,
-                .i32_stack_top_end_pos = 7uz,
-                .i64_stack_top_begin_pos = 3uz,
-                .i64_stack_top_end_pos = 7uz,
-                .f32_stack_top_begin_pos = 3uz,
-                .f32_stack_top_end_pos = 7uz,
-                .f64_stack_top_begin_pos = 3uz,
-                .f64_stack_top_end_pos = 7uz,
-                .v128_stack_top_begin_pos = SIZE_MAX,
-                .v128_stack_top_end_pos = SIZE_MAX,
+                .i32_stack_top_begin_pos = SIZE_MAX,
+                .i32_stack_top_end_pos = SIZE_MAX,
+                .i64_stack_top_begin_pos = SIZE_MAX,
+                .i64_stack_top_end_pos = SIZE_MAX,
+                .f32_stack_top_begin_pos = 0uz,
+                .f32_stack_top_end_pos = 4uz,
+                .f64_stack_top_begin_pos = 0uz,
+                .f64_stack_top_end_pos = 4uz,
+                .v128_stack_top_begin_pos = 0uz,
+                .v128_stack_top_end_pos = 4uz,
             };
             static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
 
@@ -694,27 +742,27 @@ namespace
                 compiler::details::make_interpreter_tuple<opt>(::std::make_index_sequence<compiler::details::interpreter_tuple_size<opt>()>{});
 
             constexpr optable::uwvm_interpreter_stacktop_currpos_t c3{
-                .i32_stack_top_curr_pos = 3uz,
-                .i64_stack_top_curr_pos = 3uz,
-                .f32_stack_top_curr_pos = 3uz,
-                .f64_stack_top_curr_pos = 3uz,
-                .v128_stack_top_curr_pos = SIZE_MAX,
+                .i32_stack_top_curr_pos = SIZE_MAX,
+                .i64_stack_top_curr_pos = SIZE_MAX,
+                .f32_stack_top_curr_pos = 0uz,
+                .f64_stack_top_curr_pos = 0uz,
+                .v128_stack_top_curr_pos = 0uz,
             };
-            constexpr optable::uwvm_interpreter_stacktop_currpos_t c4{.i32_stack_top_curr_pos = 4uz,
-                                                                      .i64_stack_top_curr_pos = 4uz,
-                                                                      .f32_stack_top_curr_pos = 4uz,
-                                                                      .f64_stack_top_curr_pos = 4uz,
-                                                                      .v128_stack_top_curr_pos = SIZE_MAX};
-            constexpr optable::uwvm_interpreter_stacktop_currpos_t c5{.i32_stack_top_curr_pos = 5uz,
-                                                                      .i64_stack_top_curr_pos = 5uz,
-                                                                      .f32_stack_top_curr_pos = 5uz,
-                                                                      .f64_stack_top_curr_pos = 5uz,
-                                                                      .v128_stack_top_curr_pos = SIZE_MAX};
-            constexpr optable::uwvm_interpreter_stacktop_currpos_t c6{.i32_stack_top_curr_pos = 6uz,
-                                                                      .i64_stack_top_curr_pos = 6uz,
-                                                                      .f32_stack_top_curr_pos = 6uz,
-                                                                      .f64_stack_top_curr_pos = 6uz,
-                                                                      .v128_stack_top_curr_pos = SIZE_MAX};
+            constexpr optable::uwvm_interpreter_stacktop_currpos_t c4{.i32_stack_top_curr_pos = SIZE_MAX,
+                                                                      .i64_stack_top_curr_pos = SIZE_MAX,
+                                                                      .f32_stack_top_curr_pos = 1uz,
+                                                                      .f64_stack_top_curr_pos = 1uz,
+                                                                      .v128_stack_top_curr_pos = 1uz};
+            constexpr optable::uwvm_interpreter_stacktop_currpos_t c5{.i32_stack_top_curr_pos = SIZE_MAX,
+                                                                      .i64_stack_top_curr_pos = SIZE_MAX,
+                                                                      .f32_stack_top_curr_pos = 2uz,
+                                                                      .f64_stack_top_curr_pos = 2uz,
+                                                                      .v128_stack_top_curr_pos = 2uz};
+            constexpr optable::uwvm_interpreter_stacktop_currpos_t c6{.i32_stack_top_curr_pos = SIZE_MAX,
+                                                                      .i64_stack_top_curr_pos = SIZE_MAX,
+                                                                      .f32_stack_top_curr_pos = 3uz,
+                                                                      .f64_stack_top_curr_pos = 3uz,
+                                                                      .v128_stack_top_curr_pos = 3uz};
 
             // caller_call_add: call_stacktop_i32 ParamCount=1 Ret=wasm_i32
             {
@@ -796,6 +844,41 @@ namespace
                                     nullptr,
                                     nullptr);
             UWVM2TEST_REQUIRE(load_i32(rr20.results) == 3);
+        }
+
+        // Mode D: tailcall + int stack-spot cache. Verify the capped 3-parameter direct call fast path.
+        {
+            constexpr auto opt{make_tailcall_int_spot_logical_fv_opt<3uz, 2uz>()};
+            static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
+
+            ::uwvm2::validation::error::code_validation_error_impl err{};
+            optable::compile_option cop{};
+            auto cm = compiler::compile_all_from_uwvm_single_func<opt>(rt, cop, err);
+            UWVM2TEST_REQUIRE(err.err_code == ::uwvm2::validation::error::code_validation_error_code::ok);
+
+#if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS)
+            constexpr auto tuple =
+                compiler::details::make_interpreter_tuple<opt>(::std::make_index_sequence<compiler::details::interpreter_tuple_size<opt>()>{});
+
+            bool found_call3{};
+            for(::std::size_t pos{}; pos != 3uz; ++pos)
+            {
+                optable::uwvm_interpreter_stacktop_currpos_t curr{
+                    .i32_stack_top_curr_pos = pos,
+                    .i64_stack_top_curr_pos = pos,
+                    .f32_stack_top_curr_pos = 0uz,
+                    .f64_stack_top_curr_pos = 0uz,
+                    .v128_stack_top_curr_pos = 0uz,
+                };
+                auto const exp = optable::translate::get_uwvmint_call_stacktop_i32_fptr_from_tuple<opt, 3uz, wasm_i32>(curr, tuple);
+                if(bytecode_contains_fptr(cm.local_funcs.index_unchecked(18).op.operands, exp))
+                {
+                    found_call3 = true;
+                    break;
+                }
+            }
+            UWVM2TEST_REQUIRE(found_call3);
+#endif
         }
 
         // Mode B: byref semantics (no stacktop caching).

@@ -12,7 +12,7 @@ namespace
         auto f64 = [&](byte_vec& c, double v) { append_f64_ieee(c, v); };
 
         // f0: ((1 + 2) + 3) but arranged to:
-        // - fill a small f64 stacktop ring (2 slots),
+        // - fill a small f64 stacktop stack-top window (2 slots),
         // - spill 1 value to operand-stack memory,
         // - then trigger f64.add_then_fill1 patching at the first f64.add.
         {
@@ -27,7 +27,7 @@ namespace
             op(c, wasm_op::f64_const);
             f64(c, 3.0);
 
-            // Flush const pending so all 3 values are materialized, forcing a stacktop spill with a 2-slot ring.
+            // Flush const pending so all 3 values are materialized, forcing a stacktop spill with a 2-slot stack-top window.
             op(c, wasm_op::nop);
 
             op(c, wasm_op::f64_add);
@@ -54,16 +54,16 @@ namespace
         // Tailcall + stacktop caching (small rings). Same layout as translate_strict Mode C.
         constexpr optable::uwvm_interpreter_translate_option_t opt{
             .is_tail_call = true,
-            .i32_stack_top_begin_pos = 3uz,
-            .i32_stack_top_end_pos = 5uz,
-            .i64_stack_top_begin_pos = 3uz,
-            .i64_stack_top_end_pos = 5uz,
-            .f32_stack_top_begin_pos = 5uz,
-            .f32_stack_top_end_pos = 7uz,
-            .f64_stack_top_begin_pos = 5uz,
-            .f64_stack_top_end_pos = 7uz,
-            .v128_stack_top_begin_pos = SIZE_MAX,
-            .v128_stack_top_end_pos = SIZE_MAX,
+            .i32_stack_top_begin_pos = SIZE_MAX,
+            .i32_stack_top_end_pos = SIZE_MAX,
+            .i64_stack_top_begin_pos = SIZE_MAX,
+            .i64_stack_top_end_pos = SIZE_MAX,
+            .f32_stack_top_begin_pos = 0uz,
+            .f32_stack_top_end_pos = 2uz,
+            .f64_stack_top_begin_pos = 0uz,
+            .f64_stack_top_end_pos = 2uz,
+            .v128_stack_top_begin_pos = 0uz,
+            .v128_stack_top_end_pos = 2uz,
         };
         static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
 
@@ -76,18 +76,18 @@ namespace
         constexpr auto tuple = compiler::details::make_interpreter_tuple<opt>(::std::make_index_sequence<compiler::details::interpreter_tuple_size<opt>()>{});
 
         constexpr optable::uwvm_interpreter_stacktop_currpos_t curr_a{
-            .i32_stack_top_curr_pos = 3uz,
-            .i64_stack_top_curr_pos = 3uz,
-            .f32_stack_top_curr_pos = 5uz,
-            .f64_stack_top_curr_pos = 5uz,
-            .v128_stack_top_curr_pos = SIZE_MAX,
+            .i32_stack_top_curr_pos = SIZE_MAX,
+            .i64_stack_top_curr_pos = SIZE_MAX,
+            .f32_stack_top_curr_pos = 0uz,
+            .f64_stack_top_curr_pos = 0uz,
+            .v128_stack_top_curr_pos = 0uz,
         };
         constexpr optable::uwvm_interpreter_stacktop_currpos_t curr_b{
-            .i32_stack_top_curr_pos = 4uz,
-            .i64_stack_top_curr_pos = 4uz,
-            .f32_stack_top_curr_pos = 6uz,
-            .f64_stack_top_curr_pos = 6uz,
-            .v128_stack_top_curr_pos = SIZE_MAX,
+            .i32_stack_top_curr_pos = SIZE_MAX,
+            .i64_stack_top_curr_pos = SIZE_MAX,
+            .f32_stack_top_curr_pos = 1uz,
+            .f64_stack_top_curr_pos = 1uz,
+            .v128_stack_top_curr_pos = 1uz,
         };
 
         constexpr auto f_a = optable::translate::get_uwvmint_f64_add_then_fill1_fptr_from_tuple<opt>(curr_a, tuple);

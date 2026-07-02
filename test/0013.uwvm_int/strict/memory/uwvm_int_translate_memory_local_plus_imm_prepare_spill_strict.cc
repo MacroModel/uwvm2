@@ -10,16 +10,16 @@ namespace
 
     inline constexpr optable::uwvm_interpreter_translate_option_t k_test_tail_local_plus_imm_spill_opt{
         .is_tail_call = true,
-        .i32_stack_top_begin_pos = 3uz,
-        .i32_stack_top_end_pos = 5uz,
-        .i64_stack_top_begin_pos = 5uz,
-        .i64_stack_top_end_pos = 6uz,
-        .f32_stack_top_begin_pos = 6uz,
-        .f32_stack_top_end_pos = 7uz,
-        .f64_stack_top_begin_pos = 7uz,
-        .f64_stack_top_end_pos = 8uz,
-        .v128_stack_top_begin_pos = SIZE_MAX,
-        .v128_stack_top_end_pos = SIZE_MAX,
+        .i32_stack_top_begin_pos = SIZE_MAX,
+        .i32_stack_top_end_pos = SIZE_MAX,
+        .i64_stack_top_begin_pos = SIZE_MAX,
+        .i64_stack_top_end_pos = SIZE_MAX,
+        .f32_stack_top_begin_pos = 0uz,
+        .f32_stack_top_end_pos = 2uz,
+        .f64_stack_top_begin_pos = 0uz,
+        .f64_stack_top_end_pos = 2uz,
+        .v128_stack_top_begin_pos = 0uz,
+        .v128_stack_top_end_pos = 2uz,
     };
 
     template <optable::uwvm_interpreter_translate_option_t Opt>
@@ -31,7 +31,7 @@ namespace
             for(::std::size_t i{}; i != push_count; ++i)
             {
                 curr.i32_stack_top_curr_pos =
-                    optable::details::ring_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
+                    optable::details::stacktop_window_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
             }
         }
         return curr;
@@ -46,7 +46,7 @@ namespace
             for(::std::size_t i{}; i != push_count; ++i)
             {
                 curr.f32_stack_top_curr_pos =
-                    optable::details::ring_prev_pos(curr.f32_stack_top_curr_pos, Opt.f32_stack_top_begin_pos, Opt.f32_stack_top_end_pos);
+                    optable::details::stacktop_window_prev_pos(curr.f32_stack_top_curr_pos, Opt.f32_stack_top_begin_pos, Opt.f32_stack_top_end_pos);
             }
         }
         return curr;
@@ -61,7 +61,7 @@ namespace
             for(::std::size_t i{}; i != push_count; ++i)
             {
                 curr.f64_stack_top_curr_pos =
-                    optable::details::ring_prev_pos(curr.f64_stack_top_curr_pos, Opt.f64_stack_top_begin_pos, Opt.f64_stack_top_end_pos);
+                    optable::details::stacktop_window_prev_pos(curr.f64_stack_top_curr_pos, Opt.f64_stack_top_begin_pos, Opt.f64_stack_top_end_pos);
             }
         }
         return curr;
@@ -120,7 +120,7 @@ namespace
         auto f32 = [&](byte_vec& c, float v) { append_f32_ieee(c, v); };
         auto f64 = [&](byte_vec& c, double v) { append_f64_ieee(c, v); };
 
-        // f0: full i32 ring + local.get base ; i32.const 4 ; i32.add ; i32.load
+        // f0: full i32 stack-top window + local.get base ; i32.const 4 ; i32.add ; i32.load
         {
             func_type ty{{k_val_i32}, {k_val_i32}};
             func_body fb{};
@@ -143,7 +143,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f1: full f32 ring + local.get base ; i32.const 4 ; i32.add ; f32.load
+        // f1: full f32 stack-top window + local.get base ; i32.const 4 ; i32.add ; f32.load
         {
             func_type ty{{k_val_i32}, {k_val_f32}};
             func_body fb{};
@@ -164,7 +164,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f2: full f64 ring + local.get base ; i32.const 8 ; i32.add ; f64.load
+        // f2: full f64 stack-top window + local.get base ; i32.const 8 ; i32.add ; f64.load
         {
             func_type ty{{k_val_i32}, {k_val_f64}};
             func_body fb{};

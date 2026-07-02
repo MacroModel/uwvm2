@@ -30,7 +30,7 @@ WABT_MVP_FLAGS=(
 )
 
 DEFAULT_MODES=(
-  uwvm-int-ring-matrix
+  uwvm-int-stacktop-matrix
   uwvm-int-lazy
   uwvm-int-full
   llvm-jit-lazy

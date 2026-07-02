@@ -154,7 +154,11 @@ case wasm1_code::call:
     auto const& callee_type{*callee_type_ptr};
     auto const param_count{static_cast<::std::size_t>(callee_type.parameter.end - callee_type.parameter.begin)};
     auto const result_count{static_cast<::std::size_t>(callee_type.result.end - callee_type.result.begin)};
-    bool const allow_call_fusion{param_count <= 3uz};
+#ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
+    bool const allow_call_fusion{param_count <= stacktop_i32_call_param_max};
+#else
+    bool const allow_call_fusion{};
+#endif
     auto const func_index_uz{static_cast<::std::size_t>(func_index)};
     // Normal calls encode module/function identity. Direct local-call fast paths replace that pair
     // with a pointer to compiled call metadata and mark it with `SIZE_MAX` as the module sentinel.
@@ -215,6 +219,8 @@ case wasm1_code::call:
     // operands must already be in a layout the bridge understands.
     bool use_stacktop_call_fast{};
     bool use_stacktop_call0_void_fast{};
+    bool use_stacktop_call_arena_fast{};
+    ::std::size_t stacktop_call_arena_cache_count{};
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
     curr_operand_stack_value_type stacktop_call_fast_vt{curr_operand_stack_value_type::i32};
@@ -223,16 +229,13 @@ case wasm1_code::call:
     {
         if(!is_polymorphic)
         {
-            // Fast path constraints:
-            // - all operand stack values are cached (no memory segment),
-            // - signature: (T x N) -> (T | void) where T is i32/f32/f64 (and some f32<->f64 when merged),
-            // - we only support small N.
-            bool const n_ok{param_count != 0uz && param_count <= 4uz};
-            bool const state_ok{stacktop_memory_count == 0uz && stacktop_cache_count == stack_size && stack_size >= param_count};
+            bool const state_ok{stacktop_memory_count == 0uz && stacktop_cache_count == stack_size && stack_size == param_count};
 
-            if(n_ok && state_ok)
+            if(param_count != 0uz && state_ok)
             {
                 auto const param_vt{callee_type.parameter.begin[0]};
+                bool const n_ok{(param_vt == value_type_enum::i32 && param_count <= stacktop_i32_call_param_max) ||
+                                ((param_vt == value_type_enum::f32 || param_vt == value_type_enum::f64) && param_count <= stacktop_fp_call_param_max)};
                 bool all_same_type_params{true};
                 for(::std::size_t i{}; i != param_count; ++i)
                 {
@@ -269,7 +272,7 @@ case wasm1_code::call:
                     }
                 }
 
-                if(all_same_type_params && res_ok && vt_ok)
+                if(n_ok && all_same_type_params && res_ok && vt_ok)
                 {
                     use_stacktop_call_fast = true;
                     stacktop_call_fast_vt = param_vt;
@@ -288,6 +291,40 @@ case wasm1_code::call:
             if(param_count == 0uz && result_count == 0uz && state_ok) { use_stacktop_call0_void_fast = true; }
         }
     }
+
+    // Mixed arena fast path: older arguments may already be in operand-stack memory, while the
+    // newest i32 arguments are still in anonymous stack-top params. Materialize only that cached
+    // tail inside the call opfunc and invoke the bridge on the shared frame arena.
+    if constexpr(stacktop_enabled && CompileOption.is_tail_call)
+    {
+        if(!is_polymorphic && !use_stacktop_call_fast && param_count != 0uz)
+        {
+            bool const n_ok{param_count <= stacktop_i32_call_param_max};
+            bool const state_ok{stacktop_cache_count != 0uz && stacktop_cache_count <= param_count && stack_size >= param_count &&
+                                stacktop_cache_i32_count == stacktop_cache_count};
+            if(n_ok && state_ok)
+            {
+                bool all_i32_params{true};
+                for(::std::size_t i{}; i != param_count; ++i)
+                {
+                    if(callee_type.parameter.begin[i] != value_type_enum::i32)
+                    {
+                        all_i32_params = false;
+                        break;
+                    }
+                }
+
+                bool res_ok{result_count == 0uz};
+                if(result_count == 1uz) { res_ok = (callee_type.result.begin[0] == value_type_enum::i32); }
+
+                if(all_i32_params && res_ok)
+                {
+                    use_stacktop_call_arena_fast = true;
+                    stacktop_call_arena_cache_count = stacktop_cache_count;
+                }
+            }
+        }
+    }
 #endif
 
     // Stack-top optimization: default `call` requires all args in operand-stack memory (optable/call.h contract).
@@ -295,7 +332,7 @@ case wasm1_code::call:
     {
         if(!is_polymorphic)
         {
-            if(!use_stacktop_call_fast && !use_stacktop_call0_void_fast)
+            if(!use_stacktop_call_fast && !use_stacktop_call0_void_fast && !use_stacktop_call_arena_fast)
             {
                 // Spill all cached values so `type...[1u]` points at the full operand stack.
                 stacktop_flush_all_to_operand_stack(bytecode);
@@ -409,117 +446,18 @@ case wasm1_code::call:
             {
                 if(result_count == 0uz)
                 {
-                    switch(param_count)
-                    {
-                        case 1uz:
-                            emit_opfunc_to(
-                                bytecode,
-                                translate::get_uwvmint_call_stacktop_i32_fptr_from_tuple<CompileOption, 1uz, void>(curr_stacktop, interpreter_tuple));
-                            break;
-                        case 2uz:
-                            emit_opfunc_to(
-                                bytecode,
-                                translate::get_uwvmint_call_stacktop_i32_fptr_from_tuple<CompileOption, 2uz, void>(curr_stacktop, interpreter_tuple));
-                            break;
-                        case 3uz:
-                            emit_opfunc_to(
-                                bytecode,
-                                translate::get_uwvmint_call_stacktop_i32_fptr_from_tuple<CompileOption, 3uz, void>(curr_stacktop, interpreter_tuple));
-                            break;
-                        case 4uz:
-                            emit_opfunc_to(
-                                bytecode,
-                                translate::get_uwvmint_call_stacktop_i32_fptr_from_tuple<CompileOption, 4uz, void>(curr_stacktop, interpreter_tuple));
-                            break;
-                        [[unlikely]] default:
-                            ::fast_io::fast_terminate();
-                    }
+                    emit_call_stacktop_i32_to.template operator()<void>(bytecode, param_count);
                 }
                 else
                 {
-                    if(fuse_call_drop)
-                    {
-                        switch(param_count)
-                        {
-                            case 1uz:
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_call_stacktop_i32_drop_fptr_from_tuple<CompileOption, 1uz>(curr_stacktop, interpreter_tuple));
-                                break;
-                            case 2uz:
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_call_stacktop_i32_drop_fptr_from_tuple<CompileOption, 2uz>(curr_stacktop, interpreter_tuple));
-                                break;
-                            case 3uz:
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_call_stacktop_i32_drop_fptr_from_tuple<CompileOption, 3uz>(curr_stacktop, interpreter_tuple));
-                                break;
-                            case 4uz:
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_call_stacktop_i32_drop_fptr_from_tuple<CompileOption, 4uz>(curr_stacktop, interpreter_tuple));
-                                break;
-                            [[unlikely]] default:
-                                ::fast_io::fast_terminate();
-                        }
-                    }
+                    if(fuse_call_drop) { emit_call_stacktop_i32_drop_to(bytecode, param_count); }
                     else if(fuse_call_local_set)
                     {
-                        switch(param_count)
-                        {
-                            case 1uz:
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_call_stacktop_i32_local_set_fptr_from_tuple<CompileOption, 1uz>(curr_stacktop, interpreter_tuple));
-                                break;
-                            case 2uz:
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_call_stacktop_i32_local_set_fptr_from_tuple<CompileOption, 2uz>(curr_stacktop, interpreter_tuple));
-                                break;
-                            case 3uz:
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_call_stacktop_i32_local_set_fptr_from_tuple<CompileOption, 3uz>(curr_stacktop, interpreter_tuple));
-                                break;
-                            case 4uz:
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_call_stacktop_i32_local_set_fptr_from_tuple<CompileOption, 4uz>(curr_stacktop, interpreter_tuple));
-                                break;
-                            [[unlikely]] default:
-                                ::fast_io::fast_terminate();
-                        }
+                        emit_call_stacktop_i32_local_set_to(bytecode, param_count);
                     }
                     else
                     {
-                        switch(param_count)
-                        {
-                            case 1uz:
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_call_stacktop_i32_fptr_from_tuple<CompileOption, 1uz, wasm_i32>(curr_stacktop, interpreter_tuple));
-                                break;
-                            case 2uz:
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_call_stacktop_i32_fptr_from_tuple<CompileOption, 2uz, wasm_i32>(curr_stacktop, interpreter_tuple));
-                                break;
-                            case 3uz:
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_call_stacktop_i32_fptr_from_tuple<CompileOption, 3uz, wasm_i32>(curr_stacktop, interpreter_tuple));
-                                break;
-                            case 4uz:
-                                emit_opfunc_to(
-                                    bytecode,
-                                    translate::get_uwvmint_call_stacktop_i32_fptr_from_tuple<CompileOption, 4uz, wasm_i32>(curr_stacktop, interpreter_tuple));
-                                break;
-                            [[unlikely]] default:
-                                ::fast_io::fast_terminate();
-                        }
+                        emit_call_stacktop_i32_to.template operator()<wasm_i32>(bytecode, param_count);
                     }
                 }
                 break;
@@ -745,6 +683,33 @@ case wasm1_code::call:
         emit_imm_to(bytecode, call_function_imm);
         if(fuse_call_local_set || fuse_call_local_tee) { emit_imm_to(bytecode, fused_local_off); }
     }
+    else if(use_stacktop_call_arena_fast)
+    {
+        if(result_count == 0uz)
+        {
+            emit_call_arena_i32_to.template operator()<void>(bytecode, param_count, stacktop_call_arena_cache_count);
+        }
+        else if(fuse_call_drop)
+        {
+            emit_call_arena_i32_drop_to(bytecode, param_count, stacktop_call_arena_cache_count);
+        }
+        else if(fuse_call_local_set)
+        {
+            emit_call_arena_i32_local_set_to(bytecode, param_count, stacktop_call_arena_cache_count);
+        }
+        else if(fuse_call_local_tee)
+        {
+            emit_call_arena_i32_local_tee_to(bytecode, param_count, stacktop_call_arena_cache_count);
+        }
+        else
+        {
+            emit_call_arena_i32_to.template operator()<wasm_i32>(bytecode, param_count, stacktop_call_arena_cache_count);
+        }
+
+        emit_imm_to(bytecode, call_module_id);
+        emit_imm_to(bytecode, call_function_imm);
+        if(fuse_call_local_set || fuse_call_local_tee) { emit_imm_to(bytecode, fused_local_off); }
+    }
     else if(fuse_call_drop || fuse_call_local_set || fuse_call_local_tee)
     {
         switch(callee_type.result.begin[0])
@@ -875,7 +840,7 @@ case wasm1_code::call:
                                                                ::std::size_t const begin_pos{stacktop_range_begin_pos(vt)};
                                                                ::std::size_t const end_pos{stacktop_range_end_pos(vt)};
                                                                ::std::size_t const currpos{stacktop_currpos_for_range(begin_pos, end_pos)};
-                                                               ::std::size_t const new_pos{stacktop_ring_prev(currpos, begin_pos, end_pos)};
+                                                               ::std::size_t const new_pos{stacktop_window_prev_pos(currpos, begin_pos, end_pos)};
                                                                stacktop_set_currpos_for_range(begin_pos, end_pos, new_pos);
                                                                ++stacktop_memory_count;
                                                            }};
@@ -889,9 +854,10 @@ case wasm1_code::call:
                 // Call leaves cache empty; restore canonical cache after the call returns.
                 stacktop_cache_count = 0uz;
                 stacktop_cache_i32_count = 0uz;
-                stacktop_cache_i64_count = 0uz;
-                stacktop_cache_f32_count = 0uz;
-                stacktop_cache_f64_count = 0uz;
+	                stacktop_cache_i64_count = 0uz;
+	                stacktop_cache_f32_count = 0uz;
+	                stacktop_cache_f64_count = 0uz;
+	                stacktop_cache_v128_count = 0uz;
 
                 // Restore canonical cache after the call returns.
                 stacktop_fill_to_canonical(bytecode);
@@ -1040,6 +1006,8 @@ case wasm1_code::call_indirect:
 
     // Optional: stack-top fast-path `call_indirect` for hot i32 signatures.
     bool use_stacktop_call_indirect_fast{};
+    bool use_stacktop_call_indirect_arena_fast{};
+    ::std::size_t stacktop_call_indirect_arena_cache_count{};
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
     bool fuse_call_indirect_drop{};
     bool fuse_call_indirect_local_set{};
@@ -1050,9 +1018,9 @@ case wasm1_code::call_indirect:
     {
         if(!is_polymorphic)
         {
-            bool const n_ok{param_count <= 4uz};
+            bool const n_ok{param_count <= stacktop_i32_call_indirect_param_max};
             bool const state_ok{stacktop_memory_count == 0uz && stacktop_cache_count == stack_size && !param_count_plus_table_index_overflows &&
-                                stack_size >= required_stack_size};
+                                stack_size == required_stack_size};
 
             if(n_ok && state_ok)
             {
@@ -1074,11 +1042,44 @@ case wasm1_code::call_indirect:
         }
     }
 
+    if constexpr(stacktop_enabled && CompileOption.is_tail_call)
+    {
+        if(!is_polymorphic && !use_stacktop_call_indirect_fast)
+        {
+            bool const n_ok{param_count <= stacktop_i32_call_indirect_param_max && !param_count_plus_table_index_overflows};
+            bool const state_ok{stacktop_cache_count != 0uz && stacktop_cache_count <= required_stack_size && stack_size >= required_stack_size &&
+                                stacktop_cache_i32_count == stacktop_cache_count};
+
+            if(n_ok && state_ok)
+            {
+                bool all_i32_params{true};
+                for(::std::size_t i{}; i != param_count; ++i)
+                {
+                    if(callee_type.parameter.begin[i] != value_type_enum::i32)
+                    {
+                        all_i32_params = false;
+                        break;
+                    }
+                }
+
+                bool res_ok{result_count == 0uz};
+                if(result_count == 1uz) { res_ok = (callee_type.result.begin[0] == value_type_enum::i32); }
+
+                if(all_i32_params && res_ok)
+                {
+                    use_stacktop_call_indirect_arena_fast = true;
+                    stacktop_call_indirect_arena_cache_count = stacktop_cache_count;
+                }
+            }
+        }
+    }
+
     // Optional fusion: `call_indirect (i32...) -> i32` + `drop`/`local.set`.
     // Only valid when stack-top fast-path is used (selector+params in cache; no spill) and result is i32.
     if constexpr(stacktop_enabled && CompileOption.is_tail_call)
     {
-        if(use_stacktop_call_indirect_fast && result_count == 1uz && callee_type.result.begin[0] == value_type_enum::i32)
+        if((use_stacktop_call_indirect_fast || use_stacktop_call_indirect_arena_fast) && result_count == 1uz &&
+           callee_type.result.begin[0] == value_type_enum::i32)
         {
             if(code_curr != code_end)
             {
@@ -1119,7 +1120,7 @@ case wasm1_code::call_indirect:
     {
         if(!is_polymorphic)
         {
-            if(!use_stacktop_call_indirect_fast)
+            if(!use_stacktop_call_indirect_fast && !use_stacktop_call_indirect_arena_fast)
             {
                 // Spill all cached values so `type...[1u]` points at the full operand stack.
                 stacktop_flush_all_to_operand_stack(bytecode);
@@ -1144,139 +1145,44 @@ case wasm1_code::call_indirect:
         {
             if(result_count == 0uz)
             {
-                switch(param_count)
-                {
-                    case 0uz:
-                        emit_opfunc_to(
-                            bytecode,
-                            translate::get_uwvmint_call_indirect_stacktop_i32_fptr_from_tuple<CompileOption, 0uz, void>(curr_stacktop, interpreter_tuple));
-                        break;
-                    case 1uz:
-                        emit_opfunc_to(
-                            bytecode,
-                            translate::get_uwvmint_call_indirect_stacktop_i32_fptr_from_tuple<CompileOption, 1uz, void>(curr_stacktop, interpreter_tuple));
-                        break;
-                    case 2uz:
-                        emit_opfunc_to(
-                            bytecode,
-                            translate::get_uwvmint_call_indirect_stacktop_i32_fptr_from_tuple<CompileOption, 2uz, void>(curr_stacktop, interpreter_tuple));
-                        break;
-                    case 3uz:
-                        emit_opfunc_to(
-                            bytecode,
-                            translate::get_uwvmint_call_indirect_stacktop_i32_fptr_from_tuple<CompileOption, 3uz, void>(curr_stacktop, interpreter_tuple));
-                        break;
-                    case 4uz:
-                        emit_opfunc_to(
-                            bytecode,
-                            translate::get_uwvmint_call_indirect_stacktop_i32_fptr_from_tuple<CompileOption, 4uz, void>(curr_stacktop, interpreter_tuple));
-                        break;
-                    [[unlikely]] default:
-                        ::fast_io::fast_terminate();
-                }
+                emit_call_indirect_stacktop_i32_to.template operator()<void>(bytecode, param_count);
             }
             else
             {
                 // i32 -> i32
-                if(fuse_call_indirect_drop)
-                {
-                    switch(param_count)
-                    {
-                        case 0uz:
-                            emit_opfunc_to(
-                                bytecode,
-                                translate::get_uwvmint_call_indirect_stacktop_i32_drop_fptr_from_tuple<CompileOption, 0uz>(curr_stacktop, interpreter_tuple));
-                            break;
-                        case 1uz:
-                            emit_opfunc_to(
-                                bytecode,
-                                translate::get_uwvmint_call_indirect_stacktop_i32_drop_fptr_from_tuple<CompileOption, 1uz>(curr_stacktop, interpreter_tuple));
-                            break;
-                        case 2uz:
-                            emit_opfunc_to(
-                                bytecode,
-                                translate::get_uwvmint_call_indirect_stacktop_i32_drop_fptr_from_tuple<CompileOption, 2uz>(curr_stacktop, interpreter_tuple));
-                            break;
-                        case 3uz:
-                            emit_opfunc_to(
-                                bytecode,
-                                translate::get_uwvmint_call_indirect_stacktop_i32_drop_fptr_from_tuple<CompileOption, 3uz>(curr_stacktop, interpreter_tuple));
-                            break;
-                        case 4uz:
-                            emit_opfunc_to(
-                                bytecode,
-                                translate::get_uwvmint_call_indirect_stacktop_i32_drop_fptr_from_tuple<CompileOption, 4uz>(curr_stacktop, interpreter_tuple));
-                            break;
-                        [[unlikely]] default:
-                            ::fast_io::fast_terminate();
-                    }
-                }
+                if(fuse_call_indirect_drop) { emit_call_indirect_stacktop_i32_drop_to(bytecode, param_count); }
                 else if(fuse_call_indirect_local_set)
                 {
-                    switch(param_count)
-                    {
-                        case 0uz:
-                            emit_opfunc_to(bytecode,
-                                           translate::get_uwvmint_call_indirect_stacktop_i32_local_set_fptr_from_tuple<CompileOption, 0uz>(curr_stacktop,
-                                                                                                                                           interpreter_tuple));
-                            break;
-                        case 1uz:
-                            emit_opfunc_to(bytecode,
-                                           translate::get_uwvmint_call_indirect_stacktop_i32_local_set_fptr_from_tuple<CompileOption, 1uz>(curr_stacktop,
-                                                                                                                                           interpreter_tuple));
-                            break;
-                        case 2uz:
-                            emit_opfunc_to(bytecode,
-                                           translate::get_uwvmint_call_indirect_stacktop_i32_local_set_fptr_from_tuple<CompileOption, 2uz>(curr_stacktop,
-                                                                                                                                           interpreter_tuple));
-                            break;
-                        case 3uz:
-                            emit_opfunc_to(bytecode,
-                                           translate::get_uwvmint_call_indirect_stacktop_i32_local_set_fptr_from_tuple<CompileOption, 3uz>(curr_stacktop,
-                                                                                                                                           interpreter_tuple));
-                            break;
-                        case 4uz:
-                            emit_opfunc_to(bytecode,
-                                           translate::get_uwvmint_call_indirect_stacktop_i32_local_set_fptr_from_tuple<CompileOption, 4uz>(curr_stacktop,
-                                                                                                                                           interpreter_tuple));
-                            break;
-                        [[unlikely]] default:
-                            ::fast_io::fast_terminate();
-                    }
+                    emit_call_indirect_stacktop_i32_local_set_to(bytecode, param_count);
                 }
                 else
                 {
-                    switch(param_count)
-                    {
-                        case 0uz:
-                            emit_opfunc_to(bytecode,
-                                           translate::get_uwvmint_call_indirect_stacktop_i32_fptr_from_tuple<CompileOption, 0uz, wasm_i32>(curr_stacktop,
-                                                                                                                                           interpreter_tuple));
-                            break;
-                        case 1uz:
-                            emit_opfunc_to(bytecode,
-                                           translate::get_uwvmint_call_indirect_stacktop_i32_fptr_from_tuple<CompileOption, 1uz, wasm_i32>(curr_stacktop,
-                                                                                                                                           interpreter_tuple));
-                            break;
-                        case 2uz:
-                            emit_opfunc_to(bytecode,
-                                           translate::get_uwvmint_call_indirect_stacktop_i32_fptr_from_tuple<CompileOption, 2uz, wasm_i32>(curr_stacktop,
-                                                                                                                                           interpreter_tuple));
-                            break;
-                        case 3uz:
-                            emit_opfunc_to(bytecode,
-                                           translate::get_uwvmint_call_indirect_stacktop_i32_fptr_from_tuple<CompileOption, 3uz, wasm_i32>(curr_stacktop,
-                                                                                                                                           interpreter_tuple));
-                            break;
-                        case 4uz:
-                            emit_opfunc_to(bytecode,
-                                           translate::get_uwvmint_call_indirect_stacktop_i32_fptr_from_tuple<CompileOption, 4uz, wasm_i32>(curr_stacktop,
-                                                                                                                                           interpreter_tuple));
-                            break;
-                        [[unlikely]] default:
-                            ::fast_io::fast_terminate();
-                    }
+                    emit_call_indirect_stacktop_i32_to.template operator()<wasm_i32>(bytecode, param_count);
                 }
+            }
+
+            emit_imm_to(bytecode, options.curr_wasm_id);
+            emit_imm_to(bytecode, static_cast<::std::size_t>(type_index));
+            emit_imm_to(bytecode, static_cast<::std::size_t>(table_index));
+            if(fuse_call_indirect_local_set) { emit_imm_to(bytecode, fused_local_off); }
+        }
+        else if(use_stacktop_call_indirect_arena_fast)
+        {
+            if(result_count == 0uz)
+            {
+                emit_call_indirect_arena_i32_to.template operator()<void>(bytecode, param_count, stacktop_call_indirect_arena_cache_count);
+            }
+            else if(fuse_call_indirect_drop)
+            {
+                emit_call_indirect_arena_i32_drop_to(bytecode, param_count, stacktop_call_indirect_arena_cache_count);
+            }
+            else if(fuse_call_indirect_local_set)
+            {
+                emit_call_indirect_arena_i32_local_set_to(bytecode, param_count, stacktop_call_indirect_arena_cache_count);
+            }
+            else
+            {
+                emit_call_indirect_arena_i32_to.template operator()<wasm_i32>(bytecode, param_count, stacktop_call_indirect_arena_cache_count);
             }
 
             emit_imm_to(bytecode, options.curr_wasm_id);
@@ -1303,7 +1209,11 @@ case wasm1_code::call_indirect:
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
     if constexpr(CompileOption.is_tail_call)
     {
-        if(use_stacktop_call_indirect_fast && (fuse_call_indirect_drop || fuse_call_indirect_local_set)) { effective_result_count = 0uz; }
+        if((use_stacktop_call_indirect_fast || use_stacktop_call_indirect_arena_fast) &&
+           (fuse_call_indirect_drop || fuse_call_indirect_local_set))
+        {
+            effective_result_count = 0uz;
+        }
     }
 #endif
     if(effective_result_count != 0uz)
@@ -1344,12 +1254,12 @@ case wasm1_code::call_indirect:
                                                                ::std::size_t const begin_pos{stacktop_range_begin_pos(vt)};
                                                                ::std::size_t const end_pos{stacktop_range_end_pos(vt)};
                                                                ::std::size_t const currpos{stacktop_currpos_for_range(begin_pos, end_pos)};
-                                                               ::std::size_t const new_pos{stacktop_ring_prev(currpos, begin_pos, end_pos)};
+                                                               ::std::size_t const new_pos{stacktop_window_prev_pos(currpos, begin_pos, end_pos)};
                                                                stacktop_set_currpos_for_range(begin_pos, end_pos, new_pos);
                                                                ++stacktop_memory_count;
                                                            }};
 
-                for(::std::size_t i{}; i != result_count; ++i)
+                for(::std::size_t i{}; i != effective_result_count; ++i)
                 {
                     codegen_stack_push(callee_type.result.begin[i]);
                     stacktop_commit_push1_to_memory(callee_type.result.begin[i]);
@@ -1357,9 +1267,10 @@ case wasm1_code::call_indirect:
 
                 stacktop_cache_count = 0uz;
                 stacktop_cache_i32_count = 0uz;
-                stacktop_cache_i64_count = 0uz;
-                stacktop_cache_f32_count = 0uz;
-                stacktop_cache_f64_count = 0uz;
+	                stacktop_cache_i64_count = 0uz;
+	                stacktop_cache_f32_count = 0uz;
+	                stacktop_cache_f64_count = 0uz;
+	                stacktop_cache_v128_count = 0uz;
 
                 stacktop_fill_to_canonical(bytecode);
             }

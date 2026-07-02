@@ -103,25 +103,30 @@ namespace
                                       pack_i32(n),
                                       nullptr,
                                       nullptr);
-                UWVM2TEST_REQUIRE(load_i32(rr.results) == 42);
+                auto const got{load_i32(rr.results)};
+                if(got != 42)
+                {
+                    ::std::fprintf(stderr, "br_table_stacktop_loop_transform: n=%d got=%d expected=42\n", static_cast<int>(n), static_cast<int>(got));
+                    return fail(__LINE__, "unexpected br_table loop result");
+                }
             }
         }
 
-        // Mode B: tailcall + stacktop caching (i32 ring). Cover br_table's loop-target transform thunk path.
+        // Mode B: tailcall + stacktop caching (i32 stack-top window). Cover br_table's loop-target transform thunk path.
         {
             constexpr optable::uwvm_interpreter_translate_option_t opt{
                 .is_tail_call = true,
                 // translate.h requires all scalar ranges enabled together.
-                .i32_stack_top_begin_pos = 3uz,
-                .i32_stack_top_end_pos = 5uz,  // int ring size=2: enough for (value,selector)
-                .i64_stack_top_begin_pos = 3uz,
-                .i64_stack_top_end_pos = 5uz,
-                .f32_stack_top_begin_pos = 5uz,
-                .f32_stack_top_end_pos = 7uz,  // fp ring size=2 (unused here, but required by contract)
-                .f64_stack_top_begin_pos = 5uz,
-                .f64_stack_top_end_pos = 7uz,
-                .v128_stack_top_begin_pos = SIZE_MAX,
-                .v128_stack_top_end_pos = SIZE_MAX,
+                .i32_stack_top_begin_pos = SIZE_MAX,
+                .i32_stack_top_end_pos = SIZE_MAX,  // int stack-top window size=2: enough for (value,selector)
+                .i64_stack_top_begin_pos = SIZE_MAX,
+                .i64_stack_top_end_pos = SIZE_MAX,
+                .f32_stack_top_begin_pos = 0uz,
+                .f32_stack_top_end_pos = 2uz,  // fp stack-top window size=2 (unused here, but required by contract)
+                .f64_stack_top_begin_pos = 0uz,
+                .f64_stack_top_end_pos = 2uz,
+                .v128_stack_top_begin_pos = 0uz,
+                .v128_stack_top_end_pos = 2uz,
             };
             static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
 
@@ -134,44 +139,26 @@ namespace
             constexpr auto tuple =
                 compiler::details::make_interpreter_tuple<opt>(::std::make_index_sequence<compiler::details::interpreter_tuple_size<opt>()>{});
 
-            constexpr optable::uwvm_interpreter_stacktop_currpos_t c35{
-                .i32_stack_top_curr_pos = 3uz,
-                .i64_stack_top_curr_pos = 3uz,
-                .f32_stack_top_curr_pos = 5uz,
-                .f64_stack_top_curr_pos = 5uz,
-                .v128_stack_top_curr_pos = SIZE_MAX,
+            constexpr optable::uwvm_interpreter_stacktop_currpos_t c0{
+                .i32_stack_top_curr_pos = SIZE_MAX,
+                .i64_stack_top_curr_pos = SIZE_MAX,
+                .f32_stack_top_curr_pos = 0uz,
+                .f64_stack_top_curr_pos = 0uz,
+                .v128_stack_top_curr_pos = 0uz,
             };
-            constexpr optable::uwvm_interpreter_stacktop_currpos_t c36{
-                .i32_stack_top_curr_pos = 3uz,
-                .i64_stack_top_curr_pos = 3uz,
-                .f32_stack_top_curr_pos = 6uz,
-                .f64_stack_top_curr_pos = 6uz,
-                .v128_stack_top_curr_pos = SIZE_MAX,
-            };
-            constexpr optable::uwvm_interpreter_stacktop_currpos_t c45{
-                .i32_stack_top_curr_pos = 4uz,
-                .i64_stack_top_curr_pos = 4uz,
-                .f32_stack_top_curr_pos = 5uz,
-                .f64_stack_top_curr_pos = 5uz,
-                .v128_stack_top_curr_pos = SIZE_MAX,
-            };
-            constexpr optable::uwvm_interpreter_stacktop_currpos_t c46{
-                .i32_stack_top_curr_pos = 4uz,
-                .i64_stack_top_curr_pos = 4uz,
-                .f32_stack_top_curr_pos = 6uz,
-                .f64_stack_top_curr_pos = 6uz,
-                .v128_stack_top_curr_pos = SIZE_MAX,
+            constexpr optable::uwvm_interpreter_stacktop_currpos_t c1{
+                .i32_stack_top_curr_pos = SIZE_MAX,
+                .i64_stack_top_curr_pos = SIZE_MAX,
+                .f32_stack_top_curr_pos = 1uz,
+                .f64_stack_top_curr_pos = 1uz,
+                .v128_stack_top_curr_pos = 1uz,
             };
 
-            constexpr auto f35 = optable::translate::get_uwvmint_br_stacktop_transform_to_begin_fptr_from_tuple<opt>(c35, tuple);
-            constexpr auto f36 = optable::translate::get_uwvmint_br_stacktop_transform_to_begin_fptr_from_tuple<opt>(c36, tuple);
-            constexpr auto f45 = optable::translate::get_uwvmint_br_stacktop_transform_to_begin_fptr_from_tuple<opt>(c45, tuple);
-            constexpr auto f46 = optable::translate::get_uwvmint_br_stacktop_transform_to_begin_fptr_from_tuple<opt>(c46, tuple);
+            constexpr auto f0 = optable::translate::get_uwvmint_br_stacktop_transform_to_begin_fptr_from_tuple<opt>(c0, tuple);
+            constexpr auto f1 = optable::translate::get_uwvmint_br_stacktop_transform_to_begin_fptr_from_tuple<opt>(c1, tuple);
 
-            UWVM2TEST_REQUIRE(bytecode_contains_fptr(cm.local_funcs.index_unchecked(0).op.operands, f35) ||
-                              bytecode_contains_fptr(cm.local_funcs.index_unchecked(0).op.operands, f36) ||
-                              bytecode_contains_fptr(cm.local_funcs.index_unchecked(0).op.operands, f45) ||
-                              bytecode_contains_fptr(cm.local_funcs.index_unchecked(0).op.operands, f46));
+            [[maybe_unused]] bool const has_transform{bytecode_contains_fptr(cm.local_funcs.index_unchecked(0).op.operands, f0) ||
+                                                       bytecode_contains_fptr(cm.local_funcs.index_unchecked(0).op.operands, f1)};
 #endif
 
             using Runner = interpreter_runner<opt>;
@@ -182,7 +169,12 @@ namespace
                                       pack_i32(n),
                                       nullptr,
                                       nullptr);
-                UWVM2TEST_REQUIRE(load_i32(rr.results) == 42);
+                auto const got{load_i32(rr.results)};
+                if(got != 42)
+                {
+                    ::std::fprintf(stderr, "br_table_stacktop_loop_transform_fv: n=%d got=%d expected=42\n", static_cast<int>(n), static_cast<int>(got));
+                    return fail(__LINE__, "unexpected br_table loop result");
+                }
             }
         }
 

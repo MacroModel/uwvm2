@@ -39,7 +39,7 @@
 # include <uwvm2/parser/wasm/standard/wasm1/impl.h>
 # include <uwvm2/object/impl.h>
 # include "define.h"
-# include "register_ring.h"
+# include "stacktop_window.h"
 #endif
 
 #ifndef UWVM_MODULE_EXPORT
@@ -55,9 +55,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 {
     /// @brief `i32.const` opcode (tail-call): pushes an i32 immediate.
     /// @details
-    /// - Stack-top optimization: supported when `CompileOption.i32_stack_top_begin_pos != i32_stack_top_end_pos`; the value is written into the i32 stack-top
-    /// ring
-    ///   (via `ring_prev_pos`) instead of the operand stack.
+    /// - Stack-top optimization: supported when `CompileOption.i32_stack_top_begin_pos != i32_stack_top_end_pos`; the value is written into the i32 stack-top window
+    ///   (via `stacktop_window_prev_pos`) instead of the operand stack.
     /// - `type[0]` layout: `[opfunc_ptr][imm:i32][next_opfunc_ptr]` (loads `imm` and tail-calls the next opfunc).
     /// @note All loads from the bytecode stream use `memcpy` to avoid alignment assumptions.
     template <uwvm_interpreter_translate_option_t CompileOption, ::std::size_t curr_i32_stack_top, uwvm_int_stack_top_type... Type>
@@ -75,22 +74,22 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(imm), type...[0], sizeof(imm));
         type...[0] += sizeof(imm);
 
-        if constexpr(CompileOption.i32_stack_top_begin_pos != CompileOption.i32_stack_top_end_pos)
+        if constexpr(details::uwvm_interpreter_stacktop_enabled_for<CompileOption, wasm_i32>())
         {
-            constexpr ::std::size_t range_begin{CompileOption.i32_stack_top_begin_pos};
-            constexpr ::std::size_t range_end{CompileOption.i32_stack_top_end_pos};
-            static_assert(sizeof...(Type) >= range_end);
+            constexpr ::std::size_t range_begin{details::uwvm_interpreter_stacktop_range_begin_pos<CompileOption, wasm_i32>()};
+            constexpr ::std::size_t range_end{details::uwvm_interpreter_stacktop_range_end_pos<CompileOption, wasm_i32>()};
+            static_assert(sizeof...(Type) >= details::uwvm_interpreter_stacktop_arg_end_pos<CompileOption, wasm_i32>(range_end));
             static_assert(range_begin <= curr_i32_stack_top && curr_i32_stack_top < range_end);
 
-            constexpr ::std::size_t new_pos{details::ring_prev_pos(curr_i32_stack_top, range_begin, range_end)};
+            constexpr ::std::size_t new_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, range_begin, range_end)};
             details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_pos>(imm, type...);
         }
         else
         {
-            static_assert(::std::same_as<::std::remove_cvref_t<Type...[1u]>, ::std::byte*>);
+            static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
-            ::std::memcpy(type...[1u], ::std::addressof(imm), sizeof(imm));
-            type...[1u] += sizeof(imm);
+            ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(imm), sizeof(imm));
+            uwvmint_operand_stack_top_ref(type...) += sizeof(imm);
         }
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
@@ -101,10 +100,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
     /// @brief `i64.const` opcode (tail-call): pushes an i64 immediate.
     /// @details
-    /// - Stack-top optimization: supported when `CompileOption.i64_stack_top_begin_pos != i64_stack_top_end_pos`; writes into the i64 stack-top ring instead of
+    /// - Stack-top optimization: supported when `CompileOption.i64_stack_top_begin_pos != i64_stack_top_end_pos`; writes into the i64 stack-top window instead of
     /// the stack.
     /// - `type[0]` layout: `[opfunc_ptr][imm:i64][next_opfunc_ptr]`.
-    /// @note The stack-top write uses `ring_prev_pos(curr_i64_stack_top, begin, end)` to model a push into the ring cache.
+    /// @note The stack-top write uses `stacktop_window_prev_pos(curr_i64_stack_top, begin, end)` to model a push into the stack-top window cache.
     template <uwvm_interpreter_translate_option_t CompileOption, ::std::size_t curr_i64_stack_top, uwvm_int_stack_top_type... Type>
         requires (CompileOption.is_tail_call)
     UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_i64_const(Type... type) UWVM_THROWS
@@ -120,22 +119,22 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(imm), type...[0], sizeof(imm));
         type...[0] += sizeof(imm);
 
-        if constexpr(CompileOption.i64_stack_top_begin_pos != CompileOption.i64_stack_top_end_pos)
+        if constexpr(details::uwvm_interpreter_stacktop_enabled_for<CompileOption, wasm_i64>())
         {
-            constexpr ::std::size_t range_begin{CompileOption.i64_stack_top_begin_pos};
-            constexpr ::std::size_t range_end{CompileOption.i64_stack_top_end_pos};
-            static_assert(sizeof...(Type) >= range_end);
+            constexpr ::std::size_t range_begin{details::uwvm_interpreter_stacktop_range_begin_pos<CompileOption, wasm_i64>()};
+            constexpr ::std::size_t range_end{details::uwvm_interpreter_stacktop_range_end_pos<CompileOption, wasm_i64>()};
+            static_assert(sizeof...(Type) >= details::uwvm_interpreter_stacktop_arg_end_pos<CompileOption, wasm_i64>(range_end));
             static_assert(range_begin <= curr_i64_stack_top && curr_i64_stack_top < range_end);
 
-            constexpr ::std::size_t new_pos{details::ring_prev_pos(curr_i64_stack_top, range_begin, range_end)};
+            constexpr ::std::size_t new_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, range_begin, range_end)};
             details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_pos>(imm, type...);
         }
         else
         {
-            static_assert(::std::same_as<::std::remove_cvref_t<Type...[1u]>, ::std::byte*>);
+            static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
-            ::std::memcpy(type...[1u], ::std::addressof(imm), sizeof(imm));
-            type...[1u] += sizeof(imm);
+            ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(imm), sizeof(imm));
+            uwvmint_operand_stack_top_ref(type...) += sizeof(imm);
         }
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
@@ -146,9 +145,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
     /// @brief `f32.const` opcode (tail-call): pushes an f32 immediate.
     /// @details
-    /// - Stack-top optimization: supported when `CompileOption.f32_stack_top_begin_pos != f32_stack_top_end_pos`; writes into the f32 stack-top ring.
+    /// - Stack-top optimization: supported when `CompileOption.f32_stack_top_begin_pos != f32_stack_top_end_pos`; writes into the f32 stack-top window.
     /// - `type[0]` layout: `[opfunc_ptr][imm:f32][next_opfunc_ptr]`.
-    /// @note When stack-top caching is disabled, the immediate is appended to the operand stack (`type...[1u]`).
+    /// @note When stack-top caching is disabled, the immediate is appended to the operand stack (`uwvmint_operand_stack_top_ref(type...)`).
     template <uwvm_interpreter_translate_option_t CompileOption, ::std::size_t curr_f32_stack_top, uwvm_int_stack_top_type... Type>
         requires (CompileOption.is_tail_call)
     UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_f32_const(Type... type) UWVM_THROWS
@@ -171,15 +170,15 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             static_assert(sizeof...(Type) >= range_end);
             static_assert(range_begin <= curr_f32_stack_top && curr_f32_stack_top < range_end);
 
-            constexpr ::std::size_t new_pos{details::ring_prev_pos(curr_f32_stack_top, range_begin, range_end)};
+            constexpr ::std::size_t new_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, range_begin, range_end)};
             details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_pos>(imm, type...);
         }
         else
         {
-            static_assert(::std::same_as<::std::remove_cvref_t<Type...[1u]>, ::std::byte*>);
+            static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
-            ::std::memcpy(type...[1u], ::std::addressof(imm), sizeof(imm));
-            type...[1u] += sizeof(imm);
+            ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(imm), sizeof(imm));
+            uwvmint_operand_stack_top_ref(type...) += sizeof(imm);
         }
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
@@ -190,9 +189,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
     /// @brief `f64.const` opcode (tail-call): pushes an f64 immediate.
     /// @details
-    /// - Stack-top optimization: supported when `CompileOption.f64_stack_top_begin_pos != f64_stack_top_end_pos`; writes into the f64 stack-top ring.
+    /// - Stack-top optimization: supported when `CompileOption.f64_stack_top_begin_pos != f64_stack_top_end_pos`; writes into the f64 stack-top window.
     /// - `type[0]` layout: `[opfunc_ptr][imm:f64][next_opfunc_ptr]`.
-    /// @note Keep the operand-stack path (`memcpy` + bump `type...[1u]`) in sync with the stack-top path to preserve semantics.
+    /// @note Keep the operand-stack path (`memcpy` + bump `uwvmint_operand_stack_top_ref(type...)`) in sync with the stack-top path to preserve semantics.
     template <uwvm_interpreter_translate_option_t CompileOption, ::std::size_t curr_f64_stack_top, uwvm_int_stack_top_type... Type>
         requires (CompileOption.is_tail_call)
     UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_f64_const(Type... type) UWVM_THROWS
@@ -215,15 +214,15 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             static_assert(sizeof...(Type) >= range_end);
             static_assert(range_begin <= curr_f64_stack_top && curr_f64_stack_top < range_end);
 
-            constexpr ::std::size_t new_pos{details::ring_prev_pos(curr_f64_stack_top, range_begin, range_end)};
+            constexpr ::std::size_t new_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, range_begin, range_end)};
             details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_pos>(imm, type...);
         }
         else
         {
-            static_assert(::std::same_as<::std::remove_cvref_t<Type...[1u]>, ::std::byte*>);
+            static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
-            ::std::memcpy(type...[1u], ::std::addressof(imm), sizeof(imm));
-            type...[1u] += sizeof(imm);
+            ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(imm), sizeof(imm));
+            uwvmint_operand_stack_top_ref(type...) += sizeof(imm);
         }
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
@@ -246,7 +245,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         static_assert(sizeof...(TypeRef) >= 2uz);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[1u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -259,8 +258,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(imm), typeref...[0], sizeof(imm));
         typeref...[0] += sizeof(imm);
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(imm), sizeof(imm));
-        typeref...[1u] += sizeof(imm);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(imm), sizeof(imm));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(imm);
     }
 
     /// @brief `i64.const` opcode (non-tail-call/byref): pushes an i64 immediate onto the operand stack.
@@ -275,7 +274,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         static_assert(sizeof...(TypeRef) >= 2uz);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[1u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -288,8 +287,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(imm), typeref...[0], sizeof(imm));
         typeref...[0] += sizeof(imm);
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(imm), sizeof(imm));
-        typeref...[1u] += sizeof(imm);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(imm), sizeof(imm));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(imm);
     }
 
     /// @brief `f32.const` opcode (non-tail-call/byref): pushes an f32 immediate onto the operand stack.
@@ -304,7 +303,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         static_assert(sizeof...(TypeRef) >= 2uz);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[1u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -317,8 +316,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(imm), typeref...[0], sizeof(imm));
         typeref...[0] += sizeof(imm);
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(imm), sizeof(imm));
-        typeref...[1u] += sizeof(imm);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(imm), sizeof(imm));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(imm);
     }
 
     /// @brief `f64.const` opcode (non-tail-call/byref): pushes an f64 immediate onto the operand stack.
@@ -333,7 +332,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         static_assert(sizeof...(TypeRef) >= 2uz);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[1u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -346,8 +345,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(imm), typeref...[0], sizeof(imm));
         typeref...[0] += sizeof(imm);
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(imm), sizeof(imm));
-        typeref...[1u] += sizeof(imm);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(imm), sizeof(imm));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(imm);
     }
 
     namespace translate
@@ -360,7 +359,12 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 get_uwvmint_i32_const_fptr_i32curr_impl(uwvm_interpreter_stacktop_currpos_t const& curr_stacktop) noexcept
             {
                 static_assert(Curr < End);
-                static_assert(CompileOption.i32_stack_top_begin_pos <= Curr && Curr < CompileOption.i32_stack_top_end_pos);
+                static_assert(::uwvm2::runtime::compiler::uwvm_int::optable::details::
+                                      uwvm_interpreter_stacktop_range_begin_pos<CompileOption, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32>() <=
+                                  Curr &&
+                              Curr < ::uwvm2::runtime::compiler::uwvm_int::optable::details::
+                                         uwvm_interpreter_stacktop_range_end_pos<CompileOption,
+                                                                                ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32>());
 
                 if(curr_stacktop.i32_stack_top_curr_pos == Curr) { return uwvmint_i32_const<CompileOption, Curr, Type...>; }
                 else
@@ -382,7 +386,12 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 get_uwvmint_i64_const_fptr_i64curr_impl(uwvm_interpreter_stacktop_currpos_t const& curr_stacktop) noexcept
             {
                 static_assert(Curr < End);
-                static_assert(CompileOption.i64_stack_top_begin_pos <= Curr && Curr < CompileOption.i64_stack_top_end_pos);
+                static_assert(::uwvm2::runtime::compiler::uwvm_int::optable::details::
+                                      uwvm_interpreter_stacktop_range_begin_pos<CompileOption, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64>() <=
+                                  Curr &&
+                              Curr < ::uwvm2::runtime::compiler::uwvm_int::optable::details::
+                                         uwvm_interpreter_stacktop_range_end_pos<CompileOption,
+                                                                                ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64>());
 
                 if(curr_stacktop.i64_stack_top_curr_pos == Curr) { return uwvmint_i64_const<CompileOption, Curr, Type...>; }
                 else
@@ -447,11 +456,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             requires (CompileOption.is_tail_call)
         inline constexpr uwvm_interpreter_opfunc_t<Type...> get_uwvmint_i32_const_fptr(uwvm_interpreter_stacktop_currpos_t const& curr_stacktop) noexcept
         {
-            if constexpr(CompileOption.i32_stack_top_begin_pos != CompileOption.i32_stack_top_end_pos)
+            constexpr ::std::size_t i32_stacktop_begin{
+                ::uwvm2::runtime::compiler::uwvm_int::optable::details::
+                    uwvm_interpreter_stacktop_range_begin_pos<CompileOption, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32>()};
+            constexpr ::std::size_t i32_stacktop_end{
+                ::uwvm2::runtime::compiler::uwvm_int::optable::details::
+                    uwvm_interpreter_stacktop_range_end_pos<CompileOption, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32>()};
+
+            if constexpr(i32_stacktop_begin != i32_stacktop_end)
             {
-                return details::
-                    get_uwvmint_i32_const_fptr_i32curr_impl<CompileOption, CompileOption.i32_stack_top_begin_pos, CompileOption.i32_stack_top_end_pos, Type...>(
-                        curr_stacktop);
+                return details::get_uwvmint_i32_const_fptr_i32curr_impl<CompileOption, i32_stacktop_begin, i32_stacktop_end, Type...>(curr_stacktop);
             }
             else
             {
@@ -469,11 +483,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             requires (CompileOption.is_tail_call)
         inline constexpr uwvm_interpreter_opfunc_t<Type...> get_uwvmint_i64_const_fptr(uwvm_interpreter_stacktop_currpos_t const& curr_stacktop) noexcept
         {
-            if constexpr(CompileOption.i64_stack_top_begin_pos != CompileOption.i64_stack_top_end_pos)
+            constexpr ::std::size_t i64_stacktop_begin{
+                ::uwvm2::runtime::compiler::uwvm_int::optable::details::
+                    uwvm_interpreter_stacktop_range_begin_pos<CompileOption, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64>()};
+            constexpr ::std::size_t i64_stacktop_end{
+                ::uwvm2::runtime::compiler::uwvm_int::optable::details::
+                    uwvm_interpreter_stacktop_range_end_pos<CompileOption, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64>()};
+
+            if constexpr(i64_stacktop_begin != i64_stacktop_end)
             {
-                return details::
-                    get_uwvmint_i64_const_fptr_i64curr_impl<CompileOption, CompileOption.i64_stack_top_begin_pos, CompileOption.i64_stack_top_end_pos, Type...>(
-                        curr_stacktop);
+                return details::get_uwvmint_i64_const_fptr_i64curr_impl<CompileOption, i64_stacktop_begin, i64_stacktop_end, Type...>(curr_stacktop);
             }
             else
             {

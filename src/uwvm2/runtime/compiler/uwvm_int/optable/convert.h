@@ -42,7 +42,7 @@
 # include <uwvm2/object/impl.h>
 # include "define.h"
 # include "storage.h"
-# include "register_ring.h"
+# include "stacktop_window.h"
 #endif
 
 #ifndef UWVM_MODULE_EXPORT
@@ -60,93 +60,36 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         template <uwvm_interpreter_translate_option_t CompileOption, typename OperandT>
         inline consteval ::std::size_t convert_stacktop_begin_pos() noexcept
-        {
-            if constexpr(::std::same_as<OperandT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32>) { return CompileOption.i32_stack_top_begin_pos; }
-            else if constexpr(::std::same_as<OperandT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64>)
-            {
-                return CompileOption.i64_stack_top_begin_pos;
-            }
-            else if constexpr(::std::same_as<OperandT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>)
-            {
-                return CompileOption.f32_stack_top_begin_pos;
-            }
-            else if constexpr(::std::same_as<OperandT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>)
-            {
-                return CompileOption.f64_stack_top_begin_pos;
-            }
-            else
-            {
-                return SIZE_MAX;
-            }
-        }
+        { return uwvm_interpreter_stacktop_range_begin_pos<CompileOption, OperandT>(); }
 
         template <uwvm_interpreter_translate_option_t CompileOption, typename OperandT>
         inline consteval ::std::size_t convert_stacktop_end_pos() noexcept
-        {
-            if constexpr(::std::same_as<OperandT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32>) { return CompileOption.i32_stack_top_end_pos; }
-            else if constexpr(::std::same_as<OperandT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64>) { return CompileOption.i64_stack_top_end_pos; }
-            else if constexpr(::std::same_as<OperandT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>) { return CompileOption.f32_stack_top_end_pos; }
-            else if constexpr(::std::same_as<OperandT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>) { return CompileOption.f64_stack_top_end_pos; }
-            else
-            {
-                return SIZE_MAX;
-            }
-        }
+        { return uwvm_interpreter_stacktop_range_end_pos<CompileOption, OperandT>(); }
 
         template <uwvm_interpreter_translate_option_t CompileOption, typename L, typename R>
         inline consteval bool convert_stacktop_ranges_merged() noexcept
-        {
-            return convert_stacktop_begin_pos<CompileOption, L>() == convert_stacktop_begin_pos<CompileOption, R>() &&
-                   convert_stacktop_end_pos<CompileOption, L>() == convert_stacktop_end_pos<CompileOption, R>();
-        }
+        { return uwvm_interpreter_stacktop_ranges_merged<CompileOption, L, R>(); }
 
         /// @brief Compile-time check: whether stack-top caching is enabled for the given operand type.
         /// @details Returns `true` iff the corresponding `[begin,end)` range in `CompileOption` is non-empty.
         template <uwvm_interpreter_translate_option_t CompileOption, typename OperandT>
         inline consteval bool convert_stacktop_enabled_for() noexcept
-        {
-            if constexpr(::std::same_as<OperandT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32>)
-            {
-                return convert_stacktop_begin_pos<CompileOption, OperandT>() != convert_stacktop_end_pos<CompileOption, OperandT>();
-            }
-            else if constexpr(::std::same_as<OperandT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64>)
-            {
-                return convert_stacktop_begin_pos<CompileOption, OperandT>() != convert_stacktop_end_pos<CompileOption, OperandT>();
-            }
-            else if constexpr(::std::same_as<OperandT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>)
-            {
-                return convert_stacktop_begin_pos<CompileOption, OperandT>() != convert_stacktop_end_pos<CompileOption, OperandT>();
-            }
-            else if constexpr(::std::same_as<OperandT, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>)
-            {
-                return convert_stacktop_begin_pos<CompileOption, OperandT>() != convert_stacktop_end_pos<CompileOption, OperandT>();
-            }
-            else
-            {
-                return true;
-            }
-        }
+        { return uwvm_interpreter_stacktop_enabled_for<CompileOption, OperandT>(); }
 
         /// @brief Compile-time check: whether i32/i64/f32/f64 stack-top ranges are fully merged.
         /// @details Required by some conversions that reuse the same stack-top slot while changing the value type.
         template <uwvm_interpreter_translate_option_t CompileOption>
         inline consteval bool convert_scalar_ranges_all_merged() noexcept
-        {
-            return CompileOption.i32_stack_top_begin_pos == CompileOption.i64_stack_top_begin_pos &&
-                   CompileOption.i32_stack_top_end_pos == CompileOption.i64_stack_top_end_pos &&
-                   CompileOption.i32_stack_top_begin_pos == CompileOption.f32_stack_top_begin_pos &&
-                   CompileOption.i32_stack_top_end_pos == CompileOption.f32_stack_top_end_pos &&
-                   CompileOption.i32_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
-                   CompileOption.i32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos;
-        }
+        { return uwvm_interpreter_scalar4_ranges_all_merged<CompileOption>(); }
 
         /// @brief Compile-time check: whether i32 and i64 stack-top ranges are merged.
         /// @details Required by conversions that read one of {i32,i64} and write the other into the same stack-top slot.
         template <uwvm_interpreter_translate_option_t CompileOption>
         inline consteval bool convert_i32_i64_ranges_merged() noexcept
         {
-            return CompileOption.i32_stack_top_begin_pos == CompileOption.i64_stack_top_begin_pos &&
-                   CompileOption.i32_stack_top_end_pos == CompileOption.i64_stack_top_end_pos;
+            using wasm_i32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32;
+            using wasm_i64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64;
+            return uwvm_interpreter_stacktop_ranges_merged<CompileOption, wasm_i32, wasm_i64>();
         }
 
         /// @brief Compile-time check: whether i32 and f32 stack-top ranges are merged.
@@ -154,8 +97,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         template <uwvm_interpreter_translate_option_t CompileOption>
         inline consteval bool convert_i32_f32_ranges_merged() noexcept
         {
-            return CompileOption.i32_stack_top_begin_pos == CompileOption.f32_stack_top_begin_pos &&
-                   CompileOption.i32_stack_top_end_pos == CompileOption.f32_stack_top_end_pos;
+            using wasm_i32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32;
+            using wasm_f32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32;
+            return uwvm_interpreter_stacktop_ranges_merged<CompileOption, wasm_i32, wasm_f32>();
         }
 
         /// @brief Compile-time check: whether f32 and f64 stack-top ranges are merged.
@@ -163,8 +107,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         template <uwvm_interpreter_translate_option_t CompileOption>
         inline consteval bool convert_f32_f64_ranges_merged() noexcept
         {
-            return CompileOption.f32_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
-                   CompileOption.f32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos;
+            using wasm_f32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32;
+            using wasm_f64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64;
+            return uwvm_interpreter_stacktop_ranges_merged<CompileOption, wasm_f32, wasm_f64>();
         }
 
         /// @brief Trap helper used by float-to-int truncation when the conversion is invalid.
@@ -342,14 +287,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i32>()};
                     constexpr ::std::size_t i32_end{details::convert_stacktop_end_pos<CompileOption, wasm_i32>()};
                     static_assert(i32_begin <= curr_i32_stack_top && curr_i32_stack_top < i32_end);
-                    constexpr ::std::size_t new_i32_pos{details::ring_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
+                    constexpr ::std::size_t new_i32_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_i32_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -363,13 +308,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i32>()};
                 constexpr ::std::size_t i32_end{details::convert_stacktop_end_pos<CompileOption, wasm_i32>()};
                 static_assert(i32_begin <= curr_i32_stack_top && curr_i32_stack_top < i32_end);
-                constexpr ::std::size_t new_i32_pos{details::ring_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
+                constexpr ::std::size_t new_i32_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_i32_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -419,14 +364,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                     constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                     static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                    constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                    constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -440,13 +385,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                 constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                 static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -496,14 +441,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                     constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                     static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                    constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                    constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -517,13 +462,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                 constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                 static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -573,14 +518,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i32>()};
                     constexpr ::std::size_t i32_end{details::convert_stacktop_end_pos<CompileOption, wasm_i32>()};
                     static_assert(i32_begin <= curr_i32_stack_top && curr_i32_stack_top < i32_end);
-                    constexpr ::std::size_t new_i32_pos{details::ring_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
+                    constexpr ::std::size_t new_i32_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_i32_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -594,13 +539,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i32>()};
                 constexpr ::std::size_t i32_end{details::convert_stacktop_end_pos<CompileOption, wasm_i32>()};
                 static_assert(i32_begin <= curr_i32_stack_top && curr_i32_stack_top < i32_end);
-                constexpr ::std::size_t new_i32_pos{details::ring_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
+                constexpr ::std::size_t new_i32_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_i32_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -650,14 +595,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t f32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f32>()};
                     constexpr ::std::size_t f32_end{details::convert_stacktop_end_pos<CompileOption, wasm_f32>()};
                     static_assert(f32_begin <= curr_f32_stack_top && curr_f32_stack_top < f32_end);
-                    constexpr ::std::size_t new_f32_pos{details::ring_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
+                    constexpr ::std::size_t new_f32_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_f32_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -671,13 +616,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t f32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f32>()};
                 constexpr ::std::size_t f32_end{details::convert_stacktop_end_pos<CompileOption, wasm_f32>()};
                 static_assert(f32_begin <= curr_f32_stack_top && curr_f32_stack_top < f32_end);
-                constexpr ::std::size_t new_f32_pos{details::ring_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
+                constexpr ::std::size_t new_f32_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_f32_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -727,14 +672,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t f32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f32>()};
                     constexpr ::std::size_t f32_end{details::convert_stacktop_end_pos<CompileOption, wasm_f32>()};
                     static_assert(f32_begin <= curr_f32_stack_top && curr_f32_stack_top < f32_end);
-                    constexpr ::std::size_t new_f32_pos{details::ring_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
+                    constexpr ::std::size_t new_f32_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_f32_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -747,13 +692,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t f32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f32>()};
                 constexpr ::std::size_t f32_end{details::convert_stacktop_end_pos<CompileOption, wasm_f32>()};
                 static_assert(f32_begin <= curr_f32_stack_top && curr_f32_stack_top < f32_end);
-                constexpr ::std::size_t new_f32_pos{details::ring_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
+                constexpr ::std::size_t new_f32_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_f32_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -801,14 +746,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t f64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f64>()};
                     constexpr ::std::size_t f64_end{details::convert_stacktop_end_pos<CompileOption, wasm_f64>()};
                     static_assert(f64_begin <= curr_f64_stack_top && curr_f64_stack_top < f64_end);
-                    constexpr ::std::size_t new_f64_pos{details::ring_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
+                    constexpr ::std::size_t new_f64_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_f64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -821,13 +766,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t f64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f64>()};
                 constexpr ::std::size_t f64_end{details::convert_stacktop_end_pos<CompileOption, wasm_f64>()};
                 static_assert(f64_begin <= curr_f64_stack_top && curr_f64_stack_top < f64_end);
-                constexpr ::std::size_t new_f64_pos{details::ring_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
+                constexpr ::std::size_t new_f64_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_f64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -890,14 +835,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i32>()};
                     constexpr ::std::size_t i32_end{details::convert_stacktop_end_pos<CompileOption, wasm_i32>()};
                     static_assert(i32_begin <= curr_i32_stack_top && curr_i32_stack_top < i32_end);
-                    constexpr ::std::size_t new_i32_pos{details::ring_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
+                    constexpr ::std::size_t new_i32_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_i32_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -917,13 +862,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i32>()};
                 constexpr ::std::size_t i32_end{details::convert_stacktop_end_pos<CompileOption, wasm_i32>()};
                 static_assert(i32_begin <= curr_i32_stack_top && curr_i32_stack_top < i32_end);
-                constexpr ::std::size_t new_i32_pos{details::ring_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
+                constexpr ::std::size_t new_i32_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_i32_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -983,14 +928,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i32>()};
                     constexpr ::std::size_t i32_end{details::convert_stacktop_end_pos<CompileOption, wasm_i32>()};
                     static_assert(i32_begin <= curr_i32_stack_top && curr_i32_stack_top < i32_end);
-                    constexpr ::std::size_t new_i32_pos{details::ring_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
+                    constexpr ::std::size_t new_i32_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_i32_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -1010,13 +955,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i32>()};
                 constexpr ::std::size_t i32_end{details::convert_stacktop_end_pos<CompileOption, wasm_i32>()};
                 static_assert(i32_begin <= curr_i32_stack_top && curr_i32_stack_top < i32_end);
-                constexpr ::std::size_t new_i32_pos{details::ring_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
+                constexpr ::std::size_t new_i32_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_i32_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -1077,14 +1022,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i32>()};
                     constexpr ::std::size_t i32_end{details::convert_stacktop_end_pos<CompileOption, wasm_i32>()};
                     static_assert(i32_begin <= curr_i32_stack_top && curr_i32_stack_top < i32_end);
-                    constexpr ::std::size_t new_i32_pos{details::ring_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
+                    constexpr ::std::size_t new_i32_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_i32_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -1104,13 +1049,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i32>()};
                 constexpr ::std::size_t i32_end{details::convert_stacktop_end_pos<CompileOption, wasm_i32>()};
                 static_assert(i32_begin <= curr_i32_stack_top && curr_i32_stack_top < i32_end);
-                constexpr ::std::size_t new_i32_pos{details::ring_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
+                constexpr ::std::size_t new_i32_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_i32_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -1170,14 +1115,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i32>()};
                     constexpr ::std::size_t i32_end{details::convert_stacktop_end_pos<CompileOption, wasm_i32>()};
                     static_assert(i32_begin <= curr_i32_stack_top && curr_i32_stack_top < i32_end);
-                    constexpr ::std::size_t new_i32_pos{details::ring_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
+                    constexpr ::std::size_t new_i32_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_i32_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -1197,13 +1142,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i32>()};
                 constexpr ::std::size_t i32_end{details::convert_stacktop_end_pos<CompileOption, wasm_i32>()};
                 static_assert(i32_begin <= curr_i32_stack_top && curr_i32_stack_top < i32_end);
-                constexpr ::std::size_t new_i32_pos{details::ring_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
+                constexpr ::std::size_t new_i32_pos{details::stacktop_window_prev_pos(curr_i32_stack_top, i32_begin, i32_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i32, new_i32_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -1266,14 +1211,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                     constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                     static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                    constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                    constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -1293,13 +1238,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                 constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                 static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -1359,14 +1304,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                     constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                     static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                    constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                    constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -1386,13 +1331,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                 constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                 static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -1453,14 +1398,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                     constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                     static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                    constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                    constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -1480,13 +1425,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                 constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                 static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -1546,14 +1491,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                     constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                     static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                    constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                    constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -1573,13 +1518,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                 constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                 static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -1629,14 +1574,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t f32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f32>()};
                     constexpr ::std::size_t f32_end{details::convert_stacktop_end_pos<CompileOption, wasm_f32>()};
                     static_assert(f32_begin <= curr_f32_stack_top && curr_f32_stack_top < f32_end);
-                    constexpr ::std::size_t new_f32_pos{details::ring_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
+                    constexpr ::std::size_t new_f32_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_f32_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -1649,13 +1594,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t f32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f32>()};
                 constexpr ::std::size_t f32_end{details::convert_stacktop_end_pos<CompileOption, wasm_f32>()};
                 static_assert(f32_begin <= curr_f32_stack_top && curr_f32_stack_top < f32_end);
-                constexpr ::std::size_t new_f32_pos{details::ring_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
+                constexpr ::std::size_t new_f32_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_f32_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -1704,14 +1649,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t f32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f32>()};
                     constexpr ::std::size_t f32_end{details::convert_stacktop_end_pos<CompileOption, wasm_f32>()};
                     static_assert(f32_begin <= curr_f32_stack_top && curr_f32_stack_top < f32_end);
-                    constexpr ::std::size_t new_f32_pos{details::ring_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
+                    constexpr ::std::size_t new_f32_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_f32_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -1725,13 +1670,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t f32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f32>()};
                 constexpr ::std::size_t f32_end{details::convert_stacktop_end_pos<CompileOption, wasm_f32>()};
                 static_assert(f32_begin <= curr_f32_stack_top && curr_f32_stack_top < f32_end);
-                constexpr ::std::size_t new_f32_pos{details::ring_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
+                constexpr ::std::size_t new_f32_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_f32_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -1779,14 +1724,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t f64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f64>()};
                     constexpr ::std::size_t f64_end{details::convert_stacktop_end_pos<CompileOption, wasm_f64>()};
                     static_assert(f64_begin <= curr_f64_stack_top && curr_f64_stack_top < f64_end);
-                    constexpr ::std::size_t new_f64_pos{details::ring_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
+                    constexpr ::std::size_t new_f64_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_f64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -1799,13 +1744,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t f64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f64>()};
                 constexpr ::std::size_t f64_end{details::convert_stacktop_end_pos<CompileOption, wasm_f64>()};
                 static_assert(f64_begin <= curr_f64_stack_top && curr_f64_stack_top < f64_end);
-                constexpr ::std::size_t new_f64_pos{details::ring_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
+                constexpr ::std::size_t new_f64_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_f64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -1854,14 +1799,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t f64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f64>()};
                     constexpr ::std::size_t f64_end{details::convert_stacktop_end_pos<CompileOption, wasm_f64>()};
                     static_assert(f64_begin <= curr_f64_stack_top && curr_f64_stack_top < f64_end);
-                    constexpr ::std::size_t new_f64_pos{details::ring_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
+                    constexpr ::std::size_t new_f64_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_f64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -1875,13 +1820,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t f64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f64>()};
                 constexpr ::std::size_t f64_end{details::convert_stacktop_end_pos<CompileOption, wasm_f64>()};
                 static_assert(f64_begin <= curr_f64_stack_top && curr_f64_stack_top < f64_end);
-                constexpr ::std::size_t new_f64_pos{details::ring_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
+                constexpr ::std::size_t new_f64_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_f64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -1929,14 +1874,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t f32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f32>()};
                     constexpr ::std::size_t f32_end{details::convert_stacktop_end_pos<CompileOption, wasm_f32>()};
                     static_assert(f32_begin <= curr_f32_stack_top && curr_f32_stack_top < f32_end);
-                    constexpr ::std::size_t new_f32_pos{details::ring_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
+                    constexpr ::std::size_t new_f32_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_f32_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -1949,13 +1894,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t f32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f32>()};
                 constexpr ::std::size_t f32_end{details::convert_stacktop_end_pos<CompileOption, wasm_f32>()};
                 static_assert(f32_begin <= curr_f32_stack_top && curr_f32_stack_top < f32_end);
-                constexpr ::std::size_t new_f32_pos{details::ring_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
+                constexpr ::std::size_t new_f32_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_f32_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -2004,14 +1949,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t f32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f32>()};
                     constexpr ::std::size_t f32_end{details::convert_stacktop_end_pos<CompileOption, wasm_f32>()};
                     static_assert(f32_begin <= curr_f32_stack_top && curr_f32_stack_top < f32_end);
-                    constexpr ::std::size_t new_f32_pos{details::ring_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
+                    constexpr ::std::size_t new_f32_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_f32_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -2025,13 +1970,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t f32_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f32>()};
                 constexpr ::std::size_t f32_end{details::convert_stacktop_end_pos<CompileOption, wasm_f32>()};
                 static_assert(f32_begin <= curr_f32_stack_top && curr_f32_stack_top < f32_end);
-                constexpr ::std::size_t new_f32_pos{details::ring_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
+                constexpr ::std::size_t new_f32_pos{details::stacktop_window_prev_pos(curr_f32_stack_top, f32_begin, f32_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f32, new_f32_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -2079,14 +2024,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t f64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f64>()};
                     constexpr ::std::size_t f64_end{details::convert_stacktop_end_pos<CompileOption, wasm_f64>()};
                     static_assert(f64_begin <= curr_f64_stack_top && curr_f64_stack_top < f64_end);
-                    constexpr ::std::size_t new_f64_pos{details::ring_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
+                    constexpr ::std::size_t new_f64_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_f64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -2099,13 +2044,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t f64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f64>()};
                 constexpr ::std::size_t f64_end{details::convert_stacktop_end_pos<CompileOption, wasm_f64>()};
                 static_assert(f64_begin <= curr_f64_stack_top && curr_f64_stack_top < f64_end);
-                constexpr ::std::size_t new_f64_pos{details::ring_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
+                constexpr ::std::size_t new_f64_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_f64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -2154,14 +2099,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t f64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f64>()};
                     constexpr ::std::size_t f64_end{details::convert_stacktop_end_pos<CompileOption, wasm_f64>()};
                     static_assert(f64_begin <= curr_f64_stack_top && curr_f64_stack_top < f64_end);
-                    constexpr ::std::size_t new_f64_pos{details::ring_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
+                    constexpr ::std::size_t new_f64_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_f64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -2175,13 +2120,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t f64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f64>()};
                 constexpr ::std::size_t f64_end{details::convert_stacktop_end_pos<CompileOption, wasm_f64>()};
                 static_assert(f64_begin <= curr_f64_stack_top && curr_f64_stack_top < f64_end);
-                constexpr ::std::size_t new_f64_pos{details::ring_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
+                constexpr ::std::size_t new_f64_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_f64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -2231,14 +2176,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                     constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                     static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                    constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                    constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -2252,13 +2197,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t i64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_i64>()};
                 constexpr ::std::size_t i64_end{details::convert_stacktop_end_pos<CompileOption, wasm_i64>()};
                 static_assert(i64_begin <= curr_i64_stack_top && curr_i64_stack_top < i64_end);
-                constexpr ::std::size_t new_i64_pos{details::ring_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
+                constexpr ::std::size_t new_i64_pos{details::stacktop_window_prev_pos(curr_i64_stack_top, i64_begin, i64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_i64, new_i64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -2308,14 +2253,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     constexpr ::std::size_t f64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f64>()};
                     constexpr ::std::size_t f64_end{details::convert_stacktop_end_pos<CompileOption, wasm_f64>()};
                     static_assert(f64_begin <= curr_f64_stack_top && curr_f64_stack_top < f64_end);
-                    constexpr ::std::size_t new_f64_pos{details::ring_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
+                    constexpr ::std::size_t new_f64_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
                     details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_f64_pos>(out, type...);
                 }
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
         else
@@ -2329,13 +2274,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 constexpr ::std::size_t f64_begin{details::convert_stacktop_begin_pos<CompileOption, wasm_f64>()};
                 constexpr ::std::size_t f64_end{details::convert_stacktop_end_pos<CompileOption, wasm_f64>()};
                 static_assert(f64_begin <= curr_f64_stack_top && curr_f64_stack_top < f64_end);
-                constexpr ::std::size_t new_f64_pos{details::ring_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
+                constexpr ::std::size_t new_f64_pos{details::stacktop_window_prev_pos(curr_f64_stack_top, f64_begin, f64_end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, wasm_f64, new_f64_pos>(out, type...);
             }
             else
             {
-                ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
-                type...[1u] += sizeof(out);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(type...), ::std::addressof(out), sizeof(out));
+                uwvmint_operand_stack_top_ref(type...) += sizeof(out);
             }
         }
 
@@ -2378,8 +2323,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least32_t const low{static_cast<::std::uint_least32_t>(details::to_u64_bits(v))};
         wasm_i32 const out{details::from_u32_bits<wasm_i32>(low)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `i32.trunc_f32_s` (non-tail-call/byref): truncates f32 to signed i32, trapping on invalid conversion.
@@ -2404,8 +2349,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::int_least32_t const out32{details::trunc_float_to_int_s<::std::int_least32_t>(v)};
         wasm_i32 const out{static_cast<wasm_i32>(out32)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `i32.trunc_f32_u` (non-tail-call/byref): truncates f32 to unsigned i32, trapping on invalid conversion.
@@ -2430,8 +2375,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least32_t const u32{details::trunc_float_to_int_u<::std::uint_least32_t>(v)};
         wasm_i32 const out{details::from_u32_bits<wasm_i32>(u32)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeRef>
@@ -2455,8 +2400,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::int_least32_t const out32{details::trunc_float_to_int_s<::std::int_least32_t>(v)};
         wasm_i32 const out{static_cast<wasm_i32>(out32)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `i32.trunc_f64_u` (non-tail-call/byref): truncates f64 to unsigned i32, trapping on invalid conversion.
@@ -2481,8 +2426,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least32_t const u32{details::trunc_float_to_int_u<::std::uint_least32_t>(v)};
         wasm_i32 const out{details::from_u32_bits<wasm_i32>(u32)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `i64.extend_i32_s` (non-tail-call/byref): sign-extends i32 to i64.
@@ -2507,8 +2452,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::int_least64_t const out64{static_cast<::std::int_least64_t>(static_cast<::std::int_least32_t>(v))};
         wasm_i64 const out{static_cast<wasm_i64>(out64)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `i64.extend_i32_u` (non-tail-call/byref): zero-extends i32 to i64.
@@ -2533,8 +2478,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least32_t const u32{details::to_u32_bits(v)};
         wasm_i64 const out{static_cast<wasm_i64>(static_cast<::std::uint_least64_t>(u32))};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `i64.trunc_f32_s` (non-tail-call/byref): truncates f32 to signed i64, trapping on invalid conversion.
@@ -2559,8 +2504,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::int_least64_t const out64{details::trunc_float_to_int_s<::std::int_least64_t>(v)};
         wasm_i64 const out{static_cast<wasm_i64>(out64)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `i64.trunc_f32_u` (non-tail-call/byref): truncates f32 to unsigned i64, trapping on invalid conversion.
@@ -2585,8 +2530,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least64_t const u64{details::trunc_float_to_int_u<::std::uint_least64_t>(v)};
         wasm_i64 const out{details::from_u64_bits<wasm_i64>(u64)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `i64.trunc_f64_s` (non-tail-call/byref): truncates f64 to signed i64, trapping on invalid conversion.
@@ -2611,8 +2556,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::int_least64_t const out64{details::trunc_float_to_int_s<::std::int_least64_t>(v)};
         wasm_i64 const out{static_cast<wasm_i64>(out64)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `i64.trunc_f64_u` (non-tail-call/byref): truncates f64 to unsigned i64, trapping on invalid conversion.
@@ -2637,8 +2582,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least64_t const u64{details::trunc_float_to_int_u<::std::uint_least64_t>(v)};
         wasm_i64 const out{details::from_u64_bits<wasm_i64>(u64)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `f32.convert_i32_s` (non-tail-call/byref): converts signed i32 to f32.
@@ -2662,8 +2607,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm_i32 const v{get_curr_val_from_operand_stack_cache<wasm_i32>(typeref...)};
         wasm_f32 const out{static_cast<wasm_f32>(static_cast<::std::int_least32_t>(v))};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `f32.convert_i32_u` (non-tail-call/byref): converts unsigned i32 to f32.
@@ -2688,8 +2633,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least32_t const u32{details::to_u32_bits(v)};
         wasm_f32 const out{static_cast<wasm_f32>(u32)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `f32.convert_i64_s` (non-tail-call/byref): converts signed i64 to f32.
@@ -2713,8 +2658,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm_i64 const v{get_curr_val_from_operand_stack_cache<wasm_i64>(typeref...)};
         wasm_f32 const out{static_cast<wasm_f32>(static_cast<::std::int_least64_t>(v))};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `f32.convert_i64_u` (non-tail-call/byref): converts unsigned i64 to f32.
@@ -2739,8 +2684,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least64_t const u64{details::to_u64_bits(v)};
         wasm_f32 const out{static_cast<wasm_f32>(u64)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `f32.demote_f64` (non-tail-call/byref): converts f64 to f32.
@@ -2764,8 +2709,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm_f64 const v{get_curr_val_from_operand_stack_cache<wasm_f64>(typeref...)};
         wasm_f32 const out{static_cast<wasm_f32>(v)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `f64.convert_i32_s` (non-tail-call/byref): converts signed i32 to f64.
@@ -2789,8 +2734,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm_i32 const v{get_curr_val_from_operand_stack_cache<wasm_i32>(typeref...)};
         wasm_f64 const out{static_cast<wasm_f64>(static_cast<::std::int_least32_t>(v))};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `f64.convert_i32_u` (non-tail-call/byref): converts unsigned i32 to f64.
@@ -2815,8 +2760,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least32_t const u32{details::to_u32_bits(v)};
         wasm_f64 const out{static_cast<wasm_f64>(u32)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `f64.convert_i64_s` (non-tail-call/byref): converts signed i64 to f64.
@@ -2840,8 +2785,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm_i64 const v{get_curr_val_from_operand_stack_cache<wasm_i64>(typeref...)};
         wasm_f64 const out{static_cast<wasm_f64>(static_cast<::std::int_least64_t>(v))};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `f64.convert_i64_u` (non-tail-call/byref): converts unsigned i64 to f64.
@@ -2866,8 +2811,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least64_t const u64{details::to_u64_bits(v)};
         wasm_f64 const out{static_cast<wasm_f64>(u64)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `f64.promote_f32` (non-tail-call/byref): converts f32 to f64.
@@ -2891,8 +2836,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm_f32 const v{get_curr_val_from_operand_stack_cache<wasm_f32>(typeref...)};
         wasm_f64 const out{static_cast<wasm_f64>(v)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `i32.reinterpret_f32` (non-tail-call/byref): bitcasts f32 to i32.
@@ -2917,8 +2862,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least32_t const bits{::std::bit_cast<::std::uint_least32_t>(v)};
         wasm_i32 const out{details::from_u32_bits<wasm_i32>(bits)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `f32.reinterpret_i32` (non-tail-call/byref): bitcasts i32 to f32.
@@ -2943,8 +2888,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least32_t const bits{details::to_u32_bits(v)};
         wasm_f32 const out{::std::bit_cast<wasm_f32>(bits)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `i64.reinterpret_f64` (non-tail-call/byref): bitcasts f64 to i64.
@@ -2969,8 +2914,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least64_t const bits{::std::bit_cast<::std::uint_least64_t>(v)};
         wasm_i64 const out{details::from_u64_bits<wasm_i64>(bits)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief `f64.reinterpret_i64` (non-tail-call/byref): bitcasts i64 to f64.
@@ -2995,8 +2940,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::uint_least64_t const bits{details::to_u64_bits(v)};
         wasm_f64 const out{::std::bit_cast<wasm_f64>(bits)};
 
-        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
-        typeref...[1u] += sizeof(out);
+        ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(out), sizeof(out));
+        uwvmint_operand_stack_top_ref(typeref...) += sizeof(out);
     }
 
     /// @brief Translation helpers for convert opcodes.
@@ -3116,10 +3061,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             template <uwvm_interpreter_translate_option_t CompileOption,
                       typename InT,
                       typename OutT,
-                      ::std::size_t InBegin,
-                      ::std::size_t InEnd,
-                      ::std::size_t OutBegin,
-                      ::std::size_t OutEnd,
                       typename OpWrapper1D,
                       typename OpWrapper2D,
                       typename OpWrapperOutOnly,
@@ -3127,33 +3068,48 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 requires (CompileOption.is_tail_call)
             inline constexpr uwvm_interpreter_opfunc_t<Type...> select_unary_convert_fptr(uwvm_interpreter_stacktop_currpos_t const& curr_stacktop) noexcept
             {
-                if constexpr(InBegin != InEnd)
+                constexpr ::std::size_t active_in_begin{
+                    ::uwvm2::runtime::compiler::uwvm_int::optable::details::uwvm_interpreter_stacktop_range_begin_pos<CompileOption, InT>()};
+                constexpr ::std::size_t active_in_end{
+                    ::uwvm2::runtime::compiler::uwvm_int::optable::details::uwvm_interpreter_stacktop_range_end_pos<CompileOption, InT>()};
+                constexpr ::std::size_t active_out_begin{
+                    ::uwvm2::runtime::compiler::uwvm_int::optable::details::uwvm_interpreter_stacktop_range_begin_pos<CompileOption, OutT>()};
+                constexpr ::std::size_t active_out_end{
+                    ::uwvm2::runtime::compiler::uwvm_int::optable::details::uwvm_interpreter_stacktop_range_end_pos<CompileOption, OutT>()};
+
+                if constexpr(active_in_begin != active_in_end)
                 {
-                    if constexpr(OutBegin != OutEnd)
+                    if constexpr(active_out_begin != active_out_end)
                     {
                         if constexpr(::uwvm2::runtime::compiler::uwvm_int::optable::details::convert_stacktop_ranges_merged<CompileOption, InT, OutT>())
                         {
-                            return select_stacktop_fptr_by_currpos_convert_impl<CompileOption, InBegin, InEnd, OpWrapper1D, Type...>(
+                            return select_stacktop_fptr_by_currpos_convert_impl<CompileOption, active_in_begin, active_in_end, OpWrapper1D, Type...>(
                                 stacktop_currpos_convert<InT>(curr_stacktop));
                         }
                         else
                         {
-                            return select_stacktop_fptr_by_currpos_convert_impl_2d<CompileOption, OutBegin, OutEnd, InBegin, InEnd, OpWrapper2D, Type...>(
+                            return select_stacktop_fptr_by_currpos_convert_impl_2d<CompileOption,
+                                                                                   active_out_begin,
+                                                                                   active_out_end,
+                                                                                   active_in_begin,
+                                                                                   active_in_end,
+                                                                                   OpWrapper2D,
+                                                                                   Type...>(
                                 stacktop_currpos_convert<OutT>(curr_stacktop),
                                 stacktop_currpos_convert<InT>(curr_stacktop));
                         }
                     }
                     else
                     {
-                        return select_stacktop_fptr_by_currpos_convert_impl<CompileOption, InBegin, InEnd, OpWrapper1D, Type...>(
+                        return select_stacktop_fptr_by_currpos_convert_impl<CompileOption, active_in_begin, active_in_end, OpWrapper1D, Type...>(
                             stacktop_currpos_convert<InT>(curr_stacktop));
                     }
                 }
                 else
                 {
-                    if constexpr(OutBegin != OutEnd)
+                    if constexpr(active_out_begin != active_out_end)
                     {
-                        return select_stacktop_fptr_by_currpos_convert_impl<CompileOption, OutBegin, OutEnd, OpWrapperOutOnly, Type...>(
+                        return select_stacktop_fptr_by_currpos_convert_impl<CompileOption, active_out_begin, active_out_end, OpWrapperOutOnly, Type...>(
                             stacktop_currpos_convert<OutT>(curr_stacktop));
                     }
                     else
@@ -3338,12 +3294,12 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 { return uwvmint_f64_reinterpret_i64<Opt, Pos, Pos, Type...>; }
             };
 
-            // Disjoint-ring + output-only wrappers
+            // Disjoint-stack-top window + output-only wrappers
             //
             // Conversions move one value from an input type (InT) to an output type (OutT). When the corresponding
-            // stack-top caches are disjoint, the translator must carry two independent ring cursors and therefore
-            // selects a 2D-specialized opcode (OutPos × InPos). When the input type has no ring but the output type
-            // does, we select an output-only opcode that reads from the operand stack and pushes into the output ring.
+            // stack-top caches are disjoint, the translator must carry two independent stack-top window cursors and therefore
+            // selects a 2D-specialized opcode (OutPos × InPos). When the input type has no stack-top window but the output type
+            // does, we select an output-only opcode that reads from the operand stack and pushes into the output stack-top window.
 
             struct i32_wrap_i64_op_2d
             {
@@ -3705,10 +3661,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i64,
                                                       wasm_i32,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
                                                       details::i32_wrap_i64_op,
                                                       details::i32_wrap_i64_op_2d,
                                                       details::i32_wrap_i64_op_out_only,
@@ -3730,10 +3682,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_f32,
                                                       wasm_i32,
-                                                      CompileOption.f32_stack_top_begin_pos,
-                                                      CompileOption.f32_stack_top_end_pos,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
                                                       details::i32_trunc_f32_s_op,
                                                       details::i32_trunc_f32_s_op_2d,
                                                       details::i32_trunc_f32_s_op_out_only,
@@ -3755,10 +3703,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_f32,
                                                       wasm_i32,
-                                                      CompileOption.f32_stack_top_begin_pos,
-                                                      CompileOption.f32_stack_top_end_pos,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
                                                       details::i32_trunc_f32_u_op,
                                                       details::i32_trunc_f32_u_op_2d,
                                                       details::i32_trunc_f32_u_op_out_only,
@@ -3780,10 +3724,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_f64,
                                                       wasm_i32,
-                                                      CompileOption.f64_stack_top_begin_pos,
-                                                      CompileOption.f64_stack_top_end_pos,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
                                                       details::i32_trunc_f64_s_op,
                                                       details::i32_trunc_f64_s_op_2d,
                                                       details::i32_trunc_f64_s_op_out_only,
@@ -3805,10 +3745,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_f64,
                                                       wasm_i32,
-                                                      CompileOption.f64_stack_top_begin_pos,
-                                                      CompileOption.f64_stack_top_end_pos,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
                                                       details::i32_trunc_f64_u_op,
                                                       details::i32_trunc_f64_u_op_2d,
                                                       details::i32_trunc_f64_u_op_out_only,
@@ -3830,10 +3766,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i32,
                                                       wasm_i64,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
                                                       details::i64_extend_i32_s_op,
                                                       details::i64_extend_i32_s_op_2d,
                                                       details::i64_extend_i32_s_op_out_only,
@@ -3855,10 +3787,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i32,
                                                       wasm_i64,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
                                                       details::i64_extend_i32_u_op,
                                                       details::i64_extend_i32_u_op_2d,
                                                       details::i64_extend_i32_u_op_out_only,
@@ -3880,10 +3808,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_f32,
                                                       wasm_i64,
-                                                      CompileOption.f32_stack_top_begin_pos,
-                                                      CompileOption.f32_stack_top_end_pos,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
                                                       details::i64_trunc_f32_s_op,
                                                       details::i64_trunc_f32_s_op_2d,
                                                       details::i64_trunc_f32_s_op_out_only,
@@ -3905,10 +3829,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_f32,
                                                       wasm_i64,
-                                                      CompileOption.f32_stack_top_begin_pos,
-                                                      CompileOption.f32_stack_top_end_pos,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
                                                       details::i64_trunc_f32_u_op,
                                                       details::i64_trunc_f32_u_op_2d,
                                                       details::i64_trunc_f32_u_op_out_only,
@@ -3930,10 +3850,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_f64,
                                                       wasm_i64,
-                                                      CompileOption.f64_stack_top_begin_pos,
-                                                      CompileOption.f64_stack_top_end_pos,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
                                                       details::i64_trunc_f64_s_op,
                                                       details::i64_trunc_f64_s_op_2d,
                                                       details::i64_trunc_f64_s_op_out_only,
@@ -3955,10 +3871,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_f64,
                                                       wasm_i64,
-                                                      CompileOption.f64_stack_top_begin_pos,
-                                                      CompileOption.f64_stack_top_end_pos,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
                                                       details::i64_trunc_f64_u_op,
                                                       details::i64_trunc_f64_u_op_2d,
                                                       details::i64_trunc_f64_u_op_out_only,
@@ -3981,10 +3893,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i32,
                                                       wasm_f32,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
-                                                      CompileOption.f32_stack_top_begin_pos,
-                                                      CompileOption.f32_stack_top_end_pos,
                                                       details::f32_convert_i32_s_op,
                                                       details::f32_convert_i32_s_op_2d,
                                                       details::f32_convert_i32_s_op_out_only,
@@ -4007,10 +3915,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i32,
                                                       wasm_f32,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
-                                                      CompileOption.f32_stack_top_begin_pos,
-                                                      CompileOption.f32_stack_top_end_pos,
                                                       details::f32_convert_i32_u_op,
                                                       details::f32_convert_i32_u_op_2d,
                                                       details::f32_convert_i32_u_op_out_only,
@@ -4033,10 +3937,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i64,
                                                       wasm_f32,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
-                                                      CompileOption.f32_stack_top_begin_pos,
-                                                      CompileOption.f32_stack_top_end_pos,
                                                       details::f32_convert_i64_s_op,
                                                       details::f32_convert_i64_s_op_2d,
                                                       details::f32_convert_i64_s_op_out_only,
@@ -4059,10 +3959,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i64,
                                                       wasm_f32,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
-                                                      CompileOption.f32_stack_top_begin_pos,
-                                                      CompileOption.f32_stack_top_end_pos,
                                                       details::f32_convert_i64_u_op,
                                                       details::f32_convert_i64_u_op_2d,
                                                       details::f32_convert_i64_u_op_out_only,
@@ -4084,10 +3980,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_f64,
                                                       wasm_f32,
-                                                      CompileOption.f64_stack_top_begin_pos,
-                                                      CompileOption.f64_stack_top_end_pos,
-                                                      CompileOption.f32_stack_top_begin_pos,
-                                                      CompileOption.f32_stack_top_end_pos,
                                                       details::f32_demote_f64_op,
                                                       details::f32_demote_f64_op_2d,
                                                       details::f32_demote_f64_op_out_only,
@@ -4110,10 +4002,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i32,
                                                       wasm_f64,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
-                                                      CompileOption.f64_stack_top_begin_pos,
-                                                      CompileOption.f64_stack_top_end_pos,
                                                       details::f64_convert_i32_s_op,
                                                       details::f64_convert_i32_s_op_2d,
                                                       details::f64_convert_i32_s_op_out_only,
@@ -4136,10 +4024,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i32,
                                                       wasm_f64,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
-                                                      CompileOption.f64_stack_top_begin_pos,
-                                                      CompileOption.f64_stack_top_end_pos,
                                                       details::f64_convert_i32_u_op,
                                                       details::f64_convert_i32_u_op_2d,
                                                       details::f64_convert_i32_u_op_out_only,
@@ -4162,10 +4046,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i64,
                                                       wasm_f64,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
-                                                      CompileOption.f64_stack_top_begin_pos,
-                                                      CompileOption.f64_stack_top_end_pos,
                                                       details::f64_convert_i64_s_op,
                                                       details::f64_convert_i64_s_op_2d,
                                                       details::f64_convert_i64_s_op_out_only,
@@ -4188,10 +4068,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i64,
                                                       wasm_f64,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
-                                                      CompileOption.f64_stack_top_begin_pos,
-                                                      CompileOption.f64_stack_top_end_pos,
                                                       details::f64_convert_i64_u_op,
                                                       details::f64_convert_i64_u_op_2d,
                                                       details::f64_convert_i64_u_op_out_only,
@@ -4213,10 +4089,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_f32,
                                                       wasm_f64,
-                                                      CompileOption.f32_stack_top_begin_pos,
-                                                      CompileOption.f32_stack_top_end_pos,
-                                                      CompileOption.f64_stack_top_begin_pos,
-                                                      CompileOption.f64_stack_top_end_pos,
                                                       details::f64_promote_f32_op,
                                                       details::f64_promote_f32_op_2d,
                                                       details::f64_promote_f32_op_out_only,
@@ -4239,10 +4111,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_f32,
                                                       wasm_i32,
-                                                      CompileOption.f32_stack_top_begin_pos,
-                                                      CompileOption.f32_stack_top_end_pos,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
                                                       details::i32_reinterpret_f32_op,
                                                       details::i32_reinterpret_f32_op_2d,
                                                       details::i32_reinterpret_f32_op_out_only,
@@ -4265,10 +4133,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_f64,
                                                       wasm_i64,
-                                                      CompileOption.f64_stack_top_begin_pos,
-                                                      CompileOption.f64_stack_top_end_pos,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
                                                       details::i64_reinterpret_f64_op,
                                                       details::i64_reinterpret_f64_op_2d,
                                                       details::i64_reinterpret_f64_op_out_only,
@@ -4291,10 +4155,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i32,
                                                       wasm_f32,
-                                                      CompileOption.i32_stack_top_begin_pos,
-                                                      CompileOption.i32_stack_top_end_pos,
-                                                      CompileOption.f32_stack_top_begin_pos,
-                                                      CompileOption.f32_stack_top_end_pos,
                                                       details::f32_reinterpret_i32_op,
                                                       details::f32_reinterpret_i32_op_2d,
                                                       details::f32_reinterpret_i32_op_out_only,
@@ -4317,10 +4177,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             return details::select_unary_convert_fptr<CompileOption,
                                                       wasm_i64,
                                                       wasm_f64,
-                                                      CompileOption.i64_stack_top_begin_pos,
-                                                      CompileOption.i64_stack_top_end_pos,
-                                                      CompileOption.f64_stack_top_begin_pos,
-                                                      CompileOption.f64_stack_top_end_pos,
                                                       details::f64_reinterpret_i64_op,
                                                       details::f64_reinterpret_i64_op_2d,
                                                       details::f64_reinterpret_i64_op_out_only,

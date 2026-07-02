@@ -162,8 +162,10 @@ namespace
                 { return optable::translate::get_uwvmint_br_if_local_tee_nz_fptr_from_tuple<Opt>(curr_variant, tuple); }));
 #endif
 
+            // Integer locals use stack-spot/local-spot now. Delay-local is an FV reg-ring concept, so
+            // i32 local.get+binop+local.{set,tee} opfuncs must stay unselected even when delay-local macros are enabled.
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT)
-            UWVM2TEST_REQUIRE(contains_i32_variant(
+            UWVM2TEST_REQUIRE(!contains_i32_variant(
                 cm.local_funcs.index_unchecked(0).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {
@@ -171,7 +173,7 @@ namespace
                         Opt,
                         optable::numeric_details::int_binop::add>(curr_variant, tuple);
                 }));
-            UWVM2TEST_REQUIRE(contains_i32_variant(
+            UWVM2TEST_REQUIRE(!contains_i32_variant(
                 cm.local_funcs.index_unchecked(1).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {
@@ -179,7 +181,7 @@ namespace
                         Opt,
                         optable::numeric_details::int_binop::xor_>(curr_variant, tuple);
                 }));
-            UWVM2TEST_REQUIRE(contains_i32_variant(
+            UWVM2TEST_REQUIRE(!contains_i32_variant(
                 cm.local_funcs.index_unchecked(3).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {

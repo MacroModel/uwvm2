@@ -1122,16 +1122,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                             u8"\n");
 
         // u2int para
-#if (defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) || defined(_ARCH_PPC64)) ||                                                            \
-    (defined(__powerpc__) || defined(__ppc__) || defined(__PPC__) || defined(_ARCH_PPC))
-# define UWVM_VERSION_TARGET_POWERPC_FAMILY 1
+#if (defined(__powerpc__) || defined(__ppc__) || defined(__PPC__) || defined(_ARCH_PPC)) &&                                                                    \
+    !(defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) || defined(_ARCH_PPC64))
+# define UWVM_VERSION_TARGET_POWERPC32 1
 #endif
 #if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
         {
             using size_type = ::std::size_t;
             constexpr size_type npos{static_cast<size_type>(-1)};
             constexpr bool is_tail_call{
-# if !(defined(__pdp11) || defined(UWVM_VERSION_TARGET_POWERPC_FAMILY) || (defined(__wasm__) && !defined(__wasm_tail_call__)))
+# if !(defined(__pdp11) || defined(UWVM_VERSION_TARGET_POWERPC32) || (defined(__wasm__) && !defined(__wasm_tail_call__)))
                 true
 # else
                 false
@@ -1143,6 +1143,38 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
             size_type f32_begin{npos}, f32_end{npos};
             size_type f64_begin{npos}, f64_end{npos};
             size_type v128_begin{npos}, v128_end{npos};
+            constexpr auto default_int_stack_spot_slots_from_gpr_args{[](size_type gpr_arg_count) constexpr noexcept -> size_type
+                                                                       {
+                                                                           constexpr size_type fixed_arg_count{2uz};
+                                                                           if(gpr_arg_count <= fixed_arg_count + 1uz) { return 0uz; }
+                                                                           size_type const strict_spare{gpr_arg_count - fixed_arg_count - 1uz};
+                                                                           return strict_spare < 3uz ? strict_spare : 3uz;
+                                                                       }};
+            constexpr size_type default_int_stack_spot_slots{[&] constexpr noexcept -> size_type
+                                                             {
+                                                                 if constexpr(!is_tail_call) { return 0uz; }
+                                                                 else
+                                                                 {
+# if defined(__ARM_PCS_AAPCS64) || defined(__aarch64__) || defined(__arm64__) || defined(_M_ARM64) || defined(__arm64ec__) || defined(_M_ARM64EC)
+                                                                     return default_int_stack_spot_slots_from_gpr_args(8uz);
+# elif ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)) && !(defined(__arm64ec__) || defined(_M_ARM64EC))) &&                                  \
+     (!defined(_WIN32) || (defined(__GNUC__) || defined(__clang__)))
+                                                                     return default_int_stack_spot_slots_from_gpr_args(6uz);
+# elif defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) || defined(_ARCH_PPC64)
+                                                                     return default_int_stack_spot_slots_from_gpr_args(8uz);
+# elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 64)
+                                                                     return default_int_stack_spot_slots_from_gpr_args(8uz);
+# elif defined(__loongarch__) && defined(__loongarch64)
+                                                                     return default_int_stack_spot_slots_from_gpr_args(8uz);
+# elif (defined(__mips__) || defined(__MIPS__) || defined(_MIPS_ARCH)) && (defined(__mips_n32) || defined(__mips_n64))
+                                                                     return default_int_stack_spot_slots_from_gpr_args(8uz);
+# elif defined(__s390x__)
+                                                                     return default_int_stack_spot_slots_from_gpr_args(5uz);
+# else
+                                                                     return 0uz;
+# endif
+                                                                 }
+                                                             }()};
 
             ::uwvm2::utils::container::u8string_view abi_name{u8"Unknown"};
             ::uwvm2::utils::container::u8string_view abi_note{};
@@ -1151,15 +1183,15 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 # if defined(__ARM_PCS_AAPCS64) || defined(__aarch64__) || defined(__arm64__) || defined(_M_ARM64) || defined(__arm64ec__) || defined(_M_ARM64EC)
             // aarch64: AAPCS64 (x0-x7 integer args, v0-v7 fp/simd args)
             abi_name = u8"AArch64 AAPCS64 ABI";
-            abi_diagram = u8"      GPR : x0 x1 x2 | x3 x4 x5 x6 x7\n" u8"      SIMD: v0 v1 v2 v3 v4 v5 v6 v7\n";
+            abi_diagram = u8"      GPR : x0 x1 | x2 x3 x4 | x5 x6 x7\n" u8"      SIMD: v0 v1 v2 v3 v4 v5 v6 v7\n";
             i32_begin = i64_begin = 3uz;
             i32_end = i64_end = 8uz;
             f32_begin = f64_begin = v128_begin = 8uz;
             f32_end = f64_end = v128_end = 16uz;
 # elif defined(__arm__) || defined(_M_ARM)
-            // ARM32: AAPCS/EABI (r0-r3 integer args). After 3 fixed args there is at most 1 remaining arg reg.
+            // ARM32: AAPCS/EABI (r0-r3 integer args). i64 stack-spot arguments consume register pairs.
             abi_name = u8"ARM32 AAPCS/EABI";
-            abi_note = u8"Stack-top cache: Off (insufficient register argument slots after 3 fixed args).";
+            abi_note = u8"Integer stack-spot: Off (32-bit ABI register-pair pressure).";
 # elif ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)) && !(defined(__arm64ec__) || defined(_M_ARM64EC))) &&                                    \
      (!defined(_WIN32) || (defined(__GNUC__) || defined(__clang__)))
             // x86_64: SysV ABI (also used via __sysv_abi__ on Windows x64 with GCC/Clang).
@@ -1169,7 +1201,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 #  else
             abi_name = u8"x86_64 SysV ABI";
 #  endif
-            abi_diagram = u8"      GPR : rdi rsi rdx | rcx r8  r9\n" u8"      XMM : xmm0 xmm1 xmm2 xmm3 xmm4 xmm5 xmm6 xmm7\n";
+            abi_diagram = u8"      GPR : rdi rsi | rdx rcx r8 | r9\n" u8"      XMM : xmm0 xmm1 xmm2 xmm3 xmm4 xmm5 xmm6 xmm7\n";
             i32_begin = i64_begin = 3uz;
             i32_end = i64_end = 6uz;
             f32_begin = f64_begin = v128_begin = 6uz;
@@ -1179,16 +1211,17 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
             // x86_64: Windows x64 (MS ABI) (rcx/rdx/r8/r9, xmm0-xmm3)
             abi_name = u8"x86_64 Windows x64 (MS ABI)";
             abi_diagram = u8"      GPR : rcx rdx r8  r9\n" u8"      XMM : xmm0 xmm1 xmm2 xmm3\n";
-            abi_note = u8"Stack-top cache: Off (MS ABI has only 4 reg args; 1 left after 3 fixed args).";
+            abi_note = u8"Integer stack-spot: Off (position-coupled 4-register ABI leaves only one strict spare slot).";
 # elif defined(__i386__) || defined(_M_IX86)
             abi_name = u8"i386";
-            abi_note = u8"Stack-top cache: Off (fastcall typically has only 2 reg args; need 3 fixed args).";
+            abi_note = u8"Integer stack-spot: Off (32-bit ABI register-pair pressure).";
 # elif defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) || defined(_ARCH_PPC64)
             abi_name = u8"powerpc64 SysV ELF ABI";
-            abi_note = u8"Stack-top cache: Off (UWVM opfunc dispatch is indirect; PPC musttail is conditional).";
+            abi_diagram = u8"      GPR : r3 r4 | r5 r6 r7 | r8 r9 r10\n" u8"      FPR : f1 f2 f3 f4 f5 f6 f7 f8 ... f13\n";
+            abi_note = u8"Integer stack-spot: 3 logical slots.";
 # elif defined(__powerpc__) || defined(__ppc__) || defined(__PPC__) || defined(_ARCH_PPC)
             abi_name = u8"powerpc32";
-            abi_note = u8"Stack-top cache: Off (PPC ABI variants and indirect musttail constraints).";
+            abi_note = u8"Integer stack-spot: Off (PPC32 tail-call dispatch and register-pair pressure).";
 # elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 64)
 #  if defined(__riscv_float_abi_soft) || defined(__riscv_float_abi_single)
             // riscv64: soft-float / single-float
@@ -1198,7 +1231,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 #  else
             // riscv64: psABI (a0-a7 integer args, fa0-fa7 fp args)
             abi_name = u8"riscv64 psABI";
-            abi_diagram = u8"      GPR : a0 a1 a2 | a3 a4 a5 a6 a7\n" u8"      FPR : fa0 fa1 fa2 fa3 fa4 fa5 fa6 fa7\n";
+            abi_diagram = u8"      GPR : a0 a1 | a2 a3 a4 | a5 a6 a7\n" u8"      FPR : fa0 fa1 fa2 fa3 fa4 fa5 fa6 fa7\n";
             i32_begin = i64_begin = 3uz;
             i32_end = i64_end = 8uz;
             f32_begin = f64_begin = 8uz;
@@ -1206,7 +1239,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 #  endif
 # elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 32)
             abi_name = u8"riscv32";
-            abi_note = u8"Stack-top cache: Off (i64/f64 are register-pairs; slot pressure is tight).";
+            abi_note = u8"Integer stack-spot: Off (i64/f64 are register-pairs; slot pressure is tight).";
 # elif defined(__loongarch__) && defined(__loongarch64)
 #  if defined(__loongarch_soft_float) || defined(__loongarch_single_float)
             abi_name = u8"loongarch64 (soft-float/single-float)";
@@ -1214,6 +1247,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
             i32_end = i64_end = f32_end = f64_end = 8uz;
 #  else
             abi_name = u8"loongarch64 LP64D ABI";
+            abi_diagram = u8"      GPR : a0 a1 | a2 a3 a4 | a5 a6 a7\n" u8"      FPR : fa0 fa1 fa2 fa3 fa4 fa5 fa6 fa7\n";
             i32_begin = i64_begin = 3uz;
             i32_end = i64_end = 8uz;
             f32_begin = f64_begin = 8uz;
@@ -1221,16 +1255,18 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 #  endif
 # elif defined(__loongarch__)
             abi_name = u8"loongarch32";
-            abi_note = u8"Stack-top cache: Off (i64/f64 passing is ABI-sensitive).";
+            abi_note = u8"Integer stack-spot: Off (i64/f64 passing is ABI-sensitive).";
 # elif defined(__mips__) || defined(__MIPS__) || defined(_MIPS_ARCH)
             abi_name = u8"MIPS";
 #  if defined(__mips_n32) || defined(__mips_n64)
 #   if defined(__mips_soft_float)
             abi_name = u8"MIPS N32/N64 (soft-float)";
+            abi_note = u8"Integer stack-spot: 3 logical slots (8 ABI argument doublewords).";
             i32_begin = i64_begin = f32_begin = f64_begin = 3uz;
             i32_end = i64_end = f32_end = f64_end = 8uz;
 #   else
             abi_name = u8"MIPS N32/N64 (hard-float)";
+            abi_note = u8"Integer stack-spot: 3 logical slots (8 ABI argument doublewords).";
             i32_begin = i64_begin = 3uz;
             i32_end = i64_end = 6uz;
             f32_begin = f64_begin = 6uz;
@@ -1239,67 +1275,77 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 #  endif
 # elif defined(__s390x__)
             abi_name = u8"s390x Linux ABI";
+            abi_diagram = u8"      GPR : r2 r3 | r4 r5 | r6\n" u8"      FPR : f0 f2 f4 f6\n";
+            abi_note = u8"Integer stack-spot: 2 logical slots (5 integer argument registers, strict spare kept).";
             i32_begin = i64_begin = 3uz;
             i32_end = i64_end = 6uz;
             f32_begin = f64_begin = 6uz;
             f32_end = f64_end = 8uz;
 # elif defined(__s390__) || defined(__SYSC_ZARCH__)
             abi_name = u8"s390 / z/Architecture (31-bit)";
-            abi_note = u8"Stack-top cache: Off (i64/f64 passing is ABI-sensitive).";
+            abi_note = u8"Integer stack-spot: Off (i64/f64 passing is ABI-sensitive).";
 # elif defined(__sparc__)
             abi_name = u8"SPARC";
-            abi_note = u8"Stack-top cache: Off (ABI variants).";
+            abi_note = u8"Integer stack-spot: Off (ABI variants).";
 # elif defined(__IA64__) || defined(_M_IA64) || defined(__ia64__) || defined(__itanium__)
             abi_name = u8"IA-64 (Itanium)";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__alpha__)
             abi_name = u8"Alpha";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__m68k__) || defined(__mc68000__)
             abi_name = u8"m68k";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__HPPA__)
             abi_name = u8"HPPA";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__e2k__)
             abi_name = u8"E2K";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__XTENSA__)
             abi_name = u8"Xtensa";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__BFIN__)
             abi_name = u8"Blackfin";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__convex__)
             abi_name = u8"Convex";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__370__) || defined(__THW_370__)
             abi_name = u8"System/370";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__pdp10) || defined(__pdp7) || defined(__pdp11)
             abi_name = u8"PDP family";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__THW_RS6000) || defined(_IBMR2) || defined(_POWER) || defined(_ARCH_PWR) || defined(_ARCH_PWR2)
             abi_name = u8"RS/6000";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__CUDA_ARCH__)
             abi_name = u8"CUDA PTX";
-            abi_note = u8"Stack-top cache: N/A (device code).";
+            abi_note = u8"Integer stack-spot: N/A (device code).";
 # elif defined(__sh__)
             abi_name = u8"SuperH";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__AVR__)
             abi_name = u8"AVR";
-            abi_note = u8"Stack-top cache: Off.";
+            abi_note = u8"Integer stack-spot: Off.";
 # elif defined(__wasm__)
             abi_name = u8"wasm32";
-            abi_note = u8"Stack-top cache: N/A (native ABI reg-cache not applicable).";
+            abi_note = u8"Integer stack-spot: N/A (native ABI reg-cache not applicable).";
 # endif
+
+            if constexpr(is_tail_call)
+            {
+                i32_begin = i64_begin = 0uz;
+                i32_end = i64_end = default_int_stack_spot_slots;
+                f32_begin = f64_begin = v128_begin = 0uz;
+                f32_end = f64_end = v128_end = 8uz;
+            }
 
             ::fast_io::io::perrln(u8log_output_ul,
                                   u8"  * UWVM Interpreter Parameters:\n" u8"    - Model: ",
                                   ::fast_io::mnp::cond(is_tail_call, u8"Tail-Call\n", u8"Loop\n"),
-                                  u8"    - Fixed Args (slots 0..2): ip, operand_stack_top, local_base\n" u8"    - ABI/CC: ",
+                                  u8"    - Fixed Args (slots 0..1): ip, slot_base\n" u8"    - ABI/CC: ",
                                   abi_name);
 
             if(!abi_note.empty()) { ::fast_io::io::perrln(u8log_output_ul, u8"    - ", abi_note); }
@@ -1318,10 +1364,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 
             if(has_scalar_cache || has_fp_cache || has_v128_cache)
             {
-                ::fast_io::io::perr(u8log_output_ul, u8"    - Stack-Top Cache Slots (begin..end):\n");
+                ::fast_io::io::perr(u8log_output_ul, u8"    - Stack-Spot / FV Ring Slots (begin..end):\n");
                 if(has_range(i32_begin, i32_end) || has_range(i64_begin, i64_end))
                 {
                     ::fast_io::io::perr(u8log_output_ul, u8"      i32/i64 : [", i32_begin, u8",", i32_end, u8")\n");
+                }
+                else
+                {
+                    ::fast_io::io::perr(u8log_output_ul, u8"      i32/i64 : Off\n");
                 }
                 if(has_range(f32_begin, f32_end) || has_range(f64_begin, f64_end))
                 {
@@ -1339,7 +1389,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
             }
             else
             {
-                ::fast_io::io::perr(u8log_output_ul, u8"    - Stack-Top Cache Slots: Off\n");
+                ::fast_io::io::perr(u8log_output_ul, u8"    - Stack-Spot / FV Ring Slots: Off\n");
             }
 
 # if defined(UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS)
@@ -1376,7 +1426,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 # endif
         }
 #endif
-#undef UWVM_VERSION_TARGET_POWERPC_FAMILY
+#undef UWVM_VERSION_TARGET_POWERPC32
         // LLVM JIT
 #if defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
         version_u8print_llvm_jit_impl(u8log_output_ul);

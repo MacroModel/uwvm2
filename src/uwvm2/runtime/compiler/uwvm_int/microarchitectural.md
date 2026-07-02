@@ -4,7 +4,7 @@
 
 This note presents a paper-style comparison between **u2** (the UWVM2 interpreter) and **wasm3** (M3), focusing on the exact question raised in practice: **why can u2 approach ~2× speedup over wasm3 in flat, branch-poor, local-light scientific kernels, yet fall back to only ~10% advantage in more realistic kernels with more control flow, more locals, and larger instruction working sets?**
 
-The central claim is not that one interpreter is universally superior. In fact, **u2 explicitly states that it does not claim to be “fastest” or “optimal” across all workloads, and it also explicitly trades code size for hot-path shape**. Its design goal is to accelerate stack-heavy WebAssembly by using a **direct-threaded pointer stream**, a **register-ring stack-top cache**, and **translation-time fusion**, whereas wasm3 uses a **tightly chained meta-machine**, a **small fixed virtual register file**, and **operation-level variantization/fusion**. :contentReference[oaicite:0]{index=0}
+The central claim is not that one interpreter is universally superior. In fact, **u2 explicitly states that it does not claim to be “fastest” or “optimal” across all workloads, and it also explicitly trades code size for hot-path shape**. Its design goal is to accelerate stack-heavy WebAssembly by using a **direct-threaded pointer stream**, a **stack-top window cache**, and **translation-time fusion**, whereas wasm3 uses a **tightly chained meta-machine**, a **small fixed virtual register file**, and **operation-level variantization/fusion**. :contentReference[oaicite:0]{index=0}
 
 The mathematical result of this comparison is straightforward:
 
@@ -18,7 +18,7 @@ The mathematical result of this comparison is straightforward:
 
 ### 1.1 u2
 
-u2 is described by its own repository as a **non-JIT, non-self-modifying, direct-threaded interpreter**. The translator emits a code page consisting of **opfunc pointers plus immediates**, so runtime execution does not re-decode Wasm bytecode. The design goal is to accelerate **stack-heavy Wasm** by turning hot scalar operations into mostly **register-resident ALU operations**. The distinguishing feature is a **register-ring stack-top cache**, together with adjacent fusion (`conbine*`) and `delay_local`-style provider/consumer fusion. u2 also states clearly that it **trades code size for predictable hot-path shape** and is **not positioned as a minimal/lightweight interpreter** in the wasm3 class. :contentReference[oaicite:2]{index=2}
+u2 is described by its own repository as a **non-JIT, non-self-modifying, direct-threaded interpreter**. The translator emits a code page consisting of **opfunc pointers plus immediates**, so runtime execution does not re-decode Wasm bytecode. The design goal is to accelerate **stack-heavy Wasm** by turning hot scalar operations into mostly **register-resident ALU operations**. The distinguishing feature is a **stack-top window cache**, together with adjacent fusion (`conbine*`) and `delay_local`-style provider/consumer fusion. u2 also states clearly that it **trades code size for predictable hot-path shape** and is **not positioned as a minimal/lightweight interpreter** in the wasm3 class. :contentReference[oaicite:2]{index=2}
 
 ### 1.2 wasm3
 
@@ -127,9 +127,9 @@ wasm3 uses a fixed meta-machine signature:
 
 and explicitly shows an example `op_u64_Or_sr` in which a stack operand is loaded through an offset, then combined with `r0`, then dispatched onward. Its own documentation warns that adding more CPU registers increases operation-space complexity sharply: with one register, up to 3 operations per opcode; with one more register, this grows to 10. :contentReference[oaicite:8]{index=8}
 
-### 5.2 u2’s register-ring stack-top cache
+### 5.2 u2’s stack-top window cache
 
-u2 instead caches multiple stack-top values in a **register-ring**, using ABI-scalable argument-passed slots. Its documentation says it benefits especially on ABIs such as **x86_64 SysV** and **AArch64 AAPCS64**, where more stack-top values can remain in registers/locals and common stack operations become mostly **register-register ALU** operations. u2’s `register_ring.h` explicitly contrasts this with an M3-style path that often requires an extra dependent memory load for the stack operand. :contentReference[oaicite:9]{index=9}
+u2 instead caches multiple stack-top values in a **stack-top window**, using ABI-scalable argument-passed slots. Its documentation says it benefits especially on ABIs such as **x86_64 SysV** and **AArch64 AAPCS64**, where more stack-top values can remain in registers/locals and common stack operations become mostly **register-register ALU** operations. u2’s `stacktop_window.h` explicitly contrasts this with an M3-style path that often requires an extra dependent memory load for the stack operand. :contentReference[oaicite:9]{index=9}
 
 ### 5.3 Threshold theorem
 
@@ -168,7 +168,7 @@ Hence the inequality strongly favors u2.
 
 ## 6. Why u2’s Specialization Does *Not* Blow Up Quadratically as Fast as Naive Multi-Register Designs
 
-A major technical virtue of u2 is that it avoids the full \(O(N^2)\) explosion expected from naive two-operand specialization. Its own `register_ring.h` states that for 2-operand ops, specialization growth remains approximately **\(O(N)\)** rather than **\(O(N^2)\)**, because stack-machine two-operand patterns naturally consume adjacent positions such as TOS/NOS, and the ring structure exploits that adjacency. :contentReference[oaicite:10]{index=10}
+A major technical virtue of u2 is that it avoids the full \(O(N^2)\) explosion expected from naive two-operand specialization. Its own `stacktop_window.h` states that for 2-operand ops, specialization growth remains approximately **\(O(N)\)** rather than **\(O(N^2)\)**, because stack-machine two-operand patterns naturally consume adjacent positions such as TOS/NOS, and the ring structure exploits that adjacency. :contentReference[oaicite:10]{index=10}
 
 ### Proposition 1
 
@@ -198,7 +198,7 @@ This is the most important part of the user’s practical observation.
 
 ### 7.1 u2’s control-flow cost
 
-u2 documents that **control-flow joins** such as loops and `if/else` merges may require a **canonical cache layout**, and that a control-flow boundary may require a **consistent memory stack state**. Its `register_ring.h` lists spilling the cached stack-top segment back to memory when:
+u2 documents that **control-flow joins** such as loops and `if/else` merges may require a **canonical cache layout**, and that a control-flow boundary may require a **consistent memory stack state**. Its `stacktop_window.h` lists spilling the cached stack-top segment back to memory when:
 
 - generic memory operations require exposure of the operand stack
 - the cached segment is about to be overwritten
@@ -383,7 +383,7 @@ This is not a speculative story. It is the natural quantitative outcome of the p
 | Dimension | u2 | wasm3 | Mathematical consequence |
 |---|---|---|---|
 | Dispatch | Direct-threaded pointer stream | Tightly chained operation stream | Same dispatch class; differences move elsewhere |
-| Register model | ABI-scalable register-ring stack-top cache | Small fixed register file (`pc, sp, mem, r0, fp0`) | u2 has higher upside on long arithmetic streaks |
+| Register model | ABI-scalable stack-top window cache | Small fixed register file (`pc, sp, mem, r0, fp0`) | u2 has higher upside on long arithmetic streaks |
 | Operand path | Often register-register on cache hit | Often register + stack operand load | u2 reduces dependent memory loads when hit rate is high |
 | Fusion | Adjacent fusion + heavy/extra-heavy + `delay_local` | Operation variants + fused operations | u2 can raise \(\phi\) further, but at larger cost |
 | Control-flow behavior | Canonicalization / spill / fill / transform at joins | Branch/call require stack variables; loops unwind native stack | branch-rich kernels narrow the gap |

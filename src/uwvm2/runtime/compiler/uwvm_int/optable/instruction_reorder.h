@@ -42,7 +42,7 @@
 # include <uwvm2/parser/wasm/standard/wasm1/impl.h>
 # include <uwvm2/object/impl.h>
 # include "define.h"
-# include "register_ring.h"
+# include "stacktop_window.h"
 # include "numeric.h"
 #endif
 
@@ -60,15 +60,15 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 # ifdef UWVM_ENABLE_UWVM_INT_INSTRUCTION_REORDER
 
     /**
-     * @brief Register-ring-aware instruction recompiler opfuncs.
+     * @brief Stack-top window-aware instruction recompiler opfuncs.
      *
      * @details
      * This file is intentionally separate from `conbine*.h`. Combine opfuncs fuse adjacent Wasm
      * opcodes. Instruction reorder opfuncs are emitted after the translator has proven that a
-     * local, side-effect-free expression window may be regrouped to better fill the register ring.
+     * local, side-effect-free expression window may be regrouped to better fill the stack-top window.
      *
      * The first family covers LLVM-style shallow local traffic by preloading a consecutive
-     * same-typed `local.get` burst into the register ring as one recompiled dispatch:
+     * same-typed `local.get` burst into the stack-top window as one recompiled dispatch:
      *
      * @code{.wat}
      * local.get a
@@ -78,7 +78,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
      * @endcode
      *
      * This is the basic stack-caching layer: it does not regroup consumers, it only rebuilds the
-     * producer window so the following interpreter opfuncs see more live operands in the ring.
+     * producer window so the following interpreter opfuncs see more live operands in the stack-top window.
      *
      * The second family covers LLVM-style shallow integer local reductions:
      *
@@ -254,42 +254,15 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         template <uwvm_interpreter_translate_option_t CompileOption, typename T>
         inline consteval bool stacktop_enabled_for() noexcept
-        {
-            if constexpr(::std::same_as<T, wasm_i32>) { return CompileOption.i32_stack_top_begin_pos != CompileOption.i32_stack_top_end_pos; }
-            else if constexpr(::std::same_as<T, wasm_i64>) { return CompileOption.i64_stack_top_begin_pos != CompileOption.i64_stack_top_end_pos; }
-            else if constexpr(::std::same_as<T, wasm_f32>) { return CompileOption.f32_stack_top_begin_pos != CompileOption.f32_stack_top_end_pos; }
-            else if constexpr(::std::same_as<T, wasm_f64>) { return CompileOption.f64_stack_top_begin_pos != CompileOption.f64_stack_top_end_pos; }
-            else
-            {
-                return false;
-            }
-        }
+        { return details::uwvm_interpreter_stacktop_enabled_for<CompileOption, T>(); }
 
         template <uwvm_interpreter_translate_option_t CompileOption, typename T>
         inline consteval ::std::size_t range_begin() noexcept
-        {
-            if constexpr(::std::same_as<T, wasm_i32>) { return CompileOption.i32_stack_top_begin_pos; }
-            else if constexpr(::std::same_as<T, wasm_i64>) { return CompileOption.i64_stack_top_begin_pos; }
-            else if constexpr(::std::same_as<T, wasm_f32>) { return CompileOption.f32_stack_top_begin_pos; }
-            else if constexpr(::std::same_as<T, wasm_f64>) { return CompileOption.f64_stack_top_begin_pos; }
-            else
-            {
-                return SIZE_MAX;
-            }
-        }
+        { return details::uwvm_interpreter_stacktop_range_begin_pos<CompileOption, T>(); }
 
         template <uwvm_interpreter_translate_option_t CompileOption, typename T>
         inline consteval ::std::size_t range_end() noexcept
-        {
-            if constexpr(::std::same_as<T, wasm_i32>) { return CompileOption.i32_stack_top_end_pos; }
-            else if constexpr(::std::same_as<T, wasm_i64>) { return CompileOption.i64_stack_top_end_pos; }
-            else if constexpr(::std::same_as<T, wasm_f32>) { return CompileOption.f32_stack_top_end_pos; }
-            else if constexpr(::std::same_as<T, wasm_f64>) { return CompileOption.f64_stack_top_end_pos; }
-            else
-            {
-                return SIZE_MAX;
-            }
-        }
+        { return details::uwvm_interpreter_stacktop_range_end_pos<CompileOption, T>(); }
 
         template <uwvm_interpreter_translate_option_t CompileOption,
                   typename T,
@@ -309,7 +282,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
             auto const off{read_imm<local_offset_t>(ip)};
             auto const v{load_local<T>(local_base, off)};
-            constexpr ::std::size_t new_pos{details::ring_prev_pos(curr_stack_top, begin, end)};
+            constexpr ::std::size_t new_pos{details::stacktop_window_prev_pos(curr_stack_top, begin, end)};
             details::set_curr_val_to_stacktop_cache<CompileOption, T, new_pos>(v, typeref...);
 
             if constexpr(LocalIndex + 1uz < LocalCount)
@@ -326,8 +299,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             {
                 auto const off{read_imm<local_offset_t>(ip)};
                 auto const v{load_local<T>(local_base, off)};
-                ::std::memcpy(typeref...[1u], ::std::addressof(v), sizeof(v));
-                typeref...[1u] += sizeof(v);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(v), sizeof(v));
+                uwvmint_operand_stack_top_ref(typeref...) += sizeof(v);
             }
         }
 
@@ -342,13 +315,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 static_assert(begin <= curr_stack_top && curr_stack_top < end);
                 static_assert(sizeof...(TypeRef) >= end);
 
-                constexpr ::std::size_t new_pos{details::ring_prev_pos(curr_stack_top, begin, end)};
+                constexpr ::std::size_t new_pos{details::stacktop_window_prev_pos(curr_stack_top, begin, end)};
                 details::set_curr_val_to_stacktop_cache<CompileOption, T, new_pos>(v, typeref...);
             }
             else
             {
-                ::std::memcpy(typeref...[1u], ::std::addressof(v), sizeof(v));
-                typeref...[1u] += sizeof(v);
+                ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(v), sizeof(v));
+                uwvmint_operand_stack_top_ref(typeref...) += sizeof(v);
             }
         }
 
@@ -356,12 +329,12 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             requires (!CompileOption.is_tail_call)
         UWVM_ALWAYS_INLINE inline constexpr void push_operand_byref(T v, TypeRef&... typeref) noexcept
         {
-            ::std::memcpy(typeref...[1u], ::std::addressof(v), sizeof(v));
-            typeref...[1u] += sizeof(v);
+            ::std::memcpy(uwvmint_operand_stack_top_ref(typeref...), ::std::addressof(v), sizeof(v));
+            uwvmint_operand_stack_top_ref(typeref...) += sizeof(v);
         }
     }  // namespace instruction_reorder_details
 
-    /// @brief Recompiled same-typed `local.get` burst that preloads operands into the stack-top register ring.
+    /// @brief Recompiled same-typed `local.get` burst that preloads operands into the stack-top window.
     template <uwvm_interpreter_translate_option_t CompileOption,
               typename LocalT,
               ::std::size_t LocalCount,
@@ -372,10 +345,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         static_assert(LocalCount >= 2uz);
         static_assert(LocalCount <= 8uz);
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -387,11 +360,11 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         if constexpr(instruction_reorder_details::stacktop_enabled_for<CompileOption, LocalT>())
         {
-            instruction_reorder_details::preload_localget_to_stacktop<CompileOption, LocalT, curr_stack_top, 0uz, LocalCount>(type...[0], type...[2u], type...);
+            instruction_reorder_details::preload_localget_to_stacktop<CompileOption, LocalT, curr_stack_top, 0uz, LocalCount>(type...[0], uwvmint_local_base(type...), type...);
         }
         else
         {
-            instruction_reorder_details::preload_localget_to_operand_memory<LocalT, LocalCount>(type...[0], type...[2u], type...);
+            instruction_reorder_details::preload_localget_to_operand_memory<LocalT, LocalCount>(type...[0], uwvmint_local_base(type...), type...);
         }
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
@@ -406,10 +379,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         static_assert(LocalCount >= 2uz);
         static_assert(LocalCount <= 8uz);
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -424,7 +397,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         if(local_count != LocalCount) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
 #  endif
 
-        instruction_reorder_details::preload_localget_to_operand_memory<LocalT, LocalCount>(typeref...[0], typeref...[2u], typeref...);
+        instruction_reorder_details::preload_localget_to_operand_memory<LocalT, LocalCount>(typeref...[0], uwvmint_local_base(typeref...), typeref...);
     }
 
     /// @brief Recompiled integer local reduction generated by the optional instruction-reorder pass.
@@ -441,10 +414,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         static_assert(instruction_reorder_details::is_supported_integer_reduce_op<Op>());
         static_assert(LocalCount >= 3uz);
         static_assert(LocalCount <= 8uz);
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -460,10 +433,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             offs[i] = instruction_reorder_details::read_imm<instruction_reorder_details::local_offset_t>(type...[0]);
         }
 
-        IntT acc{instruction_reorder_details::load_local<IntT>(type...[2u], offs[LocalCount - 1uz])};
+        IntT acc{instruction_reorder_details::load_local<IntT>(uwvmint_local_base(type...), offs[LocalCount - 1uz])};
         for(::std::size_t i{LocalCount - 1uz}; i-- != 0uz;)
         {
-            acc = numeric_details::eval_int_binop<Op, IntT, UIntT>(instruction_reorder_details::load_local<IntT>(type...[2u], offs[i]), acc);
+            acc = numeric_details::eval_int_binop<Op, IntT, UIntT>(instruction_reorder_details::load_local<IntT>(uwvmint_local_base(type...), offs[i]), acc);
         }
 
         instruction_reorder_details::push_operand<CompileOption, IntT, curr_stack_top>(acc, type...);
@@ -486,10 +459,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         static_assert(instruction_reorder_details::is_supported_integer_reduce_op<Op>());
         static_assert(LocalCount >= 3uz);
         static_assert(LocalCount <= 8uz);
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -510,10 +483,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             offs[i] = instruction_reorder_details::read_imm<instruction_reorder_details::local_offset_t>(typeref...[0]);
         }
 
-        IntT acc{instruction_reorder_details::load_local<IntT>(typeref...[2u], offs[LocalCount - 1uz])};
+        IntT acc{instruction_reorder_details::load_local<IntT>(uwvmint_local_base(typeref...), offs[LocalCount - 1uz])};
         for(::std::size_t i{LocalCount - 1uz}; i-- != 0uz;)
         {
-            acc = numeric_details::eval_int_binop<Op, IntT, UIntT>(instruction_reorder_details::load_local<IntT>(typeref...[2u], offs[i]), acc);
+            acc = numeric_details::eval_int_binop<Op, IntT, UIntT>(instruction_reorder_details::load_local<IntT>(uwvmint_local_base(typeref...), offs[i]), acc);
         }
 
         instruction_reorder_details::push_operand_byref<CompileOption>(acc, typeref...);
@@ -534,10 +507,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         static_assert(instruction_reorder_details::is_supported_integer_reduce_op<Op>());
         static_assert(LocalCount >= 3uz);
         static_assert(LocalCount <= 8uz);
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -555,13 +528,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             offs[i] = instruction_reorder_details::read_imm<instruction_reorder_details::local_offset_t>(type...[0]);
         }
 
-        IntT acc{instruction_reorder_details::load_local<IntT>(type...[2u], offs[LocalCount - 1uz])};
+        IntT acc{instruction_reorder_details::load_local<IntT>(uwvmint_local_base(type...), offs[LocalCount - 1uz])};
         for(::std::size_t i{LocalCount - 1uz}; i-- != 0uz;)
         {
-            acc = numeric_details::eval_int_binop<Op, IntT, UIntT>(instruction_reorder_details::load_local<IntT>(type...[2u], offs[i]), acc);
+            acc = numeric_details::eval_int_binop<Op, IntT, UIntT>(instruction_reorder_details::load_local<IntT>(uwvmint_local_base(type...), offs[i]), acc);
         }
 
-        instruction_reorder_details::store_local<IntT>(type...[2u], dst_off, acc);
+        instruction_reorder_details::store_local<IntT>(uwvmint_local_base(type...), dst_off, acc);
         if constexpr(KeepResult) { instruction_reorder_details::push_operand<CompileOption, IntT, curr_stack_top>(acc, type...); }
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
@@ -583,10 +556,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         static_assert(instruction_reorder_details::is_supported_integer_reduce_op<Op>());
         static_assert(LocalCount >= 3uz);
         static_assert(LocalCount <= 8uz);
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -609,13 +582,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             offs[i] = instruction_reorder_details::read_imm<instruction_reorder_details::local_offset_t>(typeref...[0]);
         }
 
-        IntT acc{instruction_reorder_details::load_local<IntT>(typeref...[2u], offs[LocalCount - 1uz])};
+        IntT acc{instruction_reorder_details::load_local<IntT>(uwvmint_local_base(typeref...), offs[LocalCount - 1uz])};
         for(::std::size_t i{LocalCount - 1uz}; i-- != 0uz;)
         {
-            acc = numeric_details::eval_int_binop<Op, IntT, UIntT>(instruction_reorder_details::load_local<IntT>(typeref...[2u], offs[i]), acc);
+            acc = numeric_details::eval_int_binop<Op, IntT, UIntT>(instruction_reorder_details::load_local<IntT>(uwvmint_local_base(typeref...), offs[i]), acc);
         }
 
-        instruction_reorder_details::store_local<IntT>(typeref...[2u], dst_off, acc);
+        instruction_reorder_details::store_local<IntT>(uwvmint_local_base(typeref...), dst_off, acc);
         if constexpr(KeepResult) { instruction_reorder_details::push_operand_byref<CompileOption>(acc, typeref...); }
     }
 
@@ -631,10 +604,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         static_assert(StepCount >= 3uz);
         static_assert(StepCount <= 8uz);
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -645,8 +618,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 #  endif
 
         auto const first_off{instruction_reorder_details::read_imm<instruction_reorder_details::local_offset_t>(type...[0])};
-        auto const first{instruction_reorder_details::load_local<IntT>(type...[2u], first_off)};
-        auto const out{instruction_reorder_details::eval_int_expr_steps<IntT, UIntT, 0uz, StepCount>(type...[0], type...[2u], first)};
+        auto const first{instruction_reorder_details::load_local<IntT>(uwvmint_local_base(type...), first_off)};
+        auto const out{instruction_reorder_details::eval_int_expr_steps<IntT, UIntT, 0uz, StepCount>(type...[0], uwvmint_local_base(type...), first)};
 
         instruction_reorder_details::push_operand<CompileOption, IntT, curr_stack_top>(out, type...);
 
@@ -662,10 +635,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         static_assert(StepCount >= 3uz);
         static_assert(StepCount <= 8uz);
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -681,8 +654,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 #  endif
 
         auto const first_off{instruction_reorder_details::read_imm<instruction_reorder_details::local_offset_t>(typeref...[0])};
-        auto const first{instruction_reorder_details::load_local<IntT>(typeref...[2u], first_off)};
-        auto const out{instruction_reorder_details::eval_int_expr_steps<IntT, UIntT, 0uz, StepCount>(typeref...[0], typeref...[2u], first)};
+        auto const first{instruction_reorder_details::load_local<IntT>(uwvmint_local_base(typeref...), first_off)};
+        auto const out{instruction_reorder_details::eval_int_expr_steps<IntT, UIntT, 0uz, StepCount>(typeref...[0], uwvmint_local_base(typeref...), first)};
 
         instruction_reorder_details::push_operand_byref<CompileOption>(out, typeref...);
     }
@@ -700,10 +673,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         static_assert(StepCount >= 3uz);
         static_assert(StepCount <= 8uz);
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -715,9 +688,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         auto const first_off{instruction_reorder_details::read_imm<instruction_reorder_details::local_offset_t>(type...[0])};
         auto const dst_off{instruction_reorder_details::read_imm<instruction_reorder_details::local_offset_t>(type...[0])};
-        auto const first{instruction_reorder_details::load_local<IntT>(type...[2u], first_off)};
-        auto const out{instruction_reorder_details::eval_int_expr_steps<IntT, UIntT, 0uz, StepCount>(type...[0], type...[2u], first)};
-        instruction_reorder_details::store_local<IntT>(type...[2u], dst_off, out);
+        auto const first{instruction_reorder_details::load_local<IntT>(uwvmint_local_base(type...), first_off)};
+        auto const out{instruction_reorder_details::eval_int_expr_steps<IntT, UIntT, 0uz, StepCount>(type...[0], uwvmint_local_base(type...), first)};
+        instruction_reorder_details::store_local<IntT>(uwvmint_local_base(type...), dst_off, out);
 
         if constexpr(KeepResult) { instruction_reorder_details::push_operand<CompileOption, IntT, curr_stack_top>(out, type...); }
 
@@ -738,10 +711,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         static_assert(StepCount >= 3uz);
         static_assert(StepCount <= 8uz);
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -758,9 +731,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         auto const first_off{instruction_reorder_details::read_imm<instruction_reorder_details::local_offset_t>(typeref...[0])};
         auto const dst_off{instruction_reorder_details::read_imm<instruction_reorder_details::local_offset_t>(typeref...[0])};
-        auto const first{instruction_reorder_details::load_local<IntT>(typeref...[2u], first_off)};
-        auto const out{instruction_reorder_details::eval_int_expr_steps<IntT, UIntT, 0uz, StepCount>(typeref...[0], typeref...[2u], first)};
-        instruction_reorder_details::store_local<IntT>(typeref...[2u], dst_off, out);
+        auto const first{instruction_reorder_details::load_local<IntT>(uwvmint_local_base(typeref...), first_off)};
+        auto const out{instruction_reorder_details::eval_int_expr_steps<IntT, UIntT, 0uz, StepCount>(typeref...[0], uwvmint_local_base(typeref...), first)};
+        instruction_reorder_details::store_local<IntT>(uwvmint_local_base(typeref...), dst_off, out);
 
         if constexpr(KeepResult) { instruction_reorder_details::push_operand_byref<CompileOption>(out, typeref...); }
     }
@@ -776,10 +749,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         requires (CompileOption.is_tail_call)
     UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_reorder_int_const_binop_local_update(Type... type) UWVM_THROWS
     {
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -787,9 +760,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         IntT const imm{instruction_reorder_details::read_imm<IntT>(type...[0])};
         auto const dst_off{instruction_reorder_details::read_imm<instruction_reorder_details::local_offset_t>(type...[0])};
 
-        IntT const src{instruction_reorder_details::load_local<IntT>(type...[2u], src_off)};
+        IntT const src{instruction_reorder_details::load_local<IntT>(uwvmint_local_base(type...), src_off)};
         IntT const out{instruction_reorder_details::eval_int_expr_binop_constexpr<Op, IntT, UIntT>(src, imm)};
-        instruction_reorder_details::store_local<IntT>(type...[2u], dst_off, out);
+        instruction_reorder_details::store_local<IntT>(uwvmint_local_base(type...), dst_off, out);
 
         if constexpr(KeepResult) { instruction_reorder_details::push_operand<CompileOption, IntT, curr_stack_top>(out, type...); }
 
@@ -808,10 +781,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         requires (!CompileOption.is_tail_call)
     UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_reorder_int_const_binop_local_update(TypeRef & ... typeref) UWVM_THROWS
     {
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -824,9 +797,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         IntT const imm{instruction_reorder_details::read_imm<IntT>(typeref...[0])};
         auto const dst_off{instruction_reorder_details::read_imm<instruction_reorder_details::local_offset_t>(typeref...[0])};
 
-        IntT const src{instruction_reorder_details::load_local<IntT>(typeref...[2u], src_off)};
+        IntT const src{instruction_reorder_details::load_local<IntT>(uwvmint_local_base(typeref...), src_off)};
         IntT const out{instruction_reorder_details::eval_int_expr_binop_constexpr<Op, IntT, UIntT>(src, imm)};
-        instruction_reorder_details::store_local<IntT>(typeref...[2u], dst_off, out);
+        instruction_reorder_details::store_local<IntT>(uwvmint_local_base(typeref...), dst_off, out);
 
         if constexpr(KeepResult) { instruction_reorder_details::push_operand_byref<CompileOption>(out, typeref...); }
     }
@@ -1148,6 +1121,20 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     return OpWrapper::template fptr<CompileOption, 0uz, Type...>();
                 }
             }
+
+            template <uwvm_interpreter_translate_option_t CompileOption,
+                      typename ValType,
+                      typename OpWrapper,
+                      uwvm_int_stack_top_type... Type>
+                requires (CompileOption.is_tail_call)
+            inline constexpr uwvm_interpreter_opfunc_t<Type...> select_active_stacktop_fptr_or_default_reorder(::std::size_t pos) noexcept
+            {
+                constexpr ::std::size_t begin{
+                    ::uwvm2::runtime::compiler::uwvm_int::optable::details::uwvm_interpreter_stacktop_range_begin_pos<CompileOption, ValType>()};
+                constexpr ::std::size_t end{
+                    ::uwvm2::runtime::compiler::uwvm_int::optable::details::uwvm_interpreter_stacktop_range_end_pos<CompileOption, ValType>()};
+                return select_stacktop_fptr_or_default_reorder<CompileOption, begin, end, OpWrapper, Type...>(pos);
+            }
         }  // namespace reorder_details
 
         template <uwvm_interpreter_translate_option_t CompileOption, ::std::size_t LocalCount, uwvm_int_stack_top_type... Type>
@@ -1156,10 +1143,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             get_uwvmint_reorder_i32_preload_nlocalget_fptr(uwvm_interpreter_stacktop_currpos_t const& curr) noexcept
         {
             static_assert(LocalCount >= 2uz && LocalCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<
                 CompileOption,
-                CompileOption.i32_stack_top_begin_pos,
-                CompileOption.i32_stack_top_end_pos,
+                instruction_reorder_details::wasm_i32,
                 reorder_details::preload_nlocalget_op<instruction_reorder_details::wasm_i32, LocalCount>,
                 Type...>(curr.i32_stack_top_curr_pos);
         }
@@ -1191,10 +1177,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             get_uwvmint_reorder_i64_preload_nlocalget_fptr(uwvm_interpreter_stacktop_currpos_t const& curr) noexcept
         {
             static_assert(LocalCount >= 2uz && LocalCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<
                 CompileOption,
-                CompileOption.i64_stack_top_begin_pos,
-                CompileOption.i64_stack_top_end_pos,
+                instruction_reorder_details::wasm_i64,
                 reorder_details::preload_nlocalget_op<instruction_reorder_details::wasm_i64, LocalCount>,
                 Type...>(curr.i64_stack_top_curr_pos);
         }
@@ -1297,9 +1282,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         {
             static_assert(instruction_reorder_details::is_supported_integer_reduce_op<Op>());
             static_assert(LocalCount >= 3uz && LocalCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i32_stack_top_begin_pos,
-                                                                            CompileOption.i32_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i32,
                                                                             reorder_details::i32_reduce_nlocalget_op<Op, LocalCount>,
                                                                             Type...>(curr.i32_stack_top_curr_pos);
         }
@@ -1339,9 +1323,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         {
             static_assert(instruction_reorder_details::is_supported_integer_reduce_op<Op>());
             static_assert(LocalCount >= 3uz && LocalCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i64_stack_top_begin_pos,
-                                                                            CompileOption.i64_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i64,
                                                                             reorder_details::i64_reduce_nlocalget_op<Op, LocalCount>,
                                                                             Type...>(curr.i64_stack_top_curr_pos);
         }
@@ -1381,9 +1364,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         {
             static_assert(instruction_reorder_details::is_supported_integer_reduce_op<Op>());
             static_assert(LocalCount >= 3uz && LocalCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i32_stack_top_begin_pos,
-                                                                            CompileOption.i32_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i32,
                                                                             reorder_details::i32_reduce_nlocalget_local_update_op<Op, LocalCount, false>,
                                                                             Type...>(curr.i32_stack_top_curr_pos);
         }
@@ -1425,9 +1407,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         {
             static_assert(instruction_reorder_details::is_supported_integer_reduce_op<Op>());
             static_assert(LocalCount >= 3uz && LocalCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i32_stack_top_begin_pos,
-                                                                            CompileOption.i32_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i32,
                                                                             reorder_details::i32_reduce_nlocalget_local_update_op<Op, LocalCount, true>,
                                                                             Type...>(curr.i32_stack_top_curr_pos);
         }
@@ -1469,9 +1450,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         {
             static_assert(instruction_reorder_details::is_supported_integer_reduce_op<Op>());
             static_assert(LocalCount >= 3uz && LocalCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i64_stack_top_begin_pos,
-                                                                            CompileOption.i64_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i64,
                                                                             reorder_details::i64_reduce_nlocalget_local_update_op<Op, LocalCount, false>,
                                                                             Type...>(curr.i64_stack_top_curr_pos);
         }
@@ -1513,9 +1493,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         {
             static_assert(instruction_reorder_details::is_supported_integer_reduce_op<Op>());
             static_assert(LocalCount >= 3uz && LocalCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i64_stack_top_begin_pos,
-                                                                            CompileOption.i64_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i64,
                                                                             reorder_details::i64_reduce_nlocalget_local_update_op<Op, LocalCount, true>,
                                                                             Type...>(curr.i64_stack_top_curr_pos);
         }
@@ -1555,9 +1534,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         inline constexpr uwvm_interpreter_opfunc_t<Type...> get_uwvmint_reorder_i32_expr_fold_fptr(uwvm_interpreter_stacktop_currpos_t const& curr) noexcept
         {
             static_assert(StepCount >= 3uz && StepCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i32_stack_top_begin_pos,
-                                                                            CompileOption.i32_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i32,
                                                                             reorder_details::i32_expr_fold_op<StepCount>,
                                                                             Type...>(curr.i32_stack_top_curr_pos);
         }
@@ -1587,9 +1565,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         inline constexpr uwvm_interpreter_opfunc_t<Type...> get_uwvmint_reorder_i64_expr_fold_fptr(uwvm_interpreter_stacktop_currpos_t const& curr) noexcept
         {
             static_assert(StepCount >= 3uz && StepCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i64_stack_top_begin_pos,
-                                                                            CompileOption.i64_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i64,
                                                                             reorder_details::i64_expr_fold_op<StepCount>,
                                                                             Type...>(curr.i64_stack_top_curr_pos);
         }
@@ -1620,9 +1597,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             get_uwvmint_reorder_i32_expr_local_set_fptr(uwvm_interpreter_stacktop_currpos_t const& curr) noexcept
         {
             static_assert(StepCount >= 3uz && StepCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i32_stack_top_begin_pos,
-                                                                            CompileOption.i32_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i32,
                                                                             reorder_details::i32_expr_local_update_op<StepCount, false>,
                                                                             Type...>(curr.i32_stack_top_curr_pos);
         }
@@ -1654,9 +1630,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             get_uwvmint_reorder_i32_expr_local_tee_fptr(uwvm_interpreter_stacktop_currpos_t const& curr) noexcept
         {
             static_assert(StepCount >= 3uz && StepCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i32_stack_top_begin_pos,
-                                                                            CompileOption.i32_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i32,
                                                                             reorder_details::i32_expr_local_update_op<StepCount, true>,
                                                                             Type...>(curr.i32_stack_top_curr_pos);
         }
@@ -1688,9 +1663,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             get_uwvmint_reorder_i64_expr_local_set_fptr(uwvm_interpreter_stacktop_currpos_t const& curr) noexcept
         {
             static_assert(StepCount >= 3uz && StepCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i64_stack_top_begin_pos,
-                                                                            CompileOption.i64_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i64,
                                                                             reorder_details::i64_expr_local_update_op<StepCount, false>,
                                                                             Type...>(curr.i64_stack_top_curr_pos);
         }
@@ -1722,9 +1696,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             get_uwvmint_reorder_i64_expr_local_tee_fptr(uwvm_interpreter_stacktop_currpos_t const& curr) noexcept
         {
             static_assert(StepCount >= 3uz && StepCount <= 8uz);
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i64_stack_top_begin_pos,
-                                                                            CompileOption.i64_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i64,
                                                                             reorder_details::i64_expr_local_update_op<StepCount, true>,
                                                                             Type...>(curr.i64_stack_top_curr_pos);
         }
@@ -1758,9 +1731,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         inline constexpr uwvm_interpreter_opfunc_t<Type...>
             get_uwvmint_reorder_i32_const_binop_local_update_fptr(uwvm_interpreter_stacktop_currpos_t const& curr) noexcept
         {
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i32_stack_top_begin_pos,
-                                                                            CompileOption.i32_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i32,
                                                                             reorder_details::i32_const_binop_local_update_op<Op, KeepResult>,
                                                                             Type...>(curr.i32_stack_top_curr_pos);
         }
@@ -1800,9 +1772,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         inline constexpr uwvm_interpreter_opfunc_t<Type...>
             get_uwvmint_reorder_i64_const_binop_local_update_fptr(uwvm_interpreter_stacktop_currpos_t const& curr) noexcept
         {
-            return reorder_details::select_stacktop_fptr_or_default_reorder<CompileOption,
-                                                                            CompileOption.i64_stack_top_begin_pos,
-                                                                            CompileOption.i64_stack_top_end_pos,
+            return reorder_details::select_active_stacktop_fptr_or_default_reorder<CompileOption,
+                                                                            instruction_reorder_details::wasm_i64,
                                                                             reorder_details::i64_const_binop_local_update_op<Op, KeepResult>,
                                                                             Type...>(curr.i64_stack_top_curr_pos);
         }

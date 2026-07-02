@@ -7,10 +7,11 @@ case wasm1_code::i32_clz:
     // Unary integer ops preserve stack depth. Local-get fusion avoids pushing a temporary value only
     // to consume it in the next dispatch.
     validate_numeric_unary(u8"i32.clz", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
         emit_opfunc_to(bytecode, translate::get_uwvmint_i32_clz_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
@@ -27,10 +28,11 @@ case wasm1_code::i32_clz:
 case wasm1_code::i32_ctz:
 {
     validate_numeric_unary(u8"i32.ctz", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
         emit_opfunc_to(bytecode, translate::get_uwvmint_i32_ctz_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
@@ -47,10 +49,11 @@ case wasm1_code::i32_ctz:
 case wasm1_code::i32_popcnt:
 {
     validate_numeric_unary(u8"i32.popcnt", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
         emit_opfunc_to(bytecode, translate::get_uwvmint_i32_popcnt_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
@@ -70,11 +73,13 @@ case wasm1_code::i32_add:
     // Addition is a high-frequency fusion hub: it can fold constants, combine with local updates,
     // feed branch patterns, and form reduction/MAC chains while preserving Wasm wraparound semantics.
     validate_numeric_binary(u8"i32.add", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::const_i32)
     {
+        local_spot_flush_dirty_stacktop_slots_and_invalidate_to(bytecode, curr_operand_stack_value_type::i32, 1uz);
         emit_opfunc_to(
             bytecode,
             translate::get_uwvmint_i32_binop_imm_stack_fptr_from_tuple<CompileOption,
@@ -86,7 +91,7 @@ case wasm1_code::i32_add:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         // Delay-local: `...; local.get rhs; i32.add` -> one dispatch (net stack effect 0 relative to pre-`local.get`).
         wasm1_code next_op{};  // init
@@ -98,6 +103,8 @@ case wasm1_code::i32_add:
                                CompileOption,
                                ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::add>(curr_stacktop, interpreter_tuple));
             emit_imm_to(bytecode, conbine_pending.off1);
+            local_write_skip_slot_active = true;
+            local_write_skip_slot_expected = wasm1_code::local_set;
             conbine_pending.kind = conbine_pending_kind::none;
             break;
         }
@@ -131,6 +138,8 @@ case wasm1_code::i32_add:
                                    CompileOption,
                                    ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::add>(curr_stacktop, interpreter_tuple));
                 emit_imm_to(bytecode, conbine_pending.off1);
+                local_write_skip_slot_active = true;
+                local_write_skip_slot_expected = wasm1_code::local_tee;
                 conbine_pending.kind = conbine_pending_kind::none;
                 break;
             }
@@ -315,9 +324,9 @@ case wasm1_code::i32_add:
         bool fused_spill_and_add{};
         [[maybe_unused]] ::std::size_t fuse_site{};
 
-        if constexpr(stacktop_enabled)
+        if constexpr(stacktop_i32_enabled)
         {
-            // i32_add_2localget pushes 1 result; spill if ring is full.
+            // i32_add_2localget pushes 1 result; spill if stack-top window is full.
             ::std::size_t const bc_before{bytecode.size()};
             stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
 
@@ -325,12 +334,12 @@ case wasm1_code::i32_add:
             // reuse the would-be `i32_add_2localget` opfunc slot for immediates.
             if(bytecode.size() != bc_before)
             {
-                constexpr bool i32_i64_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.i64_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.i64_stack_top_end_pos};
-                constexpr bool i32_f32_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.f32_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.f32_stack_top_end_pos};
-                constexpr bool i32_f64_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
+                constexpr bool i32_i64_merge{stacktop_i32_begin_pos == stacktop_i64_begin_pos &&
+                                             stacktop_i32_end_pos == stacktop_i64_end_pos};
+                constexpr bool i32_f32_merge{stacktop_i32_begin_pos == CompileOption.f32_stack_top_begin_pos &&
+                                             stacktop_i32_end_pos == CompileOption.f32_stack_top_end_pos};
+                constexpr bool i32_f64_merge{stacktop_i32_begin_pos == CompileOption.f64_stack_top_begin_pos &&
+                                             stacktop_i32_end_pos == CompileOption.f64_stack_top_end_pos};
 
                 using wasm_i32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32;
                 using wasm_i64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64;
@@ -342,13 +351,14 @@ case wasm1_code::i32_add:
                 using opfunc_ptr_t = decltype(translate::get_uwvmint_i32_add_2localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
                 fuse_site = bytecode.size() - sizeof(opfunc_ptr_t);
 
-                auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
-                                {
-                                    ::std::byte tmp[sizeof(fused_fptr)];
-                                    ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
-                                    ::std::memcpy(bytecode.data() + fuse_site, tmp, sizeof(fused_fptr));
-                                    fused_spill_and_add = true;
-                                }};
+	                auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
+	                                {
+	                                    if(fused_fptr == nullptr) { return; }
+	                                    ::std::byte tmp[sizeof(fused_fptr)];
+	                                    ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
+	                                    ::std::memcpy(bytecode.data() + fuse_site, tmp, sizeof(fused_fptr));
+	                                    fused_spill_and_add = true;
+	                                }};
 
                 if(spilled_vt == curr_operand_stack_value_type::i32)
                 {
@@ -391,7 +401,16 @@ case wasm1_code::i32_add:
         }
         emit_imm_to(bytecode, conbine_pending.off1);
         emit_imm_to(bytecode, conbine_pending.off2);
-        if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i32); }
+        if constexpr(stacktop_i32_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i32); }
+        conbine_pending.kind = conbine_pending_kind::none;
+        break;
+# endif
+# ifndef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
+        stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
+        emit_opfunc_to(bytecode, translate::get_uwvmint_i32_add_2localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+        emit_imm_to(bytecode, conbine_pending.off1);
+        emit_imm_to(bytecode, conbine_pending.off2);
+        stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i32);
         conbine_pending.kind = conbine_pending_kind::none;
         break;
 # endif
@@ -407,7 +426,7 @@ case wasm1_code::i32_add:
         break;
     }
 #endif
-    if constexpr(stacktop_enabled)
+    if constexpr(stacktop_i32_enabled)
     {
         if(!is_polymorphic)
         {
@@ -470,14 +489,15 @@ case wasm1_code::i32_add:
         }
     }
 
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i32_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i32_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::add>(bytecode);
+    stacktop_after_i32_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i32_sub:
 {
     validate_numeric_binary(u8"i32.sub", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -494,7 +514,7 @@ case wasm1_code::i32_sub:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         emit_opfunc_to(
             bytecode,
@@ -507,7 +527,6 @@ case wasm1_code::i32_sub:
         break;
     }
 # endif
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
@@ -519,7 +538,6 @@ case wasm1_code::i32_sub:
 
         break;
     }
-# endif
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32)
     {
         if(code_curr != code_end)
@@ -556,14 +574,15 @@ case wasm1_code::i32_sub:
         break;
     }
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i32_sub_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i32_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::sub>(bytecode);
+    stacktop_after_i32_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i32_mul:
 {
     validate_numeric_binary(u8"i32.mul", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -580,7 +599,7 @@ case wasm1_code::i32_mul:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         emit_opfunc_to(
             bytecode,
@@ -605,7 +624,6 @@ case wasm1_code::i32_mul:
         conbine_pending.kind = conbine_pending_kind::local_get2_const_i32_mul;
         break;
     }
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
@@ -616,7 +634,6 @@ case wasm1_code::i32_mul:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# endif
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32)
     {
         if(code_curr != code_end)
@@ -652,8 +669,8 @@ case wasm1_code::i32_mul:
         break;
     }
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i32_mul_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i32_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::mul>(bytecode);
+    stacktop_after_i32_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
@@ -662,10 +679,11 @@ case wasm1_code::i32_div_s:
     // Signed division must stay in a dedicated runtime helper because Wasm traps on divide-by-zero
     // and on INT_MIN / -1, unlike ordinary C++ signed division behavior.
     validate_numeric_binary(u8"i32.div_s", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         emit_opfunc_to(
             bytecode,
@@ -689,10 +707,11 @@ case wasm1_code::i32_div_s:
 case wasm1_code::i32_div_u:
 {
     validate_numeric_binary(u8"i32.div_u", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         emit_opfunc_to(
             bytecode,
@@ -714,11 +733,12 @@ case wasm1_code::i32_div_u:
 case wasm1_code::i32_rem_s:
 {
     validate_numeric_binary(u8"i32.rem_s", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         emit_opfunc_to(
             bytecode,
@@ -753,11 +773,12 @@ case wasm1_code::i32_rem_s:
 case wasm1_code::i32_rem_u:
 {
     validate_numeric_binary(u8"i32.rem_u", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         emit_opfunc_to(
             bytecode,
@@ -812,6 +833,7 @@ case wasm1_code::i32_and:
     // Bitwise operators are common in hash/crypto kernels, so the combine path keeps local and
     // immediate operands visible long enough to build single-dispatch update helpers.
     validate_numeric_binary(u8"i32.and", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -836,7 +858,7 @@ case wasm1_code::i32_and:
         flush_conbine_pending();
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         // Prefer the existing `i32.and ; br_if` fusion when immediately branching on the result.
         wasm1_code next_opbase{};  // init
@@ -857,7 +879,6 @@ case wasm1_code::i32_and:
         flush_conbine_pending();
     }
 # endif
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
@@ -868,7 +889,6 @@ case wasm1_code::i32_and:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# endif
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32)
     {
         if(code_curr != code_end)
@@ -910,20 +930,21 @@ case wasm1_code::i32_and:
 
     // else: Combine disabled: no `i32.and ; br_if` fusion tracking.
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i32_and_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+    emit_i32_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::and_>(bytecode);
     wasm1_code next_opbase{};  // init
     if(code_curr != code_end) { ::std::memcpy(::std::addressof(next_opbase), code_curr, sizeof(next_opbase)); }
-    if(next_opbase == wasm1_code::br_if) { stacktop_after_pop_n_no_fill_if_reachable(1uz); }
-    else
-    {
-        stacktop_after_pop_n_if_reachable(bytecode, 1uz);
-    }
+    if(next_opbase == wasm1_code::br_if) { stacktop_after_i32_anonymous_binop_no_fill_if_reachable(); }
+	else
+	{
+	    stacktop_after_i32_anonymous_binop_if_reachable(bytecode);
+	}
 
     break;
 }
 case wasm1_code::i32_or:
 {
     validate_numeric_binary(u8"i32.or", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -940,7 +961,7 @@ case wasm1_code::i32_or:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         emit_opfunc_to(
             bytecode,
@@ -953,7 +974,6 @@ case wasm1_code::i32_or:
         break;
     }
 # endif
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
@@ -965,7 +985,6 @@ case wasm1_code::i32_or:
 
         break;
     }
-# endif
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32)
     {
         if(code_curr != code_end)
@@ -1002,14 +1021,15 @@ case wasm1_code::i32_or:
         break;
     }
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i32_or_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i32_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::or_>(bytecode);
+    stacktop_after_i32_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i32_xor:
 {
     validate_numeric_binary(u8"i32.xor", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -1026,7 +1046,7 @@ case wasm1_code::i32_xor:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         // Delay-local: `...; local.get rhs; i32.xor` -> one dispatch (net stack effect 0 relative to pre-`local.get`).
         wasm1_code next_op{};  // init
@@ -1038,6 +1058,8 @@ case wasm1_code::i32_xor:
                                CompileOption,
                                ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::xor_>(curr_stacktop, interpreter_tuple));
             emit_imm_to(bytecode, conbine_pending.off1);
+            local_write_skip_slot_active = true;
+            local_write_skip_slot_expected = wasm1_code::local_set;
             conbine_pending.kind = conbine_pending_kind::none;
             break;
         }
@@ -1066,6 +1088,8 @@ case wasm1_code::i32_xor:
                                    CompileOption,
                                    ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::xor_>(curr_stacktop, interpreter_tuple));
                 emit_imm_to(bytecode, conbine_pending.off1);
+                local_write_skip_slot_active = true;
+                local_write_skip_slot_expected = wasm1_code::local_tee;
                 conbine_pending.kind = conbine_pending_kind::none;
                 break;
             }
@@ -1090,14 +1114,21 @@ case wasm1_code::i32_xor:
     }
     if(conbine_pending.kind == conbine_pending_kind::xorshift_after_shl)
     {
-        stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
-        emit_opfunc_to(bytecode, translate::get_uwvmint_i32_xorshift_mix_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-        emit_imm_to(bytecode, conbine_pending.off1);
-        emit_imm_to(bytecode, conbine_pending.imm_i32);
-        emit_imm_to(bytecode, conbine_pending.imm_i32_2);
-        stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i32);
-        conbine_pending.kind = conbine_pending_kind::none;
-        break;
+        if constexpr(stacktop_i32_enabled)
+        {
+            flush_conbine_pending();
+        }
+        else
+        {
+            stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
+            emit_opfunc_to(bytecode, translate::get_uwvmint_i32_xorshift_mix_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+            emit_imm_to(bytecode, conbine_pending.off1);
+            emit_imm_to(bytecode, conbine_pending.imm_i32);
+            emit_imm_to(bytecode, conbine_pending.imm_i32_2);
+            stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i32);
+            conbine_pending.kind = conbine_pending_kind::none;
+            break;
+        }
     }
     if(conbine_pending.kind == conbine_pending_kind::rot_xor_add_after_gety)
     {
@@ -1110,7 +1141,6 @@ case wasm1_code::i32_xor:
         break;
     }
 # endif
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
@@ -1121,7 +1151,6 @@ case wasm1_code::i32_xor:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# endif
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32)
     {
         if(code_curr != code_end)
@@ -1158,14 +1187,15 @@ case wasm1_code::i32_xor:
     }
 #endif
 
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i32_xor_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i32_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::xor_>(bytecode);
+    stacktop_after_i32_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i32_shl:
 {
     validate_numeric_binary(u8"i32.shl", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -1182,7 +1212,7 @@ case wasm1_code::i32_shl:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         emit_opfunc_to(
             bytecode,
@@ -1195,6 +1225,21 @@ case wasm1_code::i32_shl:
         break;
     }
 # endif
+    if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    {
+        stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
+        emit_opfunc_to(
+            bytecode,
+            translate::get_uwvmint_i32_binop_2localget_fptr_from_tuple<CompileOption,
+                                                                       ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::shl>(
+                curr_stacktop,
+                interpreter_tuple));
+        emit_imm_to(bytecode, conbine_pending.off1);
+        emit_imm_to(bytecode, conbine_pending.off2);
+        stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i32);
+        conbine_pending.kind = conbine_pending_kind::none;
+        break;
+    }
 # ifdef UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::xorshift_after_xor1_getx_constb)
     {
@@ -1258,14 +1303,15 @@ case wasm1_code::i32_shl:
         break;
     }
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i32_shl_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i32_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::shl>(bytecode);
+    stacktop_after_i32_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i32_shr_s:
 {
     validate_numeric_binary(u8"i32.shr_s", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -1282,7 +1328,7 @@ case wasm1_code::i32_shr_s:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         emit_opfunc_to(
             bytecode,
@@ -1295,6 +1341,21 @@ case wasm1_code::i32_shr_s:
         break;
     }
 # endif
+    if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    {
+        stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
+        emit_opfunc_to(
+            bytecode,
+            translate::get_uwvmint_i32_binop_2localget_fptr_from_tuple<CompileOption,
+                                                                       ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::shr_s>(
+                curr_stacktop,
+                interpreter_tuple));
+        emit_imm_to(bytecode, conbine_pending.off1);
+        emit_imm_to(bytecode, conbine_pending.off2);
+        stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i32);
+        conbine_pending.kind = conbine_pending_kind::none;
+        break;
+    }
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32)
     {
         if(code_curr != code_end)
@@ -1331,14 +1392,15 @@ case wasm1_code::i32_shr_s:
         break;
     }
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i32_shr_s_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i32_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::shr_s>(bytecode);
+    stacktop_after_i32_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i32_shr_u:
 {
     validate_numeric_binary(u8"i32.shr_u", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -1355,7 +1417,7 @@ case wasm1_code::i32_shr_u:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         emit_opfunc_to(
             bytecode,
@@ -1375,6 +1437,21 @@ case wasm1_code::i32_shr_u:
         break;
     }
 # endif
+    if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    {
+        stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
+        emit_opfunc_to(
+            bytecode,
+            translate::get_uwvmint_i32_binop_2localget_fptr_from_tuple<CompileOption,
+                                                                       ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::shr_u>(
+                curr_stacktop,
+                interpreter_tuple));
+        emit_imm_to(bytecode, conbine_pending.off1);
+        emit_imm_to(bytecode, conbine_pending.off2);
+        stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i32);
+        conbine_pending.kind = conbine_pending_kind::none;
+        break;
+    }
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32)
     {
         if(code_curr != code_end)
@@ -1411,14 +1488,15 @@ case wasm1_code::i32_shr_u:
     }
 #endif
 
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i32_shr_u_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i32_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::shr_u>(bytecode);
+    stacktop_after_i32_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i32_rotl:
 {
     validate_numeric_binary(u8"i32.rotl", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -1449,7 +1527,7 @@ case wasm1_code::i32_rotl:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         emit_opfunc_to(
             bytecode,
@@ -1463,6 +1541,21 @@ case wasm1_code::i32_rotl:
     }
 # endif
 #endif
+    if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    {
+        stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
+        emit_opfunc_to(
+            bytecode,
+            translate::get_uwvmint_i32_binop_2localget_fptr_from_tuple<CompileOption,
+                                                                       ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::rotl>(
+                curr_stacktop,
+                interpreter_tuple));
+        emit_imm_to(bytecode, conbine_pending.off1);
+        emit_imm_to(bytecode, conbine_pending.off2);
+        stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i32);
+        conbine_pending.kind = conbine_pending_kind::none;
+        break;
+    }
 
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
     if(conbine_pending.kind == conbine_pending_kind::local_get2_const_i32)
@@ -1519,14 +1612,15 @@ case wasm1_code::i32_rotl:
     }
 #endif
 
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i32_rotl_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i32_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::rotl>(bytecode);
+    stacktop_after_i32_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i32_rotr:
 {
     validate_numeric_binary(u8"i32.rotr", curr_operand_stack_value_type::i32, curr_operand_stack_value_type::i32);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i32);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -1543,7 +1637,7 @@ case wasm1_code::i32_rotr:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i32)
     {
         emit_opfunc_to(
             bytecode,
@@ -1557,6 +1651,21 @@ case wasm1_code::i32_rotr:
     }
 # endif
 #endif
+    if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i32)
+    {
+        stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
+        emit_opfunc_to(
+            bytecode,
+            translate::get_uwvmint_i32_binop_2localget_fptr_from_tuple<CompileOption,
+                                                                       ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::rotr>(
+                curr_stacktop,
+                interpreter_tuple));
+        emit_imm_to(bytecode, conbine_pending.off1);
+        emit_imm_to(bytecode, conbine_pending.off2);
+        stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i32);
+        conbine_pending.kind = conbine_pending_kind::none;
+        break;
+    }
 
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i32)
@@ -1595,18 +1704,19 @@ case wasm1_code::i32_rotr:
         break;
     }
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i32_rotr_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i32_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::rotr>(bytecode);
+    stacktop_after_i32_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_clz:
 {
     validate_numeric_unary(u8"i64.clz", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
         emit_opfunc_to(bytecode, translate::get_uwvmint_i64_clz_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
@@ -1623,10 +1733,11 @@ case wasm1_code::i64_clz:
 case wasm1_code::i64_ctz:
 {
     validate_numeric_unary(u8"i64.ctz", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
         emit_opfunc_to(bytecode, translate::get_uwvmint_i64_ctz_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
@@ -1643,10 +1754,11 @@ case wasm1_code::i64_ctz:
 case wasm1_code::i64_popcnt:
 {
     validate_numeric_unary(u8"i64.popcnt", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
         emit_opfunc_to(bytecode, translate::get_uwvmint_i64_popcnt_localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
@@ -1665,11 +1777,13 @@ case wasm1_code::i64_add:
     // The i64 family mirrors the i32 fusion strategy, but immediates and shift counts have wider
     // storage requirements and must not reuse i32-only helpers.
     validate_numeric_binary(u8"i64.add", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::const_i64)
     {
+        local_spot_flush_dirty_stacktop_slots_and_invalidate_to(bytecode, curr_operand_stack_value_type::i64, 1uz);
         emit_opfunc_to(
             bytecode,
             translate::get_uwvmint_i64_binop_imm_stack_fptr_from_tuple<CompileOption,
@@ -1681,7 +1795,7 @@ case wasm1_code::i64_add:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         wasm1_code next_op{};  // init
         if(!is_polymorphic && code_curr != code_end) { ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op)); }
@@ -1692,6 +1806,8 @@ case wasm1_code::i64_add:
                                CompileOption,
                                ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::add>(curr_stacktop, interpreter_tuple));
             emit_imm_to(bytecode, conbine_pending.off1);
+            local_write_skip_slot_active = true;
+            local_write_skip_slot_expected = wasm1_code::local_set;
             conbine_pending.kind = conbine_pending_kind::none;
             break;
         }
@@ -1720,6 +1836,8 @@ case wasm1_code::i64_add:
                                    CompileOption,
                                    ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::add>(curr_stacktop, interpreter_tuple));
                 emit_imm_to(bytecode, conbine_pending.off1);
+                local_write_skip_slot_active = true;
+                local_write_skip_slot_expected = wasm1_code::local_tee;
                 conbine_pending.kind = conbine_pending_kind::none;
                 break;
             }
@@ -1790,19 +1908,19 @@ case wasm1_code::i64_add:
         bool fused_spill_and_add{};
         [[maybe_unused]] ::std::size_t fuse_site{};
 
-        if constexpr(stacktop_enabled)
+        if constexpr(stacktop_i64_enabled)
         {
             ::std::size_t const bc_before{bytecode.size()};
             stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
 
             if(bytecode.size() != bc_before)
             {
-                constexpr bool i32_i64_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.i64_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.i64_stack_top_end_pos};
-                constexpr bool i64_f32_merge{CompileOption.i64_stack_top_begin_pos == CompileOption.f32_stack_top_begin_pos &&
-                                             CompileOption.i64_stack_top_end_pos == CompileOption.f32_stack_top_end_pos};
-                constexpr bool i64_f64_merge{CompileOption.i64_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
-                                             CompileOption.i64_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
+                constexpr bool i32_i64_merge{stacktop_i32_begin_pos == stacktop_i64_begin_pos &&
+                                             stacktop_i32_end_pos == stacktop_i64_end_pos};
+                constexpr bool i64_f32_merge{stacktop_i64_begin_pos == CompileOption.f32_stack_top_begin_pos &&
+                                             stacktop_i64_end_pos == CompileOption.f32_stack_top_end_pos};
+                constexpr bool i64_f64_merge{stacktop_i64_begin_pos == CompileOption.f64_stack_top_begin_pos &&
+                                             stacktop_i64_end_pos == CompileOption.f64_stack_top_end_pos};
 
                 using wasm_i32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32;
                 using wasm_i64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64;
@@ -1814,13 +1932,14 @@ case wasm1_code::i64_add:
                 using opfunc_ptr_t = decltype(translate::get_uwvmint_i64_add_2localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
                 fuse_site = bytecode.size() - sizeof(opfunc_ptr_t);
 
-                auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
-                                {
-                                    ::std::byte tmp[sizeof(fused_fptr)];
-                                    ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
-                                    ::std::memcpy(bytecode.data() + fuse_site, tmp, sizeof(fused_fptr));
-                                    fused_spill_and_add = true;
-                                }};
+	                auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
+	                                {
+	                                    if(fused_fptr == nullptr) { return; }
+	                                    ::std::byte tmp[sizeof(fused_fptr)];
+	                                    ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
+	                                    ::std::memcpy(bytecode.data() + fuse_site, tmp, sizeof(fused_fptr));
+	                                    fused_spill_and_add = true;
+	                                }};
 
                 if(spilled_vt == curr_operand_stack_value_type::i64)
                 {
@@ -1863,9 +1982,18 @@ case wasm1_code::i64_add:
         }
         emit_imm_to(bytecode, conbine_pending.off1);
         emit_imm_to(bytecode, conbine_pending.off2);
-        if constexpr(stacktop_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i64); }
+        if constexpr(stacktop_i64_enabled) { stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i64); }
         conbine_pending.kind = conbine_pending_kind::none;
 
+        break;
+# endif
+# ifndef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
+        stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
+        emit_opfunc_to(bytecode, translate::get_uwvmint_i64_add_2localget_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+        emit_imm_to(bytecode, conbine_pending.off1);
+        emit_imm_to(bytecode, conbine_pending.off2);
+        stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::i64);
+        conbine_pending.kind = conbine_pending_kind::none;
         break;
 # endif
     }
@@ -1905,7 +2033,7 @@ case wasm1_code::i64_add:
         break;
     }
 #endif
-    if constexpr(stacktop_enabled)
+    if constexpr(stacktop_i64_enabled)
     {
         if(!is_polymorphic)
         {
@@ -1968,14 +2096,15 @@ case wasm1_code::i64_add:
         }
     }
 
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_add_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::add>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_sub:
 {
     validate_numeric_binary(u8"i64.sub", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -1992,7 +2121,7 @@ case wasm1_code::i64_sub:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         emit_opfunc_to(
             bytecode,
@@ -2005,7 +2134,6 @@ case wasm1_code::i64_sub:
         break;
     }
 # endif
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
@@ -2021,7 +2149,6 @@ case wasm1_code::i64_sub:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# endif
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i64)
     {
         if(code_curr != code_end)
@@ -2062,14 +2189,15 @@ case wasm1_code::i64_sub:
         break;
     }
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_sub_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::sub>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_mul:
 {
     validate_numeric_binary(u8"i64.mul", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -2086,7 +2214,7 @@ case wasm1_code::i64_mul:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         wasm1_code next_op{};  // init
         if(!is_polymorphic && code_curr != code_end) { ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op)); }
@@ -2097,6 +2225,8 @@ case wasm1_code::i64_mul:
                                CompileOption,
                                ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::mul>(curr_stacktop, interpreter_tuple));
             emit_imm_to(bytecode, conbine_pending.off1);
+            local_write_skip_slot_active = true;
+            local_write_skip_slot_expected = wasm1_code::local_set;
             conbine_pending.kind = conbine_pending_kind::none;
             break;
         }
@@ -2125,6 +2255,8 @@ case wasm1_code::i64_mul:
                                    CompileOption,
                                    ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::mul>(curr_stacktop, interpreter_tuple));
                 emit_imm_to(bytecode, conbine_pending.off1);
+                local_write_skip_slot_active = true;
+                local_write_skip_slot_expected = wasm1_code::local_tee;
                 conbine_pending.kind = conbine_pending_kind::none;
                 break;
             }
@@ -2140,7 +2272,6 @@ case wasm1_code::i64_mul:
         break;
     }
 # endif
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
@@ -2156,7 +2287,6 @@ case wasm1_code::i64_mul:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# endif
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i64)
     {
         if(code_curr != code_end)
@@ -2206,18 +2336,19 @@ case wasm1_code::i64_mul:
     }
 #endif
 
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_mul_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::mul>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_div_s:
 {
     validate_numeric_binary(u8"i64.div_s", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         emit_opfunc_to(
             bytecode,
@@ -2231,18 +2362,19 @@ case wasm1_code::i64_div_s:
     }
 # endif
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_div_s_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::div_s>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_div_u:
 {
     validate_numeric_binary(u8"i64.div_u", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         emit_opfunc_to(
             bytecode,
@@ -2256,18 +2388,19 @@ case wasm1_code::i64_div_u:
     }
 # endif
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_div_u_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::div_u>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_rem_s:
 {
     validate_numeric_binary(u8"i64.rem_s", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         emit_opfunc_to(
             bytecode,
@@ -2281,18 +2414,19 @@ case wasm1_code::i64_rem_s:
     }
 # endif
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_rem_s_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::rem_s>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_rem_u:
 {
     validate_numeric_binary(u8"i64.rem_u", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         emit_opfunc_to(
             bytecode,
@@ -2306,14 +2440,15 @@ case wasm1_code::i64_rem_u:
     }
 # endif
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_rem_u_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::rem_u>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_and:
 {
     validate_numeric_binary(u8"i64.and", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -2330,7 +2465,7 @@ case wasm1_code::i64_and:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         emit_opfunc_to(
             bytecode,
@@ -2343,7 +2478,6 @@ case wasm1_code::i64_and:
         break;
     }
 # endif
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
@@ -2359,7 +2493,6 @@ case wasm1_code::i64_and:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# endif
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i64)
     {
         if(code_curr != code_end)
@@ -2397,14 +2530,15 @@ case wasm1_code::i64_and:
     }
 #endif
 
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_and_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::and_>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_or:
 {
     validate_numeric_binary(u8"i64.or", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -2421,7 +2555,7 @@ case wasm1_code::i64_or:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         emit_opfunc_to(
             bytecode,
@@ -2434,7 +2568,6 @@ case wasm1_code::i64_or:
         break;
     }
 # endif
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
@@ -2450,7 +2583,6 @@ case wasm1_code::i64_or:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# endif
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i64)
     {
         if(code_curr != code_end)
@@ -2491,14 +2623,15 @@ case wasm1_code::i64_or:
         break;
     }
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_or_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::or_>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_xor:
 {
     validate_numeric_binary(u8"i64.xor", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -2515,7 +2648,7 @@ case wasm1_code::i64_xor:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         wasm1_code next_op{};  // init
         if(!is_polymorphic && code_curr != code_end) { ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op)); }
@@ -2526,6 +2659,8 @@ case wasm1_code::i64_xor:
                                CompileOption,
                                ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::xor_>(curr_stacktop, interpreter_tuple));
             emit_imm_to(bytecode, conbine_pending.off1);
+            local_write_skip_slot_active = true;
+            local_write_skip_slot_expected = wasm1_code::local_set;
             conbine_pending.kind = conbine_pending_kind::none;
             break;
         }
@@ -2554,6 +2689,8 @@ case wasm1_code::i64_xor:
                                    CompileOption,
                                    ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::xor_>(curr_stacktop, interpreter_tuple));
                 emit_imm_to(bytecode, conbine_pending.off1);
+                local_write_skip_slot_active = true;
+                local_write_skip_slot_expected = wasm1_code::local_tee;
                 conbine_pending.kind = conbine_pending_kind::none;
                 break;
             }
@@ -2569,7 +2706,6 @@ case wasm1_code::i64_xor:
         break;
     }
 # endif
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
@@ -2597,7 +2733,6 @@ case wasm1_code::i64_xor:
         conbine_pending.kind = conbine_pending_kind::rotl_xor_local_set_i64_after_xor;
         break;
     }
-# endif
     if(conbine_pending.kind == conbine_pending_kind::local_get_const_i64)
     {
         if(code_curr != code_end)
@@ -2638,14 +2773,15 @@ case wasm1_code::i64_xor:
         break;
     }
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_xor_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::xor_>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_shl:
 {
     validate_numeric_binary(u8"i64.shl", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -2662,7 +2798,7 @@ case wasm1_code::i64_shl:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         emit_opfunc_to(
             bytecode,
@@ -2714,7 +2850,6 @@ case wasm1_code::i64_shl:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
@@ -2730,16 +2865,16 @@ case wasm1_code::i64_shl:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# endif
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_shl_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::shl>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_shr_s:
 {
     validate_numeric_binary(u8"i64.shr_s", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -2756,7 +2891,7 @@ case wasm1_code::i64_shr_s:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         emit_opfunc_to(
             bytecode,
@@ -2808,7 +2943,6 @@ case wasm1_code::i64_shr_s:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
@@ -2824,16 +2958,16 @@ case wasm1_code::i64_shr_s:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# endif
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_shr_s_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::shr_s>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_shr_u:
 {
     validate_numeric_binary(u8"i64.shr_u", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -2850,7 +2984,7 @@ case wasm1_code::i64_shr_u:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         emit_opfunc_to(
             bytecode,
@@ -2902,7 +3036,6 @@ case wasm1_code::i64_shr_u:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
@@ -2918,16 +3051,16 @@ case wasm1_code::i64_shr_u:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# endif
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_shr_u_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::shr_u>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_rotl:
 {
     validate_numeric_binary(u8"i64.rotl", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -2944,7 +3077,7 @@ case wasm1_code::i64_rotl:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         emit_opfunc_to(
             bytecode,
@@ -3026,7 +3159,6 @@ case wasm1_code::i64_rotl:
         break;
 # endif
     }
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
@@ -3042,16 +3174,16 @@ case wasm1_code::i64_rotl:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# endif
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_rotl_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::rotl>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }
 case wasm1_code::i64_rotr:
 {
     validate_numeric_binary(u8"i64.rotr", curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i64);
+    flush_disabled_int_delay_local_pending(curr_operand_stack_value_type::i64);
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
@@ -3068,7 +3200,7 @@ case wasm1_code::i64_rotr:
         break;
     }
 # ifdef UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY
-    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
+    if constexpr(delay_local_int_enabled) if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         wasm1_code next_op{};  // init
         if(!is_polymorphic && code_curr != code_end) { ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op)); }
@@ -3079,6 +3211,8 @@ case wasm1_code::i64_rotr:
                                CompileOption,
                                ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::rotr>(curr_stacktop, interpreter_tuple));
             emit_imm_to(bytecode, conbine_pending.off1);
+            local_write_skip_slot_active = true;
+            local_write_skip_slot_expected = wasm1_code::local_set;
             conbine_pending.kind = conbine_pending_kind::none;
             break;
         }
@@ -3107,6 +3241,8 @@ case wasm1_code::i64_rotr:
                                    CompileOption,
                                    ::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::rotr>(curr_stacktop, interpreter_tuple));
                 emit_imm_to(bytecode, conbine_pending.off1);
+                local_write_skip_slot_active = true;
+                local_write_skip_slot_expected = wasm1_code::local_tee;
                 conbine_pending.kind = conbine_pending_kind::none;
                 break;
             }
@@ -3161,7 +3297,6 @@ case wasm1_code::i64_rotr:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
     if(conbine_pending.kind == conbine_pending_kind::local_get2 && conbine_pending.vt == curr_operand_stack_value_type::i64)
     {
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i64);
@@ -3177,10 +3312,9 @@ case wasm1_code::i64_rotr:
         conbine_pending.kind = conbine_pending_kind::none;
         break;
     }
-# endif
 #endif
-    emit_opfunc_to(bytecode, translate::get_uwvmint_i64_rotr_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-    stacktop_after_pop_n_if_reachable(bytecode, 1uz);
+    emit_i64_anonymous_binop_to.template operator()<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop::rotr>(bytecode);
+    stacktop_after_i64_anonymous_binop_if_reachable(bytecode);
 
     break;
 }

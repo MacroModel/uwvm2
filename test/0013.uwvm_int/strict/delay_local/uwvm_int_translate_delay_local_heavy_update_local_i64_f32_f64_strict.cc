@@ -253,7 +253,7 @@ namespace
             constexpr auto tuple =
                 compiler::details::make_interpreter_tuple<Opt>(::std::make_index_sequence<compiler::details::interpreter_tuple_size<Opt>()>{});
 
-            UWVM2TEST_REQUIRE(bytecode_contains_i64_variant<Opt>(
+            UWVM2TEST_REQUIRE(!bytecode_contains_i64_variant<Opt>(
                 cm.local_funcs.index_unchecked(0).op.operands,
                 [&](auto const& curr) constexpr noexcept
                 {
@@ -269,7 +269,7 @@ namespace
                         Opt,
                         optable::numeric_details::int_binop::div_u>(curr, tuple);
                 }));
-            UWVM2TEST_REQUIRE(bytecode_contains_i64_variant<Opt>(
+            UWVM2TEST_REQUIRE(!bytecode_contains_i64_variant<Opt>(
                 cm.local_funcs.index_unchecked(1).op.operands,
                 [&](auto const& curr) constexpr noexcept
                 {
@@ -285,7 +285,7 @@ namespace
                         Opt,
                         optable::numeric_details::int_binop::div_s>(curr, tuple);
                 }));
-            UWVM2TEST_REQUIRE(bytecode_contains_i64_variant<Opt>(
+            UWVM2TEST_REQUIRE(!bytecode_contains_i64_variant<Opt>(
                 cm.local_funcs.index_unchecked(2).op.operands,
                 [&](auto const& curr) constexpr noexcept
                 {
@@ -301,7 +301,7 @@ namespace
                         Opt,
                         optable::numeric_details::int_binop::rem_u>(curr, tuple);
                 }));
-            UWVM2TEST_REQUIRE(bytecode_contains_i64_variant<Opt>(
+            UWVM2TEST_REQUIRE(!bytecode_contains_i64_variant<Opt>(
                 cm.local_funcs.index_unchecked(3).op.operands,
                 [&](auto const& curr) constexpr noexcept
                 {

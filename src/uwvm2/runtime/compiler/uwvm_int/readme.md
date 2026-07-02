@@ -2,7 +2,7 @@
 
 ## Abstract
 
-**u2** is UWVM2’s WebAssembly interpreter (`src/uwvm2/runtime/compiler/uwvm_int/`). It is a **non-JIT, non-self-modifying** engine built around **direct threading** (a stream of opfunc pointers + immediates) and a register-friendly **stack-top cache** implemented as a compile-time specialized **register ring**.
+**u2** is UWVM2’s WebAssembly interpreter (`src/uwvm2/runtime/compiler/uwvm_int/`). It is a **non-JIT, non-self-modifying** engine built around **direct threading** (a stream of opfunc pointers + immediates) and a register-friendly **stack-top cache** implemented as a compile-time specialized **stack-top window**.
 
 The design goal is strong end-to-end performance for an interpreter tier: **fast translation** (linear-time emission of a code page with no runtime opcode decode) and **high interpreter throughput** (reduced operand-stack memory traffic + reduced dispatch density via fusion). u2 explicitly trades **code size** for predictable hot-path shape: it contains many template-specialized opfunc variants and therefore is not positioned as a minimal/lightweight interpreter in the wasm3/WAMR class. In a tiered system, u2 is intended to serve as a **JIT warm-start backend** rather than a smallest-possible standalone interpreter.
 
@@ -30,12 +30,12 @@ This document summarizes both (1) the architecture and (2) the optimization work
   - Performs local, linear-time fusion and peepholes (no global optimizer pass).
 - **Optable (opfunc set)**: `optable/*.h`
   - Dispatch targets for arithmetic/control/memory/calls plus fused patterns.
-- **Register-ring cache**: `optable/register_ring.h`
+- **Stack-top window cache**: `optable/stacktop_window.h`
   - Spill/fill and transform operations between canonical operand stack memory and the cached stack-top segment.
 - **Loop-unwind policy**: `loop_unwind.md`
-  - Whitepaper for the register-ring loop re-entry optimization, including WebAssembly loop-label semantics, minimum recovery period, safety invariants, limits, and measurement interpretation.
+  - Whitepaper for the stack-top window loop re-entry optimization, including WebAssembly loop-label semantics, minimum recovery period, safety invariants, limits, and measurement interpretation.
 - **Instruction-reorder whitepaper**: `instruction_reorder.md`
-  - Design note for the bounded integer local-reduction recompiler that turns LLVM-style shallow local folds into register-ring-friendly dispatch.
+  - Design note for the bounded integer local-reduction recompiler that turns LLVM-style shallow local folds into stack-top window-friendly dispatch.
 
 ### 2.2 Execution model (direct-threaded stream)
 u2 executes a pointer stream:
@@ -49,22 +49,22 @@ The translator emits opfunc pointers directly (see `emit_opfunc_to(...)` in `com
 
 ### 3.1 What is cached
 WebAssembly is a mixed-typed stack machine. u2 caches the hot segment of the operand stack in an ABI-packed “opfunc argument tuple”:
-- fixed interpreter arguments: `(ip, operand_stack_top_ptr, local_base_ptr)`, plus
-- a configurable number of stack-top cache slots carried across dispatch.
+- fixed interpreter arguments: `(ip, slot_base)`, where `slot_base` addresses the frame-slot header for operand/local pointers, plus
+- configurable anonymous int stack-spot slots followed by logical f32/f64/v128 FV-ring slots carried across dispatch.
 
-The cache is modeled as per-type rings (i32/i64/f32/f64, optionally v128 carriers), and ranges may be merged to reduce register pressure.
+The active hybrid model keeps i32/i64 in int stack spots and keeps f32/f64/v128 in the FV ring. Legacy int ring ranges remain guarded for comparison builds, but are not part of the active configuration.
 
 ### 3.2 Spill/fill and transforms
 When the cache cannot satisfy an operand or must materialize state, the translator emits spill/fill opfuncs:
 - **spill**: cache → operand stack memory
 - **fill**: operand stack memory → cache
 
-These mechanisms live in `optable/register_ring.h` and are specialized so hot paths remain small (pointer bumps + bounded moves).
+These mechanisms live in `optable/stacktop_window.h` and are specialized so hot paths remain small (pointer bumps + bounded moves).
 
 ### 3.3 Control-flow re-entry: register-only canonicalization
 Control-flow joins (loops, if/else merges) can require a canonical cache layout. u2 supports a register-only “transform-to-begin” that rotates the ring to a canonical begin position without touching operand-stack memory:
 - emission: `compile_all_from_uwvm/translate.h`
-- helpers: `optable/register_ring.h`, plus control variants in `optable/conbine.h`
+- helpers: `optable/stacktop_window.h`, plus control variants in `optable/conbine.h`
 
 ## 4. Translation pipeline (startup cost and translation throughput)
 
@@ -108,7 +108,7 @@ local.get a; local.get b; local.get c; ...
 local.get a; local.get b; i32.add; local.get c; i32.add; ...
 ```
 
-When compiled in and explicitly enabled at runtime, u2 can recompile consecutive same-typed scalar `local.get` bursts into one register-ring preload opfunc, then let the following ordinary opcodes consume the cached operands. It also includes three integer expression retranslation forms: same-op local reductions, same-op reductions that write directly to `local.set`/selected `local.tee`, and bounded mixed local/constant left-folds for no-trap `i32`/`i64` operations. These live in `optable/instruction_reorder.h` and remain separate from `conbine`.
+When compiled in and explicitly enabled at runtime, u2 can recompile consecutive same-typed scalar `local.get` bursts into one stack-top window preload opfunc, then let the following ordinary opcodes consume the cached operands. It also includes three integer expression retranslation forms: same-op local reductions, same-op reductions that write directly to `local.set`/selected `local.tee`, and bounded mixed local/constant left-folds for no-trap `i32`/`i64` operations. These live in `optable/instruction_reorder.h` and remain separate from `conbine`.
 
 See `instruction_reorder.md` for the legality model, emitted bytecode shape, and runtime log fields.
 
@@ -154,7 +154,7 @@ High-hit-rate counter-loop patterns can be emitted as a single fused opfunc to r
 
 u2 is evaluated on two axes:
 - **Translation performance**: linear-time translation to a direct-threaded stream; localized fusion/peepholes.
-- **Interpretation performance**: register-ring cache reduces operand-stack traffic; fusion reduces dispatch density.
+- **Interpretation performance**: stack-top window cache reduces operand-stack traffic; fusion reduces dispatch density.
 
 Key lessons from the 2026-02 analysis on AArch64 (Apple M-series) are:
 - If the average fusion ratio is low (e.g., ~1.5 wasm ops per dispatch), different threaded interpreters tend to converge toward the same dispatch ceiling (indirect branch + next pointer load), and performance differences narrow.
@@ -174,7 +174,7 @@ The main engineering takeaway from these measurements is methodological: when tw
 ## 10. Repository map
 
 - Translation and fusion state machine: `compile_all_from_uwvm/translate.h`, `compile_all_from_uwvm/translate/single_func*.h`, `compile_all_from_uwvm/translate/opcode/*.h`
-- Stack-top cache ring, spill/fill, transforms: `optable/register_ring.h`
+- Stack-top cache ring, spill/fill, transforms: `optable/stacktop_window.h`
 - Adjacent fusion: `optable/conbine.h`, `optable/conbine_heavy.h`, `optable/combine_extra_heavy.h`
 - Delay-local fused opfuncs: `optable/delay_local.h`
 - Instruction reorder opfuncs: `optable/instruction_reorder.h`

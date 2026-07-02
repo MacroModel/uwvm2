@@ -49,7 +49,7 @@ import :define;
 import :convert;
 import :storage;
 import :memory;
-import :register_ring;
+import :stacktop_window;
 
 #ifndef UWVM_MODULE
 # define UWVM_MODULE

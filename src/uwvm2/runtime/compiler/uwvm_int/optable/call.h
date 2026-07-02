@@ -96,7 +96,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     /// @brief `call` opcode (tail-call): calls a function and then tail-calls the next interpreter op.
     /// @details
     /// - Stack-top optimization: requires all arguments to reside in the operand stack memory. When stack-top caching is enabled, the compiler must emit
-    ///   stack-top spills so `type...[1u]` points at the full operand stack before executing `call`.
+    ///   stack-top spills so `uwvmint_operand_stack_top_ref(type...)` points at the full operand stack before executing `call`.
     /// - `type[0]` layout: `[opfunc_ptr][curr_module_id][call_function][next_opfunc_ptr]` (reads two `size_t` immediates, then loads the next opfunc pointer).
     /// @note `type...[0]` may be unaligned for function-pointer / `size_t` slots; always load via `memcpy` as done here.
     template <::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_translate_option_t CompileOption,
@@ -136,7 +136,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         //                                                ^^ type...[0]
 
         // call function
-        details::call(curr_module_id, call_function, ::std::addressof(type...[1]));
+        details::call(curr_module_id, call_function, ::std::addressof(uwvmint_operand_stack_top_ref(type...)));
 
         // next op
         ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
@@ -148,7 +148,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     /// @brief `call_indirect` opcode (tail-call): calls a function through a table entry and then tail-calls the next interpreter op.
     /// @details
     /// - Stack-top optimization: requires all arguments (and the table index operand) to reside in the operand stack memory. When stack-top caching is enabled,
-    ///   the compiler must emit stack-top spills so `type...[1u]` points at the full operand stack before executing `call_indirect`.
+    ///   the compiler must emit stack-top spills so `uwvmint_operand_stack_top_ref(type...)` points at the full operand stack before executing `call_indirect`.
     /// - `type[0]` layout: `[opfunc_ptr][curr_module_id][type_index][table_index][next_opfunc_ptr]`.
     /// @note The actual bounds/null/type checks are performed by `call_indirect_func` provided by the runtime.
     template <::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_translate_option_t CompileOption,
@@ -173,7 +173,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(table_index), type...[0], sizeof(table_index));
         type...[0] += sizeof(table_index);
 
-        details::call_indirect(curr_module_id, type_index, table_index, ::std::addressof(type...[1]));
+        details::call_indirect(curr_module_id, type_index, table_index, ::std::addressof(uwvmint_operand_stack_top_ref(type...)));
 
         ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -228,7 +228,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         //                                                ^^ type...[0]
 
         // call function
-        details::call(curr_module_id, call_function, ::std::addressof(typeref...[1]));
+        details::call(curr_module_id, call_function, ::std::addressof(uwvmint_operand_stack_top_ref(typeref...)));
 
         // Function calls are initiated by higher-level functions.
     }
@@ -265,7 +265,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(table_index), typeref...[0], sizeof(table_index));
         typeref...[0] += sizeof(table_index);
 
-        details::call_indirect(curr_module_id, type_index, table_index, ::std::addressof(typeref...[1]));
+        details::call_indirect(curr_module_id, type_index, table_index, ::std::addressof(uwvmint_operand_stack_top_ref(typeref...)));
     }
 
     namespace translate

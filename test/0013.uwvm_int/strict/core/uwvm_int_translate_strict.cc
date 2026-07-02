@@ -401,22 +401,24 @@ namespace
         }
     };
 
-    [[nodiscard]] constexpr ::std::size_t abi_bytes(wasm_value_type t) noexcept
+    template <typename ValueType>
+    [[nodiscard]] constexpr ::std::size_t abi_bytes(ValueType t) noexcept
     {
-        switch(t)
+        switch(static_cast<::std::int_least16_t>(t))
         {
-            case wasm_value_type::i32:
-            case wasm_value_type::f32:
+            case static_cast<::std::int_least16_t>(wasm_value_type::i32):
+            case static_cast<::std::int_least16_t>(wasm_value_type::f32):
                 return 4uz;
-            case wasm_value_type::i64:
-            case wasm_value_type::f64:
+            case static_cast<::std::int_least16_t>(wasm_value_type::i64):
+            case static_cast<::std::int_least16_t>(wasm_value_type::f64):
                 return 8uz;
             default:
                 return 0uz;
         }
     }
 
-    [[nodiscard]] inline ::std::size_t abi_total_bytes(wasm_value_type const* begin, wasm_value_type const* end) noexcept
+    template <typename ValueType>
+    [[nodiscard]] inline ::std::size_t abi_total_bytes(ValueType const* begin, ValueType const* end) noexcept
     {
         ::std::size_t total{};
         for(auto it = begin; it != end; ++it)
@@ -1742,17 +1744,17 @@ namespace
             constexpr optable::uwvm_interpreter_translate_option_t opt{
                 .is_tail_call = true,
                 // Wasm1 requires i32/i64/f32/f64 all enabled together for mixed-type stack modeling.
-                // Use 2-slot integer ring (merged i32/i64) and 2-slot float ring (merged f32/f64).
-                .i32_stack_top_begin_pos = 3uz,
-                .i32_stack_top_end_pos = 5uz,
-                .i64_stack_top_begin_pos = 3uz,
-                .i64_stack_top_end_pos = 5uz,
-                .f32_stack_top_begin_pos = 5uz,
-                .f32_stack_top_end_pos = 7uz,
-                .f64_stack_top_begin_pos = 5uz,
-                .f64_stack_top_end_pos = 7uz,
-                .v128_stack_top_begin_pos = SIZE_MAX,
-                .v128_stack_top_end_pos = SIZE_MAX,
+                // Use 2-slot integer stack-top window (merged i32/i64) and 2-slot float stack-top window (merged f32/f64).
+                .i32_stack_top_begin_pos = SIZE_MAX,
+                .i32_stack_top_end_pos = SIZE_MAX,
+                .i64_stack_top_begin_pos = SIZE_MAX,
+                .i64_stack_top_end_pos = SIZE_MAX,
+                .f32_stack_top_begin_pos = 0uz,
+                .f32_stack_top_end_pos = 2uz,
+                .f64_stack_top_begin_pos = 0uz,
+                .f64_stack_top_end_pos = 2uz,
+                .v128_stack_top_begin_pos = 0uz,
+                .v128_stack_top_end_pos = 2uz,
             };
             static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
 

@@ -37,7 +37,7 @@ namespace
             for(::std::size_t i{}; i != push_count; ++i)
             {
                 curr.i32_stack_top_curr_pos =
-                    optable::details::ring_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
+                    optable::details::stacktop_window_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
             }
         }
         return curr;

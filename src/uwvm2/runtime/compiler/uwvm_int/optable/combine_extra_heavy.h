@@ -62,7 +62,7 @@
 # include <uwvm2/parser/wasm/standard/wasm1/impl.h>
 # include <uwvm2/object/impl.h>
 # include "define.h"
-# include "register_ring.h"
+# include "stacktop_window.h"
 # include "memory.h"
 # include "numeric.h"
 # include "compare.h"
@@ -114,9 +114,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_i32 = conbine_details::wasm_i32;
         using wasm_f64 = conbine_details::wasm_f64;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -129,10 +129,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(break_ip), type...[0], sizeof(break_ip));
         type...[0] += sizeof(break_ip);
 
-        wasm_i32 const n{conbine_details::load_local<wasm_i32>(type...[2u], n_off)};
-        wasm_f64 const sqrt_n{conbine_details::load_local<wasm_f64>(type...[2u], sqrt_off)};
+        wasm_i32 const n{conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), n_off)};
+        wasm_f64 const sqrt_n{conbine_details::load_local<wasm_f64>(uwvmint_local_base(type...), sqrt_off)};
 
-        wasm_i32 i{conbine_details::load_local<wasm_i32>(type...[2u], i_off)};
+        wasm_i32 i{conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), i_off)};
         for(;;)
         {
             wasm_i32 const rem{numeric_details::eval_int_binop<numeric_details::int_binop::rem_u, wasm_i32, numeric_details::wasm_u32>(n, i)};
@@ -145,7 +145,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 type...[0] = break_ip;
 
                 // break;
-                conbine_details::store_local(type...[2u], i_off, i);
+                conbine_details::store_local(uwvmint_local_base(type...), i_off, i);
 
                 uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
                 ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -160,7 +160,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             break;
         }
 
-        conbine_details::store_local(type...[2u], i_off, i);
+        conbine_details::store_local(uwvmint_local_base(type...), i_off, i);
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -179,9 +179,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_i32 = conbine_details::wasm_i32;
         using wasm_f64 = conbine_details::wasm_f64;
 
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -199,10 +199,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(break_ip), typeref...[0], sizeof(break_ip));
         typeref...[0] += sizeof(break_ip);
 
-        wasm_i32 const n{conbine_details::load_local<wasm_i32>(typeref...[2u], n_off)};
-        wasm_f64 const sqrt_n{conbine_details::load_local<wasm_f64>(typeref...[2u], sqrt_off)};
+        wasm_i32 const n{conbine_details::load_local<wasm_i32>(uwvmint_local_base(typeref...), n_off)};
+        wasm_f64 const sqrt_n{conbine_details::load_local<wasm_f64>(uwvmint_local_base(typeref...), sqrt_off)};
 
-        wasm_i32 i{conbine_details::load_local<wasm_i32>(typeref...[2u], i_off)};
+        wasm_i32 i{conbine_details::load_local<wasm_i32>(uwvmint_local_base(typeref...), i_off)};
         for(;;)
         {
             wasm_i32 const rem{numeric_details::eval_int_binop<numeric_details::int_binop::rem_u, wasm_i32, numeric_details::wasm_u32>(n, i)};
@@ -220,7 +220,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             break;
         }
 
-        conbine_details::store_local(typeref...[2u], i_off, i);
+        conbine_details::store_local(uwvmint_local_base(typeref...), i_off, i);
     }
 
     namespace translate
@@ -266,10 +266,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         using wasm_f64 = conbine_details::wasm_f64;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -278,9 +278,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm_f64 const mul{conbine_details::read_imm<wasm_f64>(type...[0])};
         wasm_f64 const add{conbine_details::read_imm<wasm_f64>(type...[0])};
 
-        wasm_f64 const v{conbine_details::load_local<wasm_f64>(type...[2u], src_off)};
+        wasm_f64 const v{conbine_details::load_local<wasm_f64>(uwvmint_local_base(type...), src_off)};
         wasm_f64 const out{v * mul + add};
-        conbine_details::store_local(type...[2u], dst_off, out);
+        conbine_details::store_local(uwvmint_local_base(type...), dst_off, out);
 
         conbine_details::push_operand<CompileOption, wasm_f64, curr_f64_stack_top>(out, type...);
 
@@ -296,10 +296,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         using wasm_f64 = conbine_details::wasm_f64;
 
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
 
         typeref...[0] += sizeof(uwvm_interpreter_opfunc_byref_t<TypeRef...>);
 
@@ -308,9 +308,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm_f64 const mul{conbine_details::read_imm<wasm_f64>(typeref...[0])};
         wasm_f64 const add{conbine_details::read_imm<wasm_f64>(typeref...[0])};
 
-        wasm_f64 const v{conbine_details::load_local<wasm_f64>(typeref...[2u], src_off)};
+        wasm_f64 const v{conbine_details::load_local<wasm_f64>(uwvmint_local_base(typeref...), src_off)};
         wasm_f64 const out{v * mul + add};
-        conbine_details::store_local(typeref...[2u], dst_off, out);
+        conbine_details::store_local(uwvmint_local_base(typeref...), dst_off, out);
 
         conbine_details::push_operand_byref<CompileOption>(out, typeref...);
     }
@@ -387,9 +387,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_i32 = conbine_details::wasm_i32;
         using wasm_u32 = conbine_details::wasm_u32;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -397,9 +397,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const acc_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
         auto const s_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
 
-        wasm_u32 cnt{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(type...[2u], cnt_off))};
-        wasm_u32 acc{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(type...[2u], acc_off))};
-        wasm_u32 s{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(type...[2u], s_off))};
+        wasm_u32 cnt{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), cnt_off))};
+        wasm_u32 acc{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), acc_off))};
+        wasm_u32 s{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), s_off))};
 
         constexpr wasm_u32 a{1664525u};
         constexpr wasm_u32 b{1013904223u};
@@ -427,9 +427,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             if(cnt == 0u) { break; }
         }
 
-        conbine_details::store_local(type...[2u], cnt_off, ::std::bit_cast<wasm_i32>(cnt));
-        conbine_details::store_local(type...[2u], acc_off, ::std::bit_cast<wasm_i32>(acc));
-        conbine_details::store_local(type...[2u], s_off, ::std::bit_cast<wasm_i32>(s));
+        conbine_details::store_local(uwvmint_local_base(type...), cnt_off, ::std::bit_cast<wasm_i32>(cnt));
+        conbine_details::store_local(uwvmint_local_base(type...), acc_off, ::std::bit_cast<wasm_i32>(acc));
+        conbine_details::store_local(uwvmint_local_base(type...), s_off, ::std::bit_cast<wasm_i32>(s));
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -448,9 +448,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_i32 = conbine_details::wasm_i32;
         using wasm_u32 = conbine_details::wasm_u32;
 
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -463,9 +463,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const acc_off{conbine_details::read_imm<conbine_details::local_offset_t>(typeref...[0])};
         auto const s_off{conbine_details::read_imm<conbine_details::local_offset_t>(typeref...[0])};
 
-        wasm_u32 cnt{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(typeref...[2u], cnt_off))};
-        wasm_u32 acc{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(typeref...[2u], acc_off))};
-        wasm_u32 s{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(typeref...[2u], s_off))};
+        wasm_u32 cnt{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(typeref...), cnt_off))};
+        wasm_u32 acc{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(typeref...), acc_off))};
+        wasm_u32 s{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(typeref...), s_off))};
 
         constexpr wasm_u32 a{1664525u};
         constexpr wasm_u32 b{1013904223u};
@@ -493,9 +493,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             if(cnt == 0u) { break; }
         }
 
-        conbine_details::store_local(typeref...[2u], cnt_off, ::std::bit_cast<wasm_i32>(cnt));
-        conbine_details::store_local(typeref...[2u], acc_off, ::std::bit_cast<wasm_i32>(acc));
-        conbine_details::store_local(typeref...[2u], s_off, ::std::bit_cast<wasm_i32>(s));
+        conbine_details::store_local(uwvmint_local_base(typeref...), cnt_off, ::std::bit_cast<wasm_i32>(cnt));
+        conbine_details::store_local(uwvmint_local_base(typeref...), acc_off, ::std::bit_cast<wasm_i32>(acc));
+        conbine_details::store_local(uwvmint_local_base(typeref...), s_off, ::std::bit_cast<wasm_i32>(s));
     }
 
     namespace translate
@@ -546,9 +546,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_u32 = conbine_details::wasm_u32;
         using wasm_u64 = conbine_details::wasm_u64;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -556,8 +556,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const x_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
         wasm_i32 const end{conbine_details::read_imm<wasm_i32>(type...[0])};
 
-        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(type...[2u], i_off))};
-        wasm_u64 x_u{::std::bit_cast<wasm_u64>(conbine_details::load_local<wasm_i64>(type...[2u], x_off))};
+        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), i_off))};
+        wasm_u64 x_u{::std::bit_cast<wasm_u64>(conbine_details::load_local<wasm_i64>(uwvmint_local_base(type...), x_off))};
         wasm_u32 const end_u{::std::bit_cast<wasm_u32>(end)};
 
         constexpr wasm_u64 mul_k{6364136223846793005ull};
@@ -571,8 +571,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             i_u = static_cast<wasm_u32>(i_u + wasm_u32{1u});
         }
 
-        conbine_details::store_local(type...[2u], i_off, ::std::bit_cast<wasm_i32>(i_u));
-        conbine_details::store_local(type...[2u], x_off, ::std::bit_cast<wasm_i64>(x_u));
+        conbine_details::store_local(uwvmint_local_base(type...), i_off, ::std::bit_cast<wasm_i32>(i_u));
+        conbine_details::store_local(uwvmint_local_base(type...), x_off, ::std::bit_cast<wasm_i64>(x_u));
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -593,9 +593,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_u32 = conbine_details::wasm_u32;
         using wasm_u64 = conbine_details::wasm_u64;
 
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -608,8 +608,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const x_off{conbine_details::read_imm<conbine_details::local_offset_t>(typeref...[0])};
         wasm_i32 const end{conbine_details::read_imm<wasm_i32>(typeref...[0])};
 
-        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(typeref...[2u], i_off))};
-        wasm_u64 x_u{::std::bit_cast<wasm_u64>(conbine_details::load_local<wasm_i64>(typeref...[2u], x_off))};
+        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(typeref...), i_off))};
+        wasm_u64 x_u{::std::bit_cast<wasm_u64>(conbine_details::load_local<wasm_i64>(uwvmint_local_base(typeref...), x_off))};
         wasm_u32 const end_u{::std::bit_cast<wasm_u32>(end)};
 
         constexpr wasm_u64 mul_k{6364136223846793005ull};
@@ -623,8 +623,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             i_u = static_cast<wasm_u32>(i_u + wasm_u32{1u});
         }
 
-        conbine_details::store_local(typeref...[2u], i_off, ::std::bit_cast<wasm_i32>(i_u));
-        conbine_details::store_local(typeref...[2u], x_off, ::std::bit_cast<wasm_i64>(x_u));
+        conbine_details::store_local(uwvmint_local_base(typeref...), i_off, ::std::bit_cast<wasm_i32>(i_u));
+        conbine_details::store_local(uwvmint_local_base(typeref...), x_off, ::std::bit_cast<wasm_i64>(x_u));
     }
 
     /// @brief Runs the full `round_f64_dense` hot loop:
@@ -654,9 +654,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_f64 = conbine_details::wasm_f64;
         namespace num = numeric_details;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -665,9 +665,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const acc_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
         wasm_i32 const end{conbine_details::read_imm<wasm_i32>(type...[0])};
 
-        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(type...[2u], i_off))};
-        wasm_f64 x{conbine_details::load_local<wasm_f64>(type...[2u], x_off)};
-        wasm_f64 acc{conbine_details::load_local<wasm_f64>(type...[2u], acc_off)};
+        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), i_off))};
+        wasm_f64 x{conbine_details::load_local<wasm_f64>(uwvmint_local_base(type...), x_off)};
+        wasm_f64 acc{conbine_details::load_local<wasm_f64>(uwvmint_local_base(type...), acc_off)};
         wasm_u32 const end_u{::std::bit_cast<wasm_u32>(end)};
 
         constexpr wasm_f64 add_k{static_cast<wasm_f64>(0.000001)};
@@ -691,9 +691,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             i_u = static_cast<wasm_u32>(i_u + wasm_u32{1u});
         }
 
-        conbine_details::store_local(type...[2u], i_off, ::std::bit_cast<wasm_i32>(i_u));
-        conbine_details::store_local(type...[2u], x_off, x);
-        conbine_details::store_local(type...[2u], acc_off, acc);
+        conbine_details::store_local(uwvmint_local_base(type...), i_off, ::std::bit_cast<wasm_i32>(i_u));
+        conbine_details::store_local(uwvmint_local_base(type...), x_off, x);
+        conbine_details::store_local(uwvmint_local_base(type...), acc_off, acc);
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -721,9 +721,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_f64 = conbine_details::wasm_f64;
         namespace num = numeric_details;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -731,8 +731,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const x_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
         wasm_i32 const end{conbine_details::read_imm<wasm_i32>(type...[0])};
 
-        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(type...[2u], i_off))};
-        wasm_f64 x{conbine_details::load_local<wasm_f64>(type...[2u], x_off)};
+        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), i_off))};
+        wasm_f64 x{conbine_details::load_local<wasm_f64>(uwvmint_local_base(type...), x_off)};
         wasm_u32 const end_u{::std::bit_cast<wasm_u32>(end)};
 
         constexpr wasm_f64 add_k{static_cast<wasm_f64>(1.0)};
@@ -747,8 +747,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             i_u = static_cast<wasm_u32>(i_u + wasm_u32{1u});
         }
 
-        conbine_details::store_local(type...[2u], i_off, ::std::bit_cast<wasm_i32>(i_u));
-        conbine_details::store_local(type...[2u], x_off, x);
+        conbine_details::store_local(uwvmint_local_base(type...), i_off, ::std::bit_cast<wasm_i32>(i_u));
+        conbine_details::store_local(uwvmint_local_base(type...), x_off, x);
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -777,10 +777,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         using wasm_f64 = conbine_details::wasm_f64;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -792,15 +792,15 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm_f64 const mul{conbine_details::read_imm<wasm_f64>(type...[0])};
         wasm_f64 const add{conbine_details::read_imm<wasm_f64>(type...[0])};
 
-        wasm_f64 v{conbine_details::load_local<wasm_f64>(type...[2u], src_off)};
+        wasm_f64 v{conbine_details::load_local<wasm_f64>(uwvmint_local_base(type...), src_off)};
         v = v * mul + add;
-        conbine_details::store_local(type...[2u], dst1_off, v);
+        conbine_details::store_local(uwvmint_local_base(type...), dst1_off, v);
         v = v * mul + add;
-        conbine_details::store_local(type...[2u], dst2_off, v);
+        conbine_details::store_local(uwvmint_local_base(type...), dst2_off, v);
         v = v * mul + add;
-        conbine_details::store_local(type...[2u], dst3_off, v);
+        conbine_details::store_local(uwvmint_local_base(type...), dst3_off, v);
         v = v * mul + add;
-        conbine_details::store_local(type...[2u], dst4_off, v);
+        conbine_details::store_local(uwvmint_local_base(type...), dst4_off, v);
 
         conbine_details::push_operand<CompileOption, wasm_f64, curr_f64_stack_top>(v, type...);
 
@@ -816,10 +816,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         using wasm_f64 = conbine_details::wasm_f64;
 
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[1u]>, ::std::byte*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
 
         typeref...[0] += sizeof(uwvm_interpreter_opfunc_byref_t<TypeRef...>);
 
@@ -831,15 +831,15 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm_f64 const mul{conbine_details::read_imm<wasm_f64>(typeref...[0])};
         wasm_f64 const add{conbine_details::read_imm<wasm_f64>(typeref...[0])};
 
-        wasm_f64 v{conbine_details::load_local<wasm_f64>(typeref...[2u], src_off)};
+        wasm_f64 v{conbine_details::load_local<wasm_f64>(uwvmint_local_base(typeref...), src_off)};
         v = v * mul + add;
-        conbine_details::store_local(typeref...[2u], dst1_off, v);
+        conbine_details::store_local(uwvmint_local_base(typeref...), dst1_off, v);
         v = v * mul + add;
-        conbine_details::store_local(typeref...[2u], dst2_off, v);
+        conbine_details::store_local(uwvmint_local_base(typeref...), dst2_off, v);
         v = v * mul + add;
-        conbine_details::store_local(typeref...[2u], dst3_off, v);
+        conbine_details::store_local(uwvmint_local_base(typeref...), dst3_off, v);
         v = v * mul + add;
-        conbine_details::store_local(typeref...[2u], dst4_off, v);
+        conbine_details::store_local(uwvmint_local_base(typeref...), dst4_off, v);
 
         conbine_details::push_operand_byref<CompileOption>(v, typeref...);
     }
@@ -911,9 +911,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_u32 = conbine_details::wasm_u32;
         using native_memory_t = ::uwvm2::object::memory::linear::native_memory_t;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -924,7 +924,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm_i32 const end{conbine_details::read_imm<wasm_i32>(type...[0])};
         wasm_i32 const step{conbine_details::read_imm<wasm_i32>(type...[0])};
 
-        wasm_i32 const sp_addr{conbine_details::load_local<wasm_i32>(type...[2u], sp_off)};
+        wasm_i32 const sp_addr{conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), sp_off)};
         auto const eff_i{details::wasm32_effective_offset(sp_addr, off_i)};
         auto const eff_sum{details::wasm32_effective_offset(sp_addr, off_sum)};
 
@@ -968,9 +968,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_u32 = conbine_details::wasm_u32;
         using native_memory_t = ::uwvm2::object::memory::linear::native_memory_t;
 
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -986,7 +986,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm_i32 const end{conbine_details::read_imm<wasm_i32>(typeref...[0])};
         wasm_i32 const step{conbine_details::read_imm<wasm_i32>(typeref...[0])};
 
-        wasm_i32 const sp_addr{conbine_details::load_local<wasm_i32>(typeref...[2u], sp_off)};
+        wasm_i32 const sp_addr{conbine_details::load_local<wasm_i32>(uwvmint_local_base(typeref...), sp_off)};
         auto const eff_i{details::wasm32_effective_offset(sp_addr, off_i)};
         auto const eff_sum{details::wasm32_effective_offset(sp_addr, off_sum)};
 
@@ -1030,9 +1030,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_u32 = conbine_details::wasm_u32;
         using wasm_f32 = conbine_details::wasm_f32;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -1040,8 +1040,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const i_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
         wasm_i32 const end{conbine_details::read_imm<wasm_i32>(type...[0])};
 
-        wasm_f32 sum{conbine_details::load_local<wasm_f32>(type...[2u], sum_off)};
-        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(type...[2u], i_off))};
+        wasm_f32 sum{conbine_details::load_local<wasm_f32>(uwvmint_local_base(type...), sum_off)};
+        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), i_off))};
         wasm_u32 const end_u{::std::bit_cast<wasm_u32>(end)};
 
         while(i_u != end_u)
@@ -1060,8 +1060,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             i_u += wasm_u32{2u};
         }
 
-        conbine_details::store_local(type...[2u], sum_off, sum);
-        conbine_details::store_local(type...[2u], i_off, ::std::bit_cast<wasm_i32>(i_u));
+        conbine_details::store_local(uwvmint_local_base(type...), sum_off, sum);
+        conbine_details::store_local(uwvmint_local_base(type...), i_off, ::std::bit_cast<wasm_i32>(i_u));
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -1079,9 +1079,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_u32 = conbine_details::wasm_u32;
         using wasm_f32 = conbine_details::wasm_f32;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -1089,8 +1089,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const i_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
         wasm_i32 const end{conbine_details::read_imm<wasm_i32>(type...[0])};
 
-        wasm_f32 sum{conbine_details::load_local<wasm_f32>(type...[2u], sum_off)};
-        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(type...[2u], i_off))};
+        wasm_f32 sum{conbine_details::load_local<wasm_f32>(uwvmint_local_base(type...), sum_off)};
+        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), i_off))};
         wasm_u32 const end_u{::std::bit_cast<wasm_u32>(end)};
 
         while(i_u != end_u)
@@ -1111,8 +1111,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             i_u += wasm_u32{2u};
         }
 
-        conbine_details::store_local(type...[2u], sum_off, sum);
-        conbine_details::store_local(type...[2u], i_off, ::std::bit_cast<wasm_i32>(i_u));
+        conbine_details::store_local(uwvmint_local_base(type...), sum_off, sum);
+        conbine_details::store_local(uwvmint_local_base(type...), i_off, ::std::bit_cast<wasm_i32>(i_u));
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -1135,9 +1135,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_u32 = conbine_details::wasm_u32;
         using wasm_f32 = conbine_details::wasm_f32;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -1147,9 +1147,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const ip4_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
         wasm_i32 const end{conbine_details::read_imm<wasm_i32>(type...[0])};
 
-        wasm_f32 sum{conbine_details::load_local<wasm_f32>(type...[2u], sum_off)};
-        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(type...[2u], i_off))};
-        wasm_f32 prod{conbine_details::load_local<wasm_f32>(type...[2u], prod_off)};
+        wasm_f32 sum{conbine_details::load_local<wasm_f32>(uwvmint_local_base(type...), sum_off)};
+        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), i_off))};
+        wasm_f32 prod{conbine_details::load_local<wasm_f32>(uwvmint_local_base(type...), prod_off)};
         wasm_u32 const end_u{::std::bit_cast<wasm_u32>(end)};
 
         wasm_u32 ip4_u{};
@@ -1176,10 +1176,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             break;
         }
 
-        conbine_details::store_local(type...[2u], sum_off, sum);
-        conbine_details::store_local(type...[2u], prod_off, prod);
-        conbine_details::store_local(type...[2u], i_off, ::std::bit_cast<wasm_i32>(i_u));
-        conbine_details::store_local(type...[2u], ip4_off, ::std::bit_cast<wasm_i32>(ip4_u));
+        conbine_details::store_local(uwvmint_local_base(type...), sum_off, sum);
+        conbine_details::store_local(uwvmint_local_base(type...), prod_off, prod);
+        conbine_details::store_local(uwvmint_local_base(type...), i_off, ::std::bit_cast<wasm_i32>(i_u));
+        conbine_details::store_local(uwvmint_local_base(type...), ip4_off, ::std::bit_cast<wasm_i32>(ip4_u));
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -1202,9 +1202,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_u32 = conbine_details::wasm_u32;
         using wasm_f32 = conbine_details::wasm_f32;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -1214,8 +1214,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const i1_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
         wasm_i32 const end{conbine_details::read_imm<wasm_i32>(type...[0])};
 
-        wasm_f32 sum{conbine_details::load_local<wasm_f32>(type...[2u], sum_off)};
-        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(type...[2u], i_off))};
+        wasm_f32 sum{conbine_details::load_local<wasm_f32>(uwvmint_local_base(type...), sum_off)};
+        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), i_off))};
         wasm_u32 const end_u{::std::bit_cast<wasm_u32>(end)};
 
         // f32.const 0x1.2dfd6ap-17 (see `test10` WAT).
@@ -1252,10 +1252,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         // - sum_off holds the sum excluding the last odd term
         // - i_off holds the last odd `i` (end-1)
         // - i1_off holds `i+1` (end)
-        conbine_details::store_local(type...[2u], sum_out_off, sum_out);
-        conbine_details::store_local(type...[2u], sum_off, sum);
-        conbine_details::store_local(type...[2u], i_off, ::std::bit_cast<wasm_i32>(i_u));
-        conbine_details::store_local(type...[2u], i1_off, ::std::bit_cast<wasm_i32>(i1_u));
+        conbine_details::store_local(uwvmint_local_base(type...), sum_out_off, sum_out);
+        conbine_details::store_local(uwvmint_local_base(type...), sum_off, sum);
+        conbine_details::store_local(uwvmint_local_base(type...), i_off, ::std::bit_cast<wasm_i32>(i_u));
+        conbine_details::store_local(uwvmint_local_base(type...), i1_off, ::std::bit_cast<wasm_i32>(i1_u));
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -1277,9 +1277,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_f32 = conbine_details::wasm_f32;
         using native_memory_t = ::uwvm2::object::memory::linear::native_memory_t;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -1288,8 +1288,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         native_memory_t* memory_p{conbine_details::read_imm<native_memory_t*>(type...[0])};
         wasm_i32 const end{conbine_details::read_imm<wasm_i32>(type...[0])};
 
-        wasm_u32 ptr_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(type...[2u], ptr_off))};
-        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(type...[2u], i_off))};
+        wasm_u32 ptr_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), ptr_off))};
+        wasm_u32 i_u{::std::bit_cast<wasm_u32>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), i_off))};
         wasm_u32 const end_u{::std::bit_cast<wasm_u32>(end)};
 
         // f32.const 0x1.921fb6p-8 (2*pi/1024) in `test6`.
@@ -1326,8 +1326,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             }
         }
 
-        conbine_details::store_local(type...[2u], ptr_off, ::std::bit_cast<wasm_i32>(ptr_u));
-        conbine_details::store_local(type...[2u], i_off, ::std::bit_cast<wasm_i32>(i_u));
+        conbine_details::store_local(uwvmint_local_base(type...), ptr_off, ::std::bit_cast<wasm_i32>(ptr_u));
+        conbine_details::store_local(uwvmint_local_base(type...), i_off, ::std::bit_cast<wasm_i32>(i_u));
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -1345,9 +1345,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         using wasm_i32 = conbine_details::wasm_i32;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -1359,10 +1359,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(jmp_ip), type...[0], sizeof(jmp_ip));
         type...[0] += sizeof(jmp_ip);
 
-        wasm_i32 const p{conbine_details::load_local<wasm_i32>(type...[2u], p_off)};
-        wasm_i32 const pend{conbine_details::load_local<wasm_i32>(type...[2u], pend_off)};
+        wasm_i32 const p{conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), p_off)};
+        wasm_i32 const pend{conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), pend_off)};
         wasm_i32 const next_p{numeric_details::eval_int_binop<numeric_details::int_binop::add, wasm_i32, numeric_details::wasm_u32>(p, step)};
-        conbine_details::store_local(type...[2u], p_off, next_p);
+        conbine_details::store_local(uwvmint_local_base(type...), p_off, next_p);
         bool const take_branch{details::eval_int_cmp<details::int_cmp::ne, wasm_i32, conbine_details::wasm_u32>(next_p, pend)};
 
 #  if UWVM_HAS_CPP_ATTRIBUTE(clang::nomerge)
@@ -1393,9 +1393,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     {
         using wasm_i32 = conbine_details::wasm_i32;
 
-        static_assert(sizeof...(TypeRef) >= 3uz);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<TypeRef...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<TypeRef...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(TypeRef) >= uwvm_interpreter_fixed_arg_count);
         static_assert(CompileOption.i32_stack_top_begin_pos == SIZE_MAX && CompileOption.i32_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.i64_stack_top_begin_pos == SIZE_MAX && CompileOption.i64_stack_top_end_pos == SIZE_MAX);
         static_assert(CompileOption.f32_stack_top_begin_pos == SIZE_MAX && CompileOption.f32_stack_top_end_pos == SIZE_MAX);
@@ -1412,10 +1412,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ::std::memcpy(::std::addressof(jmp_ip), typeref...[0], sizeof(jmp_ip));
         typeref...[0] += sizeof(jmp_ip);
 
-        wasm_i32 const p{conbine_details::load_local<wasm_i32>(typeref...[2u], p_off)};
-        wasm_i32 const pend{conbine_details::load_local<wasm_i32>(typeref...[2u], pend_off)};
+        wasm_i32 const p{conbine_details::load_local<wasm_i32>(uwvmint_local_base(typeref...), p_off)};
+        wasm_i32 const pend{conbine_details::load_local<wasm_i32>(uwvmint_local_base(typeref...), pend_off)};
         wasm_i32 const next_p{numeric_details::eval_int_binop<numeric_details::int_binop::add, wasm_i32, numeric_details::wasm_u32>(p, step)};
-        conbine_details::store_local(typeref...[2u], p_off, next_p);
+        conbine_details::store_local(uwvmint_local_base(typeref...), p_off, next_p);
         if(details::eval_int_cmp<details::int_cmp::ne, wasm_i32, conbine_details::wasm_u32>(next_p, pend)) { typeref...[0] = jmp_ip; }
     }
 
@@ -1440,9 +1440,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         using wasm_i32 = conbine_details::wasm_i32;
         using native_memory_t = ::uwvm2::object::memory::linear::native_memory_t;
 
-        static_assert(sizeof...(Type) >= 3uz);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
         static_assert(::std::same_as<Type...[0u], ::std::byte const*>);
-        static_assert(::std::same_as<::std::remove_cvref_t<Type...[2u]>, ::std::byte*>);
+        static_assert(sizeof...(Type) >= uwvm_interpreter_fixed_arg_count);
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
@@ -1451,8 +1451,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         native_memory_t* const memory_p{conbine_details::read_imm<native_memory_t*>(type...[0])};
 
         // Load `out_ptr` and `counter` from locals.
-        ::std::uint32_t const out_ptr{static_cast<::std::uint32_t>(conbine_details::load_local<wasm_i32>(type...[2u], out_off))};
-        ::std::uint32_t const counter{static_cast<::std::uint32_t>(conbine_details::load_local<wasm_i32>(type...[2u], counter_off))};
+        ::std::uint32_t const out_ptr{static_cast<::std::uint32_t>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), out_off))};
+        ::std::uint32_t const counter{static_cast<::std::uint32_t>(conbine_details::load_local<wasm_i32>(uwvmint_local_base(type...), counter_off))};
 
         // This is a mechanical translation of the matched Wasm function body (hash-guarded in the translator).
         // Keep it in the same local numbering as the Wasm for easy auditing.

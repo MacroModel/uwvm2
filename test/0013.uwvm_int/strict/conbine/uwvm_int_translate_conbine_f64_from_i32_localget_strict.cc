@@ -50,15 +50,21 @@ namespace
         using Runner = interpreter_runner<Opt>;
 
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
-        constexpr auto curr{make_entry_stacktop_currpos<Opt>()};
-        constexpr auto tuple =
-            compiler::details::make_interpreter_tuple<Opt>(::std::make_index_sequence<compiler::details::interpreter_tuple_size<Opt>()>{});
+        constexpr bool f64_stacktop_enabled{Opt.f64_stack_top_begin_pos != SIZE_MAX && Opt.f64_stack_top_begin_pos != Opt.f64_stack_top_end_pos};
+        if constexpr(f64_stacktop_enabled)
+        {
+            constexpr auto curr{make_entry_stacktop_currpos<Opt>()};
+            constexpr auto tuple =
+                compiler::details::make_interpreter_tuple<Opt>(::std::make_index_sequence<compiler::details::interpreter_tuple_size<Opt>()>{});
 
-        constexpr auto exp_s = optable::translate::get_uwvmint_f64_from_i32_s_fptr_from_tuple<Opt>(curr, tuple);
-        constexpr auto exp_u = optable::translate::get_uwvmint_f64_from_i32_u_fptr_from_tuple<Opt>(curr, tuple);
+            constexpr auto exp_s = optable::translate::get_uwvmint_f64_from_i32_s_fptr_from_tuple<Opt>(curr, tuple);
+            constexpr auto exp_u = optable::translate::get_uwvmint_f64_from_i32_u_fptr_from_tuple<Opt>(curr, tuple);
 
-        UWVM2TEST_REQUIRE(bytecode_contains_fptr(cm.local_funcs.index_unchecked(0).op.operands, exp_s));
-        UWVM2TEST_REQUIRE(bytecode_contains_fptr(cm.local_funcs.index_unchecked(1).op.operands, exp_u));
+            UWVM2TEST_REQUIRE(exp_s != nullptr);
+            UWVM2TEST_REQUIRE(exp_u != nullptr);
+            UWVM2TEST_REQUIRE(bytecode_contains_fptr(cm.local_funcs.index_unchecked(0).op.operands, exp_s));
+            UWVM2TEST_REQUIRE(bytecode_contains_fptr(cm.local_funcs.index_unchecked(1).op.operands, exp_u));
+        }
 #endif
 
         auto run_s = [&](::std::int32_t v) noexcept -> double

@@ -50,7 +50,7 @@ emitting unresolved `__atomic_load` calls.
 Fixed trap cases also include `call_indirect` OOB, null-element, and signature
 mismatch paths.
 
-The low-level `uwvm-int-ring-matrix` runner only exercises single-function
+The low-level `uwvm-int-stacktop-matrix` runner only exercises single-function
 translator ABI shapes, so cases that require runtime call bridges are marked
 and skipped there while still running in lazy/full JIT and tiered modes. For
 skipped trap cases, the runner mirrors the expected trap result so WABT
@@ -58,7 +58,7 @@ differential comparison remains meaningful.
 
 Default compared modes:
 
-- `uwvm-int-ring-matrix`
+- `uwvm-int-stacktop-matrix`
 - `uwvm-int-lazy`
 - `uwvm-int-full`
 - `llvm-jit-lazy`
@@ -109,7 +109,7 @@ Run the LLVM libFuzzer target:
 ```bash
 CXX="$(command -v clang++)" \
 SYSROOT="$(xcrun --sdk macosx --show-sdk-path)" \
-UWVM_BACKEND_LIBFUZZER_MODES="uwvm-int-ring-matrix llvm-jit-lazy tiered" \
+UWVM_BACKEND_LIBFUZZER_MODES="uwvm-int-stacktop-matrix llvm-jit-lazy tiered" \
 test/0015.backend_fuzzer/run_backend_libfuzzer.sh \
   --memory-model single-thread-alloc \
   --no-use-thread-local \

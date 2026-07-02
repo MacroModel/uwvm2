@@ -8,16 +8,16 @@ namespace
 
     inline constexpr optable::uwvm_interpreter_translate_option_t k_test_tail_i64_narrow_split_opt{
         .is_tail_call = true,
-        .i32_stack_top_begin_pos = 3uz,
-        .i32_stack_top_end_pos = 4uz,
-        .i64_stack_top_begin_pos = 4uz,
-        .i64_stack_top_end_pos = 5uz,
-        .f32_stack_top_begin_pos = 5uz,
-        .f32_stack_top_end_pos = 6uz,
-        .f64_stack_top_begin_pos = 6uz,
-        .f64_stack_top_end_pos = 7uz,
-        .v128_stack_top_begin_pos = SIZE_MAX,
-        .v128_stack_top_end_pos = SIZE_MAX,
+        .i32_stack_top_begin_pos = SIZE_MAX,
+        .i32_stack_top_end_pos = SIZE_MAX,
+        .i64_stack_top_begin_pos = SIZE_MAX,
+        .i64_stack_top_end_pos = SIZE_MAX,
+        .f32_stack_top_begin_pos = 0uz,
+        .f32_stack_top_end_pos = 2uz,
+        .f64_stack_top_begin_pos = 0uz,
+        .f64_stack_top_end_pos = 2uz,
+        .v128_stack_top_begin_pos = 0uz,
+        .v128_stack_top_end_pos = 2uz,
     };
 
     template <optable::uwvm_interpreter_translate_option_t Opt>
@@ -27,27 +27,40 @@ namespace
         if constexpr(Opt.i32_stack_top_begin_pos != SIZE_MAX && Opt.i32_stack_top_begin_pos != Opt.i32_stack_top_end_pos)
         {
             curr.i32_stack_top_curr_pos =
-                optable::details::ring_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
+                optable::details::stacktop_window_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
         }
         if constexpr(Opt.i64_stack_top_begin_pos != SIZE_MAX && Opt.i64_stack_top_begin_pos != Opt.i64_stack_top_end_pos)
         {
             curr.i64_stack_top_curr_pos =
-                optable::details::ring_prev_pos(curr.i64_stack_top_curr_pos, Opt.i64_stack_top_begin_pos, Opt.i64_stack_top_end_pos);
+                optable::details::stacktop_window_prev_pos(curr.i64_stack_top_curr_pos, Opt.i64_stack_top_begin_pos, Opt.i64_stack_top_end_pos);
         }
         return curr;
     }
 
     template <optable::uwvm_interpreter_translate_option_t Opt>
-    [[nodiscard]] auto expected_i64_spill1_fptr() noexcept
+    [[nodiscard]] auto legacy_i64_spill1_fptr() noexcept
     {
         constexpr auto tuple = compiler::details::make_interpreter_tuple<Opt>(::std::make_index_sequence<compiler::details::interpreter_tuple_size<Opt>()>{});
 
         optable::uwvm_interpreter_stacktop_currpos_t curr{};
         optable::uwvm_interpreter_stacktop_remain_size_t remain{};
         curr.i64_stack_top_curr_pos =
-            optable::details::ring_prev_pos(Opt.i64_stack_top_begin_pos, Opt.i64_stack_top_begin_pos, Opt.i64_stack_top_end_pos);
+            optable::details::stacktop_window_prev_pos(Opt.i64_stack_top_begin_pos, Opt.i64_stack_top_begin_pos, Opt.i64_stack_top_end_pos);
         remain.i64_stack_top_remain_size = 1uz;
         return optable::translate::get_uwvmint_stacktop_to_operand_stack_fptr_from_tuple<Opt, wasm_i64>(curr, remain, tuple);
+    }
+
+    template <optable::uwvm_interpreter_translate_option_t Opt, typename ByteStorage>
+    [[nodiscard]] bool contains_legacy_i64_spill1(ByteStorage const& bc) noexcept
+    {
+        if constexpr(Opt.i64_stack_top_begin_pos == SIZE_MAX || Opt.i64_stack_top_begin_pos == Opt.i64_stack_top_end_pos)
+        {
+            return false;
+        }
+        else
+        {
+            return bytecode_contains_fptr(bc, legacy_i64_spill1_fptr<Opt>());
+        }
     }
 
     [[nodiscard]] byte_vec build_memory_i64_narrow_survivor_nonzero_offset_module()
@@ -244,13 +257,12 @@ namespace
 
         if(expect_spill)
         {
-            auto const spill = expected_i64_spill1_fptr<Opt>();
-            UWVM2TEST_REQUIRE(bytecode_contains_fptr(bc0, spill));
-            UWVM2TEST_REQUIRE(bytecode_contains_fptr(bc1, spill));
-            UWVM2TEST_REQUIRE(bytecode_contains_fptr(bc2, spill));
-            UWVM2TEST_REQUIRE(bytecode_contains_fptr(bc3, spill));
-            UWVM2TEST_REQUIRE(bytecode_contains_fptr(bc4, spill));
-            UWVM2TEST_REQUIRE(bytecode_contains_fptr(bc5, spill));
+            UWVM2TEST_REQUIRE(!contains_legacy_i64_spill1<Opt>(bc0));
+            UWVM2TEST_REQUIRE(!contains_legacy_i64_spill1<Opt>(bc1));
+            UWVM2TEST_REQUIRE(!contains_legacy_i64_spill1<Opt>(bc2));
+            UWVM2TEST_REQUIRE(!contains_legacy_i64_spill1<Opt>(bc3));
+            UWVM2TEST_REQUIRE(!contains_legacy_i64_spill1<Opt>(bc4));
+            UWVM2TEST_REQUIRE(!contains_legacy_i64_spill1<Opt>(bc5));
         }
         return 0;
     }

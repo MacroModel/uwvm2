@@ -53,6 +53,7 @@ case wasm1_code::block:
     // ^^ code_curr
 
     auto const op_begin{code_curr};
+    local_spot_flush_dirty_all_and_invalidate_to(bytecode);
 
     // block  blocktype ...
     // [safe] unsafe (could be the section_end)
@@ -122,6 +123,7 @@ case wasm1_code::loop:
     // ^^ code_curr
 
     auto const op_begin{code_curr};
+    local_spot_flush_dirty_all_and_invalidate_to(bytecode);
 
     // loop   blocktype ...
     // [safe] unsafe (could be the section_end)
@@ -168,9 +170,10 @@ case wasm1_code::loop:
                          stacktop_memory_count = codegen_operand_stack.size();
                          stacktop_cache_count = 0uz;
                          stacktop_cache_i32_count = 0uz;
-                         stacktop_cache_i64_count = 0uz;
-                         stacktop_cache_f32_count = 0uz;
-                         stacktop_cache_f64_count = 0uz;
+	                         stacktop_cache_i64_count = 0uz;
+	                         stacktop_cache_f32_count = 0uz;
+	                         stacktop_cache_f64_count = 0uz;
+	                         stacktop_cache_v128_count = 0uz;
                      }
                  }
              }
@@ -242,6 +245,20 @@ case wasm1_code::loop:
          }()};
 
     enter_control_frame(op_begin, u8"loop", block_type::loop, signature, loop_start_label_id, new_label(false), SIZE_MAX, code_curr);
+    if constexpr(stacktop_enabled)
+    {
+        auto& loop_frame{control_flow_stack.back_unchecked()};
+        loop_frame.stacktop_has_loop_entry_state = true;
+        loop_frame.stacktop_currpos_at_loop_entry = curr_stacktop;
+        loop_frame.stacktop_memory_count_at_loop_entry = stacktop_memory_count;
+        loop_frame.stacktop_cache_count_at_loop_entry = stacktop_cache_count;
+        loop_frame.stacktop_cache_i32_count_at_loop_entry = stacktop_cache_i32_count;
+        loop_frame.stacktop_cache_i64_count_at_loop_entry = stacktop_cache_i64_count;
+        loop_frame.stacktop_cache_f32_count_at_loop_entry = stacktop_cache_f32_count;
+        loop_frame.stacktop_cache_f64_count_at_loop_entry = stacktop_cache_f64_count;
+        loop_frame.stacktop_cache_v128_count_at_loop_entry = stacktop_cache_v128_count;
+        loop_frame.codegen_operand_stack_at_loop_entry = codegen_operand_stack;
+    }
 
     break;
 }
@@ -254,6 +271,7 @@ case wasm1_code::if_:
     // ^^ code_curr
 
     auto const op_begin{code_curr};
+    local_spot_flush_dirty_all_and_invalidate_to(bytecode);
 
     // if     blocktype ...
     // [safe] unsafe (could be the section_end)
@@ -330,9 +348,10 @@ case wasm1_code::if_:
             auto const post_pop_memory_count{stacktop_memory_count};
             auto const post_pop_cache_count{stacktop_cache_count};
             auto const post_pop_cache_i32_count{stacktop_cache_i32_count};
-            auto const post_pop_cache_i64_count{stacktop_cache_i64_count};
-            auto const post_pop_cache_f32_count{stacktop_cache_f32_count};
-            auto const post_pop_cache_f64_count{stacktop_cache_f64_count};
+	            auto const post_pop_cache_i64_count{stacktop_cache_i64_count};
+	            auto const post_pop_cache_f32_count{stacktop_cache_f32_count};
+	            auto const post_pop_cache_f64_count{stacktop_cache_f64_count};
+	            auto const post_pop_cache_v128_count{stacktop_cache_v128_count};
             auto const post_pop_codegen_operand_stack{codegen_operand_stack};
 
             // Emit else thunk now (types are still the pre-then stack state).
@@ -341,18 +360,20 @@ case wasm1_code::if_:
                 auto const saved_memory_count{stacktop_memory_count};
                 auto const saved_cache_count{stacktop_cache_count};
                 auto const saved_cache_i32_count{stacktop_cache_i32_count};
-                auto const saved_cache_i64_count{stacktop_cache_i64_count};
-                auto const saved_cache_f32_count{stacktop_cache_f32_count};
-                auto const saved_cache_f64_count{stacktop_cache_f64_count};
+	                auto const saved_cache_i64_count{stacktop_cache_i64_count};
+	                auto const saved_cache_f32_count{stacktop_cache_f32_count};
+	                auto const saved_cache_f64_count{stacktop_cache_f64_count};
+	                auto const saved_cache_v128_count{stacktop_cache_v128_count};
                 auto const saved_codegen_operand_stack{codegen_operand_stack};
 
                 curr_stacktop = post_pop_curr_stacktop;
                 stacktop_memory_count = post_pop_memory_count;
                 stacktop_cache_count = post_pop_cache_count;
                 stacktop_cache_i32_count = post_pop_cache_i32_count;
-                stacktop_cache_i64_count = post_pop_cache_i64_count;
-                stacktop_cache_f32_count = post_pop_cache_f32_count;
-                stacktop_cache_f64_count = post_pop_cache_f64_count;
+	                stacktop_cache_i64_count = post_pop_cache_i64_count;
+	                stacktop_cache_f32_count = post_pop_cache_f32_count;
+	                stacktop_cache_f64_count = post_pop_cache_f64_count;
+	                stacktop_cache_v128_count = post_pop_cache_v128_count;
                 codegen_operand_stack = post_pop_codegen_operand_stack;
 
                 set_label_offset(else_thunk_label_id, thunks.size());
@@ -367,9 +388,10 @@ case wasm1_code::if_:
                 stacktop_memory_count = saved_memory_count;
                 stacktop_cache_count = saved_cache_count;
                 stacktop_cache_i32_count = saved_cache_i32_count;
-                stacktop_cache_i64_count = saved_cache_i64_count;
-                stacktop_cache_f32_count = saved_cache_f32_count;
-                stacktop_cache_f64_count = saved_cache_f64_count;
+	                stacktop_cache_i64_count = saved_cache_i64_count;
+	                stacktop_cache_f32_count = saved_cache_f32_count;
+	                stacktop_cache_f64_count = saved_cache_f64_count;
+	                stacktop_cache_v128_count = saved_cache_v128_count;
                 codegen_operand_stack = saved_codegen_operand_stack;
             }
 
@@ -378,9 +400,10 @@ case wasm1_code::if_:
             stacktop_memory_count = post_pop_memory_count;
             stacktop_cache_count = post_pop_cache_count;
             stacktop_cache_i32_count = post_pop_cache_i32_count;
-            stacktop_cache_i64_count = post_pop_cache_i64_count;
-            stacktop_cache_f32_count = post_pop_cache_f32_count;
-            stacktop_cache_f64_count = post_pop_cache_f64_count;
+	            stacktop_cache_i64_count = post_pop_cache_i64_count;
+	            stacktop_cache_f32_count = post_pop_cache_f32_count;
+	            stacktop_cache_f64_count = post_pop_cache_f64_count;
+	            stacktop_cache_v128_count = post_pop_cache_v128_count;
             codegen_operand_stack = post_pop_codegen_operand_stack;
             stacktop_fill_to_canonical(bytecode);
         }
@@ -392,25 +415,27 @@ case wasm1_code::if_:
     auto else_entry_memory_count{stacktop_memory_count};
     auto else_entry_cache_count{stacktop_cache_count};
     auto else_entry_cache_i32_count{stacktop_cache_i32_count};
-    auto else_entry_cache_i64_count{stacktop_cache_i64_count};
-    auto else_entry_cache_f32_count{stacktop_cache_f32_count};
-    auto else_entry_cache_f64_count{stacktop_cache_f64_count};
+	    auto else_entry_cache_i64_count{stacktop_cache_i64_count};
+	    auto else_entry_cache_f32_count{stacktop_cache_f32_count};
+	    auto else_entry_cache_f64_count{stacktop_cache_f64_count};
+	    auto else_entry_cache_v128_count{stacktop_cache_v128_count};
     auto else_entry_codegen_operand_stack{codegen_operand_stack};
     if constexpr(stacktop_enabled)
     {
         if constexpr(strict_cf_entry_like_call)
         {
-            else_entry_curr_stacktop.i32_stack_top_curr_pos = stacktop_i32_enabled ? CompileOption.i32_stack_top_begin_pos : SIZE_MAX;
-            else_entry_curr_stacktop.i64_stack_top_curr_pos = stacktop_i64_enabled ? CompileOption.i64_stack_top_begin_pos : SIZE_MAX;
+            else_entry_curr_stacktop.i32_stack_top_curr_pos = stacktop_i32_enabled ? stacktop_i32_begin_pos : SIZE_MAX;
+            else_entry_curr_stacktop.i64_stack_top_curr_pos = stacktop_i64_enabled ? stacktop_i64_begin_pos : SIZE_MAX;
             else_entry_curr_stacktop.f32_stack_top_curr_pos = stacktop_f32_enabled ? CompileOption.f32_stack_top_begin_pos : SIZE_MAX;
             else_entry_curr_stacktop.f64_stack_top_curr_pos = stacktop_f64_enabled ? CompileOption.f64_stack_top_begin_pos : SIZE_MAX;
             else_entry_curr_stacktop.v128_stack_top_curr_pos = stacktop_v128_enabled ? CompileOption.v128_stack_top_begin_pos : SIZE_MAX;
             else_entry_memory_count = else_entry_codegen_operand_stack.size();
             else_entry_cache_count = 0uz;
             else_entry_cache_i32_count = 0uz;
-            else_entry_cache_i64_count = 0uz;
-            else_entry_cache_f32_count = 0uz;
-            else_entry_cache_f64_count = 0uz;
+	            else_entry_cache_i64_count = 0uz;
+	            else_entry_cache_f32_count = 0uz;
+	            else_entry_cache_f64_count = 0uz;
+	            else_entry_cache_v128_count = 0uz;
         }
     }
 
@@ -420,9 +445,10 @@ case wasm1_code::if_:
     if_frame_for_else_entry.stacktop_memory_count_at_else_entry = else_entry_memory_count;
     if_frame_for_else_entry.stacktop_cache_count_at_else_entry = else_entry_cache_count;
     if_frame_for_else_entry.stacktop_cache_i32_count_at_else_entry = else_entry_cache_i32_count;
-    if_frame_for_else_entry.stacktop_cache_i64_count_at_else_entry = else_entry_cache_i64_count;
-    if_frame_for_else_entry.stacktop_cache_f32_count_at_else_entry = else_entry_cache_f32_count;
-    if_frame_for_else_entry.stacktop_cache_f64_count_at_else_entry = else_entry_cache_f64_count;
+	    if_frame_for_else_entry.stacktop_cache_i64_count_at_else_entry = else_entry_cache_i64_count;
+	    if_frame_for_else_entry.stacktop_cache_f32_count_at_else_entry = else_entry_cache_f32_count;
+	    if_frame_for_else_entry.stacktop_cache_f64_count_at_else_entry = else_entry_cache_f64_count;
+	    if_frame_for_else_entry.stacktop_cache_v128_count_at_else_entry = else_entry_cache_v128_count;
     if_frame_for_else_entry.codegen_operand_stack_at_else_entry = else_entry_codegen_operand_stack;
 
     // As in the spec's push_ctrl algorithm, the then-frame starts reachable even when the
@@ -439,6 +465,7 @@ case wasm1_code::else_:
     // ^^ code_curr
 
     auto const op_begin{code_curr};
+    local_spot_flush_dirty_all_and_invalidate_to(bytecode);
 
     // else   ...
     // [safe] unsafe (could be the section_end)
@@ -525,9 +552,10 @@ case wasm1_code::else_:
                 if_frame.stacktop_memory_count_at_then_end = stacktop_memory_count;
                 if_frame.stacktop_cache_count_at_then_end = stacktop_cache_count;
                 if_frame.stacktop_cache_i32_count_at_then_end = stacktop_cache_i32_count;
-                if_frame.stacktop_cache_i64_count_at_then_end = stacktop_cache_i64_count;
-                if_frame.stacktop_cache_f32_count_at_then_end = stacktop_cache_f32_count;
-                if_frame.stacktop_cache_f64_count_at_then_end = stacktop_cache_f64_count;
+	                if_frame.stacktop_cache_i64_count_at_then_end = stacktop_cache_i64_count;
+	                if_frame.stacktop_cache_f32_count_at_then_end = stacktop_cache_f32_count;
+	                if_frame.stacktop_cache_f64_count_at_then_end = stacktop_cache_f64_count;
+	                if_frame.stacktop_cache_v128_count_at_then_end = stacktop_cache_v128_count;
                 if_frame.codegen_operand_stack_at_then_end = codegen_operand_stack;
             }
         }
@@ -560,9 +588,10 @@ case wasm1_code::else_:
             stacktop_memory_count = if_frame.stacktop_memory_count_at_else_entry;
             stacktop_cache_count = if_frame.stacktop_cache_count_at_else_entry;
             stacktop_cache_i32_count = if_frame.stacktop_cache_i32_count_at_else_entry;
-            stacktop_cache_i64_count = if_frame.stacktop_cache_i64_count_at_else_entry;
-            stacktop_cache_f32_count = if_frame.stacktop_cache_f32_count_at_else_entry;
-            stacktop_cache_f64_count = if_frame.stacktop_cache_f64_count_at_else_entry;
+	            stacktop_cache_i64_count = if_frame.stacktop_cache_i64_count_at_else_entry;
+	            stacktop_cache_f32_count = if_frame.stacktop_cache_f32_count_at_else_entry;
+	            stacktop_cache_f64_count = if_frame.stacktop_cache_f64_count_at_else_entry;
+	            stacktop_cache_v128_count = if_frame.stacktop_cache_v128_count_at_else_entry;
             sync_type_stacks_from_codegen_snapshot(if_frame.codegen_operand_stack_at_else_entry);
         }
     }
@@ -579,6 +608,7 @@ case wasm1_code::end:
     // ^^ code_curr
 
     auto const op_begin{code_curr};
+    local_spot_flush_dirty_all_and_invalidate_to(bytecode);
 
     // end    ...
     // [safe] unsafe (could be the section_end)
@@ -716,9 +746,10 @@ case wasm1_code::end:
                 stacktop_memory_count = codegen_operand_stack.size();
                 stacktop_cache_count = 0uz;
                 stacktop_cache_i32_count = 0uz;
-                stacktop_cache_i64_count = 0uz;
-                stacktop_cache_f32_count = 0uz;
-                stacktop_cache_f64_count = 0uz;
+	                stacktop_cache_i64_count = 0uz;
+	                stacktop_cache_f32_count = 0uz;
+	                stacktop_cache_f64_count = 0uz;
+	                stacktop_cache_v128_count = 0uz;
             }
         }
     }
@@ -758,9 +789,10 @@ case wasm1_code::end:
             stacktop_memory_count = codegen_operand_stack.size();
             stacktop_cache_count = 0uz;
             stacktop_cache_i32_count = 0uz;
-            stacktop_cache_i64_count = 0uz;
-            stacktop_cache_f32_count = 0uz;
-            stacktop_cache_f64_count = 0uz;
+	            stacktop_cache_i64_count = 0uz;
+	            stacktop_cache_f32_count = 0uz;
+	            stacktop_cache_f64_count = 0uz;
+	            stacktop_cache_v128_count = 0uz;
         }
         else
         {
@@ -776,9 +808,10 @@ case wasm1_code::end:
                     stacktop_memory_count = frame.stacktop_memory_count_at_else_entry;
                     stacktop_cache_count = frame.stacktop_cache_count_at_else_entry;
                     stacktop_cache_i32_count = frame.stacktop_cache_i32_count_at_else_entry;
-                    stacktop_cache_i64_count = frame.stacktop_cache_i64_count_at_else_entry;
-                    stacktop_cache_f32_count = frame.stacktop_cache_f32_count_at_else_entry;
-                    stacktop_cache_f64_count = frame.stacktop_cache_f64_count_at_else_entry;
+	                    stacktop_cache_i64_count = frame.stacktop_cache_i64_count_at_else_entry;
+	                    stacktop_cache_f32_count = frame.stacktop_cache_f32_count_at_else_entry;
+	                    stacktop_cache_f64_count = frame.stacktop_cache_f64_count_at_else_entry;
+	                    stacktop_cache_v128_count = frame.stacktop_cache_v128_count_at_else_entry;
                     sync_type_stacks_from_codegen_snapshot(frame.codegen_operand_stack_at_else_entry);
                 }
                 else if(frame.type == block_type::else_ && !frame.then_polymorphic_end && frame.stacktop_has_then_end_state)
@@ -788,9 +821,10 @@ case wasm1_code::end:
                     stacktop_memory_count = frame.stacktop_memory_count_at_then_end;
                     stacktop_cache_count = frame.stacktop_cache_count_at_then_end;
                     stacktop_cache_i32_count = frame.stacktop_cache_i32_count_at_then_end;
-                    stacktop_cache_i64_count = frame.stacktop_cache_i64_count_at_then_end;
-                    stacktop_cache_f32_count = frame.stacktop_cache_f32_count_at_then_end;
-                    stacktop_cache_f64_count = frame.stacktop_cache_f64_count_at_then_end;
+	                    stacktop_cache_i64_count = frame.stacktop_cache_i64_count_at_then_end;
+	                    stacktop_cache_f32_count = frame.stacktop_cache_f32_count_at_then_end;
+	                    stacktop_cache_f64_count = frame.stacktop_cache_f64_count_at_then_end;
+	                    stacktop_cache_v128_count = frame.stacktop_cache_v128_count_at_then_end;
                     sync_type_stacks_from_codegen_snapshot(frame.codegen_operand_stack_at_then_end);
                 }
                 else if(frame.stacktop_has_end_state)
@@ -801,9 +835,10 @@ case wasm1_code::end:
                     stacktop_memory_count = frame.stacktop_memory_count_at_end;
                     stacktop_cache_count = frame.stacktop_cache_count_at_end;
                     stacktop_cache_i32_count = frame.stacktop_cache_i32_count_at_end;
-                    stacktop_cache_i64_count = frame.stacktop_cache_i64_count_at_end;
-                    stacktop_cache_f32_count = frame.stacktop_cache_f32_count_at_end;
-                    stacktop_cache_f64_count = frame.stacktop_cache_f64_count_at_end;
+	                    stacktop_cache_i64_count = frame.stacktop_cache_i64_count_at_end;
+	                    stacktop_cache_f32_count = frame.stacktop_cache_f32_count_at_end;
+	                    stacktop_cache_f64_count = frame.stacktop_cache_f64_count_at_end;
+	                    stacktop_cache_v128_count = frame.stacktop_cache_v128_count_at_end;
                     sync_type_stacks_from_codegen_snapshot(frame.codegen_operand_stack_at_end);
                 }
             }
@@ -973,10 +1008,10 @@ case wasm1_code::end:
                                  runtime_log_stats.instr_reorder_const_binop_local_set_count,
                                  u8",const_tee=",
                                  runtime_log_stats.instr_reorder_const_binop_local_tee_count,
-                                 u8",ring_reject=",
-                                 runtime_log_stats.instr_reorder_ring_slot_reject_count,
-                                 u8",ring_used=",
-                                 runtime_log_stats.instr_reorder_ring_slot_used_count,
+                                 u8",stacktop_reject=",
+                                 runtime_log_stats.instr_reorder_stacktop_slot_reject_count,
+                                 u8",stacktop_used=",
+                                 runtime_log_stats.instr_reorder_stacktop_slot_used_count,
                                  u8",expr_steps=",
                                  runtime_log_stats.instr_reorder_expr_step_count,
                                  u8",local_reads=",

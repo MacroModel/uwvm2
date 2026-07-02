@@ -64,11 +64,11 @@ namespace
 # define UWVM_BACKEND_FUZZER_INTERPRETER_CALLBACK_ABI
 #endif
 
-    using value_type_t = ::uwvm2::parser::wasm::standard::wasm1::type::value_type;
+    using value_type_t = storage::wasm_binfmt1_final_value_type_t;
     using wasm_byte_t = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte;
     using wasm_i32_t = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32;
-    using wasm1_t = ::uwvm2::parser::wasm::standard::wasm1::features::wasm1;
-    using feature_list_t = wasm_type::feature_list<wasm1_t>;
+    using feature_list_t = decltype(wasm_type::get_feature_list_from_tuple_impl(::uwvm2::uwvm::wasm::feature::wasm_binfmt1_features));
+    using local_import_module_t = decltype(wasm_type::get_local_imported_module_from_feature_list(::uwvm2::uwvm::wasm::feature::wasm_binfmt1_features));
     using module_t = storage::wasm_module_storage_t;
     using function_type_t = storage::wasm_binfmt1_final_function_type_t;
     using import_type_t = storage::wasm_binfmt1_final_import_type_t;
@@ -173,7 +173,7 @@ namespace
         ::std::vector<::std::vector<wasm_byte_t>> code_bytes{};
         ::std::vector<memory_type_t> memories{};
         ::std::vector<table_type_t> tables{};
-        wasm_type::local_imported_module<wasm1_t> local_import_module{backend_fuzzer_local_import_module{}};
+        local_import_module_t local_import_module{backend_fuzzer_local_import_module{}};
 
         void build(::std::size_t case_index, module_t& module)
         {
@@ -394,6 +394,7 @@ namespace
             rtmode::global_runtime_compiler = rtmode::runtime_compiler_t::uwvm_interpreter_only;
             return;
         }
+#if UWVM_BACKEND_FUZZER_HAS_LLVM_JIT
         if(mode == "llvm-jit-full")
         {
             rtmode::global_runtime_mode = rtmode::runtime_mode_t::full_compile;
@@ -406,6 +407,10 @@ namespace
             rtmode::global_runtime_compiler = rtmode::runtime_compiler_t::llvm_jit_only;
             return;
         }
+#else
+        if(mode == "llvm-jit-full" || mode == "llvm-jit-lazy") { die("LLVM JIT runtime is unavailable"); }
+#endif
+#if UWVM_BACKEND_FUZZER_HAS_TIERED
         if(mode == "tiered")
         {
             rtmode::global_runtime_mode = rtmode::runtime_mode_t::lazy_compile;
@@ -416,20 +421,19 @@ namespace
         {
             rtmode::global_runtime_mode = rtmode::runtime_mode_t::lazy_compile;
             rtmode::global_runtime_compiler = rtmode::runtime_compiler_t::uwvm_interpreter_llvm_jit_tiered;
-#if UWVM_BACKEND_FUZZER_HAS_TIERED
             rtmode::runtime_tiered_disable_uwvm_int_lazy_interpreter = true;
-#endif
             return;
         }
         if(mode == "tiered-no-t2")
         {
             rtmode::global_runtime_mode = rtmode::runtime_mode_t::lazy_compile;
             rtmode::global_runtime_compiler = rtmode::runtime_compiler_t::uwvm_interpreter_llvm_jit_tiered;
-#if UWVM_BACKEND_FUZZER_HAS_TIERED
             rtmode::runtime_tiered_disable_llvm_full_jit = true;
-#endif
             return;
         }
+#else
+        if(mode == "tiered" || mode == "tiered-no-t0" || mode == "tiered-no-t2") { die("tiered runtime is unavailable"); }
+#endif
 
         die("unknown runtime mode");
     }
@@ -469,20 +473,20 @@ namespace
     [[nodiscard]] consteval int_optable::uwvm_interpreter_translate_option_t make_tailcall_scalar4_merged_opt() noexcept
     {
         static_assert(ScalarSlots > 0uz);
-        constexpr ::std::size_t begin{3uz};
-        constexpr ::std::size_t end{begin + ScalarSlots};
+        constexpr ::std::size_t int_slots{ScalarSlots < 3uz ? ScalarSlots : 3uz};
+        constexpr ::std::size_t fv_slots{ScalarSlots};
         return int_optable::uwvm_interpreter_translate_option_t{
             .is_tail_call = true,
-            .i32_stack_top_begin_pos = begin,
-            .i32_stack_top_end_pos = end,
-            .i64_stack_top_begin_pos = begin,
-            .i64_stack_top_end_pos = end,
-            .f32_stack_top_begin_pos = begin,
-            .f32_stack_top_end_pos = end,
-            .f64_stack_top_begin_pos = begin,
-            .f64_stack_top_end_pos = end,
-            .v128_stack_top_begin_pos = SIZE_MAX,
-            .v128_stack_top_end_pos = SIZE_MAX,
+            .i32_stack_spot_begin_pos = 0uz,
+            .i32_stack_spot_end_pos = int_slots,
+            .i64_stack_spot_begin_pos = 0uz,
+            .i64_stack_spot_end_pos = int_slots,
+            .f32_stack_top_begin_pos = 0uz,
+            .f32_stack_top_end_pos = fv_slots,
+            .f64_stack_top_begin_pos = 0uz,
+            .f64_stack_top_end_pos = fv_slots,
+            .v128_stack_top_begin_pos = 0uz,
+            .v128_stack_top_end_pos = fv_slots,
         };
     }
 
@@ -494,27 +498,22 @@ namespace
         static_assert(F32Slots > 0uz);
         static_assert(F64Slots > 0uz);
 
-        constexpr ::std::size_t i32_begin{3uz};
-        constexpr ::std::size_t i32_end{i32_begin + I32Slots};
-        constexpr ::std::size_t i64_begin{i32_end};
-        constexpr ::std::size_t i64_end{i64_begin + I64Slots};
-        constexpr ::std::size_t f32_begin{i64_end};
-        constexpr ::std::size_t f32_end{f32_begin + F32Slots};
-        constexpr ::std::size_t f64_begin{f32_end};
-        constexpr ::std::size_t f64_end{f64_begin + F64Slots};
+        constexpr ::std::size_t requested_int_slots{I32Slots > I64Slots ? I32Slots : I64Slots};
+        constexpr ::std::size_t int_slots{requested_int_slots < 3uz ? requested_int_slots : 3uz};
+        constexpr ::std::size_t fv_slots{F32Slots > F64Slots ? F32Slots : F64Slots};
 
         return int_optable::uwvm_interpreter_translate_option_t{
             .is_tail_call = true,
-            .i32_stack_top_begin_pos = i32_begin,
-            .i32_stack_top_end_pos = i32_end,
-            .i64_stack_top_begin_pos = i64_begin,
-            .i64_stack_top_end_pos = i64_end,
-            .f32_stack_top_begin_pos = f32_begin,
-            .f32_stack_top_end_pos = f32_end,
-            .f64_stack_top_begin_pos = f64_begin,
-            .f64_stack_top_end_pos = f64_end,
-            .v128_stack_top_begin_pos = SIZE_MAX,
-            .v128_stack_top_end_pos = SIZE_MAX,
+            .i32_stack_spot_begin_pos = 0uz,
+            .i32_stack_spot_end_pos = int_slots,
+            .i64_stack_spot_begin_pos = 0uz,
+            .i64_stack_spot_end_pos = int_slots,
+            .f32_stack_top_begin_pos = 0uz,
+            .f32_stack_top_end_pos = fv_slots,
+            .f64_stack_top_begin_pos = 0uz,
+            .f64_stack_top_end_pos = fv_slots,
+            .v128_stack_top_begin_pos = 0uz,
+            .v128_stack_top_end_pos = fv_slots,
         };
     }
 
@@ -527,17 +526,16 @@ namespace
         using arg_t = int_compiler::details::interpreter_tuple_arg_t<I, CompileOption>;
 
         template <::std::size_t I>
-        [[nodiscard]] static constexpr arg_t<I> init_arg(::std::byte const* ip, ::std::byte* sp, ::std::byte* local_base) noexcept
+        [[nodiscard]] static constexpr arg_t<I> init_arg(::std::byte const* ip, ::std::byte* frame_slot_base) noexcept
         {
             if constexpr(I == 0uz) { return ip; }
-            else if constexpr(I == 1uz) { return sp; }
-            else if constexpr(I == 2uz) { return local_base; }
+            else if constexpr(I == 1uz) { return frame_slot_base; }
             else { return arg_t<I>{}; }
         }
 
         template <::std::size_t... Is>
-        [[nodiscard]] static auto make_args(::std::index_sequence<Is...>, ::std::byte const* ip, ::std::byte* sp, ::std::byte* local_base) noexcept
-        { return ::std::tuple<arg_t<Is>...>(init_arg<Is>(ip, sp, local_base)...); }
+        [[nodiscard]] static auto make_args(::std::index_sequence<Is...>, ::std::byte const* ip, ::std::byte* frame_slot_base) noexcept
+        { return ::std::tuple<arg_t<Is>...>(init_arg<Is>(ip, frame_slot_base)...); }
 
         using opfunc_ptr_t = int_compiler::details::interpreter_expected_opfunc_ptr_t<CompileOption>;
 
@@ -566,7 +564,14 @@ namespace
             ::std::memset(stack_buf.data(), 0, stack_buf.size());
             ::std::byte* operand_base{align_up(stack_buf)};
 
-            auto args{make_args(::std::make_index_sequence<tuple_size>{}, fn.op.operands.data(), operand_base, local_base)};
+            byte_vec frame_slot_buf(sizeof(int_optable::uwvm_interpreter_frame_slot_t) + k_align);
+            ::std::memset(frame_slot_buf.data(), 0, frame_slot_buf.size());
+            auto* frame_slot{reinterpret_cast<int_optable::uwvm_interpreter_frame_slot_t*>(align_up(frame_slot_buf))};
+            frame_slot->operand_stack_top = operand_base;
+            frame_slot->local_base = local_base;
+            frame_slot->operand_base = operand_base;
+
+            auto args{make_args(::std::make_index_sequence<tuple_size>{}, fn.op.operands.data(), reinterpret_cast<::std::byte*>(frame_slot))};
 
             if constexpr(CompileOption.is_tail_call)
             {
@@ -602,7 +607,7 @@ namespace
     }
 
     template <int_optable::uwvm_interpreter_translate_option_t CompileOption>
-    void run_ring_once(::std::size_t case_index)
+    void run_stacktop_once(::std::size_t case_index)
     {
         static_assert(!CompileOption.is_tail_call || int_compiler::details::interpreter_tuple_has_no_holes<CompileOption>());
 
@@ -625,7 +630,7 @@ namespace
                                                module.local_defined_function_vec_storage.index_unchecked(local_index));
     }
 
-    int run_ring_matrix(::std::size_t case_index)
+    int run_stacktop_matrix(::std::size_t case_index)
     {
         auto const& c{fuzzer::k_cases[case_index]};
         if(c.requires_runtime_calls) { return c.expect_trap ? 1 : 0; }
@@ -640,18 +645,18 @@ namespace
         constexpr auto tail_sysv_opt{make_tailcall_fully_split_opt<3uz, 3uz, 8uz, 8uz>()};
         constexpr auto tail_aapcs64_opt{make_tailcall_fully_split_opt<5uz, 5uz, 8uz, 8uz>()};
 
-        run_ring_once<byref_opt>(case_index);
-        run_ring_once<tail_min_opt>(case_index);
-        run_ring_once<tail_scalar1_opt>(case_index);
-        run_ring_once<tail_split_small_opt>(case_index);
-        run_ring_once<tail_sysv_opt>(case_index);
-        run_ring_once<tail_aapcs64_opt>(case_index);
+        run_stacktop_once<byref_opt>(case_index);
+        run_stacktop_once<tail_min_opt>(case_index);
+        run_stacktop_once<tail_scalar1_opt>(case_index);
+        run_stacktop_once<tail_split_small_opt>(case_index);
+        run_stacktop_once<tail_sysv_opt>(case_index);
+        run_stacktop_once<tail_aapcs64_opt>(case_index);
         return 0;
     }
 
     void list_modes()
     {
-        ::std::cout << "uwvm-int-ring-matrix\n"
+        ::std::cout << "uwvm-int-stacktop-matrix\n"
                     << "uwvm-int-lazy\n"
                     << "uwvm-int-full\n"
                     << "llvm-jit-lazy\n"
@@ -676,7 +681,7 @@ namespace
 int main(int argc, char** argv)
 {
     ::std::size_t case_index{};
-    ::std::string_view mode{"uwvm-int-ring-matrix"};
+    ::std::string_view mode{"uwvm-int-stacktop-matrix"};
     bool have_case{};
 
     for(int i{1}; i < argc;)
@@ -719,6 +724,6 @@ int main(int argc, char** argv)
     if(!have_case) { die("--case is required"); }
     if(case_index >= fuzzer::k_cases.size()) { die("case index out of range"); }
 
-    if(mode == "uwvm-int-ring-matrix") { return run_ring_matrix(case_index); }
+    if(mode == "uwvm-int-stacktop-matrix") { return run_stacktop_matrix(case_index); }
     return run_runtime_mode(case_index, mode);
 }

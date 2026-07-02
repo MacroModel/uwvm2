@@ -54,7 +54,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params
 # endif
     inline constexpr ::uwvm2::utils::cmdline::parameter runtime_uwvm_int_enable_instruction_reorder{
         .name{u8"--runtime-uwvm-int-enable-instruction-reorder"},
-        .describe{u8"Enable experimental uwvm-int register-ring-aware instruction reorder."},
+        .describe{u8"Enable experimental uwvm-int stack-top-aware instruction reorder."},
         .alias{::uwvm2::utils::cmdline::kns_u8_str_scatter_t{::std::addressof(details::runtime_uwvm_int_enable_instruction_reorder_alias), 1uz}},
         .is_exist{::std::addressof(::uwvm2::uwvm::runtime::runtime_mode::runtime_uwvm_int_enable_instruction_reorder)},
         .cate{::uwvm2::utils::cmdline::categorization::runtime}};

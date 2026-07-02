@@ -1267,13 +1267,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                                 case wasm1p1_simd_code::i8x16_sub:
                                 case wasm1p1_simd_code::i8x16_sub_sat_s:
                                 case wasm1p1_simd_code::i8x16_sub_sat_u:
-                                case wasm1p1_simd_code::f64x2_ceil:
-                                case wasm1p1_simd_code::f64x2_floor:
                                 case wasm1p1_simd_code::i8x16_min_s:
                                 case wasm1p1_simd_code::i8x16_min_u:
                                 case wasm1p1_simd_code::i8x16_max_s:
                                 case wasm1p1_simd_code::i8x16_max_u:
-                                case wasm1p1_simd_code::f64x2_trunc:
                                 case wasm1p1_simd_code::i8x16_avgr_u:
                                 case wasm1p1_simd_code::i16x8_extadd_pairwise_i8x16_s:
                                 case wasm1p1_simd_code::i16x8_extadd_pairwise_i8x16_u:
@@ -1401,12 +1398,144 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                         }
                     }
 
-                    if((op_byte >= static_cast<unsigned>(wasm1_code::i32_eqz) && op_byte <= static_cast<unsigned>(wasm1_code::f64_reinterpret_i64)) ||
-                       curr_opbase == wasm1_code::unreachable || curr_opbase == wasm1_code::nop || curr_opbase == wasm1_code::drop ||
-                       curr_opbase == wasm1_code::select || curr_opbase == wasm1_code::return_)
+                    switch(curr_opbase)
                     {
-                        // MVP numeric and simple stack/control opcodes carry no immediates that matter to structural splitting.
-                        return;
+                        case wasm1_code::unreachable:
+                        case wasm1_code::nop:
+                        case wasm1_code::return_:
+                        case wasm1_code::drop:
+                        case wasm1_code::select:
+                        case wasm1_code::i32_eqz:
+                        case wasm1_code::i32_eq:
+                        case wasm1_code::i32_ne:
+                        case wasm1_code::i32_lt_s:
+                        case wasm1_code::i32_lt_u:
+                        case wasm1_code::i32_gt_s:
+                        case wasm1_code::i32_gt_u:
+                        case wasm1_code::i32_le_s:
+                        case wasm1_code::i32_le_u:
+                        case wasm1_code::i32_ge_s:
+                        case wasm1_code::i32_ge_u:
+                        case wasm1_code::i64_eqz:
+                        case wasm1_code::i64_eq:
+                        case wasm1_code::i64_ne:
+                        case wasm1_code::i64_lt_s:
+                        case wasm1_code::i64_lt_u:
+                        case wasm1_code::i64_gt_s:
+                        case wasm1_code::i64_gt_u:
+                        case wasm1_code::i64_le_s:
+                        case wasm1_code::i64_le_u:
+                        case wasm1_code::i64_ge_s:
+                        case wasm1_code::i64_ge_u:
+                        case wasm1_code::f32_eq:
+                        case wasm1_code::f32_ne:
+                        case wasm1_code::f32_lt:
+                        case wasm1_code::f32_gt:
+                        case wasm1_code::f32_le:
+                        case wasm1_code::f32_ge:
+                        case wasm1_code::f64_eq:
+                        case wasm1_code::f64_ne:
+                        case wasm1_code::f64_lt:
+                        case wasm1_code::f64_gt:
+                        case wasm1_code::f64_le:
+                        case wasm1_code::f64_ge:
+                        case wasm1_code::i32_clz:
+                        case wasm1_code::i32_ctz:
+                        case wasm1_code::i32_popcnt:
+                        case wasm1_code::i32_add:
+                        case wasm1_code::i32_sub:
+                        case wasm1_code::i32_mul:
+                        case wasm1_code::i32_div_s:
+                        case wasm1_code::i32_div_u:
+                        case wasm1_code::i32_rem_s:
+                        case wasm1_code::i32_rem_u:
+                        case wasm1_code::i32_and:
+                        case wasm1_code::i32_or:
+                        case wasm1_code::i32_xor:
+                        case wasm1_code::i32_shl:
+                        case wasm1_code::i32_shr_s:
+                        case wasm1_code::i32_shr_u:
+                        case wasm1_code::i32_rotl:
+                        case wasm1_code::i32_rotr:
+                        case wasm1_code::i64_clz:
+                        case wasm1_code::i64_ctz:
+                        case wasm1_code::i64_popcnt:
+                        case wasm1_code::i64_add:
+                        case wasm1_code::i64_sub:
+                        case wasm1_code::i64_mul:
+                        case wasm1_code::i64_div_s:
+                        case wasm1_code::i64_div_u:
+                        case wasm1_code::i64_rem_s:
+                        case wasm1_code::i64_rem_u:
+                        case wasm1_code::i64_and:
+                        case wasm1_code::i64_or:
+                        case wasm1_code::i64_xor:
+                        case wasm1_code::i64_shl:
+                        case wasm1_code::i64_shr_s:
+                        case wasm1_code::i64_shr_u:
+                        case wasm1_code::i64_rotl:
+                        case wasm1_code::i64_rotr:
+                        case wasm1_code::f32_abs:
+                        case wasm1_code::f32_neg:
+                        case wasm1_code::f32_ceil:
+                        case wasm1_code::f32_floor:
+                        case wasm1_code::f32_trunc:
+                        case wasm1_code::f32_nearest:
+                        case wasm1_code::f32_sqrt:
+                        case wasm1_code::f32_add:
+                        case wasm1_code::f32_sub:
+                        case wasm1_code::f32_mul:
+                        case wasm1_code::f32_div:
+                        case wasm1_code::f32_min:
+                        case wasm1_code::f32_max:
+                        case wasm1_code::f32_copysign:
+                        case wasm1_code::f64_abs:
+                        case wasm1_code::f64_neg:
+                        case wasm1_code::f64_ceil:
+                        case wasm1_code::f64_floor:
+                        case wasm1_code::f64_trunc:
+                        case wasm1_code::f64_nearest:
+                        case wasm1_code::f64_sqrt:
+                        case wasm1_code::f64_add:
+                        case wasm1_code::f64_sub:
+                        case wasm1_code::f64_mul:
+                        case wasm1_code::f64_div:
+                        case wasm1_code::f64_min:
+                        case wasm1_code::f64_max:
+                        case wasm1_code::f64_copysign:
+                        case wasm1_code::i32_wrap_i64:
+                        case wasm1_code::i32_trunc_f32_s:
+                        case wasm1_code::i32_trunc_f32_u:
+                        case wasm1_code::i32_trunc_f64_s:
+                        case wasm1_code::i32_trunc_f64_u:
+                        case wasm1_code::i64_extend_i32_s:
+                        case wasm1_code::i64_extend_i32_u:
+                        case wasm1_code::i64_trunc_f32_s:
+                        case wasm1_code::i64_trunc_f32_u:
+                        case wasm1_code::i64_trunc_f64_s:
+                        case wasm1_code::i64_trunc_f64_u:
+                        case wasm1_code::f32_convert_i32_s:
+                        case wasm1_code::f32_convert_i32_u:
+                        case wasm1_code::f32_convert_i64_s:
+                        case wasm1_code::f32_convert_i64_u:
+                        case wasm1_code::f32_demote_f64:
+                        case wasm1_code::f64_convert_i32_s:
+                        case wasm1_code::f64_convert_i32_u:
+                        case wasm1_code::f64_convert_i64_s:
+                        case wasm1_code::f64_convert_i64_u:
+                        case wasm1_code::f64_promote_f32:
+                        case wasm1_code::i32_reinterpret_f32:
+                        case wasm1_code::i64_reinterpret_f64:
+                        case wasm1_code::f32_reinterpret_i32:
+                        case wasm1_code::f64_reinterpret_i64:
+                        {
+                            // MVP numeric and simple stack/control opcodes carry no immediates that matter to structural splitting.
+                            return;
+                        }
+                        default:
+                        {
+                            break;
+                        }
                     }
 
                     // Unknown opcodes are rejected early because a wrong skip length would corrupt every later structural boundary.

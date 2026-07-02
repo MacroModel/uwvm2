@@ -210,7 +210,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::runtime_mode
     /// @brief Whether uwvm-int delay-local peepholes are disabled at runtime.
     inline bool runtime_uwvm_int_disable_delay_local{};  // [global]
 
-    /// @brief Whether uwvm-int register-ring-aware instruction rescheduling is enabled at runtime.
+    /// @brief Whether uwvm-int stack-top-aware instruction rescheduling is enabled at runtime.
     inline bool runtime_uwvm_int_enable_instruction_reorder{};  // [global]
 
     /// @brief Whether the uwvm-int loop unwind byte-size limit was explicitly configured.

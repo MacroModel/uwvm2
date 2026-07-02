@@ -175,7 +175,8 @@ extern "C" void __deregister_frame(void const*);
 #  define UWVM2_RUNTIME_LLVM_JIT_HAS_EXECINFO_BACKTRACE 0
 # endif
 # ifndef UWVM2_RUNTIME_LLVM_JIT_UNWIND_REPLACES_INSTRUCTION_FRAMES
-#  if UWVM2_RUNTIME_LLVM_JIT_HAS_UNWIND_BACKTRACE && UWVM2_RUNTIME_LLVM_JIT_ENABLE_NATIVE_UNWIND_BACKTRACE
+#  if UWVM2_RUNTIME_LLVM_JIT_HAS_UNWIND_BACKTRACE && UWVM2_RUNTIME_LLVM_JIT_ENABLE_NATIVE_UNWIND_BACKTRACE &&                                                \
+      !(defined(__APPLE__) && !defined(_WIN32) && (defined(__aarch64__) || defined(__arm64__) || defined(_M_ARM64)))
 #   define UWVM2_RUNTIME_LLVM_JIT_UNWIND_REPLACES_INSTRUCTION_FRAMES 1
 #  else
 #   define UWVM2_RUNTIME_LLVM_JIT_UNWIND_REPLACES_INSTRUCTION_FRAMES 0
@@ -332,9 +333,9 @@ namespace uwvm2::runtime::lib
                                                               ::fast_io::unix_timestamp stop_end) noexcept;
 #endif
 
-#if (defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) || defined(_ARCH_PPC64)) ||                                                            \
-    (defined(__powerpc__) || defined(__ppc__) || defined(__PPC__) || defined(_ARCH_PPC))
-# define UWVM_TARGET_POWERPC_FAMILY 1
+#if (defined(__powerpc__) || defined(__ppc__) || defined(__PPC__) || defined(_ARCH_PPC)) &&                                                                    \
+    !(defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) || defined(_ARCH_PPC64))
+# define UWVM_TARGET_POWERPC32 1
 #endif
 
 #if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
@@ -344,6 +345,54 @@ namespace uwvm2::runtime::lib
         using lazy_compile_options_t = ::uwvm2::runtime::compiler::uwvm_int::compile_cu_from_lazy_validator::lazy_compile_options;
         using lazy_validation_mode_t = ::uwvm2::runtime::compiler::uwvm_int::compile_cu_from_lazy_validator::lazy_validation_mode;
         using lazy_compile_request_context_t = ::uwvm2::runtime::compiler::uwvm_int::compile_cu_from_lazy_validator::lazy_compile_request_context;
+
+        [[nodiscard]] inline consteval bool target_tail_call_dispatch_enabled() noexcept
+        {
+# if !(defined(__pdp11) || defined(UWVM_TARGET_POWERPC32) || (defined(__wasm__) && !defined(__wasm_tail_call__)))
+            return true;
+# else
+            return false;
+# endif
+        }
+
+        [[nodiscard]] inline consteval ::std::size_t default_int_stack_spot_slots_from_gpr_args(::std::size_t gpr_arg_count) noexcept
+        {
+            constexpr ::std::size_t fixed_arg_count{
+                ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_fixed_arg_count};
+            static_assert(fixed_arg_count == 2uz, "update the ABI integer stack-spot budget when the fixed opfunc ABI changes.");
+
+            // Keep a spare ABI register so the next dispatch target does not start life at the register/stack boundary.
+            if(gpr_arg_count <= fixed_arg_count + 1uz) { return 0uz; }
+
+            ::std::size_t const strict_spare{gpr_arg_count - fixed_arg_count - 1uz};
+            return strict_spare < 3uz ? strict_spare : 3uz;
+        }
+
+        [[nodiscard]] inline consteval ::std::size_t default_int_stack_spot_slots_for_target() noexcept
+        {
+            if constexpr(!target_tail_call_dispatch_enabled()) { return 0uz; }
+            else
+            {
+# if defined(__ARM_PCS_AAPCS64) || defined(__aarch64__) || defined(__arm64__) || defined(_M_ARM64) || defined(__arm64ec__) || defined(_M_ARM64EC)
+                return default_int_stack_spot_slots_from_gpr_args(8uz);
+# elif ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)) && !(defined(__arm64ec__) || defined(_M_ARM64EC))) &&                                  \
+     (!defined(_WIN32) || (defined(__GNUC__) || defined(__clang__)))
+                return default_int_stack_spot_slots_from_gpr_args(6uz);
+# elif defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) || defined(_ARCH_PPC64)
+                return default_int_stack_spot_slots_from_gpr_args(8uz);
+# elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 64)
+                return default_int_stack_spot_slots_from_gpr_args(8uz);
+# elif defined(__loongarch__) && defined(__loongarch64)
+                return default_int_stack_spot_slots_from_gpr_args(8uz);
+# elif (defined(__mips__) || defined(__MIPS__) || defined(_MIPS_ARCH)) && (defined(__mips_n32) || defined(__mips_n64))
+                return default_int_stack_spot_slots_from_gpr_args(8uz);
+# elif defined(__s390x__)
+                return default_int_stack_spot_slots_from_gpr_args(5uz);
+# else
+                return 0uz;
+# endif
+            }
+        }
 
         inline consteval ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_translate_option_t get_curr_target_tranopt() noexcept;
 # if defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
@@ -2584,7 +2633,7 @@ namespace uwvm2::runtime::lib
             if(requested != runtime_llvm_jit_call_stack_t::auto_policy) { return requested; }
             if(!runtime_llvm_jit_call_stack_applies_to_current_compiler()) { return runtime_llvm_jit_call_stack_t::instruction; }
 
-# if !UWVM2_RUNTIME_LLVM_JIT_HAS_UNWIND_BACKTRACE
+# if !UWVM2_RUNTIME_LLVM_JIT_HAS_UNWIND_BACKTRACE || !UWVM2_RUNTIME_LLVM_JIT_UNWIND_REPLACES_INSTRUCTION_FRAMES
             return runtime_llvm_jit_call_stack_t::instruction;
 # else
             // Auto mode is on the startup hot path; avoid materializing a throwaway MCJIT probe here.
@@ -3438,91 +3487,27 @@ namespace uwvm2::runtime::lib
         // =========================================================================
         inline consteval ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_translate_option_t get_lazy_background_target_tranopt() noexcept
         {
-            // Background lazy compilation uses the same ABI-aware register-cache policy as foreground interpreter compilation so
-            // lazily materialized functions are indistinguishable from eagerly translated ones.
+            // Lazy interpreter units use the same public ABI shape as full translation: fixed arguments, an ABI-gated
+            // integer stack-spot window capped at three logical slots, then the logical fv stack-top ring.
             ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_translate_option_t res{};
+            if constexpr(target_tail_call_dispatch_enabled())
+            {
+                constexpr ::std::size_t int_stack_spot_slots{default_int_stack_spot_slots_for_target()};
 
-# if !(defined(__pdp11) || defined(UWVM_TARGET_POWERPC_FAMILY) || (defined(__wasm__) && !defined(__wasm_tail_call__)))
-            res.is_tail_call = true;
-# endif
+                res.i32_stack_spot_begin_pos = 0uz;
+                res.i32_stack_spot_end_pos = int_stack_spot_slots;
+                res.i64_stack_spot_begin_pos = 0uz;
+                res.i64_stack_spot_end_pos = int_stack_spot_slots;
 
-# if defined(__ARM_PCS_AAPCS64) || defined(__aarch64__) || defined(__arm64__) || defined(_M_ARM64) || defined(__arm64ec__) || defined(_M_ARM64EC)
-            // AArch64 has enough integer and SIMD argument registers to cache several stack-top values without heavy spilling.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 8uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = res.v128_stack_top_begin_pos = 8uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = res.v128_stack_top_end_pos = 16uz;
-# elif defined(__arm__) || defined(_M_ARM)
-            // ARM32 keeps the background interpreter cache disabled because the ABI has too few spare argument registers.
-# elif ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)) && !(defined(__arm64ec__) || defined(_M_ARM64EC))) &&                                    \
-     (!defined(_WIN32) || (defined(__GNUC__) || defined(__clang__)))
-            // SysV x86_64, including GNU/Clang SysV-on-Windows builds, leaves enough argument registers after the three fixed args.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 6uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = res.v128_stack_top_begin_pos = 6uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = res.v128_stack_top_end_pos = 14uz;
-# elif defined(_WIN32) && ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)) && !(defined(__arm64ec__) || defined(_M_ARM64EC))) &&                 \
-     !(defined(__GNUC__) || defined(__clang__))
-            // Microsoft x64 has only four integer argument registers and shadow-space costs, so this experimental cache stays off.
-#  if 0
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 4uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = res.v128_stack_top_begin_pos = 4uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = res.v128_stack_top_end_pos = 4uz;
-#  endif
-# elif defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) || defined(_ARCH_PPC64)
-            // UWVM opfunc dispatch is indirect; PPC musttail is conditional and this dispatch form is rejected.
-# elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 64)
-#  if defined(__riscv_float_abi_soft) || defined(__riscv_float_abi_single)
-            // RV64 soft/single-float ABIs route more scalar values through integer registers, so fp cache slots share that window.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 8uz;
-#  else
-            // RV64 hard-float ABIs can split integer and floating stack-top cache ranges across their natural register classes.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 8uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 8uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 16uz;
-#  endif
-# elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 32)
-            // RV32 does not reserve a cache window here; register pressure usually outweighs the byte-stack savings.
-# elif defined(__loongarch__) && defined(__loongarch64)
-#  if defined(__loongarch_soft_float) || defined(__loongarch_single_float)
-            // LoongArch64 soft/single-float follows the integer-window strategy used by other reduced-fp ABIs.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 8uz;
-#  else
-            // LoongArch64 hard-float has separate integer and fp argument windows suitable for stack-top caching.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 8uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 8uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 16uz;
-#  endif
-# elif defined(__loongarch__)
-            // 32-bit LoongArch leaves caching disabled for the same register-pressure reason as other 32-bit targets.
-# elif defined(__mips__) || defined(__MIPS__) || defined(_MIPS_ARCH)
-#  if defined(__mips_n32) || defined(__mips_n64)
-#   if defined(__mips_soft_float)
-            // MIPS n32/n64 soft-float keeps scalar caches in the available general-purpose argument registers.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 8uz;
-#   else
-            // MIPS n32/n64 hard-float has a narrower practical cache window, so only a few stack-top values are assigned.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 6uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 6uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 8uz;
-#   endif
-#  endif
-# elif defined(__s390x__)
-            // s390x has enough call argument slots for a small integer/fp stack-top cache after the fixed interpreter arguments.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 6uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 6uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 8uz;
-# elif defined(__wasm__)
-            // WebAssembly hosts do not benefit from this native-register cache model.
-# endif
+                res.f32_stack_top_begin_pos = 0uz;
+                res.f32_stack_top_end_pos = 8uz;
+                res.f64_stack_top_begin_pos = 0uz;
+                res.f64_stack_top_end_pos = 8uz;
+                res.v128_stack_top_begin_pos = 0uz;
+                res.v128_stack_top_end_pos = 8uz;
+
+                res.is_tail_call = true;
+            }
 
             return res;
         }
@@ -7253,18 +7238,17 @@ namespace uwvm2::runtime::lib
         // - Raw host/JIT buffers are staged through byte stacks before interpreter bodies run.
         // - Tiered T0 uses the same frame layout so it can fall back without ABI translation drift.
         // =========================================================================
-        using opfunc_byref_t = ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_opfunc_byref_t<::std::byte const*, ::std::byte*, ::std::byte*>;
+        using opfunc_byref_t = ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_opfunc_byref_t<::std::byte const*, ::std::byte*>;
 
         template <::std::size_t I, ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_translate_option_t CompileOption>
         using uwvmint_interp_arg_t = ::uwvm2::runtime::compiler::uwvm_int::compile_all_from_uwvm::details::interpreter_tuple_arg_t<I, CompileOption>;
 
         template <::std::size_t I, ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_translate_option_t CompileOption>
         UWVM_ALWAYS_INLINE inline constexpr uwvmint_interp_arg_t<I, CompileOption>
-            uwvmint_init_interp_arg(::std::byte const* ip, ::std::byte* stack_top, ::std::byte* local_base) noexcept
+            uwvmint_init_interp_arg(::std::byte const* ip, ::std::byte* slot_base) noexcept
         {
             if constexpr(I == 0uz) { return ip; }
-            else if constexpr(I == 1uz) { return stack_top; }
-            else if constexpr(I == 2uz) { return local_base; }
+            else if constexpr(I == 1uz) { return slot_base; }
             else
             {
                 return uwvmint_interp_arg_t<I, CompileOption>{};
@@ -7274,158 +7258,38 @@ namespace uwvm2::runtime::lib
         template <::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_translate_option_t CompileOption, ::std::size_t... Is>
         UWVM_ALWAYS_INLINE inline constexpr void execute_compiled_defined_tailcall_impl(::std::index_sequence<Is...>,
                                                                                         ::std::byte const* ip,
-                                                                                        ::std::byte* stack_top,
-                                                                                        ::std::byte* local_base) noexcept
+                                                                                        ::std::byte* slot_base) noexcept
         {
             // Tail-call dispatch passes the interpreter's fixed arguments plus ABI-selected stack-top cache slots directly to opfuncs.
             using opfunc_t = ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_opfunc_t<uwvmint_interp_arg_t<Is, CompileOption>...>;
             opfunc_t fn;  // no init
             ::std::memcpy(::std::addressof(fn), ip, sizeof(fn));
-            fn(uwvmint_init_interp_arg<Is, CompileOption>(ip, stack_top, local_base)...);
+            fn(uwvmint_init_interp_arg<Is, CompileOption>(ip, slot_base)...);
         }
 
         inline consteval ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_translate_option_t get_curr_target_tranopt() noexcept
         {
-            // Select stack-top cache register windows for the current ABI. Register-poor or ambiguous ABIs intentionally leave this
-            // disabled because spills can cost more than byte-stack traffic.
+            // The public interpreter entry keeps fixed arguments, then adds an ABI-gated integer stack-spot window capped
+            // at three logical slots. i32/i64 share those slots; fv ranges remain logical from 0.
             ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_translate_option_t res{};
+            if constexpr(target_tail_call_dispatch_enabled())
+            {
+                constexpr ::std::size_t int_stack_spot_slots{default_int_stack_spot_slots_for_target()};
 
-# if !(defined(__pdp11) || defined(UWVM_TARGET_POWERPC_FAMILY) || (defined(__wasm__) && !defined(__wasm_tail_call__)))
-            res.is_tail_call = true;
-# endif
+                res.i32_stack_spot_begin_pos = 0uz;
+                res.i32_stack_spot_end_pos = int_stack_spot_slots;
+                res.i64_stack_spot_begin_pos = 0uz;
+                res.i64_stack_spot_end_pos = int_stack_spot_slots;
 
-# if defined(__ARM_PCS_AAPCS64) || defined(__aarch64__) || defined(__arm64__) || defined(_M_ARM64) || defined(__arm64ec__) || defined(_M_ARM64EC)
-            // aarch64: AAPCS64 (x0-x7 integer args, v0-v7 fp/simd args)
-            // 3 fixed args: (ip, operand_stack_top, local_base) => occupy x0-x2
-            // Use remaining integer args (x3-x7) for i32/i64 stack-top caching, and fp/simd args (v0-v7) for f32/f64/v128.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 8uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = res.v128_stack_top_begin_pos = 8uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = res.v128_stack_top_end_pos = 16uz;
-# elif defined(__arm__) || defined(_M_ARM)
-            // ARM32: AAPCS/EABI (r0-r3 integer args; hard-float variants may also use VFP regs).
-            // After the 3 fixed interpreter args, there is at most 1 remaining core argument register (r3).
-            // A full scalar+fp stack-top cache would largely spill to memory on most ABIs, negating the benefit.
-            // Leave stack-top caching disabled here (SIZE_MAX/SIZE_MAX).
-# elif ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)) && !(defined(__arm64ec__) || defined(_M_ARM64EC))) &&                                    \
-     (!defined(_WIN32) || (defined(__GNUC__) || defined(__clang__)))
-            // x86_64: sysv abi
-            // x86_64: sysv abi in ms abi
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 6uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = res.v128_stack_top_begin_pos = 6uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = res.v128_stack_top_end_pos = 14uz;
-# elif defined(_WIN32) && ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)) && !(defined(__arm64ec__) || defined(_M_ARM64EC))) &&                 \
-     !(defined(__GNUC__) || defined(__clang__))
-            // x86_64: Windows x64 (MS ABI) (rcx/rdx/r8/r9, xmm0-xmm3)
-            // This ABI provides only 4 register argument slots total. After the 3 fixed interpreter args, only 1 slot remains (r9/xmm3).
-            // Empirically, enabling a 1-slot scalar4-merged stack-top cache tends to regress overall performance
-            // (register pressure + spills), so keep stack-top caching disabled by default here.
-#  if 0
-            /// @deprecated MS ABI "1-slot" stack-top cache experiment.
-            ///             Often regresses performance due to spills/register shuffling. Kept for reference.
-            ///             Keep v128 caching off by default.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 4uz;
-#  endif
-# elif defined(__i386__) || defined(_M_IX86)
-            // i386: (usually) only 2 register argument slots under fastcall (ecx/edx), and we already need 3 fixed args.
-            // Leave stack-top caching disabled here (SIZE_MAX/SIZE_MAX).
-# elif defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) || defined(_ARCH_PPC64)
-            // powerpc64: UWVM opfunc dispatch is indirect; PPC musttail is conditional and this dispatch form is rejected.
-# elif defined(__powerpc__) || defined(__ppc__) || defined(__PPC__) || defined(_ARCH_PPC)
-            // powerpc32: AIX/SysV/EABI variants differ in i64/f64 passing (often reg-pairs) and hard-float rules.
-            // Keep stack-top caching disabled by default for correctness across ABIs.
-# elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 64)
-#  if defined(__riscv_float_abi_soft) || defined(__riscv_float_abi_single)
-            // riscv64: soft-float / single-float (f64 may not be passed in fp regs). Use a scalar4-merged ring in the integer register file.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 8uz;
-#  else
-            // riscv64: psABI (a0-a7 integer args, fa0-fa7 fp args). Keep v128 caching off by default:
-            // `wasm_v128` argument passing is not consistently vector-reg based across toolchains/ABIs.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 8uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 8uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 16uz;
-#  endif
-# elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 32)
-            // riscv32: i64/f64 are passed in register pairs and the effective register slots are tight.
-            // Leave stack-top caching disabled here (SIZE_MAX/SIZE_MAX).
-# elif defined(__loongarch__) && defined(__loongarch64)
-#  if defined(__loongarch_soft_float) || defined(__loongarch_single_float)
-            // loongarch64: soft-float / single-float (f64 may not be passed in fp regs). Use a scalar4-merged ring.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 8uz;
-#  else
-            // loongarch64: LP64D (a0-a7 integer args, fa0-fa7 fp args). Keep v128 caching off by default:
-            // `wasm_v128` argument passing may be lowered to GPR pairs/stack depending on ABI + vector extension.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 8uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 8uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 16uz;
-#  endif
-# elif defined(__loongarch__)
-            // loongarch32: i64/f64 passing uses pairs / stack depending on ABI; keep caching disabled by default.
-# elif defined(__mips__) || defined(__MIPS__) || defined(_MIPS_ARCH)
-            // MIPS ABIs are slot-based: fp args are only register-passed while they remain within the ABI's argument slots.
-            // We conservatively target the 8-slot N32/N64 ABIs; O32 has only 4 slots and cannot satisfy Wasm1's minimum ring sizes without heavy spilling.
-#  if defined(__mips_n32) || defined(__mips_n64)
-#   if defined(__mips_soft_float)
-            // N32/N64 soft-float: use a scalar4-merged ring in the integer slots (fits in the 8 arg slots).
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 8uz;
-#   else
-            // N32/N64 hard-float: keep total args within 8 slots so fp values still use FPRs.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 6uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 6uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 8uz;
-#   endif
-#  endif
-# elif defined(__s390x__)
-            // s390x: Linux ABI (r2-r6 integer args, f0/f2/... fp args). Keep v128 caching off by default:
-            // 16-byte vectors can be passed indirectly by pointer.
-            res.i32_stack_top_begin_pos = res.i64_stack_top_begin_pos = 3uz;
-            res.i32_stack_top_end_pos = res.i64_stack_top_end_pos = 6uz;
-            res.f32_stack_top_begin_pos = res.f64_stack_top_begin_pos = 6uz;
-            res.f32_stack_top_end_pos = res.f64_stack_top_end_pos = 8uz;
-# elif defined(__s390__) || defined(__SYSC_ZARCH__)
-            // s390 (31-bit) / z/Architecture (non-s390x toolchains): i64/f64 passing is ABI-sensitive (often reg pairs).
-            // Leave stack-top caching disabled by default.
-# elif defined(__sparc__)
-            // SPARC: multiple ABIs (v8/v9, 32/64) with different fp arg rules. Leave caching disabled by default.
-# elif defined(__IA64__) || defined(_M_IA64) || defined(__ia64__) || defined(__itanium__)
-            // IA-64: Itanium ABI is rare today; keep caching disabled by default to avoid ABI mismatches.
-# elif defined(__alpha__)
-            // Alpha: uncommon; leave caching disabled by default.
-# elif defined(__m68k__) || defined(__mc68000__)
-            // m68k: uncommon; leave caching disabled by default.
-# elif defined(__HPPA__)
-            // HPPA: uncommon; leave caching disabled by default.
-# elif defined(__e2k__)
-            // E2K: uncommon; leave caching disabled by default.
-# elif defined(__XTENSA__)
-            // Xtensa: embedded; leave caching disabled by default.
-# elif defined(__BFIN__)
-            // Blackfin: embedded; leave caching disabled by default.
-# elif defined(__convex__)
-            // Convex: historical; leave caching disabled by default.
-# elif defined(__370__) || defined(__THW_370__)
-            // System/370: historical; leave caching disabled by default.
-# elif defined(__pdp10) || defined(__pdp7) || defined(__pdp11)
-            // PDP family: historical; leave caching disabled by default.
-# elif defined(__THW_RS6000) || defined(_IBMR2) || defined(_POWER) || defined(_ARCH_PWR) || defined(_ARCH_PWR2)
-            // RS/6000: historical; leave caching disabled by default.
-# elif defined(__CUDA_ARCH__)
-            // PTX (CUDA device code): stack-top caching is not applicable here.
-# elif defined(__sh__)
-            // SuperH: embedded; leave caching disabled by default.
-# elif defined(__AVR__)
-            // AVR: embedded; leave caching disabled by default.
-# elif defined(__wasm__)
-            // UWVM itself may be built as wasm32-wasi; stack-top caching via native ABI registers is not applicable here.
-# endif
+                res.f32_stack_top_begin_pos = 0uz;
+                res.f32_stack_top_end_pos = 8uz;
+                res.f64_stack_top_begin_pos = 0uz;
+                res.f64_stack_top_end_pos = 8uz;
+                res.v128_stack_top_begin_pos = 0uz;
+                res.v128_stack_top_end_pos = 8uz;
+
+                res.is_tail_call = true;
+            }
 
             return res;
         }
@@ -7442,7 +7306,7 @@ namespace uwvm2::runtime::lib
 # endif
 #endif
 
-#undef UWVM_TARGET_POWERPC_FAMILY
+#undef UWVM_TARGET_POWERPC32
 
         [[maybe_unused]] UWVM_ALWAYS_INLINE inline constexpr void copy_bytes_small(::std::byte* dst, ::std::byte const* src, ::std::size_t n) noexcept
         {
@@ -7714,9 +7578,12 @@ namespace uwvm2::runtime::lib
             auto const zero_n{zeroinit_end_raw - param_bytes};
             constexpr ::std::size_t kFrameAlign{16uz};
             constexpr ::std::size_t kFrameAlignPad{kFrameAlign - 1uz};
+            using frame_slot_t = ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_frame_slot_t;
+            constexpr ::std::size_t kFrameSlotHeaderBytes{((sizeof(frame_slot_t) + kFrameAlignPad) / kFrameAlign) * kFrameAlign};
             bool const align_wasm_locals_start{zero_n >= 64uz};
 
             // Frame layout:
+            // - frame slot header (opfunc fixed arg 1; carries mutable operand top plus local/operand bases)
             // - locals region (with optional padding for aligning the Wasm-locals start after params)
             // - operand stack region (16-byte aligned)
             ::std::size_t local_alloc_n{local_bytes_raw};
@@ -7727,7 +7594,8 @@ namespace uwvm2::runtime::lib
                 local_alloc_n += kFrameAlignPad;
             }
 
-            ::std::size_t frame_alloc_n{local_alloc_n};
+            if(local_alloc_n > (::std::numeric_limits<::std::size_t>::max() - kFrameSlotHeaderBytes)) [[unlikely]] { ::fast_io::fast_terminate(); }
+            ::std::size_t frame_alloc_n{kFrameSlotHeaderBytes + local_alloc_n};
             if(stack_cap_raw != 0uz) [[likely]]
             {
                 if(frame_alloc_n > (::std::numeric_limits<::std::size_t>::max() - (kFrameAlignPad + stack_cap_raw))) [[unlikely]]
@@ -7767,7 +7635,8 @@ namespace uwvm2::runtime::lib
             }
 
             // Allocate locals as a packed byte buffer (i32/f32=4, i64/f64=8, plus the internal temp local).
-            ::std::byte* const local_alloc{frame_alloc};
+            auto* const frame_slot{reinterpret_cast<frame_slot_t*>(frame_alloc)};
+            ::std::byte* const local_alloc{frame_alloc + kFrameSlotHeaderBytes};
             ::std::byte* local_base{};
             if(align_wasm_locals_start)
             {
@@ -7805,7 +7674,7 @@ namespace uwvm2::runtime::lib
             if(stack_cap_raw == 0uz) [[unlikely]] { operand_base = ::std::addressof(operand_dummy); }
             else
             {
-                operand_base = align_ptr_up(frame_alloc + local_alloc_n, kFrameAlign);
+                operand_base = align_ptr_up(local_alloc + local_alloc_n, kFrameAlign);
             }
 
 # if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
@@ -7815,7 +7684,8 @@ namespace uwvm2::runtime::lib
 # endif
 
             ::std::byte const* ip{compiled_func->op.operands.data()};
-            ::std::byte* stack_top{operand_base};
+            *frame_slot = frame_slot_t{.operand_stack_top = operand_base, .local_base = local_base, .operand_base = operand_base};
+            ::std::byte* slot_base{reinterpret_cast<::std::byte*>(frame_slot)};
 
             constexpr auto curr_target_tranopt{get_curr_target_tranopt()};
 
@@ -7823,7 +7693,7 @@ namespace uwvm2::runtime::lib
             {
                 constexpr ::std::size_t tuple_size{
                     ::uwvm2::runtime::compiler::uwvm_int::compile_all_from_uwvm::details::interpreter_tuple_size<curr_target_tranopt>()};
-                execute_compiled_defined_tailcall_impl<curr_target_tranopt>(::std::make_index_sequence<tuple_size>{}, ip, stack_top, local_base);
+                execute_compiled_defined_tailcall_impl<curr_target_tranopt>(::std::make_index_sequence<tuple_size>{}, ip, slot_base);
             }
             else
             {
@@ -7831,10 +7701,10 @@ namespace uwvm2::runtime::lib
                 {
                     opfunc_byref_t fn;  // no init
                     ::std::memcpy(::std::addressof(fn), ip, sizeof(fn));
-                    fn(ip, stack_top, local_base);
+                    fn(ip, slot_base);
                 }
 
-                auto const actual_result_bytes{static_cast<::std::size_t>(stack_top - operand_base)};
+                auto const actual_result_bytes{static_cast<::std::size_t>(frame_slot->operand_stack_top - operand_base)};
                 if(actual_result_bytes != result_bytes) [[unlikely]] { ::fast_io::fast_terminate(); }
             }
 

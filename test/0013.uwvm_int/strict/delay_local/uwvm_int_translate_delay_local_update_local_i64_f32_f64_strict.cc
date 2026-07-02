@@ -334,10 +334,10 @@ namespace
                         optable::numeric_details::int_binop::xor_>(curr_variant, tuple);
                 }};
 # if defined(UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS)
-            auto const exp_i64_add_2localget_local_set{
+            [[maybe_unused]] auto const exp_i64_add_2localget_local_set{
                 [&](auto const& curr_variant) constexpr noexcept
                 { return optable::translate::get_uwvmint_i64_add_2localget_local_set_fptr_from_tuple<Opt>(curr_variant, tuple); }};
-            auto const exp_i64_add_2localget_local_tee{
+            [[maybe_unused]] auto const exp_i64_add_2localget_local_tee{
                 [&](auto const& curr_variant) constexpr noexcept
                 { return optable::translate::get_uwvmint_i64_add_2localget_local_tee_fptr_from_tuple<Opt>(curr_variant, tuple); }};
             auto const exp_f32_add_2localget_local_set{
@@ -347,10 +347,10 @@ namespace
                 [&](auto const& curr_variant) constexpr noexcept
                 { return optable::translate::get_uwvmint_f64_add_2localget_local_set_fptr_from_tuple<Opt>(curr_variant, tuple); }};
 # else
-            auto const exp_i64_add_2localget_local_set{
+            [[maybe_unused]] auto const exp_i64_add_2localget_local_set{
                 [&](auto const& curr_variant) constexpr noexcept
                 { return optable::translate::get_uwvmint_i64_add_2localget_local_set_common_fptr_from_tuple<Opt>(curr_variant, tuple); }};
-            auto const exp_i64_add_2localget_local_tee{
+            [[maybe_unused]] auto const exp_i64_add_2localget_local_tee{
                 [&](auto const& curr_variant) constexpr noexcept
                 { return optable::translate::get_uwvmint_i64_add_2localget_local_tee_common_fptr_from_tuple<Opt>(curr_variant, tuple); }};
             auto const exp_f32_add_2localget_local_set{
@@ -361,15 +361,8 @@ namespace
                 { return optable::translate::get_uwvmint_f64_add_2localget_local_set_common_fptr_from_tuple<Opt>(curr_variant, tuple); }};
 # endif
 
-            bool ok_i64_add_set{};
-            ok_i64_add_set = ok_i64_add_set || contains_i64_variant(cm.local_funcs.index_unchecked(0).op.operands, exp_i64_add_2localget_local_set);
-            ok_i64_add_set = ok_i64_add_set || contains_i64_variant(cm.local_funcs.index_unchecked(0).op.operands, exp_i64_add_set);
-            UWVM2TEST_REQUIRE(ok_i64_add_set);
-
-            bool ok_i64_add_tee{};
-            ok_i64_add_tee = ok_i64_add_tee || contains_i64_variant(cm.local_funcs.index_unchecked(1).op.operands, exp_i64_add_2localget_local_tee);
-            ok_i64_add_tee = ok_i64_add_tee || contains_i64_variant(cm.local_funcs.index_unchecked(1).op.operands, exp_i64_add_tee);
-            UWVM2TEST_REQUIRE(ok_i64_add_tee);
+            UWVM2TEST_REQUIRE(!contains_i64_variant(cm.local_funcs.index_unchecked(0).op.operands, exp_i64_add_set));
+            UWVM2TEST_REQUIRE(!contains_i64_variant(cm.local_funcs.index_unchecked(1).op.operands, exp_i64_add_tee));
 
             bool ok_f32_add_set{};
             ok_f32_add_set = ok_f32_add_set || contains_f32_variant(cm.local_funcs.index_unchecked(2).op.operands, exp_f32_add_2localget_local_set);
@@ -381,7 +374,7 @@ namespace
             ok_f64_add_set = ok_f64_add_set || contains_f64_variant(cm.local_funcs.index_unchecked(5).op.operands, exp_f64_add_set);
             UWVM2TEST_REQUIRE(ok_f64_add_set);
             UWVM2TEST_REQUIRE(contains_f64_variant(cm.local_funcs.index_unchecked(7).op.operands, exp_f64_mul_set));
-            UWVM2TEST_REQUIRE(contains_i64_variant(cm.local_funcs.index_unchecked(8).op.operands, exp_i64_xor_set));
+            UWVM2TEST_REQUIRE(!contains_i64_variant(cm.local_funcs.index_unchecked(8).op.operands, exp_i64_xor_set));
 #endif
 
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY)
@@ -409,7 +402,7 @@ namespace
 
             UWVM2TEST_REQUIRE(contains_f32_variant(cm.local_funcs.index_unchecked(3).op.operands, exp_f32_sub_tee));
             UWVM2TEST_REQUIRE(contains_f64_variant(cm.local_funcs.index_unchecked(6).op.operands, exp_f64_sub_tee));
-            UWVM2TEST_REQUIRE(contains_i64_variant(cm.local_funcs.index_unchecked(9).op.operands, exp_i64_mul_tee));
+            UWVM2TEST_REQUIRE(!contains_i64_variant(cm.local_funcs.index_unchecked(9).op.operands, exp_i64_mul_tee));
 #endif
         }
 

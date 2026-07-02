@@ -36,7 +36,7 @@ import uwvm2.utils.container;
 import uwvm2.utils.debug;
 import uwvm2.parser.wasm.standard.wasm1;
 import :define;
-import :register_ring;
+import :stacktop_window;
 import :numeric;
 
 #ifndef UWVM_MODULE

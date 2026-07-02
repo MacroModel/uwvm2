@@ -35,13 +35,63 @@ bool const runtime_uwvm_int_opcode_conbination_enabled{
 // deliberately capture parser state, bytecode buffers, label tables, and stack-top state by reference
 // so opcode case files can emit compact bytecode without passing a large context object through every
 // helper call.
-// Keep `-Rclog` useful for runtime decisions without dumping every emitted op.
-constexpr bool runtime_log_emit_opfuncs{false};
-constexpr bool runtime_log_emit_cf{false};
-constexpr bool runtime_log_emit_wasm_ops{false};
-constexpr bool runtime_log_emit_stacktop{false};
-[[maybe_unused]] constexpr bool runtime_log_emit_conbine{false};
+// Runtime compiler logs are intentionally verbose under `-Rclog`; tests use them to audit exact translator choices.
+constexpr bool runtime_log_emit_opfuncs{true};
+constexpr bool runtime_log_emit_cf{true};
+constexpr bool runtime_log_emit_wasm_ops{true};
+constexpr bool runtime_log_emit_stacktop{true};
+[[maybe_unused]] constexpr bool runtime_log_emit_conbine{true};
 constexpr bool runtime_log_emit_func_stats{true};
+
+[[maybe_unused]] auto const anonymous_stacktop_param_count_for_numeric_i32{
+    [&]() constexpr noexcept -> ::std::size_t
+    {
+        if constexpr(CompileOption.is_tail_call && stacktop_i32_spot_enabled) { return stacktop_cache_i32_count; }
+        else
+        {
+            return 0uz;
+        }
+    }};
+
+[[maybe_unused]] auto const anonymous_stacktop_param_count_for_numeric_i64{
+    [&]() constexpr noexcept -> ::std::size_t
+    {
+        if constexpr(CompileOption.is_tail_call && stacktop_i64_spot_enabled) { return stacktop_cache_i64_count; }
+        else
+        {
+            return 0uz;
+        }
+    }};
+
+[[maybe_unused]] auto const anonymous_stacktop_param_capacity_for_numeric_i32{
+    []<typename... TypeInTuple>(::uwvm2::utils::container::tuple<TypeInTuple...> const*) constexpr noexcept -> ::std::size_t
+    {
+        if constexpr(stacktop_i32_spot_enabled)
+        {
+            return ::uwvm2::runtime::compiler::uwvm_int::optable::details::anonymous_stacktop_param_capacity<
+                ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32,
+                TypeInTuple...>();
+        }
+        else
+        {
+            return 0uz;
+        }
+    }(static_cast<::std::remove_cvref_t<decltype(interpreter_tuple)> const*>(nullptr))};
+
+[[maybe_unused]] auto const anonymous_stacktop_param_capacity_for_numeric_i64{
+    []<typename... TypeInTuple>(::uwvm2::utils::container::tuple<TypeInTuple...> const*) constexpr noexcept -> ::std::size_t
+    {
+        if constexpr(stacktop_i64_spot_enabled)
+        {
+            return ::uwvm2::runtime::compiler::uwvm_int::optable::details::anonymous_stacktop_param_capacity<
+                ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64,
+                TypeInTuple...>();
+        }
+        else
+        {
+            return 0uz;
+        }
+    }(static_cast<::std::remove_cvref_t<decltype(interpreter_tuple)> const*>(nullptr))};
 
 struct runtime_log_stats_t
 {
@@ -77,8 +127,8 @@ struct runtime_log_stats_t
     ::std::uint_least64_t instr_reorder_expr_local_tee_count{};
     ::std::uint_least64_t instr_reorder_const_binop_local_set_count{};
     ::std::uint_least64_t instr_reorder_const_binop_local_tee_count{};
-    ::std::uint_least64_t instr_reorder_ring_slot_reject_count{};
-    ::std::uint_least64_t instr_reorder_ring_slot_used_count{};
+    ::std::uint_least64_t instr_reorder_stacktop_slot_reject_count{};
+    ::std::uint_least64_t instr_reorder_stacktop_slot_used_count{};
     ::std::uint_least64_t instr_reorder_expr_step_count{};
     ::std::uint_least64_t instr_reorder_local_read_count{};
     ::std::uint_least64_t stacktop_spill1_count{};
@@ -406,7 +456,7 @@ auto const emit_ptr_label_placeholder{[&](::std::size_t label_id, bool in_thunk)
                                               if(runtime_log_emit_cf)
                                               {
                                                   ::fast_io::io::print(::uwvm2::uwvm::io::u8runtime_log_output,
-                                                                       u8"[uwvm-int-translator] fn=",
+	                                                       u8"[uwvm-int-translator] fn=",
                                                                        function_index,
                                                                        u8" ip=",
                                                                        runtime_log_curr_ip,
@@ -443,13 +493,32 @@ auto const get_branch_target_label_id{[&](block_t const& frame) constexpr noexce
 
 // Every emitted opfunc pointer must match the active interpreter calling convention. The static
 // assertion catches accidental emission of a helper from the wrong tail-call/byref mode at compile time.
-auto const emit_opfunc_to{[&](bytecode_vec_t& dst, auto fptr) constexpr UWVM_THROWS
-                          {
-                              static_assert(::std::same_as<decltype(fptr), details::interpreter_expected_opfunc_ptr_t<CompileOption>>,
-                                            "emitting opfunc pointer type does not match interpreter mode");
-                              if(runtime_log_on) [[unlikely]]
-                              {
-                                  bool const dst_is_thunk{::std::addressof(dst) == ::std::addressof(thunks)};
+	auto const emit_opfunc_to{[&](bytecode_vec_t& dst, auto fptr, ::std::source_location loc = ::std::source_location::current()) constexpr UWVM_THROWS
+	                          {
+	                              static_assert(::std::same_as<decltype(fptr), details::interpreter_expected_opfunc_ptr_t<CompileOption>>,
+	                                            "emitting opfunc pointer type does not match interpreter mode");
+	                              if(fptr == nullptr) [[unlikely]]
+	                              {
+	                                  bool const dst_is_thunk{::std::addressof(dst) == ::std::addressof(thunks)};
+	                                  ::std::fprintf(stderr,
+                                                     "[uwvm-int-translator] fn=%zu ip=%zu event=bytecode.emit.null_opfunc | bc=%s off=%zu "
+                                                     "call_line=%u call_file=%s currpos{i32=%zu,i64=%zu,f32=%zu,f64=%zu,v128=%zu}\n",
+                                                     static_cast<::std::size_t>(function_index),
+                                                     static_cast<::std::size_t>(runtime_log_curr_ip),
+                                                     dst_is_thunk ? "thunk" : "main",
+                                                     static_cast<::std::size_t>(dst.size()),
+                                                     loc.line(),
+                                                     loc.file_name(),
+                                                     curr_stacktop.i32_stack_top_curr_pos,
+                                                     curr_stacktop.i64_stack_top_curr_pos,
+                                                     curr_stacktop.f32_stack_top_curr_pos,
+                                                     curr_stacktop.f64_stack_top_curr_pos,
+                                                     curr_stacktop.v128_stack_top_curr_pos);
+	                                  ::fast_io::fast_terminate();
+	                              }
+	                              if(runtime_log_on) [[unlikely]]
+	                              {
+	                                  bool const dst_is_thunk{::std::addressof(dst) == ::std::addressof(thunks)};
                                   ::std::size_t const off{dst.size()};
                                   if(dst_is_thunk) { ++runtime_log_stats.opfunc_thunk_count; }
                                   else
@@ -475,6 +544,32 @@ auto const emit_opfunc_to{[&](bytecode_vec_t& dst, auto fptr) constexpr UWVM_THR
                                                            sizeof(fptr),
                                                            u8" fptr_bits=",
                                                            ::fast_io::mnp::hex0x(bits),
+                                                           u8" stacktop{mem=",
+                                                           stacktop_memory_count,
+                                                           u8",cache=",
+                                                           stacktop_cache_count,
+                                                           u8",i32=",
+                                                           stacktop_cache_i32_count,
+                                                           u8",i64=",
+                                                           stacktop_cache_i64_count,
+                                                           u8",f32=",
+                                                           stacktop_cache_f32_count,
+                                                           u8",f64=",
+                                                           stacktop_cache_f64_count,
+                                                           u8",v128=",
+                                                           stacktop_cache_v128_count,
+                                                           u8"} currpos{i32=",
+                                                           curr_stacktop.i32_stack_top_curr_pos,
+                                                           u8",i64=",
+                                                           curr_stacktop.i64_stack_top_curr_pos,
+                                                           u8",f32=",
+                                                           curr_stacktop.f32_stack_top_curr_pos,
+                                                           u8",f64=",
+                                                           curr_stacktop.f64_stack_top_curr_pos,
+                                                           u8",v128=",
+                                                           curr_stacktop.v128_stack_top_curr_pos,
+                                                           u8"} call_line=",
+                                                           loc.line(),
                                                            u8"\n");
                                   }
                               }
@@ -492,9 +587,401 @@ auto const emit_opfunc_to{[&](bytecode_vec_t& dst, auto fptr) constexpr UWVM_THR
                                   }
                               }
 
-                              // Note: We intentionally store the raw function pointer bytes into the bytecode stream.
-                              emit_imm_to(dst, fptr);
-                          }};
+	                              // Note: We intentionally store the raw function pointer bytes into the bytecode stream.
+	                              emit_imm_to(dst, fptr);
+	                          }};
+
+#if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS)
+[[maybe_unused]] constexpr ::std::size_t stacktop_i32_call_param_max{3uz};
+[[maybe_unused]] constexpr ::std::size_t stacktop_i32_call_indirect_param_max{3uz};
+[[maybe_unused]] constexpr ::std::size_t stacktop_fp_call_param_max{4uz};
+
+[[maybe_unused]] auto const dispatch_stacktop_param_count_1_to_3{
+    []<typename Fn>(::std::size_t param_count, Fn const& fn) constexpr UWVM_THROWS
+    {
+        switch(param_count)
+        {
+            case 1uz: fn.template operator()<1uz>(); break;
+            case 2uz: fn.template operator()<2uz>(); break;
+            case 3uz: fn.template operator()<3uz>(); break;
+            [[unlikely]] default: ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const dispatch_stacktop_param_count_0_to_3{
+    []<typename Fn>(::std::size_t param_count, Fn const& fn) constexpr UWVM_THROWS
+    {
+        switch(param_count)
+        {
+            case 0uz: fn.template operator()<0uz>(); break;
+            case 1uz: fn.template operator()<1uz>(); break;
+            case 2uz: fn.template operator()<2uz>(); break;
+            case 3uz: fn.template operator()<3uz>(); break;
+            [[unlikely]] default: ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const dispatch_stacktop_cache_count_1_to_4{
+    []<typename Fn>(::std::size_t cache_count, Fn const& fn) constexpr UWVM_THROWS
+    {
+        switch(cache_count)
+        {
+            case 1uz: fn.template operator()<1uz>(); break;
+            case 2uz: fn.template operator()<2uz>(); break;
+            case 3uz: fn.template operator()<3uz>(); break;
+            case 4uz: fn.template operator()<4uz>(); break;
+            [[unlikely]] default: ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_stacktop_i32_to{
+    [&]<typename RetT>(bytecode_vec_t& dst, ::std::size_t param_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_1_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    emit_opfunc_to(dst,
+                                   translate::get_uwvmint_call_stacktop_i32_fptr_from_tuple<CompileOption, ParamCount, RetT>(curr_stacktop,
+                                                                                                                             interpreter_tuple));
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_stacktop_i32_drop_to{
+    [&](bytecode_vec_t& dst, ::std::size_t param_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_1_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    emit_opfunc_to(dst,
+                                   translate::get_uwvmint_call_stacktop_i32_drop_fptr_from_tuple<CompileOption, ParamCount>(curr_stacktop,
+                                                                                                                            interpreter_tuple));
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_stacktop_i32_local_set_to{
+    [&](bytecode_vec_t& dst, ::std::size_t param_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_1_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    emit_opfunc_to(
+                        dst,
+                        translate::get_uwvmint_call_stacktop_i32_local_set_fptr_from_tuple<CompileOption, ParamCount>(curr_stacktop, interpreter_tuple));
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_arena_i32_to{
+    [&]<typename RetT>(bytecode_vec_t& dst, ::std::size_t param_count, ::std::size_t cache_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_1_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    dispatch_stacktop_cache_count_1_to_4(
+                        cache_count,
+                        [&]<::std::size_t CacheCount>() constexpr UWVM_THROWS
+                        {
+                            emit_opfunc_to(dst,
+                                           translate::get_uwvmint_call_arena_i32_fptr_from_tuple<CompileOption, ParamCount, CacheCount, RetT>(
+                                               curr_stacktop,
+                                               interpreter_tuple));
+                        });
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            static_cast<void>(cache_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_arena_i32_drop_to{
+    [&](bytecode_vec_t& dst, ::std::size_t param_count, ::std::size_t cache_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_1_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    dispatch_stacktop_cache_count_1_to_4(
+                        cache_count,
+                        [&]<::std::size_t CacheCount>() constexpr UWVM_THROWS
+                        {
+                            emit_opfunc_to(
+                                dst,
+                                translate::get_uwvmint_call_arena_i32_drop_fptr_from_tuple<CompileOption, ParamCount, CacheCount>(curr_stacktop,
+                                                                                                                                 interpreter_tuple));
+                        });
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            static_cast<void>(cache_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_arena_i32_local_set_to{
+    [&](bytecode_vec_t& dst, ::std::size_t param_count, ::std::size_t cache_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_1_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    dispatch_stacktop_cache_count_1_to_4(
+                        cache_count,
+                        [&]<::std::size_t CacheCount>() constexpr UWVM_THROWS
+                        {
+                            emit_opfunc_to(dst,
+                                           translate::get_uwvmint_call_arena_i32_local_set_fptr_from_tuple<CompileOption, ParamCount, CacheCount>(
+                                               curr_stacktop,
+                                               interpreter_tuple));
+                        });
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            static_cast<void>(cache_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_arena_i32_local_tee_to{
+    [&](bytecode_vec_t& dst, ::std::size_t param_count, ::std::size_t cache_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_1_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    dispatch_stacktop_cache_count_1_to_4(
+                        cache_count,
+                        [&]<::std::size_t CacheCount>() constexpr UWVM_THROWS
+                        {
+                            emit_opfunc_to(dst,
+                                           translate::get_uwvmint_call_arena_i32_local_tee_fptr_from_tuple<CompileOption, ParamCount, CacheCount>(
+                                               curr_stacktop,
+                                               interpreter_tuple));
+                        });
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            static_cast<void>(cache_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_indirect_stacktop_i32_to{
+    [&]<typename RetT>(bytecode_vec_t& dst, ::std::size_t param_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_0_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    emit_opfunc_to(dst,
+                                   translate::get_uwvmint_call_indirect_stacktop_i32_fptr_from_tuple<CompileOption, ParamCount, RetT>(curr_stacktop,
+                                                                                                                                        interpreter_tuple));
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_indirect_stacktop_i32_drop_to{
+    [&](bytecode_vec_t& dst, ::std::size_t param_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_0_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    emit_opfunc_to(
+                        dst,
+                        translate::get_uwvmint_call_indirect_stacktop_i32_drop_fptr_from_tuple<CompileOption, ParamCount>(curr_stacktop, interpreter_tuple));
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_indirect_stacktop_i32_local_set_to{
+    [&](bytecode_vec_t& dst, ::std::size_t param_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_0_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    emit_opfunc_to(dst,
+                                   translate::get_uwvmint_call_indirect_stacktop_i32_local_set_fptr_from_tuple<CompileOption, ParamCount>(curr_stacktop,
+                                                                                                                                           interpreter_tuple));
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_indirect_arena_i32_to{
+    [&]<typename RetT>(bytecode_vec_t& dst, ::std::size_t param_count, ::std::size_t cache_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_0_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    dispatch_stacktop_cache_count_1_to_4(
+                        cache_count,
+                        [&]<::std::size_t CacheCount>() constexpr UWVM_THROWS
+                        {
+                            emit_opfunc_to(dst,
+                                           translate::get_uwvmint_call_indirect_arena_i32_fptr_from_tuple<CompileOption, ParamCount, CacheCount, RetT>(
+                                               curr_stacktop,
+                                               interpreter_tuple));
+                        });
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            static_cast<void>(cache_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_indirect_arena_i32_drop_to{
+    [&](bytecode_vec_t& dst, ::std::size_t param_count, ::std::size_t cache_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_0_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    dispatch_stacktop_cache_count_1_to_4(
+                        cache_count,
+                        [&]<::std::size_t CacheCount>() constexpr UWVM_THROWS
+                        {
+                            emit_opfunc_to(dst,
+                                           translate::get_uwvmint_call_indirect_arena_i32_drop_fptr_from_tuple<CompileOption, ParamCount, CacheCount>(
+                                               curr_stacktop,
+                                               interpreter_tuple));
+                        });
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            static_cast<void>(cache_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+
+[[maybe_unused]] auto const emit_call_indirect_arena_i32_local_set_to{
+    [&](bytecode_vec_t& dst, ::std::size_t param_count, ::std::size_t cache_count) constexpr UWVM_THROWS
+    {
+        if constexpr(CompileOption.is_tail_call)
+        {
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            dispatch_stacktop_param_count_0_to_3(
+                param_count,
+                [&]<::std::size_t ParamCount>() constexpr UWVM_THROWS
+                {
+                    dispatch_stacktop_cache_count_1_to_4(
+                        cache_count,
+                        [&]<::std::size_t CacheCount>() constexpr UWVM_THROWS
+                        {
+                            emit_opfunc_to(dst,
+                                           translate::get_uwvmint_call_indirect_arena_i32_local_set_fptr_from_tuple<CompileOption, ParamCount, CacheCount>(
+                                               curr_stacktop,
+                                               interpreter_tuple));
+                        });
+                });
+        }
+        else
+        {
+            static_cast<void>(dst);
+            static_cast<void>(param_count);
+            static_cast<void>(cache_count);
+            ::fast_io::fast_terminate();
+        }
+    }};
+#endif
 
 // ============================
 // Stack-top cache manipulation
@@ -562,7 +1049,7 @@ auto const emit_opfunc_to{[&](bytecode_vec_t& dst, auto fptr) constexpr UWVM_THR
                                                               }
                                                               case curr_operand_stack_value_type::v128:
                                                               {
-                                                                  return stacktop_cache_f64_count;
+                                                                  return stacktop_cache_v128_count;
                                                               }
                                                               [[unlikely]] default:
                                                               {
@@ -586,11 +1073,11 @@ constexpr auto stacktop_range_begin_pos{[](curr_operand_stack_value_type vt) con
                                             {
                                                 case curr_operand_stack_value_type::i32:
                                                 {
-                                                    return CompileOption.i32_stack_top_begin_pos;
+                                                    return stacktop_i32_begin_pos;
                                                 }
                                                 case curr_operand_stack_value_type::i64:
                                                 {
-                                                    return CompileOption.i64_stack_top_begin_pos;
+                                                    return stacktop_i64_begin_pos;
                                                 }
                                                 case curr_operand_stack_value_type::f32:
                                                 {
@@ -617,11 +1104,11 @@ constexpr auto stacktop_range_end_pos{[](curr_operand_stack_value_type vt) const
                                           {
                                               case curr_operand_stack_value_type::i32:
                                               {
-                                                  return CompileOption.i32_stack_top_end_pos;
+                                                  return stacktop_i32_end_pos;
                                               }
                                               case curr_operand_stack_value_type::i64:
                                               {
-                                                  return CompileOption.i64_stack_top_end_pos;
+                                                  return stacktop_i64_end_pos;
                                               }
                                               case curr_operand_stack_value_type::f32:
                                               {
@@ -648,11 +1135,11 @@ constexpr auto stacktop_range_end_pos{[](curr_operand_stack_value_type vt) const
                                                             {
                                                                 case curr_operand_stack_value_type::i32:
                                                                 {
-                                                                    return CompileOption.i32_stack_top_begin_pos != CompileOption.i32_stack_top_end_pos;
+                                                                    return stacktop_i32_begin_pos != stacktop_i32_end_pos;
                                                                 }
                                                                 case curr_operand_stack_value_type::i64:
                                                                 {
-                                                                    return CompileOption.i64_stack_top_begin_pos != CompileOption.i64_stack_top_end_pos;
+                                                                    return stacktop_i64_begin_pos != stacktop_i64_end_pos;
                                                                 }
                                                                 case curr_operand_stack_value_type::f32:
                                                                 {
@@ -673,16 +1160,38 @@ constexpr auto stacktop_range_end_pos{[](curr_operand_stack_value_type vt) const
                                                             }
                                                         }};
 
+// Integer locals use the m3-like stack-spot/local-spot model. Keep legacy integer delay-local
+// opfuncs available in the optable, but do not instantiate them from the translator by default.
+[[maybe_unused]] constexpr bool delay_local_int_enabled{};
+
 [[maybe_unused]] constexpr auto stacktop_ranges_merged_for{[](curr_operand_stack_value_type l, curr_operand_stack_value_type r) constexpr noexcept -> bool
                                                            {
+                                                               auto const is_int_vt{[](curr_operand_stack_value_type vt) constexpr noexcept -> bool
+                                                                                    {
+                                                                                        return vt == curr_operand_stack_value_type::i32 ||
+                                                                                               vt == curr_operand_stack_value_type::i64;
+                                                                                    }};
+                                                               auto const is_fv_vt{[](curr_operand_stack_value_type vt) constexpr noexcept -> bool
+                                                                                   {
+                                                                                       return vt == curr_operand_stack_value_type::f32 ||
+                                                                                              vt == curr_operand_stack_value_type::f64 ||
+                                                                                              vt == curr_operand_stack_value_type::v128;
+                                                                                   }};
+                                                               if constexpr((stacktop_i32_spot_enabled || stacktop_i64_spot_enabled) &&
+                                                                            ::uwvm2::runtime::compiler::uwvm_int::optable::details::
+                                                                                uwvm_interpreter_uses_logical_fv_stacktop<CompileOption>())
+                                                               {
+                                                                   if((is_int_vt(l) && is_fv_vt(r)) || (is_fv_vt(l) && is_int_vt(r))) { return false; }
+                                                               }
+
                                                                auto const begin_pos{[](curr_operand_stack_value_type vt) constexpr noexcept -> ::std::size_t
                                                                                     {
                                                                                         switch(vt)
                                                                                         {
                                                                                             case curr_operand_stack_value_type::i32:
-                                                                                                return CompileOption.i32_stack_top_begin_pos;
+                                                                                                return stacktop_i32_begin_pos;
                                                                                             case curr_operand_stack_value_type::i64:
-                                                                                                return CompileOption.i64_stack_top_begin_pos;
+                                                                                                return stacktop_i64_begin_pos;
                                                                                             case curr_operand_stack_value_type::f32:
                                                                                                 return CompileOption.f32_stack_top_begin_pos;
                                                                                             case curr_operand_stack_value_type::f64:
@@ -699,9 +1208,9 @@ constexpr auto stacktop_range_end_pos{[](curr_operand_stack_value_type vt) const
                                                                                       switch(vt)
                                                                                       {
                                                                                           case curr_operand_stack_value_type::i32:
-                                                                                              return CompileOption.i32_stack_top_end_pos;
+                                                                                              return stacktop_i32_end_pos;
                                                                                           case curr_operand_stack_value_type::i64:
-                                                                                              return CompileOption.i64_stack_top_end_pos;
+                                                                                              return stacktop_i64_end_pos;
                                                                                           case curr_operand_stack_value_type::f32:
                                                                                               return CompileOption.f32_stack_top_end_pos;
                                                                                           case curr_operand_stack_value_type::f64:
@@ -738,7 +1247,7 @@ auto const stacktop_cache_count_ref_for_vt{[&](curr_operand_stack_value_type vt)
                                                    }
                                                    case curr_operand_stack_value_type::v128:
                                                    {
-                                                       return stacktop_cache_f64_count;
+                                                       return stacktop_cache_v128_count;
                                                    }
                                                    [[unlikely]] default:
                                                    {
@@ -751,11 +1260,11 @@ auto const stacktop_cache_count_for_range{
     [&](::std::size_t begin_pos, ::std::size_t end_pos) constexpr noexcept -> ::std::size_t
     {
         ::std::size_t sum{};
-        if(stacktop_i32_enabled && begin_pos == CompileOption.i32_stack_top_begin_pos && end_pos == CompileOption.i32_stack_top_end_pos)
+        if(stacktop_i32_enabled && begin_pos == stacktop_i32_begin_pos && end_pos == stacktop_i32_end_pos)
         {
             sum += stacktop_cache_i32_count;
         }
-        if(stacktop_i64_enabled && begin_pos == CompileOption.i64_stack_top_begin_pos && end_pos == CompileOption.i64_stack_top_end_pos)
+        if(stacktop_i64_enabled && begin_pos == stacktop_i64_begin_pos && end_pos == stacktop_i64_end_pos)
         {
             sum += stacktop_cache_i64_count;
         }
@@ -767,11 +1276,14 @@ auto const stacktop_cache_count_for_range{
         {
             sum += stacktop_cache_f64_count;
         }
-        // v128 shares the f64/fp-simd ring counter; do not add a second count for the same physical range.
+        if(stacktop_v128_enabled && begin_pos == CompileOption.v128_stack_top_begin_pos && end_pos == CompileOption.v128_stack_top_end_pos)
+        {
+            sum += stacktop_cache_v128_count;
+        }
         return sum;
     }};
 
-[[maybe_unused]] auto const stacktop_ring_size_for_vt{[&](curr_operand_stack_value_type vt) constexpr noexcept -> ::std::size_t
+[[maybe_unused]] auto const stacktop_window_size_for_vt{[&](curr_operand_stack_value_type vt) constexpr noexcept -> ::std::size_t
                                                       {
                                                           if constexpr(!stacktop_enabled) { return SIZE_MAX; }
                                                           else
@@ -788,12 +1300,12 @@ auto const stacktop_cache_count_for_range{
                                                                 if constexpr(!stacktop_enabled) { return SIZE_MAX; }
                                                                 else
                                                                 {
-                                                                    auto const ring_size{stacktop_ring_size_for_vt(vt)};
-                                                                    if(ring_size == 0uz) { return 0uz; }
+                                                                    auto const window_size{stacktop_window_size_for_vt(vt)};
+                                                                    if(window_size == 0uz) { return 0uz; }
                                                                     auto const begin_pos{stacktop_range_begin_pos(vt)};
                                                                     auto const end_pos{stacktop_range_end_pos(vt)};
                                                                     auto const used{stacktop_cache_count_for_range(begin_pos, end_pos)};
-                                                                    return used < ring_size ? (ring_size - used) : 0uz;
+                                                                    return used < window_size ? (window_size - used) : 0uz;
                                                                 }
                                                             }};
 
@@ -815,9 +1327,10 @@ auto const stacktop_cache_count_for_range{
                                                                                 if(is_polymorphic) { return; }
 
                                                                                 stacktop_cache_i32_count = 0uz;
-                                                                                stacktop_cache_i64_count = 0uz;
-                                                                                stacktop_cache_f32_count = 0uz;
-                                                                                stacktop_cache_f64_count = 0uz;
+	                                                                                stacktop_cache_i64_count = 0uz;
+	                                                                                stacktop_cache_f32_count = 0uz;
+	                                                                                stacktop_cache_f64_count = 0uz;
+	                                                                                stacktop_cache_v128_count = 0uz;
 
                                                                                 auto const total{codegen_operand_stack.size()};
                                                                                 auto cache_n{stacktop_cache_count};
@@ -833,11 +1346,11 @@ auto const stacktop_cache_count_for_range{
 auto const stacktop_currpos_for_range{
     [&](::std::size_t begin_pos, ::std::size_t end_pos) constexpr noexcept -> ::std::size_t
     {
-        if(stacktop_i32_enabled && begin_pos == CompileOption.i32_stack_top_begin_pos && end_pos == CompileOption.i32_stack_top_end_pos)
+        if(stacktop_i32_enabled && begin_pos == stacktop_i32_begin_pos && end_pos == stacktop_i32_end_pos)
         {
             return curr_stacktop.i32_stack_top_curr_pos;
         }
-        if(stacktop_i64_enabled && begin_pos == CompileOption.i64_stack_top_begin_pos && end_pos == CompileOption.i64_stack_top_end_pos)
+        if(stacktop_i64_enabled && begin_pos == stacktop_i64_begin_pos && end_pos == stacktop_i64_end_pos)
         {
             return curr_stacktop.i64_stack_top_curr_pos;
         }
@@ -859,11 +1372,11 @@ auto const stacktop_currpos_for_range{
 auto const stacktop_set_currpos_for_range{
     [&](::std::size_t begin_pos, ::std::size_t end_pos, ::std::size_t pos) constexpr noexcept
     {
-        if(stacktop_i32_enabled && begin_pos == CompileOption.i32_stack_top_begin_pos && end_pos == CompileOption.i32_stack_top_end_pos)
+        if(stacktop_i32_enabled && begin_pos == stacktop_i32_begin_pos && end_pos == stacktop_i32_end_pos)
         {
             curr_stacktop.i32_stack_top_curr_pos = pos;
         }
-        if(stacktop_i64_enabled && begin_pos == CompileOption.i64_stack_top_begin_pos && end_pos == CompileOption.i64_stack_top_end_pos)
+        if(stacktop_i64_enabled && begin_pos == stacktop_i64_begin_pos && end_pos == stacktop_i64_end_pos)
         {
             curr_stacktop.i64_stack_top_curr_pos = pos;
         }
@@ -881,24 +1394,364 @@ auto const stacktop_set_currpos_for_range{
         }
     }};
 
-auto const stacktop_ring_prev{[&](::std::size_t pos, ::std::size_t begin_pos, ::std::size_t end_pos) constexpr noexcept -> ::std::size_t
+auto const stacktop_window_prev_pos{[&](::std::size_t pos, ::std::size_t begin_pos, ::std::size_t end_pos) constexpr noexcept -> ::std::size_t
                               { return pos == begin_pos ? (end_pos - 1uz) : (pos - 1uz); }};
 
-auto const stacktop_ring_next{[&](::std::size_t pos, ::std::size_t begin_pos, ::std::size_t end_pos) constexpr noexcept -> ::std::size_t
+auto const stacktop_window_next_pos{[&](::std::size_t pos, ::std::size_t begin_pos, ::std::size_t end_pos) constexpr noexcept -> ::std::size_t
                               { return (pos + 1uz == end_pos) ? begin_pos : (pos + 1uz); }};
 
-auto const stacktop_ring_advance_next{
+auto const stacktop_window_advance_next{
     [&](::std::size_t pos, ::std::size_t n, ::std::size_t begin_pos, ::std::size_t end_pos) constexpr noexcept -> ::std::size_t
     {
-        for(::std::size_t i{}; i != n; ++i) { pos = stacktop_ring_next(pos, begin_pos, end_pos); }
+        for(::std::size_t i{}; i != n; ++i) { pos = stacktop_window_next_pos(pos, begin_pos, end_pos); }
         return pos;
     }};
 
+enum class local_spot_slot_class : unsigned char
+{
+    none,
+    int_,
+    fv
+};
+
+[[maybe_unused]] auto const local_spot_slot_class_for_vt{
+    [](curr_operand_stack_value_type vt) constexpr noexcept -> local_spot_slot_class
+    {
+        switch(vt)
+        {
+            case curr_operand_stack_value_type::i32: [[fallthrough]];
+            case curr_operand_stack_value_type::i64:
+            {
+                if constexpr(stacktop_int_spot_enabled) { return local_spot_slot_class::int_; }
+                else
+                {
+                    return local_spot_slot_class::none;
+                }
+            }
+            case curr_operand_stack_value_type::f32: [[fallthrough]];
+            case curr_operand_stack_value_type::f64: [[fallthrough]];
+            case curr_operand_stack_value_type::v128:
+            {
+                if constexpr(::uwvm2::runtime::compiler::uwvm_int::optable::details::uwvm_interpreter_uses_logical_fv_stacktop<CompileOption>())
+                {
+                    return local_spot_slot_class::fv;
+                }
+                else
+                {
+                    return local_spot_slot_class::none;
+                }
+            }
+            [[unlikely]] default:
+            {
+                return local_spot_slot_class::none;
+            }
+        }
+    }};
+
+[[maybe_unused]] auto const local_spot_enabled_for_vt{
+    [&](curr_operand_stack_value_type vt) constexpr noexcept -> bool
+    {
+        if constexpr(!stacktop_enabled || !CompileOption.is_tail_call) { return false; }
+        else
+        {
+            return stacktop_enabled_for_vt(vt) && local_spot_slot_class_for_vt(vt) != local_spot_slot_class::none;
+        }
+    }};
+
+[[maybe_unused]] auto const local_spot_same_slot{
+    [&](local_spot_cache_entry_t const& e, curr_operand_stack_value_type vt, ::std::size_t pos) constexpr noexcept -> bool
+    {
+        return e.valid && e.pos == pos && local_spot_slot_class_for_vt(e.type) == local_spot_slot_class_for_vt(vt);
+    }};
+
+[[maybe_unused]] auto const local_spot_flush_dirty_entry_to{
+    [&](bytecode_vec_t& dst, local_spot_cache_entry_t& e) constexpr UWVM_THROWS
+    {
+        if constexpr(!stacktop_enabled || !CompileOption.is_tail_call) { return; }
+        else
+        {
+            if(!e.valid || !e.dirty || e.pos == SIZE_MAX) { return; }
+
+            namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            using wasm_i32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32;
+            using wasm_i64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64;
+            using wasm_f32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32;
+            using wasm_f64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64;
+
+            if(runtime_log_on) [[unlikely]]
+            {
+                ::fast_io::io::print(::uwvm2::uwvm::io::u8runtime_log_output,
+                                     u8"[uwvm-int-translator] fn=",
+                                     function_index,
+                                     u8" ip=",
+                                     runtime_log_curr_ip,
+                                     u8" event=local_spot.flush | vt=",
+                                     runtime_log_vt_name(e.type),
+                                     u8" off=",
+                                     e.off,
+                                     u8" pos=",
+                                     e.pos,
+                                     u8"\n");
+            }
+
+            switch(e.type)
+            {
+                case curr_operand_stack_value_type::i32:
+                {
+                    if constexpr(stacktop_i32_spot_enabled)
+                    {
+                        emit_opfunc_to(dst,
+                                       translate::get_uwvmint_local_spot_flush_typed_fptr_from_tuple<CompileOption, wasm_i32>(e.pos,
+                                                                                                                               curr_stacktop,
+                                                                                                                               interpreter_tuple));
+                        emit_imm_to(dst, e.off);
+                        e.dirty = false;
+                    }
+                    break;
+                }
+                case curr_operand_stack_value_type::i64:
+                {
+                    if constexpr(stacktop_i64_spot_enabled)
+                    {
+                        emit_opfunc_to(dst,
+                                       translate::get_uwvmint_local_spot_flush_typed_fptr_from_tuple<CompileOption, wasm_i64>(e.pos,
+                                                                                                                               curr_stacktop,
+                                                                                                                               interpreter_tuple));
+                        emit_imm_to(dst, e.off);
+                        e.dirty = false;
+                    }
+                    break;
+                }
+                case curr_operand_stack_value_type::f32:
+                {
+                    if constexpr(stacktop_f32_enabled)
+                    {
+                        emit_opfunc_to(dst,
+                                       translate::get_uwvmint_local_spot_flush_typed_fptr_from_tuple<CompileOption, wasm_f32>(e.pos,
+                                                                                                                               curr_stacktop,
+                                                                                                                               interpreter_tuple));
+                        emit_imm_to(dst, e.off);
+                        e.dirty = false;
+                    }
+                    break;
+                }
+                case curr_operand_stack_value_type::f64:
+                {
+                    if constexpr(stacktop_f64_enabled)
+                    {
+                        emit_opfunc_to(dst,
+                                       translate::get_uwvmint_local_spot_flush_typed_fptr_from_tuple<CompileOption, wasm_f64>(e.pos,
+                                                                                                                               curr_stacktop,
+                                                                                                                               interpreter_tuple));
+                        emit_imm_to(dst, e.off);
+                        e.dirty = false;
+                    }
+                    break;
+                }
+                case curr_operand_stack_value_type::v128:
+                {
+                    if constexpr(stacktop_v128_enabled)
+                    {
+                        emit_opfunc_to(dst,
+                                       translate::get_uwvmint_local_spot_flush_typed_fptr_from_tuple<CompileOption, wasm_v128_t>(e.pos,
+                                                                                                                                 curr_stacktop,
+                                                                                                                                 interpreter_tuple));
+                        emit_imm_to(dst, e.off);
+                        e.dirty = false;
+                    }
+                    break;
+                }
+                [[unlikely]] default:
+                {
+                    break;
+                }
+            }
+        }
+    }};
+
+[[maybe_unused]] auto const local_spot_flush_dirty_all_to{
+    [&](bytecode_vec_t& dst) constexpr UWVM_THROWS
+    {
+        if constexpr(!stacktop_enabled || !CompileOption.is_tail_call) { return; }
+        else
+        {
+            for(auto& e: local_spot_cache) { local_spot_flush_dirty_entry_to(dst, e); }
+        }
+    }};
+
+[[maybe_unused]] auto const local_spot_invalidate_all{[&]() constexpr noexcept
+                                                      {
+                                                          if constexpr(!stacktop_enabled) { return; }
+                                                          else
+                                                          {
+                                                              for(auto& e: local_spot_cache)
+                                                              {
+                                                                  e.valid = false;
+                                                                  e.dirty = false;
+                                                              }
+                                                          }
+                                                      }};
+
+[[maybe_unused]] auto const local_spot_flush_dirty_all_and_invalidate_to{
+    [&](bytecode_vec_t& dst) constexpr UWVM_THROWS
+    {
+        local_spot_flush_dirty_all_to(dst);
+        local_spot_invalidate_all();
+    }};
+
+[[maybe_unused]] auto const local_spot_invalidate_slot{
+    [&](curr_operand_stack_value_type vt, ::std::size_t pos) constexpr noexcept
+    {
+        if constexpr(!stacktop_enabled) { return; }
+        else
+        {
+            if(!local_spot_enabled_for_vt(vt)) { return; }
+            for(auto& e: local_spot_cache)
+            {
+                if(local_spot_same_slot(e, vt, pos))
+                {
+                    e.valid = false;
+                    e.dirty = false;
+                }
+            }
+        }
+    }};
+
+[[maybe_unused]] auto const local_spot_flush_dirty_slot_and_invalidate_to{
+    [&](bytecode_vec_t& dst, curr_operand_stack_value_type vt, ::std::size_t pos) constexpr UWVM_THROWS
+    {
+        if constexpr(!stacktop_enabled) { return; }
+        else
+        {
+            if(!local_spot_enabled_for_vt(vt)) { return; }
+            for(auto& e: local_spot_cache)
+            {
+                if(local_spot_same_slot(e, vt, pos)) { local_spot_flush_dirty_entry_to(dst, e); }
+            }
+            local_spot_invalidate_slot(vt, pos);
+        }
+    }};
+
+[[maybe_unused]] auto const local_spot_find{
+    [&](local_offset_t off, curr_operand_stack_value_type vt) constexpr noexcept -> local_spot_cache_entry_t*
+    {
+        if constexpr(!stacktop_enabled) { return nullptr; }
+        else
+        {
+            if(!local_spot_enabled_for_vt(vt)) { return nullptr; }
+            for(auto& e: local_spot_cache)
+            {
+                if(e.valid && e.off == off && e.type == vt) { return ::std::addressof(e); }
+            }
+            return nullptr;
+        }
+    }};
+
+[[maybe_unused]] auto const local_spot_bind{
+    [&](local_offset_t off, curr_operand_stack_value_type vt, ::std::size_t pos, bool dirty = false) constexpr UWVM_THROWS
+    {
+        if constexpr(!stacktop_enabled) { return; }
+        else
+        {
+            if(!local_spot_enabled_for_vt(vt) || pos == SIZE_MAX) { return; }
+
+            for(auto& e: local_spot_cache)
+            {
+                if(e.valid && (e.off == off || local_spot_same_slot(e, vt, pos))) { e.valid = false; }
+            }
+
+            auto const put_entry{[&](local_spot_cache_entry_t& e) constexpr noexcept
+                                 {
+                                     e.valid = true;
+                                     e.dirty = dirty;
+                                     e.type = vt;
+                                     e.off = off;
+                                     e.pos = pos;
+                                 }};
+
+            for(auto& e: local_spot_cache)
+            {
+                if(!e.valid)
+                {
+                    put_entry(e);
+                    return;
+                }
+            }
+
+            if(local_spot_cache.size() == local_spot_cache.capacity())
+            {
+                local_spot_cache.reserve(local_spot_cache.capacity() ? local_spot_cache.capacity() * 2uz : 16uz);
+            }
+            local_spot_cache.push_back_unchecked({});
+            put_entry(local_spot_cache.back_unchecked());
+        }
+    }};
+
+[[maybe_unused]] auto const local_spot_bind_to{
+    [&](bytecode_vec_t& dst, local_offset_t off, curr_operand_stack_value_type vt, ::std::size_t pos, bool dirty = false) constexpr UWVM_THROWS
+    {
+        if constexpr(!stacktop_enabled) { return; }
+        else
+        {
+            if(!local_spot_enabled_for_vt(vt) || pos == SIZE_MAX) { return; }
+
+            for(auto& e: local_spot_cache)
+            {
+                if(e.valid && e.off != off && local_spot_same_slot(e, vt, pos)) { local_spot_flush_dirty_entry_to(dst, e); }
+            }
+
+            local_spot_bind(off, vt, pos, dirty);
+        }
+    }};
+
+[[maybe_unused]] auto const local_spot_current_pos_for_vt{
+    [&](curr_operand_stack_value_type vt) constexpr noexcept -> ::std::size_t
+    {
+        if constexpr(!stacktop_enabled) { return SIZE_MAX; }
+        else
+        {
+            if(!local_spot_enabled_for_vt(vt)) { return SIZE_MAX; }
+            auto const begin_pos{stacktop_range_begin_pos(vt)};
+            auto const end_pos{stacktop_range_end_pos(vt)};
+            return stacktop_currpos_for_range(begin_pos, end_pos);
+        }
+    }};
+
+[[maybe_unused]] auto const local_spot_push_target_pos_for_vt{
+    [&](curr_operand_stack_value_type vt) constexpr noexcept -> ::std::size_t
+    {
+        auto const currpos{local_spot_current_pos_for_vt(vt)};
+        if(currpos == SIZE_MAX) { return SIZE_MAX; }
+        auto const begin_pos{stacktop_range_begin_pos(vt)};
+        auto const end_pos{stacktop_range_end_pos(vt)};
+        return stacktop_window_prev_pos(currpos, begin_pos, end_pos);
+    }};
+
+[[maybe_unused]] auto const local_spot_flush_dirty_stacktop_slots_and_invalidate_to{
+    [&](bytecode_vec_t& dst, curr_operand_stack_value_type vt, ::std::size_t n) constexpr UWVM_THROWS
+    {
+        if constexpr(!stacktop_enabled) { return; }
+        else
+        {
+            if(n == 0uz || !local_spot_enabled_for_vt(vt)) { return; }
+            auto const begin_pos{stacktop_range_begin_pos(vt)};
+            auto const end_pos{stacktop_range_end_pos(vt)};
+            auto pos{stacktop_currpos_for_range(begin_pos, end_pos)};
+            auto const cached{stacktop_cache_count_for_range(begin_pos, end_pos)};
+            if(n > cached) { n = cached; }
+            for(::std::size_t i{}; i != n; ++i)
+            {
+                local_spot_flush_dirty_slot_and_invalidate_to(dst, vt, pos);
+                pos = stacktop_window_next_pos(pos, begin_pos, end_pos);
+            }
+        }
+    }};
+
 #if 0
-            [[maybe_unused]] auto const stacktop_ring_advance_prev{
+            [[maybe_unused]] auto const stacktop_window_advance_prev{
                 [&](::std::size_t pos, ::std::size_t n, ::std::size_t begin_pos, ::std::size_t end_pos) constexpr noexcept -> ::std::size_t
                 {
-                    for(::std::size_t i{}; i != n; ++i) { pos = stacktop_ring_prev(pos, begin_pos, end_pos); }
+                    for(::std::size_t i{}; i != n; ++i) { pos = stacktop_window_prev_pos(pos, begin_pos, end_pos); }
                     return pos;
                 }};
 #endif
@@ -944,7 +1797,9 @@ auto const stacktop_assert_invariants{
                 ::uwvm2::utils::debug::trap_and_inform_bug_pos();
             }
 
-            if(stacktop_cache_i32_count + stacktop_cache_i64_count + stacktop_cache_f32_count + stacktop_cache_f64_count != stacktop_cache_count)
+	            if(stacktop_cache_i32_count + stacktop_cache_i64_count + stacktop_cache_f32_count + stacktop_cache_f64_count +
+	                   stacktop_cache_v128_count !=
+	               stacktop_cache_count)
             {
                 ::uwvm2::utils::debug::trap_and_inform_bug_pos();
             }
@@ -957,11 +1812,11 @@ auto const stacktop_assert_invariants{
 
             if(stacktop_i32_enabled)
             {
-                check_currpos_in_range(curr_stacktop.i32_stack_top_curr_pos, CompileOption.i32_stack_top_begin_pos, CompileOption.i32_stack_top_end_pos);
+                check_currpos_in_range(curr_stacktop.i32_stack_top_curr_pos, stacktop_i32_begin_pos, stacktop_i32_end_pos);
             }
             if(stacktop_i64_enabled)
             {
-                check_currpos_in_range(curr_stacktop.i64_stack_top_curr_pos, CompileOption.i64_stack_top_begin_pos, CompileOption.i64_stack_top_end_pos);
+                check_currpos_in_range(curr_stacktop.i64_stack_top_curr_pos, stacktop_i64_begin_pos, stacktop_i64_end_pos);
             }
             if(stacktop_f32_enabled)
             {
@@ -979,16 +1834,16 @@ auto const stacktop_assert_invariants{
             // Capacity check per range (use direct sites so the reported line identifies the failing range).
             if(stacktop_i32_enabled)
             {
-                auto const begin_pos{CompileOption.i32_stack_top_begin_pos};
-                auto const end_pos{CompileOption.i32_stack_top_end_pos};
+                auto const begin_pos{stacktop_i32_begin_pos};
+                auto const end_pos{stacktop_i32_end_pos};
                 auto const cnt{stacktop_cache_count_for_range(begin_pos, end_pos)};
                 auto const cap{end_pos - begin_pos};
                 if(cnt > cap) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
             }
             if(stacktop_i64_enabled)
             {
-                auto const begin_pos{CompileOption.i64_stack_top_begin_pos};
-                auto const end_pos{CompileOption.i64_stack_top_end_pos};
+                auto const begin_pos{stacktop_i64_begin_pos};
+                auto const end_pos{stacktop_i64_end_pos};
                 auto const cnt{stacktop_cache_count_for_range(begin_pos, end_pos)};
                 auto const cap{end_pos - begin_pos};
                 if(cnt > cap) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
@@ -1058,42 +1913,54 @@ auto const emit_stacktop_spill1_typed_to{
             {
                 case curr_operand_stack_value_type::i32:
                 {
-                    emit_opfunc_to(
-                        dst,
-                        translate::get_uwvmint_stacktop_to_operand_stack_typed_single_fptr_from_tuple<CompileOption,
-                                                                                                      ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32>(
-                            slot,
-                            interpreter_tuple));
+                    if constexpr(stacktop_i32_enabled)
+                    {
+                        emit_opfunc_to(
+                            dst,
+                            translate::get_uwvmint_stacktop_to_operand_stack_typed_single_fptr_from_tuple<CompileOption,
+                                                                                                          ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32>(
+                                slot,
+                                interpreter_tuple));
+                    }
                     break;
                 }
                 case curr_operand_stack_value_type::i64:
                 {
-                    emit_opfunc_to(
-                        dst,
-                        translate::get_uwvmint_stacktop_to_operand_stack_typed_single_fptr_from_tuple<CompileOption,
-                                                                                                      ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64>(
-                            slot,
-                            interpreter_tuple));
+                    if constexpr(stacktop_i64_enabled)
+                    {
+                        emit_opfunc_to(
+                            dst,
+                            translate::get_uwvmint_stacktop_to_operand_stack_typed_single_fptr_from_tuple<CompileOption,
+                                                                                                          ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64>(
+                                slot,
+                                interpreter_tuple));
+                    }
                     break;
                 }
                 case curr_operand_stack_value_type::f32:
                 {
-                    emit_opfunc_to(
-                        dst,
-                        translate::get_uwvmint_stacktop_to_operand_stack_typed_single_fptr_from_tuple<CompileOption,
-                                                                                                      ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>(
-                            slot,
-                            interpreter_tuple));
+                    if constexpr(stacktop_f32_enabled)
+                    {
+                        emit_opfunc_to(
+                            dst,
+                            translate::get_uwvmint_stacktop_to_operand_stack_typed_single_fptr_from_tuple<CompileOption,
+                                                                                                          ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>(
+                                slot,
+                                interpreter_tuple));
+                    }
                     break;
                 }
                 case curr_operand_stack_value_type::f64:
                 {
-                    emit_opfunc_to(
-                        dst,
-                        translate::get_uwvmint_stacktop_to_operand_stack_typed_single_fptr_from_tuple<CompileOption,
-                                                                                                      ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>(
-                            slot,
-                            interpreter_tuple));
+                    if constexpr(stacktop_f64_enabled)
+                    {
+                        emit_opfunc_to(
+                            dst,
+                            translate::get_uwvmint_stacktop_to_operand_stack_typed_single_fptr_from_tuple<CompileOption,
+                                                                                                          ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>(
+                                slot,
+                                interpreter_tuple));
+                    }
                     break;
                 }
                 case curr_operand_stack_value_type::v128:
@@ -1127,26 +1994,26 @@ auto const emit_stacktop_spill1_typed_to{
 
 [[maybe_unused]] constexpr bool const i32_range_unique{stacktop_i32_enabled &&
                                                        ((1uz) +
-                                                        (stacktop_i64_enabled && stacktop_same_range(CompileOption.i32_stack_top_begin_pos,
-                                                                                                     CompileOption.i32_stack_top_end_pos,
-                                                                                                     CompileOption.i64_stack_top_begin_pos,
-                                                                                                     CompileOption.i64_stack_top_end_pos)
+                                                        (stacktop_i64_enabled && stacktop_same_range(stacktop_i32_begin_pos,
+                                                                                                     stacktop_i32_end_pos,
+                                                                                                     stacktop_i64_begin_pos,
+                                                                                                     stacktop_i64_end_pos)
                                                              ? 1uz
                                                              : 0uz) +
-                                                        (stacktop_f32_enabled && stacktop_same_range(CompileOption.i32_stack_top_begin_pos,
-                                                                                                     CompileOption.i32_stack_top_end_pos,
+                                                        (stacktop_f32_enabled && stacktop_same_range(stacktop_i32_begin_pos,
+                                                                                                     stacktop_i32_end_pos,
                                                                                                      CompileOption.f32_stack_top_begin_pos,
                                                                                                      CompileOption.f32_stack_top_end_pos)
                                                              ? 1uz
                                                              : 0uz) +
-                                                        (stacktop_f64_enabled && stacktop_same_range(CompileOption.i32_stack_top_begin_pos,
-                                                                                                     CompileOption.i32_stack_top_end_pos,
+                                                        (stacktop_f64_enabled && stacktop_same_range(stacktop_i32_begin_pos,
+                                                                                                     stacktop_i32_end_pos,
                                                                                                      CompileOption.f64_stack_top_begin_pos,
                                                                                                      CompileOption.f64_stack_top_end_pos)
                                                              ? 1uz
                                                              : 0uz) +
-                                                        (stacktop_v128_enabled && stacktop_same_range(CompileOption.i32_stack_top_begin_pos,
-                                                                                                      CompileOption.i32_stack_top_end_pos,
+                                                        (stacktop_v128_enabled && stacktop_same_range(stacktop_i32_begin_pos,
+                                                                                                      stacktop_i32_end_pos,
                                                                                                       CompileOption.v128_stack_top_begin_pos,
                                                                                                       CompileOption.v128_stack_top_end_pos)
                                                              ? 1uz
@@ -1154,26 +2021,26 @@ auto const emit_stacktop_spill1_typed_to{
 
 [[maybe_unused]] constexpr bool const i64_range_unique{stacktop_i64_enabled &&
                                                        ((1uz) +
-                                                        (stacktop_i32_enabled && stacktop_same_range(CompileOption.i64_stack_top_begin_pos,
-                                                                                                     CompileOption.i64_stack_top_end_pos,
-                                                                                                     CompileOption.i32_stack_top_begin_pos,
-                                                                                                     CompileOption.i32_stack_top_end_pos)
+                                                        (stacktop_i32_enabled && stacktop_same_range(stacktop_i64_begin_pos,
+                                                                                                     stacktop_i64_end_pos,
+                                                                                                     stacktop_i32_begin_pos,
+                                                                                                     stacktop_i32_end_pos)
                                                              ? 1uz
                                                              : 0uz) +
-                                                        (stacktop_f32_enabled && stacktop_same_range(CompileOption.i64_stack_top_begin_pos,
-                                                                                                     CompileOption.i64_stack_top_end_pos,
+                                                        (stacktop_f32_enabled && stacktop_same_range(stacktop_i64_begin_pos,
+                                                                                                     stacktop_i64_end_pos,
                                                                                                      CompileOption.f32_stack_top_begin_pos,
                                                                                                      CompileOption.f32_stack_top_end_pos)
                                                              ? 1uz
                                                              : 0uz) +
-                                                        (stacktop_f64_enabled && stacktop_same_range(CompileOption.i64_stack_top_begin_pos,
-                                                                                                     CompileOption.i64_stack_top_end_pos,
+                                                        (stacktop_f64_enabled && stacktop_same_range(stacktop_i64_begin_pos,
+                                                                                                     stacktop_i64_end_pos,
                                                                                                      CompileOption.f64_stack_top_begin_pos,
                                                                                                      CompileOption.f64_stack_top_end_pos)
                                                              ? 1uz
                                                              : 0uz) +
-                                                        (stacktop_v128_enabled && stacktop_same_range(CompileOption.i64_stack_top_begin_pos,
-                                                                                                      CompileOption.i64_stack_top_end_pos,
+                                                        (stacktop_v128_enabled && stacktop_same_range(stacktop_i64_begin_pos,
+                                                                                                      stacktop_i64_end_pos,
                                                                                                       CompileOption.v128_stack_top_begin_pos,
                                                                                                       CompileOption.v128_stack_top_end_pos)
                                                              ? 1uz
@@ -1183,14 +2050,14 @@ auto const emit_stacktop_spill1_typed_to{
                                                        ((1uz) +
                                                         (stacktop_i32_enabled && stacktop_same_range(CompileOption.f32_stack_top_begin_pos,
                                                                                                      CompileOption.f32_stack_top_end_pos,
-                                                                                                     CompileOption.i32_stack_top_begin_pos,
-                                                                                                     CompileOption.i32_stack_top_end_pos)
+                                                                                                     stacktop_i32_begin_pos,
+                                                                                                     stacktop_i32_end_pos)
                                                              ? 1uz
                                                              : 0uz) +
                                                         (stacktop_i64_enabled && stacktop_same_range(CompileOption.f32_stack_top_begin_pos,
                                                                                                      CompileOption.f32_stack_top_end_pos,
-                                                                                                     CompileOption.i64_stack_top_begin_pos,
-                                                                                                     CompileOption.i64_stack_top_end_pos)
+                                                                                                     stacktop_i64_begin_pos,
+                                                                                                     stacktop_i64_end_pos)
                                                              ? 1uz
                                                              : 0uz) +
                                                         (stacktop_f64_enabled && stacktop_same_range(CompileOption.f32_stack_top_begin_pos,
@@ -1210,14 +2077,14 @@ auto const emit_stacktop_spill1_typed_to{
                                                        ((1uz) +
                                                         (stacktop_i32_enabled && stacktop_same_range(CompileOption.f64_stack_top_begin_pos,
                                                                                                      CompileOption.f64_stack_top_end_pos,
-                                                                                                     CompileOption.i32_stack_top_begin_pos,
-                                                                                                     CompileOption.i32_stack_top_end_pos)
+                                                                                                     stacktop_i32_begin_pos,
+                                                                                                     stacktop_i32_end_pos)
                                                              ? 1uz
                                                              : 0uz) +
                                                         (stacktop_i64_enabled && stacktop_same_range(CompileOption.f64_stack_top_begin_pos,
                                                                                                      CompileOption.f64_stack_top_end_pos,
-                                                                                                     CompileOption.i64_stack_top_begin_pos,
-                                                                                                     CompileOption.i64_stack_top_end_pos)
+                                                                                                     stacktop_i64_begin_pos,
+                                                                                                     stacktop_i64_end_pos)
                                                              ? 1uz
                                                              : 0uz) +
                                                         (stacktop_f32_enabled && stacktop_same_range(CompileOption.f64_stack_top_begin_pos,
@@ -1408,11 +2275,11 @@ auto const emit_stacktop_spill1_typed_to{
 
             // Spill in deepest->top order so operand-stack memory preserves deep->top layout.
             ::std::size_t pos{start_pos};
-            pos = stacktop_ring_advance_next(pos, count - 1uz, begin_pos, end_pos);  // deepest within the segment
+            pos = stacktop_window_advance_next(pos, count - 1uz, begin_pos, end_pos);  // deepest within the segment
             for(::std::size_t i{}; i != count; ++i)
             {
                 emit_stacktop_spill1_typed_to(dst, pos, vt);
-                pos = stacktop_ring_prev(pos, begin_pos, end_pos);
+                pos = stacktop_window_prev_pos(pos, begin_pos, end_pos);
             }
         }
     }};
@@ -1428,42 +2295,54 @@ auto const emit_stacktop_fill1_typed_to{
             {
                 case curr_operand_stack_value_type::i32:
                 {
-                    emit_opfunc_to(
-                        dst,
-                        translate::get_uwvmint_operand_stack_to_stacktop_typed_single_fptr_from_tuple<CompileOption,
-                                                                                                      ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32>(
-                            slot,
-                            interpreter_tuple));
+                    if constexpr(stacktop_i32_enabled)
+                    {
+                        emit_opfunc_to(
+                            dst,
+                            translate::get_uwvmint_operand_stack_to_stacktop_typed_single_fptr_from_tuple<CompileOption,
+                                                                                                          ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32>(
+                                slot,
+                                interpreter_tuple));
+                    }
                     break;
                 }
                 case curr_operand_stack_value_type::i64:
                 {
-                    emit_opfunc_to(
-                        dst,
-                        translate::get_uwvmint_operand_stack_to_stacktop_typed_single_fptr_from_tuple<CompileOption,
-                                                                                                      ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64>(
-                            slot,
-                            interpreter_tuple));
+                    if constexpr(stacktop_i64_enabled)
+                    {
+                        emit_opfunc_to(
+                            dst,
+                            translate::get_uwvmint_operand_stack_to_stacktop_typed_single_fptr_from_tuple<CompileOption,
+                                                                                                          ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64>(
+                                slot,
+                                interpreter_tuple));
+                    }
                     break;
                 }
                 case curr_operand_stack_value_type::f32:
                 {
-                    emit_opfunc_to(
-                        dst,
-                        translate::get_uwvmint_operand_stack_to_stacktop_typed_single_fptr_from_tuple<CompileOption,
-                                                                                                      ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>(
-                            slot,
-                            interpreter_tuple));
+                    if constexpr(stacktop_f32_enabled)
+                    {
+                        emit_opfunc_to(
+                            dst,
+                            translate::get_uwvmint_operand_stack_to_stacktop_typed_single_fptr_from_tuple<CompileOption,
+                                                                                                          ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32>(
+                                slot,
+                                interpreter_tuple));
+                    }
                     break;
                 }
                 case curr_operand_stack_value_type::f64:
                 {
-                    emit_opfunc_to(
-                        dst,
-                        translate::get_uwvmint_operand_stack_to_stacktop_typed_single_fptr_from_tuple<CompileOption,
-                                                                                                      ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>(
-                            slot,
-                            interpreter_tuple));
+                    if constexpr(stacktop_f64_enabled)
+                    {
+                        emit_opfunc_to(
+                            dst,
+                            translate::get_uwvmint_operand_stack_to_stacktop_typed_single_fptr_from_tuple<CompileOption,
+                                                                                                          ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64>(
+                                slot,
+                                interpreter_tuple));
+                    }
                     break;
                 }
                 case curr_operand_stack_value_type::v128:
@@ -1660,12 +2539,12 @@ auto const emit_stacktop_fill1_typed_to{
             ::std::size_t const begin_pos{stacktop_range_begin_pos(vt)};
             ::std::size_t const end_pos{stacktop_range_end_pos(vt)};
 
-            // Fill in top->deep order: each fill consumes the current operand-stack top and writes the next ring slot.
+            // Fill in top->deep order: each fill consumes the current operand-stack top and writes the next stack-top window slot.
             ::std::size_t pos{start_pos};
             for(::std::size_t i{}; i != count; ++i)
             {
                 emit_stacktop_fill1_typed_to(dst, pos, vt);
-                pos = stacktop_ring_next(pos, begin_pos, end_pos);
+                pos = stacktop_window_next_pos(pos, begin_pos, end_pos);
             }
         }
     }};
@@ -1701,7 +2580,7 @@ auto const stacktop_spill_one_deepest_to{[&](bytecode_vec_t& dst, ::std::size_t 
                                              if(spill_n > 1uz)
                                              {
                                                  // segment top (least deep among the deepest `spill_n` values)
-                                                 ::std::size_t const seg_top_slot{stacktop_ring_advance_next(currpos, group_cnt - spill_n, begin_pos, end_pos)};
+                                                 ::std::size_t const seg_top_slot{stacktop_window_advance_next(currpos, group_cnt - spill_n, begin_pos, end_pos)};
                                                  if(runtime_log_on && runtime_log_emit_stacktop) [[unlikely]]
                                                  {
                                                      ::fast_io::io::print(::uwvm2::uwvm::io::u8runtime_log_output,
@@ -1727,7 +2606,7 @@ auto const stacktop_spill_one_deepest_to{[&](bytecode_vec_t& dst, ::std::size_t 
                                              }
                                              else
                                              {
-                                                 ::std::size_t const deepest_slot{stacktop_ring_advance_next(currpos, group_cnt - 1uz, begin_pos, end_pos)};
+                                                 ::std::size_t const deepest_slot{stacktop_window_advance_next(currpos, group_cnt - 1uz, begin_pos, end_pos)};
                                                  if(runtime_log_on && runtime_log_emit_stacktop) [[unlikely]]
                                                  {
                                                      ::fast_io::io::print(::uwvm2::uwvm::io::u8runtime_log_output,
@@ -1771,8 +2650,8 @@ auto const stacktop_fill_one_from_memory_to{[&](bytecode_vec_t& dst) constexpr U
                                                 ::std::size_t const end_pos{stacktop_range_end_pos(vt)};
                                                 ::std::size_t const group_cnt{stacktop_cache_count_for_range(begin_pos, end_pos)};
                                                 ::std::size_t const currpos{stacktop_currpos_for_range(begin_pos, end_pos)};
-                                                ::std::size_t const ring_size{end_pos - begin_pos};
-                                                ::std::size_t const free_slots{ring_size - group_cnt};
+                                                ::std::size_t const window_size{end_pos - begin_pos};
+                                                ::std::size_t const free_slots{window_size - group_cnt};
                                                 ::std::size_t fill_n{1uz};
                                                 if(free_slots > 1uz)
                                                 {
@@ -1783,7 +2662,16 @@ auto const stacktop_fill_one_from_memory_to{[&](bytecode_vec_t& dst) constexpr U
                                                     }
                                                 }
 
-                                                ::std::size_t const start_slot{stacktop_ring_advance_next(currpos, group_cnt, begin_pos, end_pos)};
+                                                ::std::size_t const start_slot{stacktop_window_advance_next(currpos, group_cnt, begin_pos, end_pos)};
+                                                {
+                                                    ::std::size_t pos{start_slot};
+                                                    for(::std::size_t i{}; i != fill_n; ++i)
+                                                    {
+                                                        local_spot_flush_dirty_slot_and_invalidate_to(dst, vt, pos);
+                                                        pos = stacktop_window_next_pos(pos, begin_pos, end_pos);
+                                                    }
+                                                }
+
                                                 if(fill_n > 1uz) { emit_stacktop_filln_same_vt_to(dst, start_slot, fill_n, vt); }
                                                 else
                                                 {
@@ -1808,9 +2696,9 @@ auto const stacktop_prepare_push1_typed{[&](bytecode_vec_t& dst, curr_operand_st
 
                                             ::std::size_t const begin_pos{stacktop_range_begin_pos(vt)};
                                             ::std::size_t const end_pos{stacktop_range_end_pos(vt)};
-                                            ::std::size_t const ring_size{end_pos - begin_pos};
+                                            ::std::size_t const window_size{end_pos - begin_pos};
 
-                                            // Critical correctness: push opfuncs write into `ring_prev(currpos)`. If the ring is full, that slot
+                                            // Critical correctness: push opfuncs write into `stacktop_window_prev_pos(currpos)`. If the stack-top window is full, that slot
                                             // is occupied by the deepest cached value of that range; spill from the deepest cached overall until
                                             // the target range has a free slot.
                                             if(runtime_log_on && runtime_log_emit_stacktop) [[unlikely]]
@@ -1824,8 +2712,8 @@ auto const stacktop_prepare_push1_typed{[&](bytecode_vec_t& dst, curr_operand_st
                                                                      begin_pos,
                                                                      u8" end=",
                                                                      end_pos,
-                                                                     u8" ring=",
-                                                                     ring_size,
+                                                                     u8" window=",
+                                                                     window_size,
                                                                      u8" range_cache=",
                                                                      stacktop_cache_count_for_range(begin_pos, end_pos),
                                                                      u8" stacktop{mem=",
@@ -1835,7 +2723,7 @@ auto const stacktop_prepare_push1_typed{[&](bytecode_vec_t& dst, curr_operand_st
                                                                      u8"}\n");
                                             }
                                             ::std::size_t spill_cnt{};
-                                            while(stacktop_cache_count_for_range(begin_pos, end_pos) >= ring_size)
+                                            while(stacktop_cache_count_for_range(begin_pos, end_pos) >= window_size)
                                             {
                                                 // Only spill what is needed to free one slot for this push.
                                                 // Over-spilling can strand subsequent opcodes (e.g. `select`) with operands in memory while
@@ -1843,6 +2731,10 @@ auto const stacktop_prepare_push1_typed{[&](bytecode_vec_t& dst, curr_operand_st
                                                 stacktop_spill_one_deepest_to(dst, 1uz);
                                                 ++spill_cnt;
                                             }
+
+                                            ::std::size_t const target_pos{
+                                                stacktop_window_prev_pos(stacktop_currpos_for_range(begin_pos, end_pos), begin_pos, end_pos)};
+                                            local_spot_flush_dirty_slot_and_invalidate_to(dst, vt, target_pos);
 
                                             stacktop_assert_invariants();
                                             if(runtime_log_on && runtime_log_emit_stacktop) [[unlikely]]
@@ -1885,7 +2777,7 @@ auto const stacktop_commit_push1_typed{[&](curr_operand_stack_value_type vt) con
                                            ::std::size_t const end_pos{stacktop_range_end_pos(vt)};
 
                                            ::std::size_t const currpos{stacktop_currpos_for_range(begin_pos, end_pos)};
-                                           ::std::size_t const new_pos{stacktop_ring_prev(currpos, begin_pos, end_pos)};
+                                           ::std::size_t const new_pos{stacktop_window_prev_pos(currpos, begin_pos, end_pos)};
                                            stacktop_set_currpos_for_range(begin_pos, end_pos, new_pos);
 
                                            ++stacktop_cache_count;
@@ -1922,9 +2814,10 @@ auto const stacktop_commit_pop_n{[&](::std::size_t n) constexpr noexcept
                                          auto const before_stacktop_memory_count{stacktop_memory_count};
                                          auto const before_stacktop_cache_count{stacktop_cache_count};
                                          auto const before_stacktop_cache_i32_count{stacktop_cache_i32_count};
-                                         auto const before_stacktop_cache_i64_count{stacktop_cache_i64_count};
-                                         auto const before_stacktop_cache_f32_count{stacktop_cache_f32_count};
-                                         auto const before_stacktop_cache_f64_count{stacktop_cache_f64_count};
+	                                         auto const before_stacktop_cache_i64_count{stacktop_cache_i64_count};
+	                                         auto const before_stacktop_cache_f32_count{stacktop_cache_f32_count};
+	                                         auto const before_stacktop_cache_f64_count{stacktop_cache_f64_count};
+	                                         auto const before_stacktop_cache_v128_count{stacktop_cache_v128_count};
 
                                          // Pop from the top; if cache becomes empty, remaining pops consume the memory-only stack.
                                          for(::std::size_t i{}; i != n; ++i)
@@ -1950,7 +2843,7 @@ auto const stacktop_commit_pop_n{[&](::std::size_t n) constexpr noexcept
                                              ::std::size_t const end_pos{stacktop_range_end_pos(vt)};
 
                                              ::std::size_t const currpos{stacktop_currpos_for_range(begin_pos, end_pos)};
-                                             ::std::size_t const new_pos{stacktop_ring_next(currpos, begin_pos, end_pos)};
+                                             ::std::size_t const new_pos{stacktop_window_next_pos(currpos, begin_pos, end_pos)};
                                              stacktop_set_currpos_for_range(begin_pos, end_pos, new_pos);
 
                                              if(stacktop_cache_count != 0uz)
@@ -1989,18 +2882,22 @@ auto const stacktop_commit_pop_n{[&](::std::size_t n) constexpr noexcept
                                                                   before_stacktop_cache_i64_count,
                                                                   u8",f32=",
                                                                   before_stacktop_cache_f32_count,
-                                                                  u8",f64=",
-                                                                  before_stacktop_cache_f64_count,
-                                                                  u8"}->",
+	                                                                  u8",f64=",
+	                                                                  before_stacktop_cache_f64_count,
+	                                                                  u8",v128=",
+	                                                                  before_stacktop_cache_v128_count,
+	                                                                  u8"}->",
                                                                   u8"{i32=",
                                                                   stacktop_cache_i32_count,
                                                                   u8",i64=",
                                                                   stacktop_cache_i64_count,
                                                                   u8",f32=",
                                                                   stacktop_cache_f32_count,
-                                                                  u8",f64=",
-                                                                  stacktop_cache_f64_count,
-                                                                  u8"} currpos{i32=",
+	                                                                  u8",f64=",
+	                                                                  stacktop_cache_f64_count,
+	                                                                  u8",v128=",
+	                                                                  stacktop_cache_v128_count,
+	                                                                  u8"} currpos{i32=",
                                                                   before_curr_stacktop.i32_stack_top_curr_pos,
                                                                   u8"->",
                                                                   curr_stacktop.i32_stack_top_curr_pos,
@@ -2013,10 +2910,14 @@ auto const stacktop_commit_pop_n{[&](::std::size_t n) constexpr noexcept
                                                                   u8"->",
                                                                   curr_stacktop.f32_stack_top_curr_pos,
                                                                   u8",f64=",
-                                                                  before_curr_stacktop.f64_stack_top_curr_pos,
-                                                                  u8"->",
-                                                                  curr_stacktop.f64_stack_top_curr_pos,
-                                                                  u8"}\n");
+	                                                                  before_curr_stacktop.f64_stack_top_curr_pos,
+	                                                                  u8"->",
+	                                                                  curr_stacktop.f64_stack_top_curr_pos,
+	                                                                  u8",v128=",
+	                                                                  before_curr_stacktop.v128_stack_top_curr_pos,
+	                                                                  u8"->",
+	                                                                  curr_stacktop.v128_stack_top_curr_pos,
+	                                                                  u8"}\n");
                                          }
                                      }
                                  }};
@@ -2031,14 +2932,14 @@ auto const stacktop_fill_to_canonical{[&](bytecode_vec_t& dst) constexpr UWVM_TH
 
                                               stacktop_assert_invariants();
 
-                                              // Fill from memory into cache as deep as possible while respecting per-range ring capacities.
+                                              // Fill from memory into cache as deep as possible while respecting per-range stack-top window capacities.
                                               while(stacktop_memory_count != 0uz)
                                               {
                                                   auto const vt{codegen_operand_stack.index_unchecked(stacktop_memory_count - 1uz).type};
                                                   ::std::size_t const begin_pos{stacktop_range_begin_pos(vt)};
                                                   ::std::size_t const end_pos{stacktop_range_end_pos(vt)};
-                                                  ::std::size_t const ring_size{end_pos - begin_pos};
-                                                  if(stacktop_cache_count_for_range(begin_pos, end_pos) == ring_size) { break; }
+                                                  ::std::size_t const window_size{end_pos - begin_pos};
+                                                  if(stacktop_cache_count_for_range(begin_pos, end_pos) == window_size) { break; }
                                                   stacktop_fill_one_from_memory_to(dst);
                                               }
 
@@ -2054,19 +2955,91 @@ auto const stacktop_flush_all_to_operand_stack{[&](bytecode_vec_t& dst) constexp
                                                    else
                                                    {
                                                        stacktop_assert_invariants();
+                                                       local_spot_flush_dirty_all_to(dst);
                                                        // Spill from deepest to top so operand stack memory ends up in correct deep->top order.
                                                        while(stacktop_cache_count != 0uz) { stacktop_spill_one_deepest_to(dst); }
 
+                                                       local_spot_invalidate_all();
                                                        stacktop_assert_invariants();
                                                    }
                                                }};
+
+[[maybe_unused]] auto const spill_i32_stacktop_if_anonymous_capacity_insufficient{
+    [&](bytecode_vec_t& dst) constexpr UWVM_THROWS
+    {
+        if constexpr(stacktop_i32_spot_enabled)
+        {
+            if(stacktop_cache_i32_count > anonymous_stacktop_param_capacity_for_numeric_i32 ||
+               (stacktop_cache_i32_count != 0uz && curr_stacktop.i32_stack_top_curr_pos != stacktop_i32_begin_pos))
+            {
+                stacktop_flush_all_to_operand_stack(dst);
+            }
+        }
+    }};
+
+[[maybe_unused]] auto const spill_i64_stacktop_if_anonymous_capacity_insufficient{
+    [&](bytecode_vec_t& dst) constexpr UWVM_THROWS
+    {
+        if constexpr(stacktop_i64_spot_enabled)
+        {
+            if(stacktop_cache_i64_count > anonymous_stacktop_param_capacity_for_numeric_i64 ||
+               (stacktop_cache_i64_count != 0uz && curr_stacktop.i64_stack_top_curr_pos != stacktop_i64_begin_pos))
+            {
+                stacktop_flush_all_to_operand_stack(dst);
+            }
+        }
+    }};
+
+[[maybe_unused]] auto const emit_i32_anonymous_binop_to{
+    [&]<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop Op>(bytecode_vec_t& dst) constexpr UWVM_THROWS
+    {
+        namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+        if constexpr(stacktop_i32_spot_enabled)
+        {
+            spill_i32_stacktop_if_anonymous_capacity_insufficient(dst);
+            local_spot_flush_dirty_stacktop_slots_and_invalidate_to(dst,
+                                                                    curr_operand_stack_value_type::i32,
+                                                                    anonymous_stacktop_param_count_for_numeric_i32());
+            emit_opfunc_to(dst,
+                           translate::get_uwvmint_i32_binop_anonymous_stacktop_fptr_from_tuple<CompileOption, Op>(
+                               anonymous_stacktop_param_count_for_numeric_i32(),
+                               interpreter_tuple));
+        }
+        else
+        {
+            local_spot_flush_dirty_stacktop_slots_and_invalidate_to(dst, curr_operand_stack_value_type::i32, 2uz);
+            emit_opfunc_to(dst, translate::get_uwvmint_i32_binop_fptr_from_tuple<CompileOption, Op>(curr_stacktop, interpreter_tuple));
+        }
+    }};
+
+[[maybe_unused]] auto const emit_i64_anonymous_binop_to{
+    [&]<::uwvm2::runtime::compiler::uwvm_int::optable::numeric_details::int_binop Op>(bytecode_vec_t& dst) constexpr UWVM_THROWS
+    {
+        namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+        if constexpr(stacktop_i64_spot_enabled)
+        {
+            spill_i64_stacktop_if_anonymous_capacity_insufficient(dst);
+            local_spot_flush_dirty_stacktop_slots_and_invalidate_to(dst,
+                                                                    curr_operand_stack_value_type::i64,
+                                                                    anonymous_stacktop_param_count_for_numeric_i64());
+            emit_opfunc_to(dst,
+                           translate::get_uwvmint_i64_binop_anonymous_stacktop_fptr_from_tuple<CompileOption, Op>(
+                               anonymous_stacktop_param_count_for_numeric_i64(),
+                               interpreter_tuple));
+        }
+        else
+        {
+            local_spot_flush_dirty_stacktop_slots_and_invalidate_to(dst, curr_operand_stack_value_type::i64, 2uz);
+            emit_opfunc_to(dst, translate::get_uwvmint_i64_binop_fptr_from_tuple<CompileOption, Op>(curr_stacktop, interpreter_tuple));
+        }
+    }};
 
 [[maybe_unused]] auto const stacktop_reset_currpos_to_begin{
     [&]() constexpr noexcept
     {
         if constexpr(!stacktop_enabled) { return; }
-        curr_stacktop.i32_stack_top_curr_pos = stacktop_i32_enabled ? CompileOption.i32_stack_top_begin_pos : SIZE_MAX;
-        curr_stacktop.i64_stack_top_curr_pos = stacktop_i64_enabled ? CompileOption.i64_stack_top_begin_pos : SIZE_MAX;
+        curr_stacktop.i32_stack_top_curr_pos = stacktop_i32_enabled ? stacktop_i32_begin_pos : SIZE_MAX;
+        curr_stacktop.i64_stack_top_curr_pos = stacktop_i64_enabled ? stacktop_i64_begin_pos : SIZE_MAX;
         curr_stacktop.f32_stack_top_curr_pos = stacktop_f32_enabled ? CompileOption.f32_stack_top_begin_pos : SIZE_MAX;
         curr_stacktop.f64_stack_top_curr_pos = stacktop_f64_enabled ? CompileOption.f64_stack_top_begin_pos : SIZE_MAX;
         curr_stacktop.v128_stack_top_curr_pos = stacktop_v128_enabled ? CompileOption.v128_stack_top_begin_pos : SIZE_MAX;
@@ -2077,14 +3050,14 @@ auto const stacktop_flush_all_to_operand_stack{[&](bytecode_vec_t& dst) constexp
                                                           if constexpr(!stacktop_enabled) { return true; }
                                                           if constexpr(stacktop_i32_enabled)
                                                           {
-                                                              if(curr_stacktop.i32_stack_top_curr_pos != CompileOption.i32_stack_top_begin_pos)
+                                                              if(curr_stacktop.i32_stack_top_curr_pos != stacktop_i32_begin_pos)
                                                               {
                                                                   return false;
                                                               }
                                                           }
                                                           if constexpr(stacktop_i64_enabled)
                                                           {
-                                                              if(curr_stacktop.i64_stack_top_curr_pos != CompileOption.i64_stack_top_begin_pos)
+                                                              if(curr_stacktop.i64_stack_top_curr_pos != stacktop_i64_begin_pos)
                                                               {
                                                                   return false;
                                                               }
@@ -2136,8 +3109,8 @@ auto const stacktop_flush_all_to_operand_stack{[&](bytecode_vec_t& dst) constexp
                                                      return div * b;
                                                  }};
 
-// Loop-unwind uses the minimum recovery period for each enabled register ring:
-// ring_size / gcd(ring_size, delta). The global period is the lcm across ranges.
+// Loop-unwind uses the minimum recovery period for each enabled stack-top window:
+// window_size / gcd(window_size, delta). The global period is the lcm across ranges.
 // See src/uwvm2/runtime/compiler/uwvm_int/loop_unwind.md.
 [[maybe_unused]] auto const loop_unwind_currpos_period{
     [&]() constexpr noexcept -> ::std::size_t
@@ -2148,15 +3121,15 @@ auto const stacktop_flush_all_to_operand_stack{[&](bytecode_vec_t& dst) constexp
         auto const add_range{[&](bool enabled, ::std::size_t begin_pos, ::std::size_t end_pos, ::std::size_t currpos) constexpr noexcept
                              {
                                  if(!enabled || currpos == SIZE_MAX || end_pos <= begin_pos) { return; }
-                                 auto const ring_size{end_pos - begin_pos};
-                                 auto const delta{(currpos + ring_size - begin_pos) % ring_size};
+                                 auto const window_size{end_pos - begin_pos};
+                                 auto const delta{(currpos + window_size - begin_pos) % window_size};
                                  if(delta == 0uz) { return; }
-                                 auto const range_period{ring_size / loop_unwind_gcd_size(ring_size, delta)};
+                                 auto const range_period{window_size / loop_unwind_gcd_size(window_size, delta)};
                                  period = loop_unwind_lcm_size(period, range_period);
                              }};
 
-        add_range(stacktop_i32_enabled, CompileOption.i32_stack_top_begin_pos, CompileOption.i32_stack_top_end_pos, curr_stacktop.i32_stack_top_curr_pos);
-        add_range(stacktop_i64_enabled, CompileOption.i64_stack_top_begin_pos, CompileOption.i64_stack_top_end_pos, curr_stacktop.i64_stack_top_curr_pos);
+        add_range(stacktop_i32_enabled, stacktop_i32_begin_pos, stacktop_i32_end_pos, curr_stacktop.i32_stack_top_curr_pos);
+        add_range(stacktop_i64_enabled, stacktop_i64_begin_pos, stacktop_i64_end_pos, curr_stacktop.i64_stack_top_curr_pos);
         add_range(stacktop_f32_enabled, CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos, curr_stacktop.f32_stack_top_curr_pos);
         add_range(stacktop_f64_enabled, CompileOption.f64_stack_top_begin_pos, CompileOption.f64_stack_top_end_pos, curr_stacktop.f64_stack_top_curr_pos);
         add_range(stacktop_v128_enabled, CompileOption.v128_stack_top_begin_pos, CompileOption.v128_stack_top_end_pos, curr_stacktop.v128_stack_top_curr_pos);
@@ -2171,6 +3144,7 @@ auto const stacktop_flush_all_to_operand_stack{[&](bytecode_vec_t& dst) constexp
             if(is_polymorphic)
             {
                 // Unreachable region: keep compiler-side state deterministic without emitting runtime code.
+                local_spot_invalidate_all();
                 stacktop_reset_currpos_to_begin();
                 return;
             }
@@ -2178,17 +3152,19 @@ auto const stacktop_flush_all_to_operand_stack{[&](bytecode_vec_t& dst) constexp
             // If cache is empty there is no live register state to preserve; reset cursors without emitting a transform opfunc.
             if(stacktop_cache_count == 0uz)
             {
+                local_spot_flush_dirty_all_and_invalidate_to(dst);
                 stacktop_reset_currpos_to_begin();
                 return;
             }
 
             namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+            local_spot_flush_dirty_all_and_invalidate_to(dst);
             emit_opfunc_to(dst, translate::get_uwvmint_stacktop_transform_to_begin_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
             stacktop_reset_currpos_to_begin();
         }
     }};
 
-// Edge canonicalization is stricter than a normal spill: it also resets ring cursors and counters so
+// Edge canonicalization is stricter than a normal spill: it also resets stack-top window cursors and counters so
 // branch targets can start from a deterministic empty-cache state.
 [[maybe_unused]] auto const stacktop_canonicalize_edge_to_memory{[&](bytecode_vec_t& dst) constexpr UWVM_THROWS
                                                                  {
@@ -2199,11 +3175,82 @@ auto const stacktop_flush_all_to_operand_stack{[&](bytecode_vec_t& dst) constexp
                                                                      stacktop_reset_currpos_to_begin();
                                                                      stacktop_cache_count = 0uz;
                                                                      stacktop_cache_i32_count = 0uz;
-                                                                     stacktop_cache_i64_count = 0uz;
-                                                                     stacktop_cache_f32_count = 0uz;
-                                                                     stacktop_cache_f64_count = 0uz;
+	                                                                     stacktop_cache_i64_count = 0uz;
+	                                                                     stacktop_cache_f32_count = 0uz;
+	                                                                     stacktop_cache_f64_count = 0uz;
+	                                                                     stacktop_cache_v128_count = 0uz;
                                                                      stacktop_memory_count = codegen_operand_stack.size();
                                                                  }};
+
+[[maybe_unused]] auto const stacktop_loop_entry_residence_matches{
+    [&](curr_block_type const& frame) constexpr noexcept -> bool
+    {
+        if constexpr(!stacktop_enabled) { return true; }
+        else
+        {
+            if(frame.type != block_type::loop || !frame.stacktop_has_loop_entry_state) { return true; }
+            if(stacktop_memory_count != frame.stacktop_memory_count_at_loop_entry) { return false; }
+            if(stacktop_cache_count != frame.stacktop_cache_count_at_loop_entry) { return false; }
+            if(stacktop_cache_i32_count != frame.stacktop_cache_i32_count_at_loop_entry) { return false; }
+            if(stacktop_cache_i64_count != frame.stacktop_cache_i64_count_at_loop_entry) { return false; }
+            if(stacktop_cache_f32_count != frame.stacktop_cache_f32_count_at_loop_entry) { return false; }
+            if(stacktop_cache_f64_count != frame.stacktop_cache_f64_count_at_loop_entry) { return false; }
+            if(stacktop_cache_v128_count != frame.stacktop_cache_v128_count_at_loop_entry) { return false; }
+            if(codegen_operand_stack.size() != frame.codegen_operand_stack_at_loop_entry.size()) { return false; }
+            for(::std::size_t i{}; i != codegen_operand_stack.size(); ++i)
+            {
+                if(codegen_operand_stack.index_unchecked(i).type != frame.codegen_operand_stack_at_loop_entry.index_unchecked(i).type) { return false; }
+            }
+            return true;
+        }
+    }};
+
+[[maybe_unused]] auto const stacktop_loop_entry_currpos_matches{
+    [&](curr_block_type const& frame) constexpr noexcept -> bool
+    {
+        if constexpr(!stacktop_enabled) { return true; }
+        else
+        {
+            if(frame.type != block_type::loop || !frame.stacktop_has_loop_entry_state) { return true; }
+            return curr_stacktop.i32_stack_top_curr_pos == frame.stacktop_currpos_at_loop_entry.i32_stack_top_curr_pos &&
+                   curr_stacktop.i64_stack_top_curr_pos == frame.stacktop_currpos_at_loop_entry.i64_stack_top_curr_pos &&
+                   curr_stacktop.f32_stack_top_curr_pos == frame.stacktop_currpos_at_loop_entry.f32_stack_top_curr_pos &&
+                   curr_stacktop.f64_stack_top_curr_pos == frame.stacktop_currpos_at_loop_entry.f64_stack_top_curr_pos &&
+                   curr_stacktop.v128_stack_top_curr_pos == frame.stacktop_currpos_at_loop_entry.v128_stack_top_curr_pos;
+        }
+    }};
+
+[[maybe_unused]] auto const stacktop_restore_loop_entry_residence_to{
+    [&](bytecode_vec_t& dst, curr_block_type const& frame) constexpr UWVM_THROWS
+    {
+        if constexpr(!stacktop_enabled) { return; }
+        else
+        {
+            if(frame.type != block_type::loop || !frame.stacktop_has_loop_entry_state) { return; }
+            if(stacktop_loop_entry_residence_matches(frame)) { return; }
+
+            stacktop_canonicalize_edge_to_memory(dst);
+            while(stacktop_cache_count < frame.stacktop_cache_count_at_loop_entry)
+            {
+#if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
+                if(stacktop_memory_count == 0uz) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
+#endif
+                if(stacktop_memory_count == 0uz) [[unlikely]] { break; }
+                stacktop_fill_one_from_memory_to(dst);
+            }
+
+            curr_stacktop = frame.stacktop_currpos_at_loop_entry;
+            stacktop_memory_count = frame.stacktop_memory_count_at_loop_entry;
+            stacktop_cache_count = frame.stacktop_cache_count_at_loop_entry;
+            stacktop_cache_i32_count = frame.stacktop_cache_i32_count_at_loop_entry;
+            stacktop_cache_i64_count = frame.stacktop_cache_i64_count_at_loop_entry;
+            stacktop_cache_f32_count = frame.stacktop_cache_f32_count_at_loop_entry;
+            stacktop_cache_f64_count = frame.stacktop_cache_f64_count_at_loop_entry;
+            stacktop_cache_v128_count = frame.stacktop_cache_v128_count_at_loop_entry;
+            codegen_operand_stack = frame.codegen_operand_stack_at_loop_entry;
+            local_spot_flush_dirty_all_and_invalidate_to(dst);
+        }
+    }};
 
 auto const stacktop_prepare_push1_if_reachable{[&](bytecode_vec_t& dst, curr_operand_stack_value_type vt) constexpr UWVM_THROWS
                                                {
@@ -2226,12 +3273,12 @@ auto const stacktop_prepare_push1_if_reachable{[&](bytecode_vec_t& dst, curr_ope
 
             ::std::size_t const begin_pos{stacktop_range_begin_pos(vt)};
             ::std::size_t const end_pos{stacktop_range_end_pos(vt)};
-            ::std::size_t const ring_size{end_pos - begin_pos};
+            ::std::size_t const window_size{end_pos - begin_pos};
 
 #if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
-            if(ring_size == 0uz || n > ring_size) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
+            if(window_size == 0uz || n > window_size) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
 #endif
-            if(ring_size == 0uz || n > ring_size) [[unlikely]] { return; }
+            if(window_size == 0uz || n > window_size) [[unlikely]] { return; }
 
             if(runtime_log_on && runtime_log_emit_stacktop) [[unlikely]]
             {
@@ -2256,7 +3303,7 @@ auto const stacktop_prepare_push1_if_reachable{[&](bytecode_vec_t& dst, curr_ope
             }
 
             ::std::size_t spill_cnt{};
-            while(stacktop_cache_count_for_range(begin_pos, end_pos) + n > ring_size)
+            while(stacktop_cache_count_for_range(begin_pos, end_pos) + n > window_size)
             {
                 stacktop_spill_one_deepest_to(dst, 1uz);
                 ++spill_cnt;
@@ -2343,9 +3390,9 @@ auto const stacktop_after_pop_n_if_reachable{[&](bytecode_vec_t& dst, ::std::siz
             if(is_polymorphic) { return; }
             stacktop_commit_pop_n(pop_n);
             codegen_stack_pop_n(pop_n);
-            // Ensure the target stack-top ring has a free slot *after* the pop step.
+            // Ensure the target stack-top window has a free slot *after* the pop step.
             // This is required for cross-range ops that keep depth unchanged (pop+push),
-            // e.g. `f32.load` (i32 addr -> f32 result) in split GPR/FP ring layouts.
+            // e.g. `f32.load` (i32 addr -> f32 result) in split GPR/FP stack-top window layouts.
             stacktop_prepare_push1_typed(dst, push_type);
             stacktop_commit_push1_typed(push_type);
             codegen_stack_push(push_type);
@@ -2384,20 +3431,98 @@ auto const stacktop_after_pop_n_if_reachable{[&](bytecode_vec_t& dst, ::std::siz
         }
     }};
 
-// Pop modeling without emitting any fill ops (used to keep `br_if` fusion candidates contiguous).
-[[maybe_unused]] auto const stacktop_after_pop_n_no_fill_if_reachable{[&](::std::size_t n) constexpr noexcept
-                                                                      {
-                                                                          if constexpr(!stacktop_enabled) { return; }
-                                                                          else
-                                                                          {
-                                                                              if(is_polymorphic) { return; }
-                                                                              stacktop_commit_pop_n(n);
-                                                                              codegen_stack_pop_n(n);
-                                                                          }
-                                                                      }};
+	// Pop modeling without emitting any fill ops (used to keep `br_if` fusion candidates contiguous).
+	[[maybe_unused]] auto const stacktop_after_pop_n_no_fill_if_reachable{[&](::std::size_t n) constexpr noexcept
+	                                                                      {
+	                                                                          if constexpr(!stacktop_enabled) { return; }
+	                                                                          else
+	                                                                          {
+	                                                                              if(is_polymorphic) { return; }
+	                                                                              stacktop_commit_pop_n(n);
+	                                                                              codegen_stack_pop_n(n);
+	                                                                          }
+	                                                                      }};
 
-// `drop` emission must account for where the value currently lives. A cached value may be removed by
-// metadata updates only, while a memory-backed value needs a real drop helper.
+	[[maybe_unused]] auto const stacktop_after_i32_anonymous_binop_no_fill_if_reachable{
+	    [&]() constexpr noexcept
+	    {
+	        if constexpr(!stacktop_enabled) { return; }
+	        else
+	        {
+	            if(is_polymorphic) { return; }
+	            if constexpr(stacktop_i32_spot_enabled)
+	            {
+	                if(anonymous_stacktop_param_count_for_numeric_i32() == 1uz)
+	                {
+	                    if(stacktop_memory_count != 0uz) { --stacktop_memory_count; }
+	                    codegen_stack_pop_n(1uz);
+	                }
+	                else
+	                {
+	                    stacktop_commit_pop_n(1uz);
+	                    codegen_stack_pop_n(1uz);
+	                }
+	            }
+	            else
+	            {
+	                stacktop_commit_pop_n(1uz);
+	                codegen_stack_pop_n(1uz);
+	            }
+	        }
+	    }};
+
+	[[maybe_unused]] auto const stacktop_after_i64_anonymous_binop_no_fill_if_reachable{
+	    [&]() constexpr noexcept
+	    {
+	        if constexpr(!stacktop_enabled) { return; }
+	        else
+	        {
+	            if(is_polymorphic) { return; }
+	            if constexpr(stacktop_i64_spot_enabled)
+	            {
+	                if(anonymous_stacktop_param_count_for_numeric_i64() == 1uz)
+	                {
+	                    if(stacktop_memory_count != 0uz) { --stacktop_memory_count; }
+	                    codegen_stack_pop_n(1uz);
+	                }
+	                else
+	                {
+	                    stacktop_commit_pop_n(1uz);
+	                    codegen_stack_pop_n(1uz);
+	                }
+	            }
+	            else
+	            {
+	                stacktop_commit_pop_n(1uz);
+	                codegen_stack_pop_n(1uz);
+	            }
+	        }
+	    }};
+
+	[[maybe_unused]] auto const stacktop_after_i32_anonymous_binop_if_reachable{[&](bytecode_vec_t& dst) constexpr UWVM_THROWS
+	                                                                           {
+	                                                                               if constexpr(!stacktop_enabled) { return; }
+	                                                                               else
+	                                                                               {
+	                                                                                   if(is_polymorphic) { return; }
+	                                                                                   stacktop_after_i32_anonymous_binop_no_fill_if_reachable();
+	                                                                                   stacktop_fill_to_canonical(dst);
+	                                                                               }
+	                                                                           }};
+
+	[[maybe_unused]] auto const stacktop_after_i64_anonymous_binop_if_reachable{[&](bytecode_vec_t& dst) constexpr UWVM_THROWS
+	                                                                           {
+	                                                                               if constexpr(!stacktop_enabled) { return; }
+	                                                                               else
+	                                                                               {
+	                                                                                   if(is_polymorphic) { return; }
+	                                                                                   stacktop_after_i64_anonymous_binop_no_fill_if_reachable();
+	                                                                                   stacktop_fill_to_canonical(dst);
+	                                                                               }
+	                                                                           }};
+
+	// `drop` emission must account for where the value currently lives. A cached value may be removed by
+	// metadata updates only, while a memory-backed value needs a real drop helper.
 auto const emit_drop_typed_to{
     [&](bytecode_vec_t& dst, curr_operand_stack_value_type vt) constexpr UWVM_THROWS
     {
@@ -2629,30 +3754,128 @@ auto const emit_local_get_typed_to{
         namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
         bool fused_spill_and_local_get{};
+        bool emitted_local_spot_get{};
         [[maybe_unused]] ::std::size_t fuse_site{};
 
         if constexpr(stacktop_enabled)
         {
-            // local.get pushes 1 value to stack-top cache; spill if ring is full.
+            // local.get pushes 1 value to stack-top cache; spill if stack-top window is full.
             [[maybe_unused]] ::std::size_t const bc_before{dst.size()};
             stacktop_prepare_push1_if_reachable(dst, vt);
+
+            if(!is_polymorphic)
+            {
+                if(auto* const spot{local_spot_find(off, vt)}; spot != nullptr)
+                {
+                    using wasm_i32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i32;
+                    using wasm_i64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_i64;
+                    using wasm_f32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32;
+                    using wasm_f64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64;
+
+                    if(runtime_log_on) [[unlikely]]
+                    {
+                        ::fast_io::io::print(::uwvm2::uwvm::io::u8runtime_log_output,
+                                             u8"[uwvm-int-translator] fn=",
+                                             function_index,
+                                             u8" ip=",
+                                             runtime_log_curr_ip,
+                                             u8" event=local_spot.get | vt=",
+                                             runtime_log_vt_name(vt),
+                                             u8" off=",
+                                             off,
+                                             u8" pos=",
+                                             spot->pos,
+                                             u8" dirty=",
+                                             spot->dirty,
+                                             u8"\n");
+                    }
+
+                    switch(vt)
+                    {
+                        case curr_operand_stack_value_type::i32:
+                        {
+                            if constexpr(stacktop_i32_spot_enabled)
+                            {
+                                emit_opfunc_to(dst,
+                                               translate::get_uwvmint_local_get_spot_typed_fptr_from_tuple<CompileOption, wasm_i32>(spot->pos,
+                                                                                                                                    curr_stacktop,
+                                                                                                                                    interpreter_tuple));
+                                emitted_local_spot_get = true;
+                            }
+                            break;
+                        }
+                        case curr_operand_stack_value_type::i64:
+                        {
+                            if constexpr(stacktop_i64_spot_enabled)
+                            {
+                                emit_opfunc_to(dst,
+                                               translate::get_uwvmint_local_get_spot_typed_fptr_from_tuple<CompileOption, wasm_i64>(spot->pos,
+                                                                                                                                    curr_stacktop,
+                                                                                                                                    interpreter_tuple));
+                                emitted_local_spot_get = true;
+                            }
+                            break;
+                        }
+                        case curr_operand_stack_value_type::f32:
+                        {
+                            if constexpr(stacktop_f32_enabled)
+                            {
+                                emit_opfunc_to(dst,
+                                               translate::get_uwvmint_local_get_spot_typed_fptr_from_tuple<CompileOption, wasm_f32>(spot->pos,
+                                                                                                                                    curr_stacktop,
+                                                                                                                                    interpreter_tuple));
+                                emitted_local_spot_get = true;
+                            }
+                            break;
+                        }
+                        case curr_operand_stack_value_type::f64:
+                        {
+                            if constexpr(stacktop_f64_enabled)
+                            {
+                                emit_opfunc_to(dst,
+                                               translate::get_uwvmint_local_get_spot_typed_fptr_from_tuple<CompileOption, wasm_f64>(spot->pos,
+                                                                                                                                    curr_stacktop,
+                                                                                                                                    interpreter_tuple));
+                                emitted_local_spot_get = true;
+                            }
+                            break;
+                        }
+                        case curr_operand_stack_value_type::v128:
+                        {
+                            if constexpr(stacktop_v128_enabled)
+                            {
+                                emit_opfunc_to(dst,
+                                               translate::get_uwvmint_local_get_spot_typed_fptr_from_tuple<CompileOption, wasm_v128_t>(spot->pos,
+                                                                                                                                      curr_stacktop,
+                                                                                                                                      interpreter_tuple));
+                                emitted_local_spot_get = true;
+                            }
+                            break;
+                        }
+                        [[unlikely]] default:
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
             // If `stacktop_prepare_push1_*` emitted a spill opfunc immediately before this `local.get`, rewrite that spill opfunc
             // into a fused "spill1 + local.get" opfunc, and reuse the would-be `local.get` opfunc slot for the immediate.
             // This avoids an extra dispatch *and* avoids the runtime "skip next opfunc pointer" pattern.
-            if(dst.size() != bc_before)
+            if(!emitted_local_spot_get && dst.size() != bc_before)
             {
-                constexpr bool i32_i64_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.i64_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.i64_stack_top_end_pos};
-                constexpr bool i32_f32_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.f32_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.f32_stack_top_end_pos};
-                constexpr bool i32_f64_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
-                constexpr bool i64_f32_merge{CompileOption.i64_stack_top_begin_pos == CompileOption.f32_stack_top_begin_pos &&
-                                             CompileOption.i64_stack_top_end_pos == CompileOption.f32_stack_top_end_pos};
-                constexpr bool i64_f64_merge{CompileOption.i64_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
-                                             CompileOption.i64_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
+                constexpr bool i32_i64_merge{stacktop_i32_begin_pos == stacktop_i64_begin_pos &&
+                                             stacktop_i32_end_pos == stacktop_i64_end_pos};
+                constexpr bool i32_f32_merge{stacktop_i32_begin_pos == CompileOption.f32_stack_top_begin_pos &&
+                                             stacktop_i32_end_pos == CompileOption.f32_stack_top_end_pos};
+                constexpr bool i32_f64_merge{stacktop_i32_begin_pos == CompileOption.f64_stack_top_begin_pos &&
+                                             stacktop_i32_end_pos == CompileOption.f64_stack_top_end_pos};
+                constexpr bool i64_f32_merge{stacktop_i64_begin_pos == CompileOption.f32_stack_top_begin_pos &&
+                                             stacktop_i64_end_pos == CompileOption.f32_stack_top_end_pos};
+                constexpr bool i64_f64_merge{stacktop_i64_begin_pos == CompileOption.f64_stack_top_begin_pos &&
+                                             stacktop_i64_end_pos == CompileOption.f64_stack_top_end_pos};
                 constexpr bool f32_f64_merge{CompileOption.f32_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
                                              CompileOption.f32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
 
@@ -2667,161 +3890,174 @@ auto const emit_local_get_typed_to{
                 using opfunc_ptr_t = decltype(translate::get_uwvmint_local_get_i32_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
                 fuse_site = dst.size() - sizeof(opfunc_ptr_t);
 
-                auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
-                                {
-                                    ::std::byte tmp[sizeof(fused_fptr)];
-                                    ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
-                                    ::std::memcpy(dst.data() + fuse_site, tmp, sizeof(fused_fptr));
-                                    fused_spill_and_local_get = true;
-                                }};
+	                auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
+	                                {
+	                                    if(fused_fptr == nullptr) { return; }
+	                                    ::std::byte tmp[sizeof(fused_fptr)];
+	                                    ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
+	                                    ::std::memcpy(dst.data() + fuse_site, tmp, sizeof(fused_fptr));
+	                                    fused_spill_and_local_get = true;
+	                                }};
 
                 // Decide spill-value type (SpilledT) from the translator model.
                 switch(vt)
                 {
                     case curr_operand_stack_value_type::i32:
                     {
-                        if(spilled_vt == curr_operand_stack_value_type::i32)
+                        if constexpr(stacktop_i32_enabled)
                         {
-                            patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i32, wasm_i32>(
-                                curr_stacktop,
-                                interpreter_tuple));
-                        }
-                        else if(spilled_vt == curr_operand_stack_value_type::i64)
-                        {
-                            if constexpr(i32_i64_merge)
+                            if(spilled_vt == curr_operand_stack_value_type::i32)
                             {
-                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i64, wasm_i32>(
+                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i32, wasm_i32>(
                                     curr_stacktop,
                                     interpreter_tuple));
                             }
-                        }
-                        else if(spilled_vt == curr_operand_stack_value_type::f32)
-                        {
-                            if constexpr(i32_f32_merge)
+                            else if(spilled_vt == curr_operand_stack_value_type::i64)
                             {
-                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f32, wasm_i32>(
-                                    curr_stacktop,
-                                    interpreter_tuple));
+                                if constexpr(i32_i64_merge)
+                                {
+                                    patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i64, wasm_i32>(
+                                        curr_stacktop,
+                                        interpreter_tuple));
+                                }
                             }
-                        }
-                        else if(spilled_vt == curr_operand_stack_value_type::f64)
-                        {
-                            if constexpr(i32_f64_merge)
+                            else if(spilled_vt == curr_operand_stack_value_type::f32)
                             {
-                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f64, wasm_i32>(
-                                    curr_stacktop,
-                                    interpreter_tuple));
+                                if constexpr(i32_f32_merge)
+                                {
+                                    patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f32, wasm_i32>(
+                                        curr_stacktop,
+                                        interpreter_tuple));
+                                }
+                            }
+                            else if(spilled_vt == curr_operand_stack_value_type::f64)
+                            {
+                                if constexpr(i32_f64_merge)
+                                {
+                                    patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f64, wasm_i32>(
+                                        curr_stacktop,
+                                        interpreter_tuple));
+                                }
                             }
                         }
                         break;
                     }
                     case curr_operand_stack_value_type::i64:
                     {
-                        if(spilled_vt == curr_operand_stack_value_type::i64)
+                        if constexpr(stacktop_i64_enabled)
                         {
-                            patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i64, wasm_i64>(
-                                curr_stacktop,
-                                interpreter_tuple));
-                        }
-                        else if(spilled_vt == curr_operand_stack_value_type::i32)
-                        {
-                            if constexpr(i32_i64_merge)
+                            if(spilled_vt == curr_operand_stack_value_type::i64)
                             {
-                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i32, wasm_i64>(
+                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i64, wasm_i64>(
                                     curr_stacktop,
                                     interpreter_tuple));
                             }
-                        }
-                        else if(spilled_vt == curr_operand_stack_value_type::f32)
-                        {
-                            if constexpr(i64_f32_merge)
+                            else if(spilled_vt == curr_operand_stack_value_type::i32)
                             {
-                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f32, wasm_i64>(
-                                    curr_stacktop,
-                                    interpreter_tuple));
+                                if constexpr(i32_i64_merge)
+                                {
+                                    patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i32, wasm_i64>(
+                                        curr_stacktop,
+                                        interpreter_tuple));
+                                }
                             }
-                        }
-                        else if(spilled_vt == curr_operand_stack_value_type::f64)
-                        {
-                            if constexpr(i64_f64_merge)
+                            else if(spilled_vt == curr_operand_stack_value_type::f32)
                             {
-                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f64, wasm_i64>(
-                                    curr_stacktop,
-                                    interpreter_tuple));
+                                if constexpr(i64_f32_merge)
+                                {
+                                    patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f32, wasm_i64>(
+                                        curr_stacktop,
+                                        interpreter_tuple));
+                                }
+                            }
+                            else if(spilled_vt == curr_operand_stack_value_type::f64)
+                            {
+                                if constexpr(i64_f64_merge)
+                                {
+                                    patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f64, wasm_i64>(
+                                        curr_stacktop,
+                                        interpreter_tuple));
+                                }
                             }
                         }
                         break;
                     }
                     case curr_operand_stack_value_type::f32:
                     {
-                        if(spilled_vt == curr_operand_stack_value_type::f32)
+                        if constexpr(stacktop_f32_enabled)
                         {
-                            patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f32, wasm_f32>(
-                                curr_stacktop,
-                                interpreter_tuple));
-                        }
-                        else if(spilled_vt == curr_operand_stack_value_type::f64)
-                        {
-                            if constexpr(f32_f64_merge)
+                            if(spilled_vt == curr_operand_stack_value_type::f32)
                             {
-                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f64, wasm_f32>(
+                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f32, wasm_f32>(
                                     curr_stacktop,
                                     interpreter_tuple));
                             }
-                        }
-                        else if(spilled_vt == curr_operand_stack_value_type::i32)
-                        {
-                            if constexpr(i32_f32_merge)
+                            else if(spilled_vt == curr_operand_stack_value_type::f64)
                             {
-                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i32, wasm_f32>(
-                                    curr_stacktop,
-                                    interpreter_tuple));
+                                if constexpr(f32_f64_merge)
+                                {
+                                    patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f64, wasm_f32>(
+                                        curr_stacktop,
+                                        interpreter_tuple));
+                                }
                             }
-                        }
-                        else if(spilled_vt == curr_operand_stack_value_type::i64)
-                        {
-                            if constexpr(i64_f32_merge)
+                            else if(spilled_vt == curr_operand_stack_value_type::i32)
                             {
-                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i64, wasm_f32>(
-                                    curr_stacktop,
-                                    interpreter_tuple));
+                                if constexpr(i32_f32_merge)
+                                {
+                                    patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i32, wasm_f32>(
+                                        curr_stacktop,
+                                        interpreter_tuple));
+                                }
+                            }
+                            else if(spilled_vt == curr_operand_stack_value_type::i64)
+                            {
+                                if constexpr(i64_f32_merge)
+                                {
+                                    patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i64, wasm_f32>(
+                                        curr_stacktop,
+                                        interpreter_tuple));
+                                }
                             }
                         }
                         break;
                     }
                     case curr_operand_stack_value_type::f64:
                     {
-                        if(spilled_vt == curr_operand_stack_value_type::f64)
+                        if constexpr(stacktop_f64_enabled)
                         {
-                            patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f64, wasm_f64>(
-                                curr_stacktop,
-                                interpreter_tuple));
-                        }
-                        else if(spilled_vt == curr_operand_stack_value_type::f32)
-                        {
-                            if constexpr(f32_f64_merge)
+                            if(spilled_vt == curr_operand_stack_value_type::f64)
                             {
-                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f32, wasm_f64>(
+                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f64, wasm_f64>(
                                     curr_stacktop,
                                     interpreter_tuple));
                             }
-                        }
-                        else if(spilled_vt == curr_operand_stack_value_type::i32)
-                        {
-                            if constexpr(i32_f64_merge)
+                            else if(spilled_vt == curr_operand_stack_value_type::f32)
                             {
-                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i32, wasm_f64>(
-                                    curr_stacktop,
-                                    interpreter_tuple));
+                                if constexpr(f32_f64_merge)
+                                {
+                                    patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_f32, wasm_f64>(
+                                        curr_stacktop,
+                                        interpreter_tuple));
+                                }
                             }
-                        }
-                        else if(spilled_vt == curr_operand_stack_value_type::i64)
-                        {
-                            if constexpr(i64_f64_merge)
+                            else if(spilled_vt == curr_operand_stack_value_type::i32)
                             {
-                                patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i64, wasm_f64>(
-                                    curr_stacktop,
-                                    interpreter_tuple));
+                                if constexpr(i32_f64_merge)
+                                {
+                                    patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i32, wasm_f64>(
+                                        curr_stacktop,
+                                        interpreter_tuple));
+                                }
+                            }
+                            else if(spilled_vt == curr_operand_stack_value_type::i64)
+                            {
+                                if constexpr(i64_f64_merge)
+                                {
+                                    patch_with(translate::get_uwvmint_stacktop_spill1_then_local_get_typed_fptr_from_tuple<CompileOption, wasm_i64, wasm_f64>(
+                                        curr_stacktop,
+                                        interpreter_tuple));
+                                }
                             }
                         }
                         break;
@@ -2841,7 +4077,7 @@ auto const emit_local_get_typed_to{
 #endif
         }
 
-        if(!fused_spill_and_local_get) switch(vt)
+        if(!emitted_local_spot_get && !fused_spill_and_local_get) switch(vt)
             {
                 case curr_operand_stack_value_type::i32:
                 {
@@ -2918,65 +4154,70 @@ auto const emit_local_get_typed_to{
             stacktop_prepare_push1_if_reachable(dst, curr_operand_stack_value_type::i32);
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
-            if(dst.size() != bc_before)
+            if constexpr(stacktop_i32_enabled)
             {
-                constexpr bool i32_i64_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.i64_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.i64_stack_top_end_pos};
-                constexpr bool i32_f32_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.f32_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.f32_stack_top_end_pos};
-                constexpr bool i32_f64_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
-
-                using wasm_f32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32;
-                using wasm_f64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64;
-
-                auto const spilled_vt{codegen_operand_stack.index_unchecked(stacktop_memory_count - 1uz).type};
-
-                using opfunc_ptr_t = decltype(translate::get_uwvmint_i32_const_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-                ::std::size_t const fuse_site{dst.size() - sizeof(opfunc_ptr_t)};
-
-                auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
-                                {
-                                    ::std::byte tmp[sizeof(fused_fptr)];
-                                    ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
-                                    ::std::memcpy(dst.data() + fuse_site, tmp, sizeof(fused_fptr));
-                                    fused_spill_and_const = true;
-                                }};
-
-                if(spilled_vt == curr_operand_stack_value_type::i32)
+                if(dst.size() != bc_before)
                 {
-                    patch_with(translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_i32, wasm_i32>(curr_stacktop,
-                                                                                                                                          interpreter_tuple));
-                }
-                else if(spilled_vt == curr_operand_stack_value_type::i64)
-                {
-                    if constexpr(i32_i64_merge)
+                    constexpr bool i32_i64_merge{stacktop_i32_begin_pos == stacktop_i64_begin_pos &&
+                                                 stacktop_i32_end_pos == stacktop_i64_end_pos};
+                    constexpr bool i32_f32_merge{stacktop_i32_begin_pos == CompileOption.f32_stack_top_begin_pos &&
+                                                 stacktop_i32_end_pos == CompileOption.f32_stack_top_end_pos};
+                    constexpr bool i32_f64_merge{stacktop_i32_begin_pos == CompileOption.f64_stack_top_begin_pos &&
+                                                 stacktop_i32_end_pos == CompileOption.f64_stack_top_end_pos};
+
+                    using wasm_f32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32;
+                    using wasm_f64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64;
+
+                    auto const spilled_vt{codegen_operand_stack.index_unchecked(stacktop_memory_count - 1uz).type};
+
+                    using opfunc_ptr_t = decltype(translate::get_uwvmint_i32_const_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                    ::std::size_t const fuse_site{dst.size() - sizeof(opfunc_ptr_t)};
+
+	                    auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
+	                                    {
+	                                        if(fused_fptr == nullptr) { return; }
+	                                        ::std::byte tmp[sizeof(fused_fptr)];
+	                                        ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
+	                                        ::std::memcpy(dst.data() + fuse_site, tmp, sizeof(fused_fptr));
+	                                        fused_spill_and_const = true;
+	                                    }};
+
+                    if(spilled_vt == curr_operand_stack_value_type::i32)
                     {
-                        patch_with(
-                            translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_i64, wasm_i32>(curr_stacktop,
-                                                                                                                                       interpreter_tuple));
+                        patch_with(translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_i32, wasm_i32>(
+                            curr_stacktop,
+                            interpreter_tuple));
                     }
-                }
-                else if(spilled_vt == curr_operand_stack_value_type::f32)
-                {
-                    if constexpr(i32_f32_merge)
+                    else if(spilled_vt == curr_operand_stack_value_type::i64)
                     {
-                        patch_with(
-                            translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_f32, wasm_i32>(curr_stacktop,
-                                                                                                                                       interpreter_tuple));
+                        if constexpr(i32_i64_merge)
+                        {
+                            patch_with(translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_i64, wasm_i32>(
+                                curr_stacktop,
+                                interpreter_tuple));
+                        }
                     }
-                }
-                else if(spilled_vt == curr_operand_stack_value_type::f64)
-                {
-                    if constexpr(i32_f64_merge)
+                    else if(spilled_vt == curr_operand_stack_value_type::f32)
                     {
-                        patch_with(
-                            translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_f64, wasm_i32>(curr_stacktop,
-                                                                                                                                       interpreter_tuple));
+                        if constexpr(i32_f32_merge)
+                        {
+                            patch_with(translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_f32, wasm_i32>(
+                                curr_stacktop,
+                                interpreter_tuple));
+                        }
                     }
-                }
+                    else if(spilled_vt == curr_operand_stack_value_type::f64)
+                    {
+                        if constexpr(i32_f64_merge)
+                        {
+                            patch_with(translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_f64, wasm_i32>(
+                                curr_stacktop,
+                                interpreter_tuple));
+                        }
+                    }
 
-                if(fused_spill_and_const) { emit_imm_to(dst, imm); }
+                    if(fused_spill_and_const) { emit_imm_to(dst, imm); }
+                }
             }
 #endif
         }
@@ -3003,65 +4244,70 @@ auto const emit_local_get_typed_to{
             stacktop_prepare_push1_if_reachable(dst, curr_operand_stack_value_type::i64);
 
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
-            if(dst.size() != bc_before)
+            if constexpr(stacktop_i64_enabled)
             {
-                constexpr bool i32_i64_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.i64_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.i64_stack_top_end_pos};
-                constexpr bool i64_f32_merge{CompileOption.i64_stack_top_begin_pos == CompileOption.f32_stack_top_begin_pos &&
-                                             CompileOption.i64_stack_top_end_pos == CompileOption.f32_stack_top_end_pos};
-                constexpr bool i64_f64_merge{CompileOption.i64_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
-                                             CompileOption.i64_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
-
-                using wasm_f32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32;
-                using wasm_f64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64;
-
-                auto const spilled_vt{codegen_operand_stack.index_unchecked(stacktop_memory_count - 1uz).type};
-
-                using opfunc_ptr_t = decltype(translate::get_uwvmint_i64_const_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
-                ::std::size_t const fuse_site{dst.size() - sizeof(opfunc_ptr_t)};
-
-                auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
-                                {
-                                    ::std::byte tmp[sizeof(fused_fptr)];
-                                    ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
-                                    ::std::memcpy(dst.data() + fuse_site, tmp, sizeof(fused_fptr));
-                                    fused_spill_and_const = true;
-                                }};
-
-                if(spilled_vt == curr_operand_stack_value_type::i64)
+                if(dst.size() != bc_before)
                 {
-                    patch_with(translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_i64, wasm_i64>(curr_stacktop,
-                                                                                                                                          interpreter_tuple));
-                }
-                else if(spilled_vt == curr_operand_stack_value_type::i32)
-                {
-                    if constexpr(i32_i64_merge)
+                    constexpr bool i32_i64_merge{stacktop_i32_begin_pos == stacktop_i64_begin_pos &&
+                                                 stacktop_i32_end_pos == stacktop_i64_end_pos};
+                    constexpr bool i64_f32_merge{stacktop_i64_begin_pos == CompileOption.f32_stack_top_begin_pos &&
+                                                 stacktop_i64_end_pos == CompileOption.f32_stack_top_end_pos};
+                    constexpr bool i64_f64_merge{stacktop_i64_begin_pos == CompileOption.f64_stack_top_begin_pos &&
+                                                 stacktop_i64_end_pos == CompileOption.f64_stack_top_end_pos};
+
+                    using wasm_f32 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f32;
+                    using wasm_f64 = ::uwvm2::parser::wasm::standard::wasm1::type::wasm_f64;
+
+                    auto const spilled_vt{codegen_operand_stack.index_unchecked(stacktop_memory_count - 1uz).type};
+
+                    using opfunc_ptr_t = decltype(translate::get_uwvmint_i64_const_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                    ::std::size_t const fuse_site{dst.size() - sizeof(opfunc_ptr_t)};
+
+	                    auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
+	                                    {
+	                                        if(fused_fptr == nullptr) { return; }
+	                                        ::std::byte tmp[sizeof(fused_fptr)];
+	                                        ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
+	                                        ::std::memcpy(dst.data() + fuse_site, tmp, sizeof(fused_fptr));
+	                                        fused_spill_and_const = true;
+	                                    }};
+
+                    if(spilled_vt == curr_operand_stack_value_type::i64)
                     {
-                        patch_with(
-                            translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_i32, wasm_i64>(curr_stacktop,
-                                                                                                                                       interpreter_tuple));
+                        patch_with(translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_i64, wasm_i64>(
+                            curr_stacktop,
+                            interpreter_tuple));
                     }
-                }
-                else if(spilled_vt == curr_operand_stack_value_type::f32)
-                {
-                    if constexpr(i64_f32_merge)
+                    else if(spilled_vt == curr_operand_stack_value_type::i32)
                     {
-                        patch_with(
-                            translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_f32, wasm_i64>(curr_stacktop,
-                                                                                                                                       interpreter_tuple));
+                        if constexpr(i32_i64_merge)
+                        {
+                            patch_with(translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_i32, wasm_i64>(
+                                curr_stacktop,
+                                interpreter_tuple));
+                        }
                     }
-                }
-                else if(spilled_vt == curr_operand_stack_value_type::f64)
-                {
-                    if constexpr(i64_f64_merge)
+                    else if(spilled_vt == curr_operand_stack_value_type::f32)
                     {
-                        patch_with(
-                            translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_f64, wasm_i64>(curr_stacktop,
-                                                                                                                                       interpreter_tuple));
+                        if constexpr(i64_f32_merge)
+                        {
+                            patch_with(translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_f32, wasm_i64>(
+                                curr_stacktop,
+                                interpreter_tuple));
+                        }
                     }
-                }
+                    else if(spilled_vt == curr_operand_stack_value_type::f64)
+                    {
+                        if constexpr(i64_f64_merge)
+                        {
+                            patch_with(translate::get_uwvmint_stacktop_spill1_then_const_typed_fptr_from_tuple<CompileOption, wasm_f64, wasm_i64>(
+                                curr_stacktop,
+                                interpreter_tuple));
+                        }
+                    }
 
-                if(fused_spill_and_const) { emit_imm_to(dst, imm); }
+                    if(fused_spill_and_const) { emit_imm_to(dst, imm); }
+                }
             }
 #endif
         }
@@ -3090,10 +4336,10 @@ auto const emit_local_get_typed_to{
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
             if(dst.size() != bc_before)
             {
-                constexpr bool i32_f32_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.f32_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.f32_stack_top_end_pos};
-                constexpr bool i64_f32_merge{CompileOption.i64_stack_top_begin_pos == CompileOption.f32_stack_top_begin_pos &&
-                                             CompileOption.i64_stack_top_end_pos == CompileOption.f32_stack_top_end_pos};
+                constexpr bool i32_f32_merge{stacktop_i32_begin_pos == CompileOption.f32_stack_top_begin_pos &&
+                                             stacktop_i32_end_pos == CompileOption.f32_stack_top_end_pos};
+                constexpr bool i64_f32_merge{stacktop_i64_begin_pos == CompileOption.f32_stack_top_begin_pos &&
+                                             stacktop_i64_end_pos == CompileOption.f32_stack_top_end_pos};
                 constexpr bool f32_f64_merge{CompileOption.f32_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
                                              CompileOption.f32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
 
@@ -3104,13 +4350,14 @@ auto const emit_local_get_typed_to{
                 using opfunc_ptr_t = decltype(translate::get_uwvmint_f32_const_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
                 ::std::size_t const fuse_site{dst.size() - sizeof(opfunc_ptr_t)};
 
-                auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
-                                {
-                                    ::std::byte tmp[sizeof(fused_fptr)];
-                                    ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
-                                    ::std::memcpy(dst.data() + fuse_site, tmp, sizeof(fused_fptr));
-                                    fused_spill_and_const = true;
-                                }};
+	                auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
+	                                {
+	                                    if(fused_fptr == nullptr) { return; }
+	                                    ::std::byte tmp[sizeof(fused_fptr)];
+	                                    ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
+	                                    ::std::memcpy(dst.data() + fuse_site, tmp, sizeof(fused_fptr));
+	                                    fused_spill_and_const = true;
+	                                }};
 
                 if(spilled_vt == curr_operand_stack_value_type::f32)
                 {
@@ -3174,10 +4421,10 @@ auto const emit_local_get_typed_to{
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
             if(dst.size() != bc_before)
             {
-                constexpr bool i32_f64_merge{CompileOption.i32_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
-                                             CompileOption.i32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
-                constexpr bool i64_f64_merge{CompileOption.i64_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
-                                             CompileOption.i64_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
+                constexpr bool i32_f64_merge{stacktop_i32_begin_pos == CompileOption.f64_stack_top_begin_pos &&
+                                             stacktop_i32_end_pos == CompileOption.f64_stack_top_end_pos};
+                constexpr bool i64_f64_merge{stacktop_i64_begin_pos == CompileOption.f64_stack_top_begin_pos &&
+                                             stacktop_i64_end_pos == CompileOption.f64_stack_top_end_pos};
                 constexpr bool f32_f64_merge{CompileOption.f32_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
                                              CompileOption.f32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
 
@@ -3188,13 +4435,14 @@ auto const emit_local_get_typed_to{
                 using opfunc_ptr_t = decltype(translate::get_uwvmint_f64_const_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
                 ::std::size_t const fuse_site{dst.size() - sizeof(opfunc_ptr_t)};
 
-                auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
-                                {
-                                    ::std::byte tmp[sizeof(fused_fptr)];
-                                    ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
-                                    ::std::memcpy(dst.data() + fuse_site, tmp, sizeof(fused_fptr));
-                                    fused_spill_and_const = true;
-                                }};
+	                auto patch_with{[&](auto fused_fptr) constexpr UWVM_THROWS
+	                                {
+	                                    if(fused_fptr == nullptr) { return; }
+	                                    ::std::byte tmp[sizeof(fused_fptr)];
+	                                    ::std::memcpy(tmp, ::std::addressof(fused_fptr), sizeof(fused_fptr));
+	                                    ::std::memcpy(dst.data() + fuse_site, tmp, sizeof(fused_fptr));
+	                                    fused_spill_and_const = true;
+	                                }};
 
                 if(spilled_vt == curr_operand_stack_value_type::f64)
                 {
@@ -3246,7 +4494,11 @@ auto const emit_local_get_typed_to{
 // Local-set consumes the top value. When the cache is empty, the helper first fills from memory so
 // the typed setter can read a normal top value instead of depending on a memory-only special case.
 auto const emit_local_set_typed_to{
-    [&](bytecode_vec_t& dst, curr_operand_stack_value_type vt, local_offset_t off) constexpr UWVM_THROWS
+    [&](bytecode_vec_t& dst,
+        curr_operand_stack_value_type vt,
+        local_offset_t off,
+        bool allow_lazy_local_spot = true,
+        bool bind_local_spot_after_store = true) constexpr UWVM_THROWS
     {
         namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
@@ -3256,7 +4508,10 @@ auto const emit_local_set_typed_to{
             if(!is_polymorphic && stacktop_cache_count == 0uz) { stacktop_fill_to_canonical(dst); }
         }
 
-        switch(vt)
+        ::std::size_t const local_spot_src_pos{!is_polymorphic ? local_spot_current_pos_for_vt(vt) : SIZE_MAX};
+        bool const lazy_local_spot_store{allow_lazy_local_spot && local_spot_src_pos != SIZE_MAX};
+
+        if(!lazy_local_spot_store) switch(vt)
         {
             case curr_operand_stack_value_type::i32:
             {
@@ -3308,6 +4563,8 @@ auto const emit_local_set_typed_to{
                 break;
             }
         }
+
+        if(!is_polymorphic && bind_local_spot_after_store) { local_spot_bind_to(dst, off, vt, local_spot_src_pos, lazy_local_spot_store); }
 
         if constexpr(stacktop_enabled)
         {
@@ -3321,6 +4578,48 @@ auto const emit_local_set_typed_to{
         }
     }};
 
+// Fused `local.set x; local.get x` for integer stack-top locals. The emitted opfunc stores the
+// current top value to the local arena and keeps that same top value resident, so the compiler stack
+// model intentionally does not pop or push.
+[[maybe_unused]] auto const emit_local_set_keep_typed_to{
+    [&](bytecode_vec_t& dst, curr_operand_stack_value_type vt, local_offset_t off) constexpr UWVM_THROWS
+    {
+        namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
+
+        if constexpr(stacktop_enabled)
+        {
+            if(!is_polymorphic && stacktop_cache_count == 0uz) { stacktop_fill_to_canonical(dst); }
+        }
+
+        ::std::size_t const local_spot_src_pos{!is_polymorphic ? local_spot_current_pos_for_vt(vt) : SIZE_MAX};
+        bool const lazy_local_spot_store{};
+
+        if(!lazy_local_spot_store) switch(vt)
+        {
+            case curr_operand_stack_value_type::i32:
+            {
+                emit_opfunc_to(dst, translate::get_uwvmint_local_set_keep_i32_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                emit_imm_to(dst, off);
+                break;
+            }
+            case curr_operand_stack_value_type::i64:
+            {
+                emit_opfunc_to(dst, translate::get_uwvmint_local_set_keep_i64_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
+                emit_imm_to(dst, off);
+                break;
+            }
+            [[unlikely]] default:
+            {
+#if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
+                ::uwvm2::utils::debug::trap_and_inform_bug_pos();
+#endif
+                break;
+            }
+        }
+
+        if(!is_polymorphic) { local_spot_bind_to(dst, off, vt, local_spot_src_pos, lazy_local_spot_store); }
+    }};
+
 // Local.set without emitting any canonical fills (see `emit_drop_typed_to_no_fill` rationale).
 [[maybe_unused]] auto const emit_local_set_typed_to_no_fill{
     [&](bytecode_vec_t& dst, curr_operand_stack_value_type vt, local_offset_t off) constexpr UWVM_THROWS
@@ -3331,10 +4630,13 @@ auto const emit_local_set_typed_to{
         {
             // local.set reads its operand from stack-top cache; ensure the top value is resident in cache.
             // Avoid a full canonical refill here; bulk repair will canonicalize once at the end when needed.
-            if(!is_polymorphic && stacktop_cache_count == 0uz) { stacktop_fill_one_from_memory_to(dst); }
+            if(!is_polymorphic && stacktop_cache_count == 0uz && stacktop_enabled_for_vt(vt)) { stacktop_fill_one_from_memory_to(dst); }
         }
 
-        switch(vt)
+        ::std::size_t const local_spot_src_pos{!is_polymorphic ? local_spot_current_pos_for_vt(vt) : SIZE_MAX};
+        bool const lazy_local_spot_store{local_spot_src_pos != SIZE_MAX};
+
+        if(!lazy_local_spot_store) switch(vt)
         {
             case curr_operand_stack_value_type::i32:
             {
@@ -3386,6 +4688,8 @@ auto const emit_local_set_typed_to{
                 break;
             }
         }
+
+        if(!is_polymorphic) { local_spot_bind_to(dst, off, vt, local_spot_src_pos, lazy_local_spot_store); }
 
         if constexpr(stacktop_enabled)
         {
@@ -3400,7 +4704,8 @@ auto const emit_local_set_typed_to{
 // Local-tee writes a local but keeps the value alive. The helper therefore emits a store-like opfunc
 // without committing a stack pop in the compiler model.
 auto const emit_local_tee_typed_to{
-    [&](bytecode_vec_t& dst, curr_operand_stack_value_type vt, local_offset_t off) constexpr UWVM_THROWS -> ::std::size_t
+    [&](bytecode_vec_t& dst, curr_operand_stack_value_type vt, local_offset_t off, bool bind_local_spot_after_store = true) constexpr UWVM_THROWS
+        -> ::std::size_t
     {
         namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
 
@@ -3411,8 +4716,10 @@ auto const emit_local_tee_typed_to{
         }
 
         ::std::size_t const site{dst.size()};
+        ::std::size_t const local_spot_src_pos{!is_polymorphic ? local_spot_current_pos_for_vt(vt) : SIZE_MAX};
+        bool const lazy_local_spot_store{};
 
-        switch(vt)
+        if(!lazy_local_spot_store) switch(vt)
         {
             case curr_operand_stack_value_type::i32:
             {
@@ -3464,6 +4771,8 @@ auto const emit_local_tee_typed_to{
                 break;
             }
         }
+
+        if(!is_polymorphic && bind_local_spot_after_store) { local_spot_bind_to(dst, off, vt, local_spot_src_pos, lazy_local_spot_store); }
 
         return site;
     }};
@@ -3536,8 +4845,9 @@ auto const emit_br_to{[&](bytecode_vec_t& dst, ::std::size_t label_id, bool dst_
                                                        u8" label_id=",
                                                        label_id,
                                                        u8"\n");
-                              }
-                          }
+                                                      }
+                                                  }
+                          local_spot_flush_dirty_all_and_invalidate_to(dst);
                           emit_opfunc_to(dst, translate::get_uwvmint_br_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
                           emit_ptr_label_placeholder(label_id, dst_is_thunk);
                       }};
@@ -3579,6 +4889,7 @@ auto const emit_br_to{[&](bytecode_vec_t& dst, ::std::size_t label_id, bool dst_
                                              u8"\n");
                     }
                 }
+                local_spot_flush_dirty_all_and_invalidate_to(dst);
                 emit_opfunc_to(dst, translate::get_uwvmint_br_stacktop_transform_to_begin_fptr_from_tuple<CompileOption>(curr_stacktop, interpreter_tuple));
                 emit_ptr_label_placeholder(label_id, dst_is_thunk);
                 return;

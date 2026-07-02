@@ -59,6 +59,37 @@ case wasm1_code::local_get:
     // index. Resolve the offset once so every fusion emits the same frame address.
     auto const local_off{local_offset_from_index(local_index)};
 
+    if(!is_polymorphic)
+    {
+        auto* const resident_local_spot{local_spot_find(local_off, curr_local_type)};
+        if(resident_local_spot != nullptr)
+        {
+#ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
+            if(conbine_pending.kind == conbine_pending_kind::local_get || conbine_pending.kind == conbine_pending_kind::local_get2)
+            {
+                local_spot_flush_dirty_all_to(bytecode);
+            }
+            else
+            {
+                if(conbine_pending.kind != conbine_pending_kind::none) { flush_conbine_pending(); }
+#endif
+                operand_stack_push(curr_local_type);
+                {
+                    auto const local_size{operand_stack_valtype_size(curr_local_type)};
+                    if(local_size != 0uz)
+                    {
+                        auto const end_off{static_cast<local_offset_t>(local_off + local_size)};
+                        if(end_off > local_bytes_zeroinit_end) { local_bytes_zeroinit_end = end_off; }
+                    }
+                }
+                emit_local_get_typed_to(bytecode, curr_local_type, local_off);
+                break;
+#ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
+            }
+#endif
+        }
+    }
+
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
     // Heavy combine: `local.get` xN + `add` x(N-1) -> one fused "add-reduce" opfunc (push 1).
     // This eliminates deep stack spill/fill traffic for large local-get expression trees (e.g. `stack_spill_*` benches).
@@ -191,7 +222,7 @@ case wasm1_code::local_get:
 #if defined(UWVM_ENABLE_UWVM_INT_INSTRUCTION_REORDER)
     // Instruction reorder: recompile a shallow LLVM-style integer left fold
     // `local.get a; local.get b; i*.binop; local.get c; i*.binop; ...`
-    // into one register-ring-friendly local reduction dispatch.
+    // into one stack-top window-friendly local reduction dispatch.
     //
     // Legal ops are the no-trap associative integer operations add/mul/and/or/xor. Floating-point
     // arithmetic and trapping integer ops are intentionally excluded from this first reorder layer.
@@ -399,7 +430,7 @@ case wasm1_code::local_get:
 
                 if(update_op == wasm1_code::local_tee && !stacktop_has_push_slots_without_spill(curr_local_type, 1uz))
                 {
-                    if(runtime_log_on) [[unlikely]] { ++runtime_log_stats.instr_reorder_ring_slot_reject_count; }
+                    if(runtime_log_on) [[unlikely]] { ++runtime_log_stats.instr_reorder_stacktop_slot_reject_count; }
                     return false;
                 }
 
@@ -422,7 +453,7 @@ case wasm1_code::local_get:
                     {
                         ++runtime_log_stats.instr_reorder_local_reduce_tee_count;
                     }
-                    if(update_op == wasm1_code::local_tee) { ++runtime_log_stats.instr_reorder_ring_slot_used_count; }
+                    if(update_op == wasm1_code::local_tee) { ++runtime_log_stats.instr_reorder_stacktop_slot_used_count; }
                     runtime_log_stats.instr_reorder_local_read_count += local_count;
                 }
 
@@ -625,7 +656,7 @@ case wasm1_code::local_get:
 
                 if(update_op == wasm1_code::local_tee && !stacktop_has_push_slots_without_spill(curr_local_type, 1uz))
                 {
-                    if(runtime_log_on) [[unlikely]] { ++runtime_log_stats.instr_reorder_ring_slot_reject_count; }
+                    if(runtime_log_on) [[unlikely]] { ++runtime_log_stats.instr_reorder_stacktop_slot_reject_count; }
                     return false;
                 }
 
@@ -645,7 +676,7 @@ case wasm1_code::local_get:
                     {
                         ++runtime_log_stats.instr_reorder_const_binop_local_tee_count;
                     }
-                    if(update_op == wasm1_code::local_tee) { ++runtime_log_stats.instr_reorder_ring_slot_used_count; }
+                    if(update_op == wasm1_code::local_tee) { ++runtime_log_stats.instr_reorder_stacktop_slot_used_count; }
                     ++runtime_log_stats.instr_reorder_expr_step_count;
                     ++runtime_log_stats.instr_reorder_local_read_count;
                 }
@@ -851,7 +882,7 @@ case wasm1_code::local_get:
 
                 if(update_op == wasm1_code::local_tee && !stacktop_has_push_slots_without_spill(curr_local_type, 1uz))
                 {
-                    if(runtime_log_on) [[unlikely]] { ++runtime_log_stats.instr_reorder_ring_slot_reject_count; }
+                    if(runtime_log_on) [[unlikely]] { ++runtime_log_stats.instr_reorder_stacktop_slot_reject_count; }
                     return false;
                 }
 
@@ -879,7 +910,7 @@ case wasm1_code::local_get:
                     {
                         ++runtime_log_stats.instr_reorder_expr_local_tee_count;
                     }
-                    if(update_op == wasm1_code::local_tee) { ++runtime_log_stats.instr_reorder_ring_slot_used_count; }
+                    if(update_op == wasm1_code::local_tee) { ++runtime_log_stats.instr_reorder_stacktop_slot_used_count; }
                     runtime_log_stats.instr_reorder_expr_step_count += step_count;
                     runtime_log_stats.instr_reorder_local_read_count += local_read_count;
                 }
@@ -1312,7 +1343,7 @@ case wasm1_code::local_get:
     }
 
     // Instruction reorder base layer: recompile a consecutive same-typed `local.get` burst into
-    // one preload dispatch. This is the register-ring stack-caching form of the pass: it preserves
+    // one preload dispatch. This is the stack-top window caching form of the pass: it preserves
     // the original producer order and lets any following opcode consume the now-cached operands.
     if(instruction_reorder_runtime_candidate && instruction_reorder_follow_is_local_get &&
        (curr_local_type == curr_operand_stack_value_type::i32 || curr_local_type == curr_operand_stack_value_type::i64 ||
@@ -1331,21 +1362,21 @@ case wasm1_code::local_get:
                 {
                     if(!stacktop_enabled_for_vt(curr_local_type)) { return false; }
 
-                    auto const ring_size{stacktop_ring_size_for_vt(curr_local_type)};
-                    // The preload limit is the active physical register-ring size for the current
-                    // architecture/CompileOption. If a future ABI exposes a larger ring than this
+                    auto const window_size{stacktop_window_size_for_vt(curr_local_type)};
+                    // The preload limit is the active physical stack-top window size for the current
+                    // architecture/CompileOption. If a future ABI exposes a larger stack-top window than this
                     // generated opfunc family supports, do not silently treat the fixed template
-                    // limit as "full ring"; leave the window to ordinary local handling instead.
-                    if(ring_size < 2uz || ring_size > max_supported_preload_ring_size) { return false; }
+                    // limit as "full stack-top window"; leave the window to ordinary local handling instead.
+                    if(window_size < 2uz || window_size > max_supported_preload_ring_size) { return false; }
                     auto const free_slots{stacktop_free_slot_count_for_vt(curr_local_type)};
                     if(free_slots < 2uz)
                     {
-                        if(runtime_log_on) [[unlikely]] { ++runtime_log_stats.instr_reorder_ring_slot_reject_count; }
+                        if(runtime_log_on) [[unlikely]] { ++runtime_log_stats.instr_reorder_stacktop_slot_reject_count; }
                         return false;
                     }
-                    local_limit = free_slots < ring_size ? free_slots : ring_size;
+                    local_limit = free_slots < window_size ? free_slots : window_size;
                     local_min = local_limit;
-                    if(local_limit == ring_size && ring_size > 3uz) { local_min = ring_size - 1uz; }
+                    if(local_limit == window_size && window_size > 3uz) { local_min = window_size - 1uz; }
                 }
                 else
                 {
@@ -1388,7 +1419,7 @@ case wasm1_code::local_get:
                     ++runtime_log_stats.instr_reorder_applied_count;
                     ++runtime_log_stats.instr_reorder_local_preload_count;
                     runtime_log_stats.instr_reorder_local_read_count += local_count;
-                    runtime_log_stats.instr_reorder_ring_slot_used_count += local_count;
+                    runtime_log_stats.instr_reorder_stacktop_slot_used_count += local_count;
                 }
 
                 for(::std::size_t i{}; i != local_count; ++i) { operand_stack_push(curr_local_type); }
@@ -2019,6 +2050,41 @@ case wasm1_code::local_get:
                     }
                 }
 # endif
+                auto const try_form_common_int_2local_window{[&]() constexpr noexcept -> bool
+                                                             {
+                                                                 if(code_curr == code_end) { return false; }
+
+                                                                 wasm1_code next_op{};  // init
+                                                                 ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
+
+                                                                 bool supported{};
+                                                                 if(curr_local_type == curr_operand_stack_value_type::i32)
+                                                                 {
+                                                                     supported = next_op == wasm1_code::i32_add || next_op == wasm1_code::i32_sub ||
+                                                                                 next_op == wasm1_code::i32_mul || next_op == wasm1_code::i32_and ||
+                                                                                 next_op == wasm1_code::i32_or || next_op == wasm1_code::i32_xor ||
+                                                                                 next_op == wasm1_code::i32_shl || next_op == wasm1_code::i32_shr_s ||
+                                                                                 next_op == wasm1_code::i32_shr_u || next_op == wasm1_code::i32_rotl ||
+                                                                                 next_op == wasm1_code::i32_rotr;
+                                                                 }
+                                                                 else if(curr_local_type == curr_operand_stack_value_type::i64)
+                                                                 {
+                                                                     supported = next_op == wasm1_code::i64_add || next_op == wasm1_code::i64_sub ||
+                                                                                 next_op == wasm1_code::i64_mul || next_op == wasm1_code::i64_and ||
+                                                                                 next_op == wasm1_code::i64_or || next_op == wasm1_code::i64_xor ||
+                                                                                 next_op == wasm1_code::i64_shl || next_op == wasm1_code::i64_shr_s ||
+                                                                                 next_op == wasm1_code::i64_shr_u || next_op == wasm1_code::i64_rotl ||
+                                                                                 next_op == wasm1_code::i64_rotr;
+                                                                 }
+
+                                                                 if(!supported) { return false; }
+                                                                 conbine_pending.kind = conbine_pending_kind::local_get2;
+                                                                 conbine_pending.off2 = local_off;
+                                                                 return true;
+                                                             }};
+
+                if(try_form_common_int_2local_window()) { break; }
+
                 auto const try_form_common_add_2local_window{[&]() constexpr UWVM_THROWS -> bool
                                                              {
                                                                  if(code_curr == code_end) { return false; }
@@ -2087,6 +2153,53 @@ case wasm1_code::local_get:
                                                              }};
 
                 if(try_form_common_add_2local_window()) { break; }
+
+                auto const try_form_v128_simd_2local_window{[&]() constexpr UWVM_THROWS -> bool
+                                                            {
+                                                                if(is_polymorphic || curr_local_type != curr_operand_stack_value_type::v128 ||
+                                                                   code_curr == code_end)
+                                                                {
+                                                                    return false;
+                                                                }
+
+                                                                wasm_byte next_prefix{};  // init
+                                                                ::std::memcpy(::std::addressof(next_prefix), code_curr, sizeof(next_prefix));
+                                                                if(next_prefix != opcode_byte(wasm1p1_code::simd_prefix)) { return false; }
+
+                                                                wasm_u32 subopcode{};
+                                                                using char8_t_const_may_alias_ptr UWVM_GNU_MAY_ALIAS = char8_t const*;
+                                                                auto const [subopcode_next,
+                                                                            subopcode_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1u),
+                                                                                                                    reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                                                                    ::fast_io::mnp::leb128_get(subopcode))};
+                                                                (void)subopcode_next;
+                                                                if(subopcode_err != ::fast_io::parse_code::ok) { return false; }
+
+                                                                auto const simd_op{static_cast<wasm1p1_simd_code>(subopcode)};
+                                                                switch(simd_op)
+                                                                {
+                                                                    case wasm1p1_simd_code::v128_and:
+                                                                    case wasm1p1_simd_code::v128_andnot:
+                                                                    case wasm1p1_simd_code::v128_or:
+                                                                    case wasm1p1_simd_code::v128_xor:
+                                                                    case wasm1p1_simd_code::i32x4_eq:
+                                                                    case wasm1p1_simd_code::i32x4_add:
+                                                                    case wasm1p1_simd_code::i32x4_sub:
+                                                                    case wasm1p1_simd_code::i32x4_mul:
+                                                                    case wasm1p1_simd_code::f32x4_eq:
+                                                                    case wasm1p1_simd_code::f32x4_add:
+                                                                    case wasm1p1_simd_code::f32x4_sub:
+                                                                    case wasm1p1_simd_code::f32x4_mul:
+                                                                    {
+                                                                        conbine_pending.kind = conbine_pending_kind::local_get2;
+                                                                        conbine_pending.off2 = local_off;
+                                                                        return true;
+                                                                    }
+                                                                    default: return false;
+                                                                }
+                                                            }};
+
+                if(try_form_v128_simd_2local_window()) { break; }
 # ifdef UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS
                 // Extra-heavy: allow forming a 2-local pending window for 2-local fusions.
                 //
@@ -2462,7 +2575,21 @@ case wasm1_code::local_set:
     // the destination offset while preserving the operand-stack value model.
     auto const local_off{local_offset_from_index(local_index)};
 
+    if(local_write_skip_slot_active)
+    {
+        bool const matched_skip_slot{local_write_skip_slot_expected == wasm1_code::local_set};
+        local_write_skip_slot_active = false;
+        if(matched_skip_slot)
+        {
+            if(have_set_operand) { operand_stack_pop_unchecked(); }
+            emit_local_set_typed_to(bytecode, curr_local_type, local_off, false, false);
+            break;
+        }
+    }
+
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
+    if(conbine_pending.kind != conbine_pending_kind::none) { local_spot_flush_dirty_all_and_invalidate_to(bytecode); }
+
     // Conbine: `i32.const imm; local.set dst` (common in crypto init sequences).
     if(!is_polymorphic && conbine_pending.kind == conbine_pending_kind::const_i32 && curr_local_type == curr_operand_stack_value_type::i32)
     {
@@ -3102,7 +3229,45 @@ case wasm1_code::local_set:
         flush_conbine_pending();
     }
 # endif
+    if(conbine_pending.kind != conbine_pending_kind::none) { flush_conbine_pending(); }
 #endif
+
+    auto const try_parse_following_same_local_get{
+        [&](::std::byte const*& out_next) constexpr UWVM_THROWS -> bool
+        {
+            if(code_curr == code_end) { return false; }
+
+            wasm1_code next_op{};  // init
+            ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op));
+            if(next_op != wasm1_code::local_get) { return false; }
+
+            wasm_u32 next_local_index{};
+            auto const [next_local_index_next, next_local_index_err]{
+                ::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr + 1u),
+                                         reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                         ::fast_io::mnp::leb128_get(next_local_index))};
+            if(next_local_index_err != ::fast_io::parse_code::ok || next_local_index != local_index) { return false; }
+
+            if(next_local_index >= all_local_count || local_type_from_index(next_local_index) != curr_local_type) { return false; }
+
+            out_next = reinterpret_cast<::std::byte const*>(next_local_index_next);
+            return true;
+        }};
+
+    if(!is_polymorphic && have_set_operand &&
+       (curr_local_type == curr_operand_stack_value_type::i32 || curr_local_type == curr_operand_stack_value_type::i64))
+    {
+        ::std::byte const* after_same_local_get{};
+        if(try_parse_following_same_local_get(after_same_local_get))
+        {
+#ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
+            if(conbine_pending.kind != conbine_pending_kind::none) { flush_conbine_pending(); }
+#endif
+            emit_local_set_keep_typed_to(bytecode, curr_local_type, local_off);
+            code_curr = after_same_local_get;
+            break;
+        }
+    }
 
     if(have_set_operand) { operand_stack_pop_unchecked(); }
 
@@ -3186,7 +3351,20 @@ case wasm1_code::local_tee:
 
     auto const local_off{local_offset_from_index(local_index)};
 
+    if(local_write_skip_slot_active)
+    {
+        bool const matched_skip_slot{local_write_skip_slot_expected == wasm1_code::local_tee};
+        local_write_skip_slot_active = false;
+        if(matched_skip_slot)
+        {
+            static_cast<void>(emit_local_tee_typed_to(bytecode, curr_local_type, local_off, false));
+            break;
+        }
+    }
+
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
+    if(conbine_pending.kind != conbine_pending_kind::none) { local_spot_flush_dirty_all_and_invalidate_to(bytecode); }
+
 # ifdef UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS
     // Heavy (test8 hot loop): `local.get(f64); local.get(i32); i32.const; i32.add; local.tee` chain.
     if(conbine_pending.kind == conbine_pending_kind::for_i32_inc_f64_lt_u_eqz_after_add)
@@ -3962,7 +4140,7 @@ case wasm1_code::global_get:
 
         if constexpr(stacktop_enabled)
         {
-            // global.get pushes 1 value to stack-top cache; spill if ring is full.
+            // global.get pushes 1 value to stack-top cache; spill if stack-top window is full.
             stacktop_prepare_push1_if_reachable(bytecode, curr_global_type);
         }
 

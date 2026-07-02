@@ -331,14 +331,12 @@ namespace
 # endif
             UWVM2TEST_REQUIRE(ok);
 #endif
-#if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && (defined(UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS) || defined(UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY))
+#if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS)
             bool ok_sub{};
-# if defined(UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS)
             ok_sub = ok_sub || bytecode_contains_i32_variant<Opt>(
                            cm.local_funcs.index_unchecked(2).op.operands,
                            [&](auto const& curr_variant) constexpr noexcept
                            { return optable::translate::get_uwvmint_i32_sub_2localget_fptr_from_tuple<Opt>(curr_variant, tuple); });
-# endif
 # if defined(UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY)
             ok_sub = ok_sub || bytecode_contains_i32_variant<Opt>(
                            cm.local_funcs.index_unchecked(2).op.operands,
@@ -503,7 +501,8 @@ namespace
                                   pack_i32(static_cast<::std::int32_t>(x)),
                                   nullptr,
                                   nullptr);
-            UWVM2TEST_REQUIRE(static_cast<::std::uint32_t>(load_i32(rr.results)) == expected);
+            auto const got{static_cast<::std::uint32_t>(load_i32(rr.results))};
+            UWVM2TEST_REQUIRE(got == expected);
         }
 
         return 0;

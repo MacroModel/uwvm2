@@ -365,16 +365,16 @@ namespace
         {
             constexpr optable::uwvm_interpreter_translate_option_t opt{
                 .is_tail_call = true,
-                .i32_stack_top_begin_pos = 3uz,
-                .i32_stack_top_end_pos = 7uz,
-                .i64_stack_top_begin_pos = 3uz,
-                .i64_stack_top_end_pos = 7uz,
-                .f32_stack_top_begin_pos = 3uz,
-                .f32_stack_top_end_pos = 7uz,
-                .f64_stack_top_begin_pos = 3uz,
-                .f64_stack_top_end_pos = 7uz,
-                .v128_stack_top_begin_pos = SIZE_MAX,
-                .v128_stack_top_end_pos = SIZE_MAX,
+                .i32_stack_top_begin_pos = SIZE_MAX,
+                .i32_stack_top_end_pos = SIZE_MAX,
+                .i64_stack_top_begin_pos = SIZE_MAX,
+                .i64_stack_top_end_pos = SIZE_MAX,
+                .f32_stack_top_begin_pos = 0uz,
+                .f32_stack_top_end_pos = 4uz,
+                .f64_stack_top_begin_pos = 0uz,
+                .f64_stack_top_end_pos = 4uz,
+                .v128_stack_top_begin_pos = 0uz,
+                .v128_stack_top_end_pos = 4uz,
             };
             static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
 
@@ -390,26 +390,26 @@ namespace
             constexpr auto tuple =
                 compiler::details::make_interpreter_tuple<opt>(::std::make_index_sequence<compiler::details::interpreter_tuple_size<opt>()>{});
 
-            constexpr optable::uwvm_interpreter_stacktop_currpos_t c3{.i32_stack_top_curr_pos = 3uz,
-                                                                      .i64_stack_top_curr_pos = 3uz,
+            constexpr optable::uwvm_interpreter_stacktop_currpos_t c3{.i32_stack_top_curr_pos = SIZE_MAX,
+                                                                      .i64_stack_top_curr_pos = SIZE_MAX,
+                                                                      .f32_stack_top_curr_pos = 0uz,
+                                                                      .f64_stack_top_curr_pos = 0uz,
+                                                                      .v128_stack_top_curr_pos = 0uz};
+            constexpr optable::uwvm_interpreter_stacktop_currpos_t c4{.i32_stack_top_curr_pos = SIZE_MAX,
+                                                                      .i64_stack_top_curr_pos = SIZE_MAX,
+                                                                      .f32_stack_top_curr_pos = 1uz,
+                                                                      .f64_stack_top_curr_pos = 1uz,
+                                                                      .v128_stack_top_curr_pos = 1uz};
+            constexpr optable::uwvm_interpreter_stacktop_currpos_t c5{.i32_stack_top_curr_pos = SIZE_MAX,
+                                                                      .i64_stack_top_curr_pos = SIZE_MAX,
+                                                                      .f32_stack_top_curr_pos = 2uz,
+                                                                      .f64_stack_top_curr_pos = 2uz,
+                                                                      .v128_stack_top_curr_pos = 2uz};
+            constexpr optable::uwvm_interpreter_stacktop_currpos_t c6{.i32_stack_top_curr_pos = SIZE_MAX,
+                                                                      .i64_stack_top_curr_pos = SIZE_MAX,
                                                                       .f32_stack_top_curr_pos = 3uz,
                                                                       .f64_stack_top_curr_pos = 3uz,
-                                                                      .v128_stack_top_curr_pos = SIZE_MAX};
-            constexpr optable::uwvm_interpreter_stacktop_currpos_t c4{.i32_stack_top_curr_pos = 4uz,
-                                                                      .i64_stack_top_curr_pos = 4uz,
-                                                                      .f32_stack_top_curr_pos = 4uz,
-                                                                      .f64_stack_top_curr_pos = 4uz,
-                                                                      .v128_stack_top_curr_pos = SIZE_MAX};
-            constexpr optable::uwvm_interpreter_stacktop_currpos_t c5{.i32_stack_top_curr_pos = 5uz,
-                                                                      .i64_stack_top_curr_pos = 5uz,
-                                                                      .f32_stack_top_curr_pos = 5uz,
-                                                                      .f64_stack_top_curr_pos = 5uz,
-                                                                      .v128_stack_top_curr_pos = SIZE_MAX};
-            constexpr optable::uwvm_interpreter_stacktop_currpos_t c6{.i32_stack_top_curr_pos = 6uz,
-                                                                      .i64_stack_top_curr_pos = 6uz,
-                                                                      .f32_stack_top_curr_pos = 6uz,
-                                                                      .f64_stack_top_curr_pos = 6uz,
-                                                                      .v128_stack_top_curr_pos = SIZE_MAX};
+                                                                      .v128_stack_top_curr_pos = 3uz};
 
             // caller_call_add_f32: call_stacktop_f32 ParamCount=1 Ret=wasm_f32
             {

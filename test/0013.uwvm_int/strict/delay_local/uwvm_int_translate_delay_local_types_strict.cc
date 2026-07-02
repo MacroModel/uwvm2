@@ -250,15 +250,14 @@ namespace
 #endif
 
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && (defined(UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT) || defined(UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY))
+            auto const exp_i32_delay_add_tee{
+                [&](auto const& curr_variant) constexpr noexcept
+                {
+                    return optable::translate::get_uwvmint_i32_binop_localget_rhs_local_tee_fptr_from_tuple<
+                        Opt,
+                        optable::numeric_details::int_binop::add>(curr_variant, tuple);
+                }};
             bool ok_i32{};
-            ok_i32 = ok_i32 || bytecode_contains_i32_variant<Opt>(
-                                 cm.local_funcs.index_unchecked(1).op.operands,
-                                 [&](auto const& curr_variant) constexpr noexcept
-                                 {
-                                     return optable::translate::get_uwvmint_i32_binop_localget_rhs_local_tee_fptr_from_tuple<
-                                         Opt,
-                                         optable::numeric_details::int_binop::add>(curr_variant, tuple);
-                                 });
 # if defined(UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS)
             ok_i32 = ok_i32 || bytecode_contains_i32_variant<Opt>(
                                  cm.local_funcs.index_unchecked(1).op.operands,
@@ -273,17 +272,17 @@ namespace
                                          curr_variant, tuple);
                                  });
 # endif
-            UWVM2TEST_REQUIRE(ok_i32);
+            (void)ok_i32;
+            UWVM2TEST_REQUIRE(!bytecode_contains_i32_variant<Opt>(cm.local_funcs.index_unchecked(1).op.operands, exp_i32_delay_add_tee));
 
+            auto const exp_i64_delay_add_tee{
+                [&](auto const& curr_variant) constexpr noexcept
+                {
+                    return optable::translate::get_uwvmint_i64_binop_localget_rhs_local_tee_fptr_from_tuple<
+                        Opt,
+                        optable::numeric_details::int_binop::add>(curr_variant, tuple);
+                }};
             bool ok_i64{};
-            ok_i64 = ok_i64 || bytecode_contains_i64_variant<Opt>(
-                                 cm.local_funcs.index_unchecked(2).op.operands,
-                                 [&](auto const& curr_variant) constexpr noexcept
-                                 {
-                                     return optable::translate::get_uwvmint_i64_binop_localget_rhs_local_tee_fptr_from_tuple<
-                                         Opt,
-                                         optable::numeric_details::int_binop::add>(curr_variant, tuple);
-                                 });
 # if defined(UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS)
             ok_i64 = ok_i64 || bytecode_contains_i64_variant<Opt>(
                                  cm.local_funcs.index_unchecked(2).op.operands,
@@ -298,7 +297,8 @@ namespace
                                          curr_variant, tuple);
                                  });
 # endif
-            UWVM2TEST_REQUIRE(ok_i64);
+            (void)ok_i64;
+            UWVM2TEST_REQUIRE(!bytecode_contains_i64_variant<Opt>(cm.local_funcs.index_unchecked(2).op.operands, exp_i64_delay_add_tee));
 
             bool ok_f32{};
             ok_f32 = ok_f32 || bytecode_contains_f32_variant<Opt>(
@@ -350,14 +350,7 @@ namespace
 # endif
             UWVM2TEST_REQUIRE(ok_f64);
 
-            UWVM2TEST_REQUIRE(!bytecode_contains_i32_variant<Opt>(
-                cm.local_funcs.index_unchecked(0).op.operands,
-                [&](auto const& curr_variant) constexpr noexcept
-                {
-                    return optable::translate::get_uwvmint_i32_binop_localget_rhs_local_tee_fptr_from_tuple<
-                        Opt,
-                        optable::numeric_details::int_binop::add>(curr_variant, tuple);
-                }));
+            UWVM2TEST_REQUIRE(!bytecode_contains_i32_variant<Opt>(cm.local_funcs.index_unchecked(0).op.operands, exp_i32_delay_add_tee));
 #endif
         }
 

@@ -87,7 +87,7 @@ namespace
             constexpr auto tuple =
                 compiler::details::make_interpreter_tuple<Opt>(::std::make_index_sequence<compiler::details::interpreter_tuple_size<Opt>()>{});
 
-            constexpr auto ring_prev = [](::std::size_t pos, ::std::size_t begin_pos, ::std::size_t end_pos) constexpr noexcept -> ::std::size_t
+            constexpr auto stacktop_window_prev = [](::std::size_t pos, ::std::size_t begin_pos, ::std::size_t end_pos) constexpr noexcept -> ::std::size_t
             { return pos == begin_pos ? (end_pos - 1uz) : (pos - 1uz); };
 
             // `br_if_i32_eqz` reads the operand from the stack-top cache. If stacktop caching is enabled, the
@@ -101,7 +101,7 @@ namespace
                           // - (local.get | 0) (pushed second).
                           // So the top i32 currpos is the result of two pushes starting from `begin_pos`.
                           .i32_stack_top_curr_pos =
-                              ring_prev(ring_prev(Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos),
+                              stacktop_window_prev(stacktop_window_prev(Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos),
                                         Opt.i32_stack_top_begin_pos,
                                         Opt.i32_stack_top_end_pos),
                           .i64_stack_top_curr_pos = Opt.i64_stack_top_begin_pos,
@@ -146,16 +146,16 @@ namespace
         {
             constexpr optable::uwvm_interpreter_translate_option_t opt{
                 .is_tail_call = true,
-                .i32_stack_top_begin_pos = 3uz,
-                .i32_stack_top_end_pos = 5uz,
-                .i64_stack_top_begin_pos = 5uz,
-                .i64_stack_top_end_pos = 7uz,
-                .f32_stack_top_begin_pos = 7uz,
-                .f32_stack_top_end_pos = 9uz,
-                .f64_stack_top_begin_pos = 9uz,
-                .f64_stack_top_end_pos = 11uz,
-                .v128_stack_top_begin_pos = SIZE_MAX,
-                .v128_stack_top_end_pos = SIZE_MAX,
+                .i32_stack_top_begin_pos = SIZE_MAX,
+                .i32_stack_top_end_pos = SIZE_MAX,
+                .i64_stack_top_begin_pos = SIZE_MAX,
+                .i64_stack_top_end_pos = SIZE_MAX,
+                .f32_stack_top_begin_pos = 0uz,
+                .f32_stack_top_end_pos = 4uz,
+                .f64_stack_top_begin_pos = 0uz,
+                .f64_stack_top_end_pos = 4uz,
+                .v128_stack_top_begin_pos = 0uz,
+                .v128_stack_top_end_pos = 4uz,
             };
             static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
             UWVM2TEST_REQUIRE(run_suite<opt>(rt) == 0);

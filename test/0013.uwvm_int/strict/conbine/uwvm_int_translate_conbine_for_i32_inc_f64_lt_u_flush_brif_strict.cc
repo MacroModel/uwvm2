@@ -118,20 +118,20 @@ namespace
             UWVM2TEST_REQUIRE(run_conbine_for_i32_inc_f64_lt_u_flush_brif_suite<opt>(rt) == 0);
         }
 
-        // Tailcall + stacktop caching: fully merged scalar ring (i32/i64/f32/f64) to cover merged-range fast paths.
+        // Tailcall + stacktop caching: fully merged scalar stack-top window (i32/i64/f32/f64) to cover merged-range fast paths.
         {
             constexpr optable::uwvm_interpreter_translate_option_t opt{
                 .is_tail_call = true,
-                .i32_stack_top_begin_pos = 3uz,
-                .i32_stack_top_end_pos = 5uz,
-                .i64_stack_top_begin_pos = 3uz,
-                .i64_stack_top_end_pos = 5uz,
-                .f32_stack_top_begin_pos = 3uz,
-                .f32_stack_top_end_pos = 5uz,
-                .f64_stack_top_begin_pos = 3uz,
-                .f64_stack_top_end_pos = 5uz,
-                .v128_stack_top_begin_pos = SIZE_MAX,
-                .v128_stack_top_end_pos = SIZE_MAX,
+                .i32_stack_top_begin_pos = SIZE_MAX,
+                .i32_stack_top_end_pos = SIZE_MAX,
+                .i64_stack_top_begin_pos = SIZE_MAX,
+                .i64_stack_top_end_pos = SIZE_MAX,
+                .f32_stack_top_begin_pos = 0uz,
+                .f32_stack_top_end_pos = 2uz,
+                .f64_stack_top_begin_pos = 0uz,
+                .f64_stack_top_end_pos = 2uz,
+                .v128_stack_top_begin_pos = 0uz,
+                .v128_stack_top_end_pos = 2uz,
             };
             static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
             UWVM2TEST_REQUIRE(run_conbine_for_i32_inc_f64_lt_u_flush_brif_suite<opt>(rt) == 0);

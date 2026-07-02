@@ -39,7 +39,7 @@ Options:
   -h, --help              Show this help.
 
 Environment:
-  UWVM_BACKEND_LIBFUZZER_MODES="uwvm-int-ring-matrix llvm-jit-lazy ..."
+  UWVM_BACKEND_LIBFUZZER_MODES="uwvm-int-stacktop-matrix llvm-jit-lazy ..."
   UWVM_BACKEND_LIBFUZZER_TRACE=1
   UWVM_BACKEND_LIBFUZZER_STRESS_TIERED_OSR=1
   UWVM_BACKEND_LIBFUZZER_STRESS_TIERED_SWITCH=1

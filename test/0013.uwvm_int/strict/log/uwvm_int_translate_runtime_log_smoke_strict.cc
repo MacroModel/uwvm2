@@ -148,16 +148,16 @@ namespace
         {
             constexpr optable::uwvm_interpreter_translate_option_t opt{
                 .is_tail_call = true,
-                .i32_stack_top_begin_pos = 3uz,
-                .i32_stack_top_end_pos = 4uz,
-                .i64_stack_top_begin_pos = 3uz,
-                .i64_stack_top_end_pos = 4uz,
-                .f32_stack_top_begin_pos = 3uz,
-                .f32_stack_top_end_pos = 4uz,
-                .f64_stack_top_begin_pos = 3uz,
-                .f64_stack_top_end_pos = 4uz,
-                .v128_stack_top_begin_pos = SIZE_MAX,
-                .v128_stack_top_end_pos = SIZE_MAX,
+                .i32_stack_top_begin_pos = SIZE_MAX,
+                .i32_stack_top_end_pos = SIZE_MAX,
+                .i64_stack_top_begin_pos = SIZE_MAX,
+                .i64_stack_top_end_pos = SIZE_MAX,
+                .f32_stack_top_begin_pos = 0uz,
+                .f32_stack_top_end_pos = 1uz,
+                .f64_stack_top_begin_pos = 0uz,
+                .f64_stack_top_end_pos = 1uz,
+                .v128_stack_top_begin_pos = 0uz,
+                .v128_stack_top_end_pos = 1uz,
             };
             static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
             UWVM2TEST_REQUIRE((compile_and_run_with_runtime_log<opt>(rt, rt_fn)) == 0);

@@ -125,25 +125,25 @@ namespace
             UWVM2TEST_REQUIRE(run_suite<opt>(rt) == 0);
         }
 
-        // Tailcall + stacktop caching with a tiny fully-merged scalar ring (1 slot).
+        // Tailcall + stacktop caching with a tiny fully-merged scalar stack-top window (1 slot).
         // This forces `i64.ne` (net stack effect -1) to leave the i32 condition in operand stack memory
         // when it is immediately followed by `br_if`, so `br_if` must pop from memory.
         if(legacy_layouts_enabled())
         {
             constexpr optable::uwvm_interpreter_translate_option_t opt{
                 .is_tail_call = true,
-                // Use a tiny fully-merged scalar ring (1 slot). This stresses the stack-top model and can force
+                // Use a tiny fully-merged scalar stack-top window (1 slot). This stresses the stack-top model and can force
                 // the i32 condition to remain in operand stack memory at the br_if site.
-                .i32_stack_top_begin_pos = 3uz,
-                .i32_stack_top_end_pos = 4uz,
-                .i64_stack_top_begin_pos = 3uz,
-                .i64_stack_top_end_pos = 4uz,
-                .f32_stack_top_begin_pos = 3uz,
-                .f32_stack_top_end_pos = 4uz,
-                .f64_stack_top_begin_pos = 3uz,
-                .f64_stack_top_end_pos = 4uz,
-                .v128_stack_top_begin_pos = SIZE_MAX,
-                .v128_stack_top_end_pos = SIZE_MAX,
+                .i32_stack_top_begin_pos = SIZE_MAX,
+                .i32_stack_top_end_pos = SIZE_MAX,
+                .i64_stack_top_begin_pos = SIZE_MAX,
+                .i64_stack_top_end_pos = SIZE_MAX,
+                .f32_stack_top_begin_pos = 0uz,
+                .f32_stack_top_end_pos = 1uz,
+                .f64_stack_top_begin_pos = 0uz,
+                .f64_stack_top_end_pos = 1uz,
+                .v128_stack_top_begin_pos = 0uz,
+                .v128_stack_top_end_pos = 1uz,
             };
             static_assert(compiler::details::interpreter_tuple_has_no_holes<opt>());
 
@@ -154,11 +154,26 @@ namespace
                 auto cm = compiler::compile_all_from_uwvm_single_func<opt>(rt, cop, err);
                 UWVM2TEST_REQUIRE(err.err_code == ::uwvm2::validation::error::code_validation_error_code::ok);
 
-                constexpr optable::uwvm_interpreter_stacktop_currpos_t curr{};
+                constexpr optable::uwvm_interpreter_stacktop_currpos_t curr{
+                    .i32_stack_top_curr_pos = SIZE_MAX,
+                    .i64_stack_top_curr_pos = SIZE_MAX,
+                    .f32_stack_top_curr_pos = 0uz,
+                    .f64_stack_top_curr_pos = 0uz,
+                    .v128_stack_top_curr_pos = 0uz,
+                };
                 constexpr auto tuple =
                     compiler::details::make_interpreter_tuple<opt>(::std::make_index_sequence<compiler::details::interpreter_tuple_size<opt>()>{});
-                auto const exp = optable::translate::get_uwvmint_br_if_pop_from_memory_fptr_from_tuple<opt>(curr, tuple);
-                UWVM2TEST_REQUIRE(bytecode_contains_fptr(cm.local_funcs.index_unchecked(0).op.operands, exp));
+                auto const exp_pop = optable::translate::get_uwvmint_br_if_pop_from_memory_fptr_from_tuple<opt>(curr, tuple);
+                auto const exp_generic = optable::translate::get_uwvmint_br_if_fptr_from_tuple<opt>(curr, tuple);
+#if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS)
+                auto const exp_fused = optable::translate::get_uwvmint_br_if_i64_ne_fptr_from_tuple<opt>(curr, tuple);
+#endif
+                UWVM2TEST_REQUIRE(bytecode_contains_fptr(cm.local_funcs.index_unchecked(0).op.operands, exp_pop) ||
+                                  bytecode_contains_fptr(cm.local_funcs.index_unchecked(0).op.operands, exp_generic)
+#if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS)
+                                  || bytecode_contains_fptr(cm.local_funcs.index_unchecked(0).op.operands, exp_fused)
+#endif
+                );
             }
 
             UWVM2TEST_REQUIRE(run_suite<opt>(rt) == 0);

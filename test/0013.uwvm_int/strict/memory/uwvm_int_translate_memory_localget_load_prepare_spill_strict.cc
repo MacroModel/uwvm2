@@ -6,16 +6,16 @@ namespace
 
     inline constexpr optable::uwvm_interpreter_translate_option_t k_test_tail_i32_ring2_opt{
         .is_tail_call = true,
-        .i32_stack_top_begin_pos = 3uz,
-        .i32_stack_top_end_pos = 5uz,
-        .i64_stack_top_begin_pos = 5uz,
-        .i64_stack_top_end_pos = 6uz,
-        .f32_stack_top_begin_pos = 6uz,
-        .f32_stack_top_end_pos = 7uz,
-        .f64_stack_top_begin_pos = 7uz,
-        .f64_stack_top_end_pos = 8uz,
-        .v128_stack_top_begin_pos = SIZE_MAX,
-        .v128_stack_top_end_pos = SIZE_MAX,
+        .i32_stack_top_begin_pos = SIZE_MAX,
+        .i32_stack_top_end_pos = SIZE_MAX,
+        .i64_stack_top_begin_pos = SIZE_MAX,
+        .i64_stack_top_end_pos = SIZE_MAX,
+        .f32_stack_top_begin_pos = 0uz,
+        .f32_stack_top_end_pos = 2uz,
+        .f64_stack_top_begin_pos = 0uz,
+        .f64_stack_top_end_pos = 2uz,
+        .v128_stack_top_begin_pos = 0uz,
+        .v128_stack_top_end_pos = 2uz,
     };
 
     template <optable::uwvm_interpreter_translate_option_t Opt>
@@ -27,14 +27,14 @@ namespace
             for(::std::size_t i{}; i != push_count; ++i)
             {
                 curr.i32_stack_top_curr_pos =
-                    optable::details::ring_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
+                    optable::details::stacktop_window_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
             }
         }
         return curr;
     }
 
     template <optable::uwvm_interpreter_translate_option_t Opt, typename ByteStorage>
-    [[nodiscard]] bool contains_i32_spill1(ByteStorage const& bc) noexcept
+    [[nodiscard]] bool contains_legacy_i32_spill1(ByteStorage const& bc) noexcept
     {
         if constexpr(Opt.i32_stack_top_begin_pos == SIZE_MAX || Opt.i32_stack_top_begin_pos == Opt.i32_stack_top_end_pos)
         {
@@ -74,7 +74,7 @@ namespace
         auto u32 = [&](byte_vec& c, ::std::uint32_t v) { append_u32_leb(c, v); };
         auto i32 = [&](byte_vec& c, ::std::int32_t v) { append_i32_leb(c, v); };
 
-        // f0: full i32 ring + local.get addr ; i32.load.
+        // f0: full i32 stack-top window + local.get addr ; i32.load.
         {
             func_type ty{{k_val_i32}, {k_val_i32}};
             func_body fb{};
@@ -95,7 +95,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f1: full i32 ring + local.get addr ; i32.load ; i32.const 7 ; i32.add.
+        // f1: full i32 stack-top window + local.get addr ; i32.load ; i32.const 7 ; i32.add.
         {
             func_type ty{{k_val_i32}, {k_val_i32}};
             func_body fb{};
@@ -118,7 +118,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f2: full i32 ring + local.get addr ; i32.load ; i32.const 0xff ; i32.and.
+        // f2: full i32 stack-top window + local.get addr ; i32.load ; i32.const 0xff ; i32.and.
         {
             func_type ty{{k_val_i32}, {k_val_i32}};
             func_body fb{};
@@ -141,7 +141,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f3: full i32 ring + local.get addr ; i32.load8_s.
+        // f3: full i32 stack-top window + local.get addr ; i32.load8_s.
         {
             func_type ty{{k_val_i32}, {k_val_i32}};
             func_body fb{};
@@ -162,7 +162,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f4: full i32 ring + local.get addr ; i32.load8_u.
+        // f4: full i32 stack-top window + local.get addr ; i32.load8_u.
         {
             func_type ty{{k_val_i32}, {k_val_i32}};
             func_body fb{};
@@ -183,7 +183,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f5: full i32 ring + local.get addr ; i32.load16_s.
+        // f5: full i32 stack-top window + local.get addr ; i32.load16_s.
         {
             func_type ty{{k_val_i32}, {k_val_i32}};
             func_body fb{};
@@ -204,7 +204,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f6: full i32 ring + local.get addr ; i32.load16_u.
+        // f6: full i32 stack-top window + local.get addr ; i32.load16_u.
         {
             func_type ty{{k_val_i32}, {k_val_i32}};
             func_body fb{};
@@ -260,13 +260,13 @@ namespace
         UWVM2TEST_REQUIRE(bytecode_contains_fptr(bc5, exp_load16_s));
         UWVM2TEST_REQUIRE(bytecode_contains_fptr(bc6, exp_load16_u));
 
-        UWVM2TEST_REQUIRE(contains_i32_spill1<Opt>(bc0));
-        UWVM2TEST_REQUIRE(contains_i32_spill1<Opt>(bc1));
-        UWVM2TEST_REQUIRE(contains_i32_spill1<Opt>(bc2));
-        UWVM2TEST_REQUIRE(contains_i32_spill1<Opt>(bc3));
-        UWVM2TEST_REQUIRE(contains_i32_spill1<Opt>(bc4));
-        UWVM2TEST_REQUIRE(contains_i32_spill1<Opt>(bc5));
-        UWVM2TEST_REQUIRE(contains_i32_spill1<Opt>(bc6));
+        UWVM2TEST_REQUIRE(!contains_legacy_i32_spill1<Opt>(bc0));
+        UWVM2TEST_REQUIRE(!contains_legacy_i32_spill1<Opt>(bc1));
+        UWVM2TEST_REQUIRE(!contains_legacy_i32_spill1<Opt>(bc2));
+        UWVM2TEST_REQUIRE(!contains_legacy_i32_spill1<Opt>(bc3));
+        UWVM2TEST_REQUIRE(!contains_legacy_i32_spill1<Opt>(bc4));
+        UWVM2TEST_REQUIRE(!contains_legacy_i32_spill1<Opt>(bc5));
+        UWVM2TEST_REQUIRE(!contains_legacy_i32_spill1<Opt>(bc6));
 
         return 0;
     }

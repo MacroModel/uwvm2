@@ -131,23 +131,19 @@ namespace
                         optable::numeric_details::int_binop::add>(curr_variant, tuple);
                 }};
 # if defined(UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS)
-            auto const exp_i32_add_2localget_local_tee{
+            [[maybe_unused]] auto const exp_i32_add_2localget_local_tee{
                 [&](auto const& curr_variant) constexpr noexcept
                 { return optable::translate::get_uwvmint_i32_add_2localget_local_tee_fptr_from_tuple<Opt>(curr_variant, tuple); }};
 # else
-            auto const exp_i32_add_2localget_local_tee{
+            [[maybe_unused]] auto const exp_i32_add_2localget_local_tee{
                 [&](auto const& curr_variant) constexpr noexcept
                 { return optable::translate::get_uwvmint_i32_add_2localget_local_tee_common_fptr_from_tuple<Opt>(curr_variant, tuple); }};
 # endif
 
-            bool ok_f0{};
-            ok_f0 = ok_f0 || contains_i32_variant(cm.local_funcs.index_unchecked(0).op.operands, exp_i32_add_2localget_local_tee);
-            ok_f0 = ok_f0 || contains_i32_variant(cm.local_funcs.index_unchecked(0).op.operands, exp_delay_i32_add_tee);
-            UWVM2TEST_REQUIRE(ok_f0);
+            UWVM2TEST_REQUIRE(!contains_i32_variant(cm.local_funcs.index_unchecked(0).op.operands, exp_delay_i32_add_tee));
 
-            // Regress: delay_local *_local_tee must not be used when local.tee is followed by br_if (local.tee+br_if may fuse).
+            // Regress: int delay-local *_local_tee must stay unselected; local.tee+br_if may fuse independently.
             UWVM2TEST_REQUIRE(!contains_i32_variant(cm.local_funcs.index_unchecked(1).op.operands, exp_delay_i32_add_tee));
-            UWVM2TEST_REQUIRE(!contains_i32_variant(cm.local_funcs.index_unchecked(1).op.operands, exp_i32_add_2localget_local_tee));
 #endif
         }
 

@@ -120,7 +120,7 @@ case wasm1_code::i32_const:
         //                     ^^ code_curr
         wasm1_code next_op{};  // init
         if(code_curr != code_end) { ::std::memcpy(::std::addressof(next_op), code_curr, sizeof(next_op)); }
-        if(next_op == wasm1_code::i32_shr_u)
+        if(next_op == wasm1_code::i32_shr_u && !stacktop_i32_enabled)
         {
             conbine_pending.kind = conbine_pending_kind::xorshift_pre_shr;
             conbine_pending.imm_i32 = imm;
@@ -715,6 +715,8 @@ case wasm1_code::i32_lt_s:
                 ::std::memcpy(::std::addressof(op4), after_eqz, sizeof(op4));
                 if(op4 != wasm1_code::br_if) { break; }
 
+                if(!runtime_uwvm_int_br_if_fuse_allowed(br_if_fuse_kind::i32_ge_s)) { break; }
+
                 fuse_to_ge_s = true;
                 brif_ip = after_eqz;  // skip const/and/eqz, re-enter at br_if
             }
@@ -834,6 +836,8 @@ case wasm1_code::i32_lt_u:
                 wasm1_code op4{};  // init
                 ::std::memcpy(::std::addressof(op4), after_eqz, sizeof(op4));
                 if(op4 != wasm1_code::br_if) { break; }
+
+                if(!runtime_uwvm_int_br_if_fuse_allowed(br_if_fuse_kind::i32_ge_u)) { break; }
 
                 fuse_to_ge_u = true;
                 brif_ip = after_eqz;
@@ -1161,8 +1165,8 @@ case wasm1_code::i64_eqz:
         break;
     }
 #endif
-    // `i64.cmp -> i32` with disjoint i64/i32 rings pushes into the i32 ring (2D variant).
-    // Ensure the i32 ring has a free slot before emitting the compare opfunc (spill happens here, not after).
+    // `i64.cmp -> i32` with disjoint i64/i32 rings pushes into the i32 stack-top window (2D variant).
+    // Ensure the i32 stack-top window has a free slot before emitting the compare opfunc (spill happens here, not after).
     if constexpr(stacktop_enabled_for_vt(curr_operand_stack_value_type::i32) &&
                  !stacktop_ranges_merged_for(curr_operand_stack_value_type::i64, curr_operand_stack_value_type::i32))
     {
@@ -1958,7 +1962,7 @@ case wasm1_code::f32_eq:
     if constexpr(stacktop_enabled_for_vt(curr_operand_stack_value_type::i32) &&
                  !stacktop_ranges_merged_for(curr_operand_stack_value_type::f32, curr_operand_stack_value_type::i32))
     {
-        // f32.cmp -> i32: output may land in the i32 ring (2D variant), so ensure the i32 ring has a free slot.
+        // f32.cmp -> i32: output may land in the i32 stack-top window (2D variant), so ensure the i32 stack-top window has a free slot.
         stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::i32);
     }
 #if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS)
@@ -2360,8 +2364,8 @@ case wasm1_code::f64_eq:
     br_if_fuse.stacktop_currpos_at_site = curr_stacktop;
 #endif
     namespace translate = ::uwvm2::runtime::compiler::uwvm_int::optable::translate;
-    // f64/f32 comparisons can move from a floating stack-top ring into the i32 boolean ring; prepare
-    // the destination ring before emission so the helper has a valid output slot.
+    // f64/f32 comparisons can move from a floating stack-top window into the i32 boolean stack-top window; prepare
+    // the destination stack-top window before emission so the helper has a valid output slot.
     if constexpr(stacktop_enabled_for_vt(curr_operand_stack_value_type::i32) &&
                  !stacktop_ranges_merged_for(curr_operand_stack_value_type::f64, curr_operand_stack_value_type::i32))
     {
@@ -2526,7 +2530,7 @@ case wasm1_code::f64_lt:
             {
                 wasm1_code op2{};  // init
                 ::std::memcpy(::std::addressof(op2), after_eqz, sizeof(op2));
-                if(op2 == wasm1_code::br_if)
+                if(op2 == wasm1_code::br_if && runtime_uwvm_int_br_if_fuse_allowed(br_if_fuse_kind::f64_lt_eqz))
                 {
                     br_if_fuse.kind = br_if_fuse_kind::f64_lt_eqz;
                     code_curr = after_eqz;  // skip `i32.eqz`, re-enter at br_if

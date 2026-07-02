@@ -81,7 +81,7 @@ namespace
                     return false;
                 }};
 
-            UWVM2TEST_REQUIRE(contains_i64_variant(
+            UWVM2TEST_REQUIRE(!contains_i64_variant(
                 cm.local_funcs.index_unchecked(0).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {
@@ -89,7 +89,7 @@ namespace
                         Opt,
                         optable::numeric_details::int_binop::div_u>(curr_variant, tuple);
                 }));
-            UWVM2TEST_REQUIRE(contains_i64_variant(
+            UWVM2TEST_REQUIRE(!contains_i64_variant(
                 cm.local_funcs.index_unchecked(1).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {
@@ -97,7 +97,7 @@ namespace
                         Opt,
                         optable::numeric_details::int_binop::div_s>(curr_variant, tuple);
                 }));
-            UWVM2TEST_REQUIRE(contains_i64_variant(
+            UWVM2TEST_REQUIRE(!contains_i64_variant(
                 cm.local_funcs.index_unchecked(2).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {
@@ -105,7 +105,7 @@ namespace
                         Opt,
                         optable::numeric_details::int_binop::rem_u>(curr_variant, tuple);
                 }));
-            UWVM2TEST_REQUIRE(contains_i64_variant(
+            UWVM2TEST_REQUIRE(!contains_i64_variant(
                 cm.local_funcs.index_unchecked(3).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {

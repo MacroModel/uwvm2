@@ -553,6 +553,39 @@ case opcode_byte(wasm1p1_code::simd_prefix):
 
     auto const emit_v128_binary{[&]<simd_opt::v128_binop Op>() constexpr UWVM_THROWS
                                 {
+#if defined(UWVM_ENABLE_UWVM_INT_COMBINE_OPS) && defined(UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT)
+                                    if(!is_polymorphic && conbine_pending.kind == conbine_pending_kind::local_get2 &&
+                                       conbine_pending.vt == curr_operand_stack_value_type::v128)
+                                    {
+                                        stacktop_prepare_push1_if_reachable(bytecode, curr_operand_stack_value_type::v128);
+                                        emit_opfunc_to(
+                                            bytecode,
+                                            translate::get_uwvmint_simd_v128_binop_2localget_fptr_from_tuple<CompileOption, Op>(curr_stacktop,
+                                                                                                                                interpreter_tuple));
+                                        emit_imm_to(bytecode, conbine_pending.off1);
+                                        emit_imm_to(bytecode, conbine_pending.off2);
+                                        stacktop_commit_push1_typed_if_reachable(curr_operand_stack_value_type::v128);
+                                        conbine_pending.kind = conbine_pending_kind::none;
+                                        conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+                                        return;
+                                    }
+
+                                    if(conbine_pending.kind == conbine_pending_kind::local_get && conbine_pending.vt == curr_operand_stack_value_type::v128)
+                                    {
+                                        if constexpr(stacktop_enabled)
+                                        {
+                                            if(!is_polymorphic && stacktop_cache_count == 0uz) { stacktop_fill_to_canonical(bytecode); }
+                                        }
+                                        emit_opfunc_to(
+                                            bytecode,
+                                            translate::get_uwvmint_simd_v128_binop_localget_rhs_fptr_from_tuple<CompileOption, Op>(curr_stacktop,
+                                                                                                                                   interpreter_tuple));
+                                        emit_imm_to(bytecode, conbine_pending.off1);
+                                        conbine_pending.kind = conbine_pending_kind::none;
+                                        conbine_pending.brif_cmp = conbine_brif_cmp_kind::none;
+                                        return;
+                                    }
+#endif
                                     stacktop_flush_all_to_operand_stack(bytecode);
                                     emit_opfunc_to(bytecode,
                                                    translate::get_uwvmint_simd_v128_binop_fptr_from_tuple<CompileOption, Op>(curr_stacktop, interpreter_tuple));
@@ -640,6 +673,9 @@ case opcode_byte(wasm1p1_code::simd_prefix):
     auto const emit_full_extract_lane{
         [&]<simd_opt::simd_code Op, typename ScalarT>(wasm_byte lane) constexpr UWVM_THROWS
         {
+#ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
+            if(conbine_pending.kind != conbine_pending_kind::none) { flush_conbine_pending(); }
+#endif
             stacktop_flush_all_to_operand_stack(bytecode);
             emit_opfunc_to(bytecode,
                            translate::get_uwvmint_simd_full_extract_lane_fptr_from_tuple<CompileOption, Op, ScalarT>(curr_stacktop, interpreter_tuple));
@@ -1801,24 +1837,6 @@ case opcode_byte(wasm1p1_code::simd_prefix):
         {
             validate_v128_unary(u8"f32x4.nearest");
             emit_full_unop.template operator()<simd_opt::simd_code::f32x4_nearest>();
-            break;
-        }
-        case wasm1p1_simd_code::f64x2_ceil:
-        {
-            validate_v128_unary(u8"f64x2.ceil");
-            emit_full_unop.template operator()<simd_opt::simd_code::f64x2_ceil>();
-            break;
-        }
-        case wasm1p1_simd_code::f64x2_floor:
-        {
-            validate_v128_unary(u8"f64x2.floor");
-            emit_full_unop.template operator()<simd_opt::simd_code::f64x2_floor>();
-            break;
-        }
-        case wasm1p1_simd_code::f64x2_trunc:
-        {
-            validate_v128_unary(u8"f64x2.trunc");
-            emit_full_unop.template operator()<simd_opt::simd_code::f64x2_trunc>();
             break;
         }
         case wasm1p1_simd_code::f64x2_nearest:

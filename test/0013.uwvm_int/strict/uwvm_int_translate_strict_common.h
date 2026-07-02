@@ -30,6 +30,7 @@
 # include <uwvm2/runtime/compiler/uwvm_int/optable/storage.h>
 # include <uwvm2/uwvm/io/impl.h>
 # include <uwvm2/uwvm/runtime/initializer/init.h>
+# include <uwvm2/uwvm/cmdline/callback/impl.h>
 # include <uwvm2/uwvm/imported/wasi/wasip1/impl.h>
 # include <uwvm2/uwvm/wasm/feature/impl.h>
 # include <uwvm2/uwvm/wasm/loader/load_and_check_modules.h>
@@ -287,26 +288,17 @@ namespace uwvm2test::uwvm_int_strict
     template <::std::size_t IntSlots, ::std::size_t FloatSlots, bool ShareV128 = false>
     [[nodiscard]] consteval optable::uwvm_interpreter_translate_option_t make_tailcall_hardfloat_abi_opt() noexcept
     {
-        static_assert(IntSlots > 0uz);
         static_assert(FloatSlots > 0uz);
-
-        constexpr ::std::size_t int_begin{3uz};
-        constexpr ::std::size_t int_end{int_begin + IntSlots};
-        constexpr ::std::size_t float_begin{int_end};
-        constexpr ::std::size_t float_end{float_begin + FloatSlots};
+        static_assert(IntSlots <= 999uz);
 
         return optable::uwvm_interpreter_translate_option_t{
             .is_tail_call = true,
-            .i32_stack_top_begin_pos = int_begin,
-            .i32_stack_top_end_pos = int_end,
-            .i64_stack_top_begin_pos = int_begin,
-            .i64_stack_top_end_pos = int_end,
-            .f32_stack_top_begin_pos = float_begin,
-            .f32_stack_top_end_pos = float_end,
-            .f64_stack_top_begin_pos = float_begin,
-            .f64_stack_top_end_pos = float_end,
-            .v128_stack_top_begin_pos = ShareV128 ? float_begin : SIZE_MAX,
-            .v128_stack_top_end_pos = ShareV128 ? float_end : SIZE_MAX,
+            .f32_stack_top_begin_pos = 0uz,
+            .f32_stack_top_end_pos = FloatSlots,
+            .f64_stack_top_begin_pos = 0uz,
+            .f64_stack_top_end_pos = FloatSlots,
+            .v128_stack_top_begin_pos = 0uz,
+            .v128_stack_top_end_pos = FloatSlots,
         };
     }
 
@@ -314,53 +306,74 @@ namespace uwvm2test::uwvm_int_strict
     [[nodiscard]] consteval optable::uwvm_interpreter_translate_option_t make_tailcall_scalar4_merged_opt() noexcept
     {
         static_assert(ScalarSlots > 0uz);
-        constexpr ::std::size_t begin{3uz};
-        constexpr ::std::size_t end{begin + ScalarSlots};
 
         return optable::uwvm_interpreter_translate_option_t{
             .is_tail_call = true,
-            .i32_stack_top_begin_pos = begin,
-            .i32_stack_top_end_pos = end,
-            .i64_stack_top_begin_pos = begin,
-            .i64_stack_top_end_pos = end,
-            .f32_stack_top_begin_pos = begin,
-            .f32_stack_top_end_pos = end,
-            .f64_stack_top_begin_pos = begin,
-            .f64_stack_top_end_pos = end,
-            .v128_stack_top_begin_pos = SIZE_MAX,
-            .v128_stack_top_end_pos = SIZE_MAX,
+            .f32_stack_top_begin_pos = 0uz,
+            .f32_stack_top_end_pos = ScalarSlots,
+            .f64_stack_top_begin_pos = 0uz,
+            .f64_stack_top_end_pos = ScalarSlots,
+            .v128_stack_top_begin_pos = 0uz,
+            .v128_stack_top_end_pos = ScalarSlots,
+        };
+    }
+
+    template <::std::size_t FvSlots>
+    [[nodiscard]] consteval optable::uwvm_interpreter_translate_option_t make_tailcall_logical_fv_opt() noexcept
+    {
+        static_assert(FvSlots > 0uz);
+
+        return optable::uwvm_interpreter_translate_option_t{
+            .is_tail_call = true,
+            .f32_stack_top_begin_pos = 0uz,
+            .f32_stack_top_end_pos = FvSlots,
+            .f64_stack_top_begin_pos = 0uz,
+            .f64_stack_top_end_pos = FvSlots,
+            .v128_stack_top_begin_pos = 0uz,
+            .v128_stack_top_end_pos = FvSlots,
+        };
+    }
+
+    template <::std::size_t IntSlots, ::std::size_t FvSlots>
+    [[nodiscard]] consteval optable::uwvm_interpreter_translate_option_t make_tailcall_int_spot_logical_fv_opt() noexcept
+    {
+        static_assert(IntSlots > 0uz);
+        static_assert(IntSlots <= 999uz);
+        static_assert(FvSlots > 0uz);
+
+        return optable::uwvm_interpreter_translate_option_t{
+            .is_tail_call = true,
+            .i32_stack_spot_begin_pos = 0uz,
+            .i32_stack_spot_end_pos = IntSlots,
+            .i64_stack_spot_begin_pos = 0uz,
+            .i64_stack_spot_end_pos = IntSlots,
+            .f32_stack_top_begin_pos = 0uz,
+            .f32_stack_top_end_pos = FvSlots,
+            .f64_stack_top_begin_pos = 0uz,
+            .f64_stack_top_end_pos = FvSlots,
+            .v128_stack_top_begin_pos = 0uz,
+            .v128_stack_top_end_pos = FvSlots,
         };
     }
 
     template <::std::size_t I32Slots, ::std::size_t I64Slots, ::std::size_t F32Slots, ::std::size_t F64Slots>
     [[nodiscard]] consteval optable::uwvm_interpreter_translate_option_t make_tailcall_fully_split_opt() noexcept
     {
-        static_assert(I32Slots > 0uz);
-        static_assert(I64Slots > 0uz);
         static_assert(F32Slots > 0uz);
         static_assert(F64Slots > 0uz);
+        static_assert(I32Slots <= 999uz);
+        static_assert(I64Slots <= 999uz);
 
-        constexpr ::std::size_t i32_begin{3uz};
-        constexpr ::std::size_t i32_end{i32_begin + I32Slots};
-        constexpr ::std::size_t i64_begin{i32_end};
-        constexpr ::std::size_t i64_end{i64_begin + I64Slots};
-        constexpr ::std::size_t f32_begin{i64_end};
-        constexpr ::std::size_t f32_end{f32_begin + F32Slots};
-        constexpr ::std::size_t f64_begin{f32_end};
-        constexpr ::std::size_t f64_end{f64_begin + F64Slots};
+        constexpr ::std::size_t fv_slots{F32Slots < F64Slots ? F64Slots : F32Slots};
 
         return optable::uwvm_interpreter_translate_option_t{
             .is_tail_call = true,
-            .i32_stack_top_begin_pos = i32_begin,
-            .i32_stack_top_end_pos = i32_end,
-            .i64_stack_top_begin_pos = i64_begin,
-            .i64_stack_top_end_pos = i64_end,
-            .f32_stack_top_begin_pos = f32_begin,
-            .f32_stack_top_end_pos = f32_end,
-            .f64_stack_top_begin_pos = f64_begin,
-            .f64_stack_top_end_pos = f64_end,
-            .v128_stack_top_begin_pos = SIZE_MAX,
-            .v128_stack_top_end_pos = SIZE_MAX,
+            .f32_stack_top_begin_pos = 0uz,
+            .f32_stack_top_end_pos = fv_slots,
+            .f64_stack_top_begin_pos = 0uz,
+            .f64_stack_top_end_pos = fv_slots,
+            .v128_stack_top_begin_pos = 0uz,
+            .v128_stack_top_end_pos = fv_slots,
         };
     }
 
@@ -380,8 +393,10 @@ namespace uwvm2test::uwvm_int_strict
         };
 
         return optable::uwvm_interpreter_stacktop_currpos_t{
-            .i32_stack_top_curr_pos = begin_or_disabled(Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos),
-            .i64_stack_top_curr_pos = begin_or_disabled(Opt.i64_stack_top_begin_pos, Opt.i64_stack_top_end_pos),
+            .i32_stack_top_curr_pos = begin_or_disabled(Opt.i32_stack_spot_begin_pos != SIZE_MAX ? Opt.i32_stack_spot_begin_pos : Opt.i32_stack_top_begin_pos,
+                                                        Opt.i32_stack_spot_end_pos != SIZE_MAX ? Opt.i32_stack_spot_end_pos : Opt.i32_stack_top_end_pos),
+            .i64_stack_top_curr_pos = begin_or_disabled(Opt.i64_stack_spot_begin_pos != SIZE_MAX ? Opt.i64_stack_spot_begin_pos : Opt.i64_stack_top_begin_pos,
+                                                        Opt.i64_stack_spot_end_pos != SIZE_MAX ? Opt.i64_stack_spot_end_pos : Opt.i64_stack_top_end_pos),
             .f32_stack_top_curr_pos = begin_or_disabled(Opt.f32_stack_top_begin_pos, Opt.f32_stack_top_end_pos),
             .f64_stack_top_curr_pos = begin_or_disabled(Opt.f64_stack_top_begin_pos, Opt.f64_stack_top_end_pos),
             .v128_stack_top_curr_pos = begin_or_disabled(Opt.v128_stack_top_begin_pos, Opt.v128_stack_top_end_pos),
@@ -391,8 +406,10 @@ namespace uwvm2test::uwvm_int_strict
     template <optable::uwvm_interpreter_translate_option_t Opt>
     [[nodiscard]] consteval optable::uwvm_interpreter_stacktop_currpos_t make_entry_stacktop_currpos() noexcept
     {
-        constexpr bool i32_enabled{Opt.i32_stack_top_begin_pos != SIZE_MAX && Opt.i32_stack_top_begin_pos != Opt.i32_stack_top_end_pos};
-        constexpr bool i64_enabled{Opt.i64_stack_top_begin_pos != SIZE_MAX && Opt.i64_stack_top_begin_pos != Opt.i64_stack_top_end_pos};
+        constexpr bool i32_enabled{(Opt.i32_stack_top_begin_pos != SIZE_MAX && Opt.i32_stack_top_begin_pos != Opt.i32_stack_top_end_pos) ||
+                                   (Opt.i32_stack_spot_begin_pos != SIZE_MAX && Opt.i32_stack_spot_begin_pos != Opt.i32_stack_spot_end_pos)};
+        constexpr bool i64_enabled{(Opt.i64_stack_top_begin_pos != SIZE_MAX && Opt.i64_stack_top_begin_pos != Opt.i64_stack_top_end_pos) ||
+                                   (Opt.i64_stack_spot_begin_pos != SIZE_MAX && Opt.i64_stack_spot_begin_pos != Opt.i64_stack_spot_end_pos)};
         constexpr bool f32_enabled{Opt.f32_stack_top_begin_pos != SIZE_MAX && Opt.f32_stack_top_begin_pos != Opt.f32_stack_top_end_pos};
         constexpr bool f64_enabled{Opt.f64_stack_top_begin_pos != SIZE_MAX && Opt.f64_stack_top_begin_pos != Opt.f64_stack_top_end_pos};
         constexpr bool v128_enabled{Opt.v128_stack_top_begin_pos != SIZE_MAX && Opt.v128_stack_top_begin_pos != Opt.v128_stack_top_end_pos};
@@ -1160,17 +1177,16 @@ namespace uwvm2test::uwvm_int_strict
         using arg_t = compiler::details::interpreter_tuple_arg_t<I, CompileOption>;
 
         template <::std::size_t... Is>
-        static ::std::tuple<arg_t<Is>...> make_args(::std::index_sequence<Is...>, ::std::byte const* ip, ::std::byte* sp, ::std::byte* local_base) noexcept
+        static ::std::tuple<arg_t<Is>...> make_args(::std::index_sequence<Is...>, ::std::byte const* ip, ::std::byte* slot_base) noexcept
         {
-            return ::std::tuple<arg_t<Is>...>(init_arg<Is>(ip, sp, local_base)...);
+            return ::std::tuple<arg_t<Is>...>(init_arg<Is>(ip, slot_base)...);
         }
 
         template <::std::size_t I>
-        static constexpr arg_t<I> init_arg(::std::byte const* ip, ::std::byte* sp, ::std::byte* local_base) noexcept
+        static constexpr arg_t<I> init_arg(::std::byte const* ip, ::std::byte* slot_base) noexcept
         {
             if constexpr(I == 0uz) { return ip; }
-            else if constexpr(I == 1uz) { return sp; }
-            else if constexpr(I == 2uz) { return local_base; }
+            else if constexpr(I == 1uz) { return slot_base; }
             else { return arg_t<I>{}; }
         }
 
@@ -1233,8 +1249,10 @@ namespace uwvm2test::uwvm_int_strict
             byte_vec stack_buf((fn.operand_stack_byte_max == 0uz ? 64uz : fn.operand_stack_byte_max) + k_align);
             ::std::memset(stack_buf.data(), 0xCC, stack_buf.size());
             ::std::byte* operand_base = align_up(stack_buf);
+            optable::uwvm_interpreter_frame_slot_t frame_slot{.operand_stack_top = operand_base, .local_base = local_base, .operand_base = operand_base};
+            ::std::byte* slot_base{reinterpret_cast<::std::byte*>(::std::addressof(frame_slot))};
 
-            auto args = make_args(::std::make_index_sequence<tuple_size>{}, fn.op.operands.data(), operand_base, local_base);
+            auto args = make_args(::std::make_index_sequence<tuple_size>{}, fn.op.operands.data(), slot_base);
 
             bool hit0{};
             bool hit1{};

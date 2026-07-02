@@ -592,7 +592,31 @@ namespace details
     template <::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_translate_option_t CompileOption>
     inline consteval ::std::size_t interpreter_tuple_size() noexcept
     {
-        ::std::size_t max_end{3uz};
+        namespace opt_details = ::uwvm2::runtime::compiler::uwvm_int::optable::details;
+        opt_details::validate_uwvm_interpreter_int_stacktop_config<CompileOption>();
+
+        if constexpr(opt_details::uwvm_interpreter_uses_logical_fv_stacktop<CompileOption>())
+        {
+            ::std::size_t max_fv_end{};
+
+            if constexpr(range_enabled(CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos))
+            {
+                if(CompileOption.f32_stack_top_end_pos > max_fv_end) { max_fv_end = CompileOption.f32_stack_top_end_pos; }
+            }
+            if constexpr(range_enabled(CompileOption.f64_stack_top_begin_pos, CompileOption.f64_stack_top_end_pos))
+            {
+                if(CompileOption.f64_stack_top_end_pos > max_fv_end) { max_fv_end = CompileOption.f64_stack_top_end_pos; }
+            }
+            if constexpr(range_enabled(CompileOption.v128_stack_top_begin_pos, CompileOption.v128_stack_top_end_pos))
+            {
+                if(CompileOption.v128_stack_top_end_pos > max_fv_end) { max_fv_end = CompileOption.v128_stack_top_end_pos; }
+            }
+
+            return opt_details::uwvm_interpreter_fv_logical_to_arg_pos<CompileOption>(max_fv_end);
+        }
+
+        ::std::size_t max_end{::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_fixed_arg_count +
+                              opt_details::uwvm_interpreter_int_stack_spot_arg_count<CompileOption>()};
 
         if constexpr(range_enabled(CompileOption.i32_stack_top_begin_pos, CompileOption.i32_stack_top_end_pos))
         {
@@ -621,14 +645,55 @@ namespace details
     template <::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_translate_option_t CompileOption>
     inline consteval bool interpreter_tuple_has_no_holes() noexcept
     {
-        constexpr ::std::size_t end_pos{interpreter_tuple_size<CompileOption>()};
-        for(::std::size_t pos{3uz}; pos < end_pos; ++pos)
+        namespace opt_details = ::uwvm2::runtime::compiler::uwvm_int::optable::details;
+        opt_details::validate_uwvm_interpreter_int_stacktop_config<CompileOption>();
+
+        if constexpr(opt_details::uwvm_interpreter_uses_logical_fv_stacktop<CompileOption>())
         {
-            bool const hit{in_range(pos, CompileOption.i32_stack_top_begin_pos, CompileOption.i32_stack_top_end_pos) ||
-                           in_range(pos, CompileOption.i64_stack_top_begin_pos, CompileOption.i64_stack_top_end_pos) ||
-                           in_range(pos, CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos) ||
-                           in_range(pos, CompileOption.f64_stack_top_begin_pos, CompileOption.f64_stack_top_end_pos) ||
-                           in_range(pos, CompileOption.v128_stack_top_begin_pos, CompileOption.v128_stack_top_end_pos)};
+            constexpr ::std::size_t arg_end_pos{interpreter_tuple_size<CompileOption>()};
+            constexpr ::std::size_t fixed_arg_count{::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_fixed_arg_count};
+            constexpr ::std::size_t int_arg_count{opt_details::uwvm_interpreter_int_stack_spot_arg_count<CompileOption>()};
+            for(::std::size_t arg_pos{fixed_arg_count}; arg_pos < arg_end_pos; ++arg_pos)
+            {
+                bool hit{};
+                if(arg_pos < fixed_arg_count + int_arg_count)
+                {
+                    ::std::size_t const int_logical_pos{arg_pos - fixed_arg_count};
+                    hit = in_range(int_logical_pos, CompileOption.i32_stack_spot_begin_pos, CompileOption.i32_stack_spot_end_pos) ||
+                          in_range(int_logical_pos, CompileOption.i64_stack_spot_begin_pos, CompileOption.i64_stack_spot_end_pos);
+                }
+                else
+                {
+                    ::std::size_t const fv_logical_pos{arg_pos - fixed_arg_count - int_arg_count};
+                    hit = in_range(fv_logical_pos, CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos) ||
+                          in_range(fv_logical_pos, CompileOption.f64_stack_top_begin_pos, CompileOption.f64_stack_top_end_pos) ||
+                          in_range(fv_logical_pos, CompileOption.v128_stack_top_begin_pos, CompileOption.v128_stack_top_end_pos);
+                }
+                if(!hit) { return false; }
+            }
+            return true;
+        }
+
+        constexpr ::std::size_t end_pos{interpreter_tuple_size<CompileOption>()};
+        constexpr ::std::size_t fixed_arg_count{::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_fixed_arg_count};
+        constexpr ::std::size_t int_arg_count{opt_details::uwvm_interpreter_int_stack_spot_arg_count<CompileOption>()};
+        for(::std::size_t pos{fixed_arg_count}; pos < end_pos; ++pos)
+        {
+            bool hit{};
+            if(pos < fixed_arg_count + int_arg_count)
+            {
+                ::std::size_t const int_logical_pos{pos - fixed_arg_count};
+                hit = in_range(int_logical_pos, CompileOption.i32_stack_spot_begin_pos, CompileOption.i32_stack_spot_end_pos) ||
+                      in_range(int_logical_pos, CompileOption.i64_stack_spot_begin_pos, CompileOption.i64_stack_spot_end_pos);
+            }
+            else
+            {
+                hit = in_range(pos, CompileOption.i32_stack_top_begin_pos, CompileOption.i32_stack_top_end_pos) ||
+                      in_range(pos, CompileOption.i64_stack_top_begin_pos, CompileOption.i64_stack_top_end_pos) ||
+                      in_range(pos, CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos) ||
+                      in_range(pos, CompileOption.f64_stack_top_begin_pos, CompileOption.f64_stack_top_end_pos) ||
+                      in_range(pos, CompileOption.v128_stack_top_begin_pos, CompileOption.v128_stack_top_end_pos);
+            }
             if(!hit) { return false; }
         }
         return true;
@@ -639,95 +704,125 @@ namespace details
     {
         inline static consteval auto pick() noexcept
         {
+            namespace opt_details = ::uwvm2::runtime::compiler::uwvm_int::optable::details;
+            opt_details::validate_uwvm_interpreter_int_stacktop_config<CompileOption>();
+
             if constexpr(I == 0uz) { return ::std::type_identity<::std::byte const*>{}; }
             else if constexpr(I == 1uz) { return ::std::type_identity<::std::byte*>{}; }
-            else if constexpr(I == 2uz) { return ::std::type_identity<::std::byte*>{}; }
             else
             {
-                constexpr bool i32_hit{in_range(I, CompileOption.i32_stack_top_begin_pos, CompileOption.i32_stack_top_end_pos)};
-                constexpr bool i64_hit{in_range(I, CompileOption.i64_stack_top_begin_pos, CompileOption.i64_stack_top_end_pos)};
-                constexpr bool f32_hit{in_range(I, CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos)};
-                constexpr bool f64_hit{in_range(I, CompileOption.f64_stack_top_begin_pos, CompileOption.f64_stack_top_end_pos)};
-                constexpr bool v128_hit{in_range(I, CompileOption.v128_stack_top_begin_pos, CompileOption.v128_stack_top_end_pos)};
-
-                constexpr ::std::size_t hit_count{static_cast<::std::size_t>(i32_hit) + static_cast<::std::size_t>(i64_hit) +
-                                                  static_cast<::std::size_t>(f32_hit) + static_cast<::std::size_t>(f64_hit) +
-                                                  static_cast<::std::size_t>(v128_hit)};
-
-                if constexpr(hit_count == 0uz) { return ::std::type_identity<::std::byte*>{}; }
-                else if constexpr(hit_count == 1uz)
+                constexpr ::std::size_t fixed_arg_count{::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_fixed_arg_count};
+                constexpr ::std::size_t int_arg_count{opt_details::uwvm_interpreter_int_stack_spot_arg_count<CompileOption>()};
+                if constexpr(I < fixed_arg_count + int_arg_count)
                 {
-                    if constexpr(i32_hit) { return ::std::type_identity<wasm_i32>{}; }
-                    else if constexpr(i64_hit) { return ::std::type_identity<wasm_i64>{}; }
-                    else if constexpr(f32_hit) { return ::std::type_identity<wasm_f32>{}; }
-                    else if constexpr(f64_hit) { return ::std::type_identity<wasm_f64>{}; }
+                    constexpr ::std::size_t logical_int_pos{I - fixed_arg_count};
+                    constexpr bool i32_spot_hit{in_range(logical_int_pos, CompileOption.i32_stack_spot_begin_pos, CompileOption.i32_stack_spot_end_pos)};
+                    constexpr bool i64_spot_hit{in_range(logical_int_pos, CompileOption.i64_stack_spot_begin_pos, CompileOption.i64_stack_spot_end_pos)};
+                    static_assert(i32_spot_hit || i64_spot_hit, "integer stack-spot tuple position is not covered by an i32/i64 range.");
+
+                    if constexpr(i32_spot_hit && i64_spot_hit)
+                    {
+                        static_assert(CompileOption.i32_stack_spot_begin_pos == CompileOption.i64_stack_spot_begin_pos &&
+                                          CompileOption.i32_stack_spot_end_pos == CompileOption.i64_stack_spot_end_pos,
+                                      "merged integer stack-spot positions must use identical i32/i64 ranges.");
+                        return ::std::type_identity<wasm_stack_top_i32_with_i64_u>{};
+                    }
+                    else if constexpr(i32_spot_hit) { return ::std::type_identity<wasm_i32>{}; }
                     else
                     {
-                        return ::std::type_identity<wasm_v128>{};
+                        return ::std::type_identity<wasm_i64>{};
                     }
                 }
                 else
                 {
-                    // Merge layouts must be expressed as *fully overlapping* ranges (same begin/end). Partial overlaps are invalid.
-                    constexpr bool i32_i64_merge{range_enabled(CompileOption.i32_stack_top_begin_pos, CompileOption.i32_stack_top_end_pos) &&
-                                                 range_enabled(CompileOption.i64_stack_top_begin_pos, CompileOption.i64_stack_top_end_pos) &&
-                                                 CompileOption.i32_stack_top_begin_pos == CompileOption.i64_stack_top_begin_pos &&
-                                                 CompileOption.i32_stack_top_end_pos == CompileOption.i64_stack_top_end_pos};
-                    constexpr bool i32_f32_merge{range_enabled(CompileOption.i32_stack_top_begin_pos, CompileOption.i32_stack_top_end_pos) &&
-                                                 range_enabled(CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos) &&
-                                                 CompileOption.i32_stack_top_begin_pos == CompileOption.f32_stack_top_begin_pos &&
-                                                 CompileOption.i32_stack_top_end_pos == CompileOption.f32_stack_top_end_pos};
-                    constexpr bool f32_f64_merge{range_enabled(CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos) &&
-                                                 range_enabled(CompileOption.f64_stack_top_begin_pos, CompileOption.f64_stack_top_end_pos) &&
-                                                 CompileOption.f32_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
-                                                 CompileOption.f32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
-                    constexpr bool f32_v128_merge{range_enabled(CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos) &&
-                                                  range_enabled(CompileOption.v128_stack_top_begin_pos, CompileOption.v128_stack_top_end_pos) &&
-                                                  CompileOption.f32_stack_top_begin_pos == CompileOption.v128_stack_top_begin_pos &&
-                                                  CompileOption.f32_stack_top_end_pos == CompileOption.v128_stack_top_end_pos};
-                    constexpr bool f64_v128_merge{range_enabled(CompileOption.f64_stack_top_begin_pos, CompileOption.f64_stack_top_end_pos) &&
-                                                  range_enabled(CompileOption.v128_stack_top_begin_pos, CompileOption.v128_stack_top_end_pos) &&
-                                                  CompileOption.f64_stack_top_begin_pos == CompileOption.v128_stack_top_begin_pos &&
-                                                  CompileOption.f64_stack_top_end_pos == CompileOption.v128_stack_top_end_pos};
+                    constexpr bool logical_fv_stacktop{opt_details::uwvm_interpreter_uses_logical_fv_stacktop<CompileOption>()};
+                    constexpr ::std::size_t logical_pos{logical_fv_stacktop ? (I - fixed_arg_count - int_arg_count) : I};
 
-                    constexpr bool scalar4_merge{i32_i64_merge && i32_f32_merge && f32_f64_merge};
-                    constexpr bool f32_f64_v128_merge{f32_f64_merge && f32_v128_merge && f64_v128_merge};
+                    constexpr bool i32_hit{!logical_fv_stacktop && in_range(I, CompileOption.i32_stack_top_begin_pos, CompileOption.i32_stack_top_end_pos)};
+                    constexpr bool i64_hit{!logical_fv_stacktop && in_range(I, CompileOption.i64_stack_top_begin_pos, CompileOption.i64_stack_top_end_pos)};
+                    constexpr bool f32_hit{in_range(logical_pos, CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos)};
+                    constexpr bool f64_hit{in_range(logical_pos, CompileOption.f64_stack_top_begin_pos, CompileOption.f64_stack_top_end_pos)};
+                    constexpr bool v128_hit{in_range(logical_pos, CompileOption.v128_stack_top_begin_pos, CompileOption.v128_stack_top_end_pos)};
 
-                    if constexpr(i32_hit && i64_hit && f32_hit && f64_hit)
+                    constexpr ::std::size_t hit_count{static_cast<::std::size_t>(i32_hit) + static_cast<::std::size_t>(i64_hit) +
+                                                      static_cast<::std::size_t>(f32_hit) + static_cast<::std::size_t>(f64_hit) +
+                                                      static_cast<::std::size_t>(v128_hit)};
+
+                    if constexpr(hit_count == 0uz) { return ::std::type_identity<::std::byte*>{}; }
+                    else if constexpr(hit_count == 1uz)
                     {
-                        static_assert(scalar4_merge, "i32/i64/f32/f64 overlap must be a fully merged scalar range (same begin/end).");
-                        static_assert(!v128_hit, "scalar4 merged range cannot also overlap v128 (unsupported slot layout).");
-                        return ::std::type_identity<wasm_stack_top_i32_i64_f32_f64_u>{};
-                    }
-                    else if constexpr(f32_hit && f64_hit && v128_hit)
-                    {
-                        static_assert(f32_f64_v128_merge, "f32/f64/v128 overlap must be a fully merged f32/f64/v128 range (same begin/end).");
-                        static_assert(!(i32_hit || i64_hit), "f32/f64/v128 merged range must not overlap i32/i64 (unsupported slot layout).");
-                        return ::std::type_identity<wasm_v128>{};
-                    }
-                    else if constexpr(i32_hit && i64_hit)
-                    {
-                        static_assert(i32_i64_merge, "i32/i64 overlap must be a fully merged i32/i64 range (same begin/end).");
-                        static_assert(!(f32_hit || f64_hit || v128_hit), "i32/i64 merged range must not overlap f32/f64/v128 (unsupported slot layout).");
-                        return ::std::type_identity<wasm_stack_top_i32_with_i64_u>{};
-                    }
-                    else if constexpr(i32_hit && f32_hit)
-                    {
-                        static_assert(i32_f32_merge, "i32/f32 overlap must be a fully merged i32/f32 range (same begin/end).");
-                        static_assert(!(i64_hit || f64_hit || v128_hit), "i32/f32 merged range must not overlap i64/f64/v128 (unsupported slot layout).");
-                        return ::std::type_identity<wasm_stack_top_i32_with_f32_u>{};
-                    }
-                    else if constexpr(f32_hit && f64_hit)
-                    {
-                        static_assert(f32_f64_merge, "f32/f64 overlap must be a fully merged f32/f64 range (same begin/end).");
-                        static_assert(!v128_hit, "f32/f64 merged range cannot also overlap v128 unless all three are merged.");
-                        static_assert(!(i32_hit || i64_hit), "f32/f64 merged range must not overlap i32/i64 (unsupported slot layout).");
-                        return ::std::type_identity<wasm_f64>{};
+                        if constexpr(i32_hit) { return ::std::type_identity<wasm_i32>{}; }
+                        else if constexpr(i64_hit) { return ::std::type_identity<wasm_i64>{}; }
+                        else if constexpr(f32_hit) { return ::std::type_identity<wasm_f32>{}; }
+                        else if constexpr(f64_hit) { return ::std::type_identity<wasm_f64>{}; }
+                        else
+                        {
+                            return ::std::type_identity<wasm_v128>{};
+                        }
                     }
                     else
                     {
-                        static_assert(hit_count == 0uz, "unsupported stack-top slot overlap/merge layout at this position.");
-                        return ::std::type_identity<::std::byte*>{};
+                        // Merge layouts must be expressed as *fully overlapping* ranges (same begin/end). Partial overlaps are invalid.
+                        constexpr bool i32_i64_merge{range_enabled(CompileOption.i32_stack_top_begin_pos, CompileOption.i32_stack_top_end_pos) &&
+                                                     range_enabled(CompileOption.i64_stack_top_begin_pos, CompileOption.i64_stack_top_end_pos) &&
+                                                     CompileOption.i32_stack_top_begin_pos == CompileOption.i64_stack_top_begin_pos &&
+                                                     CompileOption.i32_stack_top_end_pos == CompileOption.i64_stack_top_end_pos};
+                        constexpr bool i32_f32_merge{range_enabled(CompileOption.i32_stack_top_begin_pos, CompileOption.i32_stack_top_end_pos) &&
+                                                     range_enabled(CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos) &&
+                                                     CompileOption.i32_stack_top_begin_pos == CompileOption.f32_stack_top_begin_pos &&
+                                                     CompileOption.i32_stack_top_end_pos == CompileOption.f32_stack_top_end_pos};
+                        constexpr bool f32_f64_merge{range_enabled(CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos) &&
+                                                     range_enabled(CompileOption.f64_stack_top_begin_pos, CompileOption.f64_stack_top_end_pos) &&
+                                                     CompileOption.f32_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
+                                                     CompileOption.f32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos};
+                        constexpr bool f32_v128_merge{range_enabled(CompileOption.f32_stack_top_begin_pos, CompileOption.f32_stack_top_end_pos) &&
+                                                      range_enabled(CompileOption.v128_stack_top_begin_pos, CompileOption.v128_stack_top_end_pos) &&
+                                                      CompileOption.f32_stack_top_begin_pos == CompileOption.v128_stack_top_begin_pos &&
+                                                      CompileOption.f32_stack_top_end_pos == CompileOption.v128_stack_top_end_pos};
+                        constexpr bool f64_v128_merge{range_enabled(CompileOption.f64_stack_top_begin_pos, CompileOption.f64_stack_top_end_pos) &&
+                                                      range_enabled(CompileOption.v128_stack_top_begin_pos, CompileOption.v128_stack_top_end_pos) &&
+                                                      CompileOption.f64_stack_top_begin_pos == CompileOption.v128_stack_top_begin_pos &&
+                                                      CompileOption.f64_stack_top_end_pos == CompileOption.v128_stack_top_end_pos};
+
+                        constexpr bool scalar4_merge{i32_i64_merge && i32_f32_merge && f32_f64_merge};
+                        constexpr bool f32_f64_v128_merge{f32_f64_merge && f32_v128_merge && f64_v128_merge};
+
+                        if constexpr(i32_hit && i64_hit && f32_hit && f64_hit)
+                        {
+                            static_assert(scalar4_merge, "i32/i64/f32/f64 overlap must be a fully merged scalar range (same begin/end).");
+                            static_assert(!v128_hit, "scalar4 merged range cannot also overlap v128 (unsupported slot layout).");
+                            return ::std::type_identity<wasm_stack_top_i32_i64_f32_f64_u>{};
+                        }
+                        else if constexpr(f32_hit && f64_hit && v128_hit)
+                        {
+                            static_assert(f32_f64_v128_merge, "f32/f64/v128 overlap must be a fully merged f32/f64/v128 range (same begin/end).");
+                            static_assert(!(i32_hit || i64_hit), "f32/f64/v128 merged range must not overlap i32/i64 (unsupported slot layout).");
+                            return ::std::type_identity<wasm_v128>{};
+                        }
+                        else if constexpr(i32_hit && i64_hit)
+                        {
+                            static_assert(i32_i64_merge, "i32/i64 overlap must be a fully merged i32/i64 range (same begin/end).");
+                            static_assert(!(f32_hit || f64_hit || v128_hit), "i32/i64 merged range must not overlap f32/f64/v128 (unsupported slot layout).");
+                            return ::std::type_identity<wasm_stack_top_i32_with_i64_u>{};
+                        }
+                        else if constexpr(i32_hit && f32_hit)
+                        {
+                            static_assert(i32_f32_merge, "i32/f32 overlap must be a fully merged i32/f32 range (same begin/end).");
+                            static_assert(!(i64_hit || f64_hit || v128_hit), "i32/f32 merged range must not overlap i64/f64/v128 (unsupported slot layout).");
+                            return ::std::type_identity<wasm_stack_top_i32_with_f32_u>{};
+                        }
+                        else if constexpr(f32_hit && f64_hit)
+                        {
+                            static_assert(f32_f64_merge, "f32/f64 overlap must be a fully merged f32/f64 range (same begin/end).");
+                            static_assert(!v128_hit, "f32/f64 merged range cannot also overlap v128 unless all three are merged.");
+                            static_assert(!(i32_hit || i64_hit), "f32/f64 merged range must not overlap i32/i64 (unsupported slot layout).");
+                            return ::std::type_identity<wasm_f64>{};
+                        }
+                        else
+                        {
+                            static_assert(hit_count == 0uz, "unsupported stack-top slot overlap/merge layout at this position.");
+                            return ::std::type_identity<::std::byte*>{};
+                        }
                     }
                 }
             }

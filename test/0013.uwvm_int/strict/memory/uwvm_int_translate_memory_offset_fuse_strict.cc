@@ -53,7 +53,7 @@ namespace
             for(::std::size_t i{}; i != push_count; ++i)
             {
                 curr.i32_stack_top_curr_pos =
-                    optable::details::ring_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
+                    optable::details::stacktop_window_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
             }
         }
         return curr;
@@ -69,7 +69,7 @@ namespace
             for(::std::size_t i{}; i != i32_push_count; ++i)
             {
                 curr.i32_stack_top_curr_pos =
-                    optable::details::ring_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
+                    optable::details::stacktop_window_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
             }
         }
         if constexpr(Opt.i64_stack_top_begin_pos != SIZE_MAX && Opt.i64_stack_top_begin_pos != Opt.i64_stack_top_end_pos)
@@ -77,7 +77,7 @@ namespace
             for(::std::size_t i{}; i != i64_push_count; ++i)
             {
                 curr.i64_stack_top_curr_pos =
-                    optable::details::ring_prev_pos(curr.i64_stack_top_curr_pos, Opt.i64_stack_top_begin_pos, Opt.i64_stack_top_end_pos);
+                    optable::details::stacktop_window_prev_pos(curr.i64_stack_top_curr_pos, Opt.i64_stack_top_begin_pos, Opt.i64_stack_top_end_pos);
             }
         }
         return curr;

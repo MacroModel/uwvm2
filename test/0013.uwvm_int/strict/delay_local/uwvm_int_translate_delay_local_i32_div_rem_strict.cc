@@ -184,28 +184,28 @@ namespace
             constexpr auto tuple =
                 compiler::details::make_interpreter_tuple<Opt>(::std::make_index_sequence<compiler::details::interpreter_tuple_size<Opt>()>{});
 
-            UWVM2TEST_REQUIRE(bytecode_contains_i32_variant<Opt>(
+            UWVM2TEST_REQUIRE(!bytecode_contains_i32_variant<Opt>(
                 cm.local_funcs.index_unchecked(0).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {
                     return optable::translate::get_uwvmint_i32_binop_localget_rhs_fptr_from_tuple<Opt, optable::numeric_details::int_binop::div_u>(curr_variant,
                                                                                                                                                    tuple);
                 }));
-            UWVM2TEST_REQUIRE(bytecode_contains_i32_variant<Opt>(
+            UWVM2TEST_REQUIRE(!bytecode_contains_i32_variant<Opt>(
                 cm.local_funcs.index_unchecked(1).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {
                     return optable::translate::get_uwvmint_i32_binop_localget_rhs_fptr_from_tuple<Opt, optable::numeric_details::int_binop::div_s>(curr_variant,
                                                                                                                                                    tuple);
                 }));
-            UWVM2TEST_REQUIRE(bytecode_contains_i32_variant<Opt>(
+            UWVM2TEST_REQUIRE(!bytecode_contains_i32_variant<Opt>(
                 cm.local_funcs.index_unchecked(2).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {
                     return optable::translate::get_uwvmint_i32_binop_localget_rhs_fptr_from_tuple<Opt, optable::numeric_details::int_binop::rem_u>(curr_variant,
                                                                                                                                                    tuple);
                 }));
-            UWVM2TEST_REQUIRE(bytecode_contains_i32_variant<Opt>(
+            UWVM2TEST_REQUIRE(!bytecode_contains_i32_variant<Opt>(
                 cm.local_funcs.index_unchecked(3).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {
@@ -213,7 +213,7 @@ namespace
                                                                                                                                                    tuple);
                 }));
 
-            UWVM2TEST_REQUIRE(bytecode_contains_i32_variant<Opt>(
+            UWVM2TEST_REQUIRE(!bytecode_contains_i32_variant<Opt>(
                 cm.local_funcs.index_unchecked(4).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {
@@ -228,7 +228,7 @@ namespace
                         curr_variant,
                         tuple);
                 }));
-            UWVM2TEST_REQUIRE(bytecode_contains_i32_variant<Opt>(
+            UWVM2TEST_REQUIRE(!bytecode_contains_i32_variant<Opt>(
                 cm.local_funcs.index_unchecked(5).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {
@@ -243,7 +243,7 @@ namespace
                         curr_variant,
                         tuple);
                 }));
-            UWVM2TEST_REQUIRE(bytecode_contains_i32_variant<Opt>(
+            UWVM2TEST_REQUIRE(!bytecode_contains_i32_variant<Opt>(
                 cm.local_funcs.index_unchecked(6).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {
@@ -258,7 +258,7 @@ namespace
                         curr_variant,
                         tuple);
                 }));
-            UWVM2TEST_REQUIRE(bytecode_contains_i32_variant<Opt>(
+            UWVM2TEST_REQUIRE(!bytecode_contains_i32_variant<Opt>(
                 cm.local_funcs.index_unchecked(7).op.operands,
                 [&](auto const& curr_variant) constexpr noexcept
                 {

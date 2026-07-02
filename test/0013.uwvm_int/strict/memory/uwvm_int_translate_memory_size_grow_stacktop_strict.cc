@@ -6,16 +6,16 @@ namespace
 
     inline constexpr optable::uwvm_interpreter_translate_option_t k_test_tail_i32_ring2_opt{
         .is_tail_call = true,
-        .i32_stack_top_begin_pos = 3uz,
-        .i32_stack_top_end_pos = 5uz,
-        .i64_stack_top_begin_pos = 5uz,
-        .i64_stack_top_end_pos = 6uz,
-        .f32_stack_top_begin_pos = 6uz,
-        .f32_stack_top_end_pos = 7uz,
-        .f64_stack_top_begin_pos = 7uz,
-        .f64_stack_top_end_pos = 8uz,
-        .v128_stack_top_begin_pos = SIZE_MAX,
-        .v128_stack_top_end_pos = SIZE_MAX,
+        .i32_stack_top_begin_pos = SIZE_MAX,
+        .i32_stack_top_end_pos = SIZE_MAX,
+        .i64_stack_top_begin_pos = SIZE_MAX,
+        .i64_stack_top_end_pos = SIZE_MAX,
+        .f32_stack_top_begin_pos = 0uz,
+        .f32_stack_top_end_pos = 2uz,
+        .f64_stack_top_begin_pos = 0uz,
+        .f64_stack_top_end_pos = 2uz,
+        .v128_stack_top_begin_pos = 0uz,
+        .v128_stack_top_end_pos = 2uz,
     };
 
     template <optable::uwvm_interpreter_translate_option_t Opt>
@@ -27,14 +27,14 @@ namespace
             for(::std::size_t i{}; i != push_count; ++i)
             {
                 curr.i32_stack_top_curr_pos =
-                    optable::details::ring_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
+                    optable::details::stacktop_window_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
             }
         }
         return curr;
     }
 
     template <optable::uwvm_interpreter_translate_option_t Opt, typename ByteStorage>
-    [[nodiscard]] bool contains_i32_spill1(ByteStorage const& bc) noexcept
+    [[nodiscard]] bool contains_legacy_i32_spill1(ByteStorage const& bc) noexcept
     {
         if constexpr(Opt.i32_stack_top_begin_pos == SIZE_MAX || Opt.i32_stack_top_begin_pos == Opt.i32_stack_top_end_pos)
         {
@@ -74,7 +74,7 @@ namespace
         auto u32 = [&](byte_vec& c, ::std::uint32_t v) { append_u32_leb(c, v); };
         auto i32 = [&](byte_vec& c, ::std::int32_t v) { append_i32_leb(c, v); };
 
-        // f0: full 2-slot i32 ring + memory.size => push1 must spill one cached value.
+        // f0: full 2-slot i32 stack-top window + memory.size => push1 must spill one cached value.
         {
             func_type ty{{}, {k_val_i32}};
             func_body fb{};
@@ -90,7 +90,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f1: full 2-slot i32 ring + delta=2 => memory.grow fail (-1), deeper survivors must remain intact.
+        // f1: full 2-slot i32 stack-top window + delta=2 => memory.grow fail (-1), deeper survivors must remain intact.
         {
             func_type ty{{}, {k_val_i32}};
             func_body fb{};
@@ -107,7 +107,7 @@ namespace
             (void)mb.add_func(::std::move(ty), ::std::move(fb));
         }
 
-        // f2: full 2-slot i32 ring + delta=1 => memory.grow succeeds, returns old size 1.
+        // f2: full 2-slot i32 stack-top window + delta=1 => memory.grow succeeds, returns old size 1.
         {
             func_type ty{{}, {k_val_i32}};
             func_body fb{};
@@ -162,10 +162,10 @@ namespace
 
         if constexpr(Opt.is_tail_call && Opt.i32_stack_top_begin_pos != SIZE_MAX && Opt.i32_stack_top_begin_pos != Opt.i32_stack_top_end_pos)
         {
-            UWVM2TEST_REQUIRE(contains_i32_spill1<Opt>(cm.local_funcs.index_unchecked(0).op.operands));
-            UWVM2TEST_REQUIRE(contains_i32_spill1<Opt>(cm.local_funcs.index_unchecked(1).op.operands));
-            UWVM2TEST_REQUIRE(contains_i32_spill1<Opt>(cm.local_funcs.index_unchecked(2).op.operands));
-            UWVM2TEST_REQUIRE(contains_i32_spill1<Opt>(cm.local_funcs.index_unchecked(3).op.operands));
+            UWVM2TEST_REQUIRE(!contains_legacy_i32_spill1<Opt>(cm.local_funcs.index_unchecked(0).op.operands));
+            UWVM2TEST_REQUIRE(!contains_legacy_i32_spill1<Opt>(cm.local_funcs.index_unchecked(1).op.operands));
+            UWVM2TEST_REQUIRE(!contains_legacy_i32_spill1<Opt>(cm.local_funcs.index_unchecked(2).op.operands));
+            UWVM2TEST_REQUIRE(!contains_legacy_i32_spill1<Opt>(cm.local_funcs.index_unchecked(3).op.operands));
         }
 
         return 0;

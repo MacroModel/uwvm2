@@ -10,16 +10,16 @@ namespace
 
     inline constexpr optable::uwvm_interpreter_translate_option_t k_test_tail_i32_one_slot_opt{
         .is_tail_call = true,
-        .i32_stack_top_begin_pos = 3uz,
-        .i32_stack_top_end_pos = 4uz,
-        .i64_stack_top_begin_pos = 4uz,
-        .i64_stack_top_end_pos = 5uz,
-        .f32_stack_top_begin_pos = 5uz,
-        .f32_stack_top_end_pos = 6uz,
-        .f64_stack_top_begin_pos = 6uz,
-        .f64_stack_top_end_pos = 7uz,
-        .v128_stack_top_begin_pos = SIZE_MAX,
-        .v128_stack_top_end_pos = SIZE_MAX,
+        .i32_stack_top_begin_pos = SIZE_MAX,
+        .i32_stack_top_end_pos = SIZE_MAX,
+        .i64_stack_top_begin_pos = SIZE_MAX,
+        .i64_stack_top_end_pos = SIZE_MAX,
+        .f32_stack_top_begin_pos = 0uz,
+        .f32_stack_top_end_pos = 2uz,
+        .f64_stack_top_begin_pos = 0uz,
+        .f64_stack_top_end_pos = 2uz,
+        .v128_stack_top_begin_pos = 0uz,
+        .v128_stack_top_end_pos = 2uz,
     };
 
     [[nodiscard]] native_memory_t const* resolve_imported_memory(imported_memory_storage_t const& im) noexcept
@@ -51,7 +51,7 @@ namespace
             for(::std::size_t i{}; i != push_count; ++i)
             {
                 curr.i32_stack_top_curr_pos =
-                    optable::details::ring_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
+                    optable::details::stacktop_window_prev_pos(curr.i32_stack_top_curr_pos, Opt.i32_stack_top_begin_pos, Opt.i32_stack_top_end_pos);
             }
         }
         return curr;

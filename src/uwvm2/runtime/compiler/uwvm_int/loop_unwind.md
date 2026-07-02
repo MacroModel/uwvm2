@@ -2,15 +2,15 @@
 
 ## Abstract
 
-Loop-unwind is a translation-time optimization for the UWVM2 u2 interpreter. Its purpose is not to perform general-purpose loop unrolling for dispatch reduction. Its narrower purpose is to reduce repeated register-ring canonicalization on hot WebAssembly loop backedges when the loop re-entry stack shape is fixed but the stack-top cache ring position drifts across one dynamic iteration.
+Loop-unwind is a translation-time optimization for the UWVM2 u2 interpreter. Its purpose is not to perform general-purpose loop unrolling for dispatch reduction. Its narrower purpose is to reduce repeated stack-top window canonicalization on hot WebAssembly loop backedges when the loop re-entry stack shape is fixed but the stack-top cache ring position drifts across one dynamic iteration.
 
-The optimization is intentionally conservative. It applies only when the translator can prove that re-emitting the loop body preserves the interpreter's register-ring state model, code-size budget, and WebAssembly control-flow semantics. When the optimization is disabled at runtime, compiled out at build time, rejected by policy, or inapplicable to a loop, the interpreter falls back to the existing branch emission path.
+The optimization is intentionally conservative. It applies only when the translator can prove that re-emitting the loop body preserves the interpreter's stack-top window state model, code-size budget, and WebAssembly control-flow semantics. When the optimization is disabled at runtime, compiled out at build time, rejected by policy, or inapplicable to a loop, the interpreter falls back to the existing branch emission path.
 
 ## 1. Motivation
 
-The u2 interpreter executes a direct-threaded bytecode stream. Each emitted operation is an opfunc pointer plus immediates. For stack-top values, u2 uses a register-ring cache: the top segment of the WebAssembly operand stack can reside in ABI argument registers instead of operand-stack memory.
+The u2 interpreter executes a direct-threaded bytecode stream. Each emitted operation is an opfunc pointer plus immediates. For stack-top values, u2 uses a stack-top window cache: the top segment of the WebAssembly operand stack can reside in ABI argument registers instead of operand-stack memory.
 
-Control-flow re-entry is the difficult case. A WebAssembly loop has a statically known label stack type, so every continue edge to the loop header must observe the same logical operand-stack shape. However, the physical register-ring position after one loop body may not match the canonical ring position expected by the loop header. Without loop-unwind, a hot backedge may repeatedly emit a register-ring transform before branching to the loop header.
+Control-flow re-entry is the difficult case. A WebAssembly loop has a statically known label stack type, so every continue edge to the loop header must observe the same logical operand-stack shape. However, the physical stack-top window position after one loop body may not match the canonical ring position expected by the loop header. Without loop-unwind, a hot backedge may repeatedly emit a stack-top window transform before branching to the loop header.
 
 The intended win is:
 
@@ -19,7 +19,7 @@ without loop-unwind: per-iteration ring transform cost
 with loop-unwind:    one transform per unfolded group, or no transform when the group returns to begin
 ```
 
-This turns a repeated per-iteration repair into an amortized repair. In the full-period case, the unfolded group returns the register ring to the canonical begin position and the final backedge can be emitted as a plain branch.
+This turns a repeated per-iteration repair into an amortized repair. In the full-period case, the unfolded group returns the stack-top window to the canonical begin position and the final backedge can be emitted as a plain branch.
 
 ## 2. WebAssembly Loop Label Semantics
 
@@ -33,26 +33,26 @@ In WebAssembly:
 
 Therefore, `loop (result i32)` does not by itself mean that `br 0` carries an `i32` value back to the loop header. Under MVP-style block types, loop continue arity is usually zero. Values can still exist below the loop frame, but they are not loop-carried parameters.
 
-This matters for u2. Loop-unwind is valuable when the backedge has stack-top cache state that must be re-entered consistently. If the loop backedge has an empty stack-top cache, there is no register-ring transform to amortize, and the optimization should reject the candidate.
+This matters for u2. Loop-unwind is valuable when the backedge has stack-top cache state that must be re-entered consistently. If the loop backedge has an empty stack-top cache, there is no stack-top window transform to amortize, and the optimization should reject the candidate.
 
 ## 3. Register-Ring Recovery Period
 
-For one register-ring range, let:
+For one stack-top window range, let:
 
 ```text
-ring_size = end_pos - begin_pos
-delta     = (curr_pos + ring_size - begin_pos) % ring_size
+window_size = end_pos - begin_pos
+delta     = (curr_pos + window_size - begin_pos) % window_size
 ```
 
 If `delta == 0`, the range is already canonical. Otherwise, the minimum number of loop-body copies needed to return this range to the canonical begin position is:
 
 ```text
-period = ring_size / gcd(ring_size, delta)
+period = window_size / gcd(window_size, delta)
 ```
 
-This is the minimum recovery period. It is not `ring_size * delta`. For example, on an AAPCS64-style five-slot integer ring, deltas 1, 2, 3, and 4 all recover after five iterations because each delta is relatively prime to five.
+This is the minimum recovery period. It is not `window_size * delta`. For example, on an AAPCS64-style five-slot integer ring, deltas 1, 2, 3, and 4 all recover after five iterations because each delta is relatively prime to five.
 
-When multiple register-ring ranges are enabled, u2 computes the least common multiple of the enabled non-trivial range periods:
+When multiple stack-top window ranges are enabled, u2 computes the least common multiple of the enabled non-trivial range periods:
 
 ```text
 global_period = lcm(period_i32, period_i64, period_f32, period_f64, period_v128)
@@ -68,7 +68,7 @@ The optimizer can then choose:
 
 Loop-unwind re-emits the original WebAssembly loop body. It does not copy already-emitted u2 bytecode.
 
-This distinction is required for correctness. u2 opfunc pointers are selected using the current compile-time stack-top model, including the current register-ring positions. A byte-for-byte copy of emitted opfunc pointers would preserve opfuncs specialized for the old ring position and would execute with the wrong calling convention state after the first unfolded copy.
+This distinction is required for correctness. u2 opfunc pointers are selected using the current compile-time stack-top model, including the current stack-top window positions. A byte-for-byte copy of emitted opfunc pointers would preserve opfuncs specialized for the old ring position and would execute with the wrong calling convention state after the first unfolded copy.
 
 The safe strategy is:
 
@@ -92,7 +92,7 @@ A candidate is rejected when any of the following holds:
 - the loop body is empty;
 - the active translation target does not support stack-top register transforms;
 - the backedge has no stack-top cache state to repair;
-- the register-ring period is one;
+- the stack-top window period is one;
 - the byte-size budget allows fewer than two total body copies.
 
 The byte-size budget is controlled by:
@@ -161,7 +161,7 @@ For full unwind:
 unroll_count == global_period
 ```
 
-After replaying `unroll_count - 1` additional bodies, the register ring is back at the canonical begin position. The final backedge can therefore be emitted as a plain branch.
+After replaying `unroll_count - 1` additional bodies, the stack-top window is back at the canonical begin position. The final backedge can therefore be emitted as a plain branch.
 
 For partial unwind:
 
@@ -242,6 +242,6 @@ Other possible extensions:
 - redirect conditional continue edges within an unfolded group when it is safe;
 - apply hotness or profile-guided thresholds instead of static byte-size thresholds only;
 - integrate loop-unwind decisions with branch/superinstruction fusion;
-- provide a separate general loop unroller for dispatch reduction, distinct from register-ring re-entry repair.
+- provide a separate general loop unroller for dispatch reduction, distinct from stack-top window re-entry repair.
 
-Loop-unwind should remain conservative. Its value is not in forcing every loop to grow; its value is in removing a specific repeated register-ring repair when the WebAssembly loop type and u2 stack-top model make that repair both predictable and expensive.
+Loop-unwind should remain conservative. Its value is not in forcing every loop to grow; its value is in removing a specific repeated stack-top window repair when the WebAssembly loop type and u2 stack-top model make that repair both predictable and expensive.

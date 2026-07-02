@@ -68,6 +68,7 @@ struct block_t
     ::std::size_t stacktop_cache_i64_count_at_end{};
     ::std::size_t stacktop_cache_f32_count_at_end{};
     ::std::size_t stacktop_cache_f64_count_at_end{};
+    ::std::size_t stacktop_cache_v128_count_at_end{};
     // Codegen type stack snapshot at end label entry.
     // Needed to restore type information when a polymorphic fallthrough reaches `end` and becomes reachable again.
     ::uwvm2::utils::container::vector<operand_stack_storage_t> codegen_operand_stack_at_end{};
@@ -81,6 +82,7 @@ struct block_t
     ::std::size_t stacktop_cache_i64_count_at_else_entry{};
     ::std::size_t stacktop_cache_f32_count_at_else_entry{};
     ::std::size_t stacktop_cache_f64_count_at_else_entry{};
+    ::std::size_t stacktop_cache_v128_count_at_else_entry{};
     ::uwvm2::utils::container::vector<operand_stack_storage_t> codegen_operand_stack_at_else_entry{};
 
     // Stack-top cache snapshot at then-path end (used when else-path is unreachable but then-path reaches `end`).
@@ -93,7 +95,22 @@ struct block_t
     ::std::size_t stacktop_cache_i64_count_at_then_end{};
     ::std::size_t stacktop_cache_f32_count_at_then_end{};
     ::std::size_t stacktop_cache_f64_count_at_then_end{};
+    ::std::size_t stacktop_cache_v128_count_at_then_end{};
     ::uwvm2::utils::container::vector<operand_stack_storage_t> codegen_operand_stack_at_then_end{};
+
+    // Stack-top cache snapshot at a loop header. Back-edges must repair to this exact state before
+    // jumping to the already-emitted loop body; otherwise the body may spill/fill values from the
+    // wrong residence class.
+    bool stacktop_has_loop_entry_state{};
+    ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_stacktop_currpos_t stacktop_currpos_at_loop_entry{};
+    ::std::size_t stacktop_memory_count_at_loop_entry{};
+    ::std::size_t stacktop_cache_count_at_loop_entry{};
+    ::std::size_t stacktop_cache_i32_count_at_loop_entry{};
+    ::std::size_t stacktop_cache_i64_count_at_loop_entry{};
+    ::std::size_t stacktop_cache_f32_count_at_loop_entry{};
+    ::std::size_t stacktop_cache_f64_count_at_loop_entry{};
+    ::std::size_t stacktop_cache_v128_count_at_loop_entry{};
+    ::uwvm2::utils::container::vector<operand_stack_storage_t> codegen_operand_stack_at_loop_entry{};
 
     // Translation labels:
     // - For `block`/`if`/`else`/`function`: `end_label_id` is the branch target.
@@ -227,6 +244,8 @@ for(::std::size_t local_function_idx{}; local_function_idx < local_func_count; +
     operand_stack.clear();
     codegen_operand_stack.clear();
     bool is_polymorphic{};
+    bool local_write_skip_slot_active{};
+    ::uwvm2::runtime::compiler::uwvm_int::optable::wasm1_code local_write_skip_slot_expected{};
 
     ::uwvm2::runtime::compiler::uwvm_int::optable::local_func_storage_t local_func_symbol{};
 
@@ -555,7 +574,7 @@ for(::std::size_t local_function_idx{}; local_function_idx < local_func_count; +
 
     // Internal temp local is the first slot after all Wasm-visible locals.
     local_offset_t const internal_temp_local_off{internal_temp_local_offsets.index_unchecked(0uz)};
-    local_offset_t const internal_temp_local_bytes{
+    [[maybe_unused]] local_offset_t const internal_temp_local_bytes{
         static_cast<local_offset_t>(static_cast<::std::size_t>(internal_temp_local_count) * static_cast<::std::size_t>(internal_temp_local_size))};
     // Parameters occupy the prefix of the locals buffer and are populated by memcpy at runtime.
     // Non-parameter locals must be zero-initialized by the Wasm spec, but we can skip zeroing trailing locals
@@ -569,8 +588,24 @@ for(::std::size_t local_function_idx{}; local_function_idx < local_func_count; +
     // Stack-top cache configuration
     // ============================
 
-    constexpr bool stacktop_i32_enabled{CompileOption.i32_stack_top_begin_pos != CompileOption.i32_stack_top_end_pos};
-    constexpr bool stacktop_i64_enabled{CompileOption.i64_stack_top_begin_pos != CompileOption.i64_stack_top_end_pos};
+    constexpr bool stacktop_i32_spot_enabled{
+        ::uwvm2::runtime::compiler::uwvm_int::optable::details::uwvm_interpreter_i32_stack_spot_enabled<CompileOption>()};
+    constexpr bool stacktop_i64_spot_enabled{
+        ::uwvm2::runtime::compiler::uwvm_int::optable::details::uwvm_interpreter_i64_stack_spot_enabled<CompileOption>()};
+    constexpr bool stacktop_i32_legacy_enabled{CompileOption.i32_stack_top_begin_pos != CompileOption.i32_stack_top_end_pos};
+    constexpr bool stacktop_i64_legacy_enabled{CompileOption.i64_stack_top_begin_pos != CompileOption.i64_stack_top_end_pos};
+    constexpr bool stacktop_int_spot_enabled{stacktop_i32_spot_enabled || stacktop_i64_spot_enabled};
+    constexpr bool stacktop_int_legacy_enabled{stacktop_i32_legacy_enabled || stacktop_i64_legacy_enabled};
+    static_assert(!(stacktop_int_spot_enabled && stacktop_int_legacy_enabled),
+                  "integer stack-spot mode and legacy integer register-ring mode are mutually exclusive.");
+    constexpr ::std::size_t stacktop_i32_begin_pos{
+        stacktop_i32_spot_enabled ? CompileOption.i32_stack_spot_begin_pos : CompileOption.i32_stack_top_begin_pos};
+    constexpr ::std::size_t stacktop_i32_end_pos{stacktop_i32_spot_enabled ? CompileOption.i32_stack_spot_end_pos : CompileOption.i32_stack_top_end_pos};
+    constexpr ::std::size_t stacktop_i64_begin_pos{
+        stacktop_i64_spot_enabled ? CompileOption.i64_stack_spot_begin_pos : CompileOption.i64_stack_top_begin_pos};
+    constexpr ::std::size_t stacktop_i64_end_pos{stacktop_i64_spot_enabled ? CompileOption.i64_stack_spot_end_pos : CompileOption.i64_stack_top_end_pos};
+    constexpr bool stacktop_i32_enabled{stacktop_i32_spot_enabled || stacktop_i32_legacy_enabled};
+    constexpr bool stacktop_i64_enabled{stacktop_i64_spot_enabled || stacktop_i64_legacy_enabled};
     constexpr bool stacktop_f32_enabled{CompileOption.f32_stack_top_begin_pos != CompileOption.f32_stack_top_end_pos};
     constexpr bool stacktop_f64_enabled{CompileOption.f64_stack_top_begin_pos != CompileOption.f64_stack_top_end_pos};
     constexpr bool stacktop_v128_enabled{CompileOption.v128_stack_top_begin_pos != CompileOption.v128_stack_top_end_pos};
@@ -583,16 +618,40 @@ for(::std::size_t local_function_idx{}; local_function_idx < local_func_count; +
     {
         static_assert(CompileOption.is_tail_call, "stack-top caching requires tail-call (non-byref) interpreter mode");
 
-        static_assert(stacktop_i32_enabled && stacktop_i64_enabled && stacktop_f32_enabled && stacktop_f64_enabled,
-                      "Wasm1 stack-top caching requires i32/i64/f32/f64 ranges enabled together.");
+        constexpr bool logical_fv_stacktop{
+            ::uwvm2::runtime::compiler::uwvm_int::optable::details::uwvm_interpreter_uses_logical_fv_stacktop<CompileOption>()};
 
-        static_assert(CompileOption.i32_stack_top_begin_pos >= 3uz && CompileOption.i32_stack_top_end_pos > CompileOption.i32_stack_top_begin_pos);
-        static_assert(CompileOption.i64_stack_top_begin_pos >= 3uz && CompileOption.i64_stack_top_end_pos > CompileOption.i64_stack_top_begin_pos);
-        static_assert(CompileOption.f32_stack_top_begin_pos >= 3uz && CompileOption.f32_stack_top_end_pos > CompileOption.f32_stack_top_begin_pos);
-        static_assert(CompileOption.f64_stack_top_begin_pos >= 3uz && CompileOption.f64_stack_top_end_pos > CompileOption.f64_stack_top_begin_pos);
+        if constexpr(logical_fv_stacktop)
+        {
+            static_assert(!stacktop_i32_legacy_enabled && !stacktop_i64_legacy_enabled,
+                          "legacy integer register-ring cannot be combined with the fv logical stack-top configuration.");
+            static_assert(stacktop_f32_enabled && stacktop_f64_enabled && stacktop_v128_enabled,
+                          "fv stack-top configuration requires f32/f64/v128 ranges enabled together.");
+            static_assert(CompileOption.f32_stack_top_begin_pos == 0uz && CompileOption.f64_stack_top_begin_pos == 0uz &&
+                              CompileOption.v128_stack_top_begin_pos == 0uz,
+                          "fv stack-top logical ranges start at slot 0.");
+            static_assert(CompileOption.f32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos &&
+                              CompileOption.f32_stack_top_end_pos == CompileOption.v128_stack_top_end_pos &&
+                              CompileOption.f32_stack_top_end_pos > 0uz,
+                          "fv stack-top f32/f64/v128 ranges must fully coincide.");
+        }
+        else
+        {
+            static_assert(stacktop_i32_legacy_enabled && stacktop_i64_legacy_enabled && stacktop_f32_enabled && stacktop_f64_enabled,
+                          "legacy stack-top caching requires i32/i64/f32/f64 ranges enabled together.");
+
+            static_assert(stacktop_i32_begin_pos >= ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_fixed_arg_count &&
+                          stacktop_i32_end_pos > stacktop_i32_begin_pos);
+            static_assert(stacktop_i64_begin_pos >= ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_fixed_arg_count &&
+                          stacktop_i64_end_pos > stacktop_i64_begin_pos);
+            static_assert(CompileOption.f32_stack_top_begin_pos >= ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_fixed_arg_count &&
+                          CompileOption.f32_stack_top_end_pos > CompileOption.f32_stack_top_begin_pos);
+            static_assert(CompileOption.f64_stack_top_begin_pos >= ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_fixed_arg_count &&
+                          CompileOption.f64_stack_top_end_pos > CompileOption.f64_stack_top_begin_pos);
+        }
 
         // Note:
-        // Smaller rings (e.g. 1 or 2 slots) are allowed. When an opcode needs more operands than the ring can hold,
+        // Smaller rings (e.g. 1 or 2 slots) are allowed. When an opcode needs more operands than the stack-top window can hold,
         // the opfunc falls back to reading the remaining operands from the operand stack memory (stack pointer),
         // keeping as many values in registers as possible.
 
@@ -602,24 +661,21 @@ for(::std::size_t local_function_idx{}; local_function_idx < local_func_count; +
         constexpr auto equal{[](::std::size_t a_begin, ::std::size_t a_end, ::std::size_t b_begin, ::std::size_t b_end) consteval noexcept
                              { return a_begin == b_begin && a_end == b_end; }};
 
-        constexpr bool i32_i64_overlap{overlap(CompileOption.i32_stack_top_begin_pos,
-                                               CompileOption.i32_stack_top_end_pos,
-                                               CompileOption.i64_stack_top_begin_pos,
-                                               CompileOption.i64_stack_top_end_pos)};
-        constexpr bool i32_f32_overlap{overlap(CompileOption.i32_stack_top_begin_pos,
-                                               CompileOption.i32_stack_top_end_pos,
+        constexpr bool i32_i64_overlap{overlap(stacktop_i32_begin_pos, stacktop_i32_end_pos, stacktop_i64_begin_pos, stacktop_i64_end_pos)};
+        constexpr bool i32_f32_overlap{!stacktop_i32_spot_enabled && overlap(stacktop_i32_begin_pos,
+                                               stacktop_i32_end_pos,
                                                CompileOption.f32_stack_top_begin_pos,
                                                CompileOption.f32_stack_top_end_pos)};
-        constexpr bool i32_f64_overlap{overlap(CompileOption.i32_stack_top_begin_pos,
-                                               CompileOption.i32_stack_top_end_pos,
+        constexpr bool i32_f64_overlap{!stacktop_i32_spot_enabled && overlap(stacktop_i32_begin_pos,
+                                               stacktop_i32_end_pos,
                                                CompileOption.f64_stack_top_begin_pos,
                                                CompileOption.f64_stack_top_end_pos)};
-        constexpr bool i64_f32_overlap{overlap(CompileOption.i64_stack_top_begin_pos,
-                                               CompileOption.i64_stack_top_end_pos,
+        constexpr bool i64_f32_overlap{!stacktop_i64_spot_enabled && overlap(stacktop_i64_begin_pos,
+                                               stacktop_i64_end_pos,
                                                CompileOption.f32_stack_top_begin_pos,
                                                CompileOption.f32_stack_top_end_pos)};
-        constexpr bool i64_f64_overlap{overlap(CompileOption.i64_stack_top_begin_pos,
-                                               CompileOption.i64_stack_top_end_pos,
+        constexpr bool i64_f64_overlap{!stacktop_i64_spot_enabled && overlap(stacktop_i64_begin_pos,
+                                               stacktop_i64_end_pos,
                                                CompileOption.f64_stack_top_begin_pos,
                                                CompileOption.f64_stack_top_end_pos)};
         constexpr bool f32_f64_overlap{overlap(CompileOption.f32_stack_top_begin_pos,
@@ -627,28 +683,25 @@ for(::std::size_t local_function_idx{}; local_function_idx < local_func_count; +
                                                CompileOption.f64_stack_top_begin_pos,
                                                CompileOption.f64_stack_top_end_pos)};
 
-        static_assert(!i32_i64_overlap || equal(CompileOption.i32_stack_top_begin_pos,
-                                                CompileOption.i32_stack_top_end_pos,
-                                                CompileOption.i64_stack_top_begin_pos,
-                                                CompileOption.i64_stack_top_end_pos),
+        static_assert(!i32_i64_overlap || equal(stacktop_i32_begin_pos, stacktop_i32_end_pos, stacktop_i64_begin_pos, stacktop_i64_end_pos),
                       "i32/i64 stack-top ranges must be disjoint or fully merged.");
-        static_assert(!i32_f32_overlap || equal(CompileOption.i32_stack_top_begin_pos,
-                                                CompileOption.i32_stack_top_end_pos,
+        static_assert(!i32_f32_overlap || equal(stacktop_i32_begin_pos,
+                                                stacktop_i32_end_pos,
                                                 CompileOption.f32_stack_top_begin_pos,
                                                 CompileOption.f32_stack_top_end_pos),
                       "i32/f32 stack-top ranges must be disjoint or fully merged.");
-        static_assert(!i32_f64_overlap || equal(CompileOption.i32_stack_top_begin_pos,
-                                                CompileOption.i32_stack_top_end_pos,
+        static_assert(!i32_f64_overlap || equal(stacktop_i32_begin_pos,
+                                                stacktop_i32_end_pos,
                                                 CompileOption.f64_stack_top_begin_pos,
                                                 CompileOption.f64_stack_top_end_pos),
                       "i32/f64 stack-top ranges must be disjoint or fully merged.");
-        static_assert(!i64_f32_overlap || equal(CompileOption.i64_stack_top_begin_pos,
-                                                CompileOption.i64_stack_top_end_pos,
+        static_assert(!i64_f32_overlap || equal(stacktop_i64_begin_pos,
+                                                stacktop_i64_end_pos,
                                                 CompileOption.f32_stack_top_begin_pos,
                                                 CompileOption.f32_stack_top_end_pos),
                       "i64/f32 stack-top ranges must be disjoint or fully merged.");
-        static_assert(!i64_f64_overlap || equal(CompileOption.i64_stack_top_begin_pos,
-                                                CompileOption.i64_stack_top_end_pos,
+        static_assert(!i64_f64_overlap || equal(stacktop_i64_begin_pos,
+                                                stacktop_i64_end_pos,
                                                 CompileOption.f64_stack_top_begin_pos,
                                                 CompileOption.f64_stack_top_end_pos),
                       "i64/f64 stack-top ranges must be disjoint or fully merged.");
@@ -661,7 +714,15 @@ for(::std::size_t local_function_idx{}; local_function_idx < local_func_count; +
         // v128 is used as a vector register-class carrier. If enabled, it must coincide with an f32/f64 merged range.
         if constexpr(stacktop_v128_enabled)
         {
-            static_assert(CompileOption.v128_stack_top_begin_pos >= 3uz && CompileOption.v128_stack_top_end_pos > CompileOption.v128_stack_top_begin_pos);
+            if constexpr(!logical_fv_stacktop)
+            {
+                static_assert(CompileOption.v128_stack_top_begin_pos >= ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_fixed_arg_count &&
+                              CompileOption.v128_stack_top_end_pos > CompileOption.v128_stack_top_begin_pos);
+            }
+            else
+            {
+                static_assert(CompileOption.v128_stack_top_end_pos > CompileOption.v128_stack_top_begin_pos);
+            }
 
             constexpr bool f32_v128_overlap{overlap(CompileOption.f32_stack_top_begin_pos,
                                                     CompileOption.f32_stack_top_end_pos,
@@ -682,22 +743,24 @@ for(::std::size_t local_function_idx{}; local_function_idx < local_func_count; +
                                     CompileOption.f64_stack_top_end_pos),
                           "v128 range must fully coincide with an f32/f64 merged range (same begin/end).");
 
-            static_assert(!overlap(CompileOption.v128_stack_top_begin_pos,
+            static_assert((stacktop_i32_spot_enabled ||
+                           !overlap(CompileOption.v128_stack_top_begin_pos,
                                    CompileOption.v128_stack_top_end_pos,
-                                   CompileOption.i32_stack_top_begin_pos,
-                                   CompileOption.i32_stack_top_end_pos) &&
-                              !overlap(CompileOption.v128_stack_top_begin_pos,
+                                   stacktop_i32_begin_pos,
+                                   stacktop_i32_end_pos)) &&
+                              (stacktop_i64_spot_enabled ||
+                               !overlap(CompileOption.v128_stack_top_begin_pos,
                                        CompileOption.v128_stack_top_end_pos,
-                                       CompileOption.i64_stack_top_begin_pos,
-                                       CompileOption.i64_stack_top_end_pos),
+                                       stacktop_i64_begin_pos,
+                                       stacktop_i64_end_pos)),
                           "v128 range must not overlap i32/i64 ranges.");
         }
 
         static_assert(details::interpreter_tuple_has_no_holes<CompileOption>(),
-                      "stack-top ranges must cover all opfunc argument slots >= 3 (no holes), or shrink the ranges.");
+                      "stack-top ranges must cover all opfunc argument slots after fixed args (no holes), or shrink the ranges.");
     }
 
-    // Translate: opfunc signature tuple (ip, operand_stack_top_ptr, local_base_ptr, [stack-top cache...]).
+    // Translate: opfunc signature tuple (ip, slot_base, [anonymous int stack spots...], [FV-ring slots...]).
     // Slot types are derived from `CompileOption` to drive ABI packing (GPR vs FP/SIMD regs) correctly.
     static constexpr ::std::size_t interpreter_tuple_size{details::interpreter_tuple_size<CompileOption>()};
     using interpreter_tuple_t = decltype(details::make_interpreter_tuple<CompileOption>(::std::make_index_sequence<interpreter_tuple_size>{}));
@@ -705,8 +768,8 @@ for(::std::size_t local_function_idx{}; local_function_idx < local_func_count; +
 
     // Translate: stack-top currpos.
     ::uwvm2::runtime::compiler::uwvm_int::optable::uwvm_interpreter_stacktop_currpos_t curr_stacktop{
-        .i32_stack_top_curr_pos = stacktop_i32_enabled ? CompileOption.i32_stack_top_begin_pos : SIZE_MAX,
-        .i64_stack_top_curr_pos = stacktop_i64_enabled ? CompileOption.i64_stack_top_begin_pos : SIZE_MAX,
+        .i32_stack_top_curr_pos = stacktop_i32_enabled ? stacktop_i32_begin_pos : SIZE_MAX,
+        .i64_stack_top_curr_pos = stacktop_i64_enabled ? stacktop_i64_begin_pos : SIZE_MAX,
         .f32_stack_top_curr_pos = stacktop_f32_enabled ? CompileOption.f32_stack_top_begin_pos : SIZE_MAX,
         .f64_stack_top_curr_pos = stacktop_f64_enabled ? CompileOption.f64_stack_top_begin_pos : SIZE_MAX,
         .v128_stack_top_curr_pos = stacktop_v128_enabled ? CompileOption.v128_stack_top_begin_pos : SIZE_MAX,
@@ -721,6 +784,19 @@ for(::std::size_t local_function_idx{}; local_function_idx < local_func_count; +
     ::std::size_t stacktop_cache_i64_count{};
     ::std::size_t stacktop_cache_f32_count{};
     ::std::size_t stacktop_cache_f64_count{};
+    ::std::size_t stacktop_cache_v128_count{};
+
+    struct local_spot_cache_entry_t
+    {
+        bool valid{};
+        bool dirty{};
+        curr_operand_stack_value_type type{};
+        local_offset_t off{};
+        ::std::size_t pos{};
+    };
+
+    ::uwvm2::utils::container::vector<local_spot_cache_entry_t> local_spot_cache{};
+    if constexpr(stacktop_enabled) { local_spot_cache.reserve(all_local_count); }
 
     // Experimental: strict control-flow entry (call-like).
     // Goal: ensure re-entry points (block/loop end, loop start, else entry) see an empty stack-top cache and
@@ -736,12 +812,12 @@ for(::std::size_t local_function_idx{}; local_function_idx < local_func_count; +
     constexpr bool stacktop_regtransform_cf_entry{true};
 
     // Current stack-top transform opfunc supports at most:
-    // - one fully-merged integer ring (i32/i64), and
-    // - one fully-merged fp/simd ring (f32/f64/v128).
+    // - one fully-merged integer stack-top window (i32/i64), and
+    // - one fully-merged fp/simd stack-top window (f32/f64/v128).
     constexpr bool stacktop_regtransform_supported{
         // i32/i64 must be same-range if both enabled
-        (!(stacktop_i32_enabled && stacktop_i64_enabled) || (CompileOption.i32_stack_top_begin_pos == CompileOption.i64_stack_top_begin_pos &&
-                                                             CompileOption.i32_stack_top_end_pos == CompileOption.i64_stack_top_end_pos)) &&
+        (!(stacktop_i32_enabled && stacktop_i64_enabled) || (stacktop_i32_begin_pos == stacktop_i64_begin_pos &&
+                                                             stacktop_i32_end_pos == stacktop_i64_end_pos)) &&
         // f32/f64 must be same-range if both enabled
         (!(stacktop_f32_enabled && stacktop_f64_enabled) || (CompileOption.f32_stack_top_begin_pos == CompileOption.f64_stack_top_begin_pos &&
                                                              CompileOption.f32_stack_top_end_pos == CompileOption.f64_stack_top_end_pos)) &&
