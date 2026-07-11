@@ -4,10 +4,10 @@ set_project("uwvm")
 set_policy("check.auto_ignore_flags", false)
 
 -- Version
-set_version("2.0.3")
+set_version("2.0.4")
 add_defines("UWVM_VERSION_X=2")
 add_defines("UWVM_VERSION_Y=0")
-add_defines("UWVM_VERSION_Z=3")
+add_defines("UWVM_VERSION_Z=4")
 add_defines("UWVM_VERSION_S=0")
 add_defines("UWVM_VERSION_DEV")
 
