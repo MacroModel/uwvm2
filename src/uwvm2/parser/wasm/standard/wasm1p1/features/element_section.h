@@ -750,7 +750,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
     }  // namespace wasm1p1_element_details
 
     /// @brief Parse one wasm1.1 element segment according to its leading flag.
-    /// @details Bulk-memory and reference-type dependent segment forms are gated by runtime feature flags before their payload is read.
+    /// @details Each binary segment form is gated by the Release 2.0 change-history group that introduced it before its payload is read.
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
     inline constexpr ::std::byte const* define_handler_element_type(
         [[maybe_unused]] ::uwvm2::parser::wasm::concepts::feature_reserve_type_t<element_section_storage_t<Fs...>> sec_adl,
@@ -792,6 +792,19 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
                 err.err_selectable.wasm1p1_feature_required.feature = ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::reference_types;
                 err.err_selectable.wasm1p1_feature_required.subject = ::uwvm2::parser::wasm::base::wasm1p1_error_subject::element_segment;
                 err.err_code = ::uwvm2::parser::wasm::base::wasm_parse_error_code::wasm1p1_feature_required;
+                ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+            }
+        };
+
+        auto const require_multiple_tables = [&]() UWVM_THROWS
+        {
+            if(para.disable_multiple_tables || para.controllable_allow_multi_table) [[unlikely]]
+            {
+                err.err_curr = section_curr;
+                err.err_selectable.wasm2_feature_required.value = static_cast<wasm_u32>(fet_type);
+                err.err_selectable.wasm2_feature_required.feature = ::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables;
+                err.err_selectable.wasm2_feature_required.subject = ::uwvm2::parser::wasm::base::wasm2_error_subject::element_segment;
+                err.err_code = ::uwvm2::parser::wasm::base::wasm_parse_error_code::wasm2_feature_required;
                 ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
             }
         };
@@ -885,7 +898,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
             }
             case ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm1p1_element_type_t::active_explicit_funcidx:
             {
-                require_reference_types();
+                require_multiple_tables();
                 element_storage.active = true;
                 element_storage.reftype = reference_type::funcref;
                 parse_tableidx();
@@ -909,7 +922,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
             }
             case ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm1p1_element_type_t::declarative_funcidx:
             {
-                require_bulk_memory();
+                require_reference_types();
                 element_storage.declarative = true;
                 element_storage.reftype = reference_type::funcref;
                 // parse_elemkind_funcref checks one elemkind byte and returns the first byte after it.
@@ -968,6 +981,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
             case ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm1p1_element_type_t::active_explicit_expr:
             {
                 require_reference_types();
+                require_multiple_tables();
                 element_storage.active = true;
                 parse_tableidx();
                 parse_active_offset();
@@ -990,7 +1004,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
             }
             case ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm1p1_element_type_t::declarative_expr:
             {
-                require_bulk_memory();
                 require_reference_types();
                 element_storage.declarative = true;
                 // parse_reftype checks one reference-type byte and returns the first byte after it.

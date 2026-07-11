@@ -965,15 +965,9 @@ case wasm1_code::call_indirect:
     // [                safe              ] unsafe (could be the section_end)
     //                                      ^^ code_curr
 
-    if(table_index >= all_table_count) [[unlikely]]
-    {
-        err.err_curr = op_begin;
-        err.err_selectable.illegal_table_index.table_index = table_index;
-        err.err_selectable.illegal_table_index.all_table_count = all_table_count;
-        err.err_code = code_validation_error_code::illegal_table_index;
-        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-    }
-
+    // The Release 2 validator resolves the encoded type index before applying the table-index feature and bounds
+    // checks.  Preserve that diagnostic order here so the independent translator validator reports the same first
+    // failure when both immediates are invalid.
     auto types_begin{curr_module.type_section_storage.type_section_begin};
     auto types_end{curr_module.type_section_storage.type_section_end};
 
@@ -984,6 +978,23 @@ case wasm1_code::call_indirect:
         err.err_selectable.illegal_type_index.type_index = type_index;
         err.err_selectable.illegal_type_index.all_type_count = static_cast<wasm_u32>(all_type_count_uz);
         err.err_code = code_validation_error_code::illegal_type_index;
+        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+    }
+
+    if(!wasm2_feature_enabled(wasm2_feature_kind::multiple_tables) && table_index != 0u) [[unlikely]]
+    {
+        fail_wasm2_feature_required(op_begin,
+                                    static_cast<wasm_u32>(static_cast<wasm_byte>(wasm1_code::call_indirect)),
+                                    ::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables,
+                                    ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
+    }
+
+    if(table_index >= all_table_count) [[unlikely]]
+    {
+        err.err_curr = op_begin;
+        err.err_selectable.illegal_table_index.table_index = table_index;
+        err.err_selectable.illegal_table_index.all_table_count = all_table_count;
+        err.err_code = code_validation_error_code::illegal_table_index;
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
     }
 

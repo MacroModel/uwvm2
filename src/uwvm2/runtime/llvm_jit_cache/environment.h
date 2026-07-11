@@ -433,7 +433,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::llvm_jit_cache
     {
         auto out{details::make_cache_key(u8"uwvm-runtime-abi")};
         // The schema version separates intentional ABI-fingerprint changes from ordinary project version changes.
-        details::append_cache_key_value(out, u8"schema", u8"uwvm2-runtime-abi-v4");
+        details::append_cache_key_value(out, u8"schema", u8"uwvm2-runtime-abi-v5");
 #if defined(UWVM_VERSION_X)
         details::append_cache_key_value_u64(out, u8"version-x", static_cast<::std::uint_least64_t>(UWVM_VERSION_X));
 #else
@@ -479,6 +479,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::llvm_jit_cache
 #if defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
         // Keep cached native objects separated when runtime bridge symbol naming or bridge-call ABI details change.
         details::append_cache_key_value(out, u8"llvm-jit-bridge-symbol-abi", u8"semantic-discriminator-and-type-v1");
+        details::append_cache_key_value(out, u8"llvm-wasm-typed-result-abi", u8"void-scalar-tuple-struct-v1");
 #endif
         return out;
     }

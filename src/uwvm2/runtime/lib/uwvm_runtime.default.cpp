@@ -5093,7 +5093,7 @@ namespace uwvm2::runtime::lib
         [[nodiscard]] inline constexpr bool tiered_function_code_has_loop(compiled_module_record const& rec, ::std::size_t local_index) noexcept
         {
             // A cheap bytecode scan detects loop presence for tiny hot functions that benefit from inline demand compilation.
-            if(local_index >= rec.llvm_jit_lazy_compiled.functions.size()) [[unlikely]] { return false; }
+            if(rec.runtime_module == nullptr || local_index >= rec.llvm_jit_lazy_compiled.functions.size()) [[unlikely]] { return false; }
 
             auto const& fn{rec.llvm_jit_lazy_compiled.functions.index_unchecked(local_index)};
             if(fn.primary_cu_index >= rec.llvm_jit_lazy_compiled.compile_units.size()) [[unlikely]] { return false; }
@@ -5110,7 +5110,7 @@ namespace uwvm2::runtime::lib
                 wasm1_code op{};
                 ::std::memcpy(::std::addressof(op), code_curr, sizeof(op));
                 if(op == wasm1_code::loop) { return true; }
-                if(!llvm_lazy::details::skip_wasm_instruction_for_direct_call_scan(code_curr, code_end)) [[unlikely]] { return false; }
+                if(!llvm_lazy::details::skip_wasm_instruction_for_direct_call_scan(*rec.runtime_module, code_curr, code_end)) [[unlikely]] { return false; }
             }
             return false;
         }
@@ -5119,7 +5119,7 @@ namespace uwvm2::runtime::lib
         {
             // FP-heavy kernels can be expensive to compile and may not benefit from early OSR in medium modules, so classify them
             // with a lightweight opcode count rather than full analysis.
-            if(local_index >= rec.llvm_jit_lazy_compiled.functions.size()) [[unlikely]] { return false; }
+            if(rec.runtime_module == nullptr || local_index >= rec.llvm_jit_lazy_compiled.functions.size()) [[unlikely]] { return false; }
 
             auto const& fn{rec.llvm_jit_lazy_compiled.functions.index_unchecked(local_index)};
             if(fn.primary_cu_index >= rec.llvm_jit_lazy_compiled.compile_units.size()) [[unlikely]] { return false; }
@@ -5142,7 +5142,7 @@ namespace uwvm2::runtime::lib
                 {
                     if(++fp_ops >= 8uz) { return true; }
                 }
-                if(!llvm_lazy::details::skip_wasm_instruction_for_direct_call_scan(code_curr, code_end)) [[unlikely]] { return false; }
+                if(!llvm_lazy::details::skip_wasm_instruction_for_direct_call_scan(*rec.runtime_module, code_curr, code_end)) [[unlikely]] { return false; }
             }
             return false;
         }
@@ -9118,6 +9118,9 @@ namespace uwvm2::runtime::lib
         {
             // LLVM call_indirect lowers through compact table-view arrays. They are rebuilt after initialization/materialization so
             // every table element points either at a ready raw entry or a lazy bridge with the correct per-target context.
+            // Installing the optional interpreter notification here guarantees the hook is live before any generated snapshot can
+            // become observable, while standalone uwvm-int translators remain independent of this runtime object.
+            llvm_jit_refresh_call_indirect_table_views_hook = &llvm_jit_refresh_call_indirect_table_views;
             using table_elem_type = ::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_type_t;
 
             for(::std::size_t caller_module_id{}; caller_module_id != g_runtime.modules.size(); ++caller_module_id)
@@ -9140,6 +9143,14 @@ namespace uwvm2::runtime::lib
 
                     auto const resolved_table{resolve_table(*caller_runtime_module, table_index)};
                     if(resolved_table == nullptr) { continue; }
+                    if(resolved_table->table_type_ptr == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+                    if(resolved_table->table_type_ptr->reftype !=
+                       ::uwvm2::parser::wasm::standard::wasm1p1::type::reference_type::funcref)
+                    {
+                        // call_indirect is defined only for funcref tables. Externref tables intentionally
+                        // have no LLVM indirect-call view, but remain available to table instructions.
+                        continue;
+                    }
 
                     auto const provider_runtime_module{resolved_table->owner_module_rt_ptr};
                     if(provider_runtime_module == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
@@ -13631,6 +13642,13 @@ namespace uwvm2::runtime::lib
     // - Push/pop callbacks are used only when codegen emitted logical stack frames.
     // - Tail-call disabling keeps the C++ helper visible to platform unwinders.
     // =========================================================================
+    extern "C++" void llvm_jit_refresh_call_indirect_table_views() noexcept
+    {
+        // Table writes/growth can relocate the element vector or replace a target. Rebuild the compact LLVM snapshots
+        // before generated execution resumes so call_indirect never observes the initialization-time table image.
+        populate_llvm_jit_call_indirect_table_views();
+    }
+
     extern "C++"
 # if UWVM_HAS_CPP_ATTRIBUTE(clang::disable_tail_calls)
         [[clang::disable_tail_calls]]
@@ -13708,6 +13726,11 @@ namespace uwvm2::runtime::lib
             case llvm_jit_trap_kind::runtime_invariant_failure:
             {
                 trap_fatal(trap_kind::runtime_invariant_failure);
+                return;
+            }
+            case llvm_jit_trap_kind::table_out_of_bounds:
+            {
+                trap_fatal(trap_kind::table_out_of_bounds);
                 return;
             }
             [[unlikely]] default:

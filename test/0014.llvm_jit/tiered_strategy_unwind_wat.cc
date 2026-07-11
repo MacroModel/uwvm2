@@ -29,6 +29,8 @@ namespace
         ::std::filesystem::path log_path{};
     };
 
+    inline constexpr ::std::array comparison_policies{"unwind", "auto"};
+
     [[nodiscard]] ::std::string quote_argument(::std::filesystem::path const& path)
     {
         return ::std::string{"\""} + path.string() + "\"";
@@ -185,6 +187,55 @@ namespace
         }
 
         return out;
+    }
+
+    [[nodiscard]] bool probe_default_call_stack_unwind(::std::filesystem::path const& uwvm_path,
+                                                       ::std::filesystem::path const& wasm_path,
+                                                       ::std::filesystem::path const& artifact_dir,
+                                                       bool& default_uses_unwind)
+    {
+        auto const output_path{artifact_dir / "default_call_stack_probe.out"};
+        auto const log_path{artifact_dir / "default_call_stack_probe.log"};
+        ::std::error_code ec{};
+        ::std::filesystem::remove(log_path, ec);
+        if(ec)
+        {
+            ::std::cerr << "failed to remove stale call-stack probe log: " << log_path << '\n';
+            return false;
+        }
+
+        auto const command{quote_argument(uwvm_path) + " -Raot -Rllvm-cache-path disable -Rclog file " + quote_argument(log_path) + " --run " +
+                           quote_argument(wasm_path) + " > " + quote_argument(output_path) + " 2>&1"};
+        ::std::cout << "[tiered-strategy] " << command << '\n';
+        if(run_system_command(command) == 0)
+        {
+            ::std::cerr << "call-stack capability probe trap unexpectedly succeeded\n";
+            return false;
+        }
+
+        ::std::string output{};
+        if(!read_text_file(output_path, output)) { return false; }
+        if(strip_ansi_codes(output).find("Runtime crash (") == ::std::string::npos)
+        {
+            ::std::cerr << "call-stack capability probe did not reach a runtime trap:\n" << output << '\n';
+            return false;
+        }
+
+        ::std::string log{};
+        if(!read_text_file(log_path, log)) { return false; }
+        if(log.find("call_stack=unwind") != ::std::string::npos)
+        {
+            default_uses_unwind = true;
+            return true;
+        }
+        if(log.find("call_stack=instruction") != ::std::string::npos || log.find("call_stack=none") != ::std::string::npos)
+        {
+            default_uses_unwind = false;
+            return true;
+        }
+
+        ::std::cerr << "unable to determine default LLVM JIT call-stack policy from probe log:\n" << log << '\n';
+        return false;
     }
 
     [[nodiscard]] ::std::vector<::std::size_t> parse_func_indices(::std::string_view plain_output)
@@ -650,6 +701,8 @@ int main(int argc, char** argv)
     }(executable_dir)};
 
     bool ok{true};
+    bool call_stack_capability_probed{};
+    bool explicit_unwind_supported{};
     for(auto const& test_case: make_cases())
     {
         auto const wat_path{artifact_dir / (::std::string{test_case.name} + ".wat")};
@@ -657,14 +710,35 @@ int main(int argc, char** argv)
         if(!write_text_file(wat_path, test_case.wat)) { return 1; }
         if(!compile_wat(wat2wasm_path, wat_path, wasm_path)) { return 1; }
 
+        if(!call_stack_capability_probed)
+        {
+            if(!probe_default_call_stack_unwind(uwvm_path, wasm_path, artifact_dir, explicit_unwind_supported)) { return 1; }
+            call_stack_capability_probed = true;
+            if(!explicit_unwind_supported)
+            {
+                ::std::cout << "[tiered-strategy] explicit unwind unsupported; retaining strict instruction/auto comparison\n";
+            }
+        }
+
         auto const instruction{run_case(uwvm_path, wasm_path, artifact_dir, test_case, "instruction")};
-        auto const unwind{run_case(uwvm_path, wasm_path, artifact_dir, test_case, "unwind")};
-        if(!instruction.valid || !unwind.valid || instruction.func_indices != unwind.func_indices)
+        if(!instruction.valid)
         {
             ok = false;
-            ::std::cerr << "[tiered-strategy] stack mismatch or parse failure for " << test_case.name << '\n';
+            ::std::cerr << "[tiered-strategy] instruction baseline parse failure for " << test_case.name << '\n';
         }
-        if(!check_log_patterns(test_case, unwind.log_path)) { ok = false; }
+        if(!check_log_patterns(test_case, instruction.log_path)) { ok = false; }
+
+        for(auto const* policy: comparison_policies)
+        {
+            if(::std::string_view{policy} == "unwind" && !explicit_unwind_supported) { continue; }
+            auto const compared{run_case(uwvm_path, wasm_path, artifact_dir, test_case, policy)};
+            if(!instruction.valid || !compared.valid || instruction.func_indices != compared.func_indices)
+            {
+                ok = false;
+                ::std::cerr << "[tiered-strategy] stack mismatch or parse failure for " << test_case.name << '/' << policy << '\n';
+            }
+            if(!check_log_patterns(test_case, compared.log_path)) { ok = false; }
+        }
     }
 
     if(ok)

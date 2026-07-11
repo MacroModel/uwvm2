@@ -907,7 +907,7 @@ for _, file in ipairs(os.files("test/**.cc")) do
 									-- when fed malformed inputs (important for fuzzing/differential validation).
 									-- Use WABT's internal SHA-256 implementation so Darwin cross sysroots do not need OpenSSL libcrypto.
 									os.vrunv("cmake", make_wabt_cmake_args(wabt_root))
-									os.vrunv("cmake", {"--build", build_dir, "--target", "wabt", "--config", "Release"})
+									os.vrunv("cmake", {"--build", build_dir, "--target", "wabt", "--config", "Release", "--parallel", "3"})
 								else
 									raise("wabt is required for " .. target:name() .. " but neither source nor built artifacts were found.")
 								end

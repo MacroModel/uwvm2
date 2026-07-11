@@ -76,9 +76,10 @@
 # include <uwvm2/parser/wasm/standard/wasm1/impl.h>
 # include <uwvm2/parser/wasm/binfmt/binfmt_ver1/impl.h>
 # include <uwvm2/validation/error/impl.h>
-# include <uwvm2/validation/standard/wasm1p1/impl.h>
+# include <uwvm2/validation/standard/wasm2/impl.h>
 # include <uwvm2/object/impl.h>
 # include <uwvm2/object/memory/flags/impl.h>
+# include <uwvm2/runtime/compiler/shared/wasm1p1_simd.h>
 # include <uwvm2/uwvm/io/impl.h>
 # include <uwvm2/uwvm/utils/memory/impl.h>
 # include <uwvm2/uwvm/wasm/feature/impl.h>
@@ -104,7 +105,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::lib
         call_indirect_null_element,
         call_indirect_type_mismatch,
         memory_out_of_bounds,
-        runtime_invariant_failure
+        runtime_invariant_failure,
+        table_out_of_bounds
     };
 
     extern "C++"
@@ -127,6 +129,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::lib
                                                               ::std::size_t memory_type_size,
                                                               [[maybe_unused]] ::std::uintptr_t frame_address,
                                                               [[maybe_unused]] ::std::uintptr_t stack_pointer) noexcept;
+
+    // Table mutation instructions can invalidate the compact call_indirect target snapshots owned by the runtime.
+    // Rebuild them after a funcref-table write so generated call_indirect code observes the same table state as uwvm-int.
+    extern "C++" void llvm_jit_refresh_call_indirect_table_views() noexcept;
 
     extern "C++" void llvm_jit_push_call_stack_frame(::std::size_t module_id, ::std::size_t function_index) noexcept;
 

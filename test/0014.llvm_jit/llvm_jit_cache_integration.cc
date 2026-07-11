@@ -321,6 +321,27 @@ namespace
         return true;
     }
 
+    [[nodiscard]] bool first_cache_context_contains(::std::filesystem::path const& cache_dir, ::std::string_view needle)
+    {
+        ::std::filesystem::path file{};
+        if(!first_cache_file(cache_dir, file)) { return false; }
+
+        ::std::vector<unsigned char> bytes{};
+        if(!read_binary_file(file, bytes)) { return false; }
+
+        constexpr ::std::size_t header_size{64uz};
+        if(bytes.size() < header_size) { return false; }
+        auto const isa_size{read_u64_le(bytes, 40uz)};
+        auto const context_size{read_u64_le(bytes, 48uz)};
+        if(isa_size > bytes.size() - header_size) { return false; }
+        auto const context_offset{header_size + static_cast<::std::size_t>(isa_size)};
+        if(context_size > bytes.size() - context_offset) { return false; }
+
+        auto const context_begin{bytes.begin() + static_cast<::std::ptrdiff_t>(context_offset)};
+        auto const context_end{context_begin + static_cast<::std::ptrdiff_t>(context_size)};
+        return ::std::search(context_begin, context_end, needle.begin(), needle.end()) != context_end;
+    }
+
     [[nodiscard]] bool rewrite_first_cache_file(::std::filesystem::path const& cache_dir,
                                                 bool (*mutate)(::std::vector<unsigned char>&),
                                                 ::std::string_view label)
@@ -370,7 +391,7 @@ namespace
 
     [[nodiscard]] bool flip_context_abi_byte(::std::vector<unsigned char>& bytes)
     {
-        auto const needle{::std::string_view{"uwvm2-runtime-abi-v4"}};
+        auto const needle{::std::string_view{"uwvm2-runtime-abi-v5"}};
         auto const iter{::std::search(bytes.begin(), bytes.end(), needle.begin(), needle.end())};
         if(iter == bytes.end()) { return false; }
         auto const offset{static_cast<::std::size_t>(iter - bytes.begin())};
@@ -616,6 +637,13 @@ namespace
         if(snapshot_cache(cache_dir).empty())
         {
             ::std::cerr << "signed cache integrity setup produced no cache file\n";
+            return false;
+        }
+        if(!first_cache_context_contains(cache_dir, "uwvm2-runtime-abi-v5") ||
+           !first_cache_context_contains(cache_dir, "llvm-wasm-typed-result-abi") ||
+           !first_cache_context_contains(cache_dir, "void-scalar-tuple-struct-v1"))
+        {
+            ::std::cerr << "cache context is missing the v5 typed multi-result ABI fingerprint\n";
             return false;
         }
         if(!expect_clean_cache_hit(uwvm_path, artifact_dir, wasm_path, cache_args, "signed_integrity_clean_hit")) { return false; }

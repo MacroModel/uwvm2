@@ -71,6 +71,7 @@
 # include <uwvm2/validation/error/impl.h>
 # include <uwvm2/validation/standard/wasm1/impl.h>
 # include <uwvm2/validation/standard/wasm1p1/impl.h>
+# include <uwvm2/validation/standard/wasm2/impl.h>
 # include <uwvm2/uwvm/wasm/feature/impl.h>
 # include <uwvm2/uwvm/runtime/storage/impl.h>
 # include <uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/impl.h>
@@ -555,8 +556,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                 auto const code_begin{reinterpret_cast<::std::byte const*>(curr_code.body.expr_begin)};
                 auto const code_end{reinterpret_cast<::std::byte const*>(curr_code.body.code_end)};
 
-                ::uwvm2::validation::standard::wasm1p1::validate_code(::uwvm2::validation::standard::wasm1p1::wasm1p1_code_version{},
-                                                                      *options.validator_module_storage,
+                ::uwvm2::validation::standard::wasm2::validate_code_with_runtime_policy(*options.validator_module_storage,
                                                                       function_index,
                                                                       code_begin,
                                                                       code_end,
@@ -725,7 +725,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
 
         // Advances over one Wasm instruction while scanning for direct `call` opcodes.  Structured control opcodes need
         // special handling because their block-result immediate is parsed by a different helper.
-        [[nodiscard]] inline constexpr bool skip_wasm_instruction_for_direct_call_scan(::std::byte const*& code_curr, ::std::byte const* code_end) noexcept
+        [[nodiscard]] inline constexpr bool skip_wasm_instruction_for_direct_call_scan(runtime_module_storage_t const& curr_module,
+                                                                                       ::std::byte const*& code_curr,
+                                                                                       ::std::byte const* code_end) noexcept
         {
             if(code_curr == code_end) [[unlikely]] { return false; }
 
@@ -738,8 +740,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                 case all_details::wasm1_code::if_:
                 {
                     ++code_curr;
-                    all_details::runtime_block_result_type block_result{};
-                    return all_details::parse_wasm_block_result_type(code_curr, code_end, block_result);
+                    all_details::runtime_block_signature_type block_signature{};
+                    return all_details::parse_wasm_block_signature_type(code_curr, code_end, curr_module, block_signature);
                 }
                 default:
                 {
@@ -793,7 +795,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                     continue;
                 }
 
-                if(!skip_wasm_instruction_for_direct_call_scan(code_curr, code_end)) [[unlikely]] { return false; }
+                if(!skip_wasm_instruction_for_direct_call_scan(curr_module, code_curr, code_end)) [[unlikely]] { return false; }
             }
 
             return true;
@@ -881,7 +883,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                     continue;
                 }
 
-                if(!skip_wasm_instruction_for_direct_call_scan(code_curr, code_end)) [[unlikely]] { return false; }
+                if(!skip_wasm_instruction_for_direct_call_scan(curr_module, code_curr, code_end)) [[unlikely]] { return false; }
             }
 
             return true;

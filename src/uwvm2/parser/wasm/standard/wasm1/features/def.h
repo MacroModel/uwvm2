@@ -620,6 +620,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
         requires ::std::same_as<::std::remove_cvref_t<decltype(curr_feature_para.controllable_allow_multi_result_vector)>, bool>;
     };
 
+    /// @brief Detect the canonical Release 2.0 multi-value switch supplied by a feature parameter.
+    template <typename FsCurr>
+    concept has_curr_feature_parameter_disable_multi_value = requires(FsCurr const& curr_feature_para) {
+        requires ::std::same_as<::std::remove_cvref_t<decltype(curr_feature_para.disable_multi_value)>, bool>;
+    };
+
+    template <typename FsCurr>
+    concept has_curr_feature_parameter_multi_result_control = has_curr_feature_parameter_disable_multi_value<FsCurr> ||
+                                                              has_curr_feature_parameter_controllable_allow_multi_result_vector<FsCurr>;
+
     /// @brief Detect whether exactly one feature parameter can runtime-control the MVP single-result restriction.
     /// @details This lets an extension compile multi-result storage while preserving wasm1 checks until the feature flag is enabled.
     template <typename... Para>
@@ -638,7 +648,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
             ((
                  [&]<typename CurrParaType>() constexpr noexcept
                  {
-                     if constexpr(has_curr_feature_parameter_controllable_allow_multi_result_vector<CurrParaType>)
+                     if constexpr(has_curr_feature_parameter_multi_result_control<CurrParaType>)
                      {
 #if __cpp_contracts >= 202502L
                          contract_assert(!has);
@@ -676,10 +686,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
         {
             auto const& curr_para{get<N>(paras)};
             using curr_para_t = ::std::remove_cvref_t<decltype(curr_para)>;
-            if constexpr(has_curr_feature_parameter_controllable_allow_multi_result_vector<curr_para_t>)
+            if constexpr(has_curr_feature_parameter_disable_multi_value<curr_para_t> &&
+                         has_curr_feature_parameter_controllable_allow_multi_result_vector<curr_para_t>)
             {
-                return curr_para.controllable_allow_multi_result_vector;
+                return curr_para.disable_multi_value || curr_para.controllable_allow_multi_result_vector;
             }
+            else if constexpr(has_curr_feature_parameter_disable_multi_value<curr_para_t>) { return curr_para.disable_multi_value; }
+            else if constexpr(has_curr_feature_parameter_controllable_allow_multi_result_vector<curr_para_t>)
+            { return curr_para.controllable_allow_multi_result_vector; }
             else
             {
                 return get_feature_parameter_controllable_allow_multi_result_vector_from_paras_parameters_impl<N + 1uz>(paras);
@@ -1396,6 +1410,18 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
         requires ::std::same_as<::std::remove_cvref_t<decltype(curr_feature_para.controllable_allow_multi_table)>, bool>;
     };
 
+    /// @brief Detect the Release 2.0 multiple-tables switch supplied by a feature parameter.
+    /// @details New feature parameters use disable_multiple_tables as the source of truth. The older controllable field remains a compatibility fallback
+    ///          for extensions that predate the independent feature split.
+    template <typename FsCurr>
+    concept has_curr_feature_parameter_disable_multiple_tables = requires(FsCurr const& curr_feature_para) {
+        requires ::std::same_as<::std::remove_cvref_t<decltype(curr_feature_para.disable_multiple_tables)>, bool>;
+    };
+
+    template <typename FsCurr>
+    concept has_curr_feature_parameter_multi_table_control = has_curr_feature_parameter_disable_multiple_tables<FsCurr> ||
+                                                             has_curr_feature_parameter_controllable_allow_multi_table<FsCurr>;
+
     /// @brief Detect whether exactly one feature parameter can runtime-control the MVP single-table restriction.
     /// @details This lets an extension compile multi-table storage while preserving wasm1 checks until the feature flag is enabled.
     template <typename... Para>
@@ -1408,7 +1434,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
             ((
                  [&]<typename CurrParaType>() constexpr noexcept
                  {
-                     if constexpr(has_curr_feature_parameter_controllable_allow_multi_table<CurrParaType>)
+                     if constexpr(has_curr_feature_parameter_multi_table_control<CurrParaType>)
                      {
 #if __cpp_contracts >= 202502L
                          contract_assert(!has);
@@ -1464,7 +1490,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
         {
             auto const& curr_para{get<N>(paras)};
             using curr_para_t = ::std::remove_cvref_t<decltype(curr_para)>;
-            if constexpr(has_curr_feature_parameter_controllable_allow_multi_table<curr_para_t>) { return curr_para.controllable_allow_multi_table; }
+            if constexpr(has_curr_feature_parameter_disable_multiple_tables<curr_para_t> &&
+                         has_curr_feature_parameter_controllable_allow_multi_table<curr_para_t>)
+            {
+                return curr_para.disable_multiple_tables || curr_para.controllable_allow_multi_table;
+            }
+            else if constexpr(has_curr_feature_parameter_disable_multiple_tables<curr_para_t>) { return curr_para.disable_multiple_tables; }
+            else if constexpr(has_curr_feature_parameter_controllable_allow_multi_table<curr_para_t>) { return curr_para.controllable_allow_multi_table; }
             else
             {
                 return get_feature_parameter_controllable_allow_multi_table_from_paras_parameters_impl<N + 1uz>(paras);

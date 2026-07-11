@@ -1,6 +1,5 @@
-    // Control-flow opcode validation cases for the WebAssembly 1.0/MVP primary opcode set.
-    // This file is included directly inside the validator switch, so proposal/prefixed control opcodes must extend the
-    // dispatch layer and LLVM control-flow lowering at the same time.
+    // Structured-control validation for the WebAssembly primary opcode set. Block signatures retain the complete
+    // parameter/result tuples resolved from inline blocktypes or signed-s33 type indices.
 
 case wasm1_code::unreachable:
 {
@@ -83,77 +82,15 @@ case wasm1_code::block:
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::end_of_file);
     }
 
-    // block blocktype ...
-    // [     safe    ] unsafe (could be the section_end)
-    //       ^^ op_begin
+    runtime_block_signature_type block_signature{};
+    parse_validation_block_signature(op_begin, block_signature);
 
-    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte blocktype_byte;  // No initialization necessary
-    ::std::memcpy(::std::addressof(blocktype_byte), code_curr, sizeof(blocktype_byte));
-
-    ++code_curr;
-
-    // block blocktype ...
-    // [     safe    ] unsafe (could be the section_end)
-    //                 ^^ op_begin
-
-    // WebAssembly 1.0/MVP blocktype is either 0x40 (empty) or one scalar value type.  Multi-value blocktypes can also
-    // encode a type index with parameters/results; when enabling that proposal, update this parser, runtime block-result
-    // storage, branch label arity validation, and LLVM PHI/result lowering together.
-    runtime_block_result_type block_result{};
-
-    switch(blocktype_byte)
-    {
-        case 0x40u:
-        {
-            // empty result
-            block_result = {};
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::i32):
-        {
-            block_result.begin = i32_result_arr;
-            block_result.end = i32_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::i64):
-        {
-            block_result.begin = i64_result_arr;
-            block_result.end = i64_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::f32):
-        {
-            block_result.begin = f32_result_arr;
-            block_result.end = f32_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::f64):
-        {
-            block_result.begin = f64_result_arr;
-            block_result.end = f64_result_arr + 1u;
-            break;
-        }
-        [[unlikely]] default:
-        {
-            // Unknown blocktype encoding; treat as invalid code.
-            err.err_curr = op_begin;
-            err.err_selectable.u8 = blocktype_byte;
-            err.err_code = ::uwvm2::validation::error::code_validation_error_code::illegal_block_type;
-            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-        }
-    }
-
-    control_flow_stack.push_back(
-        {.result = block_result, .operand_stack_base = operand_stack.size(), .type = block_type::block, .polymorphic_base = is_polymorphic});
-
-    // Stack-polymorphism is scoped to the current control frame only.
-    // Entering a nested frame starts it in reachable mode for validation.
-    is_polymorphic = false;
+    enter_control_frame(op_begin, u8"block", block_type::block, block_signature);
 
     if(emit_llvm_jit_active)
     {
         llvm_jit_instruction_emitted_inline = true;
-        if(!try_emit_runtime_local_func_llvm_jit_block(llvm_jit_emit_state, block_result)) [[unlikely]] { disable_inline_llvm_jit_emission(); }
+        if(!try_emit_runtime_local_func_llvm_jit_block(llvm_jit_emit_state, block_signature)) [[unlikely]] { disable_inline_llvm_jit_emission(); }
     }
 
     break;
@@ -183,79 +120,15 @@ case wasm1_code::loop:
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::end_of_file);
     }
 
-    // loop blocktype ...
-    // [    safe    ] unsafe (could be the section_end)
-    //      ^^ code_curr
+    runtime_block_signature_type block_signature{};
+    parse_validation_block_signature(op_begin, block_signature);
 
-    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte blocktype_byte;  // No initialization necessary
-    ::std::memcpy(::std::addressof(blocktype_byte), code_curr, sizeof(blocktype_byte));
-
-    ++code_curr;
-
-    // loop blocktype ...
-    // [    safe    ] unsafe (could be the section_end)
-    //                ^^ code_curr
-
-    // WebAssembly 1.0/MVP blocktype is either 0x40 (empty) or one scalar value type.  Multi-value blocktypes can also
-    // encode a type index with parameters/results; when enabling that proposal, update this parser, runtime block-result
-    // storage, branch label arity validation, and LLVM loop-entry/latch lowering together.
-    runtime_block_result_type block_result{};
-
-    switch(blocktype_byte)
-    {
-        case 0x40u:
-        {
-            // empty result
-            block_result = {};
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::i32):
-        {
-            block_result.begin = i32_result_arr;
-            block_result.end = i32_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::i64):
-        {
-            block_result.begin = i64_result_arr;
-            block_result.end = i64_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::f32):
-        {
-            block_result.begin = f32_result_arr;
-            block_result.end = f32_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::f64):
-        {
-            block_result.begin = f64_result_arr;
-            block_result.end = f64_result_arr + 1u;
-            break;
-        }
-        [[unlikely]] default:
-        {
-            err.err_curr = op_begin;
-            err.err_selectable.u8 = blocktype_byte;
-            err.err_code = ::uwvm2::validation::error::code_validation_error_code::illegal_block_type;
-            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-        }
-    }
-
-    control_flow_stack.push_back({.result = block_result,
-                                  .operand_stack_base = operand_stack.size(),
-                                  .type = block_type::loop,
-                                  .polymorphic_base = is_polymorphic,
-                                  .then_polymorphic_end = false});
-
-    // Stack-polymorphism is scoped to the current control frame only.
-    // Entering a nested frame starts it in reachable mode for validation.
-    is_polymorphic = false;
+    enter_control_frame(op_begin, u8"loop", block_type::loop, block_signature);
 
     if(emit_llvm_jit_active)
     {
         llvm_jit_instruction_emitted_inline = true;
-        if(!try_emit_runtime_local_func_llvm_jit_loop(llvm_jit_emit_state, block_result)) [[unlikely]] { disable_inline_llvm_jit_emission(); }
+        if(!try_emit_runtime_local_func_llvm_jit_loop(llvm_jit_emit_state, block_signature)) [[unlikely]] { disable_inline_llvm_jit_emission(); }
     }
 
     break;
@@ -285,66 +158,18 @@ case wasm1_code::if_:
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::end_of_file);
     }
 
-    // if blocktype ...
-    // [   safe   ] unsafe (could be the section_end)
-    //    ^^ code_curr
+    runtime_block_signature_type block_signature{};
+    parse_validation_block_signature(op_begin, block_signature);
 
-    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte blocktype_byte;  // No initialization necessary
-    ::std::memcpy(::std::addressof(blocktype_byte), code_curr, sizeof(blocktype_byte));
-
-    ++code_curr;
-
-    // if blocktype ...
-    // [   safe   ] unsafe (could be the section_end)
-    //              ^^ code_curr
-
-    // WebAssembly 1.0/MVP blocktype is either 0x40 (empty) or one scalar value type.  Multi-value blocktypes can also
-    // encode a type index with parameters/results; when enabling that proposal, update this parser, if/else result
-    // merging, branch arity validation, and LLVM PHI/result lowering together.
-    runtime_block_result_type block_result{};
-
-    switch(blocktype_byte)
+    // Stack effect before entering the then branch: (params..., i32 cond) -> (params...).
+    auto const param_count{get_runtime_block_result_count(block_signature.params)};
+    constexpr auto max_operand_stack_requirement{::std::numeric_limits<::std::size_t>::max()};
+    auto const required_stack_size_overflows{param_count == max_operand_stack_requirement};
+    auto const required_stack_size{required_stack_size_overflows ? max_operand_stack_requirement : param_count + 1uz};
+    if(!is_polymorphic && (required_stack_size_overflows || concrete_operand_count() < required_stack_size)) [[unlikely]]
     {
-        case 0x40u:
-        {
-            block_result = {};
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::i32):
-        {
-            block_result.begin = i32_result_arr;
-            block_result.end = i32_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::i64):
-        {
-            block_result.begin = i64_result_arr;
-            block_result.end = i64_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::f32):
-        {
-            block_result.begin = f32_result_arr;
-            block_result.end = f32_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::f64):
-        {
-            block_result.begin = f64_result_arr;
-            block_result.end = f64_result_arr + 1u;
-            break;
-        }
-        [[unlikely]] default:
-        {
-            err.err_curr = op_begin;
-            err.err_selectable.u8 = blocktype_byte;
-            err.err_code = ::uwvm2::validation::error::code_validation_error_code::illegal_block_type;
-            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-        }
+        report_operand_stack_underflow(op_begin, u8"if", required_stack_size);
     }
-
-    // Stack effect: (i32 cond) -> () before entering the then branch.
-    if(!is_polymorphic && concrete_operand_count() == 0uz) [[unlikely]] { report_operand_stack_underflow(op_begin, u8"if", 1uz); }
 
     if(auto const cond{try_pop_concrete_operand()}; cond.from_stack && cond.type != curr_operand_stack_value_type::i32) [[unlikely]]
     {
@@ -354,17 +179,12 @@ case wasm1_code::if_:
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
     }
 
-    control_flow_stack.push_back(
-        {.result = block_result, .operand_stack_base = operand_stack.size(), .type = block_type::if_, .polymorphic_base = is_polymorphic});
-
-    // As in the spec's push_ctrl algorithm, the then-frame starts reachable even when the
-    // surrounding frame is polymorphic.
-    is_polymorphic = false;
+    enter_control_frame(op_begin, u8"if", block_type::if_, block_signature);
 
     if(emit_llvm_jit_active)
     {
         llvm_jit_instruction_emitted_inline = true;
-        if(!try_emit_runtime_local_func_llvm_jit_if(llvm_jit_emit_state, block_result)) [[unlikely]] { disable_inline_llvm_jit_emission(); }
+        if(!try_emit_runtime_local_func_llvm_jit_if(llvm_jit_emit_state, block_signature)) [[unlikely]] { disable_inline_llvm_jit_emission(); }
     }
 
     break;
@@ -399,7 +219,7 @@ case wasm1_code::else_:
     // Validate the then-branch result before switching to else.
     // Match `end`: polymorphic mode only relaxes underflow, but still rejects extra values
     // and still checks types when enough concrete values are present.
-    auto const expected_count{static_cast<::std::size_t>(if_frame.result.end - if_frame.result.begin)};
+    auto const expected_count{get_runtime_block_result_count(if_frame.result)};
     auto const base{if_frame.operand_stack_base};
     auto const stack_size{operand_stack.size()};
     auto const actual_count{stack_size >= base ? stack_size - base : 0uz};
@@ -434,9 +254,10 @@ case wasm1_code::else_:
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
     }
 
-    if(expected_count != 0uz && actual_count >= expected_count)
+    if(expected_count != 0uz)
     {
-        for(::std::size_t i{}; i != expected_count; ++i)
+        auto const concrete_to_check{actual_count < expected_count ? actual_count : expected_count};
+        for(::std::size_t i{}; i != concrete_to_check; ++i)
         {
             auto const expected_type{if_frame.result.begin[expected_count - 1uz - i]};
             auto const actual_type{operand_stack[stack_size - 1uz - i].type};
@@ -456,8 +277,9 @@ case wasm1_code::else_:
     // Record then-branch reachability to merge with else at `end`.
     if_frame.then_polymorphic_end = is_polymorphic;
 
-    // Start else branch with the operand stack at if-entry height.
+    // Start else with the original block parameters above the outer stack height.
     operand_stack_truncate_to(if_frame.operand_stack_base);
+    operand_stack_push_types(if_frame.params);
     // As in the spec's push_ctrl(else, ...), the else-frame itself starts reachable.
     is_polymorphic = false;
 
@@ -539,7 +361,7 @@ case wasm1_code::end:
         }
     }
 
-    auto const expected_count{static_cast<::std::size_t>(frame.result.end - frame.result.begin)};
+    auto const expected_count{get_runtime_block_result_count(frame.result)};
 
     // Special rule: an `if` with a non-empty result type must have an `else` branch, otherwise the
     // false branch would not produce the required values.
@@ -591,9 +413,10 @@ case wasm1_code::end:
 
     // If the stack has enough values to satisfy the expected results, check their types even in
     // polymorphic (unreachable) mode; only the underflow aspect is suppressed.
-    if(expected_count != 0uz && actual_count >= expected_count)
+    if(expected_count != 0uz)
     {
-        for(::std::size_t i{}; i != expected_count; ++i)
+        auto const concrete_to_check{actual_count < expected_count ? actual_count : expected_count};
+        for(::std::size_t i{}; i != concrete_to_check; ++i)
         {
             auto const expected_type{frame.result.begin[expected_count - 1uz - i]};
             auto const actual_type{operand_stack[stack_size - 1uz - i].type};

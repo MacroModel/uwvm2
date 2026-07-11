@@ -37,7 +37,7 @@ namespace
         para.disable_reference_types = !reference_types;
         para.disable_bulk_memory = !bulk_memory;
         para.controllable_allow_multi_result_vector = para.disable_multi_value;
-        para.controllable_allow_multi_table = para.disable_reference_types;
+        para.controllable_allow_multi_table = false;
         return out;
     }
 
@@ -106,6 +106,25 @@ namespace
         op(c, wasm_op::end);
 
         (void)mb.add_func(::std::move(ty), ::std::move(fb));
+        return mb.build();
+    }
+
+    [[nodiscard]] byte_vec build_export_only_declared_ref_func_module()
+    {
+        module_builder mb{};
+
+        auto op = [&](byte_vec& c, wasm_op o) { append_u8(c, u8(o)); };
+        auto op1p1 = [&](byte_vec& c, wasm1p1_op o) { append_u8(c, u8(o)); };
+
+        func_type ty{{}, {k_ref_funcref}};
+        func_body fb{};
+        auto& c = fb.code;
+        op1p1(c, wasm1p1_op::ref_func);
+        append_u32_leb(c, 0u);
+        op(c, wasm_op::end);
+
+        auto const function_index{mb.add_func(::std::move(ty), ::std::move(fb))};
+        mb.add_export_func(function_index, "declared_only_by_export");
         return mb.build();
     }
 
@@ -398,7 +417,7 @@ namespace
     template <optable::uwvm_interpreter_translate_option_t Opt>
     [[nodiscard]] int run_common_wasm1p1_error_suite_for_opt() noexcept
     {
-        auto all_features = make_wasm1p1_feature_parameter();
+        auto all_features = make_wasm2_feature_parameter();
 
         auto ref_disabled_features = all_features;
         auto sign_disabled_features = all_features;
@@ -486,6 +505,10 @@ namespace
                                                                   errc::wasm1p1_feature_required) == 0);
         UWVM2TEST_REQUIRE(compile_expect_error<Opt>(full::build_invalid_memory_init_data_index_module(),
                                                     u8"uwvm2test_strict_full_memory_init_data",
+                                                    all_features,
+                                                    errc::illegal_data_index) == 0);
+        UWVM2TEST_REQUIRE(compile_expect_error<Opt>(full::build_invalid_memory_init_missing_data_count_module(),
+                                                    u8"uwvm2test_strict_full_memory_init_missing_data_count",
                                                     all_features,
                                                     errc::illegal_data_index) == 0);
         UWVM2TEST_REQUIRE(compile_expect_error<Opt>(full::build_invalid_memory_copy_memidx_module(),
@@ -617,6 +640,16 @@ namespace
     {
         auto select_features = make_alignment_feature_parameter(false, false, true);
         UWVM2TEST_REQUIRE(compile_select_empty_and_run<Opt>(build_select_t_empty_result_types_module(), select_features) == 0);
+
+        auto wasm2_features = make_wasm2_feature_parameter();
+        UWVM2TEST_REQUIRE(compile_expect_error<Opt>(build_select_t_empty_result_types_module(),
+                                                    u8"uwvm2test_wasm2_select_t_empty",
+                                                    wasm2_features,
+                                                    errc::invalid_const_immediate) == 0);
+        UWVM2TEST_REQUIRE(compile_expect_error<Opt>(build_export_only_declared_ref_func_module(),
+                                                    u8"uwvm2test_wasm2_export_only_declared_ref_func",
+                                                    wasm2_features,
+                                                    errc::ok) == 0);
 
         auto table_fill_features = make_alignment_feature_parameter(true, false, true);
         UWVM2TEST_REQUIRE(compile_table_fill_bulk_only<Opt>(build_table_fill_bulk_feature_module(), table_fill_features) == 0);

@@ -50,10 +50,10 @@ namespace
         0x47u, 0x04u, 0x40u, 0x00u, 0x0bu, 0x0bu};
 
     inline constexpr ::std::string_view wasm1p1_scalar_runtime_args{
-        "--runtime-llvm-jit-cache-path disable --wasm-feature-wasm1.1"};
+        "--runtime-llvm-jit-cache-path disable --wasm-feature-wasm2"};
 
     inline constexpr ::std::string_view wasm1p1_all_runtime_args{
-        "--runtime-llvm-jit-cache-path disable --wasm-feature-wasm1.1"};
+        "--runtime-llvm-jit-cache-path disable --wasm-feature-wasm2"};
 
     // WebAssembly 1.1 scalar edge fixture.  This covers every sign-extension
     // opcode and every saturating float-to-int opcode at clamp/NaN boundaries.
@@ -129,9 +129,9 @@ namespace
         0x41u, 0x05u, 0xfdu, 0x11u, 0xfdu, 0xaeu, 0x01u, 0xfdu, 0x37u, 0xfdu, 0xa3u, 0x01u,
         0x20u, 0x00u, 0x41u, 0x08u, 0x46u, 0x71u, 0x45u, 0x04u, 0x40u, 0x00u, 0x0bu, 0x0bu};
 
-    // WebAssembly 1.1 multi-value fixture.  The helper returns two i32s and
-    // `_start` consumes them.  This intentionally exercises the LLVM raw-entry
-    // interpreter fallback path because the current typed LLVM ABI is scalar.
+    // WebAssembly 1.1 multi-value fixture. The helper returns two i32s and
+    // `_start` consumes them through the typed LLVM tuple-result ABI; the raw
+    // entry wrapper packs the same aggregate into the stable result buffer.
     inline constexpr ::std::array<unsigned char, 59uz> wasm1p1_multivalue_start_wasm{
         0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u, 0x01u, 0x09u, 0x02u, 0x60u,
         0x00u, 0x02u, 0x7fu, 0x7fu, 0x60u, 0x00u, 0x00u, 0x03u, 0x03u, 0x02u, 0x00u, 0x01u,
@@ -139,8 +139,18 @@ namespace
         0x0au, 0x15u, 0x02u, 0x06u, 0x00u, 0x41u, 0x0au, 0x41u, 0x20u, 0x0bu, 0x0cu, 0x00u,
         0x10u, 0x00u, 0x6au, 0x41u, 0x2au, 0x47u, 0x04u, 0x40u, 0x00u, 0x0bu, 0x0bu};
 
+    // WebAssembly 2.0 multiple-tables fixture.  The indirect call explicitly selects table 1 and therefore exercises
+    // both the parser/validator feature policy and the selected-table LLVM/tiered runtime path.
+    inline constexpr ::std::array<unsigned char, 78uz> wasm2_multiple_tables_start_wasm{
+        0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u, 0x01u, 0x08u, 0x02u, 0x60u, 0x00u,
+        0x01u, 0x7fu, 0x60u, 0x00u, 0x00u, 0x03u, 0x03u, 0x02u, 0x00u, 0x01u, 0x04u, 0x07u, 0x02u,
+        0x70u, 0x00u, 0x01u, 0x70u, 0x00u, 0x01u, 0x07u, 0x0au, 0x01u, 0x06u, 0x5fu, 0x73u, 0x74u,
+        0x61u, 0x72u, 0x74u, 0x00u, 0x01u, 0x09u, 0x09u, 0x01u, 0x02u, 0x01u, 0x41u, 0x00u, 0x0bu,
+        0x00u, 0x01u, 0x00u, 0x0au, 0x15u, 0x02u, 0x04u, 0x00u, 0x41u, 0x2au, 0x0bu, 0x0eu, 0x00u,
+        0x41u, 0x00u, 0x11u, 0x00u, 0x01u, 0x41u, 0x2au, 0x47u, 0x04u, 0x40u, 0x00u, 0x0bu, 0x0bu};
+
     inline constexpr ::std::string_view wasm1p1_multivalue_runtime_args{
-        "--runtime-llvm-jit-cache-path disable --wasm-feature-wasm1.1"};
+        "--runtime-llvm-jit-cache-path disable --wasm-feature-wasm2"};
 
     // Generated from:
     // (module
@@ -181,8 +191,9 @@ namespace
     {
         using Wasm1 = ::uwvm2::parser::wasm::standard::wasm1::features::wasm1;
         using Wasm1P1 = ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm1p1;
+        using Wasm2 = ::uwvm2::parser::wasm::standard::wasm2::features::wasm2;
         using module_storage_t =
-            ::uwvm2::parser::wasm::binfmt::ver1::wasm_binfmt_ver1_module_extensible_storage_t<Wasm1, Wasm1P1>;
+            ::uwvm2::parser::wasm::binfmt::ver1::wasm_binfmt_ver1_module_extensible_storage_t<Wasm1, Wasm1P1, Wasm2>;
 
         [[maybe_unused]] module_storage_t module_storage{};
         [[maybe_unused]] bool ok{
@@ -491,20 +502,6 @@ namespace
         return run_command(command, "full llvm-jit");
     }
 
-    [[nodiscard]] bool run_full_mode_expect_failure(::std::filesystem::path const& uwvm_path,
-                                                    ::std::filesystem::path const& wasm_path,
-                                                    char const* label)
-    {
-        auto const command{quote_argument(uwvm_path) + " -Rcm full -Rcc jit --run " + quote_argument(wasm_path)};
-        ::std::cout << "[llvm_jit] " << command << '\n';
-
-        auto const status{run_system_command(command)};
-        if(status != 0) [[likely]] { return true; }
-
-        ::std::cerr << "uwvm unexpectedly accepted feature-gated wasm1p1 fixture without flags for " << label << '\n';
-        return false;
-    }
-
     [[nodiscard]] bool run_lazy_mode(::std::filesystem::path const& uwvm_path,
                                      ::std::filesystem::path const& wasm_path,
                                      ::std::string_view extra_args = {})
@@ -561,14 +558,10 @@ namespace
                                    ::std::filesystem::path const& executable_dir,
                                    ::std::string_view file_name,
                                    ::std::array<unsigned char, N> const& wasm_bytes,
-                                   ::std::string_view extra_args = {},
-                                   bool expect_without_extra_args_to_fail = false)
+                                   ::std::string_view extra_args = {})
     {
         auto const wasm_path{llvm_jit_fixture_path(executable_dir, file_name)};
         if(!write_fixture(wasm_path, wasm_bytes)) [[unlikely]] { return false; }
-
-        auto const label{::std::string{file_name}};
-        if(expect_without_extra_args_to_fail && !run_full_mode_expect_failure(uwvm_path, wasm_path, label.c_str())) [[unlikely]] { return false; }
 
         if(!run_full_mode(uwvm_path, wasm_path, extra_args)) [[unlikely]] { return false; }
         if(!run_aot_shortcut(uwvm_path, wasm_path, extra_args)) [[unlikely]] { return false; }
@@ -649,8 +642,7 @@ int main(int argc, char** argv)
                     executable_dir,
                     "wasm1p1_scalar_start.wasm",
                     wasm1p1_scalar_start_wasm,
-                    wasm1p1_scalar_runtime_args,
-                    true)) [[unlikely]]
+                    wasm1p1_scalar_runtime_args)) [[unlikely]]
     {
         return 1;
     }
@@ -658,8 +650,7 @@ int main(int argc, char** argv)
                     executable_dir,
                     "wasm1p1_scalar_edges_start.wasm",
                     wasm1p1_scalar_edges_start_wasm,
-                    wasm1p1_scalar_runtime_args,
-                    true)) [[unlikely]]
+                    wasm1p1_scalar_runtime_args)) [[unlikely]]
     {
         return 1;
     }
@@ -667,8 +658,7 @@ int main(int argc, char** argv)
                     executable_dir,
                     "wasm1p1_bulk_memory_start.wasm",
                     wasm1p1_bulk_memory_start_wasm,
-                    wasm1p1_all_runtime_args,
-                    true)) [[unlikely]]
+                    wasm1p1_all_runtime_args)) [[unlikely]]
     {
         return 1;
     }
@@ -676,8 +666,7 @@ int main(int argc, char** argv)
                     executable_dir,
                     "wasm1p1_table_ref_bulk_start.wasm",
                     wasm1p1_table_ref_bulk_start_wasm,
-                    wasm1p1_all_runtime_args,
-                    true)) [[unlikely]]
+                    wasm1p1_all_runtime_args)) [[unlikely]]
     {
         return 1;
     }
@@ -685,8 +674,7 @@ int main(int argc, char** argv)
                     executable_dir,
                     "wasm1p1_simd_basic_start.wasm",
                     wasm1p1_simd_basic_start_wasm,
-                    wasm1p1_all_runtime_args,
-                    true)) [[unlikely]]
+                    wasm1p1_all_runtime_args)) [[unlikely]]
     {
         return 1;
     }
@@ -694,8 +682,15 @@ int main(int argc, char** argv)
                     executable_dir,
                     "wasm1p1_multivalue_start.wasm",
                     wasm1p1_multivalue_start_wasm,
-                    wasm1p1_multivalue_runtime_args,
-                    true)) [[unlikely]]
+                    wasm1p1_multivalue_runtime_args)) [[unlikely]]
+    {
+        return 1;
+    }
+    if(!run_fixture(uwvm_path,
+                    executable_dir,
+                    "wasm2_multiple_tables_start.wasm",
+                    wasm2_multiple_tables_start_wasm,
+                    wasm1p1_all_runtime_args)) [[unlikely]]
     {
         return 1;
     }
@@ -703,7 +698,9 @@ int main(int argc, char** argv)
     for(auto const file_name: {::std::string_view{"wasm1p1_scalar_edges_start.wasm"},
                                ::std::string_view{"wasm1p1_bulk_memory_start.wasm"},
                                ::std::string_view{"wasm1p1_table_ref_bulk_start.wasm"},
-                               ::std::string_view{"wasm1p1_simd_basic_start.wasm"}})
+                               ::std::string_view{"wasm1p1_simd_basic_start.wasm"},
+                               ::std::string_view{"wasm1p1_multivalue_start.wasm"},
+                               ::std::string_view{"wasm2_multiple_tables_start.wasm"}})
     {
         if(!run_wasm1p1_tiered_matrix(uwvm_path,
                                       llvm_jit_fixture_path(executable_dir, file_name),

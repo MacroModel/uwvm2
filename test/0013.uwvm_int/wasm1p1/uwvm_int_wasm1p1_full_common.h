@@ -1374,6 +1374,23 @@ namespace uwvm2test::uwvm_int_wasm1p1_full
         return finish_single_func_module(::std::move(mb), ::std::move(ty), ::std::move(fb));
     }
 
+    [[nodiscard]] inline byte_vec build_invalid_memory_init_missing_data_count_module()
+    {
+        module_builder mb{};
+        mb.has_memory = true;
+        mb.memory_min = 1u;
+        mb.passive_datas.push_back(strict::passive_data_segment{.bytes = byte_vec{::std::byte{0x2a}}});
+        mb.emit_data_count_section = false;
+        func_type ty{{}, {}};
+        func_body fb{};
+        append_i32_triple(fb.code, 0, 0, 1);
+        append_numeric_op(fb.code, wasm1p1_numeric_op::memory_init);
+        strict::append_u32_leb(fb.code, 0u);
+        strict::append_u8(fb.code, 0u);
+        append_op(fb.code, wasm_op::end);
+        return finish_single_func_module(::std::move(mb), ::std::move(ty), ::std::move(fb));
+    }
+
     [[nodiscard]] inline byte_vec build_invalid_memory_copy_memidx_module()
     {
         module_builder mb{};

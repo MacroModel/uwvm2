@@ -43,7 +43,7 @@ namespace
         para.disable_reference_types = !reference_types;
         para.disable_bulk_memory = !bulk_memory;
         para.controllable_allow_multi_result_vector = para.disable_multi_value;
-        para.controllable_allow_multi_table = para.disable_reference_types;
+        para.controllable_allow_multi_table = false;
         return out;
     }
 
@@ -426,24 +426,35 @@ namespace
     }
 
     template <optable::uwvm_interpreter_translate_option_t Opt>
-    [[nodiscard]] int compile_select_empty_and_run(lazy_validation_mode_t validation_mode)
+    [[nodiscard]] int compile_select_empty_expect_failure(lazy_validation_mode_t validation_mode)
     {
         auto const module_name{validation_mode == lazy_validation_mode_t::validate_on_lazy_compile
                                    ? literal_view(u8"uwvm2test_lazy_wasm1p1_select_validate")
                                    : literal_view(u8"uwvm2test_lazy_wasm1p1_select_assume")};
-        auto features{make_alignment_feature_parameter(false, false, true)};
+        auto features{make_alignment_feature_parameter(false, true, true)};
         auto wasm{build_select_t_empty_result_types_module()};
         auto prep{prepare_runtime_from_wasm(wasm, module_name, {}, features)};
         UWVM2TEST_REQUIRE(prep.mod != nullptr);
 
         auto storage{initialize_lazy_storage(*prep.mod, small_code_size_split_config())};
-        UWVM2TEST_REQUIRE(compile_primary_lazy_function<Opt>(prep, storage, module_name, validation_mode) == 0);
+        UWVM2TEST_REQUIRE(storage.functions.size() == 1uz);
+        auto const& fn{storage.functions.index_unchecked(0)};
+        UWVM2TEST_REQUIRE(fn.primary_cu_index != SIZE_MAX);
 
-        auto rr{run_compiled_local_func<Opt>(storage,
-                                             0uz,
-                                             prep.mod->local_defined_function_vec_storage.index_unchecked(0),
-                                             strict::pack_no_params())};
-        UWVM2TEST_REQUIRE(load_i32(rr.results) == 7);
+        auto options{make_lazy_options(module_name, validation_mode)};
+        ::uwvm2::validation::error::code_validation_error_impl err{};
+        try
+        {
+            compile_lazy_cu<Opt>(*prep.mod, storage, options, fn.primary_cu_index, err);
+        }
+        catch(::fast_io::error const&)
+        {}
+        catch(...)
+        {
+            return strict::fail(__LINE__, "unexpected exception type");
+        }
+
+        UWVM2TEST_REQUIRE(err.err_code == errc::invalid_const_immediate);
         return 0;
     }
 
@@ -484,8 +495,8 @@ namespace
         configure_unexpected_traps();
 
         constexpr optable::uwvm_interpreter_translate_option_t opt{.is_tail_call = false};
-        UWVM2TEST_REQUIRE(compile_select_empty_and_run<opt>(lazy_validation_mode_t::validate_on_lazy_compile) == 0);
-        UWVM2TEST_REQUIRE(compile_select_empty_and_run<opt>(lazy_validation_mode_t::assume_full_code_verified) == 0);
+        UWVM2TEST_REQUIRE(compile_select_empty_expect_failure<opt>(lazy_validation_mode_t::validate_on_lazy_compile) == 0);
+        UWVM2TEST_REQUIRE(compile_select_empty_expect_failure<opt>(lazy_validation_mode_t::assume_full_code_verified) == 0);
         UWVM2TEST_REQUIRE(compile_table_fill_bulk_only<opt>(lazy_validation_mode_t::validate_on_lazy_compile) == 0);
         UWVM2TEST_REQUIRE(compile_table_fill_bulk_only<opt>(lazy_validation_mode_t::assume_full_code_verified) == 0);
         UWVM2TEST_REQUIRE(compile_ref_is_null_unknown_operand<opt>(lazy_validation_mode_t::validate_on_lazy_compile) == 0);

@@ -1,4 +1,6 @@
+#include <algorithm>
 #include <array>
+#include <cstdint>
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
@@ -14,12 +16,21 @@ namespace
     {
         char const* name;
         char const* wat_name;
+        char const* expected_trap_kind;
+        ::std::array<::std::size_t, 4uz> expected_func_indices;
+        ::std::size_t expected_func_count;
     };
 
     struct mode_t
     {
-        char const* name;
-        char const* args;
+        ::std::string name;
+        ::std::string args;
+    };
+
+    struct base_mode_t
+    {
+        ::std::string_view name;
+        ::std::string_view args;
     };
 
     struct run_result_t
@@ -30,40 +41,159 @@ namespace
         ::std::filesystem::path output_path{};
     };
 
+    inline constexpr ::std::uint_least64_t default_policy_seed{0x9e3779b97f4a7c15ULL};
+    inline constexpr ::std::size_t seeded_policy_mode_count{10uz};
+    inline constexpr ::std::array<::std::size_t, 4uz> standard_stack{0uz, 1uz, 2uz, 3uz};
+    inline constexpr ::std::array<::std::size_t, 4uz> shifted_stack{1uz, 2uz, 3uz, 4uz};
+    inline constexpr ::std::array<::std::size_t, 4uz> short_stack{0uz, 1uz, 2uz, 0uz};
+    inline constexpr ::std::array<::std::size_t, 4uz> shifted_short_stack{1uz, 2uz, 3uz, 0uz};
+
+    // OOM is deliberately absent: allocation failure is outside the Wasm trap model exercised by this matrix.
     inline constexpr ::std::array fixtures{
-        fixture_t{"oob_load",                        "oob_load.wat"                       },
-        fixture_t{"oob_store",                       "oob_store.wat"                      },
-        fixture_t{"oob_load8_s",                     "oob_load8_s.wat"                    },
-        fixture_t{"oob_store64",                     "oob_store64.wat"                    },
-        fixture_t{"divide_zero",                     "divide_zero.wat"                    },
-        fixture_t{"i32_divide_zero_u",               "i32_divide_zero_u.wat"              },
-        fixture_t{"i64_divide_zero",                 "i64_divide_zero.wat"                },
-        fixture_t{"integer_overflow",                "integer_overflow.wat"               },
-        fixture_t{"i64_integer_overflow",            "i64_integer_overflow.wat"           },
-        fixture_t{"invalid_conversion",              "invalid_conversion.wat"             },
-        fixture_t{"invalid_conversion_u32_nan",      "invalid_conversion_u32_nan.wat"     },
-        fixture_t{"invalid_conversion_f64_i64",      "invalid_conversion_f64_i64.wat"     },
-        fixture_t{"invalid_conversion_f32_overflow", "invalid_conversion_f32_overflow.wat"},
-        fixture_t{"invalid_conversion_f64_overflow", "invalid_conversion_f64_overflow.wat"},
-        fixture_t{"invalid_conversion_u64_overflow", "invalid_conversion_u64_overflow.wat"},
-        fixture_t{"unreachable",                     "unreachable.wat"                    },
-        fixture_t{"call_indirect_null",              "call_indirect_null.wat"             },
-        fixture_t{"call_indirect_oob",               "call_indirect_oob.wat"              },
-        fixture_t{"call_indirect_type",              "call_indirect_type.wat"             },
+        fixture_t{"oob_load",                        "oob_load.wat",                        "memory access out of bounds",               standard_stack,      4uz},
+        fixture_t{"oob_store",                       "oob_store.wat",                       "memory access out of bounds",               standard_stack,      4uz},
+        fixture_t{"oob_load8_s",                     "oob_load8_s.wat",                     "memory access out of bounds",               standard_stack,      4uz},
+        fixture_t{"oob_store64",                     "oob_store64.wat",                     "memory access out of bounds",               standard_stack,      4uz},
+        fixture_t{"divide_zero",                     "divide_zero.wat",                     "integer divide by zero",                    standard_stack,      4uz},
+        fixture_t{"i32_divide_zero_u",               "i32_divide_zero_u.wat",               "integer divide by zero",                    standard_stack,      4uz},
+        fixture_t{"i64_divide_zero",                 "i64_divide_zero.wat",                 "integer divide by zero",                    standard_stack,      4uz},
+        fixture_t{"integer_overflow",                "integer_overflow.wat",                "integer overflow",                          standard_stack,      4uz},
+        fixture_t{"i64_integer_overflow",            "i64_integer_overflow.wat",            "integer overflow",                          standard_stack,      4uz},
+        fixture_t{"invalid_conversion",              "invalid_conversion.wat",              "invalid conversion to integer",             standard_stack,      4uz},
+        fixture_t{"invalid_conversion_u32_nan",      "invalid_conversion_u32_nan.wat",      "invalid conversion to integer",             standard_stack,      4uz},
+        fixture_t{"invalid_conversion_f64_i64",      "invalid_conversion_f64_i64.wat",      "invalid conversion to integer",             standard_stack,      4uz},
+        fixture_t{"invalid_conversion_f32_overflow", "invalid_conversion_f32_overflow.wat", "integer overflow",                          standard_stack,      4uz},
+        fixture_t{"invalid_conversion_f64_overflow", "invalid_conversion_f64_overflow.wat", "integer overflow",                          standard_stack,      4uz},
+        fixture_t{"invalid_conversion_u64_overflow", "invalid_conversion_u64_overflow.wat", "integer overflow",                          standard_stack,      4uz},
+        fixture_t{"unreachable",                     "unreachable.wat",                     "catch unreachable",                         standard_stack,      4uz},
+        fixture_t{"call_indirect_null",              "call_indirect_null.wat",              "call_indirect: uninitialized element",       standard_stack,      4uz},
+        fixture_t{"call_indirect_oob",               "call_indirect_oob.wat",               "call_indirect: table index out of bounds",   standard_stack,      4uz},
+        fixture_t{"call_indirect_type",              "call_indirect_type.wat",              "call_indirect: signature mismatch",          shifted_stack,       4uz},
+        fixture_t{"wasm2_memory_init_oob",           "wasm2_memory_init_oob.wat",           "memory access out of bounds",               short_stack,         3uz},
+        fixture_t{"wasm2_memory_copy_oob",           "wasm2_memory_copy_oob.wat",           "memory access out of bounds",               short_stack,         3uz},
+        fixture_t{"wasm2_table_get_oob",             "wasm2_table_get_oob.wat",             "table access out of bounds",                short_stack,         3uz},
+        fixture_t{"wasm2_table_init_oob",            "wasm2_table_init_oob.wat",            "table access out of bounds",                shifted_short_stack, 3uz},
+        fixture_t{"wasm2_table_copy_oob",            "wasm2_table_copy_oob.wat",            "table access out of bounds",                short_stack,         3uz},
     };
 
-    inline constexpr ::std::array modes{
-        mode_t{"full",                "-Rcm full -Rcc jit"                         },
-        mode_t{"aot",                 "-Raot"                                      },
-        mode_t{"lazy",                "-Rjit"                                      },
-        mode_t{"lazy_verification",   "-Rcm lazy+verification -Rcc jit"            },
-        mode_t{"tiered",              "-Rtiered"                                   },
-        mode_t{"tiered_no_t0",        "-Rtiered -Rtiered-disable-t0"               },
-        mode_t{"tiered_no_t2",        "-Rtiered -Rtiered-disable-t2"               },
-        mode_t{"tiered_no_t0_no_t2",  "-Rtiered -Rtiered-disable-t0 -Rtiered-disable-t2"},
+    // Each seeded policy mode is paired with one representative trap. The complete trap set still runs through every
+    // base mode, while this deterministic sampling avoids multiplying the already-large subprocess matrix unnecessarily.
+    inline constexpr ::std::array<::std::string_view, seeded_policy_mode_count> seeded_policy_fixtures{
+        "unreachable",
+        "invalid_conversion",
+        "invalid_conversion_f32_overflow",
+        "divide_zero",
+        "integer_overflow",
+        "oob_load",
+        "call_indirect_null",
+        "call_indirect_type",
+        "wasm2_memory_copy_oob",
+        "wasm2_table_init_oob"};
+
+    inline constexpr ::std::array base_modes{
+        base_mode_t{"full",                "-Rcm full -Rcc jit"                         },
+        base_mode_t{"aot",                 "-Raot"                                      },
+        base_mode_t{"lazy",                "-Rjit"                                      },
+        base_mode_t{"lazy_verification",   "-Rcm lazy+verification -Rcc jit"            },
+        base_mode_t{"tiered",              "-Rtiered"                                   },
+        base_mode_t{"tiered_no_t0",        "-Rtiered -Rtiered-disable-t0"               },
+        base_mode_t{"tiered_no_t2",        "-Rtiered -Rtiered-disable-t2"               },
+        base_mode_t{"tiered_no_t0_no_t2",  "-Rtiered -Rtiered-disable-t0 -Rtiered-disable-t2"},
     };
 
     inline constexpr ::std::array compare_policies{"unwind", "auto"};
+
+    [[nodiscard]] ::std::uint_least64_t policy_seed() noexcept
+    {
+        auto seed{default_policy_seed};
+        if(auto const env{::std::getenv("UWVM_LLVM_JIT_POLICY_SEED")}; env != nullptr && *env != '\0')
+        {
+            char* end{};
+            auto const parsed{::std::strtoull(env, &end, 0)};
+            if(end != env && end != nullptr && *end == '\0') { seed = static_cast<::std::uint_least64_t>(parsed); }
+        }
+        return seed == 0u ? default_policy_seed : seed;
+    }
+
+    [[nodiscard]] ::std::uint_least64_t next_policy_random(::std::uint_least64_t& state) noexcept
+    {
+        state ^= state << 13u;
+        state ^= state >> 7u;
+        state ^= state << 17u;
+        return state;
+    }
+
+    [[nodiscard]] ::std::string policy_label(::std::string_view policy)
+    {
+        ::std::string label{policy};
+        for(auto& ch: label)
+        {
+            if(ch == '-') { ch = '_'; }
+        }
+        return label;
+    }
+
+    [[nodiscard]] ::std::vector<mode_t> make_modes()
+    {
+        ::std::vector<mode_t> result{};
+        result.reserve(base_modes.size() + seeded_policy_mode_count);
+        for(auto const& mode: base_modes) { result.push_back({::std::string{mode.name}, ::std::string{mode.args}}); }
+
+        constexpr ::std::array<::std::string_view, 6uz> full_policies{"auto", "debug", "legacy-light", "pb-o1", "pb-o2", "pb-o3"};
+        constexpr ::std::array<::std::string_view, 4uz> lazy_policies{"auto", "debug", "light", "balanced"};
+        constexpr ::std::array<::std::string_view, 5uz> tiered_policies{"debug", "default", "fast-compile", "balanced", "max"};
+        constexpr ::std::array<::std::string_view, 4uz> tiered_modes{
+            "-Rtiered",
+            "-Rtiered -Rtiered-disable-t0",
+            "-Rtiered -Rtiered-disable-t2",
+            "-Rtiered -Rtiered-disable-t0 -Rtiered-disable-t2"};
+
+        auto random_state{policy_seed()};
+        for(::std::size_t index{}; index != seeded_policy_mode_count; ++index)
+        {
+            auto const random_value{next_policy_random(random_state)};
+            auto const prefix{"seeded_" + ::std::to_string(index) + "_"};
+            switch(index % 5uz)
+            {
+                case 0uz:
+                {
+                    auto const selected{full_policies[random_value % full_policies.size()]};
+                    result.push_back({prefix + "full_" + policy_label(selected),
+                                      "-Rcm full -Rcc jit -Rllvm-full-policy " + ::std::string{selected}});
+                    break;
+                }
+                case 1uz:
+                {
+                    auto const selected{full_policies[random_value % full_policies.size()]};
+                    result.push_back({prefix + "aot_" + policy_label(selected), "-Raot -Rllvm-full-policy " + ::std::string{selected}});
+                    break;
+                }
+                case 2uz:
+                {
+                    auto const selected{lazy_policies[random_value % lazy_policies.size()]};
+                    result.push_back({prefix + "lazy_" + policy_label(selected), "-Rjit -Rllvm-lazy-policy " + ::std::string{selected}});
+                    break;
+                }
+                case 3uz:
+                {
+                    auto const selected{lazy_policies[random_value % lazy_policies.size()]};
+                    result.push_back({prefix + "lazy_verification_" + policy_label(selected),
+                                      "-Rcm lazy+verification -Rcc jit -Rllvm-lazy-policy " + ::std::string{selected}});
+                    break;
+                }
+                default:
+                {
+                    auto const selected{tiered_policies[random_value % tiered_policies.size()]};
+                    auto const tiered_mode{tiered_modes[next_policy_random(random_state) % tiered_modes.size()]};
+                    result.push_back({prefix + "tiered_" + policy_label(selected),
+                                      ::std::string{tiered_mode} + " -Rllvm-policy " + ::std::string{selected}});
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
 
     [[nodiscard]] ::std::string quote_argument(::std::filesystem::path const& path)
     {
@@ -257,6 +387,55 @@ namespace
         return false;
     }
 
+    [[nodiscard]] bool probe_default_call_stack_unwind(::std::filesystem::path const& uwvm_path,
+                                                       ::std::filesystem::path const& wasm_path,
+                                                       ::std::filesystem::path const& artifact_dir,
+                                                       bool& default_uses_unwind)
+    {
+        auto const output_path{artifact_dir / "default_call_stack_probe.out"};
+        auto const log_path{artifact_dir / "default_call_stack_probe.log"};
+        ::std::error_code ec{};
+        ::std::filesystem::remove(log_path, ec);
+        if(ec)
+        {
+            ::std::cerr << "failed to remove stale call-stack probe log: " << log_path << '\n';
+            return false;
+        }
+
+        auto const command{quote_argument(uwvm_path) + " -Raot -Rllvm-cache-path disable -Rclog file " + quote_argument(log_path) + " --run " +
+                           quote_argument(wasm_path) + " > " + quote_argument(output_path) + " 2>&1"};
+        ::std::cout << "[trap-matrix] " << command << '\n';
+        if(run_system_command(command) == 0)
+        {
+            ::std::cerr << "call-stack capability probe trap unexpectedly succeeded\n";
+            return false;
+        }
+
+        ::std::string output{};
+        if(!read_text_file(output_path, output)) { return false; }
+        if(strip_ansi_codes(output).find("Runtime crash (") == ::std::string::npos)
+        {
+            ::std::cerr << "call-stack capability probe did not reach a runtime trap:\n" << output << '\n';
+            return false;
+        }
+
+        ::std::string log{};
+        if(!read_text_file(log_path, log)) { return false; }
+        if(log.find("call_stack=unwind") != ::std::string::npos)
+        {
+            default_uses_unwind = true;
+            return true;
+        }
+        if(log.find("call_stack=instruction") != ::std::string::npos || log.find("call_stack=none") != ::std::string::npos)
+        {
+            default_uses_unwind = false;
+            return true;
+        }
+
+        ::std::cerr << "unable to determine default LLVM JIT call-stack policy from probe log:\n" << log << '\n';
+        return false;
+    }
+
     [[nodiscard]] run_result_t run_case(::std::filesystem::path const& uwvm_path,
                                         ::std::filesystem::path const& wasm_path,
                                         ::std::filesystem::path const& artifact_dir,
@@ -269,6 +448,7 @@ namespace
         auto const log_path{artifact_dir / (stem + ".log")};
         auto command{quote_argument(uwvm_path) + " " + mode.args + " -Rllvm-cache-path disable -Rllvm-call-stack " + policy +
                      " -Rclog file " + quote_argument(log_path)};
+        if(::std::string_view{fixture.name}.starts_with("wasm2_")) { command += " --wasm-feature-wasm2"; }
         if(auto const extra_args{env_string("UWVM_LLVM_JIT_TEST_EXTRA_RUNTIME_ARGS")}; !extra_args.empty()) { command += " " + extra_args; }
         command += " --run " + quote_argument(wasm_path);
         auto const full_command{command + " > " + quote_argument(output_path) + " 2>&1"};
@@ -287,10 +467,27 @@ namespace
         auto const plain_output{strip_ansi_codes(output)};
         auto trap_kind{parse_trap_kind(plain_output)};
         auto func_indices{parse_func_indices(plain_output)};
-        auto const valid{!trap_kind.empty() && !func_indices.empty()};
+        auto const expected_func_begin{fixture.expected_func_indices.begin()};
+        auto const stack_matches{func_indices.size() == fixture.expected_func_count &&
+                                 ::std::equal(func_indices.begin(), func_indices.end(), expected_func_begin)};
+        auto const trap_matches{trap_kind == fixture.expected_trap_kind};
+        auto const valid{trap_matches && stack_matches};
         if(!valid)
         {
             ::std::cerr << "failed to parse trap output for " << stem << ":\n" << output << '\n';
+            ::std::cerr << "  expected trap=\"" << fixture.expected_trap_kind << "\" funcs=[";
+            for(::std::size_t i{}; i != fixture.expected_func_count; ++i)
+            {
+                if(i != 0uz) { ::std::cerr << ','; }
+                ::std::cerr << fixture.expected_func_indices[i];
+            }
+            ::std::cerr << "] actual trap=\"" << trap_kind << "\" funcs=[";
+            for(::std::size_t i{}; i != func_indices.size(); ++i)
+            {
+                if(i != 0uz) { ::std::cerr << ','; }
+                ::std::cerr << func_indices[i];
+            }
+            ::std::cerr << "]\n";
         }
 
         return {.valid = valid, .trap_kind = ::std::move(trap_kind), .func_indices = ::std::move(func_indices), .output_path = output_path};
@@ -337,15 +534,20 @@ int main(int argc, char** argv)
         return 1;
     }
 
+    auto const strict_env{::std::getenv("UWVM_TRAP_MATRIX_STRICT")};
+    bool const strict{strict_env == nullptr || *strict_env == '\0' || ::std::string_view{strict_env} != "0"};
     auto const wat2wasm_path{find_wat2wasm(project_root)};
     if(wat2wasm_path.empty())
     {
+        if(strict)
+        {
+            ::std::cerr << "[trap-matrix] wat2wasm is required in strict mode; set WAT2WASM or put wat2wasm in PATH\n";
+            return 1;
+        }
         ::std::cout << "[trap-matrix] skip: wat2wasm not found; set WAT2WASM or put wat2wasm in PATH\n";
         return 0;
     }
 
-    auto const strict_env{::std::getenv("UWVM_TRAP_MATRIX_STRICT")};
-    bool const strict{strict_env != nullptr && *strict_env != '\0' && ::std::string_view{strict_env} != "0"};
     auto const wat_dir{project_root / "test" / "0014.llvm_jit" / "wat" / "trap_matrix"};
     auto const artifact_dir{[](::std::filesystem::path const& dir) {
         if(auto const env{::std::getenv("UWVM_TRAP_MATRIX_ARTIFACT_DIR")}; env != nullptr && *env != '\0') { return ::std::filesystem::path{env}; }
@@ -353,24 +555,47 @@ int main(int argc, char** argv)
     }(executable_dir)};
 
     bool ok{true};
+    bool call_stack_capability_probed{};
+    bool explicit_unwind_supported{};
     ::std::size_t mismatch_count{};
+    auto const modes{make_modes()};
+    ::std::cout << "[trap-matrix] deterministic policy seed=" << policy_seed() << " randomized_modes=" << seeded_policy_mode_count << '\n';
     for(auto const& fixture: fixtures)
     {
         auto const wat_path{wat_dir / fixture.wat_name};
         auto const wasm_path{artifact_dir / (::std::string{fixture.name} + ".wasm")};
         if(!compile_wat(wat2wasm_path, wat_path, wasm_path)) { return 1; }
 
-        for(auto const& mode: modes)
+        if(!call_stack_capability_probed)
         {
+            if(!probe_default_call_stack_unwind(uwvm_path, wasm_path, artifact_dir, explicit_unwind_supported)) { return 1; }
+            call_stack_capability_probed = true;
+            if(!explicit_unwind_supported)
+            {
+                ::std::cout << "[trap-matrix] explicit unwind unsupported; retaining strict instruction/auto comparison\n";
+            }
+        }
+
+        for(::std::size_t mode_index{}; mode_index != modes.size(); ++mode_index)
+        {
+            if(mode_index >= base_modes.size() &&
+               ::std::string_view{fixture.name} != seeded_policy_fixtures[mode_index - base_modes.size()])
+            {
+                continue;
+            }
+
+            auto const& mode{modes[mode_index]};
             auto const instruction{run_case(uwvm_path, wasm_path, artifact_dir, fixture, mode, "instruction")};
             if(!instruction.valid)
             {
+                ++mismatch_count;
                 ok = false;
                 continue;
             }
 
             for(auto const* policy: compare_policies)
             {
+                if(::std::string_view{policy} == "unwind" && !explicit_unwind_supported) { continue; }
                 auto const compared{run_case(uwvm_path, wasm_path, artifact_dir, fixture, mode, policy)};
                 if(same_result(instruction, compared)) { continue; }
 

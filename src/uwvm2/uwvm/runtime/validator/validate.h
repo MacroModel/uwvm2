@@ -46,6 +46,7 @@
 # include <uwvm2/validation/impl.h>
 # include <uwvm2/validation/standard/wasm1/impl.h>
 # include <uwvm2/validation/standard/wasm1p1/impl.h>
+# include <uwvm2/validation/standard/wasm2/impl.h>
 # include <uwvm2/object/impl.h>
 # include <uwvm2/uwvm/io/impl.h>
 # include <uwvm2/uwvm/utils/ansies/impl.h>
@@ -84,8 +85,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::validator
             try
 #endif
             {
-                ::uwvm2::validation::standard::wasm1p1::validate_code(::uwvm2::validation::standard::wasm1p1::wasm1p1_code_version{},
-                                                                      module_storage,
+                ::uwvm2::validation::standard::wasm2::validate_code_with_runtime_policy(module_storage,
                                                                       import_func_count + local_idx,
                                                                       code_begin_ptr,
                                                                       code_end_ptr,

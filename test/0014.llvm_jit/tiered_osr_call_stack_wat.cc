@@ -43,6 +43,8 @@ namespace
         mode_t{"tiered_no_t2", "-Rtiered -Rtiered-disable-t2", true },
     };
 
+    inline constexpr ::std::array comparison_policies{"unwind", "auto"};
+
     [[nodiscard]] ::std::string quote_argument(::std::filesystem::path const& path)
     {
         return ::std::string{"\""} + path.string() + "\"";
@@ -296,6 +298,55 @@ namespace
         return out;
     }
 
+    [[nodiscard]] bool probe_default_call_stack_unwind(::std::filesystem::path const& uwvm_path,
+                                                       ::std::filesystem::path const& wasm_path,
+                                                       ::std::filesystem::path const& artifact_dir,
+                                                       bool& default_uses_unwind)
+    {
+        auto const output_path{artifact_dir / "default_call_stack_probe.out"};
+        auto const log_path{artifact_dir / "default_call_stack_probe.log"};
+        ::std::error_code ec{};
+        ::std::filesystem::remove(log_path, ec);
+        if(ec)
+        {
+            ::std::cerr << "failed to remove stale call-stack probe log: " << log_path << '\n';
+            return false;
+        }
+
+        auto const command{quote_argument(uwvm_path) + " -Raot -Rllvm-cache-path disable -Rclog file " + quote_argument(log_path) + " --run " +
+                           quote_argument(wasm_path) + " > " + quote_argument(output_path) + " 2>&1"};
+        ::std::cout << "[tiered-osr-wat] " << command << '\n';
+        if(run_system_command(command) == 0)
+        {
+            ::std::cerr << "call-stack capability probe trap unexpectedly succeeded\n";
+            return false;
+        }
+
+        ::std::string output{};
+        if(!read_text_file(output_path, output)) { return false; }
+        if(strip_ansi_codes(output).find("Runtime crash (") == ::std::string::npos)
+        {
+            ::std::cerr << "call-stack capability probe did not reach a runtime trap:\n" << output << '\n';
+            return false;
+        }
+
+        ::std::string log{};
+        if(!read_text_file(log_path, log)) { return false; }
+        if(log.find("call_stack=unwind") != ::std::string::npos)
+        {
+            default_uses_unwind = true;
+            return true;
+        }
+        if(log.find("call_stack=instruction") != ::std::string::npos || log.find("call_stack=none") != ::std::string::npos)
+        {
+            default_uses_unwind = false;
+            return true;
+        }
+
+        ::std::cerr << "unable to determine default LLVM JIT call-stack policy from probe log:\n" << log << '\n';
+        return false;
+    }
+
     [[nodiscard]] run_result_t read_trap_result(::std::filesystem::path const& output_path,
                                                 ::std::filesystem::path const& log_path,
                                                 char const* label,
@@ -357,7 +408,9 @@ namespace
                                    ::std::filesystem::path const& wat2wasm_path,
                                    ::std::filesystem::path const& wat_dir,
                                    ::std::filesystem::path const& artifact_dir,
-                                   fixture_t const& fixture)
+                                   fixture_t const& fixture,
+                                   bool& call_stack_capability_probed,
+                                   bool& explicit_unwind_supported)
     {
         auto const wat_path{wat_dir / fixture.wat_name};
         auto const generated_wat_path{artifact_dir / (::std::string{fixture.label} + ".padded.wat")};
@@ -365,17 +418,33 @@ namespace
 
         if(!compile_wat(wat2wasm_path, wat_path, generated_wat_path, wasm_path, fixture.label)) { return false; }
 
+        if(!call_stack_capability_probed)
+        {
+            if(!probe_default_call_stack_unwind(uwvm_path, wasm_path, artifact_dir, explicit_unwind_supported)) { return false; }
+            call_stack_capability_probed = true;
+            if(!explicit_unwind_supported)
+            {
+                ::std::cout << "[tiered-osr-wat] explicit unwind unsupported; retaining strict instruction/auto comparison\n";
+            }
+        }
+
         for(auto const& mode: modes)
         {
             auto const instruction{run_trap_case(uwvm_path, wasm_path, artifact_dir, fixture, mode, "instruction")};
-            auto const unwind{run_trap_case(uwvm_path, wasm_path, artifact_dir, fixture, mode, "unwind")};
-            if(!instruction.valid || !unwind.valid) { return false; }
-            if(instruction.func_indices == unwind.func_indices) { continue; }
+            if(!instruction.valid) { return false; }
 
-            ::std::cerr << "tiered OSR unwind stack mismatch for " << fixture.label << '/' << mode.name << '\n';
-            ::std::cerr << "  instruction output: " << instruction.output_path << '\n';
-            ::std::cerr << "  unwind output: " << unwind.output_path << '\n';
-            return false;
+            for(auto const* policy: comparison_policies)
+            {
+                if(::std::string_view{policy} == "unwind" && !explicit_unwind_supported) { continue; }
+                auto const compared{run_trap_case(uwvm_path, wasm_path, artifact_dir, fixture, mode, policy)};
+                if(!compared.valid) { return false; }
+                if(instruction.func_indices == compared.func_indices) { continue; }
+
+                ::std::cerr << "tiered OSR call-stack mismatch for " << fixture.label << '/' << mode.name << '/' << policy << '\n';
+                ::std::cerr << "  instruction output: " << instruction.output_path << '\n';
+                ::std::cerr << "  " << policy << " output: " << compared.output_path << '\n';
+                return false;
+            }
         }
 
         return true;
@@ -419,9 +488,20 @@ int main(int argc, char** argv)
         return dir / "test-artifacts" / "0014.llvm_jit" / "tiered_osr_wat";
     }(executable_dir)};
 
+    bool call_stack_capability_probed{};
+    bool explicit_unwind_supported{};
     for(auto const& fixture: fixtures)
     {
-        if(!run_fixture(uwvm_path, wat2wasm_path, wat_dir, artifact_dir, fixture)) { return 1; }
+        if(!run_fixture(uwvm_path,
+                        wat2wasm_path,
+                        wat_dir,
+                        artifact_dir,
+                        fixture,
+                        call_stack_capability_probed,
+                        explicit_unwind_supported))
+        {
+            return 1;
+        }
     }
 
     return 0;

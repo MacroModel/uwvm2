@@ -17,13 +17,12 @@ trap cleanup_lock EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
 
-if [[ -n "${UWVM_XMAKE_JOBS:-}" ]]; then
-  if [[ ! "${UWVM_XMAKE_JOBS}" =~ ^[1-9][0-9]*$ ]]; then
-    echo "ERR: UWVM_XMAKE_JOBS must be a positive integer, got: ${UWVM_XMAKE_JOBS}" >&2
-    exit 2
-  fi
-  echo "INFO: xmake jobs limited via UWVM_XMAKE_JOBS=${UWVM_XMAKE_JOBS}"
+UWVM_XMAKE_JOBS="${UWVM_XMAKE_JOBS:-1}"
+if [[ "${UWVM_XMAKE_JOBS}" != "1" ]]; then
+  echo "ERR: uwvm2 builds are globally limited to -j1; got UWVM_XMAKE_JOBS=${UWVM_XMAKE_JOBS}" >&2
+  exit 2
 fi
+echo "INFO: uwvm2 xmake jobs enforced at -j1"
 
 UWVM_XMAKE_MODE="${UWVM_XMAKE_MODE:-debug}"
 case "${UWVM_XMAKE_MODE}" in
@@ -36,11 +35,51 @@ esac
 echo "INFO: xmake mode = ${UWVM_XMAKE_MODE}"
 
 xmake_build() {
-  if [[ -n "${UWVM_XMAKE_JOBS:-}" ]]; then
-    xmake b -v -j "${UWVM_XMAKE_JOBS}" "$@"
+  xmake b -v -j 1 "$@"
+}
+
+resolve_wat2wasm() {
+  local candidate=""
+  if [[ -n "${WAT2WASM:-}" ]]; then
+    if [[ -x "${WAT2WASM}" ]]; then
+      candidate="${WAT2WASM}"
+    else
+      candidate="$(command -v -- "${WAT2WASM}" 2>/dev/null || true)"
+    fi
   else
-    xmake b -v "$@"
+    local name
+    local path
+    for name in wat2wasm wat2wasm.exe; do
+      for path in \
+        "${ROOT_DIR}/build/test/third-parties/wabt/build/${name}" \
+        "${ROOT_DIR}/build/test/third-parties/wabt/build/bin/${name}" \
+        "${ROOT_DIR}/build/test/third-parties/wabt/build/Release/${name}" \
+        "${ROOT_DIR}/build/test/third-parties/wabt/build-ninja/${name}" \
+        "${ROOT_DIR}/wabt/build/${name}" \
+        "${ROOT_DIR}/wabt/build/bin/${name}" \
+        "${ROOT_DIR}/wabt/build/Release/${name}" \
+        "${ROOT_DIR}/wabt/build-ninja/${name}"; do
+        if [[ -x "${path}" ]]; then
+          candidate="${path}"
+          break 2
+        fi
+      done
+    done
+    if [[ -z "${candidate}" ]]; then
+      candidate="$(command -v wat2wasm 2>/dev/null || true)"
+    fi
   fi
+
+  if [[ -z "${candidate}" || ! -x "${candidate}" ]]; then
+    return 1
+  fi
+  if ! "${candidate}" --version >/dev/null 2>&1; then
+    return 1
+  fi
+
+  local candidate_dir
+  candidate_dir="$(cd -- "$(dirname -- "${candidate}")" && pwd)"
+  printf '%s/%s\n' "${candidate_dir}" "$(basename -- "${candidate}")"
 }
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -85,6 +124,7 @@ else
   done < <(
     {
       printf '%s\n' llvm_jit_verify_compile
+      printf '%s\n' llvm_jit_multivalue_typed
       printf '%s\n' llvm_jit_trap_matrix_wat
       printf '%s\n' llvm_jit_unwind_call_stack_wat
       printf '%s\n' tiered_osr_call_stack_wat
@@ -109,6 +149,26 @@ fi
 if [[ "${#TARGETS[@]}" -eq 0 ]]; then
   echo "ERR: no llvm-jit targets found." >&2
   exit 3
+fi
+
+NEEDS_WAT2WASM=0
+for t in "${TARGETS[@]}"; do
+  case "${t}" in
+    llvm_jit_trap_matrix_wat|llvm_jit_unwind_call_stack_wat|tiered_osr_call_stack_wat|tiered_strategy_unwind_wat)
+      NEEDS_WAT2WASM=1
+      break
+      ;;
+  esac
+done
+
+if [[ "${NEEDS_WAT2WASM}" == "1" ]]; then
+  if ! WAT2WASM_RESOLVED="$(resolve_wat2wasm)"; then
+    echo "ERR: wat2wasm is required for the selected llvm-jit WAT tests; set WAT2WASM or install wat2wasm in PATH" >&2
+    exit 5
+  fi
+  export WAT2WASM="${WAT2WASM_RESOLVED}"
+  export UWVM_TRAP_MATRIX_STRICT=1
+  echo "INFO: wat2wasm = ${WAT2WASM}"
 fi
 
 echo "INFO: llvm-jit target count = ${#TARGETS[@]}"

@@ -1,7 +1,6 @@
-    // Direct and indirect call validation cases for the WebAssembly 1.0/MVP primary opcode set.
-    // Validation keeps callee signatures as ranges, but the current LLVM JIT call ABI is still MVP-oriented for 0/1 results.
-    // Multi-value calls, typed function references, and multi-table call_indirect must update this file and the emitter ABI
-    // paths together.
+    // Direct and indirect call validation cases for the WebAssembly primary opcode set. Validation and emission preserve
+    // complete parameter/result tuples; typed LLVM calls return 0 results as void, 1 as a scalar, and multiple results as
+    // a Wasm-order literal struct. Raw host/import boundaries use the corresponding tightly packed result buffer.
 
 case wasm1_code::call:
 {
@@ -109,9 +108,8 @@ case wasm1_code::call:
     // Consume parameters if present.
     if(param_count != 0uz) { operand_stack_pop_n(param_count); }
 
-    // Push results.  This preserves the full result range for future multi-value validation, but the current LLVM JIT
-    // emitter only lowers 0/1 result calls.  Enabling multi-value must extend call ABI/result-buffer lowering before
-    // allowing such functions to remain on the inline JIT path.
+    // Push every result in Wasm source order. The emitter uses the same full tuple signature for direct typed calls and
+    // raw-buffer bridge calls, so validation and LLVM lowering keep identical stack effects.
     if(result_count != 0uz)
     {
         for(::std::size_t i{}; i != result_count; ++i) { operand_stack_push(callee_type.result.begin[i]); }
@@ -200,6 +198,14 @@ case wasm1_code::call_indirect:
     // [                safe              ] unsafe (could be the section_end)
     //                                      ^^ code_curr
 
+    if(!wasm2_feature_enabled(::uwvm2::parser::wasm::standard::wasm2::features::wasm2_feature_kind::multiple_tables) && table_index != 0u) [[unlikely]]
+    {
+        fail_wasm2_feature_required(op_begin,
+                                    table_index,
+                                    ::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables,
+                                    ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
+    }
+
     if(table_index >= all_table_count) [[unlikely]]
     {
         err.err_curr = op_begin;
@@ -259,8 +265,8 @@ case wasm1_code::call_indirect:
 
     if(param_count != 0uz) { operand_stack_pop_n(param_count); }
 
-    // Same result-range rule as direct call: validation can model future multi-value results, while the current LLVM JIT
-    // call lowering remains limited to the existing MVP-style ABI until explicitly extended.
+    // Apply the same complete result tuple as direct call; call_indirect merges typed and raw-buffer paths with the
+    // canonical scalar-or-struct LLVM result type before restoring individual Wasm stack values.
     if(result_count != 0uz)
     {
         for(::std::size_t i{}; i != result_count; ++i) { operand_stack_push(callee_type.result.begin[i]); }

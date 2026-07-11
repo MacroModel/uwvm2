@@ -17,6 +17,11 @@ using wasm_externref_t = ::uwvm2::object::global::wasm_externref_t;
 parser_feature_parameter_t const default_wasm_feature_parameter{};
 auto const& effective_wasm_feature_parameter{wasm_feature_parameter == nullptr ? default_wasm_feature_parameter : *wasm_feature_parameter};
 [[maybe_unused]] auto const& wasm1p1_para{::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(effective_wasm_feature_parameter)};
+auto const use_wasm2_validation_strategy{
+    ::uwvm2::validation::standard::wasm2::use_wasm2_runtime_validation_strategy(wasm1p1_para)};
+using wasm2_feature_kind = ::uwvm2::parser::wasm::standard::wasm2::features::wasm2_feature_kind;
+auto const wasm2_feature_enabled{[&](wasm2_feature_kind const feature) constexpr noexcept
+                                 { return ::uwvm2::parser::wasm::standard::wasm2::features::feature_enabled(wasm1p1_para, feature); }};
 
 // no necessary to set err to default
 

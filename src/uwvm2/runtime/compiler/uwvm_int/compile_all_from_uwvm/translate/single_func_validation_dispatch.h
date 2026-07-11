@@ -54,7 +54,7 @@ auto const is_untyped_select_value_type{[&](curr_operand_stack_value_type type) 
                                             {
                                                 return true;
                                             }
-                                            return type == curr_operand_stack_value_type::v128 && !wasm1p1_para.disable_simd;
+                                            return type == curr_operand_stack_value_type::v128 && wasm2_feature_enabled(wasm2_feature_kind::simd);
                                         }};
 
 auto const fail_wasm1p1_feature_required{
@@ -68,6 +68,20 @@ auto const fail_wasm1p1_feature_required{
         err.err_selectable.wasm1p1_feature_required.feature = feature;
         err.err_selectable.wasm1p1_feature_required.subject = subject;
         err.err_code = code_validation_error_code::wasm1p1_feature_required;
+        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+    }};
+
+auto const fail_wasm2_feature_required{
+    [&](::std::byte const* const op_begin,
+        wasm_u32 const value,
+        ::uwvm2::parser::wasm::base::wasm2_feature_kind const feature,
+        ::uwvm2::parser::wasm::base::wasm2_error_subject const subject) constexpr UWVM_THROWS -> void
+    {
+        err.err_curr = op_begin;
+        err.err_selectable.wasm2_feature_required.value = value;
+        err.err_selectable.wasm2_feature_required.feature = feature;
+        err.err_selectable.wasm2_feature_required.subject = subject;
+        err.err_code = code_validation_error_code::wasm2_feature_required;
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
     }};
 
@@ -226,7 +240,7 @@ auto const parse_block_type{
 
         if(blocktype >= 0)
         {
-            if(wasm1p1_para.disable_multi_value) [[unlikely]]
+            if(!wasm2_feature_enabled(wasm2_feature_kind::multi_value)) [[unlikely]]
             {
                 fail_wasm1p1_feature_required(op_begin,
                                               static_cast<wasm_u32>(blocktype),
@@ -370,8 +384,15 @@ auto const validate_i32_operands{
         pop_available_concrete_operands(count);
     }};
 
-auto const check_table_index{[&](::std::byte const* op_begin, wasm_u32 table_index) constexpr UWVM_THROWS
+auto const check_table_index{[&](::std::byte const* op_begin, wasm_u32 table_index, wasm_u32 opcode) constexpr UWVM_THROWS
                              {
+                                 if(!wasm2_feature_enabled(wasm2_feature_kind::multiple_tables) && table_index != 0u) [[unlikely]]
+                                 {
+                                     fail_wasm2_feature_required(op_begin,
+                                                                 opcode,
+                                                                 ::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables,
+                                                                 ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
+                                 }
                                  if(table_index >= all_table_count) [[unlikely]]
                                  {
                                      err.err_curr = op_begin;
