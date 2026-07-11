@@ -127,9 +127,12 @@ Pure modes do not request or observe the Tier 2 scheduler unit:
 
 Tiered execution uses the same runtime call-stack policy as the LLVM JIT modes.
 The default `-Rllvm-call-stack auto` policy selects native unwind reporting when
-the generated-code self-check passes; otherwise it falls back to instruction
-frames. Explicit `-Rllvm-call-stack unwind` requires the native unwind path to
-be available, while `instruction` remains the conservative diagnostic fallback.
+the target has a validated native-unwind implementation and the generated-code
+live probe passes. If either condition fails, `auto` resolves to `none` and omits
+JIT body frames; it never converts them to instruction frames. Explicit
+`-Rllvm-call-stack instruction` is the only policy that emits logical JIT
+push/pop frames. Explicit `-Rllvm-call-stack unwind` is exposed only when the
+native unwind path is available, and a live-probe failure is fatal.
 
 Unwind reporting does not require release uwvm host code to be built with
 unwind tables. Generated Wasm functions carry registered unwind metadata,
@@ -141,9 +144,11 @@ JIT text sections. This avoids walking through host uwvm frames that may be
 built with `-fno-unwind-tables -fno-asynchronous-unwind-tables`, and prevents
 non-JIT host or sanitizer frames from being reported as Wasm frames.
 
-Instruction reporting is still useful when native unwind support is missing or
-for debugging a platform-specific unwinder issue, but it is not the default
-fast path for control-flow-heavy workloads.
+Instruction reporting remains available when native unwind support is missing
+or when debugging a platform-specific unwinder issue, but it must be selected
+explicitly. This keeps an unvalidated native-unwind platform from silently
+changing JIT code generation or presenting instruction frames as an automatic
+substitute for native unwind results.
 
 ## Scheduling Policy
 

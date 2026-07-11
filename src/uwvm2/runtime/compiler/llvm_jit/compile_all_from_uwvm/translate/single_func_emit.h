@@ -7812,6 +7812,21 @@ template <llvm_jit_simd_code Op,
     auto llvm_void_type{::llvm::Type::getVoidTy(llvm_context)};
     if(llvm_v128_type == nullptr) [[unlikely]] { return false; }
 
+    // Clang may render distinct non-type function-template arguments identically in __PRETTY_FUNCTION__ when their
+    // signatures match. Keep the external MCJIT symbol stable and opcode-specific instead of letting, for example,
+    // i32x4.add and i32x4.eq register the same symbol name.
+    auto const bridge_discriminator{
+        ::uwvm2::utils::container::u8concat_uwvm(u8"simd_",
+                                                 ::fast_io::mnp::hex<false, true>(static_cast<::std::uint_least32_t>(Op)),
+                                                 u8"_",
+                                                 ::fast_io::mnp::hex<false, true>(static_cast<::std::uint_least8_t>(Kind)),
+                                                 u8"_",
+                                                 ::fast_io::mnp::hex<false, true>(static_cast<::std::uint_least8_t>(ScalarKind)),
+                                                 u8"_",
+                                                 ::fast_io::mnp::hex<false, true>(LaneCount),
+                                                 u8"_",
+                                                 ::fast_io::mnp::hex<false, true>(MaxAlign))};
+
     auto const create_v128_buffer{[&](::llvm::Value* value, ::llvm::StringRef name) constexpr noexcept -> ::llvm::AllocaInst*
                                   {
                                       auto buffer{create_llvm_jit_entry_block_alloca(ir_builder, llvm_v128_type, nullptr, name)};
@@ -7829,9 +7844,12 @@ template <llvm_jit_simd_code Op,
                                       return ir_builder.CreatePtrToInt(buffer, llvm_intptr_type, name);
                                   }};
     auto const emit_bridge_call{[&]<auto BridgeFunction>(::llvm::FunctionType* function_type,
-                                                        ::llvm::ArrayRef<::llvm::Value*> arguments) constexpr noexcept -> ::llvm::CallInst*
+                                ::llvm::ArrayRef<::llvm::Value*> arguments) constexpr noexcept -> ::llvm::CallInst*
                                 {
-                                    auto bridge_pointer{get_llvm_runtime_bridge_function_symbol_value<BridgeFunction>(ir_builder, function_type)};
+                                    auto bridge_pointer{get_llvm_runtime_bridge_function_symbol_value<BridgeFunction>(
+                                        ir_builder,
+                                        function_type,
+                                        ::uwvm2::utils::container::u8string_view{bridge_discriminator.data(), bridge_discriminator.size()})};
                                     if(bridge_pointer == nullptr) [[unlikely]] { return nullptr; }
                                     return apply_llvm_jit_host_calling_conv(ir_builder.CreateCall(function_type, bridge_pointer, arguments));
                                 }};
