@@ -31,6 +31,7 @@
 # include <exception>
 # include <limits>
 # include <memory>
+# include <string>
 # include <utility>
 // macro
 # include <uwvm2/utils/macro/push_macros.h>
@@ -50,6 +51,7 @@
 #  include <llvm/Support/TargetSelect.h>
 #  include <llvm/Target/TargetMachine.h>
 #  include <llvm/TargetParser/Host.h>
+#  include <llvm/TargetParser/Triple.h>
 #  include <llvm/Transforms/InstCombine/InstCombine.h>
 #  include <llvm/Transforms/Scalar.h>
 #  include <llvm/Transforms/Scalar/GVN.h>
@@ -698,6 +700,44 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
             for(auto const& attr: attr_storage) { attr_refs.push_back(all_details::get_llvm_string_ref(attr)); }
         }
 
+        inline void
+            append_llvm_jit_host_target_attribute_strings(::uwvm2::utils::container::vector<::uwvm2::utils::container::u8string> const& attr_storage,
+                                                          ::llvm::SmallVector<::std::string, 16>& attr_strings)
+        {
+            attr_strings.clear();
+            attr_strings.reserve(attr_storage.size());
+            for(auto const& attr: attr_storage)
+            {
+                auto const attr_ref{all_details::get_llvm_string_ref(attr)};
+                attr_strings.emplace_back(attr_ref.data(), attr_ref.size());
+            }
+        }
+
+        [[nodiscard]] inline ::llvm::Triple get_llvm_jit_mcjit_target_triple()
+        {
+            ::llvm::Triple triple{::llvm::sys::getDefaultTargetTriple()};
+#  if defined(__aarch64__) && defined(__linux__) && !defined(__ANDROID__)
+            if(triple.getArch() == ::llvm::Triple::aarch64 && triple.isOSLinux())
+            {
+                // Keep lazy MCJIT aligned with the full-module path: Alpine's
+                // aarch64-alpine-linux-musl triple can fault in LLVM 22 RuntimeDyld under qemu-user.
+                triple.setVendor(::llvm::Triple::UnknownVendor);
+                triple.setEnvironment(::llvm::Triple::GNU);
+            }
+#  endif
+            return triple;
+        }
+
+        [[nodiscard]] inline ::uwvm2::utils::container::delete_owned_ptr<::llvm::TargetMachine>
+            select_llvm_jit_target(::llvm::EngineBuilder& target_builder, llvm_jit_native_target_config const& target_config)
+        {
+            ::llvm::SmallVector<::std::string, 16> host_target_attribute_strings{};
+            append_llvm_jit_host_target_attribute_strings(target_config.feature_storage, host_target_attribute_strings);
+            auto target_triple{get_llvm_jit_mcjit_target_triple()};
+            return ::uwvm2::utils::container::delete_owned_ptr<::llvm::TargetMachine>{target_builder.selectTarget(
+                target_triple, {}, all_details::get_llvm_string_ref(target_config.cpu_name), host_target_attribute_strings)};
+        }
+
         inline constexpr void apply_llvm_jit_native_target_function_attrs(::llvm::Module& module,
                                                                           llvm_jit_native_target_config const& target_config,
                                                                           ::llvm::TargetMachine const& target_machine) noexcept
@@ -980,7 +1020,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                 .setMCPU(all_details::get_llvm_string_ref(target_config.cpu_name))
                 .setMAttrs(host_target_attributes);
 
-            ::uwvm2::utils::container::delete_owned_ptr<::llvm::TargetMachine> target_machine{target_builder.selectTarget()};
+            ::uwvm2::utils::container::delete_owned_ptr<::llvm::TargetMachine> target_machine{select_llvm_jit_target(target_builder, target_config)};
             if(target_machine == nullptr) [[unlikely]] { return false; }
             if(options.codegen_opt_level == ::llvm::CodeGenOptLevel::None) { target_machine->setFastISel(true); }
 
@@ -1141,7 +1181,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                 .setMCPU(all_details::get_llvm_string_ref(target_config.cpu_name))
                 .setMAttrs(host_target_attributes);
 
-            ::uwvm2::utils::container::delete_owned_ptr<::llvm::TargetMachine> target_machine{target_builder.selectTarget()};
+            ::uwvm2::utils::container::delete_owned_ptr<::llvm::TargetMachine> target_machine{select_llvm_jit_target(target_builder, target_config)};
             if(target_machine == nullptr) [[unlikely]] { return false; }
             if(options.codegen_opt_level == ::llvm::CodeGenOptLevel::None) { target_machine->setFastISel(true); }
 

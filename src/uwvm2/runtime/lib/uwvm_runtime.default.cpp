@@ -62,6 +62,7 @@
 # include <functional>
 # include <limits>
 # include <memory>
+# include <string>
 # include <type_traits>
 # include <utility>
 // macro
@@ -114,6 +115,7 @@
 #  include <llvm/Support/TargetSelect.h>
 #  include <llvm/Target/TargetMachine.h>
 #  include <llvm/TargetParser/Host.h>
+#  include <llvm/TargetParser/Triple.h>
 #  include <llvm/Transforms/InstCombine/InstCombine.h>
 #  include <llvm/Transforms/Scalar.h>
 #  include <llvm/Transforms/Scalar/GVN.h>
@@ -9900,6 +9902,50 @@ namespace uwvm2::runtime::lib
             for(auto const& attr: attr_storage) { attr_refs.push_back(llvm_jit_translate_details::get_llvm_string_ref(attr)); }
         }
 
+        inline void
+            append_llvm_jit_host_target_attribute_strings(::uwvm2::utils::container::vector<::uwvm2::utils::container::u8string> const& attr_storage,
+                                                          ::llvm::SmallVector<::std::string, 16>& attr_strings)
+        {
+            namespace llvm_jit_translate_details = ::uwvm2::runtime::compiler::llvm_jit::compile_all_from_uwvm::details;
+            attr_strings.clear();
+            attr_strings.reserve(attr_storage.size());
+            for(auto const& attr: attr_storage)
+            {
+                auto const attr_ref{llvm_jit_translate_details::get_llvm_string_ref(attr)};
+                attr_strings.emplace_back(attr_ref.data(), attr_ref.size());
+            }
+        }
+
+        [[nodiscard]] inline ::llvm::Triple get_runtime_llvm_jit_mcjit_target_triple()
+        {
+            ::llvm::Triple triple{::llvm::sys::getDefaultTargetTriple()};
+#  if defined(__aarch64__) && defined(__linux__) && !defined(__ANDROID__)
+            if(triple.getArch() == ::llvm::Triple::aarch64 && triple.isOSLinux())
+            {
+                // LLVM 22 RuntimeDyld can fault while emitting AArch64 objects for Alpine's
+                // aarch64-alpine-linux-musl host triple under qemu-user.  The generated code uses
+                // process-local addresses and the AAPCS64 ABI, so the generic ELF GNU triple is the
+                // stable MCJIT target description for both glibc and musl Linux builds.
+                triple.setVendor(::llvm::Triple::UnknownVendor);
+                triple.setEnvironment(::llvm::Triple::GNU);
+            }
+#  endif
+            return triple;
+        }
+
+        [[nodiscard]] inline ::uwvm2::utils::container::delete_owned_ptr<::llvm::TargetMachine> select_runtime_llvm_jit_target(
+            ::llvm::EngineBuilder& target_builder,
+            ::uwvm2::utils::container::u8string const& host_cpu_name,
+            ::uwvm2::utils::container::vector<::uwvm2::utils::container::u8string> const& host_target_attribute_storage)
+        {
+            namespace llvm_jit_translate_details = ::uwvm2::runtime::compiler::llvm_jit::compile_all_from_uwvm::details;
+            ::llvm::SmallVector<::std::string, 16> host_target_attribute_strings{};
+            append_llvm_jit_host_target_attribute_strings(host_target_attribute_storage, host_target_attribute_strings);
+            auto target_triple{get_runtime_llvm_jit_mcjit_target_triple()};
+            return ::uwvm2::utils::container::delete_owned_ptr<::llvm::TargetMachine>{
+                target_builder.selectTarget(target_triple, {}, llvm_jit_translate_details::get_llvm_string_ref(host_cpu_name), host_target_attribute_strings)};
+        }
+
         inline constexpr void apply_runtime_llvm_jit_native_target_function_attrs(::llvm::Module& module,
                                                                                   ::uwvm2::utils::container::u8string const& target_cpu_name,
                                                                                   ::uwvm2::utils::container::u8string const& tune_cpu_name,
@@ -10144,7 +10190,7 @@ namespace uwvm2::runtime::lib
                 .setMCPU(llvm_jit_translate_details::get_llvm_string_ref(host_cpu_name))
                 .setMAttrs(host_target_attributes);
 
-            return ::uwvm2::utils::container::delete_owned_ptr<::llvm::TargetMachine>{target_builder.selectTarget()};
+            return select_runtime_llvm_jit_target(target_builder, host_cpu_name, host_target_attribute_storage);
         }
 
         struct runtime_llvm_jit_legacy_light_task_preopt_context
@@ -10367,6 +10413,17 @@ namespace uwvm2::runtime::lib
             // Shared cancellation flag: any worker failure makes the main materializer fall back to single-object MCJIT.
             ::std::atomic_bool failed{};
         };
+
+        [[nodiscard]] inline constexpr bool runtime_llvm_jit_parallel_object_emit_supported() noexcept
+        {
+# if defined(__aarch64__) && defined(__linux__) && !defined(__GLIBC__) && !defined(__ANDROID__)
+            // Alpine/musl AArch64 LLVM 22 can fault inside target object emission under qemu-user.
+            // Normal MCJIT materialization remains valid and still provides full-module JIT coverage.
+            return false;
+# else
+            return true;
+# endif
+        }
 
         inline ::uwvm2::utils::thread::scheduled_task make_runtime_llvm_jit_parallel_object_emit_task(
             ::uwvm2::utils::container::u8string const& source_bitcode,
@@ -10767,7 +10824,8 @@ namespace uwvm2::runtime::lib
                 .setMCPU(llvm_jit_translate_details::get_llvm_string_ref(host_cpu_name))
                 .setMAttrs(host_target_attributes);
 
-            ::uwvm2::utils::container::delete_owned_ptr<::llvm::TargetMachine> target_machine{target_builder.selectTarget()};
+            ::uwvm2::utils::container::delete_owned_ptr<::llvm::TargetMachine> target_machine{
+                select_runtime_llvm_jit_target(target_builder, host_cpu_name, host_target_attribute_storage)};
             if(target_machine == nullptr) [[unlikely]]
             {
                 if(::uwvm2::uwvm::io::show_verbose) [[unlikely]]
@@ -10813,7 +10871,8 @@ namespace uwvm2::runtime::lib
             ::uwvm2::utils::container::vector<::uwvm2::utils::container::u8string> parallel_object_outputs{};
             ::std::size_t parallel_object_defined_function_count{};
             bool use_parallel_objects{};
-            if(extra_materialize_threads != 0uz)
+            auto const parallel_object_emit_supported{runtime_llvm_jit_parallel_object_emit_supported()};
+            if(parallel_object_emit_supported && extra_materialize_threads != 0uz)
             {
                 ::uwvm2::utils::container::vector<::uwvm2::utils::container::u8string> parallel_function_names{};
                 collect_runtime_llvm_jit_parallel_object_function_names(*merged_module, parallel_function_names);
@@ -10903,7 +10962,7 @@ namespace uwvm2::runtime::lib
                                                       llvm_jit_materialize_runtime_log_now() - optimize_start_time);
             }
 
-            if(extra_materialize_threads != 0uz && !use_parallel_objects)
+            if(parallel_object_emit_supported && extra_materialize_threads != 0uz && !use_parallel_objects)
             {
                 // Try a partitioned object-emission path for large modules. On failure, fall back to MCJIT's normal single-module
                 // emission rather than failing the entire materialization.
