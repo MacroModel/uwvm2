@@ -969,7 +969,10 @@ run_matrix_case()
             ;;
     esac
     if [[ $fixture == tiered_full_ready_oob ]]; then
-        mode_args+=(-Rllvm-policy max)
+        # Keep this witness focused on tier-2/full readiness without blocking
+        # callers from selecting a scoped lazy policy for platforms whose T1
+        # backend needs a conservative compile pipeline.
+        mode_args+=(-Rllvm-full-policy pb-o3)
         if ((case_compile_threads < 2)); then case_compile_threads=2; fi
     fi
 
