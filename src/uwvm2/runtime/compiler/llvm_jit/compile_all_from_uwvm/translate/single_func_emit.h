@@ -500,12 +500,14 @@ template <auto Function>
     auto pointer_type{get_llvm_pointer_type(object_type)};
     if(pointer_type == nullptr) [[unlikely]] { return nullptr; }
 
-#if defined(__i386__) || defined(_M_IX86)
-    // ELF i386 MCJIT can materialize external data symbols as zero under some target-native/QEMU builds.
-    // These host objects are process-stable tables/storage, so materialize their full pointer values as constants.
+#if defined(__i386__) || defined(_M_IX86) || defined(__aarch64__) || defined(__arm64__) || defined(_M_ARM64)
+    // ELF i386 MCJIT can materialize external data symbols as zero under some target-native/QEMU builds.  AArch64
+    // RuntimeDyld can similarly mis-resolve small lazy-module external data references under qemu-user, producing
+    // near-8GiB offsets for mmap memory base symbols.  These host objects are process-stable tables/storage, so materialize
+    // their full pointer values directly.
     static_cast<void>(ir_builder);
     static_cast<void>(symbol_name);
-    return get_llvm_host_pointer_constant(host_address, pointer_type);
+    return get_llvm_host_pointer_value(ir_builder, host_address, pointer_type);
 #elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 64)
     // ELF RISC-V64 RuntimeDyld handles some absolute HI20/LO12 references as 32-bit addresses and lacks LO12_S.
     // Avoid both external data symbols and JIT data-section constants by materializing the full pointer in code.

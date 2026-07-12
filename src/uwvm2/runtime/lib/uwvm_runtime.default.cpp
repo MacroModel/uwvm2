@@ -1709,7 +1709,7 @@ namespace uwvm2::runtime::lib
             return u8"none";
         }
 
-        inline constexpr void log_llvm_jit_unwind_capture(llvm_jit_unwind_capture_source source, bool resolved_jit_caller) noexcept
+        [[maybe_unused]] inline constexpr void log_llvm_jit_unwind_capture(llvm_jit_unwind_capture_source source, bool resolved_jit_caller) noexcept
         {
             if(!::uwvm2::uwvm::io::enable_runtime_log) { return; }
             ::fast_io::io::perrln(::uwvm2::uwvm::io::u8runtime_log_output,
@@ -8418,6 +8418,9 @@ namespace uwvm2::runtime::lib
                 // Tiered/no-T0 enters the raw JIT entry directly from the host. Some noreturn traps let LLVM erase or
                 // fold the native entry frame, so keep the wasm entry visible as a logical frame for trap reporting.
                 auto& call_stack{get_call_stack()};
+#if defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
+                tiered_jit_entry_call_stack_snapshot_guard snapshot_guard{call_stack};
+#endif
                 call_stack_guard g{call_stack, module_id, function_index};
                 entry_fn(0u, pointer_to_uintptr(result_buffer), result_bytes, pointer_to_uintptr(param_buffer), param_bytes);
                 return true;

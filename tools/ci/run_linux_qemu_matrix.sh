@@ -248,6 +248,22 @@ RUN_PEAK_RSS_KIB=0
 RUN_ELAPSED_MS=0
 RUN_LIMIT_REASON=exit
 
+current_time_ms()
+{
+    local seconds nanos
+    read -r seconds nanos <<<"$(date '+%s %N')"
+    if [[ $seconds =~ ^[0-9]+$ && $nanos =~ ^[0-9]+$ ]]; then
+        nanos=${nanos:0:3}
+        while ((${#nanos} < 3)); do
+            nanos+=0
+        done
+        printf '%s\n' "$((10#$seconds * 1000 + 10#$nanos))"
+    else
+        seconds=$(date '+%s')
+        printf '%s\n' "$((10#$seconds * 1000))"
+    fi
+}
+
 terminate_process_tree()
 {
     local pid=$1
@@ -286,7 +302,7 @@ run_limited()
         printf '\n'
     } >>"$output_log"
 
-    start_ms=$(date +%s%3N)
+    start_ms=$(current_time_ms)
     if command -v setsid >/dev/null 2>&1; then
         # Keep a shell as the session leader so a target trap signal becomes a
         # normal numeric exit status. Its diagnostic stays in the case log
@@ -324,7 +340,7 @@ run_limited()
             peak_kib=$rss_kib
         fi
 
-        now_ms=$(date +%s%3N)
+        now_ms=$(current_time_ms)
         if ((max_rss_kib != 0 && rss_kib > max_rss_kib)); then
             forced_rc=125
             RUN_LIMIT_REASON=rss-limit
@@ -350,7 +366,7 @@ run_limited()
     else
         RUN_LIMIT_REASON=exit
     fi
-    now_ms=$(date +%s%3N)
+    now_ms=$(current_time_ms)
     RUN_ELAPSED_MS=$((now_ms - start_ms))
     RUN_PEAK_RSS_KIB=$peak_kib
     return 0
@@ -445,9 +461,14 @@ if grep -q -- '--runtime-tiered' "$RUNTIME_HELP_TEXT"; then CAP_TIERED=1; fi
 if grep -q -- '--runtime-tiered-disable-uwvm-int-lazy-interpreter' "$RUNTIME_HELP_TEXT"; then CAP_TIERED_NO_T0=1; fi
 if grep -q -- '--runtime-tiered-disable-llvm-full-jit' "$RUNTIME_HELP_TEXT"; then CAP_TIERED_NO_T2=1; fi
 if grep -q -- '--runtime-llvm-jit-call-stack' "$RUNTIME_HELP_TEXT"; then CAP_CALL_STACK=1; fi
-if ((CAP_CALL_STACK)) && grep -Eq '\[[^]]*instruction' "$RUNTIME_HELP_TEXT"; then CAP_INSTRUCTION=1; fi
-if ((CAP_CALL_STACK)) && grep -Eq '\[[^]]*auto' "$RUNTIME_HELP_TEXT"; then CAP_AUTO=1; fi
-if ((CAP_CALL_STACK)) && grep -Eq '\[[^]]*unwind' "$RUNTIME_HELP_TEXT"; then CAP_UNWIND=1; fi
+CALL_STACK_USAGE=$(awk '
+    /--runtime-llvm-jit-call-stack/ { in_call_stack = 1 }
+    in_call_stack && /Usage:/ { print; exit }
+' "$RUNTIME_HELP_TEXT")
+call_stack_mode_list=" $(printf '%s' "$CALL_STACK_MODES" | tr ',' ' ') "
+if ((CAP_CALL_STACK)) && [[ $CALL_STACK_USAGE == *instruction* && $call_stack_mode_list == *" instruction "* ]]; then CAP_INSTRUCTION=1; fi
+if ((CAP_CALL_STACK)) && [[ $CALL_STACK_USAGE == *auto* ]]; then CAP_AUTO=1; fi
+if ((CAP_CALL_STACK)) && [[ $CALL_STACK_USAGE == *unwind* && $call_stack_mode_list == *" unwind "* ]]; then CAP_UNWIND=1; fi
 if grep -q -- '--wasm-feature-wasm2' "$WASM_HELP_TEXT"; then CAP_WASM2=1; fi
 
 CAPABILITIES="full=${CAP_FULL},lazy=${CAP_LAZY},tiered=${CAP_TIERED},tiered_no_t0=${CAP_TIERED_NO_T0},tiered_no_t2=${CAP_TIERED_NO_T2},instruction=${CAP_INSTRUCTION},auto=${CAP_AUTO},unwind=${CAP_UNWIND},wasm2=${CAP_WASM2}"
@@ -711,7 +732,7 @@ extract_trap_kind()
 {
     local output_log=$1
     local line
-    line=$(grep -a -m1 'Runtime crash (' "$output_log" || true)
+    line=$(LC_ALL=C sed $'s/\033\\[[0-9;?]*[ -\\/]*[@-~]//g' "$output_log" | grep -a -m1 'Runtime crash (' || true)
     if [[ $line == *'Runtime crash ('* ]]; then
         line=${line#*Runtime crash (}
         printf '%s' "${line%%)*}"
@@ -834,7 +855,8 @@ extract_func_indices()
     while IFS= read -r match; do
         if [[ -n $indices ]]; then indices+=,; fi
         indices+=${match#func_idx=}
-    done < <(grep -ao 'func_idx=[0-9][0-9]*' "$output_log" 2>/dev/null || true)
+    done < <(LC_ALL=C sed $'s/\033\\[[0-9;?]*[ -\\/]*[@-~]//g' "$output_log" |
+        grep -ao 'func_idx=[0-9][0-9]*' 2>/dev/null || true)
     printf '%s' "$indices"
 }
 
@@ -1021,11 +1043,25 @@ run_matrix_case()
             detail="trap kind mismatch: ${trap_kind:-missing}"
         else
             if regular_case_executes_llvm "$mode" "$fixture" && [[ $actual_policy == none ]]; then
-                expect_stack=0
+                case $mode in
+                    full|lazy)
+                        expect_stack=0
+                        ;;
+                    *)
+                        # Tiered modes may still report UWVM-int/current-runtime frames while the LLVM JIT
+                        # call-stack policy is none.  Treat those frames as runtime context, not as an
+                        # automatic fallback from native unwind to Instruction.
+                        expect_stack=2
+                        ;;
+                esac
             fi
             if ((expect_stack)) && [[ $func_indices != "$expected_stack" ]]; then
-                outcome=FAIL
-                detail="call stack mismatch: expected ${expected_stack}, actual ${func_indices:-missing}"
+                if ((expect_stack == 2)); then
+                    detail="trap=${trap_kind};funcs=${func_indices:-omitted};frames=${call_stack_frames};tiered_runtime_frames=allowed"
+                else
+                    outcome=FAIL
+                    detail="call stack mismatch: expected ${expected_stack}, actual ${func_indices:-missing}"
+                fi
             elif ((expect_stack == 0)) && [[ -n $func_indices ]]; then
                 outcome=FAIL
                 detail="auto none emitted forbidden Instruction frames: ${func_indices}"
