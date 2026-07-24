@@ -2290,15 +2290,13 @@ inline constexpr ::std::size_t aggressive_target_task_groups_per_adjusted_compil
                                           ::uwvm2::utils::container::u8cstring_view file_name,
                                           ::uwvm2::utils::container::u8string_view module_name) noexcept
     {
-        details::validation_module_storage_t const& validation_module{module_storage};
-
-    auto const& importsec{::uwvm2::parser::wasm::concepts::operation::get_first_type_in_tuple<details::validation_module_traits_t::import_section_storage_t>(
-        validation_module.sections)};
+    auto const& importsec{::uwvm2::parser::wasm::concepts::operation::get_first_type_in_tuple<
+        ::uwvm2::parser::wasm::standard::wasm1::features::import_section_storage_t<Fs...>>(module_storage.sections)};
     // Function indices in Wasm validation include imported functions before local code-section bodies.
     auto const import_func_count{importsec.importdesc.index_unchecked(0u).size()};
 
-    auto const& codesec{::uwvm2::parser::wasm::concepts::operation::get_first_type_in_tuple<details::validation_module_traits_t::code_section_storage_t>(
-        validation_module.sections)};
+    auto const& codesec{::uwvm2::parser::wasm::concepts::operation::get_first_type_in_tuple<
+        ::uwvm2::parser::wasm::standard::wasm1::features::code_section_storage_t<Fs...>>(module_storage.sections)};
 
     for(::std::size_t local_idx{}; local_idx < codesec.codes.size(); ++local_idx)
     {
@@ -2312,7 +2310,7 @@ inline constexpr ::std::size_t aggressive_target_task_groups_per_adjusted_compil
         try
 #endif
         {
-            ::uwvm2::validation::standard::wasm2::validate_code_with_runtime_policy(validation_module,
+            ::uwvm2::validation::standard::wasm2::validate_code_with_runtime_policy(module_storage,
                                                                           import_func_count + local_idx,
                                                                           code_begin_ptr,
                                                                           code_end_ptr,
@@ -2322,12 +2320,12 @@ inline constexpr ::std::size_t aggressive_target_task_groups_per_adjusted_compil
 #ifdef UWVM_CPP_EXCEPTIONS
         catch(::fast_io::error)
         {
-            ::uwvm2::uwvm::utils::memory::print_memory const memory_printer{validation_module.module_span.module_begin,
+            ::uwvm2::uwvm::utils::memory::print_memory const memory_printer{module_storage.module_span.module_begin,
                                                                             v_err.err_curr,
-                                                                            validation_module.module_span.module_end};
+                                                                            module_storage.module_span.module_end};
 
             ::uwvm2::validation::error::error_output_t errout{};
-            errout.module_begin = validation_module.module_span.module_begin;
+            errout.module_begin = module_storage.module_span.module_begin;
             errout.err = v_err;
             errout.flag.enable_ansi = static_cast<::std::uint_least8_t>(::uwvm2::uwvm::utils::ansies::put_color);
 # if defined(_WIN32) && (_WIN32_WINNT < 0x0A00 || defined(_WIN32_WINDOWS))

@@ -1876,6 +1876,17 @@ scan_decfloat_assign_native_wide(T &value, bool negative, ::std::uint_least64_t 
 	}
 #endif
 
+#ifndef __SIZEOF_INT128__
+	template <typename T>
+	[[nodiscard]] inline constexpr bool
+	scan_decfloat_try_nearest_even_compare(T &, bool, scan_decfloat_significand_state const &,
+										   ::std::int_least64_t, scan_decfloat_adjusted_mantissa,
+										   scan_decfloat_adjusted_mantissa, ::fast_io::parse_code &) noexcept
+	{
+		return false;
+	}
+#endif
+
 	inline constexpr void scan_decfloat_state_from_u64(scan_decfloat_significand_state &state,
 													   ::std::uint_least64_t significand) noexcept
 	{
