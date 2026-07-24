@@ -19,7 +19,7 @@ inline constexpr void write_nullptr_case(basic_io_buffer_pointers<char_type> &__
 }
 
 template <::std::integral char_type, typename optstmtype>
-inline constexpr char_type const *write_some_typical_case(optstmtype optstm,
+inline constexpr char_type const *write_some_typical_case(optstmtype &optstm,
 														  basic_io_buffer_pointers<char_type> &__restrict pointers,
 														  char_type const *first, char_type const *last)
 {
@@ -76,7 +76,7 @@ inline constexpr char_type const *write_some_typical_case(optstmtype optstm,
 }
 
 template <::std::integral char_type, typename optstmtype>
-inline constexpr void write_all_typical_case(optstmtype optstm,
+inline constexpr void write_all_typical_case(optstmtype &optstm,
 											 basic_io_buffer_pointers<char_type> &__restrict pointers,
 											 char_type const *first, char_type const *last)
 {
@@ -101,7 +101,7 @@ inline constexpr void write_all_typical_case(optstmtype optstm,
 }
 
 template <::std::integral char_type, typename allocator_type, ::std::size_t buffer_size, typename optstmtype>
-inline constexpr char_type const *write_some_overflow_impl(optstmtype optstm,
+inline constexpr char_type const *write_some_overflow_impl(optstmtype &optstm,
 														   basic_io_buffer_pointers<char_type> &pointers,
 														   char_type const *first, char_type const *last)
 {
@@ -122,7 +122,7 @@ inline constexpr char_type const *write_some_overflow_impl(optstmtype optstm,
 }
 
 template <::std::integral char_type, typename optstmtype>
-inline constexpr void write_all_nullptr_case(optstmtype optstm, basic_io_buffer_pointers<char_type> &__restrict pointers,
+inline constexpr void write_all_nullptr_case(optstmtype &optstm, basic_io_buffer_pointers<char_type> &__restrict pointers,
 											 char_type const *first, char_type const *last)
 {
 	if constexpr (::fast_io::operations::decay::defines::has_any_of_write_bytes_operations<optstmtype>)
@@ -150,7 +150,7 @@ inline constexpr void write_all_nullptr_case(optstmtype optstm, basic_io_buffer_
 }
 
 template <::std::integral char_type, typename allocator_type, ::std::size_t buffer_size, typename optstmtype>
-inline constexpr void write_all_overflow_impl(optstmtype optstm, basic_io_buffer_pointers<char_type> &pointers,
+inline constexpr void write_all_overflow_impl(optstmtype &optstm, basic_io_buffer_pointers<char_type> &pointers,
 											  char_type const *first, char_type const *last)
 {
 	::std::size_t const diff{static_cast<::std::size_t>(last - first)};
@@ -170,7 +170,7 @@ inline constexpr void write_all_overflow_impl(optstmtype optstm, basic_io_buffer
 }
 
 template <::std::integral char_type, typename optstmtype>
-inline constexpr void output_stream_buffer_flush_impl(optstmtype optstm, basic_io_buffer_pointers<char_type> &pointers)
+inline constexpr void output_stream_buffer_flush_impl(optstmtype &optstm, basic_io_buffer_pointers<char_type> &pointers)
 {
 	if (pointers.buffer_begin == pointers.buffer_curr)
 	{
@@ -181,7 +181,7 @@ inline constexpr void output_stream_buffer_flush_impl(optstmtype optstm, basic_i
 }
 
 template <::std::integral char_type, typename allocator_type, ::std::size_t buffer_size, typename optstmtype>
-inline constexpr void obuffer_minimum_size_flush_prepare_impl(optstmtype optstm,
+inline constexpr void obuffer_minimum_size_flush_prepare_impl(optstmtype &optstm,
 															  basic_io_buffer_pointers<char_type> &pointers)
 {
 	if (pointers.buffer_begin == pointers.buffer_curr)
@@ -209,10 +209,13 @@ write_some_overflow_define(basic_io_buffer_ref<io_buffer_type> iobref,
 						   typename io_buffer_type::output_char_type const *first,
 						   typename io_buffer_type::output_char_type const *last)
 {
+	// Buffer overflow is one synchronous operation. Normalize the wrapped handle once, then let the flush/growth graph
+	// borrow that exact result; repeated by-value helpers used to copy an observer at every fallback edge.
+	decltype(auto) outref = ::fast_io::operations::output_stream_ref(iobref.iobptr->handle);
 	return ::fast_io::details::io_buffer::write_some_overflow_impl<typename io_buffer_type::output_char_type,
 																   typename io_buffer_type::traits_type::allocator_type,
 																   io_buffer_type::traits_type::output_buffer_size>(
-		::fast_io::operations::output_stream_ref(iobref.iobptr->handle), iobref.iobptr->output_buffer, first, last);
+		outref, iobref.iobptr->output_buffer, first, last);
 }
 
 template <typename io_buffer_type>
@@ -220,10 +223,11 @@ inline constexpr void write_all_overflow_define(basic_io_buffer_ref<io_buffer_ty
 												typename io_buffer_type::output_char_type const *first,
 												typename io_buffer_type::output_char_type const *last)
 {
+	decltype(auto) outref = ::fast_io::operations::output_stream_ref(iobref.iobptr->handle);
 	return ::fast_io::details::io_buffer::write_all_overflow_impl<typename io_buffer_type::output_char_type,
 																  typename io_buffer_type::traits_type::allocator_type,
 																  io_buffer_type::traits_type::output_buffer_size>(
-		::fast_io::operations::output_stream_ref(iobref.iobptr->handle), iobref.iobptr->output_buffer, first, last);
+		outref, iobref.iobptr->output_buffer, first, last);
 }
 
 
@@ -234,7 +238,8 @@ pwrite_some_overflow_define(basic_io_buffer_ref<io_buffer_type> iobref,
 							typename io_buffer_type::output_char_type const *last,
 							::fast_io::intfpos_t off)
 {
-	return ::fast_io::operations::decay::pwrite_some_decay(::fast_io::operations::output_stream_ref(iobref.iobptr->handle), first, last, off);
+	decltype(auto) outref = ::fast_io::operations::output_stream_ref(iobref.iobptr->handle);
+	return ::fast_io::operations::decay::pwrite_some_decay(outref, first, last, off);
 }
 
 template <typename io_buffer_type>
@@ -243,7 +248,8 @@ inline constexpr void pwrite_all_overflow_define(basic_io_buffer_ref<io_buffer_t
 												 typename io_buffer_type::output_char_type const *last,
 												 ::fast_io::intfpos_t off)
 {
-	::fast_io::operations::decay::pwrite_all_decay(::fast_io::operations::output_stream_ref(iobref.iobptr->handle), first, last, off);
+	decltype(auto) outref = ::fast_io::operations::output_stream_ref(iobref.iobptr->handle);
+	::fast_io::operations::decay::pwrite_all_decay(outref, first, last, off);
 }
 
 template <typename io_buffer_type>
@@ -252,7 +258,8 @@ scatter_pwrite_some_overflow_define(basic_io_buffer_ref<io_buffer_type> iobref,
 									::fast_io::basic_io_scatter_t<typename io_buffer_type::output_char_type> pscatters,
 									::std::size_t n, ::fast_io::intfpos_t off)
 {
-	return ::fast_io::operations::decay::scatter_pwrite_some_decay(::fast_io::operations::output_stream_ref(iobref.iobptr->handle), pscatters, n, off);
+	decltype(auto) outref = ::fast_io::operations::output_stream_ref(iobref.iobptr->handle);
+	return ::fast_io::operations::decay::scatter_pwrite_some_decay(outref, pscatters, n, off);
 }
 
 template <typename io_buffer_type>
@@ -260,14 +267,16 @@ inline constexpr void scatter_pwrite_all_overflow_define(basic_io_buffer_ref<io_
 														 ::fast_io::basic_io_scatter_t<typename io_buffer_type::output_char_type> pscatters,
 														 ::std::size_t n, ::fast_io::intfpos_t off)
 {
-	::fast_io::operations::decay::scatter_pwrite_all_decay(::fast_io::operations::output_stream_ref(iobref.iobptr->handle), pscatters, n, off);
+	decltype(auto) outref = ::fast_io::operations::output_stream_ref(iobref.iobptr->handle);
+	::fast_io::operations::decay::scatter_pwrite_all_decay(outref, pscatters, n, off);
 }
 
 template <typename io_buffer_type>
 inline constexpr void output_stream_buffer_flush_define(basic_io_buffer_ref<io_buffer_type> iobref)
 {
+	decltype(auto) outref = ::fast_io::operations::output_stream_ref(iobref.iobptr->handle);
 	::fast_io::details::io_buffer::output_stream_buffer_flush_impl<typename io_buffer_type::output_char_type>(
-		::fast_io::operations::output_stream_ref(iobref.iobptr->handle), iobref.iobptr->output_buffer);
+		outref, iobref.iobptr->output_buffer);
 }
 
 template <typename io_buffer_type>
@@ -297,6 +306,29 @@ inline constexpr void obuffer_set_curr(basic_io_buffer_ref<io_buffer_type> iobre
 
 template <::std::integral char_type, typename io_buffer_type>
 	requires(::std::same_as<char_type, typename basic_io_buffer_ref<io_buffer_type>::output_char_type>)
+inline constexpr ::std::true_type print_compiler_constant_obuffer_materialization_safe(
+	::fast_io::io_reserve_type_t<char_type, basic_io_buffer_ref<io_buffer_type>>) noexcept
+{
+	// basic_io_buffer_ref exposes one stable put area and cursor publication is a plain pointer assignment. Limit this
+	// promise to compiler-constant materialization so unrelated deferred-commit strategies remain independently gated.
+	return {};
+}
+
+/// @brief Authorizes one capacity-proven non-throwing bounded run in the owned output buffer.
+/// @details `basic_io_buffer_ref` keeps its allocation and cursors stable until overflow or flush. Neither operation is
+///          reachable after a full-run capacity proof, and the admitted formatter chain is separately non-throwing;
+///          therefore publishing the final cursor is observationally equivalent to intermediate publications. This
+///          narrow marker does not authorize general scatter folding or a capacity-miss write.
+template <::std::integral char_type, typename io_buffer_type>
+	requires(::std::same_as<char_type, typename basic_io_buffer_ref<io_buffer_type>::output_char_type>)
+inline constexpr ::std::true_type print_single_pass_bounded_obuffer_materialization_safe(
+	::fast_io::io_reserve_type_t<char_type, basic_io_buffer_ref<io_buffer_type>>) noexcept
+{
+	return {};
+}
+
+template <::std::integral char_type, typename io_buffer_type>
+	requires(::std::same_as<char_type, typename basic_io_buffer_ref<io_buffer_type>::output_char_type>)
 inline constexpr ::std::size_t
 	obuffer_minimum_size_define(::fast_io::io_reserve_type_t<char_type, basic_io_buffer_ref<io_buffer_type>>)
 {
@@ -306,10 +338,26 @@ inline constexpr ::std::size_t
 template <typename io_buffer_type>
 inline constexpr void obuffer_minimum_size_flush_prepare_define(basic_io_buffer_ref<io_buffer_type> iobref)
 {
+	decltype(auto) outref = ::fast_io::operations::output_stream_ref(iobref.iobptr->handle);
 	::fast_io::details::io_buffer::obuffer_minimum_size_flush_prepare_impl<
 		typename io_buffer_type::output_char_type, typename io_buffer_type::traits_type::allocator_type,
 		io_buffer_type::traits_type::output_buffer_size>(
-		::fast_io::operations::output_stream_ref(iobref.iobptr->handle), iobref.iobptr->output_buffer);
+		outref, iobref.iobptr->output_buffer);
+}
+
+/// @brief Publishes a pending buffered prefix and restores the owned output window for one bounded-run retry.
+/// @details The caller invokes this only after a read-only whole-run preflight misses the current tail and proves the
+///          same bound fits the full buffer. The ordinary flush-prepare operation preserves the pending prefix before
+///          resetting the cursors; a second preflight may then materialize the complete record once. This is a narrow
+///          retry CPO and does not authorize refresh after partial formatting or an unbounded source operation. Its
+///          exception contract is exactly the existing flush contract: if publishing the old prefix fails, the
+///          exception propagates before the new record is formatted or its cursor is committed. Core neither retries
+///          that failed publication nor starts a second write, so the sink retains its established partial-write state.
+template <typename io_buffer_type>
+inline constexpr void print_single_pass_bounded_put_area_refresh(
+	basic_io_buffer_ref<io_buffer_type> iobref)
+{
+	obuffer_minimum_size_flush_prepare_define(iobref);
 }
 
 } // namespace fast_io
