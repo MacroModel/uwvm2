@@ -1,32 +1,16 @@
-﻿#pragma once
-
-namespace fast_io::details
+﻿if constexpr (::fast_io::details::is_ebcdic<ch_type> &&
+			  (::std::same_as<ch_type, char> || ::std::same_as<ch_type, wchar_t>))
 {
-
-template <::std::integral ch_type>
-inline constexpr ch_type execution_character_literal(char8_t ch) noexcept
-{
-	using clean_type = ::std::remove_cv_t<ch_type>;
-	if constexpr (::std::same_as<clean_type, char>)
+	if constexpr (::std::same_as<ch_type, char>)
 	{
 		switch (ch)
 		{
 		case u8'\0':
 			return '\0';
-		case u8'\a':
-			return '\a';
-		case u8'\b':
-			return '\b';
 		case u8'\n':
 			return '\n';
 		case u8'\t':
 			return '\t';
-		case u8'\v':
-			return '\v';
-		case u8'\f':
-			return '\f';
-		case u8'\r':
-			return '\r';
 		case u8' ':
 			return ' ';
 		case u8'!':
@@ -221,26 +205,16 @@ inline constexpr ch_type execution_character_literal(char8_t ch) noexcept
 			return '\0';
 		}
 	}
-	else if constexpr (::std::same_as<clean_type, wchar_t>)
+	else
 	{
 		switch (ch)
 		{
 		case u8'\0':
 			return L'\0';
-		case u8'\a':
-			return L'\a';
-		case u8'\b':
-			return L'\b';
 		case u8'\n':
 			return L'\n';
 		case u8'\t':
 			return L'\t';
-		case u8'\v':
-			return L'\v';
-		case u8'\f':
-			return L'\f';
-		case u8'\r':
-			return L'\r';
 		case u8' ':
 			return L' ';
 		case u8'!':
@@ -435,11 +409,10 @@ inline constexpr ch_type execution_character_literal(char8_t ch) noexcept
 			return L'\0';
 		}
 	}
-	else
-	{
-		using unsigned_type = ::std::make_unsigned_t<clean_type>;
-		return static_cast<ch_type>(static_cast<unsigned_type>(ch));
-	}
 }
-
-} // namespace fast_io::details
+else if constexpr (::std::same_as<ch_type, wchar_t> && ::fast_io::details::wide_is_none_utf_endian)
+{
+	using unsigned_char_type = ::std::make_unsigned_t<wchar_t>;
+	return static_cast<ch_type>(::fast_io::byte_swap(static_cast<unsigned_char_type>(ch)));
+}
+else

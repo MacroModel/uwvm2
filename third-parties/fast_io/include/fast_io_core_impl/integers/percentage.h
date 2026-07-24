@@ -135,7 +135,6 @@ inline constexpr auto comma_base_percentage_sex_ratio(T male, U female) noexcept
 
 } // namespace manipulators
 
-/// @feature concept:runtime_precise_size
 template <::std::integral chartype, ::fast_io::manipulators::scalar_flags flags, typename T, typename U>
 	requires(::fast_io::details::my_integral<T> && ::fast_io::details::my_integral<U>)
 inline constexpr ::std::size_t print_reserve_size(
@@ -297,7 +296,9 @@ inline constexpr chartype *prrsv_percentage_main_common_impl(chartype *iter, T n
 					::fast_io::intrinsics::udivmod<udivmodtype>(numerator10000low, numerator10000high, denominator,
 																zero);
 
-				FAST_IO_ASSUME(remainderhigh == 0);
+#if __has_cpp_attribute(assume)
+				[[assume(remainderhigh == 0)]];
+#endif
 				if ((denominatordiv2 < remainderlow) ||
 					(remainderlow == denominatordiv2 && denominatoriseven && ((quotientlow & 1u) != 0u))) // round
 				{
@@ -318,8 +319,10 @@ inline constexpr chartype *prrsv_percentage_main_common_impl(chartype *iter, T n
 					constexpr auto mxval{::fast_io::details::base_ul64_max_val<base, T>};
 					auto [quotientlowlow, quotientlowhigh, remainderlowlow, remainderlowhigh] =
 						::fast_io::intrinsics::udivmod<udivmodtype>(quotientlow, quotienthigh, mxval, zero);
-					FAST_IO_ASSUME(quotientlowhigh == 0);
-					FAST_IO_ASSUME(remainderlowhigh == 0);
+#if __has_cpp_attribute(assume)
+					[[assume(quotientlowhigh == 0)]];
+					[[assume(remainderlowhigh == 0)]];
+#endif
 					constexpr ::std::size_t toprint{4u};
 					if constexpr (full)
 					{

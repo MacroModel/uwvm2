@@ -7,41 +7,30 @@ namespace details::io_buffer
 {
 
 template <typename allocator_type, ::std::integral char_type, typename instmtype>
-inline constexpr bool ibuffer_underflow_rl_size_impl(instmtype &insm, basic_io_buffer_pointers<char_type> &ibuffer,
-												 ::std::size_t bfsz)
+inline constexpr bool ibuffer_underflow_rl_size_impl(instmtype insm, basic_io_buffer_pointers<char_type> &ibuffer,
+													 ::std::size_t bfsz)
 {
 	using typed_allocator_type = ::fast_io::typed_generic_allocator_adapter<allocator_type, char_type>;
 	if (ibuffer.buffer_begin == nullptr)
 	{
 		ibuffer.buffer_end = ibuffer.buffer_curr = ibuffer.buffer_begin = typed_allocator_type::allocate(bfsz);
 	}
-	auto const previous_end{ibuffer.buffer_end};
-	auto const next_end{
-		::fast_io::operations::decay::read_some_decay(insm, ibuffer.buffer_begin, ibuffer.buffer_begin + bfsz)};
-	if (next_end == ibuffer.buffer_begin)
-	{
-		// A failed refill is an observation of EOF, not a new empty chunk. Preserve the exhausted previous span so a
-		// context scanner can apply its documented EOF rewind within that storage. Resetting end to begin first made a
-		// subsequent rewind install curr > end. On the initial allocation previous_end equals begin, so the same rule
-		// still leaves a canonical empty buffer.
-		ibuffer.buffer_curr = ibuffer.buffer_end = previous_end;
-		return false;
-	}
+	ibuffer.buffer_end =
+		::fast_io::operations::decay::read_some_decay(insm, ibuffer.buffer_begin, ibuffer.buffer_begin + bfsz);
 	ibuffer.buffer_curr = ibuffer.buffer_begin;
-	ibuffer.buffer_end = next_end;
-	return true;
+	return ibuffer.buffer_begin != ibuffer.buffer_end;
 }
 
 template <::std::size_t bfsz, ::std::integral char_type, typename allocator_type, typename instmtype>
-inline constexpr bool ibuffer_underflow_rl_impl(instmtype &insm, basic_io_buffer_pointers<char_type> &ibuffer)
+inline constexpr bool ibuffer_underflow_rl_impl(instmtype insm, basic_io_buffer_pointers<char_type> &ibuffer)
 {
 	return ::fast_io::details::io_buffer::ibuffer_underflow_rl_size_impl<allocator_type>(insm, ibuffer, bfsz);
 }
 
 template <typename allocator_type, ::std::integral char_type, typename instmtype>
 inline constexpr void
-ibuffer_minimum_size_underflow_all_prepare_rl_size_impl(instmtype &insm, basic_io_buffer_pointers<char_type> &ibuffer,
-																::std::size_t bfsz)
+ibuffer_minimum_size_underflow_all_prepare_rl_size_impl(instmtype insm, basic_io_buffer_pointers<char_type> &ibuffer,
+														::std::size_t bfsz)
 {
 	using typed_allocator_type = ::fast_io::typed_generic_allocator_adapter<allocator_type, char_type>;
 	if (ibuffer.buffer_begin == nullptr)
@@ -59,15 +48,15 @@ template <::std::size_t bfsz, ::std::integral char_type, typename allocator_type
 #if __has_cpp_attribute(__gnu__::__cold__)
 [[__gnu__::__cold__]]
 #endif
-inline constexpr void ibuffer_minimum_size_underflow_all_prepare_impl(instmtype &insm,
-														  basic_io_buffer_pointers<char_type> &ibuffer)
+inline constexpr void ibuffer_minimum_size_underflow_all_prepare_impl(instmtype insm,
+																	  basic_io_buffer_pointers<char_type> &ibuffer)
 {
 	::fast_io::details::io_buffer::ibuffer_minimum_size_underflow_all_prepare_rl_size_impl<allocator_type>(
 		insm, ibuffer, bfsz);
 }
 
 template <typename allocator_type, ::std::integral char_type, typename instmtype>
-inline constexpr char_type *read_some_underflow_size_impl(instmtype &instm,
+inline constexpr char_type *read_some_underflow_size_impl(instmtype instm,
 														  basic_io_buffer_pointers<char_type> &__restrict pointers,
 														  char_type *first, char_type *last, ::std::size_t bfsz)
 {
@@ -124,7 +113,7 @@ inline constexpr char_type *read_some_underflow_size_impl(instmtype &instm,
 }
 
 template <::std::size_t bfsz, typename allocatortype, ::std::integral char_type, typename instmtype>
-inline constexpr char_type *read_some_underflow_impl(instmtype &instm,
+inline constexpr char_type *read_some_underflow_impl(instmtype instm,
 													 basic_io_buffer_pointers<char_type> &__restrict pointers,
 													 char_type *first, char_type *last)
 {
@@ -143,12 +132,9 @@ inline constexpr char_type *read_some_underflow_define(basic_io_buffer_ref<io_bu
 	{
 		output_stream_buffer_flush_define(iobref);
 	}
-	// The handle projection is normalized once per refill operation. A prvalue obtains this local owner, while a
-	// reference-returning CPO preserves the wrapped device cursor; every refill helper below borrows the same object.
-	decltype(auto) inref = ::fast_io::operations::input_stream_ref(iobref.iobptr->handle);
 	return ::fast_io::details::io_buffer::read_some_underflow_impl<
 		io_buffer_type::traits_type::input_buffer_size, typename io_buffer_type::traits_type::allocator_type>(
-		inref, iobref.iobptr->input_buffer, first, last);
+		::fast_io::operations::input_stream_ref(iobref.iobptr->handle), iobref.iobptr->input_buffer, first, last);
 }
 
 template <typename io_buffer_type, ::std::integral char_type>
@@ -160,8 +146,7 @@ inline constexpr char_type *pread_some_underflow_define(basic_io_buffer_ref<io_b
 	{
 		output_stream_buffer_flush_define(iobref);
 	}
-	decltype(auto) inref = ::fast_io::operations::input_stream_ref(iobref.iobptr->handle);
-	return ::fast_io::operations::decay::pread_some_decay(inref, first, last, off);
+	return ::fast_io::operations::decay::pread_some_decay(::fast_io::operations::input_stream_ref(iobref.iobptr->handle), first, last, off);
 }
 
 template <typename io_buffer_type, ::std::integral char_type>
@@ -173,8 +158,7 @@ inline constexpr void pread_all_underflow_define(basic_io_buffer_ref<io_buffer_t
 	{
 		output_stream_buffer_flush_define(iobref);
 	}
-	decltype(auto) inref = ::fast_io::operations::input_stream_ref(iobref.iobptr->handle);
-	return ::fast_io::operations::decay::pread_all_decay(inref, first, last, off);
+	return ::fast_io::operations::decay::pread_all_decay(::fast_io::operations::input_stream_ref(iobref.iobptr->handle), first, last, off);
 }
 
 template <typename io_buffer_type, ::std::integral char_type>
@@ -186,8 +170,7 @@ inline constexpr ::fast_io::io_scatter_status_t scatter_pread_some_underflow_def
 	{
 		output_stream_buffer_flush_define(iobref);
 	}
-	decltype(auto) inref = ::fast_io::operations::input_stream_ref(iobref.iobptr->handle);
-	return ::fast_io::operations::decay::scatter_pread_some_decay(inref, pscatters, n, off);
+	return ::fast_io::operations::decay::scatter_pread_some_decay(::fast_io::operations::input_stream_ref(iobref.iobptr->handle), pscatters, n, off);
 }
 
 template <typename io_buffer_type, ::std::integral char_type>
@@ -199,8 +182,19 @@ inline constexpr void scatter_pread_all_underflow_define(basic_io_buffer_ref<io_
 	{
 		output_stream_buffer_flush_define(iobref);
 	}
-	decltype(auto) inref = ::fast_io::operations::input_stream_ref(iobref.iobptr->handle);
-	::fast_io::operations::decay::scatter_pread_all_decay(inref, pscatters, n, off);
+	::fast_io::operations::decay::scatter_pread_all_decay(::fast_io::operations::input_stream_ref(iobref.iobptr->handle), pscatters, n, off);
+}
+
+template <typename io_buffer_type, ::std::integral char_type>
+inline constexpr char_type *pread_all_underflow_define(basic_io_buffer_ref<io_buffer_type> iobref,
+													   char_type *first, char_type *last, ::fast_io::intfpos_t off)
+{
+	constexpr auto mode{io_buffer_type::traits_type::mode};
+	if constexpr ((mode & buffer_mode::out) == buffer_mode::out && (mode & buffer_mode::tie) == buffer_mode::tie)
+	{
+		output_stream_buffer_flush_define(iobref);
+	}
+	return ::fast_io::operations::decay::pread_all_decay(::fast_io::operations::input_stream_ref(iobref.iobptr->handle), first, last, off);
 }
 
 template <typename io_buffer_type>
@@ -211,11 +205,10 @@ inline constexpr bool ibuffer_underflow(basic_io_buffer_ref<io_buffer_type> iobr
 	{
 		output_stream_buffer_flush_define(iobref);
 	}
-	decltype(auto) inref = ::fast_io::operations::input_stream_ref(iobref.iobptr->handle);
 	return ::fast_io::details::io_buffer::ibuffer_underflow_rl_impl<
 		io_buffer_type::traits_type::input_buffer_size, typename io_buffer_type::traits_type::input_char_type,
 		typename io_buffer_type::traits_type::allocator_type>(
-		inref, iobref.iobptr->input_buffer);
+		::fast_io::operations::input_stream_ref(iobref.iobptr->handle), iobref.iobptr->input_buffer);
 }
 
 template <typename io_buffer_type>
@@ -254,11 +247,10 @@ inline constexpr ::std::size_t
 template <typename io_buffer_type>
 inline constexpr void ibuffer_minimum_size_underflow_all_prepare_define(basic_io_buffer_ref<io_buffer_type> iobref)
 {
-	decltype(auto) inref = ::fast_io::operations::input_stream_ref(iobref.iobptr->handle);
 	::fast_io::details::io_buffer::ibuffer_minimum_size_underflow_all_prepare_impl<
 		io_buffer_type::traits_type::input_buffer_size, typename io_buffer_type::traits_type::input_char_type,
 		typename io_buffer_type::traits_type::allocator_type>(
-		inref, iobref.iobptr->input_buffer);
+		::fast_io::operations::input_stream_ref(iobref.iobptr->handle), iobref.iobptr->input_buffer);
 }
 
 } // namespace fast_io

@@ -3,7 +3,6 @@
 namespace fast_io
 {
 
-/// @feature concept:static_precise_size
 template <::std::integral char_type, typename T>
 	requires(::std::same_as<T, ::std::weak_ordering> || ::std::same_as<T, ::std::strong_ordering> ||
 			 ::std::same_as<T, ::std::partial_ordering>)

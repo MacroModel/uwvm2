@@ -29,7 +29,11 @@ inline constexpr tuint<T> udivbigbysmalltosmalldefault(T u1, T u0, T v) noexcept
 #if (defined(__x86_64__) || defined(_M_AMD64)) && !defined(__arm64ec__) && !defined(_M_ARM64EC)
 	if constexpr (sizeof(T) == sizeof(::std::uint_least64_t))
 	{
-		FAST_IO_IF_NOT_CONSTEVAL
+#if defined(__cpp_if_consteval)
+		if !consteval
+#else
+		if (!__builtin_is_constant_evaluated())
+#endif
 		{
 #if defined(_MSC_VER) && !defined(__clang__)
 			long long unsigned remainder;
@@ -111,7 +115,11 @@ inline constexpr T shiftleft(T low, T high, unsigned shift) noexcept
 #if defined(_MSC_VER) && !defined(__clang__) && defined(_M_AMD64) && !defined(__arm64ec__) && !defined(_M_ARM64EC)
 	if constexpr (sizeof(T) == sizeof(long long unsigned))
 	{
-		FAST_IO_IF_NOT_CONSTEVAL
+#if defined(__cpp_if_consteval)
+		if !consteval
+#else
+		if (!__builtin_is_constant_evaluated())
+#endif
 		{
 			return ::fast_io::intrinsics::msvc::x86::__shiftleft128(low, high, static_cast<char unsigned>(shift));
 		}
@@ -133,7 +141,11 @@ inline constexpr T shiftright(T low, T high, unsigned shift) noexcept
 #if defined(_MSC_VER) && !defined(__clang__) && defined(_M_AMD64) && !defined(__arm64ec__) && !defined(_M_ARM64EC)
 	if constexpr (sizeof(T) == sizeof(long long unsigned))
 	{
-		FAST_IO_IF_NOT_CONSTEVAL
+#if defined(__cpp_if_consteval)
+		if !consteval
+#else
+		if (!__builtin_is_constant_evaluated())
+#endif
 		{
 			return ::fast_io::intrinsics::msvc::x86::__shiftright128(low, high, static_cast<char unsigned>(shift));
 		}

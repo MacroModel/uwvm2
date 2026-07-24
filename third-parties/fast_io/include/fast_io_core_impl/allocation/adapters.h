@@ -137,7 +137,13 @@ public:
 	static inline void *allocate_conditional_zero(::std::size_t n, bool zero) noexcept
 		requires(!has_status)
 	{
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			auto p{
 #if FAST_IO_HAS_BUILTIN(__builtin_operator_new)
@@ -287,7 +293,11 @@ public:
 		requires(!has_status)
 	{
 #if __cpp_constexpr_dynamic_alloc >= 201907L
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#else
+		if (__builtin_is_constant_evaluated())
+#endif
 		{
 			return generic_allocator_adapter::allocate_conditional_zero(n, false);
 		}
@@ -312,7 +322,11 @@ public:
 		requires(!has_status)
 	{
 #if __cpp_constexpr_dynamic_alloc >= 201907L
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#else
+		if (__builtin_is_constant_evaluated())
+#endif
 		{
 			return generic_allocator_adapter::allocate_conditional_zero(n, true);
 		}
@@ -496,7 +510,13 @@ public:
 		{
 			return p;
 		}
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			auto newptr{::operator new(n)};
 			if (p != nullptr)
@@ -733,7 +753,13 @@ public:
 	allocate_aligned_conditional_zero(::std::size_t alignment, ::std::size_t n, bool zero) noexcept
 		requires(!has_status)
 	{
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			auto p{
 #if FAST_IO_HAS_BUILTIN(__builtin_operator_new)
@@ -833,7 +859,13 @@ public:
 	allocate_aligned(::std::size_t alignment, ::std::size_t n) noexcept
 		requires(!has_status)
 	{
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			return
 #if FAST_IO_HAS_BUILTIN(__builtin_operator_new)
@@ -860,7 +892,13 @@ public:
 	allocate_aligned_zero(::std::size_t alignment, ::std::size_t n) noexcept
 		requires(!has_status)
 	{
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			return
 #if FAST_IO_HAS_BUILTIN(__builtin_operator_new)
@@ -890,7 +928,13 @@ public:
 	allocate_at_least(::std::size_t n) noexcept
 		requires(!has_status)
 	{
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			return {
 #if FAST_IO_HAS_BUILTIN(__builtin_operator_new)
@@ -917,7 +961,13 @@ public:
 	allocate_zero_at_least(::std::size_t n) noexcept
 		requires(!has_status)
 	{
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			return {
 #if FAST_IO_HAS_BUILTIN(__builtin_operator_new)
@@ -944,7 +994,13 @@ public:
 	allocate_conditional_zero_at_least(::std::size_t n, bool zero) noexcept
 		requires(!has_status)
 	{
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			auto p{::operator new(n)};
 			if (zero)
@@ -1084,7 +1140,13 @@ public:
 	allocate_aligned_at_least(::std::size_t alignment, ::std::size_t n) noexcept
 		requires(!has_status)
 	{
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			return generic_allocator_adapter::allocate_aligned_conditional_zero_at_least(alignment, n, false);
 		}
@@ -1105,7 +1167,13 @@ public:
 	allocate_aligned_zero_at_least(::std::size_t alignment, ::std::size_t n) noexcept
 		requires(!has_status)
 	{
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			return generic_allocator_adapter::allocate_aligned_conditional_zero_at_least(alignment, n, true);
 		}
@@ -1125,7 +1193,13 @@ public:
 	allocate_aligned_conditional_zero_at_least(::std::size_t alignment, ::std::size_t n, bool zero) noexcept
 		requires(!has_status)
 	{
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			auto p{::operator new(n)};
 			if (zero)
@@ -1329,7 +1403,13 @@ public:
 		{
 			return p;
 		}
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			auto newptr{::operator new(n)};
 			if (p != nullptr)
@@ -1904,7 +1984,13 @@ public:
 	static inline void *handle_allocate_conditional_zero(handle_type handle, ::std::size_t n, bool zero) noexcept
 		requires(has_status && has_native_handle_allocate)
 	{
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			auto p{::operator new(n)};
 			if (zero)
@@ -2013,7 +2099,13 @@ public:
 	static inline void *handle_allocate(handle_type handle, ::std::size_t n) noexcept
 		requires(has_status && has_native_handle_allocate)
 	{
-		FAST_IO_IF_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if consteval
+#elif __cpp_lib_is_constant_evaluated >= 201811L && __cpp_constexpr_dynamic_alloc >= 201907L
+		if (__builtin_is_constant_evaluated())
+#else
+		if (false)
+#endif
 		{
 			return static_cast<void *>(::fast_io::freestanding::allocator<::std::byte>{}.allocate(n));
 		}

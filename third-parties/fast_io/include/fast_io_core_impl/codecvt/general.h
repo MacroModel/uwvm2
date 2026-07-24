@@ -29,10 +29,6 @@ inline constexpr ::std::size_t get_general_invalid_code_units(T *dst) noexcept
 	{
 		return gb18030::get_gb18030_invalid_code_units(dst);
 	}
-	else if constexpr (encoding == encoding_scheme::execution_sbcs)
-	{
-		return get_execution_sbcs_code_units(U'\ufffd', dst);
-	}
 	else
 	{
 		if constexpr (sizeof(T) >= 2)
@@ -82,9 +78,7 @@ general_code_cvt(src_char_type const *src_first, src_char_type const *src_last, 
 		return general_code_cvt<src_encoding, get_execution_charset_encoding_scheme<dest_char_type>(encoding)>(
 			src_first, src_last, dst);
 	}
-	else if constexpr (sizeof(src_char_type) == sizeof(dest_char_type) && src_encoding == encoding &&
-					  (src_encoding != encoding_scheme::execution_sbcs ||
-					   ::std::same_as<src_char_type, dest_char_type>))
+	else if constexpr (sizeof(src_char_type) == sizeof(dest_char_type) && src_encoding == encoding)
 	{
 		::std::size_t diff{static_cast<::std::size_t>(src_last - src_first)};
 		non_overlapped_copy_n(src_first, diff, dst);
@@ -100,28 +94,13 @@ general_code_cvt(src_char_type const *src_first, src_char_type const *src_last, 
 		}
 		else
 		{
-			using unsigned_src_char_type = ::std::make_unsigned_t<src_char_type>;
 			for (; src_first != src_last; ++src_first)
 			{
-				*dst = static_cast<dest_char_type>(byte_swap(
-					static_cast<unsigned_src_char_type>(*src_first)));
+				*dst = byte_swap(*src_first);
 				++dst;
 			}
 			return {src_first, dst};
 		}
-	}
-	else if constexpr (src_encoding == encoding_scheme::execution_sbcs)
-	{
-		for (; src_first != src_last; ++src_first)
-		{
-			auto const decoded{decode_execution_sbcs_code_unit(*src_first)};
-			if (!decoded.valid) [[unlikely]]
-			{
-				break;
-			}
-			dst += get_utf_code_units<encoding>(decoded.code_point, dst);
-		}
-		return {src_first, dst};
 	}
 	else if constexpr (sizeof(src_char_type) == 4)
 	{
@@ -161,8 +140,7 @@ general_code_cvt(src_char_type const *src_first, src_char_type const *src_last, 
 					}
 					if (is_utf16_low_surrogate(code1))
 					{
-						if constexpr (sizeof(dest_char_type) == 4 &&
-									  encoding != encoding_scheme::execution_sbcs)
+						if constexpr (sizeof(dest_char_type) == 4)
 						{
 							*dst = utf16_surrogate_to_utf32(code, code1);
 							++dst;
@@ -174,8 +152,7 @@ general_code_cvt(src_char_type const *src_first, src_char_type const *src_last, 
 						continue;
 					}
 				}
-				if constexpr (sizeof(dest_char_type) == 4 &&
-							  encoding != encoding_scheme::execution_sbcs)
+				if constexpr (sizeof(dest_char_type) == 4)
 				{
 					if constexpr (is_native_scheme(encoding))
 					{
@@ -195,8 +172,7 @@ general_code_cvt(src_char_type const *src_first, src_char_type const *src_last, 
 			}
 			else [[likely]]
 			{
-				if constexpr (sizeof(dest_char_type) == 4 &&
-							  encoding != encoding_scheme::execution_sbcs)
+				if constexpr (sizeof(dest_char_type) == 4)
 				{
 					if constexpr (src_encoding == encoding)
 					{
@@ -222,7 +198,6 @@ general_code_cvt(src_char_type const *src_first, src_char_type const *src_last, 
 		(defined(__SSE__) && defined(__SSE2__) && defined(__x86_64__) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) &&                 \
          __cpp_lib_is_constant_evaluated >= 201811L)
 		if constexpr (src_encoding != encoding_scheme::utf_ebcdic && encoding != encoding_scheme::utf_ebcdic &&
-					  encoding != encoding_scheme::execution_sbcs &&
 					  1 == sizeof(src_char_type) && (1 == sizeof(dest_char_type) || encoding_is_utf(encoding)))
 		{
 			if (!__builtin_is_constant_evaluated())
@@ -282,8 +257,7 @@ general_code_cvt(src_char_type const *src_first, src_char_type const *src_last, 
 					break;
 				}
 				src_first += adv;
-				if constexpr (sizeof(dest_char_type) == 4 &&
-							  encoding != encoding_scheme::execution_sbcs)
+				if constexpr (sizeof(dest_char_type) == 4)
 				{
 					*dst = code;
 					if constexpr (encoding_is_utf(encoding) && !is_native_scheme(encoding))
@@ -301,12 +275,7 @@ general_code_cvt(src_char_type const *src_first, src_char_type const *src_last, 
 			{
 				if (static_cast<char8_t>(static_cast<::std::uint_least8_t>(*src_first)) < 0x80)
 				{
-					if constexpr (encoding_scheme::execution_sbcs == encoding)
-					{
-						dst += get_execution_sbcs_code_units(
-							static_cast<char32_t>(static_cast<::std::uint_least8_t>(*src_first)), dst);
-					}
-					else if constexpr (encoding_scheme::utf_ebcdic == encoding)
+					if constexpr (encoding_scheme::utf_ebcdic == encoding)
 					{
 						*dst = static_cast<dest_char_type>(bm_i8_to_ebcdic[*src_first]);
 					}
@@ -320,10 +289,7 @@ general_code_cvt(src_char_type const *src_first, src_char_type const *src_last, 
 						*dst = byte_swap(*dst);
 					}
 					++src_first;
-					if constexpr (encoding_scheme::execution_sbcs != encoding)
-					{
-						++dst;
-					}
+					++dst;
 				}
 				else
 				{
@@ -335,8 +301,7 @@ general_code_cvt(src_char_type const *src_first, src_char_type const *src_last, 
 							break;
 						}
 						src_first += adv;
-						if constexpr (sizeof(dest_char_type) == 4 &&
-									  encoding != encoding_scheme::execution_sbcs)
+						if constexpr (sizeof(dest_char_type) == 4)
 						{
 							*dst = code;
 							if constexpr (encoding_is_utf(encoding) && !is_native_scheme(encoding))
@@ -358,8 +323,7 @@ general_code_cvt(src_char_type const *src_first, src_char_type const *src_last, 
 							break;
 						}
 						src_first = src;
-						if constexpr (sizeof(dest_char_type) == 4 &&
-									  encoding != encoding_scheme::execution_sbcs)
+						if constexpr (sizeof(dest_char_type) == 4)
 						{
 							*dst = code;
 							if constexpr (encoding_is_utf(encoding) && !is_native_scheme(encoding))
@@ -398,18 +362,6 @@ inline constexpr dest_char_type *general_code_cvt(state_type &__restrict state, 
 		return general_code_cvt<src_encoding, get_execution_charset_encoding_scheme<dest_char_type>(encoding)>(
 			state, src_first, src_last, dst);
 	}
-	else if constexpr (src_encoding == encoding_scheme::execution_sbcs)
-	{
-		// An ordinary execution code unit cannot be split across calls.  Use the
-		// stateless policy so an unknown unit becomes one explicit replacement
-		// instead of entering a UTF/GB multibyte state machine.
-		auto [new_src, new_dst]{general_code_cvt<src_encoding, encoding>(src_first, src_last, dst)};
-		if (new_src != src_last)
-		{
-			new_dst += get_general_invalid_code_units<encoding>(new_dst);
-		}
-		return new_dst;
-	}
 	else if constexpr (sizeof(src_char_type) == 4)
 	{
 		static_assert(src_encoding == encoding_scheme::utf);
@@ -436,8 +388,7 @@ inline constexpr dest_char_type *general_code_cvt(state_type &__restrict state, 
 			}
 			if (is_utf16_low_surrogate(v))
 			{
-				if constexpr (sizeof(dest_char_type) == 4 &&
-							  encoding != encoding_scheme::execution_sbcs)
+				if constexpr (sizeof(dest_char_type) == 4)
 				{
 					*dst = utf16_surrogate_to_utf32(low, v);
 					if constexpr (!is_native_scheme(encoding))
@@ -454,8 +405,7 @@ inline constexpr dest_char_type *general_code_cvt(state_type &__restrict state, 
 			}
 			else [[unlikely]]
 			{
-				if constexpr (sizeof(dest_char_type) == 4 &&
-							  encoding != encoding_scheme::execution_sbcs)
+				if constexpr (sizeof(dest_char_type) == 4)
 				{
 					if constexpr (is_native_scheme(encoding))
 					{
@@ -511,8 +461,7 @@ inline constexpr dest_char_type *general_code_cvt(state_type &__restrict state, 
 					state.size = static_cast<char8_t>(static_cast<::std::uint_least8_t>(total_bytes));
 					return dst;
 				}
-				if constexpr (sizeof(dest_char_type) == 4 &&
-							  encoding != encoding_scheme::execution_sbcs)
+				if constexpr (sizeof(dest_char_type) == 4)
 				{
 					*dst = code;
 					if constexpr (!is_native_scheme(encoding))
@@ -536,8 +485,7 @@ inline constexpr dest_char_type *general_code_cvt(state_type &__restrict state, 
 					state.size = static_cast<char8_t>(static_cast<::std::uint_least8_t>(total_bytes));
 					return dst;
 				}
-				if constexpr (sizeof(dest_char_type) == 4 &&
-							  encoding != encoding_scheme::execution_sbcs)
+				if constexpr (sizeof(dest_char_type) == 4)
 				{
 					*dst = code;
 					if constexpr (!is_native_scheme(encoding))
@@ -573,8 +521,7 @@ inline constexpr dest_char_type *general_code_cvt_full(src_char_type const *src_
 													   dest_char_type *__restrict dst) noexcept
 {
 	// No need to consider dst_last
-	if constexpr (src_encoding == encoding_scheme::execution_charset ||
-				  encoding == encoding_scheme::execution_charset)
+	if constexpr (src_encoding == encoding_scheme::execution_charset)
 	{
 		constexpr auto src_scheme = get_execution_charset_encoding_scheme<src_char_type>(src_encoding);
 		constexpr auto dst_scheme = get_execution_charset_encoding_scheme<dest_char_type>(encoding);
@@ -585,11 +532,7 @@ inline constexpr dest_char_type *general_code_cvt_full(src_char_type const *src_
 		auto [src, new_dst] = general_code_cvt<src_encoding, encoding>(src_first, src_last, dst);
 		if (src != src_last)
 		{
-			if constexpr (encoding == encoding_scheme::execution_sbcs)
-			{
-				new_dst += get_general_invalid_code_units<encoding>(new_dst);
-			}
-			else if constexpr (sizeof(dest_char_type) == 4)
+			if constexpr (sizeof(dest_char_type) == 4)
 			{
 				if constexpr (is_native_scheme(encoding))
 				{
@@ -671,10 +614,6 @@ template <encoding_scheme src_scheme = encoding_scheme::execution_charset,
 		  encoding_scheme dst_scheme = encoding_scheme::execution_charset, ::std::integral char_type, ::std::size_t N>
 inline constexpr auto code_cvt(small_scatter_t<char_type, N> t) noexcept
 {
-	// Preserve the source proxy's type-level capacity invariant before erasing N into a run-time scatter. Without this
-	// check, mutable legacy code could change `len` after construction and bypass the reserve-side defensive checks by
-	// entering codecvt directly.
-	t.validate();
 	return code_cvt_t<src_scheme, dst_scheme, char_type>{{t.base, t.len}};
 }
 
@@ -725,8 +664,7 @@ inline constexpr char_type *
 print_reserve_define(io_reserve_type_t<char_type, code_cvt_t<src_scheme, dst_scheme, src_char_type>>, char_type *iter,
 					 code_cvt_t<src_scheme, dst_scheme, src_char_type> v) noexcept
 {
-	return details::codecvt::general_code_cvt_full<src_scheme, dst_scheme>(
-		v.reference.base, v.reference.base + v.reference.len, iter);
+	return details::codecvt::general_code_cvt_full(v.reference.base, v.reference.base + v.reference.len, iter);
 }
 
 } // namespace manipulators

@@ -58,7 +58,7 @@ template <::std::integral char_type>
 {
 	using unsigned_char_type = ::fast_io::details::my_make_unsigned_t<char_type>;
 	auto uch{static_cast<unsigned_char_type>(ch)};
-	if constexpr (sizeof(char_type) == sizeof(char8_t) && ::fast_io::details::is_ascii<char_type>)
+	if constexpr (sizeof(char_type) == sizeof(char8_t) && !::fast_io::details::is_ebcdic<char_type>)
 	{
 		constexpr auto zero{static_cast<unsigned_char_type>(::fast_io::char_literal_v<u8'0', char_type>)};
 		auto const value{static_cast<unsigned_char_type>(uch - zero)};
@@ -427,14 +427,7 @@ scan_hexfloat_skip_after_storage_limit_simd(char_type const *first, char_type co
 	using signed_char_type = ::std::make_signed_t<unsigned_char_type>;
 	constexpr unsigned N{vec_size / sizeof(char_type)};
 	using simd_vector_type = ::fast_io::intrinsics::simd_vector<signed_char_type, N>;
-	// std::bit_cast preserves every byte of each character array, so both branches
-	// construct identical vectors on every ISA.  Clang 22 and 23 were additionally
-	// verified to lower the constants to the same x86-64 instructions as load();
-	// Clang 21 and older keep the load fallback because their constexpr-vector
-	// lowering remains unmeasured.  Later Clang releases and non-Clang frontends
-	// are admitted only as a conservative code-generation hypothesis justified by
-	// semantic identity; their target objects require a fresh performance audit.
-#if (__cpp_lib_bit_cast >= 201806L) && (!defined(__clang__) || __clang_major__ >= 22)
+#if (__cpp_lib_bit_cast >= 201806L) && !defined(__clang__)
 	constexpr simd_vector_type zeroes{
 		::std::bit_cast<simd_vector_type>(::fast_io::details::characters_array_impl<u8'0', char_type, N>)};
 	constexpr simd_vector_type nines{
@@ -537,9 +530,13 @@ inline constexpr char_type const *scan_hexfloat_skip_after_storage_limit_run(cha
 {
 	auto const *const original_first{first};
 	auto truncated_nonzero{state.truncated_nonzero};
-	FAST_IO_IF_NOT_CONSTEVAL
+#ifdef __cpp_if_consteval
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
-		if constexpr (::fast_io::details::is_ascii<char_type> && sizeof(char_type) == sizeof(char8_t) &&
+		if constexpr (!::fast_io::details::is_ebcdic<char_type> && sizeof(char_type) == sizeof(char8_t) &&
 					  ::std::numeric_limits<::std::uint_least64_t>::digits == 64u)
 		{
 			constexpr auto simd_size{
@@ -664,9 +661,13 @@ inline constexpr char_type const *scan_hexfloat_significand_run(char_type const 
 																bool after_decimal,
 																state_type &state) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#ifdef __cpp_if_consteval
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
-		if constexpr (::fast_io::details::is_ascii<char_type> && sizeof(char_type) == sizeof(char8_t) &&
+		if constexpr (!::fast_io::details::is_ebcdic<char_type> && sizeof(char_type) == sizeof(char8_t) &&
 					  ::std::numeric_limits<::std::uint_least64_t>::digits == 64u)
 		{
 			for (; static_cast<::std::size_t>(last - first) >= sizeof(::std::uint_least64_t);)
@@ -1250,43 +1251,6 @@ scan_hexfloat_contiguous_define_impl(char_type const *begin, char_type const *en
 				significand_state.significant_hex_digits, significand_state.truncated_nonzero, binary_exponent)};
 }
 
-/*
-A hexadecimal floating fraction has a fixed field width, unlike an integer.
-When its carrier is wider than the integral writer's preferred unsigned type,
-split it into high and low limbs while retaining the requested letter case for
-both.  If len exceeds the low-limb capacity, the first call writes exactly
-len - low_digits high positions and the second writes exactly low_digits low
-positions.  Otherwise the value fits in the low limb and only the second call
-is needed.  Concatenating those fixed-width radix-16 expansions is the unique
-len-digit representation of mantissa, including required leading zeroes.
-*/
-template <bool uppercase, ::std::integral char_type, my_unsigned_integral mantissa_type>
-inline constexpr void print_rsvhexfloat_mantissa_fixed_impl(char_type *last, mantissa_type mantissa,
-	::std::size_t len) noexcept
-{
-	if constexpr (need_seperate_print<mantissa_type>)
-	{
-		constexpr ::std::size_t low_digits{
-			::fast_io::details::cal_max_int_size<optimal_print_unsigned_type, 16u>()};
-		optimal_print_unsigned_type high;
-		auto const low{
-			::fast_io::details::intrinsics::unpack_generic<mantissa_type, optimal_print_unsigned_type>(mantissa, high)};
-		if (low_digits < len)
-		{
-			print_reserve_integral_main_impl<16u, uppercase>(last - low_digits, high, len - low_digits);
-			len = low_digits;
-		}
-		print_reserve_integral_main_impl<16u, uppercase>(last, low, len);
-	}
-	else
-	{
-		print_reserve_integral_main_impl<16u, uppercase>(last, mantissa, len);
-	}
-}
-
-/// @brief Formats a shortest hexadecimal floating value at the native floating ABI boundary.
-/// @details The floating parameter is intentionally by value so ordinary scalars remain in their floating-point
-/// register class.  The upper CPO extracts integer fields from a representation-sensitive __bf16 owning object.
 template <bool showbase, bool showbase_uppercase, bool showpos, bool uppercase, bool uppercase_e, bool comma,
 		  bool nan_show_sign = true, bool nan_show_type = false, typename flt, ::std::integral char_type>
 inline constexpr char_type *print_rsvhexfloat_define_impl(char_type *iter, flt f) noexcept
@@ -1324,14 +1288,8 @@ inline constexpr char_type *print_rsvhexfloat_define_impl(char_type *iter, flt f
 		::std::uint_least32_t trailing_zeros_digits_d4{trailing_zeros_digits >> 2};
 		::std::uint_least32_t trailing_zeros_digits_d4m4{trailing_zeros_digits_d4 << 2};
 
-		// A narrow unsigned field carrier (binary16/bfloat16) is promoted to int by
-		// each shift.  The trait-masked mantissa and at most three alignment bits
-		// prove that both results fit the original carrier; the explicit casts only
-		// restore that carrier width after promotion.  The floating input remains
-		// by value above so native floating register passing is preserved.
-		mantissa = static_cast<mantissa_type>(mantissa << makeup_bits);
-		mantissa = static_cast<mantissa_type>(
-			mantissa >> trailing_zeros_digits_d4m4);
+		mantissa <<= makeup_bits;
+		mantissa >>= trailing_zeros_digits_d4m4;
 		::std::uint_least32_t mantissa_len{trailing_zeros_mdigits_d4 - trailing_zeros_digits_d4};
 		if (exponent == 0)
 		{
@@ -1342,8 +1300,7 @@ inline constexpr char_type *print_rsvhexfloat_define_impl(char_type *iter, flt f
 		{
 			iter = prsv_fp_hex1d<comma>(iter);
 		}
-		::fast_io::details::print_rsvhexfloat_mantissa_fixed_impl<uppercase>(
-			iter += mantissa_len, mantissa, mantissa_len);
+		print_reserve_integral_main_impl<16, uppercase>(iter += mantissa_len, mantissa, mantissa_len);
 	}
 	else
 	{
@@ -1399,15 +1356,12 @@ template <::fast_io::manipulators::floating_rounding rounding>
 	}
 }
 
-/// @brief Formats a precision-controlled hexadecimal floating value at the native floating ABI boundary.
-/// @details The floating parameter intentionally remains by value, matching the scalar entry above.  A frontend/type
-/// exception is normalized to integer fields by the upper CPO instead of changing this general low-level ABI.
 template <bool showbase, bool showbase_uppercase, bool showpos, bool uppercase, bool uppercase_e, bool comma,
-          ::fast_io::manipulators::floating_rounding rounding =
-              ::fast_io::manipulators::floating_rounding::nearest_to_even,
-          ::fast_io::manipulators::floating_precision precision_mode =
-              ::fast_io::manipulators::floating_precision::significant,
-          bool nan_show_sign = true, bool nan_show_type = false, typename flt, ::std::integral char_type>
+		  ::fast_io::manipulators::floating_rounding rounding =
+			  ::fast_io::manipulators::floating_rounding::nearest_to_even,
+		  ::fast_io::manipulators::floating_precision precision_mode =
+			  ::fast_io::manipulators::floating_precision::significant,
+		  bool nan_show_sign = true, bool nan_show_type = false, typename flt, ::std::integral char_type>
 inline constexpr char_type *print_rsvhexfloat_precision_define_impl(char_type *iter, flt f,
 																	::std::size_t precision) noexcept
 {
@@ -1462,8 +1416,7 @@ inline constexpr char_type *print_rsvhexfloat_precision_define_impl(char_type *i
 		::std::size_t total_precision{precision};
 		if constexpr (fractional_precision)
 		{
-			constexpr auto size_max{(::std::numeric_limits<::std::size_t>::max)()};
-			if (total_precision != size_max)
+			if (total_precision != static_cast<::std::size_t>(-1))
 			{
 				++total_precision;
 			}
@@ -1497,12 +1450,10 @@ inline constexpr char_type *print_rsvhexfloat_precision_define_impl(char_type *i
 			++e2;
 		}
 		auto aligned_mantissa{static_cast<mantissa_type>(mantissa << makeup_bits)};
-		// Init-capture transports the structured-binding value without requiring the later direct-capture extension from
-		// the frontend; the copied scalar is exactly the exponent observed by the surrounding formatting operation.
-		auto hex_digit_at = [aligned_mantissa, exponent_value = exponent](::std::size_t index) constexpr noexcept -> ::std::uint_least32_t {
+		auto hex_digit_at = [aligned_mantissa, exponent](::std::size_t index) constexpr noexcept -> ::std::uint_least32_t {
 			if (!index)
 			{
-				return exponent_value ? 1u : 0u;
+				return exponent ? 1u : 0u;
 			}
 			if (fractional_hex_digits < index)
 			{
@@ -2119,29 +2070,6 @@ scan_hexfloat_context_eof(
 	return ::fast_io::details::scan_hexfloat_context_assign<T, flags>(state, value);
 }
 
-// Keep the structural non-type template argument behind a named variable
-// template.  MSVC 19.51 does not treat a designated initializer that directly
-// mentions function-template boolean parameters as a constant expression in a
-// return type, although the resulting scalar_flags object is structural.  The
-// existing cache form is accepted by all supported frontends and changes only
-// template spelling: it starts with the ordinary hexfloat policy and then sets
-// the two scan-only bits, so every flag has the same value as the former direct
-// initializer.
-inline constexpr ::fast_io::manipulators::scalar_flags set_hexfloat_scan_flags(
-	::fast_io::manipulators::scalar_flags flags, bool noskipws,
-	bool allow_leading_plus) noexcept
-{
-	flags.noskipws = noskipws;
-	flags.allow_leading_plus = allow_leading_plus;
-	return flags;
-}
-
-template <bool noskipws, bool prefix, bool allow_leading_plus>
-inline constexpr ::fast_io::manipulators::scalar_flags hexfloat_scan_mani_flags_cache{
-	::fast_io::details::set_hexfloat_scan_flags(
-		::fast_io::details::hexafloat_mani_flags_cache<false, false, prefix>,
-		noskipws, allow_leading_plus)};
-
 } // namespace details
 
 namespace manipulators
@@ -2149,10 +2077,12 @@ namespace manipulators
 
 template <bool noskipws = false, bool prefix = false, bool allow_leading_plus = false,
 		  ::fast_io::details::my_floating_point scalar_type>
-inline constexpr scalar_manip_t<::fast_io::details::hexfloat_scan_mani_flags_cache<
-									noskipws, prefix, allow_leading_plus>,
+inline constexpr scalar_manip_t<::fast_io::manipulators::scalar_flags{.showbase = prefix,
+																	  .noskipws = noskipws,
+																	  .floating = ::fast_io::manipulators::floating_format::hexfloat,
+																	  .allow_leading_plus = allow_leading_plus},
 								scalar_type &>
-hexfloat_get(scalar_type &t) noexcept
+	hexfloat_get(scalar_type &t) noexcept
 {
 	return {t};
 }
@@ -2160,21 +2090,26 @@ hexfloat_get(scalar_type &t) noexcept
 template <::fast_io::manipulators::floating_rounding rounding_policy, bool noskipws = false, bool prefix = false,
 		  bool allow_leading_plus = false, ::fast_io::details::my_floating_point scalar_type>
 inline constexpr scalar_manip_t<::fast_io::details::floating_precision_rounding_mani_flags_cache<
-									::fast_io::details::hexfloat_scan_mani_flags_cache<
-										noskipws, prefix, allow_leading_plus>,
+									::fast_io::manipulators::scalar_flags{
+										.showbase = prefix,
+										.noskipws = noskipws,
+										.floating = ::fast_io::manipulators::floating_format::hexfloat,
+										.allow_leading_plus = allow_leading_plus},
 									::fast_io::manipulators::floating_precision::significant, rounding_policy>,
 								scalar_type &>
-hexfloat_get(scalar_type &t) noexcept
+	hexfloat_get(scalar_type &t) noexcept
 {
 	return {t};
 }
 
 template <bool noskipws = false, bool allow_leading_plus = false,
 		  ::fast_io::details::my_floating_point scalar_type>
-inline constexpr scalar_manip_t<::fast_io::details::hexfloat_scan_mani_flags_cache<
-									noskipws, true, allow_leading_plus>,
+inline constexpr scalar_manip_t<::fast_io::manipulators::scalar_flags{.showbase = true,
+																	  .noskipws = noskipws,
+																	  .floating = ::fast_io::manipulators::floating_format::hexfloat,
+																	  .allow_leading_plus = allow_leading_plus},
 								scalar_type &>
-hexfloat0x_get(scalar_type &t) noexcept
+	hexfloat0x_get(scalar_type &t) noexcept
 {
 	return {t};
 }
@@ -2182,11 +2117,14 @@ hexfloat0x_get(scalar_type &t) noexcept
 template <::fast_io::manipulators::floating_rounding rounding_policy, bool noskipws = false,
 		  bool allow_leading_plus = false, ::fast_io::details::my_floating_point scalar_type>
 inline constexpr scalar_manip_t<::fast_io::details::floating_precision_rounding_mani_flags_cache<
-									::fast_io::details::hexfloat_scan_mani_flags_cache<
-										noskipws, true, allow_leading_plus>,
+									::fast_io::manipulators::scalar_flags{
+										.showbase = true,
+										.noskipws = noskipws,
+										.floating = ::fast_io::manipulators::floating_format::hexfloat,
+										.allow_leading_plus = allow_leading_plus},
 									::fast_io::manipulators::floating_precision::significant, rounding_policy>,
 								scalar_type &>
-hexfloat0x_get(scalar_type &t) noexcept
+	hexfloat0x_get(scalar_type &t) noexcept
 {
 	return {t};
 }

@@ -69,7 +69,11 @@ inline constexpr bool symbol_cmp_equal_commom(char8_t const *sym, char const *st
 {
 	if (N == len)
 	{
-		FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if !consteval
+#else
+		if(!__builtin_is_constant_evaluated())
+#endif
 		{
 			for (::std::size_t i{}; i != len; ++i)
 			{

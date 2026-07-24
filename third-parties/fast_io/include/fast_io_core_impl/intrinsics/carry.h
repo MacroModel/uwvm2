@@ -16,11 +16,20 @@ namespace intrinsics
 template <typename T>
 inline constexpr T addc(T a, T b, bool carryin, bool &carryout) noexcept
 {
-	FAST_IO_ASSUME(carryin == 0 || carryin == 1);
+#if __has_cpp_attribute(assume)
+	[[assume(carryin == 0 || carryin == 1)]];
+#endif
 
-	FAST_IO_IF_NOT_CONSTEVAL
+#if defined(__cpp_if_consteval)
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if defined(_MSC_VER) && !defined(__clang__) && (defined(_M_IX86) || defined(_M_AMD64)) && !defined(__arm64ec__) && !defined(_M_ARM64EC)
+#if !__has_cpp_attribute(assume)
+		__assume(carryin == 0 || carryin == 1);
+#endif
 		if constexpr (sizeof(T) == 1)
 		{
 			char unsigned res;
@@ -84,11 +93,20 @@ inline constexpr T addc(T a, T b, bool carryin, bool &carryout) noexcept
 template <typename T>
 inline constexpr T subc(T a, T b, bool carryin, bool &carryout) noexcept
 {
-	FAST_IO_ASSUME(carryin == 0 || carryin == 1);
+#if __has_cpp_attribute(assume)
+	[[assume(carryin == 0 || carryin == 1)]];
+#endif
 
-	FAST_IO_IF_NOT_CONSTEVAL
+#if defined(__cpp_if_consteval)
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if defined(_MSC_VER) && !defined(__clang__) && (defined(_M_IX86) || defined(_M_AMD64)) && !defined(__arm64ec__) && !defined(_M_ARM64EC)
+#if !__has_cpp_attribute(assume)
+		__assume(carryin == 0 || carryin == 1);
+#endif
 		if constexpr (sizeof(T) == 1)
 		{
 			char unsigned res;

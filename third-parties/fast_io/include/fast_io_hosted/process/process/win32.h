@@ -129,14 +129,12 @@ inline win32_user_process_information win32_winnt_process_create_from_handle_imp
 		auto address_begin{pszFilename};
 
 		// change nt path to dos path
-		bool path_resolved{};
 		if (::fast_io::freestanding::my_memcmp(pszFilename, u"\\Device\\Mup\\", 12 * sizeof(char16_t)) == 0)
 		{
 			address_begin += 10;
 			*address_begin = u'\\';
-			path_resolved = true;
+			goto next;
 		}
-		else
 		{
 			char16_t DosDevice[4]{0, u':', 0, 0};
 			char16_t NtPath[1025];
@@ -156,19 +154,14 @@ inline win32_user_process_information win32_winnt_process_create_from_handle_imp
 						address_begin += NtPathLen - 2;
 						address_begin[0] = DosDevice[0];
 						address_begin[1] = u':';
-						path_resolved = true;
-						break;
+						goto next;
 					}
 				}
 			}
 
-			if (!path_resolved) [[unlikely]]
-			{
-				throw_win32_error(0x3);
-			}
+			throw_win32_error(0x3);
 		}
-		// A structured join preserves the original resolved-path continuation and
-		// avoids the cross-`if constexpr` goto diagnostic in MSVC 19.32--19.34.
+	next:
 		// create process
 		::fast_io::win32::startupinfow si{};
 		si.cb = sizeof(si);
@@ -325,14 +318,12 @@ inline win32_user_process_information win32_winnt_process_create_from_handle_imp
 		auto address_begin{pszFilename};
 
 		// change nt path to dos path
-		bool path_resolved{};
 		if (::fast_io::freestanding::my_memcmp(pszFilename, u8"\\Device\\Mup\\", 12 * sizeof(char8_t)) == 0)
 		{
 			address_begin += 10;
 			*address_begin = u8'\\';
-			path_resolved = true;
+			goto next2;
 		}
-		else
 		{
 			char8_t DosDevice[4]{0, u8':', 0, 0};
 			char8_t NtPath[1025];
@@ -352,19 +343,14 @@ inline win32_user_process_information win32_winnt_process_create_from_handle_imp
 						address_begin += NtPathLen - 2;
 						address_begin[0] = DosDevice[0];
 						address_begin[1] = u8':';
-						path_resolved = true;
-						break;
+						goto next2;
 					}
 				}
 			}
 
-			if (!path_resolved) [[unlikely]]
-			{
-				throw_win32_error(0x3);
-			}
+			throw_win32_error(0x3);
 		}
-		// A structured join preserves the original resolved-path continuation and
-		// avoids the cross-`if constexpr` goto diagnostic in MSVC 19.32--19.34.
+	next2:
 		// create process
 		::fast_io::win32::startupinfoa si{};
 		si.cb = sizeof(si);

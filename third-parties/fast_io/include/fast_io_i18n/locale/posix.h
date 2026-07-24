@@ -23,7 +23,7 @@ inline char const *my_u8getenv(char8_t const *env) noexcept
 #endif
 }
 
-inline void *posix_load_l10n_common_impl(char8_t const *cstr, ::std::size_t n, lc_locale_owner &owner)
+inline void *posix_load_l10n_common_impl(char8_t const *cstr, ::std::size_t n, lc_locale &loc)
 {
 	constexpr ::std::size_t size_restriction{256u};
 	constexpr ::std::size_t encoding_size_restriction{128u};
@@ -114,11 +114,9 @@ inline void *posix_load_l10n_common_impl(char8_t const *cstr, ::std::size_t n, l
 	}
 	*it = 0;
 	auto p{buffer};
-	// The v1 descriptor is copied before returning, so the module neither needs
-	// global symbol visibility nor NODELETE lifetime.  RTLD_LOCAL also prevents
-	// identically named locale exports from interposing on one another.
-	posix_dll_file dllfile(::fast_io::mnp::os_c_str(p),
-		::fast_io::dll_mode::posix_rtld_local | ::fast_io::dll_mode::posix_rtld_now);
+	posix_dll_file dllfile(::fast_io::mnp::os_c_str(p), ::fast_io::dll_mode::posix_rtld_global |
+															::fast_io::dll_mode::posix_rtld_now |
+															::fast_io::dll_mode::posix_rtld_nodelete);
 	auto func{reinterpret_cast<void(
 #if defined(__CYGWIN__)
 #if !__has_cpp_attribute(__gnu__::__fastcall__) && defined(_MSC_VER)
@@ -127,28 +125,22 @@ inline void *posix_load_l10n_common_impl(char8_t const *cstr, ::std::size_t n, l
 		__attribute__((__fastcall__))
 #endif
 #endif
-			*)(::fast_io::i18n_module_v1::export_descriptor const **) noexcept>(dll_load_symbol(dllfile,
+			*)(lc_locale *) noexcept>(dll_load_symbol(dllfile,
 #if defined(__CYGWIN__) && (SIZE_MAX <= UINT_LEAST32_MAX && (defined(__x86__) || defined(_M_IX86) || defined(__i386__)))
-													  u8"@fast_io_i18n_export_v1@4"
+													  u8"@export_v0@4"
 #else
-													  ::fast_io::i18n_module_v1::export_symbol
+													  u8"export_v0"
 #endif
 													  ))};
-	::fast_io::i18n_module_v1::export_descriptor const *descriptor{};
-	func(__builtin_addressof(descriptor));
-	if (!lc_module_descriptor_compatible(descriptor)) [[unlikely]]
-	{
-		throw_posix_error(EINVAL);
-	}
-	lc_module_import(*descriptor, owner);
+	func(__builtin_addressof(loc));
 	return dllfile.release();
 }
 
 template <::fast_io::constructible_to_os_c_str path_type>
-inline void *posix_load_l10n_impl(path_type const &p, lc_locale_owner &owner)
+inline void *posix_load_l10n_impl(path_type const &p, lc_locale &loc)
 {
 	return ::fast_io::posix_api_common(p,
-									   [&owner](auto const *cstr_ptr, ::std::size_t n) {
+									   [&loc](auto const *cstr_ptr, ::std::size_t n) {
 										   using native_char_type = char8_t;
 										   using native_char_type_may_alias_const_ptr
 #if __has_cpp_attribute(__gnu__::__may_alias__)
@@ -157,7 +149,7 @@ inline void *posix_load_l10n_impl(path_type const &p, lc_locale_owner &owner)
 											   = native_char_type const *;
 										   return posix_load_l10n_common_impl(
 											   reinterpret_cast<native_char_type_may_alias_const_ptr>(cstr_ptr), n,
-											   owner);
+											   loc);
 									   });
 }
 
@@ -167,7 +159,6 @@ class posix_l10n
 {
 public:
 	using native_handle_type = void *;
-	lc_locale_owner owner{};
 	lc_locale loc{};
 	native_handle_type rtld_handle{};
 	constexpr posix_l10n() noexcept = default;
@@ -175,8 +166,7 @@ public:
 	template <::fast_io::constructible_to_os_c_str path_type>
 	explicit posix_l10n(path_type const &p)
 	{
-		this->rtld_handle = ::fast_io::details::posix_load_l10n_impl(p, owner);
-		loc = owner.view();
+		this->rtld_handle = ::fast_io::details::posix_load_l10n_impl(p, loc);
 	}
 
 	explicit constexpr operator bool() const noexcept
@@ -203,19 +193,10 @@ public:
 	}
 	posix_l10n &operator=(posix_l10n const &) = delete;
 	posix_l10n(posix_l10n const &) = delete;
-	posix_l10n(posix_l10n &&__restrict other) noexcept
-		: owner(::std::move(other.owner)), loc(owner.view()), rtld_handle(other.rtld_handle)
-	{
-		// Views are object-relative.  Copying `other.loc` would retain pointers
-		// into the moved-from owner, so every move derives a fresh view instead.
-		other.rtld_handle = nullptr;
-		other.loc = {};
-	}
 	posix_l10n &operator=(posix_l10n &&__restrict other) noexcept
 	{
 		close();
-		owner = ::std::move(other.owner);
-		loc = owner.view();
+		loc = other.loc;
 		rtld_handle = other.rtld_handle;
 		other.rtld_handle = nullptr;
 		other.loc = {};
@@ -227,32 +208,19 @@ public:
 	}
 };
 
-template <::fast_io::lc_character_type char_type>
+template <::std::integral char_type>
 inline constexpr ::fast_io::parameter<basic_lc_all<char_type> const &>
 status_io_print_forward(io_alias_type_t<char_type>, posix_l10n const &loc) noexcept
 {
-	// Forward the character-specific facet aggregate by reference. The native locale owns the complete object, so the
-	// parameter wrapper remains valid for the synchronous print operation without copying locale storage.
-	return {get_lc<char_type>(loc.loc)->all};
+	return status_io_print_forward(io_alias_type<char_type>, loc.loc);
 }
 
-template <typename stm>
-	requires((::std::is_lvalue_reference_v<stm> || ::std::is_trivially_copyable_v<stm>) &&
-			 ::fast_io::operations::defines::has_output_or_io_stream_ref_define<stm> &&
-			 requires {
-				requires ::fast_io::lc_character_type<typename ::std::remove_cvref_t<decltype(
-					::fast_io::operations::output_stream_ref(::std::declval<stm>()))>::output_char_type>;
-			 })
-inline constexpr auto imbue(posix_l10n &loc, stm &&out)
-	noexcept(noexcept(::fast_io::operations::output_stream_ref(::std::forward<stm>(out))))
+template <stream stm>
+	requires(::std::is_lvalue_reference_v<stm> || ::std::is_trivially_copyable_v<stm>)
+inline constexpr auto imbue(posix_l10n &loc, stm &&out) noexcept
 {
-	using output_reference_type = decltype(
-		::fast_io::operations::output_stream_ref(::std::declval<stm>()));
-	using char_type = typename ::std::remove_cvref_t<output_reference_type>::output_char_type;
-	// The public locale owns complete objects. Dereferencing the selected object is required because the core imbuer
-	// accepts a locale object by reference and retains its address for the synchronous status-print operation. Character
-	// type belongs to the normalized observer, not necessarily to the user-facing device (for example, `basic_io_buffer`).
-	return imbue(*get_lc<char_type>(loc.loc), ::std::forward<stm>(out));
+	using char_type = typename ::std::remove_cvref_t<stm>::char_type;
+	return imbue(get_all<char_type>(loc.loc), ::std::forward<stm>(out));
 }
 
 using native_l10n = posix_l10n;

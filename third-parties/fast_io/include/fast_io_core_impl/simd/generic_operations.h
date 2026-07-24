@@ -8,14 +8,6 @@
 #endif
 #endif
 
-// MSVC 19.29 and 19.30 do not declare the AVX-512 FP16 vector types or arithmetic intrinsics, even though the
-// surrounding x86 intrinsic families are available. Compiler Explorer's real MSVC matrix identifies 19.31 as the
-// first parser/header endpoint which accepts this complete family. This is a declaration-availability gate only;
-// vector shape and target CPU capability remain independently checked at each operation.
-#if !defined(__clang__) && (!defined(_MSC_VER) || 1931 <= _MSC_VER)
-#define FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE 1
-#endif
-
 namespace fast_io
 {
 
@@ -121,7 +113,11 @@ inline constexpr ::fast_io::intrinsics::simd_vector<T, N>
 wrap_add_common(::fast_io::intrinsics::simd_vector<T, N> const &a,
 				::fast_io::intrinsics::simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = ::fast_io::intrinsics::simd_vector<T, N>;
@@ -150,7 +146,7 @@ wrap_add_common(::fast_io::intrinsics::simd_vector<T, N> const &a,
 			}
 			else if constexpr (::std::floating_point<T>)
 			{
-#if defined(FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE)
+#if !defined(__clang__)
 				if constexpr (sizeof(T) == sizeof(float) / 2)
 				{
 					__m128h amm = __builtin_bit_cast(__m128h, a);
@@ -198,7 +194,7 @@ wrap_add_common(::fast_io::intrinsics::simd_vector<T, N> const &a,
 			}
 			else if constexpr (::std::floating_point<T>)
 			{
-#if defined(FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE)
+#if !defined(__clang__)
 				if constexpr (sizeof(T) == sizeof(float) / 2)
 				{
 					__m256h amm = __builtin_bit_cast(__m256h, a);
@@ -246,7 +242,7 @@ wrap_add_common(::fast_io::intrinsics::simd_vector<T, N> const &a,
 			}
 			else if constexpr (::std::floating_point<T> && ::fast_io::details::cpu_flags::avx512f_supported)
 			{
-#if defined(FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE)
+#if !defined(__clang__)
 				if constexpr (sizeof(T) == sizeof(float) / 2)
 				{
 					__m512h amm = __builtin_bit_cast(__m512h, a);
@@ -390,7 +386,11 @@ inline constexpr ::fast_io::intrinsics::simd_vector<T, N>
 wrap_sub_common(::fast_io::intrinsics::simd_vector<T, N> const &a,
 				  ::fast_io::intrinsics::simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 
@@ -420,7 +420,7 @@ wrap_sub_common(::fast_io::intrinsics::simd_vector<T, N> const &a,
 			}
 			else if constexpr (::std::floating_point<T>)
 			{
-#if defined(FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE)
+#if !defined(__clang__)
 				if constexpr (sizeof(T) == sizeof(float) / 2)
 				{
 					__m128h amm = __builtin_bit_cast(__m128h, a);
@@ -468,7 +468,7 @@ wrap_sub_common(::fast_io::intrinsics::simd_vector<T, N> const &a,
 			}
 			else if constexpr (::std::floating_point<T>)
 			{
-#if defined(FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE)
+#if !defined(__clang__)
 				if constexpr (sizeof(T) == sizeof(float) / 2)
 				{
 					__m256h amm = __builtin_bit_cast(__m256h, a);
@@ -516,7 +516,7 @@ wrap_sub_common(::fast_io::intrinsics::simd_vector<T, N> const &a,
 			}
 			else if constexpr (::std::floating_point<T> && ::fast_io::details::cpu_flags::avx512f_supported)
 			{
-#if defined(FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE)
+#if !defined(__clang__)
 				if constexpr (sizeof(T) == sizeof(float) / 2)
 				{
 					__m512h amm = __builtin_bit_cast(__m512h, a);
@@ -712,7 +712,11 @@ inline constexpr simd_vector<T, N> wrap_sub(simd_vector<T, N> const &a, simd_vec
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator*(simd_vector<T, N> const &a, simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = simd_vector<T, N>;
@@ -739,7 +743,7 @@ inline constexpr simd_vector<T, N> operator*(simd_vector<T, N> const &a, simd_ve
 			}
 			else if constexpr (::std::floating_point<T>)
 			{
-#if defined(FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE)
+#if !defined(__clang__)
 				if constexpr (sizeof(T) == sizeof(float) / 2)
 				{
 					__m128h amm = __builtin_bit_cast(__m128h, a);
@@ -785,7 +789,7 @@ inline constexpr simd_vector<T, N> operator*(simd_vector<T, N> const &a, simd_ve
 			}
 			else if constexpr (::std::floating_point<T>)
 			{
-#if defined(FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE)
+#if !defined(__clang__)
 				if constexpr (sizeof(T) == sizeof(float) / 2)
 				{
 					__m256h amm = __builtin_bit_cast(__m256h, a);
@@ -831,7 +835,7 @@ inline constexpr simd_vector<T, N> operator*(simd_vector<T, N> const &a, simd_ve
 			}
 			else if constexpr (::std::floating_point<T> && ::fast_io::details::cpu_flags::avx512f_supported)
 			{
-#if defined(FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE)
+#if !defined(__clang__)
 				if constexpr (sizeof(T) == sizeof(float) / 2)
 				{
 					__m512h amm = __builtin_bit_cast(__m512h, a);
@@ -994,7 +998,11 @@ inline constexpr simd_vector<T, N> operator*(simd_vector<T, N> const &a, simd_ve
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator/(simd_vector<T, N> const &a, simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = simd_vector<T, N>;
@@ -1030,7 +1038,7 @@ inline constexpr simd_vector<T, N> operator/(simd_vector<T, N> const &a, simd_ve
 			}
 			else if constexpr (::std::floating_point<T>)
 			{
-#if defined(FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE)
+#if !defined(__clang__)
 				if constexpr (sizeof(T) == sizeof(float) / 2)
 				{
 					__m128h amm = __builtin_bit_cast(__m128h, a);
@@ -1085,7 +1093,7 @@ inline constexpr simd_vector<T, N> operator/(simd_vector<T, N> const &a, simd_ve
 			}
 			else if constexpr (::std::floating_point<T>)
 			{
-#if defined(FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE)
+#if !defined(__clang__)
 				if constexpr (sizeof(T) == sizeof(float) / 2)
 				{
 					__m256h amm = __builtin_bit_cast(__m256h, a);
@@ -1140,7 +1148,7 @@ inline constexpr simd_vector<T, N> operator/(simd_vector<T, N> const &a, simd_ve
 			}
 			else if constexpr (::std::floating_point<T> && ::fast_io::details::cpu_flags::avx512f_supported)
 			{
-#if defined(FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE)
+#if !defined(__clang__)
 				if constexpr (sizeof(T) == sizeof(float) / 2)
 				{
 					__m512h amm = __builtin_bit_cast(__m512h, a);
@@ -1211,7 +1219,11 @@ inline constexpr simd_vector<T, N> operator/(simd_vector<T, N> const &a, simd_ve
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator&(simd_vector<T, N> const &a, simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = simd_vector<T, N>;
@@ -1369,7 +1381,11 @@ inline constexpr simd_vector<T, N> operator&(simd_vector<T, N> const &a, simd_ve
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator|(simd_vector<T, N> const &a, simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = simd_vector<T, N>;
@@ -1527,7 +1543,11 @@ inline constexpr simd_vector<T, N> operator|(simd_vector<T, N> const &a, simd_ve
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator^(simd_vector<T, N> const &a, simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = simd_vector<T, N>;
@@ -1685,7 +1705,11 @@ inline constexpr simd_vector<T, N> operator^(simd_vector<T, N> const &a, simd_ve
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator<<(simd_vector<T, N> const &a, simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 #elif defined(__arm64__) || defined(__aarch64__) || defined(_M_ARM64) || defined(__arm__) || defined(_M_ARM) || defined(__arm64ec__) || defined(_M_ARM64EC)
@@ -1815,7 +1839,11 @@ inline constexpr simd_vector<T, N> operator<<(simd_vector<T, N> const &a, simd_v
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator>>(simd_vector<T, N> const &a, simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 	}
 	return ::fast_io::details::generic_simd_create_op_impl(a, b, [](T va, T vb) noexcept -> T { return va >> vb; });
@@ -1824,7 +1852,11 @@ inline constexpr simd_vector<T, N> operator>>(simd_vector<T, N> const &a, simd_v
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator<<(simd_vector<T, N> const &a, unsigned i) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = simd_vector<T, N>;
@@ -2023,7 +2055,11 @@ inline constexpr simd_vector<T, N> operator<<(simd_vector<T, N> const &a, unsign
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator>>(simd_vector<T, N> const &a, unsigned i) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = simd_vector<T, N>;
@@ -2222,7 +2258,11 @@ inline constexpr simd_vector<T, N> operator>>(simd_vector<T, N> const &a, unsign
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator<(simd_vector<T, N> const &a, simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = ::fast_io::intrinsics::simd_vector<T, N>;
@@ -2639,7 +2679,11 @@ inline constexpr simd_vector<T, N> operator<(simd_vector<T, N> const &a, simd_ve
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator>(simd_vector<T, N> const &a, simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = ::fast_io::intrinsics::simd_vector<T, N>;
@@ -3056,7 +3100,11 @@ inline constexpr simd_vector<T, N> operator>(simd_vector<T, N> const &a, simd_ve
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator<=(simd_vector<T, N> const &a, simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = ::fast_io::intrinsics::simd_vector<T, N>;
@@ -3390,7 +3438,11 @@ inline constexpr simd_vector<T, N> operator<=(simd_vector<T, N> const &a, simd_v
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator>=(simd_vector<T, N> const &a, simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = ::fast_io::intrinsics::simd_vector<T, N>;
@@ -3728,7 +3780,11 @@ inline constexpr simd_vector<T, N> operator>=(simd_vector<T, N> const &a, simd_v
 template <typename T, ::std::size_t N>
 inline constexpr simd_vector<T, N> operator==(simd_vector<T, N> const &a, simd_vector<T, N> const &b) noexcept
 {
-	FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+	if !consteval
+#else
+	if (!__builtin_is_constant_evaluated())
+#endif
 	{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 		using vec_type = simd_vector<T, N>;
@@ -3942,7 +3998,11 @@ inline constexpr simd_vector<T, N> operator!=(simd_vector<T, N> const &a, simd_v
 	}
 	else
 	{
-		FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+		if !consteval
+#else
+		if (!__builtin_is_constant_evaluated())
+#endif
 		{
 #if ((defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)) && !(defined(__arm64ec__) || defined(_M_ARM64EC)))
 			if constexpr (using_avx512)
@@ -4143,5 +4203,3 @@ inline constexpr simd_vector<T, N> operator!=(simd_vector<T, N> const &a, simd_v
 
 } // namespace intrinsics
 } // namespace fast_io
-
-#undef FAST_IO_DETAILS_X86_FP16_INTRINSICS_AVAILABLE

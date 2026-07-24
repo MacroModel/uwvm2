@@ -72,7 +72,11 @@ inline constexpr Iter2 uninitialized_relocate_ignore_define(Iter1 first, Sent la
 						 (::std::integral<iter2valuetype> || ::std::same_as<iter2valuetype, ::std::byte>) &&
 						 sizeof(iter1valuetype) == sizeof(iter2valuetype)))))
 		{
-			FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+			if !consteval
+#else
+			if (!__builtin_is_constant_evaluated())
+#endif
 			{
 				return reinterpret_cast<Iter2>(::fast_io::freestanding::bytes_copy(reinterpret_cast<::std::byte const *>(first), reinterpret_cast<::std::byte const *>(last), reinterpret_cast<::std::byte *>(dest)));
 			}
@@ -177,7 +181,11 @@ inline constexpr Iter2 uninitialized_relocate_backward_ignore_define(Iter1 first
 						 (::std::integral<iter2valuetype> || ::std::same_as<iter2valuetype, ::std::byte>) &&
 						 sizeof(iter1valuetype) == sizeof(iter2valuetype)))))
 		{
-			FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+			if !consteval
+#else
+			if (!__builtin_is_constant_evaluated())
+#endif
 			{
 				auto const firstbyteptr{reinterpret_cast<::std::byte const *>(first)};
 				auto const lastbyteptr{reinterpret_cast<::std::byte const *>(last)};
@@ -295,7 +303,11 @@ inline constexpr Iter2 uninitialized_move(Iter1 first, Iter1 last, Iter2 dest) n
 						 (::std::integral<iter2valuetype> || ::std::same_as<iter2valuetype, ::std::byte>) &&
 						 sizeof(iter1valuetype) == sizeof(iter2valuetype)))))
 		{
-			FAST_IO_IF_NOT_CONSTEVAL
+#if __cpp_if_consteval >= 202106L
+			if !consteval
+#else
+			if (!__builtin_is_constant_evaluated())
+#endif
 			{
 				return reinterpret_cast<Iter2>(::fast_io::freestanding::bytes_copy(reinterpret_cast<::std::byte const *>(first), reinterpret_cast<::std::byte const *>(last), reinterpret_cast<::std::byte *>(dest)));
 			}
@@ -349,7 +361,11 @@ inline constexpr Iter2 uninitialized_move_backward(Iter1 first, Iter1 last, Iter
 						 (::std::integral<iter2valuetype> || ::std::same_as<iter2valuetype, ::std::byte>) &&
 						 sizeof(iter1valuetype) == sizeof(iter2valuetype)))))
 		{
-			FAST_IO_IF_NOT_CONSTEVAL
+#ifdef __cpp_if_consteval
+			if !consteval
+#else
+			if (!__builtin_is_constant_evaluated())
+#endif
 			{
 				auto d_start{d_last - (last - first)};
 				::fast_io::freestanding::bytes_copy(reinterpret_cast<::std::byte const *>(first), reinterpret_cast<::std::byte const *>(last), reinterpret_cast<::std::byte *>(d_start));
@@ -379,7 +395,11 @@ inline constexpr Iter uninitialized_fill(Iter first, Iter last, T const &ele)
 		if constexpr (::std::is_trivially_copyable_v<itervaluetype> &&
 					  ::std::is_scalar_v<itervaluetype> && sizeof(itervaluetype) == 1)
 		{
-			FAST_IO_IF_NOT_CONSTEVAL
+#ifdef __cpp_if_consteval
+			if !consteval
+#else
+			if (!__builtin_is_constant_evaluated())
+#endif
 			{
 #if FAST_IO_HAS_BUILTIN(__builtin_memset)
 				__builtin_memset

@@ -8,7 +8,7 @@ template <typename outstmtype>
 #if __has_cpp_attribute(__gnu__::__cold__)
 [[__gnu__::__cold__]]
 #endif
-inline constexpr void scatter_pwrite_all_bytes_cold_impl(outstmtype &outsm, io_scatter_t const *pscatters,
+inline constexpr void scatter_pwrite_all_bytes_cold_impl(outstmtype outsm, io_scatter_t const *pscatters,
 														 ::std::size_t n, ::fast_io::intfpos_t off);
 
 template <typename outstmtype>
@@ -16,29 +16,23 @@ template <typename outstmtype>
 [[__gnu__::__cold__]]
 #endif
 inline constexpr io_scatter_status_t
-scatter_pwrite_some_bytes_cold_impl(outstmtype &outsm, io_scatter_t const *pscatters, ::std::size_t n, intfpos_t off)
+scatter_pwrite_some_bytes_cold_impl(outstmtype outsm, io_scatter_t const *pscatters, ::std::size_t n, intfpos_t off)
 {
 	using char_type = typename outstmtype::output_char_type;
 	if constexpr (::fast_io::operations::decay::defines::has_scatter_pwrite_some_bytes_overflow_define<outstmtype>)
 	{
-		// A positional some-operation remains a single bounded backend attempt. The status is intentionally relative to
-		// the admitted prefix, while off continues to denote the first byte of that prefix.
-		::std::size_t const count{
-			::fast_io::details::scatter_write_maximum_count_clamp<char_type, outstmtype>(n)};
-		return scatter_pwrite_some_bytes_overflow_define(outsm, pscatters, count, off);
+		return scatter_pwrite_some_bytes_overflow_define(outsm, pscatters, n, off);
 	}
 	else if constexpr (::fast_io::operations::decay::defines::has_pwrite_some_bytes_overflow_define<outstmtype>)
 	{
-		// Advance the positional offset only after a descriptor has completed. If descriptor i is short, {i, sz}
-		// represents all progress and the all-operation will compute the retry offset from that status.
 		for (::std::size_t i{}; i != n; ++i)
 		{
 			auto [baseb, len] = pscatters[i];
 			::std::byte const *base{reinterpret_cast<::std::byte const *>(baseb)};
-			auto const range{::fast_io::details::scatter_to_scalar_range(base, len)};
-			auto written{::fast_io::details::pwrite_some_bytes_impl(outsm, range.first, range.last, off)};
-			::std::ptrdiff_t dfsz{written - range.first};
-			::std::size_t sz{static_cast<::std::size_t>(dfsz)};
+			auto ed{base + len};
+			auto written{::fast_io::details::pwrite_some_bytes_impl(outsm, base, ed, off)};
+			::std::ptrdiff_t dfsz{written - base};
+			::std::size_t sz{static_cast<::std::size_t>(written - base)};
 			if (sz != len)
 			{
 				return {i, sz};
@@ -60,9 +54,13 @@ scatter_pwrite_some_bytes_cold_impl(outstmtype &outsm, io_scatter_t const *pscat
 						::fast_io::operations::decay::defines::has_scatter_pwrite_some_overflow_define<outstmtype> ||
 						::fast_io::operations::decay::defines::has_pwrite_some_overflow_define<outstmtype>))
 	{
-		// A bounded materialized prefix preserves native typed positional scatter and exact one-byte status units. The
-		// outlined adapter also keeps its descriptor workspace out of callers of this dispatch function.
-		return ::fast_io::details::scatter_pwrite_some_bytes_via_typed_cold_impl(outsm, pscatters, n, off);
+		using scattermayalias_const_ptr
+#if __has_cpp_attribute(__gnu__::__may_alias__)
+			[[__gnu__::__may_alias__]]
+#endif
+			= basic_io_scatter_t<char_type> const *;
+		return ::fast_io::details::scatter_pwrite_some_cold_impl(
+			outsm, reinterpret_cast<scattermayalias_const_ptr>(pscatters), n, off);
 	}
 	else if constexpr (::fast_io::operations::decay::defines::has_output_or_io_stream_seek_bytes_define<outstmtype> &&
 					   (::fast_io::operations::decay::defines::has_write_all_bytes_overflow_define<outstmtype> ||
@@ -94,29 +92,15 @@ scatter_pwrite_some_bytes_cold_impl(outstmtype &outsm, io_scatter_t const *pscat
 }
 
 template <typename outstmtype>
-inline constexpr io_scatter_status_t scatter_pwrite_some_bytes_impl(outstmtype &outsm, io_scatter_t const *pscatters,
+inline constexpr io_scatter_status_t scatter_pwrite_some_bytes_impl(outstmtype outsm, io_scatter_t const *pscatters,
 																	::std::size_t n, ::fast_io::intfpos_t off)
 {
-	if (n == 0u)
-	{
-		// The empty byte prefix is complete; do not flush or forward a zero-iovec positional request.
-		return {};
-	}
 	if constexpr (::fast_io::operations::decay::defines::has_output_or_io_stream_mutex_ref_define<outstmtype>)
 	{
-		if constexpr (::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<outstmtype>)
-		{
-			::fast_io::operations::decay::stream_ref_decay_lock_guard lg{
-				::fast_io::operations::decay::output_stream_mutex_ref_decay(outsm)};
-			decltype(auto) unlocked = ::fast_io::operations::decay::output_stream_unlocked_ref_decay(outsm);
-			return ::fast_io::details::scatter_pwrite_some_bytes_impl(unlocked, pscatters, n, off);
-		}
-		else
-		{
-			static_assert(
-				::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<outstmtype>,
-				"an output mutex marker requires a complete, character-preserving, type-progressing unlocked protocol");
-		}
+		::fast_io::operations::decay::stream_ref_decay_lock_guard lg{
+			::fast_io::operations::decay::output_stream_mutex_ref_decay(outsm)};
+		return ::fast_io::details::scatter_pwrite_some_bytes_impl(
+			::fast_io::operations::decay::output_stream_unlocked_ref_decay(outsm), pscatters, n, off);
 	}
 	else
 	{
@@ -132,24 +116,12 @@ template <typename outstmtype>
 #if __has_cpp_attribute(__gnu__::__cold__)
 [[__gnu__::__cold__]]
 #endif
-inline constexpr void scatter_pwrite_all_bytes_cold_impl(outstmtype &outsm, io_scatter_t const *pscatters,
+inline constexpr void scatter_pwrite_all_bytes_cold_impl(outstmtype outsm, io_scatter_t const *pscatters,
 														 ::std::size_t n, ::fast_io::intfpos_t off)
 {
 	using char_type = typename outstmtype::output_char_type;
 	if constexpr (::fast_io::operations::decay::defines::has_scatter_pwrite_all_bytes_overflow_define<outstmtype>)
 	{
-		constexpr ::std::size_t maximum{
-			::fast_io::details::scatter_write_maximum_count_or_unlimited<char_type, outstmtype>()};
-		// Split only between descriptors, after a batch has been completed in full. Advancing off by the sum of that
-		// batch proves positional equivalence to one unbounded pwritev. SIZE_MAX makes this loop a no-op; every finite
-		// policy value is nonzero, so subtracting maximum guarantees forward progress.
-		while (maximum < n)
-		{
-			scatter_pwrite_all_bytes_overflow_define(outsm, pscatters, maximum, off);
-			off = ::fast_io::fposoffadd_scatters(off, pscatters, {maximum, 0u});
-			pscatters += maximum;
-			n -= maximum;
-		}
 		scatter_pwrite_all_bytes_overflow_define(outsm, pscatters, n, off);
 	}
 	else if constexpr (::fast_io::operations::decay::defines::has_pwrite_all_bytes_overflow_define<outstmtype>)
@@ -158,8 +130,7 @@ inline constexpr void scatter_pwrite_all_bytes_cold_impl(outstmtype &outsm, io_s
 		{
 			auto [basep, len] = *i;
 			::std::byte const *base{reinterpret_cast<::std::byte const *>(basep)};
-			auto const range{::fast_io::details::scatter_to_scalar_range(base, len)};
-			::fast_io::details::pwrite_all_bytes_impl(outsm, range.first, range.last, off);
+			::fast_io::details::pwrite_all_bytes_impl(outsm, base, base + len, off);
 			off = ::fast_io::fposoffadd_nonegative(off, len);
 		}
 	}
@@ -178,8 +149,7 @@ inline constexpr void scatter_pwrite_all_bytes_cold_impl(outstmtype &outsm, io_s
 			if (pisc)
 			{
 				auto pi = pscatters[ret.position];
-				::std::byte const *base{reinterpret_cast<::std::byte const *>(pi.base)};
-				::fast_io::details::pwrite_all_bytes_impl(outsm, base + pisc, base + pi.len, off);
+				::fast_io::details::pwrite_all_bytes_impl(outsm, pi.base + pisc, pi.base + pi.len, off);
 				off = ::fast_io::fposoffadd_nonegative(off, pi.len - pisc);
 				++retpos;
 			}
@@ -193,8 +163,7 @@ inline constexpr void scatter_pwrite_all_bytes_cold_impl(outstmtype &outsm, io_s
 		{
 			auto [basep, len] = *i;
 			::std::byte const *base{reinterpret_cast<::std::byte const *>(basep)};
-			auto const range{::fast_io::details::scatter_to_scalar_range(base, len)};
-			::fast_io::details::pwrite_all_bytes_impl(outsm, range.first, range.last, off);
+			::fast_io::details::pwrite_all_bytes_impl(outsm, base, base + len, off);
 			off = ::fast_io::fposoffadd_nonegative(off, len);
 		}
 	}
@@ -204,9 +173,13 @@ inline constexpr void scatter_pwrite_all_bytes_cold_impl(outstmtype &outsm, io_s
 						::fast_io::operations::decay::defines::has_scatter_pwrite_some_overflow_define<outstmtype> ||
 						::fast_io::operations::decay::defines::has_pwrite_some_overflow_define<outstmtype>))
 	{
-		// One-byte width proves identical offset and extent units; the adapter completes consecutive materialized chunks
-		// and advances their checked positional origin without descriptor type punning.
-		::fast_io::details::scatter_pwrite_all_bytes_via_typed_cold_impl(outsm, pscatters, n, off);
+		using scattermayalias_const_ptr
+#if __has_cpp_attribute(__gnu__::__may_alias__)
+			[[__gnu__::__may_alias__]]
+#endif
+			= basic_io_scatter_t<char_type> const *;
+		::fast_io::details::scatter_pwrite_all_impl(outsm, reinterpret_cast<scattermayalias_const_ptr>(pscatters), n,
+													off);
 	}
 	else if constexpr (::fast_io::operations::decay::defines::has_output_or_io_stream_seek_bytes_define<outstmtype> &&
 					   (::fast_io::operations::decay::defines::has_write_all_bytes_overflow_define<outstmtype> ||
@@ -236,29 +209,15 @@ inline constexpr void scatter_pwrite_all_bytes_cold_impl(outstmtype &outsm, io_s
 }
 
 template <typename outstmtype>
-inline constexpr void scatter_pwrite_all_bytes_impl(outstmtype &outsm, io_scatter_t const *pscatters, ::std::size_t n,
+inline constexpr void scatter_pwrite_all_bytes_impl(outstmtype outsm, io_scatter_t const *pscatters, ::std::size_t n,
 													::fast_io::intfpos_t off)
 {
-	if (n == 0u)
-	{
-		// Match the typed positional operation's nonempty-native-call invariant.
-		return;
-	}
 	if constexpr (::fast_io::operations::decay::defines::has_output_or_io_stream_mutex_ref_define<outstmtype>)
 	{
-		if constexpr (::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<outstmtype>)
-		{
-			::fast_io::operations::decay::stream_ref_decay_lock_guard lg{
-				::fast_io::operations::decay::output_stream_mutex_ref_decay(outsm)};
-			decltype(auto) unlocked = ::fast_io::operations::decay::output_stream_unlocked_ref_decay(outsm);
-			return ::fast_io::details::scatter_pwrite_all_bytes_impl(unlocked, pscatters, n, off);
-		}
-		else
-		{
-			static_assert(
-				::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<outstmtype>,
-				"an output mutex marker requires a complete, character-preserving, type-progressing unlocked protocol");
-		}
+		::fast_io::operations::decay::stream_ref_decay_lock_guard lg{
+			::fast_io::operations::decay::output_stream_mutex_ref_decay(outsm)};
+		return ::fast_io::details::scatter_pwrite_all_bytes_impl(
+			::fast_io::operations::decay::output_stream_unlocked_ref_decay(outsm), pscatters, n, off);
 	}
 	else
 	{

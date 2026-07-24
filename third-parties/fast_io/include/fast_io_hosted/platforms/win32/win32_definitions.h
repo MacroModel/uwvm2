@@ -547,9 +547,7 @@ struct win_i386_context
 };
 # endif
 
-# if defined(__arm64ec__) || defined(_M_ARM64EC) || \
-	(defined(_WIN64) && (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)) && \
-	 !(defined(__arm64ec__) || defined(_M_ARM64EC)))
+# if defined(__arm64ec__) || defined(_M_ARM64EC) || (defined(_WIN64) && (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)))
 struct alignas(16) win64_m128a
 {
 	::std::uint64_t Low;
@@ -758,9 +756,7 @@ inline constexpr ::std::uint32_t win64_unwind_flag_nhandler{};
 static_assert(sizeof(win_i386_floating_save_area) == 112);
 static_assert(sizeof(win_i386_context) == 716);
 # endif
-# if defined(__arm64ec__) || defined(_M_ARM64EC) || \
-	(defined(_WIN64) && (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)) && \
-	 !(defined(__arm64ec__) || defined(_M_ARM64EC)))
+# if defined(__arm64ec__) || defined(_M_ARM64EC) || (defined(_WIN64) && (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)))
 static_assert(sizeof(win64_m128a) == 16);
 static_assert(alignof(win64_m128a) == 16);
 static_assert(sizeof(win64_xmm_save_area32) == 512);
@@ -788,7 +784,7 @@ using win_current_context = win_arm64ec_context;
 using win_current_runtime_function = win64_runtime_function;
 using win_current_nonvolatile_context_pointers = win64_nonvolatile_context_pointers;
 using win_current_unwind_address = ::std::uint64_t;
-# elif defined(_WIN64) && (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)) && !(defined(__arm64ec__) || defined(_M_ARM64EC))
+# elif defined(_WIN64) && (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64))
 struct win64_nonvolatile_context_pointers;
 using win_current_context = win64_context;
 using win_current_runtime_function = win64_runtime_function;

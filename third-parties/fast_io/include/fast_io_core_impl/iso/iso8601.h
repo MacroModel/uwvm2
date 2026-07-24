@@ -26,21 +26,6 @@ struct basic_timestamp
 	}
 };
 
-namespace manipulators
-{
-
-/// @brief Print/concat-owned proxy for an optimizer-proven constant timestamp.
-/// @details The ordinary timestamp keeps its established run-time integer formatter. This proxy is formed only by
-///          the compiler-constant materialization strategy and lets the seconds field use its isolated
-///          constant-friendly integer writer before the optional fractional suffix is appended.
-template <::std::int_least64_t off_to_epoch>
-struct compiler_constant_timestamp_t
-{
-	basic_timestamp<off_to_epoch> value;
-};
-
-} // namespace manipulators
-
 template <::std::int_least64_t off_to_epoch>
 inline constexpr bool operator==(basic_timestamp<off_to_epoch> a, basic_timestamp<off_to_epoch> b) noexcept
 {
@@ -217,7 +202,9 @@ inline constexpr basic_timestamp<0> div_unix_timestamp(::std::int_least64_t divi
 		::fast_io::fast_terminate();
 	}
 	auto [seconds_low, seconds_high, subseconds_low, subseconds_high] = ::fast_io::intrinsics::udivmod(q_low, q_high, ::fast_io::uint_least64_subseconds_per_second, zero);
-	FAST_IO_ASSUME(subseconds_high == 0u);
+#if __has_cpp_attribute(assume)
+	[[assume(subseconds_high == 0u)]];
+#endif
 	if (seconds_high || subseconds_high)
 	{
 		::fast_io::fast_terminate();
@@ -428,20 +415,6 @@ struct iso8601_timestamp
 	::std::int_least32_t timezone{};
 };
 
-namespace manipulators
-{
-
-/// @brief Print/concat-owned proxy for an optimizer-proven constant ISO 8601 record.
-/// @details The proxy isolates constant materialization from the ordinary timestamp formatter. Runtime records keep
-///          the existing reserve writer and ABI; only a source whose complete field set is visible to the optimizer is
-///          copied here, allowing the caller-owned compact record to be folded without changing the ISO algorithm.
-struct compiler_constant_iso8601_timestamp_t
-{
-	iso8601_timestamp value;
-};
-
-} // namespace manipulators
-
 namespace details
 {
 /*
@@ -596,14 +569,7 @@ inline constexpr ::std::int_least64_t year_month_to_seconds(::std::int_least64_t
 		fast_terminate();
 	}
 	::std::uint_least32_t t{secs_through_month[month]};
-	// The truncated year divisions leave positive non-leap years one day short.
-	if (year >= 0 && !year_is_leap_year)
-	{
-		t += 0x15180;
-	}
-	// secs_through_month describes a common year, so the leap day only affects
-	// dates after February.
-	if (1u < month && year_is_leap_year)
+	if ((month) | (year >= 0 && !year_is_leap_year))
 	{
 		t += 0x15180;
 	}
@@ -798,129 +764,6 @@ inline constexpr char_type *print_reserve_iso8601_timestamp_impl(char_type *iter
 	return iter;
 }
 
-template <::std::integral char_type, ::std::signed_integral integer_type>
-inline constexpr char_type *
-print_reserve_compiler_constant_iso8601_year_impl(
-	char_type *iter, integer_type value) noexcept
-{
-	using unsigned_type = my_make_unsigned_t<::std::remove_cvref_t<integer_type>>;
-	unsigned_type magnitude{static_cast<unsigned_type>(value)};
-	if (value < 0)
-	{
-		magnitude = static_cast<unsigned_type>(0u - magnitude);
-		*iter++ = char_literal_v<u8'-', char_type>;
-	}
-	if (10000u <= magnitude)
-	{
-		// The general chrono leaf calls the runtime integer converter here. This
-		// proxy is reached only after the complete year field passed the source
-		// constant gate, so keep that rare extended-year spelling in the isolated
-		// compiler-constant integer protocol as well.
-		return print_reserve_integral_compiler_constant_define<10>(
-			iter, magnitude);
-	}
-	auto const high{static_cast<unsigned_type>(magnitude / 100u)};
-	auto const low{static_cast<unsigned_type>(magnitude % 100u)};
-	constexpr auto table{digits_table<char_type, 10, false>};
-	iter = non_overlapped_copy_n(table + (high << 1u), 2u, iter);
-	return non_overlapped_copy_n(table + (low << 1u), 2u, iter);
-}
-
-template <::std::integral char_type>
-#if defined(__GNUC__) && !defined(__clang__) && (__GNUC__ == 11 || 13 <= __GNUC__)
-// GCC 11 and GCC 13--17 otherwise retain this timezone leaf after a successful ISO replacement in at least one
-// audited print/concat category translation unit: the roots reach 171--563 instructions plus proxy/native nodes
-// instead of a fully folded record. On GCC 13, forcing the two record edges alone still leaves this timezone call;
-// forcing all three cuts the combined roots from 529/563/541 to 19/26/32 instructions and reduces translation-unit
-// text from 47,983 to 42,191 bytes (-12.07%). The focused full-category object grows by 0.60--4.79% on the originally
-// measured GCC 11/14--17 islands, which is the accepted deletion cost there. GCC 12 remains excluded because it erases
-// unaided. Unknown timestamps never enter this replacement-only function.
-FAST_IO_GNU_ALWAYS_INLINE
-#endif
-inline constexpr char_type *
-print_reserve_compiler_constant_iso8601_timezone_impl(
-	char_type *iter, ::std::int_least32_t timezone) noexcept
-{
-	::std::uint_least64_t magnitude{
-		static_cast<::std::uint_least64_t>(timezone)};
-	if (timezone < 0)
-	{
-		*iter++ = char_literal_v<u8'-', char_type>;
-		magnitude = static_cast<::std::uint_least64_t>(0u - magnitude);
-	}
-	else
-	{
-		*iter++ = char_literal_v<u8'+', char_type>;
-	}
-	auto const seconds{static_cast<::std::uint_least8_t>(magnitude % 60u)};
-	magnitude /= 60u;
-	auto const minutes{static_cast<::std::uint_least8_t>(magnitude % 60u)};
-	magnitude /= 60u;
-	if (magnitude < 100u)
-	{
-		iter = chrono_two_digits_impl<true>(iter, magnitude);
-	}
-	else
-	{
-		iter = print_reserve_integral_compiler_constant_define<10>(
-			iter, magnitude);
-	}
-	*iter++ = char_literal_v<u8':', char_type>;
-	iter = chrono_two_digits_impl<true>(iter, minutes);
-	if (seconds != 0u)
-	{
-		*iter++ = char_literal_v<u8':', char_type>;
-		iter = chrono_two_digits_impl<true>(iter, seconds);
-	}
-	return iter;
-}
-
-/// @brief Constant-materialization copy of the default ISO 8601 spelling pipeline.
-/// @details This body intentionally mirrors `print_reserve_iso8601_timestamp_impl`. GCC 11, GCC 13--16, and Clang 17--23
-///          otherwise retain the complete general date writer behind this proxy-only boundary at `-O3`. Forcing both
-///          record-level links removes about 2.3 KiB in focused constant-record translation units and prevents GCC 13's
-///          combined print/concat category translation unit from retaining a 529--563-instruction proxy/native graph.
-///          With the separately proved timezone edge, those roots shrink to 19--32 instructions and combined text falls
-///          by 12.07%. The noinline unknown-record formatter is unchanged. GCC 12 remains excluded because its focused
-///          object is a direct code-size reversal. The year and timezone leaves retain their independent proofs.
-///          The positive policies remain open for newer frontends until a measured reversal.
-template <::std::integral char_type>
-#if (defined(__GNUC__) && !defined(__clang__) && (__GNUC__ == 11 || 13 <= __GNUC__)) || \
-	(defined(__clang__) && 17 <= __clang_major__)
-FAST_IO_GNU_ALWAYS_INLINE
-#endif
-inline constexpr char_type *
-print_reserve_compiler_constant_iso8601_timestamp_impl(
-	char_type *iter, iso8601_timestamp const &timestamp) noexcept
-{
-	iter = print_reserve_compiler_constant_iso8601_year_impl(
-		iter, timestamp.year);
-	*iter++ = char_literal_v<u8'-', char_type>;
-	iter = chrono_two_digits_impl<true>(iter, timestamp.month);
-	*iter++ = char_literal_v<u8'-', char_type>;
-	iter = chrono_two_digits_impl<true>(iter, timestamp.day);
-	*iter++ = char_literal_v<u8'T', char_type>;
-	iter = chrono_two_digits_impl<true>(iter, timestamp.hours);
-	*iter++ = char_literal_v<u8':', char_type>;
-	iter = chrono_two_digits_impl<true>(iter, timestamp.minutes);
-	*iter++ = char_literal_v<u8':', char_type>;
-	iter = chrono_two_digits_impl<true>(iter, timestamp.seconds);
-	if (timestamp.subseconds != 0u)
-	{
-		iter = output_iso8601_subseconds(iter, timestamp.subseconds);
-	}
-	if (timestamp.timezone == 0)
-	{
-		*iter++ = char_literal_v<u8'Z', char_type>;
-	}
-	else
-	{
-		iter = print_reserve_compiler_constant_iso8601_timezone_impl(
-			iter, timestamp.timezone);
-	}
-	return iter;
-}
-
 template <bool comma = false, ::std::integral char_type>
 inline constexpr char_type *print_reserve_bsc_timestamp_impl(char_type *iter, unix_timestamp timestamp) noexcept
 {
@@ -934,7 +777,6 @@ inline constexpr char_type *print_reserve_bsc_timestamp_impl(char_type *iter, un
 
 } // namespace details
 
-/// @feature concept:runtime_precise_size
 template <::std::integral char_type, ::std::int_least64_t off_to_epoch>
 inline constexpr ::std::size_t print_reserve_size(io_reserve_type_t<char_type, basic_timestamp<off_to_epoch>>) noexcept
 {
@@ -957,95 +799,6 @@ inline constexpr char_type *print_reserve_define(io_reserve_type_t<char_type, ba
 	}
 }
 
-template <::std::integral char_type, ::std::int_least64_t off_to_epoch>
-[[nodiscard]] inline constexpr ::std::true_type
-print_compiler_constant_materialization_query_inline_safe(
-	io_reserve_type_t<char_type, basic_timestamp<off_to_epoch>>) noexcept
-{
-	return {};
-}
-
-/// @brief Permits a timestamp literal to be tested before stream/source normalization.
-/// @details `basic_timestamp` is a trivially copied pair of scalar fields.  Testing both fields at the public source
-///          boundary preserves optimizer visibility even when the general run-time normalization bridge is outlined;
-///          an unknown timestamp still falls through to that unchanged bridge with no formatter-side condition.
-template <::std::integral char_type, ::std::int_least64_t off_to_epoch>
-[[nodiscard]] inline constexpr ::std::true_type
-print_compiler_constant_pre_normalization_safe(
-	io_reserve_type_t<char_type, basic_timestamp<off_to_epoch>>) noexcept
-{
-	return {};
-}
-
-/// @brief Records the permanent two-field query classification for basic timestamps.
-/// @details Constant and independently unknown seconds/subseconds roots establish provider behavior; each IO consumer
-///          separately decides whether its compiler erases the timestamp replacement writer.
-template <::std::integral char_type, ::std::int_least64_t off_to_epoch>
-[[nodiscard]] inline constexpr ::std::true_type
-print_compiler_constant_materialization_graph_proven(
-	io_reserve_type_t<char_type, basic_timestamp<off_to_epoch>>) noexcept
-{
-	return {};
-}
-
-template <::std::integral char_type, ::std::int_least64_t off_to_epoch>
-[[nodiscard]] inline constexpr bool
-print_compiler_constant_materialization_eligible(
-	io_reserve_type_t<char_type, basic_timestamp<off_to_epoch>>,
-	basic_timestamp<off_to_epoch> const &timestamp) noexcept
-{
-#if FAST_IO_HAS_BUILTIN(__builtin_constant_p)
-	return __builtin_constant_p(timestamp.seconds) &&
-		   __builtin_constant_p(timestamp.subseconds);
-#else
-	(void)timestamp;
-	return false;
-#endif
-}
-
-template <::std::integral char_type, ::std::int_least64_t off_to_epoch>
-[[nodiscard]] inline constexpr auto
-print_compiler_constant_materialize(
-	io_reserve_type_t<char_type, basic_timestamp<off_to_epoch>>,
-	basic_timestamp<off_to_epoch> const &timestamp) noexcept
-{
-	return manipulators::compiler_constant_timestamp_t<off_to_epoch>{timestamp};
-}
-
-template <::std::integral char_type, ::std::int_least64_t off_to_epoch>
-inline constexpr ::std::size_t print_reserve_size(
-	io_reserve_type_t<
-		char_type, manipulators::compiler_constant_timestamp_t<off_to_epoch>>) noexcept
-{
-	return print_reserve_size(io_reserve_type<char_type, basic_timestamp<off_to_epoch>>);
-}
-
-/// @brief Writes an already-selected constant timestamp into its caller-owned exact record.
-/// @details Tested Clang 17--23 otherwise outline it at `-O3`, leaving the fixed seconds/subseconds conversion as a
-///          run-time call. The attribute reduces the measured constant-timestamp translation unit by 1.4--1.5 KiB,
-///          while the noinline unknown-record path is byte-identical. GCC 11--16 inline this link unaided. The Clang
-///          policy remains open for newer frontends until a measured reversal, without affecting MSVC or the ordinary
-///          `basic_timestamp` formatter.
-template <::std::integral char_type, ::std::int_least64_t off_to_epoch>
-#if defined(__clang__) && 17 <= __clang_major__
-FAST_IO_GNU_ALWAYS_INLINE
-#endif
-inline constexpr char_type *print_reserve_define(
-	io_reserve_type_t<
-		char_type, manipulators::compiler_constant_timestamp_t<off_to_epoch>>,
-	char_type *iter,
-	manipulators::compiler_constant_timestamp_t<off_to_epoch> timestamp) noexcept
-{
-	iter = ::fast_io::details::print_reserve_integral_compiler_constant_define<10>(
-		iter, timestamp.value.seconds);
-	if (timestamp.value.subseconds != 0u)
-	{
-		iter = ::fast_io::details::output_iso8601_subseconds(
-			iter, timestamp.value.subseconds);
-	}
-	return iter;
-}
-
 template <::std::integral char_type>
 inline constexpr ::std::size_t print_reserve_size(io_reserve_type_t<char_type, iso8601_timestamp>) noexcept
 {
@@ -1061,97 +814,6 @@ inline constexpr char_type *print_reserve_define(io_reserve_type_t<char_type, is
 												 iso8601_timestamp const &timestamp) noexcept
 {
 	return details::print_reserve_iso8601_timestamp_impl(iter, timestamp);
-}
-
-template <::std::integral char_type>
-[[nodiscard]] inline constexpr ::std::true_type
-print_compiler_constant_materialization_query_inline_safe(
-	io_reserve_type_t<char_type, iso8601_timestamp>) noexcept
-{
-	return {};
-}
-
-/// @brief Permits a complete ISO 8601 record to be queried before source normalization.
-/// @details Every formatting decision made by the default ISO writer depends only on these eight scalar fields. The
-///          replacement preserves the original value and merely selects a constant-friendly reserve leaf; an unknown
-///          record fails the optimizer query and enters the unchanged runtime source-normalization path.
-template <::std::integral char_type>
-[[nodiscard]] inline constexpr ::std::true_type
-print_compiler_constant_pre_normalization_safe(
-	io_reserve_type_t<char_type, iso8601_timestamp>) noexcept
-{
-	return {};
-}
-
-/// @brief Records the permanent field-complete query classification for the ISO-8601 provider.
-/// @details Every calendar, subsecond, and timezone field has an independently unknown negative root; successful roots
-///          are admitted only by consumers whose recursive graph audit removes the complete ISO formatter.
-template <::std::integral char_type>
-[[nodiscard]] inline constexpr ::std::true_type
-print_compiler_constant_materialization_graph_proven(
-	io_reserve_type_t<char_type, iso8601_timestamp>) noexcept
-{
-	return {};
-}
-
-template <::std::integral char_type>
-[[nodiscard]] inline constexpr bool
-print_compiler_constant_materialization_eligible(
-	io_reserve_type_t<char_type, iso8601_timestamp>,
-	iso8601_timestamp const &timestamp) noexcept
-{
-#if FAST_IO_HAS_BUILTIN(__builtin_constant_p)
-	return __builtin_constant_p(timestamp.year) &&
-		   __builtin_constant_p(timestamp.month) &&
-		   __builtin_constant_p(timestamp.day) &&
-		   __builtin_constant_p(timestamp.hours) &&
-		   __builtin_constant_p(timestamp.minutes) &&
-		   __builtin_constant_p(timestamp.seconds) &&
-		   __builtin_constant_p(timestamp.subseconds) &&
-		   __builtin_constant_p(timestamp.timezone);
-#else
-	(void)timestamp;
-	return false;
-#endif
-}
-
-template <::std::integral char_type>
-[[nodiscard]] inline constexpr auto
-print_compiler_constant_materialize(
-	io_reserve_type_t<char_type, iso8601_timestamp>,
-	iso8601_timestamp const &timestamp) noexcept
-{
-	return manipulators::compiler_constant_iso8601_timestamp_t{timestamp};
-}
-
-template <::std::integral char_type>
-inline constexpr ::std::size_t print_reserve_size(
-	io_reserve_type_t<
-		char_type, manipulators::compiler_constant_iso8601_timestamp_t>) noexcept
-{
-	return print_reserve_size(io_reserve_type<char_type, iso8601_timestamp>);
-}
-
-template <::std::integral char_type>
-/// @brief Writes one already-selected constant ISO record into its caller-owned reserve range.
-/// @details Tested GCC 11, GCC 13--16, and Clang 17--23 otherwise outline the record-level constant helper from this proxy.
-///          Keeping both links visible folds the eight proved fields and removes the general date writer from constant
-///          endpoints without changing the noinline unknown-record formatter. GCC 13 needs this edge in a combined
-///          print/concat category translation unit even though it fuses the smaller isolated pair unaided; without it,
-///          three successful-query roots retain 529--563 instructions. GCC 12 remains a direct code-size reversal.
-///          The positive policies remain open for newer frontends until a measured reversal.
-#if (defined(__GNUC__) && !defined(__clang__) && (__GNUC__ == 11 || 13 <= __GNUC__)) || \
-	(defined(__clang__) && 17 <= __clang_major__)
-FAST_IO_GNU_ALWAYS_INLINE
-#endif
-inline constexpr char_type *print_reserve_define(
-	io_reserve_type_t<
-		char_type, manipulators::compiler_constant_iso8601_timestamp_t>,
-	char_type *iter,
-	manipulators::compiler_constant_iso8601_timestamp_t const &timestamp) noexcept
-{
-	return details::print_reserve_compiler_constant_iso8601_timestamp_impl(
-		iter, timestamp.value);
 }
 
 inline constexpr win32_timestamp to_win32_timestamp_ftu64(::std::uint_least64_t ftu64) noexcept
@@ -1391,20 +1053,22 @@ inline constexpr parse_result<char_type const *>
 scn_ctx_define_unix_timestamp_impl(timestamp_scan_state_t<char_type> &state, char_type const *begin,
 								   char_type const *end, unix_timestamp &t) noexcept
 {
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::after_year);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::month);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::after_month);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::day);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::after_day);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::hours);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::after_hours);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::minutes);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::after_minutes);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::seconds);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::after_subseconds_timezone_marker);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::timezone_hours);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::after_timezone_hours);
-	FAST_IO_ASSUME(state.tsp_phase != scan_timestamp_context_phase::timezone_minutes);
+#if __has_cpp_attribute(assume)
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::after_year)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::month)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::after_month)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::day)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::after_day)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::hours)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::after_hours)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::minutes)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::after_minutes)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::seconds)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::after_subseconds_timezone_marker)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::timezone_hours)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::after_timezone_hours)]];
+	[[assume(state.tsp_phase != scan_timestamp_context_phase::timezone_minutes)]];
+#endif
 	switch (state.tsp_phase)
 	{
 	case scan_timestamp_context_phase::year:
@@ -1713,7 +1377,9 @@ inline constexpr parse_result<char_type const *>
 scan_iso8601_context_year_phase(timestamp_scan_state_t<char_type> &state, char_type const *begin, char_type const *end,
 								T &t) noexcept
 {
-	FAST_IO_ASSUME(state.integer_phase != scan_integral_context_phase::prefix);
+#if __has_cpp_attribute(assume)
+	[[assume(state.integer_phase != scan_integral_context_phase::prefix)]];
+#endif
 	switch (state.integer_phase)
 	{
 	case scan_integral_context_phase::space:
@@ -1784,7 +1450,9 @@ scan_iso8601_context_year_phase(timestamp_scan_state_t<char_type> &state, char_t
 		else
 		{
 			auto remain_size{(neg ? 1 : 0) + 5 - state.size};
-			FAST_IO_ASSUME(remain_size != 0);
+#if __has_cpp_attribute(assume)
+			[[assume(remain_size != 0)]];
+#endif
 			if (end - begin < remain_size)
 			{
 				for (; begin != end; ++begin)
@@ -1844,7 +1512,9 @@ scan_iso8601_context_2_digits_phase(timestamp_scan_state_t<char_type> &state, ch
 		return {begin, parse_code::partial};
 	}
 	auto buffer_begin{state.buffer.begin()};
-	FAST_IO_ASSUME(state.size == 0 || state.size == 1);
+#if __has_cpp_attribute(assume)
+	[[assume(state.size == 0 || state.size == 1)]];
+#endif
 	switch (state.size)
 	{
 	case 0:

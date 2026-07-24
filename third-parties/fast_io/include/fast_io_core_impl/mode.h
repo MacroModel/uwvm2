@@ -23,7 +23,6 @@ enum class file_type : signed char
 	remote = 9
 };
 
-/// @feature concept:runtime_precise_size
 template <::std::integral char_type>
 inline constexpr ::std::size_t print_reserve_size(io_reserve_type_t<char_type, file_type>) noexcept
 {
@@ -468,7 +467,6 @@ enum class posix_wait_reason : unsigned char
 	if_stopped
 };
 
-/// @feature concept:runtime_precise_size
 template <::std::integral char_type>
 inline constexpr ::std::size_t print_reserve_size(io_reserve_type_t<char_type, posix_wait_reason>) noexcept
 {

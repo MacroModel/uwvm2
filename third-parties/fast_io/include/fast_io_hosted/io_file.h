@@ -27,11 +27,6 @@ template <::std::integral inchar_type, ::std::integral outchar_type, typename al
 class basic_io_io_derived : public basic_io_io_base<inchar_type, outchar_type>
 {
 public:
-	// Each virtual bridge performs stream-reference normalization exactly once. The remove_cvref_t aliases below are
-	// used only for capability and character-domain proofs; the runtime expression is retained with decltype(auto), so
-	// an ABI-small prvalue has one local owner while a non-trivial lvalue continues to denote the wrapped cursor. This
-	// separation is essential in a type-erased layer: a second normalization or an unconditional local copy could
-	// silently fork buffered position state before the primitive operation is reached.
 	T value;
 	static constexpr inline void operator delete(void *ptr, ::std::size_t n) noexcept
 	{
@@ -45,16 +40,14 @@ public:
 	inline virtual constexpr ::fast_io::io_scatter_status_t
 	scatter_read_some_underflow_def(::fast_io::basic_io_scatter_t<inchar_type> const *base, ::std::size_t n) override
 	{
-		if constexpr (::fast_io::operations::defines::has_input_or_io_stream_ref_define<decltype((value))>)
+		if constexpr (::fast_io::operations::defines::has_input_or_io_stream_ref_define<T>)
 		{
-			using decaytype = ::std::remove_cvref_t<decltype(
-				::fast_io::operations::input_stream_ref(value))>;
+			using decaytype = decltype(::fast_io::operations::input_stream_ref(value));
 			if constexpr (::std::same_as<typename decaytype::input_char_type, inchar_type> &&
 						  ::fast_io::operations::decay::defines::readable<decaytype>)
 			{
-				decltype(auto) inref = ::fast_io::operations::input_stream_ref(value);
 				return ::fast_io::operations::decay::scatter_read_some_decay(
-					inref, base, n);
+					::fast_io::operations::input_stream_ref(value), base, n);
 			}
 			else
 			{
@@ -70,16 +63,14 @@ public:
 	scatter_pread_some_underflow_def(::fast_io::basic_io_scatter_t<inchar_type> const *base, ::std::size_t n,
 									 ::fast_io::intfpos_t off) override
 	{
-		if constexpr (::fast_io::operations::defines::has_input_or_io_stream_ref_define<decltype((value))>)
+		if constexpr (::fast_io::operations::defines::has_input_or_io_stream_ref_define<T>)
 		{
-			using decaytype = ::std::remove_cvref_t<decltype(
-				::fast_io::operations::input_stream_ref(value))>;
+			using decaytype = decltype(::fast_io::operations::input_stream_ref(value));
 			if constexpr (::std::same_as<typename decaytype::input_char_type, inchar_type> &&
 						  ::fast_io::operations::decay::defines::preadable<decaytype>)
 			{
-				decltype(auto) inref = ::fast_io::operations::input_stream_ref(value);
 				return ::fast_io::operations::decay::scatter_pread_some_decay(
-					inref, base, n, off);
+					::fast_io::operations::input_stream_ref(value), base, n, off);
 			}
 			else
 			{
@@ -94,18 +85,14 @@ public:
 	inline virtual constexpr ::fast_io::intfpos_t input_stream_seek_def(::fast_io::intfpos_t off,
 																 ::fast_io::seekdir sdir) override
 	{
-		if constexpr (::fast_io::operations::defines::has_input_or_io_stream_ref_define<decltype((value))>)
+		if constexpr (::fast_io::operations::defines::has_input_or_io_stream_ref_define<T>)
 		{
-			using decaytype = ::std::remove_cvref_t<decltype(
-				::fast_io::operations::input_stream_ref(value))>;
+			using decaytype = decltype(::fast_io::operations::input_stream_ref(value));
 			if constexpr (::std::same_as<typename decaytype::input_char_type, inchar_type> &&
-						  ::fast_io::operations::decay::defines::input_stream_seek_dispatchable<decaytype>)
+						  ::fast_io::operations::decay::defines::has_input_stream_seek_define<decaytype>)
 			{
-				// Dispatchability includes a finite complete mutex chain. Testing only the terminal seek CPO here would
-				// reject a valid locked wrapper even though the borrowed decay layer can safely unwrap it.
-				decltype(auto) inref = ::fast_io::operations::input_stream_ref(value);
 				return ::fast_io::operations::decay::input_stream_seek_decay(
-					inref, off, sdir);
+					::fast_io::operations::input_stream_ref(value), off, sdir);
 			}
 			else
 			{
@@ -121,16 +108,14 @@ public:
 	inline virtual constexpr ::fast_io::io_scatter_status_t
 	scatter_write_some_overflow_def(::fast_io::basic_io_scatter_t<outchar_type> const *base, ::std::size_t n) override
 	{
-		if constexpr (::fast_io::operations::defines::has_output_or_io_stream_ref_define<decltype((value))>)
+		if constexpr (::fast_io::operations::defines::has_output_or_io_stream_ref_define<T>)
 		{
-			using decaytype = ::std::remove_cvref_t<decltype(
-				::fast_io::operations::output_stream_ref(value))>;
+			using decaytype = decltype(::fast_io::operations::output_stream_ref(value));
 			if constexpr (::std::same_as<typename decaytype::output_char_type, outchar_type> &&
 						  ::fast_io::operations::decay::defines::writable<decaytype>)
 			{
-				decltype(auto) outref = ::fast_io::operations::output_stream_ref(value);
 				return ::fast_io::operations::decay::scatter_write_some_decay(
-					outref, base, n);
+					::fast_io::operations::output_stream_ref(value), base, n);
 			}
 			else
 			{
@@ -146,16 +131,14 @@ public:
 	scatter_pwrite_some_overflow_def(::fast_io::basic_io_scatter_t<outchar_type> const *base, ::std::size_t n,
 									 ::fast_io::intfpos_t off) override
 	{
-		if constexpr (::fast_io::operations::defines::has_output_or_io_stream_ref_define<decltype((value))>)
+		if constexpr (::fast_io::operations::defines::has_output_or_io_stream_ref_define<T>)
 		{
-			using decaytype = ::std::remove_cvref_t<decltype(
-				::fast_io::operations::output_stream_ref(value))>;
+			using decaytype = decltype(::fast_io::operations::output_stream_ref(value));
 			if constexpr (::std::same_as<typename decaytype::output_char_type, outchar_type> &&
 						  ::fast_io::operations::decay::defines::pwritable<decaytype>)
 			{
-				decltype(auto) outref = ::fast_io::operations::output_stream_ref(value);
 				return ::fast_io::operations::decay::scatter_pwrite_some_decay(
-					outref, base, n, off);
+					::fast_io::operations::output_stream_ref(value), base, n, off);
 			}
 			else
 			{
@@ -170,16 +153,14 @@ public:
 	inline virtual constexpr ::fast_io::intfpos_t output_stream_seek_def(::fast_io::intfpos_t off,
 																  ::fast_io::seekdir sdir) override
 	{
-		if constexpr (::fast_io::operations::defines::has_output_or_io_stream_ref_define<decltype((value))>)
+		if constexpr (::fast_io::operations::defines::has_output_or_io_stream_ref_define<T>)
 		{
-			using decaytype = ::std::remove_cvref_t<decltype(
-				::fast_io::operations::output_stream_ref(value))>;
+			using decaytype = decltype(::fast_io::operations::output_stream_ref(value));
 			if constexpr (::std::same_as<typename decaytype::output_char_type, outchar_type> &&
-						  ::fast_io::operations::decay::defines::output_stream_seek_dispatchable<decaytype>)
+						  ::fast_io::operations::decay::defines::has_output_stream_seek_define<decaytype>)
 			{
-				decltype(auto) outref = ::fast_io::operations::output_stream_ref(value);
 				return ::fast_io::operations::decay::output_stream_seek_decay(
-					outref, off, sdir);
+					::fast_io::operations::output_stream_ref(value), off, sdir);
 			}
 			else
 			{
@@ -248,7 +229,7 @@ input_stream_seek_define(basic_general_io_io_observer<inchar_type, outchar_type>
 template <::std::integral inchar_type, ::std::integral outchar_type>
 inline constexpr ::fast_io::io_scatter_status_t
 scatter_write_some_overflow_define(basic_general_io_io_observer<inchar_type, outchar_type> biob,
-								   ::fast_io::basic_io_scatter_t<outchar_type> const *pst, ::std::size_t n)
+								   ::fast_io::basic_io_scatter_t<inchar_type> const *pst, ::std::size_t n)
 {
 	return biob.handle->scatter_write_some_overflow_def(pst, n);
 }
@@ -256,7 +237,7 @@ scatter_write_some_overflow_define(basic_general_io_io_observer<inchar_type, out
 template <::std::integral inchar_type, ::std::integral outchar_type>
 inline constexpr ::fast_io::io_scatter_status_t
 scatter_pwrite_some_overflow_define(basic_general_io_io_observer<inchar_type, outchar_type> biob,
-									::fast_io::basic_io_scatter_t<outchar_type> const *pst, ::std::size_t n,
+									::fast_io::basic_io_scatter_t<inchar_type> const *pst, ::std::size_t n,
 									intfpos_t off)
 {
 	return biob.handle->scatter_pwrite_some_overflow_def(pst, n, off);
@@ -376,25 +357,13 @@ io_stream_transcode_deco_filter_ref_define(basic_general_io_file<inchar_type, ou
 	return {__builtin_addressof(t)};
 }
 
-/// @brief Replaces a type-erased file with an owning decorator layer.
-/// @details The add-decorator dispatcher offers its sole local owner as an rvalue whenever this consuming overload is
-///          available.  Nevertheless the CPO remains valid for a caller-owned lvalue when the decorator is copyable.
-///          `remove_cvref_t` is essential in both cases: using the forwarding type as the stored template argument makes
-///          an lvalue expression instantiate `basic_io_deco_filter<..., Decorator&>`, leaving the persistent file with a
-///          reference to a helper parameter destroyed at return.  The exact construction requirement turns an attempted
-///          move-only lvalue copy into substitution failure before this type-erased replacement body is selected.
 template <::std::integral inchar_type, ::std::integral outchar_type, typename allocatortype, typename dectref>
-	requires requires(dectref &&deco) {
-		::std::remove_cvref_t<dectref>(::fast_io::freestanding::forward<dectref>(deco));
-	}
 inline constexpr void io_stream_add_deco_filter_define(
 	basic_general_io_file_ref<basic_general_io_file<inchar_type, outchar_type, allocatortype>> rf, dectref &&deco)
 {
-	using decorator_type = ::std::remove_cvref_t<dectref>;
-	using stored_file_type = basic_general_io_file<inchar_type, outchar_type, allocatortype>;
 	*rf.giofptr = basic_general_io_file<inchar_type, outchar_type, allocatortype>(
 		::fast_io::io_cookie_type<
-			basic_io_deco_filt<stored_file_type, decorator_type>>,
+			basic_io_deco_filt<basic_general_io_file<inchar_type, outchar_type, allocatortype>, dectref>>,
 		::fast_io::freestanding::forward<dectref>(deco), ::fast_io::freestanding::move(*rf.giofptr));
 }
 

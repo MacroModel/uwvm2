@@ -434,7 +434,7 @@ inline constexpr win32_open_mode calculate_win32_open_mode(open_mode_perms ompm)
 		mode.dwFlagsAndAttributes |= 0x10;       // FILE_ATTRIBUTE_DIRECTORY
 		if (mode.dwCreationDisposition == 0)
 		{
-			mode.dwDesiredAccess |= static_cast<::std::uint_least32_t>(0x120116) | static_cast<::std::uint_least32_t>(0x120089); // GENERIC_WRITE|GENERIC_READ
+			mode.dwDesiredAccess |= UINT32_C(0x120116) | UINT32_C(0x120089); // GENERIC_WRITE|GENERIC_READ
 			mode.dwCreationDisposition = 3;                                  // OPEN_EXISTING
 		}
 	}
@@ -893,20 +893,6 @@ io_bytes_stream_ref_define(basic_win32_family_io_observer<family, ch_type> other
 }
 
 template <win32_family family, ::std::integral char_type>
-inline constexpr ::std::size_t scatter_fallback_full_output_threshold(
-	::fast_io::io_reserve_type_t<char_type,
-								 ::fast_io::basic_win32_family_io_observer<family, char_type>>) noexcept
-{
-	// Native Windows temporary-file measurements keep complete coalescing profitable beyond the hosted Windows
-	// 32 KiB stack budget: three WriteFile calls still win at 48 KiB and sixteen still win at 256 KiB. The platform
-	// policy exposes no more than the active stack budget; custom streams may still request a larger dynamic threshold.
-	constexpr ::std::size_t default_value{32u * 1024u / sizeof(char_type)};
-	constexpr ::std::size_t stack_value{
-		::fast_io::details::dynamic_reserve_default_static_stack_size<char_type>()};
-	return (::std::min)(default_value, stack_value);
-}
-
-template <win32_family family, ::std::integral char_type>
 inline constexpr ::std::conditional_t<family == win32_family::ansi_9x, nop_file_lock, nt_file_lock>
 file_lock(basic_win32_family_io_observer<family, char_type> wiob) noexcept
 {
@@ -957,18 +943,33 @@ using tlc_win32_9xa_dir_handle_path_str = ::fast_io::containers::basic_string<ch
 template <typename... Args>
 constexpr inline win32_9xa_dir_handle_path_str concat_win32_9xa_dir_handle_path_str(Args &&...args)
 {
-	// Path construction is a concat operation. Let its checked entry prove the selected string destination and perform
-	// exactly one normalization of this wrapper's named lvalue arguments.
-	return ::fast_io::basic_general_concat_checked<
-		false, char8_t, win32_9xa_dir_handle_path_str>(args...);
+	constexpr bool type_error{::fast_io::operations::defines::print_freestanding_okay<::fast_io::details::dummy_buffer_output_stream<char8_t>, Args...>};
+	if constexpr (type_error)
+	{
+		return ::fast_io::basic_general_concat<false, char8_t, win32_9xa_dir_handle_path_str>(
+			::fast_io::io_print_forward<char8_t>(::fast_io::io_print_alias(args))...);
+	}
+	else
+	{
+		static_assert(type_error, "some types are not printable, so we cannot concat ::fast_io::win32::details::win32_9xa_dir_handle_path_str");
+		return {};
+	}
 }
 
 template <typename... Args>
 constexpr inline tlc_win32_9xa_dir_handle_path_str concat_tlc_win32_9xa_dir_handle_path_str(Args &&...args)
 {
-	// Keep the thread-local path result on the same exact concat admission and one-normalization execution path.
-	return ::fast_io::basic_general_concat_checked<
-		false, char8_t, tlc_win32_9xa_dir_handle_path_str>(args...);
+	constexpr bool type_error{::fast_io::operations::defines::print_freestanding_okay<::fast_io::details::dummy_buffer_output_stream<char8_t>, Args...>};
+	if constexpr (type_error)
+	{
+		return ::fast_io::basic_general_concat<false, char8_t, tlc_win32_9xa_dir_handle_path_str>(
+			::fast_io::io_print_forward<char8_t>(::fast_io::io_print_alias(args))...);
+	}
+	else
+	{
+		static_assert(type_error, "some types are not printable, so we cannot concat ::fast_io::win32::details::tlc_win32_9xa_dir_handle_path_str");
+		return {};
+	}
 }
 } // namespace win32::details
 

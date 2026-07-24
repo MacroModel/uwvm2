@@ -10,7 +10,7 @@ template <typename outstmtype>
 [[__gnu__::__cold__]]
 #endif
 inline constexpr typename outstmtype::output_char_type const *
-pwrite_some_cold_impl(outstmtype &outsm, typename outstmtype::output_char_type const *first,
+pwrite_some_cold_impl(outstmtype outsm, typename outstmtype::output_char_type const *first,
 					  typename outstmtype::output_char_type const *last, ::fast_io::intfpos_t off)
 {
 	using char_type = typename outstmtype::output_char_type;
@@ -33,9 +33,11 @@ pwrite_some_cold_impl(outstmtype &outsm, typename outstmtype::output_char_type c
 	}
 	else if constexpr (::fast_io::operations::decay::defines::has_scatter_pwrite_all_overflow_define<outstmtype>)
 	{
-		basic_io_scatter_t<char_type> sc{first, static_cast<::std::size_t>(last - first)};
-		scatter_pwrite_all_overflow_define(outsm, __builtin_addressof(sc), 1, off);
-		return last;
+		::std::size_t len{static_cast<::std::size_t>(last - first)};
+		basic_io_scatter_t<char_type> sc{first, len};
+		return ::fast_io::scatter_status_one_size(
+				   scatter_pwrite_all_overflow_define(outsm, __builtin_addressof(sc), 1, off), len) +
+			   first;
 	}
 	else if constexpr (::fast_io::operations::decay::defines::has_pwrite_all_bytes_overflow_define<outstmtype> ||
 					   ::fast_io::operations::decay::defines::has_scatter_pwrite_all_bytes_overflow_define<
@@ -52,22 +54,17 @@ pwrite_some_cold_impl(outstmtype &outsm, typename outstmtype::output_char_type c
 		}
 		else
 		{
-			// The typed positional protocol measures off in characters, while every *_bytes customization measures it
-			// in bytes. Multiplying exactly once at this boundary prevents successive wide-character writes from
-			// overlapping; the saturating helper preserves the library's positional overflow policy.
-			::fast_io::intfpos_t byte_off{::fast_io::details::scatter_fpos_mul<char_type>(off)};
 			::std::byte const *firstptr{reinterpret_cast<::std::byte const *>(first)};
 			::std::byte const *ptr{
-				pwrite_some_bytes_cold_impl(outsm, firstptr, reinterpret_cast<::std::byte const *>(last), byte_off)};
+				pwrite_some_bytes_cold_impl(outsm, firstptr, reinterpret_cast<::std::byte const *>(last), off)};
 			::std::ptrdiff_t ptdf{ptr - firstptr};
 			::std::size_t diff{static_cast<::std::size_t>(ptdf)};
 			::std::size_t v{diff / sizeof(char_type)};
-			::std::size_t const partial{diff % sizeof(char_type)};
-			if (partial != 0)
+			::std::size_t remain{diff % sizeof(char_type)};
+			if (remain != 0)
 			{
-				byte_off = ::fast_io::fposoffadd_nonegative(byte_off, ptdf);
-				pwrite_all_bytes_cold_impl(outsm, ptr, ptr + (sizeof(char_type) - partial), byte_off);
-				++v;
+				off = ::fast_io::fposoffadd_nonegative(off, ptdf);
+				pwrite_all_bytes_cold_impl(outsm, ptr, ptr + remain, off);
 			}
 			return first + v;
 		}
@@ -93,8 +90,7 @@ pwrite_some_cold_impl(outstmtype &outsm, typename outstmtype::output_char_type c
 							outstmtype>))
 	{
 		auto oldoff{::fast_io::operations::decay::output_stream_seek_bytes_decay(outsm, 0, ::fast_io::seekdir::cur)};
-		::fast_io::operations::decay::output_stream_seek_bytes_decay(
-			outsm, ::fast_io::details::scatter_fpos_mul<char_type>(off), ::fast_io::seekdir::beg);
+		::fast_io::operations::decay::output_stream_seek_bytes_decay(outsm, off, ::fast_io::seekdir::beg);
 		auto ret{::fast_io::details::write_some_impl(outsm, first, last)};
 		::fast_io::operations::decay::output_stream_seek_bytes_decay(outsm, oldoff, ::fast_io::seekdir::beg);
 		return ret;
@@ -105,7 +101,7 @@ template <typename outstmtype>
 #if __has_cpp_attribute(__gnu__::__cold__)
 [[__gnu__::__cold__]]
 #endif
-inline constexpr ::std::byte const *pwrite_some_bytes_cold_impl(outstmtype &outsm, ::std::byte const *first,
+inline constexpr ::std::byte const *pwrite_some_bytes_cold_impl(outstmtype outsm, ::std::byte const *first,
 																::std::byte const *last, ::fast_io::intfpos_t off)
 {
 	using char_type = typename outstmtype::output_char_type;
@@ -129,9 +125,8 @@ inline constexpr ::std::byte const *pwrite_some_bytes_cold_impl(outstmtype &outs
 			[[__gnu__::__may_alias__]]
 #endif
 			= char_type const *;
-		auto const result{pwrite_some_overflow_define(outsm, reinterpret_cast<char_type_const_ptr>(first),
-											  reinterpret_cast<char_type_const_ptr>(last), off)};
-		return reinterpret_cast<::std::byte const *>(result);
+		return pwrite_some_overflow_define(outsm, reinterpret_cast<char_type_const_ptr>(first),
+										   reinterpret_cast<char_type_const_ptr>(last), off);
 	}
 	else if constexpr (sizeof(char_type) == 1 &&
 					   ::fast_io::operations::decay::defines::has_scatter_pwrite_some_overflow_define<outstmtype>)
@@ -144,7 +139,7 @@ inline constexpr ::std::byte const *pwrite_some_bytes_cold_impl(outstmtype &outs
 		::std::size_t len{static_cast<::std::size_t>(last - first)};
 		basic_io_scatter_t<char_type> sc{reinterpret_cast<char_type_const_ptr>(first), len};
 		return ::fast_io::scatter_status_one_size(
-				   scatter_pwrite_some_overflow_define(outsm, __builtin_addressof(sc), 1, off), len) +
+				   scatter_pwrite_some_bytes_overflow_define(outsm, __builtin_addressof(sc), 1, off), len) +
 			   first;
 	}
 	else if constexpr (::fast_io::operations::decay::defines::has_pwrite_all_bytes_overflow_define<outstmtype>)
@@ -173,14 +168,8 @@ inline constexpr ::std::byte const *pwrite_some_bytes_cold_impl(outstmtype &outs
 	else if constexpr (sizeof(char_type) == 1 &&
 					   ::fast_io::operations::decay::defines::has_scatter_pwrite_all_overflow_define<outstmtype>)
 	{
-		using char_type_const_ptr
-#if __has_cpp_attribute(__gnu__::__may_alias__)
-			[[__gnu__::__may_alias__]]
-#endif
-			= char_type const *;
-		basic_io_scatter_t<char_type> sc{reinterpret_cast<char_type_const_ptr>(first),
-										 static_cast<::std::size_t>(last - first)};
-		scatter_pwrite_all_overflow_define(outsm, __builtin_addressof(sc), 1, off);
+		io_scatter_t sc{first, static_cast<::std::size_t>(last - first)};
+		scatter_pwrite_all_bytes_overflow_define(outsm, __builtin_addressof(sc), 1, off);
 		return last;
 	}
 	else if constexpr (::fast_io::operations::decay::defines::has_output_or_io_stream_seek_bytes_define<outstmtype> &&
@@ -216,7 +205,7 @@ template <typename outstmtype>
 #if __has_cpp_attribute(__gnu__::__cold__)
 [[__gnu__::__cold__]]
 #endif
-inline constexpr void pwrite_all_cold_impl(outstmtype &outsm, typename outstmtype::output_char_type const *first,
+inline constexpr void pwrite_all_cold_impl(outstmtype outsm, typename outstmtype::output_char_type const *first,
 										   typename outstmtype::output_char_type const *last, ::fast_io::intfpos_t off)
 {
 	using char_type = typename outstmtype::output_char_type;
@@ -241,15 +230,19 @@ inline constexpr void pwrite_all_cold_impl(outstmtype &outsm, typename outstmtyp
 	}
 	else if constexpr (::fast_io::operations::decay::defines::has_scatter_pwrite_some_overflow_define<outstmtype>)
 	{
-		do
+		for (;;)
 		{
 			::std::size_t len{static_cast<::std::size_t>(last - first)};
 			basic_io_scatter_t<char_type> sc{first, len};
-			auto ret{scatter_pwrite_some_overflow_define(outsm, __builtin_addressof(sc), 1, off)};
+			auto ret{scatter_pwrite_some_bytes_overflow_define(outsm, __builtin_addressof(sc), 1, off)};
 			auto nit{first + ::fast_io::scatter_status_one_size(ret, len)};
 			off = ::fast_io::fposoffadd_nonegative(off, nit - first);
+			if (nit != last)
+			{
+				return;
+			}
 			first = nit;
-		} while (first != last);
+		}
 	}
 	else if constexpr ((::fast_io::operations::decay::defines::has_pwrite_all_bytes_overflow_define<outstmtype> ||
 						::fast_io::operations::decay::defines::has_scatter_pwrite_all_bytes_overflow_define<
@@ -259,8 +252,7 @@ inline constexpr void pwrite_all_cold_impl(outstmtype &outsm, typename outstmtyp
 							outstmtype>))
 	{
 		pwrite_all_bytes_cold_impl(outsm, reinterpret_cast<::std::byte const *>(first),
-								   reinterpret_cast<::std::byte const *>(last),
-								   ::fast_io::details::scatter_fpos_mul<char_type>(off));
+								   reinterpret_cast<::std::byte const *>(last), off);
 	}
 	else if constexpr (::fast_io::operations::decay::defines::has_output_or_io_stream_seek_define<outstmtype> &&
 					   (::fast_io::operations::decay::defines::has_write_all_overflow_define<outstmtype> ||
@@ -270,7 +262,7 @@ inline constexpr void pwrite_all_cold_impl(outstmtype &outsm, typename outstmtyp
 	{
 		auto oldoff{::fast_io::operations::decay::output_stream_seek_decay(outsm, 0, ::fast_io::seekdir::cur)};
 		::fast_io::operations::decay::output_stream_seek_decay(outsm, off, ::fast_io::seekdir::beg);
-		::fast_io::details::write_all_impl(outsm, first, last);
+		::fast_io::details::write_all_bytes_impl(outsm, reinterpret_cast<::std::byte const *>(first), reinterpret_cast<::std::byte const *>(last));
 		::fast_io::operations::decay::output_stream_seek_decay(outsm, oldoff, ::fast_io::seekdir::beg);
 	}
 	else if constexpr (::fast_io::operations::decay::defines::has_output_or_io_stream_seek_bytes_define<outstmtype> &&
@@ -282,8 +274,7 @@ inline constexpr void pwrite_all_cold_impl(outstmtype &outsm, typename outstmtyp
 							outstmtype>))
 	{
 		auto oldoff{::fast_io::operations::decay::output_stream_seek_bytes_decay(outsm, 0, ::fast_io::seekdir::cur)};
-		::fast_io::operations::decay::output_stream_seek_bytes_decay(
-			outsm, ::fast_io::details::scatter_fpos_mul<char_type>(off), ::fast_io::seekdir::beg);
+		::fast_io::operations::decay::output_stream_seek_bytes_decay(outsm, off, ::fast_io::seekdir::beg);
 		::fast_io::details::write_all_bytes_impl(outsm, reinterpret_cast<::std::byte const *>(first), reinterpret_cast<::std::byte const *>(last));
 		::fast_io::operations::decay::output_stream_seek_bytes_decay(outsm, oldoff, ::fast_io::seekdir::beg);
 	}
@@ -293,7 +284,7 @@ template <typename outstmtype>
 #if __has_cpp_attribute(__gnu__::__cold__)
 [[__gnu__::__cold__]]
 #endif
-inline constexpr void pwrite_all_bytes_cold_impl(outstmtype &outsm, ::std::byte const *first, ::std::byte const *last,
+inline constexpr void pwrite_all_bytes_cold_impl(outstmtype outsm, ::std::byte const *first, ::std::byte const *last,
 												 ::fast_io::intfpos_t off)
 {
 	using char_type = typename outstmtype::output_char_type;
@@ -371,26 +362,15 @@ inline constexpr void pwrite_all_bytes_cold_impl(outstmtype &outsm, ::std::byte 
 
 template <typename outstmtype>
 inline constexpr typename outstmtype::output_char_type const *
-pwrite_some_impl(outstmtype &outsm, typename outstmtype::output_char_type const *first,
+pwrite_some_impl(outstmtype outsm, typename outstmtype::output_char_type const *first,
 				 typename outstmtype::output_char_type const *last, ::fast_io::intfpos_t off)
 {
 	if constexpr (::fast_io::operations::decay::defines::has_output_or_io_stream_mutex_ref_define<outstmtype>)
 	{
-		if constexpr (::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<outstmtype>)
-		{
-			// Positional output bypasses stream-position mutation, not the object's synchronization contract. The lock
-			// must therefore cover the recursive primitive exactly as it covers ordinary write.
-			::fast_io::operations::decay::stream_ref_decay_lock_guard lg{
-				::fast_io::operations::decay::output_stream_mutex_ref_decay(outsm)};
-			decltype(auto) unlocked = ::fast_io::operations::decay::output_stream_unlocked_ref_decay(outsm);
-			return ::fast_io::details::pwrite_some_impl(unlocked, first, last, off);
-		}
-		else
-		{
-			static_assert(
-				::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<outstmtype>,
-				"an output mutex marker requires a complete, character-preserving, type-progressing unlocked protocol");
-		}
+		::fast_io::operations::decay::stream_ref_decay_lock_guard lg{
+			::fast_io::operations::decay::output_stream_mutex_ref_decay(outsm)};
+		return ::fast_io::details::pwrite_some_impl(
+			::fast_io::operations::decay::output_stream_unlocked_ref_decay(outsm), first, last, off);
 	}
 	else
 	{
@@ -403,24 +383,15 @@ pwrite_some_impl(outstmtype &outsm, typename outstmtype::output_char_type const 
 }
 
 template <typename outstmtype>
-inline constexpr void pwrite_all_impl(outstmtype &outsm, typename outstmtype::output_char_type const *first,
+inline constexpr void pwrite_all_impl(outstmtype outsm, typename outstmtype::output_char_type const *first,
 									  typename outstmtype::output_char_type const *last, ::fast_io::intfpos_t off)
 {
 	if constexpr (::fast_io::operations::decay::defines::has_output_or_io_stream_mutex_ref_define<outstmtype>)
 	{
-		if constexpr (::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<outstmtype>)
-		{
-			::fast_io::operations::decay::stream_ref_decay_lock_guard lg{
-				::fast_io::operations::decay::output_stream_mutex_ref_decay(outsm)};
-			decltype(auto) unlocked = ::fast_io::operations::decay::output_stream_unlocked_ref_decay(outsm);
-			return ::fast_io::details::pwrite_all_impl(unlocked, first, last, off);
-		}
-		else
-		{
-			static_assert(
-				::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<outstmtype>,
-				"an output mutex marker requires a complete, character-preserving, type-progressing unlocked protocol");
-		}
+		::fast_io::operations::decay::stream_ref_decay_lock_guard lg{
+			::fast_io::operations::decay::output_stream_mutex_ref_decay(outsm)};
+		return ::fast_io::details::pwrite_all_impl(
+			::fast_io::operations::decay::output_stream_unlocked_ref_decay(outsm), first, last, off);
 	}
 	else
 	{
@@ -433,24 +404,15 @@ inline constexpr void pwrite_all_impl(outstmtype &outsm, typename outstmtype::ou
 }
 
 template <typename outstmtype>
-inline constexpr ::std::byte const *pwrite_some_bytes_impl(outstmtype &outsm, ::std::byte const *first,
+inline constexpr ::std::byte const *pwrite_some_bytes_impl(outstmtype outsm, ::std::byte const *first,
 														   ::std::byte const *last, ::fast_io::intfpos_t off)
 {
 	if constexpr (::fast_io::operations::decay::defines::has_output_or_io_stream_mutex_ref_define<outstmtype>)
 	{
-		if constexpr (::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<outstmtype>)
-		{
-			::fast_io::operations::decay::stream_ref_decay_lock_guard lg{
-				::fast_io::operations::decay::output_stream_mutex_ref_decay(outsm)};
-			decltype(auto) unlocked = ::fast_io::operations::decay::output_stream_unlocked_ref_decay(outsm);
-			return ::fast_io::details::pwrite_some_bytes_impl(unlocked, first, last, off);
-		}
-		else
-		{
-			static_assert(
-				::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<outstmtype>,
-				"an output mutex marker requires a complete, character-preserving, type-progressing unlocked protocol");
-		}
+		::fast_io::operations::decay::stream_ref_decay_lock_guard lg{
+			::fast_io::operations::decay::output_stream_mutex_ref_decay(outsm)};
+		return ::fast_io::details::pwrite_some_bytes_impl(
+			::fast_io::operations::decay::output_stream_unlocked_ref_decay(outsm), first, last, off);
 	}
 	else
 	{
@@ -463,24 +425,15 @@ inline constexpr ::std::byte const *pwrite_some_bytes_impl(outstmtype &outsm, ::
 }
 
 template <typename outstmtype>
-inline constexpr void pwrite_all_bytes_impl(outstmtype &outsm, ::std::byte const *first, ::std::byte const *last,
+inline constexpr void pwrite_all_bytes_impl(outstmtype outsm, ::std::byte const *first, ::std::byte const *last,
 											::fast_io::intfpos_t off)
 {
 	if constexpr (::fast_io::operations::decay::defines::has_output_or_io_stream_mutex_ref_define<outstmtype>)
 	{
-		if constexpr (::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<outstmtype>)
-		{
-			::fast_io::operations::decay::stream_ref_decay_lock_guard lg{
-				::fast_io::operations::decay::output_stream_mutex_ref_decay(outsm)};
-			decltype(auto) unlocked = ::fast_io::operations::decay::output_stream_unlocked_ref_decay(outsm);
-			return ::fast_io::details::pwrite_all_bytes_impl(unlocked, first, last, off);
-		}
-		else
-		{
-			static_assert(
-				::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<outstmtype>,
-				"an output mutex marker requires a complete, character-preserving, type-progressing unlocked protocol");
-		}
+		::fast_io::operations::decay::stream_ref_decay_lock_guard lg{
+			::fast_io::operations::decay::output_stream_mutex_ref_decay(outsm)};
+		return ::fast_io::details::pwrite_all_bytes_impl(
+			::fast_io::operations::decay::output_stream_unlocked_ref_decay(outsm), first, last, off);
 	}
 	else
 	{

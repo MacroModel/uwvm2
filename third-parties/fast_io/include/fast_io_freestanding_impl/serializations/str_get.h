@@ -90,7 +90,6 @@ scan_context_define_str_get_all_general_strlike_impl(char_type const *first, cha
 } // namespace details
 
 template <::std::integral char_type, typename T>
-	requires ::fast_io::strlike<char_type, T>
 inline constexpr io_type_t<
 	::std::conditional_t<::fast_io::buffer_strlike<char_type, T>, ::fast_io::details::str_get_all_context,
 						 ::fast_io::details::basic_concat_buffer<char_type>>>
@@ -102,7 +101,6 @@ scan_context_type(
 }
 
 template <::std::integral char_type, typename ctxtype, typename T>
-	requires ::fast_io::strlike<char_type, T>
 inline constexpr parse_result<char_type const *> scan_context_define(
 	io_reserve_type_t<char_type,
 					  ::fast_io::manipulators::basic_str_get_all<io_strlike_reference_wrapper<char_type, T>>>,
@@ -122,7 +120,6 @@ inline constexpr parse_result<char_type const *> scan_context_define(
 }
 
 template <::std::integral char_type, typename ctxtype, typename T>
-	requires ::fast_io::strlike<char_type, T>
 inline constexpr parse_code scan_context_eof_define(
 	io_reserve_type_t<char_type,
 					  ::fast_io::manipulators::basic_str_get_all<io_strlike_reference_wrapper<char_type, T>>>,
