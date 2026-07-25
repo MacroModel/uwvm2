@@ -195,6 +195,17 @@ print_alias_define(io_alias_t, basic_obuffer_view<char_type> const &view) noexce
 	return {view.cbegin(), view.size()};
 }
 
+/// @brief Marks an output-buffer view as a stable non-owning scatter source.
+/// @details The alias is the view's existing `[cbegin(), cbegin()+size())` interval; producing it performs no
+///          allocation, formatting, or scratch-buffer reuse. Consequently retaining the descriptor introduces no new
+///          lifetime requirement beyond the external-buffer lifetime already required by `basic_obuffer_view`.
+template <::std::integral char_type>
+inline constexpr ::std::true_type
+print_borrowed_scatter_source(io_reserve_type_t<char_type, basic_obuffer_view<char_type>>) noexcept
+{
+	return {};
+}
+
 template <::std::integral char_type>
 inline constexpr ::std::size_t
 print_reserve_size(io_reserve_type_t<char_type, basic_obuffer_view<char_type>>,
@@ -234,6 +245,16 @@ struct basic_obuffer_view_ref
 	using native_handle_type = basic_obuffer_view<char_type> *;
 	native_handle_type ptr{};
 };
+
+template <::std::integral char_type>
+inline constexpr ::std::true_type print_deferred_obuffer_commit_safe(
+	io_reserve_type_t<char_type, basic_obuffer_view_ref<char_type>>) noexcept
+{
+	// The view keeps a stable fixed allocation, and cursor publication is exactly one assignment to curr_ptr. Raw
+	// in-area copies followed by one final publication therefore have the same observable cursor state as publishing
+	// after every copy; capacity exhaustion remains the view's terminating overflow policy.
+	return {};
+}
 
 #if 0
 template<::std::integral ch_type,::std::contiguous_iterator Iter>
@@ -303,9 +324,55 @@ inline constexpr void obuffer_overflow(basic_obuffer_view_ref<ch_type>, ch_type)
 }
 
 template <::std::integral ch_type>
-inline constexpr bool obuffer_overflow_never(basic_obuffer_view<ch_type>) noexcept
+inline constexpr bool obuffer_overflow_never(basic_obuffer_view_ref<ch_type>) noexcept
 {
 	return true;
+}
+
+/// @brief Completes a bulk write for a fixed-capacity output view.
+/// @details A put area is only a fast-path cursor protocol; it is not by itself proof that a buffer miss can consume
+///          the remaining range. This completion CPO makes the fixed-capacity contract explicit. Exact fits are valid,
+///          while an oversized write follows the view's existing non-growing overflow policy and terminates before any
+///          partial copy. Consequently destination-aware print admission may rely on `writable` without treating every
+///          arbitrary put-area provider as a complete output device. A cv-qualified code-unit type is deliberately not
+///          admitted: its cursor CPOs remain structurally formable, but primitive output requires an assignable,
+///          ordinary code-unit destination.
+template <::std::integral ch_type>
+	requires ::std::same_as<ch_type, ::std::remove_cv_t<ch_type>>
+inline constexpr void write_all_overflow_define(
+	basic_obuffer_view_ref<ch_type> view, ch_type const *first, ch_type const *last) noexcept
+{
+	// The default-constructed empty view is represented by null pointers. Handle an empty source before inspecting the
+	// observer so that even a null reference wrapper remains a valid no-op. For a nonempty source, test the zero-capacity
+	// representation before subtracting cursors: C++ does not define nullptr - nullptr, despite both pointers comparing
+	// equal. The remaining subtraction is between cursors from the view's one contiguous allocation. A negative distance
+	// denotes a corrupted/reversed cursor and must not become a huge size_t after conversion.
+	if (first == last)
+	{
+		return;
+	}
+	if (view.ptr == nullptr) [[unlikely]]
+	{
+		::fast_io::fast_terminate();
+	}
+	auto const curr_ptr{view.ptr->curr_ptr};
+	auto const end_ptr{view.ptr->end_ptr};
+	if (curr_ptr == end_ptr || curr_ptr == nullptr || end_ptr == nullptr) [[unlikely]]
+	{
+		::fast_io::fast_terminate();
+	}
+	auto const available_difference{end_ptr - curr_ptr};
+	if (available_difference < 0) [[unlikely]]
+	{
+		::fast_io::fast_terminate();
+	}
+	auto const count{static_cast<::std::size_t>(last - first)};
+	auto const available{static_cast<::std::size_t>(available_difference)};
+	if (available < count) [[unlikely]]
+	{
+		::fast_io::fast_terminate();
+	}
+	view.ptr->curr_ptr = ::fast_io::details::non_overlapped_copy_n(first, count, curr_ptr);
 }
 
 using ibuffer_view = basic_ibuffer_view<char>;
@@ -319,3 +386,12 @@ using u8obuffer_view = basic_obuffer_view<char8_t>;
 using u16obuffer_view = basic_obuffer_view<char16_t>;
 using u32obuffer_view = basic_obuffer_view<char32_t>;
 } // namespace fast_io
+
+namespace fast_io::details::decay
+{
+
+template <::std::integral char_type>
+inline constexpr bool print_buffered_mixed_generic_endpoint<
+	::fast_io::basic_obuffer_view_ref<char_type>> = false;
+
+} // namespace fast_io::details::decay

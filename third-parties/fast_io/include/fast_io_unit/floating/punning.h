@@ -132,7 +132,7 @@ struct iec559_traits<__float128>
 
 #endif
 
-#ifdef __STDCPP_FLOAT16_T__
+#if defined(__STDCPP_FLOAT16_T__) || defined(__FLT16_MANT_DIG__)
 template <>
 struct iec559_traits<_Float16>
 {
@@ -162,7 +162,7 @@ struct iec559_traits<_Float32>
 };
 #endif
 
-#ifdef __STDCPP_FLOAT64_T__
+#if defined(FAST_IO_HAS_FLOAT64_TYPE)
 template <>
 struct iec559_traits<_Float64>
 {
@@ -192,7 +192,7 @@ struct iec559_traits<_Float128>
 };
 #endif
 
-#if defined(__clang__) && defined(__aarch64__) && !defined(__STDCPP_BFLOAT16_T__)
+#if defined(FAST_IO_CLANG_HAS_BFLOAT16_TYPE)
 template <>
 struct iec559_traits<__bf16>
 {
@@ -207,8 +207,9 @@ struct iec559_traits<__bf16>
 };
 #endif
 
-#ifdef __STDCPP_BFLOAT16_T__
-
+// A standardized C++23 bfloat16 implementation provides the literal suffix,
+// making its exact language type available without relying on a vendor name.
+#if defined(__STDCPP_BFLOAT16_T__)
 template <>
 struct iec559_traits<decltype(0.0bf16)>
 {
@@ -216,7 +217,37 @@ struct iec559_traits<decltype(0.0bf16)>
 	inline static constexpr ::std::size_t mbits{7};
 	inline static constexpr ::std::size_t ebits{8};
 	inline static constexpr ::std::uint_least32_t m10digits{4};
-	inline static constexpr ::std::uint_least32_t m2hexdigits{3};
+	// Bfloat16 has seven explicit fraction bits, so ceil(7 / 4) is exactly
+	// two hexadecimal fraction digits.  Keep this representation invariant
+	// accurate even though today's hexadecimal emitter derives its width from
+	// mbits directly rather than consuming m2hexdigits.
+	inline static constexpr ::std::uint_least32_t m2hexdigits{2};
+	inline static constexpr ::std::uint_least32_t e10digits{2};
+	inline static constexpr ::std::uint_least32_t e2hexdigits{3};
+	inline static constexpr ::std::uint_least32_t e10max{38};
+};
+#endif
+
+// GCC exposes __bf16 together with __BFLT16_MANT_DIG__ in C++20, one language
+// version before the standard bf16 literal suffix.  Naming the vendor type
+// directly avoids a -Wpedantic C++23-extension diagnostic while describing the
+// same 7-fraction-bit, 8-exponent-bit representation.  Clang has its separately
+// capability-tested __bf16 specialization above, so the frontend exclusion also
+// prevents a duplicate specialization in GNU-compatibility mode.
+#if defined(__GNUC__) && !defined(__clang__) && defined(__BFLT16_MANT_DIG__) && \
+	!defined(__STDCPP_BFLOAT16_T__)
+template <>
+struct iec559_traits<__bf16>
+{
+	using mantissa_type = ::std::uint_least16_t;
+	inline static constexpr ::std::size_t mbits{7};
+	inline static constexpr ::std::size_t ebits{8};
+	inline static constexpr ::std::uint_least32_t m10digits{4};
+	// Bfloat16 has seven explicit fraction bits, so ceil(7 / 4) is exactly
+	// two hexadecimal fraction digits.  Keep this representation invariant
+	// accurate even though today's hexadecimal emitter derives its width from
+	// mbits directly rather than consuming m2hexdigits.
+	inline static constexpr ::std::uint_least32_t m2hexdigits{2};
 	inline static constexpr ::std::uint_least32_t e10digits{2};
 	inline static constexpr ::std::uint_least32_t e2hexdigits{3};
 	inline static constexpr ::std::uint_least32_t e10max{38};
@@ -224,14 +255,25 @@ struct iec559_traits<decltype(0.0bf16)>
 #endif
 
 template <my_unsigned_integral T>
+// Native MSVC is the only frontend selected for its vendor inlining attribute.
+// Clang can define _MSC_VER in clang-cl mode, so the explicit frontend exclusion
+// prevents an ABI-compatibility macro from being mistaken for compiler identity.
+// The attribute-availability test keeps older MSVC releases source-compatible;
+// this annotation changes only the inlining request, not the function contract.
 #if defined(_MSC_VER) && !defined(__clang__)
 #if __has_cpp_attribute(msvc::forceinline)
 [[msvc::forceinline]]
 #endif
 #endif
-inline constexpr int my_countr_zero_unchecked(T x) noexcept // contract: t cannot be zero
+inline constexpr int my_countr_zero_unchecked(T x) noexcept
 {
-// referenced from libstdc++
+	// Precondition: x != 0. Every __builtin_ctz* operation is undefined for zero.
+	// Nd is the value width of T. Select the narrowest builtin operand type that
+	// covers all of T, so integral conversion cannot discard a possible low set
+	// bit. For a wider (at most 128-bit) T, inspect the low unsigned-long-long
+	// limb first. If that limb is zero, the precondition proves that the high limb
+	// is nonzero and therefore valid input to __builtin_ctzll. The standard-library
+	// fallback has the same result for every value admitted by this contract.
 #if defined(__GNUC__) || defined(__clang__)
 	constexpr auto Nd = ::std::numeric_limits<char>::digits * sizeof(T);
 	constexpr auto Nd_ull = ::std::numeric_limits<unsigned long long>::digits;
@@ -258,7 +300,11 @@ inline constexpr int my_countr_zero_unchecked(T x) noexcept // contract: t canno
 		{
 			return __builtin_ctzll(low);
 		}
-		unsigned long long high = x >> Nd_ull;
+		// Removing the low Nd_ull bits leaves at most Nd-Nd_ull bits.
+		// The enclosing static_assert proves that remainder fits exactly in the
+		// builtin's unsigned-long-long operand; state the narrowing explicitly so
+		// -Wconversion need not infer the same range through a dependent type.
+		unsigned long long high = static_cast<unsigned long long>(x >> Nd_ull);
 		return __builtin_ctzll(high) + Nd_ull;
 	}
 #else
@@ -949,12 +995,41 @@ inline constexpr char_type *prsv_fp_dece0(char_type *iter) noexcept
 	}
 }
 
+// The extracted sign is exactly zero or one; changing its storage carrier does
+// not change its logical domain.  For float and double, GCC 14--16 on Linux
+// System V x86-64 LP64 otherwise materialize and later reload the tail padding
+// of this returned aggregate in the scalar DA entry.  A 32-bit carrier occupies
+// that existing padding without changing sizeof or alignment and removes those
+// stores.  Every other floating type retains bool because no equivalent
+// code-generation evidence exists for its representation or conversion path.
+// Paired current/candidate runs on i9-14900HX improved GCC 14 binary64 by about
+// 4--5% and GCC 15/16 binary32/binary64 by 19--45%; GCC 13, Clang 23 and the
+// other ABIs did not show the same lowering defect and retain bool.  GCC 14 is
+// therefore the measured lower bound, and later GNU frontends inherit the
+// latest proved aggregate layout unless a complete-caller counterexample is
+// found.  SSE4.1 and SSSE3 close the policy to the audited DA backend rather
+// than extending a compiler-code-generation result to an unmeasured x86
+// baseline ISA.
+#if defined(__linux__) && defined(__x86_64__) && defined(__LP64__) && \
+	defined(__SSE4_1__) && defined(__SSSE3__) && defined(__GNUC__) && \
+	!defined(__clang__) && 14 <= __GNUC__ && \
+	!(defined(__arm64ec__) || defined(_M_ARM64EC))
+template <typename flt>
+using punning_sign_type = ::std::conditional_t<
+	::std::same_as<::std::remove_cv_t<flt>, float> ||
+	::std::same_as<::std::remove_cv_t<flt>, double>,
+	::std::uint_least32_t, bool>;
+#else
+template <typename>
+using punning_sign_type = bool;
+#endif
+
 template <typename flt>
 struct punning_result
 {
 	typename iec559_traits<flt>::mantissa_type mantissa;
 	::std::uint_least32_t exponent;
-	bool sign;
+	::fast_io::details::punning_sign_type<flt> sign;
 };
 
 struct
@@ -967,7 +1042,9 @@ struct
 	::std::uint_least16_t exponent;
 };
 
-#ifdef __SIZEOF_FLOAT80__
+#if defined(__SIZEOF_FLOAT80__) ||                                                                            \
+	(defined(__LDBL_MANT_DIG__) && defined(__LDBL_MAX_EXP__) && __LDBL_MANT_DIG__ == 64 &&                    \
+	 __LDBL_MAX_EXP__ == 16384)
 template <::std::size_t padding_size>
 struct
 #if __has_cpp_attribute(__gnu__::__packed__)
@@ -992,6 +1069,9 @@ struct
 };
 #endif
 
+/// @brief Decomposes a native floating scalar through its ordinary by-value ABI.
+/// @details Keeping the parameter by value lets ordinary callers retain the floating-point register class.  An upper
+/// CPO extracts fields from the owning object for representation-sensitive exceptional ABIs before reaching this API.
 template <typename flt>
 #if __has_cpp_attribute(__gnu__::__always_inline__)
 [[__gnu__::__always_inline__]]
@@ -1008,6 +1088,12 @@ inline constexpr punning_result<flt> get_punned_result(flt f) noexcept
 	constexpr mantissa_type mantissa_mask{(static_cast<mantissa_type>(1) << mbits) - 1};
 	constexpr mantissa_type exponent_mask{(static_cast<mantissa_type>(1) << ebits) - 1};
 
+	// Native MSVC in C++20 mode provides `__builtin_bit_cast` with the
+	// representation-preserving contract advertised by `__cpp_lib_bit_cast`, but
+	// does not consistently expose it through the `__has_builtin` probe used by
+	// FAST_IO_HAS_BUILTIN.  Clang-cl takes the ordinary capability branch when it
+	// advertises the builtin.  The fallback has identical bits; this split avoids
+	// inferring any ABI or arithmetic difference from compiler identity.
 	auto unwrap =
 #if FAST_IO_HAS_BUILTIN(__builtin_bit_cast)
 		__builtin_bit_cast(mantissa_type, f)
@@ -1022,6 +1108,42 @@ inline constexpr punning_result<flt> get_punned_result(flt f) noexcept
 			static_cast<bool>((unwrap >> total_bits) & 1u)};
 }
 
+#if (defined(__LDBL_MANT_DIG__) && defined(__LDBL_MAX_EXP__) && __LDBL_MANT_DIG__ == 64 &&                    \
+	 __LDBL_MAX_EXP__ == 16384) &&                                                                             \
+	(!defined(__BYTE_ORDER__) || __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__)
+template <typename flt>
+	requires(::std::same_as<::std::remove_cv_t<flt>, long double> &&
+			 ::std::numeric_limits<long double>::digits == 64 &&
+			 ::std::numeric_limits<long double>::max_exponent == 16384)
+#if __has_cpp_attribute(__gnu__::__always_inline__)
+[[__gnu__::__always_inline__]]
+#elif __has_cpp_attribute(msvc::forceinline)
+[[msvc::forceinline]]
+#endif
+inline constexpr punning_result<flt> get_punned_result(flt f) noexcept
+{
+	static_assert(sizeof(flt) >= sizeof(::std::uint_least64_t) + sizeof(::std::uint_least16_t));
+	using storage_type = float80_storage<sizeof(flt) - sizeof(::std::uint_least64_t) - sizeof(::std::uint_least16_t)>;
+	// Native MSVC's C++20 feature macro is the audited capability fallback for
+	// `__builtin_bit_cast` when `__has_builtin` is unavailable.  Both selected
+	// operations copy the complete object representation into the same storage;
+	// the frontend branch changes neither the binary80 fields nor padding bytes.
+	auto unwrap =
+#if FAST_IO_HAS_BUILTIN(__builtin_bit_cast)
+		__builtin_bit_cast(storage_type, f)
+#elif defined(_MSC_VER) && __cpp_lib_bit_cast >= 201806L
+		__builtin_bit_cast(storage_type, f)
+#else
+		bit_cast<storage_type>(f)
+#endif
+		;
+	constexpr ::std::uint_least64_t explicit_integer_bit{::std::uint_least64_t{1} << 63u};
+	return {unwrap.mantissa & static_cast<::std::uint_least64_t>(explicit_integer_bit - 1u),
+			static_cast<::std::uint_least32_t>(unwrap.exponent & 0x7fffu),
+			static_cast<bool>((unwrap.exponent >> 15u) & 1u)};
+}
+#endif
+
 #if defined(__SIZEOF_FLOAT80__) && (!defined(__BYTE_ORDER__) || __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__)
 template <>
 #if __has_cpp_attribute(__gnu__::__always_inline__)
@@ -1033,6 +1155,10 @@ inline constexpr punning_result<__float80> get_punned_result<__float80>(__float8
 {
 	static_assert(sizeof(__float80) >= sizeof(::std::uint_least64_t) + sizeof(::std::uint_least16_t));
 	using storage_type = float80_storage<sizeof(__float80) - sizeof(::std::uint_least64_t) - sizeof(::std::uint_least16_t)>;
+	// This repeats the long-double capability boundary deliberately: native MSVC
+	// may omit `__has_builtin` while providing the C++20 bit-cast intrinsic.
+	// Every branch preserves all bytes before the common binary80 field decode,
+	// so compiler selection cannot affect sign, exponent or significand semantics.
 	auto unwrap =
 #if FAST_IO_HAS_BUILTIN(__builtin_bit_cast)
 		__builtin_bit_cast(storage_type, f)
