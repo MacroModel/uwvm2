@@ -944,22 +944,34 @@ case wasm1_code::call_indirect:
     // [          safe        ] unsafe (could be the section_end)
     //                          ^^ code_curr
 
-    wasm_u32 table_index;
-    auto const [table_next, table_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr),
-                                                                reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-                                                                ::fast_io::mnp::leb128_get(table_index))};
-    if(table_err != ::fast_io::parse_code::ok) [[unlikely]]
+    wasm_u32 table_index{};
+    if(!::uwvm2::parser::wasm::standard::wasm1p1::features::uses_mvp_call_indirect_reserved_byte(wasm1p1_para))
     {
-        err.err_curr = op_begin;
-        err.err_code = code_validation_error_code::invalid_table_index;
-        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(table_err);
+        // Reference Types/Core 2.0 encode a real `tableidx ::= u32`.  A
+        // single-table feature policy still decodes this ULEB128 before requiring zero.
+        auto const [table_next, table_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr),
+                                                                    reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                    ::fast_io::mnp::leb128_get(table_index))};
+        if(table_err != ::fast_io::parse_code::ok) [[unlikely]]
+        {
+            err.err_curr = op_begin;
+            err.err_code = code_validation_error_code::invalid_table_index;
+            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(table_err);
+        }
+        code_curr = reinterpret_cast<::std::byte const*>(table_next);
     }
-
-    // call_indirect type_index table_index ...
-    // [                safe              ] unsafe (could be the section_end)
-    //                          ^^ code_curr
-
-    code_curr = reinterpret_cast<::std::byte const*>(table_next);
+    else
+    {
+        // Core 1.0 section 5.4.1 uses the literal reserved byte in
+        // `0x11 typeidx 0x00`; it is not a ULEB128 table index.
+        if(code_curr == code_end || *code_curr != ::std::byte{}) [[unlikely]]
+        {
+            err.err_curr = op_begin;
+            err.err_code = code_validation_error_code::invalid_table_index;
+            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+        }
+        ++code_curr;
+    }
 
     // call_indirect type_index table_index ...
     // [                safe              ] unsafe (could be the section_end)

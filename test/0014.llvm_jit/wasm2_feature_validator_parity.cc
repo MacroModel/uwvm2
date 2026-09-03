@@ -85,6 +85,26 @@ namespace
         0x01, 0x00, 0x0a, 0x17, 0x01, 0x15, 0x00, 0xfd, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1a, 0x0b};
 
+    // (module (type (func)) (table 1 funcref) (func i32.const 0 call_indirect (type 0)))
+    inline constexpr ::std::uint8_t call_indirect_reserved_zero_module[]{
+        0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00, 0x01, 0x04, 0x01, 0x60, 0x00, 0x00, 0x03, 0x02,
+        0x01, 0x00, 0x04, 0x04, 0x01, 0x70, 0x00, 0x01, 0x0a, 0x09, 0x01, 0x07, 0x00, 0x41, 0x00, 0x11,
+        0x00, 0x00, 0x0b};
+
+    // Same function with the reserved/table immediate encoded as the overlong u32 zero 0x80 0x00.
+    inline constexpr ::std::uint8_t call_indirect_overlong_zero_module[]{
+        0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00, 0x01, 0x04, 0x01, 0x60, 0x00, 0x00, 0x03, 0x02,
+        0x01, 0x00, 0x04, 0x04, 0x01, 0x70, 0x00, 0x01, 0x0a, 0x0a, 0x01, 0x08, 0x00, 0x41, 0x00, 0x11,
+        0x00, 0x80, 0x00, 0x0b};
+
+    // Same function with a decoded table index of one.  A single-table feature
+    // policy must reject the value after ULEB128 decoding, not reinterpret the
+    // field as MVP's literal reserved byte.
+    inline constexpr ::std::uint8_t call_indirect_nonzero_table_module[]{
+        0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00, 0x01, 0x04, 0x01, 0x60, 0x00, 0x00, 0x03, 0x02,
+        0x01, 0x00, 0x04, 0x04, 0x01, 0x70, 0x00, 0x01, 0x0a, 0x09, 0x01, 0x07, 0x00, 0x41, 0x00, 0x11,
+        0x00, 0x01, 0x0b};
+
     struct feature_case
     {
         ::std::uint8_t const* bytes{};
@@ -352,6 +372,44 @@ namespace
         { return log.find("at most one table may be defined or imported") != ::std::string::npos; }
         return false;
     }
+
+    [[nodiscard]] int validate_call_indirect_encoding(::std::uint8_t const* const input,
+                                                       ::std::size_t const input_size,
+                                                       feature_parameter const& policy,
+                                                       error_code const expected,
+                                                       char const* const case_name)
+    {
+        strict::byte_vec bytes{};
+        bytes.reserve(input_size);
+        for(::std::size_t i{}; i != input_size; ++i) { bytes.push_back(static_cast<::std::byte>(input[i])); }
+
+        auto prepared{strict::prepare_runtime_from_wasm(bytes, u8"call_indirect_reserved_encoding", {}, policy)};
+        if(prepared.mod == nullptr || prepared.mod->local_defined_function_vec_storage.size() != 1uz)
+        {
+            ::std::fprintf(stderr, "call_indirect_reserved_encoding[%s]: runtime preparation failed\n", case_name);
+            return 1;
+        }
+
+        validation_error local_storage_error{};
+        auto const validation_module{llvm_details::build_runtime_validation_module(*prepared.mod)};
+        auto const local_function{llvm_details::get_runtime_local_func_storage(*prepared.mod, 0uz, local_storage_error)};
+        auto const standard_error{validate_standard(validation_module, local_function, policy)};
+        auto const int_error{validate_uwvm_int(*prepared.mod, policy)};
+        auto const llvm_error{validate_llvm_internal(validation_module, local_function, policy)};
+
+        if(standard_error.err_code != expected || int_error.err_code != expected || llvm_error.err_code != expected)
+        {
+            ::std::fprintf(stderr, "call_indirect_reserved_encoding[%s]: validator result mismatch\n", case_name);
+            return 1;
+        }
+        if(expected == error_code::wasm2_feature_required &&
+           (!same_feature_diagnostic(standard_error, int_error) || !same_feature_diagnostic(standard_error, llvm_error)))
+        {
+            ::std::fprintf(stderr, "call_indirect_reserved_encoding[%s]: feature diagnostic mismatch\n", case_name);
+            return 1;
+        }
+        return 0;
+    }
 }
 
 int main(int argc, char** argv)
@@ -410,5 +468,54 @@ int main(int argc, char** argv)
             return fail(case_index, "LLVM-JIT CLI did not reject the disabled feature");
         }
     }
+
+    auto const wasm1p1_policy{strict::make_wasm1p1_feature_parameter()};
+    if(validate_call_indirect_encoding(call_indirect_reserved_zero_module,
+                                       sizeof(call_indirect_reserved_zero_module),
+                                       wasm1p1_policy,
+                                       error_code::ok,
+                                       "wasm1p1-canonical") != 0)
+    { return 1; }
+    if(validate_call_indirect_encoding(call_indirect_overlong_zero_module,
+                                       sizeof(call_indirect_overlong_zero_module),
+                                       wasm1p1_policy,
+                                       error_code::ok,
+                                       "wasm1p1-overlong") != 0)
+    { return 1; }
+
+    auto mvp_policy{wasm1p1_policy};
+    ::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(mvp_policy).cli_mode =
+        ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm_feature_cli_mode::direct_wasmmvp;
+    if(validate_call_indirect_encoding(call_indirect_overlong_zero_module,
+                                       sizeof(call_indirect_overlong_zero_module),
+                                       mvp_policy,
+                                       error_code::invalid_table_index,
+                                       "mvp-overlong-reserved-byte") != 0)
+    { return 1; }
+
+    auto const wasm2_policy{strict::make_wasm2_feature_parameter()};
+    if(validate_call_indirect_encoding(call_indirect_overlong_zero_module,
+                                       sizeof(call_indirect_overlong_zero_module),
+                                       wasm2_policy,
+                                       error_code::ok,
+                                       "wasm2-multiple-tables-enabled") != 0)
+    { return 1; }
+
+    auto wasm2_single_table_policy{wasm2_policy};
+    auto& wasm2_single_table_para{::uwvm2::parser::wasm::standard::wasm2::features::get_wasm2_parameter(wasm2_single_table_policy)};
+    wasm2_single_table_para.cli_mode = ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm_feature_cli_mode::scoped;
+    wasm2_single_table_para.disable_multiple_tables = true;
+    if(validate_call_indirect_encoding(call_indirect_overlong_zero_module,
+                                       sizeof(call_indirect_overlong_zero_module),
+                                       wasm2_single_table_policy,
+                                       error_code::ok,
+                                       "wasm2-overlong-zero-single-table") != 0)
+    { return 1; }
+    if(validate_call_indirect_encoding(call_indirect_nonzero_table_module,
+                                       sizeof(call_indirect_nonzero_table_module),
+                                       wasm2_single_table_policy,
+                                       error_code::wasm2_feature_required,
+                                       "wasm2-nonzero-single-table") != 0)
+    { return 1; }
     return 0;
 }

@@ -2342,22 +2342,34 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
                         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
                     }
 
-                    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 table_index;  // No initialization necessary
-                    auto const [table_next, table_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr),
-                                                                                reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-                                                                                ::fast_io::mnp::leb128_get(table_index))};
-                    if(table_err != ::fast_io::parse_code::ok) [[unlikely]]
+                    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 table_index{};
+                    if(::uwvm2::parser::wasm::standard::wasm1p1::features::uses_mvp_call_indirect_reserved_byte(wasm1p1_para))
                     {
-                        err.err_curr = op_begin;
-                        err.err_code = ::uwvm2::validation::error::code_validation_error_code::invalid_table_index;
-                        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(table_err);
+                        // Core 1.0 section 5.4.1: `0x11 typeidx 0x00`.  MVP's last
+                        // token is one literal reserved byte, not a u32 table index.
+                        if(code_curr == code_end || *code_curr != ::std::byte{}) [[unlikely]]
+                        {
+                            err.err_curr = op_begin;
+                            err.err_code = ::uwvm2::validation::error::code_validation_error_code::invalid_table_index;
+                            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+                        }
+                        ++code_curr;
                     }
-
-                    // call_indirect type_index table_index ...
-                    // [                safe              ] unsafe (could be the section_end)
-                    //                          ^^ code_curr
-
-                    code_curr = reinterpret_cast<::std::byte const*>(table_next);
+                    else
+                    {
+                        // Reference Types/Multiple Tables and Core 2.0 section 5.4.1:
+                        // `0x11 typeidx tableidx`, where `tableidx ::= u32` uses ULEB128.
+                        auto const [table_next, table_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr),
+                                                                                    reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                                    ::fast_io::mnp::leb128_get(table_index))};
+                        if(table_err != ::fast_io::parse_code::ok) [[unlikely]]
+                        {
+                            err.err_curr = op_begin;
+                            err.err_code = ::uwvm2::validation::error::code_validation_error_code::invalid_table_index;
+                            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(table_err);
+                        }
+                        code_curr = reinterpret_cast<::std::byte const*>(table_next);
+                    }
 
                     // call_indirect type_index table_index ...
                     // [                safe              ] unsafe (could be the section_end)

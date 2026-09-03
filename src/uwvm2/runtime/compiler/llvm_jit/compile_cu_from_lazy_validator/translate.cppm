@@ -73,6 +73,7 @@ import uwvm2.utils.hash;
 import uwvm2.utils.thread;
 import uwvm2.parser.wasm.base;
 import uwvm2.parser.wasm.standard.wasm1;
+import uwvm2.parser.wasm.standard.wasm1p1.features;
 import uwvm2.parser.wasm.binfmt.binfmt_ver1;
 import uwvm2.validation.error;
 import uwvm2.validation.concepts;

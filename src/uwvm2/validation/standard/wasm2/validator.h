@@ -2373,7 +2373,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm2
                         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
                     }
 
-                    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 table_index;  // No initialization necessary
+                    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 table_index{};
+                    // Core 2.0 section 5.4.1 always encodes the trailing immediate as
+                    // `tableidx ::= u32`.  The multiple-tables policy is a validation
+                    // constraint on the decoded value; it does not change the grammar.
                     auto const [table_next, table_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr),
                                                                                 reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
                                                                                 ::fast_io::mnp::leb128_get(table_index))};
@@ -2383,11 +2386,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm2
                         err.err_code = ::uwvm2::validation::error::code_validation_error_code::invalid_table_index;
                         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(table_err);
                     }
-
-                    // call_indirect type_index table_index ...
-                    // [                safe              ] unsafe (could be the section_end)
-                    //                          ^^ code_curr
-
                     code_curr = reinterpret_cast<::std::byte const*>(table_next);
 
                     // call_indirect type_index table_index ...

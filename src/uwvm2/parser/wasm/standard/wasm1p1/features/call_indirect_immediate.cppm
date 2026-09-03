@@ -4,18 +4,18 @@
  * Licensed under the APL-2.0 License (see LICENSE file).    *
  *************************************************************/
 
-#pragma once
+module;
+
+#include <cstddef>
+#include <cstdint>
+
+export module uwvm2.parser.wasm.standard.wasm1p1.features:call_indirect_immediate;
 
 #ifndef UWVM_MODULE
-# include "parser_limit.h"
-# include "call_indirect_immediate.h"
-# include "def.h"
-# include "feature_def.h"
-# include "types.h"
-# include "data_count_section.h"
-# include "data_section.h"
-# include "element_section.h"
-# include "sequence.h"
-# include "final_check.h"
-# include "binfmt.h"
+# define UWVM_MODULE
 #endif
+#ifndef UWVM_MODULE_EXPORT
+# define UWVM_MODULE_EXPORT export
+#endif
+
+#include "call_indirect_immediate.h"

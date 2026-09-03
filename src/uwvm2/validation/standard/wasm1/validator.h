@@ -1958,22 +1958,18 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1
                         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
                     }
 
-                    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 table_index;  // No initialization necessary
-                    auto const [table_next, table_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr),
-                                                                                reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-                                                                                ::fast_io::mnp::leb128_get(table_index))};
-                    if(table_err != ::fast_io::parse_code::ok) [[unlikely]]
+                    // WebAssembly Core 1.0, section 5.4.1, gives the binary grammar
+                    // `0x11 x:typeidx 0x00 => call_indirect x`.  The trailing token is a literal
+                    // reserved byte, not the `tableidx ::= u32` defined for constructs that
+                    // actually carry a table index.  Consequently 0x80 0x00 is not valid here.
+                    if(code_curr == code_end || *code_curr != ::std::byte{}) [[unlikely]]
                     {
                         err.err_curr = op_begin;
                         err.err_code = ::uwvm2::validation::error::code_validation_error_code::invalid_table_index;
-                        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(table_err);
+                        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
                     }
-
-                    // call_indirect type_index table_index ...
-                    // [                safe              ] unsafe (could be the section_end)
-                    //                          ^^ code_curr
-
-                    code_curr = reinterpret_cast<::std::byte const*>(table_next);
+                    constexpr ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 table_index{};
+                    ++code_curr;
 
                     // call_indirect type_index table_index ...
                     // [                safe              ] unsafe (could be the section_end)
