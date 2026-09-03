@@ -23,6 +23,7 @@
 
 #ifndef UWVM_MODULE
 // std
+# include <concepts>
 # include <cstdint>
 # include <cstddef>
 # include <cstring>
