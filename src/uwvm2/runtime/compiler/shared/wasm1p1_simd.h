@@ -2314,11 +2314,12 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::shared
                 {
                     for(::std::size_t i{}; i != 4uz; ++i)
                     {
-                        auto const a0{static_cast<::std::int_least32_t>(as_signed_lane<u16>(l.lane[i * 2uz]))};
-                        auto const a1{static_cast<::std::int_least32_t>(as_signed_lane<u16>(l.lane[i * 2uz + 1uz]))};
-                        auto const b0{static_cast<::std::int_least32_t>(as_signed_lane<u16>(r.lane[i * 2uz]))};
-                        auto const b1{static_cast<::std::int_least32_t>(as_signed_lane<u16>(r.lane[i * 2uz + 1uz]))};
-                        out.lane[i] = from_signed_lane<u32>(static_cast<s32>(a0 * b0 + a1 * b1));
+                        auto const a0{static_cast<::std::int_least64_t>(as_signed_lane<u16>(l.lane[i * 2uz]))};
+                        auto const a1{static_cast<::std::int_least64_t>(as_signed_lane<u16>(l.lane[i * 2uz + 1uz]))};
+                        auto const b0{static_cast<::std::int_least64_t>(as_signed_lane<u16>(r.lane[i * 2uz]))};
+                        auto const b1{static_cast<::std::int_least64_t>(as_signed_lane<u16>(r.lane[i * 2uz + 1uz]))};
+                        // The mathematical sum can be 2^31. Compute it without signed overflow, then apply Wasm's i32 wrap.
+                        out.lane[i] = static_cast<u32>(a0 * b0 + a1 * b1);
                     }
                 }
                 else
