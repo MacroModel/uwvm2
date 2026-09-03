@@ -175,11 +175,21 @@ auto const parse_block_type{
             ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::end_of_file);
         }
 
+        // control_op blocktype ...
+        // [  safe  ] unsafe (could be the section_end)
+        //            ^^ code_curr
+
         auto const blocktype_begin{code_curr};
         auto const blocktype{read_leb128.template operator()<wasm_i64>(code_curr, code_end, op_begin, op_name)};
         auto const blocktype_encoded_size{static_cast<::std::size_t>(code_curr - blocktype_begin)};
 
-        if(blocktype_encoded_size > 5uz) [[unlikely]]
+        // control_op blocktype ...
+        // [       safe       ] unsafe (could be the section_end)
+        //                      ^^ code_curr
+
+        // read_leb128 commits code_curr only after validating the complete immediate. A decode failure throws with
+        // code_curr still equal to blocktype_begin; grammar failures below occur after the successful commit.
+        if(blocktype_encoded_size > 5uz || (blocktype < 0 && blocktype_encoded_size != 1uz)) [[unlikely]]
         {
             wasm_byte first_blocktype_byte{};
             ::std::memcpy(::std::addressof(first_blocktype_byte), blocktype_begin, sizeof(first_blocktype_byte));

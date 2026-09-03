@@ -440,11 +440,21 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                 fail_lazy_split(op_begin, code_validation_error_code::missing_block_type, err, ::fast_io::parse_code::end_of_file);
             }
 
+            // control_op blocktype ...
+            // [  safe  ] unsafe (could be the section_end)
+            //            ^^ code_curr
+
             auto const blocktype_begin{code_curr};
             auto const blocktype{
                 read_leb128_immediate<wasm_i64>(code_curr, code_end, op_begin, code_validation_error_code::illegal_block_type, err)};
             auto const blocktype_encoded_size{static_cast<::std::size_t>(code_curr - blocktype_begin)};
 
+            // control_op blocktype ...
+            // [       safe       ] unsafe (could be the section_end)
+            //                      ^^ code_curr
+
+            // read_leb128_immediate commits code_curr only after validating the complete immediate. A decode failure
+            // throws with code_curr still equal to blocktype_begin; grammar failures below occur after the commit.
             auto const fail_illegal_block_type{[&]() constexpr UWVM_THROWS
                                                {
                                                    wasm_byte first_blocktype_byte{};
@@ -459,7 +469,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                                                    ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
                                                }};
 
-            if(blocktype_encoded_size > 5uz) [[unlikely]] { fail_illegal_block_type(); }
+            if(blocktype_encoded_size > 5uz || (blocktype < 0 && blocktype_encoded_size != 1uz)) [[unlikely]]
+            {
+                fail_illegal_block_type();
+            }
 
             auto const& wasm1p1_para{::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(wasm_feature_parameter)};
             using wasm2_feature_kind = ::uwvm2::parser::wasm::standard::wasm2::features::wasm2_feature_kind;

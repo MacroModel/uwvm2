@@ -1378,6 +1378,13 @@ namespace details
                 }
                 code_curr = reinterpret_cast<::std::byte const*>(blocktype_next);
 
+                // control_op blocktype ...
+                // [       safe       ] unsafe (could be the section_end)
+                //                      ^^ code_curr
+
+                // A decode failure leaves code_curr at blocktype_begin; the checks below run after a complete immediate
+                // was committed and therefore report any grammar/feature failure with code_curr past that immediate.
+
                 auto const fail_illegal_blocktype{[&]() constexpr UWVM_THROWS
                                                   {
                                                       ::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte first_byte{};
@@ -1392,7 +1399,11 @@ namespace details
                                                       ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
                                                   }};
 
-                if(static_cast<::std::size_t>(code_curr - blocktype_begin) > 5uz) [[unlikely]] { fail_illegal_blocktype(); }
+                auto const blocktype_encoded_size{static_cast<::std::size_t>(code_curr - blocktype_begin)};
+                if(blocktype_encoded_size > 5uz || (blocktype < 0 && blocktype_encoded_size != 1uz)) [[unlikely]]
+                {
+                    fail_illegal_blocktype();
+                }
 
                 switch(blocktype)
                 {
