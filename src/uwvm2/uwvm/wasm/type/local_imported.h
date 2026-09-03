@@ -851,42 +851,42 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::wasm::type
         struct local_imported_module_base_impl
         {
             virtual inline constexpr ~local_imported_module_base_impl() noexcept = default;
-            virtual inline constexpr local_imported_module_base_impl* clone() const noexcept = 0;
+            virtual local_imported_module_base_impl* clone() const noexcept = 0;
 
-            virtual inline constexpr bool init_local_imported_module() noexcept = 0;
+            virtual bool init_local_imported_module() noexcept = 0;
 
-            virtual inline constexpr ::uwvm2::utils::container::u8string_view get_module_name() const noexcept = 0;
-            virtual inline constexpr ::std::size_t get_total_export_count() const noexcept = 0;
+            virtual ::uwvm2::utils::container::u8string_view get_module_name() const noexcept = 0;
+            virtual ::std::size_t get_total_export_count() const noexcept = 0;
 
-            virtual inline constexpr ::uwvm2::uwvm::wasm::type::function_get_result_with_success_indicator_t<Fs...>
+            virtual ::uwvm2::uwvm::wasm::type::function_get_result_with_success_indicator_t<Fs...>
                 get_function_information_from_index(::std::size_t index) const noexcept = 0;
-            virtual inline constexpr ::uwvm2::uwvm::wasm::type::function_get_result_with_success_indicator_t<Fs...>
+            virtual ::uwvm2::uwvm::wasm::type::function_get_result_with_success_indicator_t<Fs...>
                 get_function_information_from_name(::uwvm2::utils::container::u8string_view function_name) const noexcept = 0;
-            virtual inline constexpr ::uwvm2::uwvm::wasm::type::function_get_all_result_t<Fs...> get_all_function_information() const noexcept = 0;
-            virtual inline constexpr void call_func_index(::std::size_t index, ::std::byte* res, ::std::byte const* para) const noexcept = 0;
+            virtual ::uwvm2::uwvm::wasm::type::function_get_all_result_t<Fs...> get_all_function_information() const noexcept = 0;
+            virtual void call_func_index(::std::size_t index, ::std::byte* res, ::std::byte const* para) const noexcept = 0;
 
-            virtual inline constexpr ::uwvm2::uwvm::wasm::type::memory_get_all_result_t<Fs...> get_all_memory_information() const noexcept = 0;
-            virtual inline constexpr ::std::uint_least64_t memory_page_size_from_index(::std::size_t index) const noexcept = 0;
-            virtual inline constexpr bool memory_grow_from_index(::std::size_t index, ::std::uint_least64_t grow_page_size) noexcept = 0;
-            virtual inline constexpr bool memory_try_grow_from_index(::std::size_t index,
-                                                                     ::std::uint_least64_t grow_page_size,
-                                                                     ::std::size_t max_limit_memory_length,
-                                                                     ::std::uint_least64_t* old_page_size_out) noexcept = 0;
-            virtual inline constexpr bool memory_access_snapshot_from_index(::std::size_t index,
-                                                                            ::uwvm2::uwvm::wasm::type::memory_access_snapshot_result_t& out) noexcept = 0;
-            virtual inline constexpr bool
+            virtual ::uwvm2::uwvm::wasm::type::memory_get_all_result_t<Fs...> get_all_memory_information() const noexcept = 0;
+            virtual ::std::uint_least64_t memory_page_size_from_index(::std::size_t index) const noexcept = 0;
+            virtual bool memory_grow_from_index(::std::size_t index, ::std::uint_least64_t grow_page_size) noexcept = 0;
+            virtual bool memory_try_grow_from_index(::std::size_t index,
+                                                    ::std::uint_least64_t grow_page_size,
+                                                    ::std::size_t max_limit_memory_length,
+                                                    ::std::uint_least64_t* old_page_size_out) noexcept = 0;
+            virtual bool memory_access_snapshot_from_index(::std::size_t index,
+                                                           ::uwvm2::uwvm::wasm::type::memory_access_snapshot_result_t& out) noexcept = 0;
+            virtual bool
                 memory_read_from_index(::std::size_t index, ::std::uint_least64_t offset, void* destination, ::std::size_t size) noexcept = 0;
-            virtual inline constexpr bool
+            virtual bool
                 memory_write_to_index(::std::size_t index, ::std::uint_least64_t offset, void const* source, ::std::size_t size) noexcept = 0;
-            virtual inline constexpr ::std::byte* memory_begin_from_index(::std::size_t index) noexcept = 0;
-            virtual inline constexpr ::std::uint_least64_t memory_size_from_index(::std::size_t index) noexcept = 0;
+            virtual ::std::byte* memory_begin_from_index(::std::size_t index) noexcept = 0;
+            virtual ::std::uint_least64_t memory_size_from_index(::std::size_t index) noexcept = 0;
 
-            virtual inline constexpr ::uwvm2::uwvm::wasm::type::global_get_all_result_t<Fs...> get_all_global_information() const noexcept = 0;
-            virtual inline constexpr ::uwvm2::parser::wasm::standard::wasm1::features::final_value_type_t<Fs...>
+            virtual ::uwvm2::uwvm::wasm::type::global_get_all_result_t<Fs...> get_all_global_information() const noexcept = 0;
+            virtual ::uwvm2::parser::wasm::standard::wasm1::features::final_value_type_t<Fs...>
                 global_value_type_from_index(::std::size_t index) const noexcept = 0;
-            virtual inline constexpr bool global_is_mutable_from_index(::std::size_t index) const noexcept = 0;
-            virtual inline constexpr void global_get_from_index(::std::size_t index, ::std::byte* out) noexcept = 0;
-            virtual inline constexpr bool global_set_from_index(::std::size_t index, ::std::byte const* in) noexcept = 0;
+            virtual bool global_is_mutable_from_index(::std::size_t index) const noexcept = 0;
+            virtual void global_get_from_index(::std::size_t index, ::std::byte* out) noexcept = 0;
+            virtual bool global_set_from_index(::std::size_t index, ::std::byte const* in) noexcept = 0;
         };
 
         template <typename>
