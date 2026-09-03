@@ -743,8 +743,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
             // without performing full stack validation or semantic checks.
             /// @warning Extension point: every opcode with immediates must be listed here or lazy structural splitting will desynchronize.
             auto const& wasm1p1_para{::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(wasm_feature_parameter)};
-            auto const use_wasm2_validation_strategy{
-                ::uwvm2::validation::standard::wasm2::use_wasm2_runtime_validation_strategy(wasm1p1_para)};
             using wasm2_feature_kind = ::uwvm2::parser::wasm::standard::wasm2::features::wasm2_feature_kind;
             auto const wasm2_feature_enabled{[&](wasm2_feature_kind const feature) constexpr noexcept
                                              { return ::uwvm2::parser::wasm::standard::wasm2::features::feature_enabled(wasm1p1_para, feature); }};
@@ -884,7 +882,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                     {
                         case static_cast<wasm_byte>(wasm1p1_code::select_t):
                         {
-                            if(use_wasm2_validation_strategy && !wasm2_feature_enabled(wasm2_feature_kind::reference_types)) [[unlikely]]
+                            if(!wasm2_feature_enabled(wasm2_feature_kind::reference_types)) [[unlikely]]
                             {
                                 fail_lazy_feature_required(op_begin,
                                                            err,
@@ -894,12 +892,23 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                             }
                             auto const result_type_count{
                                 read_leb128_immediate<wasm_u32>(code_curr, code_end, op_begin, code_validation_error_code::invalid_const_immediate, err)};
-                            if(result_type_count == 0u && !use_wasm2_validation_strategy) { return; }
+
+                            // select_t result_type_count result_type ...
+                            // [           safe         ] unsafe (could be the section_end)
+                            //                            ^^ code_curr
+
                             if(result_type_count != 1u) [[unlikely]]
                             {
                                 fail_lazy_split(op_begin, code_validation_error_code::invalid_const_immediate, err);
                             }
                             auto const result_type_byte{read_u8_immediate(code_curr, code_end, op_begin, err)};
+
+                            // select_t result_type_count result_type ...
+                            // [                 safe               ] unsafe (could be the section_end)
+                            //                                        ^^ code_curr
+
+                            // Each immediate reader commits code_curr only after validating its complete field. A count
+                            // failure leaves the outer cursor after the opcode; a type failure leaves it after the count.
                             ensure_lazy_wasm1p1_value_type_enabled(op_begin,
                                                                     result_type_byte,
                                                                     wasm_feature_parameter,

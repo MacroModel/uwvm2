@@ -13,10 +13,12 @@
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <initializer_list>
 #include <iostream>
 #include <iterator>
 #include <string>
 #include <string_view>
+#include <utility>
 
 namespace
 {
@@ -89,6 +91,54 @@ namespace
         bytes.reserve(::std::size(wasm2_multivalue_typed_wasm));
         for(auto const byte: wasm2_multivalue_typed_wasm) { bytes.push_back(static_cast<::std::byte>(byte)); }
         return bytes;
+    }
+
+    [[nodiscard]] strict::byte_vec make_invalid_legacy_select_t_arity_fixture(::std::uint32_t result_type_count)
+    {
+        strict::module_builder module{};
+        strict::func_type type{{}, {strict::k_val_i32}};
+        strict::func_body body{};
+        auto& code{body.code};
+        for(auto const value: {1, 2, 0})
+        {
+            strict::append_u8(code, strict::u8(strict::wasm_op::i32_const));
+            strict::append_i32_leb(code, value);
+        }
+        strict::append_u8(code, strict::u8(strict::wasm1p1_op::select_t));
+        strict::append_u32_leb(code, result_type_count);
+        for(::std::uint32_t index{}; index != result_type_count; ++index) { strict::append_u8(code, strict::k_val_i32); }
+        strict::append_u8(code, strict::u8(strict::wasm_op::end));
+        static_cast<void>(module.add_func(::std::move(type), ::std::move(body)));
+        return module.build();
+    }
+
+    [[nodiscard]] int inspect_rejected_legacy_select_t_arities()
+    {
+        for(auto const result_type_count: {0u, 2u})
+        {
+            auto wasm{make_invalid_legacy_select_t_arity_fixture(result_type_count)};
+            auto features{strict::make_wasm1p1_feature_parameter()};
+            auto prepared{strict::prepare_runtime_from_wasm(wasm, u8"llvm_jit_legacy_select_t_arity", {}, features)};
+            LLVM_MV_REQUIRE(prepared.mod != nullptr, "legacy typed-select fixture preparation failed");
+
+            ::uwvm2::validation::error::code_validation_error_impl error{};
+            llvm_jit::compile_option options{};
+            options.validator_feature_parameter = ::std::addressof(features);
+            try
+            {
+                static_cast<void>(llvm_jit::compile_all_from_uwvm(*prepared.mod, options, error, 0uz));
+            }
+            catch(::fast_io::error const&)
+            {}
+            catch(...)
+            {
+                return fail(__LINE__, "unexpected exception while rejecting legacy typed-select arity");
+            }
+
+            LLVM_MV_REQUIRE(error.err_code == ::uwvm2::validation::error::code_validation_error_code::invalid_const_immediate,
+                            "LLVM full validation accepted a legacy typed-select vector whose arity is not one");
+        }
+        return 0;
     }
 
     [[nodiscard]] ::std::string_view as_string_view(::uwvm2::utils::container::u8string const& text) noexcept
@@ -391,6 +441,7 @@ int main(int argc, char** argv)
     if(argc <= 0 || argv == nullptr || argv[0] == nullptr) { return fail(__LINE__, "missing argv[0]"); }
 
     auto const wasm_bytes{make_fixture_bytes()};
+    if(auto const result{inspect_rejected_legacy_select_t_arities()}; result != 0) { return result; }
     if(auto const result{inspect_typed_ir(wasm_bytes)}; result != 0) { return result; }
     return run_semantics_once(wasm_bytes, ::std::filesystem::absolute(argv[0]));
 }

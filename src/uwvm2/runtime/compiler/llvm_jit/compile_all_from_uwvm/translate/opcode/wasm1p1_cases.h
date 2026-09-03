@@ -18,55 +18,11 @@ case static_cast<wasm1_code>(wasm1p1_code::select_t):
     auto const result_type_count{
         read_leb128.template operator()<validation_module_traits_t::wasm_u32>(code_curr, code_end, op_begin, u8"select.result_types")};
 
-    auto const use_wasm2_select_strategy{
-        ::uwvm2::validation::standard::wasm2::use_wasm2_runtime_validation_strategy(wasm1p1_para)};
-    if(result_type_count == 0u && !use_wasm2_select_strategy)
-    {
-        // The native wasm1p1 target preserves its historical empty-result-vector form, which has the same stack effect
-        // and numeric-only restriction as untyped select. Explicit wasm2/scoped policy rejects this in the standard prepass.
-        if(!is_polymorphic && concrete_operand_count() < 3uz) [[unlikely]] { report_operand_stack_underflow(op_begin, u8"select", 3uz); }
+    // select_t result_type_count result_type ...
+    // [           safe         ] unsafe (could be the section_end)
+    //                            ^^ code_curr
 
-        auto const cond{try_pop_concrete_operand()};
-        if(cond.from_stack && cond.type != curr_operand_stack_value_type::i32) [[unlikely]]
-        {
-            err.err_curr = op_begin;
-            err.err_selectable.select_cond_type_not_i32.cond_type = to_wasm1_diagnostic_value_type(cond.type);
-            err.err_code = code_validation_error_code::select_cond_type_not_i32;
-            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-        }
-
-        auto const v2{try_pop_concrete_operand()};
-        auto const v1{try_pop_concrete_operand()};
-        if(v1.from_stack && v2.from_stack && v1.type != v2.type) [[unlikely]]
-        {
-            err.err_curr = op_begin;
-            err.err_selectable.select_type_mismatch.type_v1 = to_wasm1_diagnostic_value_type(v1.type);
-            err.err_selectable.select_type_mismatch.type_v2 = to_wasm1_diagnostic_value_type(v2.type);
-            err.err_code = code_validation_error_code::select_type_mismatch;
-            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-        }
-        auto const result_type{v1.from_stack ? v1.type : v2.type};
-        if((v1.from_stack || v2.from_stack) &&
-           result_type != curr_operand_stack_value_type::i32 && result_type != curr_operand_stack_value_type::i64 &&
-           result_type != curr_operand_stack_value_type::f32 && result_type != curr_operand_stack_value_type::f64) [[unlikely]]
-        {
-            err.err_curr = op_begin;
-            err.err_selectable.select_type_mismatch.type_v1 = to_wasm1_diagnostic_value_type(result_type);
-            err.err_selectable.select_type_mismatch.type_v2 = to_wasm1_diagnostic_value_type(result_type);
-            err.err_code = code_validation_error_code::select_type_mismatch;
-            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-        }
-        if(v1.from_stack || v2.from_stack) { operand_stack_push(result_type); }
-
-        if(emit_llvm_jit_active)
-        {
-            llvm_jit_instruction_emitted_inline = true;
-            if(!try_emit_runtime_local_func_llvm_jit_select(llvm_jit_emit_state)) [[unlikely]] { disable_inline_llvm_jit_emission(); }
-        }
-        break;
-    }
-
-    // The typed-select opcode (0x1c) encodes a vector whose length is exactly one in WebAssembly 2.0.
+    // The typed-select opcode (0x1c) encodes a vector whose length is exactly one.
     if(result_type_count != 1u) [[unlikely]] { fail_invalid_immediate(op_begin, u8"select.result_types"); }
 
     auto const validate_select_condition{[&](concrete_operand_t cond) constexpr UWVM_THROWS
@@ -81,6 +37,13 @@ case static_cast<wasm1_code>(wasm1p1_code::select_t):
                                          }};
 
     auto const result_type_byte{read_u8_immediate(code_curr, code_end, op_begin, u8"select.result_type")};
+
+    // select_t result_type_count result_type ...
+    // [                 safe               ] unsafe (could be the section_end)
+    //                                        ^^ code_curr
+
+    // Each immediate reader commits code_curr only after validating its complete field. A count failure leaves the
+    // outer instruction cursor after the opcode; a result-type failure leaves it after the committed count.
     auto const result_type{static_cast<curr_operand_stack_value_type>(result_type_byte)};
     ensure_wasm1p1_value_type_enabled(op_begin, result_type, ::uwvm2::parser::wasm::base::wasm1p1_error_subject::instruction);
 
@@ -114,7 +77,7 @@ case static_cast<wasm1_code>(wasm1p1_code::select_t):
     if(emit_llvm_jit_active)
     {
         llvm_jit_instruction_emitted_inline = true;
-        if(is_runtime_wasm_value_type_inline_llvm_jit_storage_supported(static_cast<runtime_operand_stack_value_type>(result_type)))
+        if(is_runtime_wasm_value_type_llvm_storage_supported(static_cast<runtime_operand_stack_value_type>(result_type)))
         {
             if(!try_emit_runtime_local_func_llvm_jit_select(llvm_jit_emit_state)) [[unlikely]] { disable_inline_llvm_jit_emission(); }
         }

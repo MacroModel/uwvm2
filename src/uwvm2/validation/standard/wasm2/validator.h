@@ -2704,9 +2704,18 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm2
                                                                                                                               err,
                                                                                                                               u8"select.result_types")};
 
+                    // select_t result_type_count result_type ...
+                    // [           safe         ] unsafe (could be the section_end)
+                    //                            ^^ code_curr
+
                     if(result_type_count != 1u) [[unlikely]] { details::fail_invalid_immediate(op_begin, err, u8"select.result_types"); }
 
                     auto const result_type_byte{details::read_u8(code_curr, code_end, op_begin, err, u8"select.result_type")};
+
+                    // select_t result_type_count result_type ...
+                    // [                 safe               ] unsafe (could be the section_end)
+                    //                                        ^^ code_curr
+
                     auto const result_type{static_cast<curr_operand_stack_value_type>(result_type_byte)};
                     ensure_wasm1p1_value_type_enabled(op_begin, result_type, ::uwvm2::parser::wasm::base::wasm1p1_error_subject::instruction);
 
