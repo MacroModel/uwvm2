@@ -363,13 +363,25 @@ case wasm1_code::end:
 
     auto const expected_count{get_runtime_block_result_count(frame.result)};
 
-    // Special rule: an `if` with a non-empty result type must have an `else` branch, otherwise the
-    // false branch would not produce the required values.
-    if(frame.type == block_type::if_ && expected_count != 0uz) [[unlikely]]
+    // A missing else is an implicit identity arm over the block parameters. Do not accept merely equal arity:
+    // every parameter type must match its corresponding result type.
+    bool implicit_else_matches_result{true};
+    if(frame.type == block_type::if_)
+    {
+        auto const param_count{get_runtime_block_result_count(frame.params)};
+        implicit_else_matches_result = param_count == expected_count;
+        for(::std::size_t i{}; implicit_else_matches_result && i != expected_count; ++i)
+        {
+            implicit_else_matches_result = frame.params.begin[i] == frame.result.begin[i];
+        }
+    }
+    if(frame.type == block_type::if_ && !implicit_else_matches_result) [[unlikely]]
     {
         err.err_curr = op_begin;
         err.err_selectable.if_missing_else.expected_count = expected_count;
-        err.err_selectable.if_missing_else.expected_type = static_cast<::uwvm2::parser::wasm::standard::wasm1::type::value_type>(*frame.result.begin);
+        err.err_selectable.if_missing_else.expected_type =
+            expected_count == 1uz ? static_cast<::uwvm2::parser::wasm::standard::wasm1::type::value_type>(*frame.result.begin) :
+                                   ::uwvm2::parser::wasm::standard::wasm1::type::value_type{};
         err.err_code = ::uwvm2::validation::error::code_validation_error_code::if_missing_else;
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
     }

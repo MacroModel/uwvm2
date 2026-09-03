@@ -1565,14 +1565,25 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm2
 
                     auto const expected_count{static_cast<::std::size_t>(frame.result.end - frame.result.begin)};
 
-                    // Special rule: an `if` with a non-empty result type must have an `else` branch, otherwise the
-                    // false branch would not produce the required values.
-                    if(frame.type == block_type::if_ && expected_count != 0uz) [[unlikely]]
+                    // Without an explicit `else`, the false arm is the identity function over the block parameters.
+                    // It is valid only when that implicit arm already has exactly the declared result tuple.
+                    bool implicit_else_matches_result{true};
+                    if(frame.type == block_type::if_)
+                    {
+                        auto const start_count{static_cast<::std::size_t>(frame.start.end - frame.start.begin)};
+                        implicit_else_matches_result = start_count == expected_count;
+                        for(::std::size_t i{}; implicit_else_matches_result && i != expected_count; ++i)
+                        {
+                            implicit_else_matches_result = frame.start.begin[i] == frame.result.begin[i];
+                        }
+                    }
+                    if(frame.type == block_type::if_ && !implicit_else_matches_result) [[unlikely]]
                     {
                         err.err_curr = op_begin;
                         err.err_selectable.if_missing_else.expected_count = expected_count;
                         err.err_selectable.if_missing_else.expected_type =
-                            static_cast<::uwvm2::parser::wasm::standard::wasm1::type::value_type>(*frame.result.begin);
+                            expected_count == 1uz ? static_cast<::uwvm2::parser::wasm::standard::wasm1::type::value_type>(*frame.result.begin) :
+                                                   ::uwvm2::parser::wasm::standard::wasm1::type::value_type{};
                         err.err_code = ::uwvm2::validation::error::code_validation_error_code::if_missing_else;
                         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
                     }

@@ -638,11 +638,22 @@ case wasm1_code::end:
 
     auto const expected_count{static_cast<::std::size_t>(frame.result.end - frame.result.begin)};
 
-    if(frame.type == block_type::if_ && expected_count != 0uz) [[unlikely]]
+    bool implicit_else_matches_result{true};
+    if(frame.type == block_type::if_)
+    {
+        auto const start_count{static_cast<::std::size_t>(frame.start.end - frame.start.begin)};
+        implicit_else_matches_result = start_count == expected_count;
+        for(::std::size_t i{}; implicit_else_matches_result && i != expected_count; ++i)
+        {
+            implicit_else_matches_result = frame.start.begin[i] == frame.result.begin[i];
+        }
+    }
+    if(frame.type == block_type::if_ && !implicit_else_matches_result) [[unlikely]]
     {
         err.err_curr = op_begin;
         err.err_selectable.if_missing_else.expected_count = expected_count;
-        err.err_selectable.if_missing_else.expected_type = to_wasm1_value_type(*frame.result.begin);
+        err.err_selectable.if_missing_else.expected_type =
+            expected_count == 1uz ? to_wasm1_value_type(*frame.result.begin) : ::uwvm2::parser::wasm::standard::wasm1::type::value_type{};
         err.err_code = code_validation_error_code::if_missing_else;
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
     }
@@ -725,7 +736,8 @@ case wasm1_code::end:
     if(frame.end_label_id != SIZE_MAX) { set_label_offset(frame.end_label_id, bytecode.size()); }
     if(frame.type == block_type::if_)
     {
-        // `if` without `else` (only valid for empty result) uses the end as the "else" target.
+        // `if` without `else` uses the end as the false target. Validation above guarantees that the untouched
+        // block parameters on that path are exactly the declared result tuple.
         if(frame.else_label_id != SIZE_MAX) { set_label_offset(frame.else_label_id, bytecode.size()); }
     }
 
