@@ -504,6 +504,11 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::storage
         func_idx_t const* funcidx_begin{};
         func_idx_t const* funcidx_end{};
 
+        // Runtime-owned canonical funcrefs for expression-form segments. Unlike a bare function index, these pointer-based entries
+        // preserve the creating module when an imported global supplies a reference from another module.
+        local_defined_table_elem_storage_t const* funcref_begin{};
+        local_defined_table_elem_storage_t const* funcref_end{};
+
         // Opaque host references for externref expression segments. Null entries are `ref.null extern`.
         void* const* externref_begin{};
         void* const* externref_end{};
@@ -523,6 +528,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::storage
         element.dropped = true;
         element.funcidx_begin = nullptr;
         element.funcidx_end = nullptr;
+        element.funcref_begin = nullptr;
+        element.funcref_end = nullptr;
         element.externref_begin = nullptr;
         element.externref_end = nullptr;
     }
@@ -702,7 +709,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::storage
 
         // element
         ::uwvm2::utils::container::vector<local_defined_element_storage_t> local_defined_element_vec_storage{};
-        ::uwvm2::utils::container::vector<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32> element_expr_funcidx_vec_storage{};
+        ::uwvm2::utils::container::vector<local_defined_table_elem_storage_t> element_expr_funcref_vec_storage{};
         ::uwvm2::utils::container::vector<void*> element_expr_externref_vec_storage{};
         ::uwvm2::utils::container::vector<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32> declared_ref_funcidx_vec_storage{};
 
@@ -749,7 +756,7 @@ UWVM_MODULE_EXPORT namespace fast_io::freestanding
                                              ::fast_io::freestanding::is_zero_default_constructible_v<
                                                  ::uwvm2::utils::container::vector<::uwvm2::uwvm::runtime::storage::local_defined_element_storage_t>> &&
                                              ::fast_io::freestanding::is_zero_default_constructible_v<
-                                                 ::uwvm2::utils::container::vector<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>> &&
+                                                 ::uwvm2::utils::container::vector<::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_t>> &&
                                              ::fast_io::freestanding::is_zero_default_constructible_v<
                                                  ::uwvm2::utils::container::vector<void*>> &&
                                              ::fast_io::freestanding::is_zero_default_constructible_v<
@@ -789,7 +796,7 @@ UWVM_MODULE_EXPORT namespace fast_io::freestanding
                                              ::fast_io::freestanding::is_trivially_copyable_or_relocatable_v<
                                                  ::uwvm2::utils::container::vector<::uwvm2::uwvm::runtime::storage::local_defined_element_storage_t>> &&
                                              ::fast_io::freestanding::is_trivially_copyable_or_relocatable_v<
-                                                 ::uwvm2::utils::container::vector<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>> &&
+                                                 ::uwvm2::utils::container::vector<::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_t>> &&
                                              ::fast_io::freestanding::is_trivially_copyable_or_relocatable_v<
                                                  ::uwvm2::utils::container::vector<void*>> &&
                                              ::fast_io::freestanding::is_trivially_copyable_or_relocatable_v<

@@ -4288,8 +4288,9 @@ inline constexpr void llvm_jit_local_imported_memory_init_bridge(::std::uintptr_
 }
 
 [[nodiscard]] inline constexpr runtime_table_elem_storage_t
-    llvm_jit_table_elem_from_funcref(runtime_module_storage_t const& module, runtime_wasm_funcref const& ref) noexcept
+llvm_jit_table_elem_from_funcref(runtime_module_storage_t const& module, runtime_wasm_funcref const& ref) noexcept
 {
+    static_cast<void>(module);
     using elem_type = ::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_type_t;
     using ref_kind = ::uwvm2::object::global::wasm_ref_kind;
 
@@ -4299,7 +4300,8 @@ inline constexpr void llvm_jit_local_imported_memory_init_bridge(::std::uintptr_
         case ref_kind::wasm_null:
             return result;
         case ref_kind::wasm_func:
-            return llvm_jit_resolve_table_elem_from_func_index(module, ref.ref.storage.func_idx);
+            // Bare indices are initializer-only staging values and have no owner after crossing a module boundary.
+            ::fast_io::fast_terminate();
         case ref_kind::wasm_func_imported:
             result.storage.imported_ptr =
                 static_cast<::uwvm2::uwvm::runtime::storage::imported_function_storage_t const*>(ref.ref.storage.ptr);
@@ -4478,21 +4480,37 @@ inline constexpr void llvm_jit_table_init_bridge(::std::uintptr_t runtime_module
 
     if(llvm_jit_runtime_table_is_funcref(*table))
     {
-        auto const begin{element.funcidx_begin};
-        auto const end{element.funcidx_end};
-        if((begin == nullptr) != (end == nullptr)) [[unlikely]] { ::fast_io::fast_terminate(); }
-        auto const source_size{begin == nullptr ? 0uz : static_cast<::std::size_t>(end - begin)};
+        auto const funcidx_begin{element.funcidx_begin};
+        auto const funcidx_end{element.funcidx_end};
+        auto const funcref_begin{element.funcref_begin};
+        auto const funcref_end{element.funcref_end};
+        if((funcidx_begin == nullptr) != (funcidx_end == nullptr) ||
+           (funcref_begin == nullptr) != (funcref_end == nullptr) ||
+           (funcidx_begin != nullptr && funcref_begin != nullptr)) [[unlikely]]
+        {
+            ::fast_io::fast_terminate();
+        }
+        auto const source_size{funcref_begin == nullptr
+                                   ? (funcidx_begin == nullptr ? 0uz : static_cast<::std::size_t>(funcidx_end - funcidx_begin))
+                                   : static_cast<::std::size_t>(funcref_end - funcref_begin)};
         if(llvm_jit_bulk_memory_range_oob(src, len, source_size) || llvm_jit_bulk_memory_range_oob(dst, len, table->elems.size())) [[unlikely]]
         {
             llvm_jit_table_out_of_bounds_bridge_trap();
         }
 
-        for(::std::size_t i{}; i != len; ++i)
+        if(funcref_begin != nullptr)
         {
-            auto const func_index{begin[src + i]};
-            table->elems.index_unchecked(dst + i) = func_index == (::std::numeric_limits<runtime_wasm_u32>::max)()
-                                                        ? runtime_table_elem_storage_t{}
-                                                        : llvm_jit_resolve_table_elem_from_func_index(*runtime_module, func_index);
+            for(::std::size_t i{}; i != len; ++i) { table->elems.index_unchecked(dst + i) = funcref_begin[src + i]; }
+        }
+        else
+        {
+            for(::std::size_t i{}; i != len; ++i)
+            {
+                auto const func_index{funcidx_begin[src + i]};
+                table->elems.index_unchecked(dst + i) = func_index == (::std::numeric_limits<runtime_wasm_u32>::max)()
+                                                            ? runtime_table_elem_storage_t{}
+                                                            : llvm_jit_resolve_table_elem_from_func_index(*runtime_module, func_index);
+            }
         }
         if(len != 0uz) { ::uwvm2::runtime::lib::llvm_jit_refresh_call_indirect_table_views(); }
     }

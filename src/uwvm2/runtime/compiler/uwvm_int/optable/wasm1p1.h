@@ -197,6 +197,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         [[nodiscard]] UWVM_ALWAYS_INLINE inline constexpr runtime_table_elem_storage_t table_elem_from_funcref(runtime_module_storage_t const* module,
                                                                                                                wasm_funcref const& ref) noexcept
         {
+            static_cast<void>(module);
             runtime_table_elem_storage_t out{};
             switch(ref.ref.kind)
             {
@@ -206,7 +207,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 }
                 case ::uwvm2::object::global::wasm_ref_kind::wasm_func:
                 {
-                    return resolve_table_elem_from_func_index(module, ref.ref.storage.func_idx);
+                    // Bare function indices are initializer-only staging values. A runtime value must carry its defining storage
+                    // pointer; otherwise an imported global could be reinterpreted in the consumer's function index space.
+                    ::fast_io::fast_terminate();
                 }
                 case ::uwvm2::object::global::wasm_ref_kind::wasm_func_imported:
                 {
@@ -277,6 +280,46 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         UWVM_ALWAYS_INLINE inline constexpr void check_table_range(::std::size_t begin, ::std::size_t len, ::std::size_t bound) noexcept
         {
             if(range_oob(begin, len, bound)) [[unlikely]] { table_oob_terminate(); }
+        }
+
+        UWVM_ALWAYS_INLINE inline constexpr void copy_funcref_element_segment(runtime_table_storage_t& table,
+                                                                               runtime_element_storage_t const& element_record,
+                                                                               runtime_module_storage_t const* module,
+                                                                               ::std::size_t dst,
+                                                                               ::std::size_t src,
+                                                                               ::std::size_t len) noexcept
+        {
+            auto const& element{element_record.element};
+            auto const funcidx_begin{element.funcidx_begin};
+            auto const funcidx_end{element.funcidx_end};
+            auto const funcref_begin{element.funcref_begin};
+            auto const funcref_end{element.funcref_end};
+            if((funcidx_begin == nullptr) != (funcidx_end == nullptr) ||
+               (funcref_begin == nullptr) != (funcref_end == nullptr) ||
+               (funcidx_begin != nullptr && funcref_begin != nullptr)) [[unlikely]]
+            {
+                ::fast_io::fast_terminate();
+            }
+
+            auto const source_size{funcref_begin == nullptr ? (funcidx_begin == nullptr ? 0uz : static_cast<::std::size_t>(funcidx_end - funcidx_begin))
+                                                             : static_cast<::std::size_t>(funcref_end - funcref_begin)};
+            check_table_range(src, len, source_size);
+            check_table_range(dst, len, table.elems.size());
+
+            if(funcref_begin != nullptr)
+            {
+                for(::std::size_t i{}; i != len; ++i) { table.elems.index_unchecked(dst + i) = funcref_begin[src + i]; }
+                return;
+            }
+
+            if(module == nullptr && len != 0uz) [[unlikely]] { ::fast_io::fast_terminate(); }
+            for(::std::size_t i{}; i != len; ++i)
+            {
+                auto const funcidx{funcidx_begin[src + i]};
+                table.elems.index_unchecked(dst + i) = funcidx == (::std::numeric_limits<wasm_u32>::max)()
+                                                           ? runtime_table_elem_storage_t{}
+                                                           : resolve_table_elem_from_func_index(module, funcidx);
+            }
         }
 
         template <uwvm_interpreter_translate_option_t CompileOption, typename OperandT>
@@ -1827,20 +1870,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const src{static_cast<::std::size_t>(wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(type...)))};
         auto const dst{static_cast<::std::size_t>(wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(type...)))};
 
-        auto const begin{element->element.funcidx_begin};
-        auto const end{element->element.funcidx_end};
-        if((begin == nullptr) != (end == nullptr)) [[unlikely]] { ::fast_io::fast_terminate(); }
-        auto const elem_len{begin == nullptr ? 0uz : static_cast<::std::size_t>(end - begin)};
-        wasm1p1_details::check_table_range(src, len, elem_len);
-        wasm1p1_details::check_table_range(dst, len, table->elems.size());
-
-        for(::std::size_t i{}; i != len; ++i)
-        {
-            auto const funcidx{begin[src + i]};
-            table->elems.index_unchecked(dst + i) = funcidx == (::std::numeric_limits<wasm1p1_details::wasm_u32>::max)()
-                                                        ? wasm1p1_details::runtime_table_elem_storage_t{}
-                                                        : wasm1p1_details::resolve_table_elem_from_func_index(module, funcidx);
-        }
+        wasm1p1_details::copy_funcref_element_segment(*table, *element, module, dst, src, len);
         if(len != 0uz) { wasm1p1_details::refresh_llvm_call_indirect_table_views_after_funcref_write(); }
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
@@ -1862,20 +1892,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const src{static_cast<::std::size_t>(wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(typeref...)))};
         auto const dst{static_cast<::std::size_t>(wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(typeref...)))};
 
-        auto const begin{element->element.funcidx_begin};
-        auto const end{element->element.funcidx_end};
-        if((begin == nullptr) != (end == nullptr)) [[unlikely]] { ::fast_io::fast_terminate(); }
-        auto const elem_len{begin == nullptr ? 0uz : static_cast<::std::size_t>(end - begin)};
-        wasm1p1_details::check_table_range(src, len, elem_len);
-        wasm1p1_details::check_table_range(dst, len, table->elems.size());
-
-        for(::std::size_t i{}; i != len; ++i)
-        {
-            auto const funcidx{begin[src + i]};
-            table->elems.index_unchecked(dst + i) = funcidx == (::std::numeric_limits<wasm1p1_details::wasm_u32>::max)()
-                                                        ? wasm1p1_details::runtime_table_elem_storage_t{}
-                                                        : wasm1p1_details::resolve_table_elem_from_func_index(module, funcidx);
-        }
+        wasm1p1_details::copy_funcref_element_segment(*table, *element, module, dst, src, len);
         if(len != 0uz) { wasm1p1_details::refresh_llvm_call_indirect_table_views_after_funcref_write(); }
     }
 

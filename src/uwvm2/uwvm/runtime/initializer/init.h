@@ -1578,15 +1578,92 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::initializer
         inline constexpr ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 wasm_ref_null_funcidx_sentinel{
             (::std::numeric_limits<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>::max)()};
 
-        inline constexpr ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32
-            eval_wasm1p1_ref_const_expr_as_funcidx(::uwvm2::uwvm::runtime::storage::wasm_binfmt1_final_wasm_const_expr_t const& expr,
+        [[nodiscard]] inline constexpr ::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_t
+            resolve_wasm1_funcref_index(::uwvm2::uwvm::runtime::storage::wasm_module_storage_t const& module,
+                                        ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 function_index) noexcept
+        {
+            using table_elem_type = ::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_type_t;
+            auto const index{static_cast<::std::size_t>(function_index)};
+            auto const imported_count{module.imported_function_vec_storage.size()};
+            auto const local_count{module.local_defined_function_vec_storage.size()};
+            if(local_count > (::std::numeric_limits<::std::size_t>::max() - imported_count)) [[unlikely]] { ::fast_io::fast_terminate(); }
+            if(index >= imported_count + local_count) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+            ::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_t result{};
+            if(index < imported_count)
+            {
+                result.storage.imported_ptr = ::std::addressof(module.imported_function_vec_storage.index_unchecked(index));
+                result.type = table_elem_type::func_ref_imported;
+            }
+            else
+            {
+                result.storage.defined_ptr = ::std::addressof(module.local_defined_function_vec_storage.index_unchecked(index - imported_count));
+                result.type = table_elem_type::func_ref_defined;
+            }
+            return result;
+        }
+
+        inline constexpr void canonicalize_wasm1_funcref(::uwvm2::uwvm::runtime::storage::wasm_module_storage_t const& owner,
+                                                          ::uwvm2::object::global::wasm_global_ref_t& ref) noexcept
+        {
+            if(ref.kind != ::uwvm2::object::global::wasm_ref_kind::wasm_func) { return; }
+
+            auto const elem{resolve_wasm1_funcref_index(owner, ref.storage.func_idx)};
+            using table_elem_type = ::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_type_t;
+            if(elem.type == table_elem_type::func_ref_imported)
+            {
+                ref.storage.ptr = const_cast<void*>(static_cast<void const*>(elem.storage.imported_ptr));
+                ref.kind = ::uwvm2::object::global::wasm_ref_kind::wasm_func_imported;
+            }
+            else
+            {
+                ref.storage.ptr = const_cast<void*>(static_cast<void const*>(elem.storage.defined_ptr));
+                ref.kind = ::uwvm2::object::global::wasm_ref_kind::wasm_func_defined;
+            }
+        }
+
+        [[nodiscard]] inline constexpr ::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_t
+            table_elem_from_canonical_wasm1_funcref(::uwvm2::object::global::wasm_global_ref_t const& ref) noexcept
+        {
+            using table_elem_type = ::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_type_t;
+            ::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_t result{};
+            switch(ref.kind)
+            {
+                case ::uwvm2::object::global::wasm_ref_kind::wasm_null: return result;
+                case ::uwvm2::object::global::wasm_ref_kind::wasm_func_imported:
+                {
+                    result.storage.imported_ptr = static_cast<::uwvm2::uwvm::runtime::storage::imported_function_storage_t const*>(ref.storage.ptr);
+                    if(result.storage.imported_ptr == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+                    result.type = table_elem_type::func_ref_imported;
+                    return result;
+                }
+                case ::uwvm2::object::global::wasm_ref_kind::wasm_func_defined:
+                {
+                    result.storage.defined_ptr = static_cast<::uwvm2::uwvm::runtime::storage::local_defined_function_storage_t const*>(ref.storage.ptr);
+                    if(result.storage.defined_ptr == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+                    result.type = table_elem_type::func_ref_defined;
+                    return result;
+                }
+                // A bare index has no owner once it crosses an imported-global boundary. Live globals are canonicalized after
+                // linking; rejecting any remaining index prevents silently resolving it in the consumer module.
+                case ::uwvm2::object::global::wasm_ref_kind::wasm_func: [[fallthrough]];
+                case ::uwvm2::object::global::wasm_ref_kind::wasm_extern: [[fallthrough]];
+                [[unlikely]] default: ::fast_io::fast_terminate();
+            }
+        }
+
+        inline constexpr ::uwvm2::uwvm::runtime::storage::local_defined_table_elem_storage_t
+            eval_wasm1p1_ref_const_expr_as_funcref(::uwvm2::uwvm::runtime::storage::wasm_binfmt1_final_wasm_const_expr_t const& expr,
                                                    ::uwvm2::uwvm::runtime::storage::wasm_module_storage_t& curr_rt) noexcept
         {
             if(expr.opcodes.size() != 1uz) [[unlikely]] { ::fast_io::fast_terminate(); }
 
             auto const& op{expr.opcodes.front_unchecked()};
-            if(op.opcode == static_cast<::uwvm2::parser::wasm::standard::wasm1::opcode::op_basic>(0xD0u)) { return wasm_ref_null_funcidx_sentinel; }
-            if(op.opcode == static_cast<::uwvm2::parser::wasm::standard::wasm1::opcode::op_basic>(0xD2u)) { return op.storage.ref_func_idx; }
+            if(op.opcode == static_cast<::uwvm2::parser::wasm::standard::wasm1::opcode::op_basic>(0xD0u)) { return {}; }
+            if(op.opcode == static_cast<::uwvm2::parser::wasm::standard::wasm1::opcode::op_basic>(0xD2u))
+            {
+                return resolve_wasm1_funcref_index(curr_rt, op.storage.ref_func_idx);
+            }
             if(op.opcode != ::uwvm2::parser::wasm::standard::wasm1::opcode::op_basic::global_get) [[unlikely]] { ::fast_io::fast_terminate(); }
 
             auto const idx{static_cast<::std::size_t>(op.storage.global_idx)};
@@ -1616,11 +1693,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::initializer
 
             switch(resolved_global->storage.ref.kind)
             {
-                case ::uwvm2::object::global::wasm_ref_kind::wasm_null: return wasm_ref_null_funcidx_sentinel;
-                case ::uwvm2::object::global::wasm_ref_kind::wasm_func:
-                    return resolved_global->storage.ref.storage.func_idx;
-                [[unlikely]] default:
-                    ::fast_io::fast_terminate();
+                case ::uwvm2::object::global::wasm_ref_kind::wasm_null: [[fallthrough]];
+                case ::uwvm2::object::global::wasm_ref_kind::wasm_func_imported: [[fallthrough]];
+                case ::uwvm2::object::global::wasm_ref_kind::wasm_func_defined:
+                    return table_elem_from_canonical_wasm1_funcref(resolved_global->storage.ref);
+                case ::uwvm2::object::global::wasm_ref_kind::wasm_func: [[fallthrough]];
+                case ::uwvm2::object::global::wasm_ref_kind::wasm_extern: [[fallthrough]];
+                [[unlikely]] default: ::fast_io::fast_terminate();
             }
         }
 
@@ -1683,9 +1762,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::initializer
                 total_count += curr_expr_count;
             }
 
-            auto& owned_funcidx_storage{curr_rt.element_expr_funcidx_vec_storage};
-            owned_funcidx_storage.clear();
-            owned_funcidx_storage.reserve(total_funcref_expr_count);
+            auto& owned_funcref_storage{curr_rt.element_expr_funcref_vec_storage};
+            owned_funcref_storage.clear();
+            owned_funcref_storage.reserve(total_funcref_expr_count);
             auto& owned_externref_storage{curr_rt.element_expr_externref_vec_storage};
             owned_externref_storage.clear();
             owned_externref_storage.reserve(total_externref_expr_count);
@@ -1699,12 +1778,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::initializer
 
                 if(segment.reftype == reference_type::funcref)
                 {
-                    auto const begin_index{owned_funcidx_storage.size()};
-                    for(auto const& expr: exprs) { owned_funcidx_storage.push_back_unchecked(eval_wasm1p1_ref_const_expr_as_funcidx(expr, curr_rt)); }
+                    auto const begin_index{owned_funcref_storage.size()};
+                    for(auto const& expr: exprs) { owned_funcref_storage.push_back_unchecked(eval_wasm1p1_ref_const_expr_as_funcref(expr, curr_rt)); }
 
-                    auto const* const base{owned_funcidx_storage.data()};
-                    elem_seg.element.funcidx_begin = base + begin_index;
-                    elem_seg.element.funcidx_end = elem_seg.element.funcidx_begin + exprs.size();
+                    auto const* const base{owned_funcref_storage.data()};
+                    elem_seg.element.funcidx_begin = nullptr;
+                    elem_seg.element.funcidx_end = nullptr;
+                    elem_seg.element.funcref_begin = base + begin_index;
+                    elem_seg.element.funcref_end = elem_seg.element.funcref_begin + exprs.size();
                 }
                 else if(segment.reftype == reference_type::externref)
                 {
@@ -4218,6 +4299,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::initializer
                         case ::uwvm2::object::global::global_type::wasm_ref:
                         {
                             g.global.storage.ref = resolved_global->storage.ref;
+                            // A raw wasm_func index is meaningful only inside its defining module. All wasm-defined globals are
+                            // canonicalized before dependency evaluation; an imported host value that still contains a bare index
+                            // has no recoverable owner and must fail closed.
+                            if(g.global.storage.ref.kind == ::uwvm2::object::global::wasm_ref_kind::wasm_func) [[unlikely]]
+                            {
+                                ::fast_io::fast_terminate();
+                            }
                             break;
                         }
                         [[unlikely]] default:
@@ -4259,6 +4347,20 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::initializer
             {
                 for(auto& table: curr_rt.local_defined_table_vec_storage) { table.owner_module_rt_ptr = ::std::addressof(curr_rt); }
                 for(auto& g: curr_rt.local_defined_global_vec_storage) { g.owner_module_rt_ptr = ::std::addressof(curr_rt); }
+            }
+
+            // Direct ref.func initializers were parsed before the final runtime-module addresses existed. Convert their local
+            // indices to stable imported/defined storage pointers before any other module can observe them through global.get.
+            for([[maybe_unused]] auto& [curr_module_name, curr_rt]: ::uwvm2::uwvm::runtime::storage::wasm_module_runtime_storage)
+            {
+                for(auto& g: curr_rt.local_defined_global_vec_storage)
+                {
+                    if(g.init_state == ::uwvm2::uwvm::runtime::storage::wasm_global_init_state::initialized &&
+                       g.global.kind == ::uwvm2::object::global::global_type::wasm_ref)
+                    {
+                        canonicalize_wasm1_funcref(curr_rt, g.global.storage.ref);
+                    }
+                }
             }
 
             // Second: evaluate all wasm1 global initializers (including those that use `global.get`).
@@ -4564,13 +4666,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::initializer
 
                     auto const offset{safe_u64_to_size_t(elem.offset)};
 
-                    // Element payload length. Funcref segments retain their compact function-index representation;
-                    // externref segments use an equally compact array of opaque host pointers.
+                    // Legacy segments retain module-local indices. Expression-form funcref segments use canonical pointer entries
+                    // so global.get can preserve a reference created by another module.
                     auto const funcidx_begin{elem.funcidx_begin};
                     auto const funcidx_end{elem.funcidx_end};
+                    auto const funcref_begin{elem.funcref_begin};
+                    auto const funcref_end{elem.funcref_end};
                     auto const externref_begin{elem.externref_begin};
                     auto const externref_end{elem.externref_end};
                     if(((funcidx_begin == nullptr) != (funcidx_end == nullptr)) ||
+                       ((funcref_begin == nullptr) != (funcref_end == nullptr)) ||
                        ((externref_begin == nullptr) != (externref_end == nullptr))) [[unlikely]]
                     {
 #if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
@@ -4579,8 +4684,22 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::initializer
                         ::fast_io::fast_terminate();
                     }
 
-                    auto const element_count{target_reftype == reference_type::funcref ? safe_ptr_range_size(funcidx_begin, funcidx_end)
-                                                                                       : safe_ptr_range_size(externref_begin, externref_end)};
+                    if(target_reftype == reference_type::funcref)
+                    {
+                        if(externref_begin != nullptr || (funcidx_begin != nullptr && funcref_begin != nullptr)) [[unlikely]]
+                        {
+                            ::fast_io::fast_terminate();
+                        }
+                    }
+                    else if(funcidx_begin != nullptr || funcref_begin != nullptr) [[unlikely]]
+                    {
+                        ::fast_io::fast_terminate();
+                    }
+
+                    auto const element_count{target_reftype == reference_type::funcref
+                                                 ? (funcref_begin == nullptr ? safe_ptr_range_size(funcidx_begin, funcidx_end)
+                                                                             : safe_ptr_range_size(funcref_begin, funcref_end))
+                                                 : safe_ptr_range_size(externref_begin, externref_end)};
 
                     auto const table_size{target_table->elems.size()};
                     if(offset > table_size || element_count > (table_size - offset)) [[unlikely]]
@@ -4623,6 +4742,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::initializer
                     }
                     else
                     {
+                        if(funcref_begin != nullptr)
+                        {
+                            for(::std::size_t i{}; i != element_count; ++i)
+                            {
+                                target_table->elems.index_unchecked(offset + i) = funcref_begin[i];
+                            }
+                            ::uwvm2::uwvm::runtime::storage::drop_wasm_element_segment_payload(elem);
+                            continue;
+                        }
+
                         auto const imported_func_count{curr_rt.imported_function_vec_storage.size()};
                         auto const local_func_count{curr_rt.local_defined_function_vec_storage.size()};
                         auto const all_func_count{imported_func_count + local_func_count};
