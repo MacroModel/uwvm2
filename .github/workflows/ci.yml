@@ -90,7 +90,6 @@ jobs:
 
   # ---------------------------------------------------------------------------
   x86_64-linux-gnu-backend-tests:
-    if: ${{ !always() }}
     name: Linux (x86_64) uwvm-int + llvm-jit
     runs-on: ubuntu-latest
     env:
@@ -123,7 +122,9 @@ jobs:
             --execution-int=uwvm-int \
             --execution-jit=llvm \
             --enable-test-uwvm-int=y \
-            --enable-test-llvm-jit=y
+            --enable-test-llvm-jit=y \
+            --enable-test-backend-fuzzer=n \
+            --test-libfuzzer=n
       - name: Check UWVM version
         run: |
           xmake b -rv -j "${XMAKE_JOBS}" uwvm
