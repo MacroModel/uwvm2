@@ -610,6 +610,11 @@ inline constexpr void apply_llvm_jit_semantic_function_attrs(::llvm::Function& f
     // native target profitability, because Wasm tail-call semantics are represented by separate tail-call proposal opcodes.
     // LLVM exposes this as a string-valued semantic attribute rather than a stable enum attribute on the Function API.
     function.addFnAttr(get_llvm_string_ref(u8"disable-tail-calls"), get_llvm_string_ref(u8"true"));
+
+    // LLVM execution enters with FE_DFL_ENV, and both scalar formats require gradual underflow. State this explicitly
+    // so target lowering cannot inherit a flush-to-zero denormal policy from ambient toolchain defaults.
+    function.addFnAttr(get_llvm_string_ref(u8"denormal-fp-math"), get_llvm_string_ref(u8"ieee,ieee"));
+    function.addFnAttr(get_llvm_string_ref(u8"denormal-fp-math-f32"), get_llvm_string_ref(u8"ieee,ieee"));
 }
 
 // Keep a physical frame pointer in functions that may need to report an exact trap call-site frame.
@@ -625,6 +630,14 @@ inline constexpr void apply_llvm_jit_common_function_attrs(::llvm::Function& fun
 {
     apply_llvm_jit_platform_function_attrs(function);
     apply_llvm_jit_semantic_function_attrs(function);
+
+    // Keep every generated Wasm entry, tiered core, OSR entry, and raw wrapper as a distinct native function in every
+    // optimization policy, including max/O3. Function-local optimization remains enabled, but LLVM may not merge one
+    // Wasm call boundary into another or invalidate the address ranges published by full/lazy/tiered runtimes.
+    function.addFnAttr(::llvm::Attribute::NoInline);
+    function.addFnAttr(::llvm::Attribute::NoMerge);
+    // LLVM 23 models nooutline as a string function attribute; both IROutliner and MachineOutliner query this spelling.
+    function.addFnAttr(get_llvm_string_ref(u8"nooutline"));
 #if defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) && !defined(__CYGWIN__) &&                                                               \
     (defined(__x86_64__) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64))
     // Win64 trap bridges always pass explicit generated-frame context via read_register.  LLVM rejects reading the
