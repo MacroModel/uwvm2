@@ -22,6 +22,7 @@
 module;
 
 // std
+#include <algorithm>
 #include <bit>
 #include <cmath>
 #include <cstddef>
@@ -30,9 +31,11 @@ module;
 #include <concepts>
 #include <limits>
 #include <memory>
+#include <type_traits>
 // macro
 #include <uwvm2/utils/macro/push_macros.h>
 #include <uwvm2/runtime/compiler/uwvm_int/macro/push_macros.h>
+#include <uwvm2/uwvm/runtime/macro/push_macros.h>
 // platform
 #if ((defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)) && __has_include(<cfenv>)
 # include <cfenv>

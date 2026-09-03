@@ -30,6 +30,8 @@ module;
 #include <exception>
 #include <limits>
 #include <memory>
+#include <string>
+#include <type_traits>
 #include <utility>
 // macro
 #include <uwvm2/utils/macro/push_macros.h>

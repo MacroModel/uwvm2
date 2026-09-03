@@ -23,6 +23,7 @@ module;
 
 // std
 #include <atomic>
+#include <climits>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -33,6 +34,7 @@ module;
 #include <utility>
 // macro
 #include <uwvm2/utils/macro/push_macros.h>
+#include <uwvm2/uwvm/runtime/macro/push_macros.h>
 
 export module uwvm2.runtime.compiler.uwvm_int.compile_cu_from_lazy_validator:translate;
 

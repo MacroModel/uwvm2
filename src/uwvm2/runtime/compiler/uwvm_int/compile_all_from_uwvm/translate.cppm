@@ -35,6 +35,7 @@ module;
 #include <type_traits>
 // macro
 #include <uwvm2/utils/macro/push_macros.h>
+#include <uwvm2/uwvm/runtime/macro/push_macros.h>
 
 export module uwvm2.runtime.compiler.uwvm_int.compile_all_from_uwvm:translate;
 
