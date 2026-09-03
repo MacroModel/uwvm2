@@ -4,6 +4,8 @@ namespace
 {
     using namespace ::uwvm2test::uwvm_int_strict;
 
+    inline constexpr ::std::uint8_t k_val_v128{0x7bu};
+
     [[nodiscard]] byte_vec build_call_v128_drop_module()
     {
         module_builder mb{};
