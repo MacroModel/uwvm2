@@ -922,7 +922,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
             }
             case ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm1p1_element_type_t::declarative_funcidx:
             {
-                require_reference_types();
+                require_bulk_memory();
                 element_storage.declarative = true;
                 element_storage.reftype = reference_type::funcref;
                 // parse_elemkind_funcref checks one elemkind byte and returns the first byte after it.
@@ -1004,6 +1004,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
             }
             case ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm1p1_element_type_t::declarative_expr:
             {
+                require_bulk_memory();
                 require_reference_types();
                 element_storage.declarative = true;
                 // parse_reftype checks one reference-type byte and returns the first byte after it.

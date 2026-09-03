@@ -539,9 +539,9 @@ namespace test
                                           [](auto& p1) { p1.disable_multiple_tables = true; },
                                           "element flag 2 was not gated by multiple-tables");
         expect_element_flag_feature(3u,
-                                    ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::reference_types,
-                                    [](auto& p1) { p1.disable_reference_types = true; },
-                                    "element flag 3 was not gated by reference-types");
+                                    ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::bulk_memory,
+                                    [](auto& p1) { p1.disable_bulk_memory = true; },
+                                    "element flag 3 was not gated by bulk-memory");
         expect_element_flag_feature(4u,
                                     ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::reference_types,
                                     [](auto& p1) { p1.disable_reference_types = true; },
@@ -562,6 +562,10 @@ namespace test
                                     ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::reference_types,
                                     [](auto& p1) { p1.disable_reference_types = true; },
                                     "element flag 6 was not gated by reference-types");
+        expect_element_flag_feature(7u,
+                                    ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::bulk_memory,
+                                    [](auto& p1) { p1.disable_bulk_memory = true; },
+                                    "element flag 7 was not gated by bulk-memory");
         expect_element_flag_feature(7u,
                                     ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::reference_types,
                                     [](auto& p1) { p1.disable_reference_types = true; },

@@ -458,7 +458,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::initializer
                             }
                             break;
                         }
-                        case element_type::declarative_funcidx: [[fallthrough]];
+                        case element_type::declarative_funcidx:
+                        {
+                            if(wasm1p1_para.disable_bulk_memory) [[unlikely]]
+                            {
+                                fatal_wasm1p1_initializer_feature_required(feature_kind::bulk_memory,
+                                                                           u8"element segment",
+                                                                           static_cast<wasm_u32>(elem.type));
+                            }
+                            break;
+                        }
                         case element_type::active_implicit_expr:
                         {
                             if(wasm1p1_para.disable_reference_types) [[unlikely]]
@@ -503,6 +512,12 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::initializer
                         }
                         case element_type::declarative_expr:
                         {
+                            if(wasm1p1_para.disable_bulk_memory) [[unlikely]]
+                            {
+                                fatal_wasm1p1_initializer_feature_required(feature_kind::bulk_memory,
+                                                                           u8"element segment",
+                                                                           static_cast<wasm_u32>(elem.type));
+                            }
                             if(wasm1p1_para.disable_reference_types) [[unlikely]]
                             {
                                 fatal_wasm1p1_initializer_feature_required(feature_kind::reference_types,
