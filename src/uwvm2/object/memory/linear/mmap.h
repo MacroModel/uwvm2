@@ -85,10 +85,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::object::memory::linear
     //   | 2GiB front guard | 4GiB usable window (u32 address space) | 2GiB back guard |
     //   + trailing guard (platform-page aligned) to cover custom-page alignment + max foreseeable type size (64 bytes).
     //
-    // This layout allows the interpreter/JIT to compute effective addresses as (i64)i32_dynamic + (i64)u32_static and then perform
-    // a single address calculation from `memory_begin` without software bounds checks:
-    // - negative results land in the front guard and fault
-    // - results > u32max land in the back guard and fault
+    // This layout lets the interpreter/LLVM AOT backend use guard faults for every access whose effective offset is in the
+    // u32 address domain.  The widened `(u64)(u32)dynamic + (u64)u32_static` sum must first be checked against UINT32_MAX:
+    // larger sums can exceed the 2-GiB back guard and must never be used to form a native pointer.
     inline constexpr ::std::uint_least64_t wasm32_full_protection_front_guard_u64{1ull << 31u};  // 2 GiB
     inline constexpr ::std::uint_least64_t wasm32_full_protection_usable_u64{1ull << 32u};       // 4 GiB
     inline constexpr ::std::uint_least64_t wasm32_full_protection_back_guard_u64{1ull << 31u};   // 2 GiB

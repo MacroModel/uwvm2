@@ -2994,8 +2994,8 @@ inline constexpr void populate_runtime_memory_access_info_mmap_fields(runtime_me
     return result;
 }
 
-// Result of adding a Wasm32 dynamic address and static memarg offset.  The extra boolean records whether the effective
-// address escaped the 32-bit Wasm address range after signed-extension behavior used by this runtime.
+// Result of adding a Wasm32 dynamic address and static memarg offset.  The extra boolean records whether the unsigned
+// effective address escaped the 32-bit Wasm address range.
 struct llvm_jit_wasm32_effective_offset_t
 {
     // Low 64-bit effective byte offset used for diagnostics and in-bounds accesses.
@@ -3090,31 +3090,52 @@ UWVM_ALWAYS_INLINE inline constexpr bool llvm_jit_add_overflow(I a, I b, I& resu
 {
     if constexpr(sizeof(::std::size_t) >= sizeof(::std::uint_least64_t))
     {
-        auto const dynamic_offset{static_cast<::std::int_least64_t>(address)};
-        auto const static_offset_i64{static_cast<::std::int_least64_t>(static_cast<::std::uint_least32_t>(static_offset))};
-        auto const sum_u64{static_cast<::std::uint_least64_t>(dynamic_offset + static_offset_i64)};
-        return {.offset = sum_u64, .offset_65_bit = (sum_u64 & 0xffffffff00000000ull) != 0ull};
+        auto const dynamic_offset{static_cast<::std::uint_least64_t>(static_cast<::std::uint_least32_t>(address))};
+        auto const static_offset_u64{static_cast<::std::uint_least64_t>(static_cast<::std::uint_least32_t>(static_offset))};
+        auto const sum_u64{dynamic_offset + static_offset_u64};
+        return {.offset = sum_u64, .offset_65_bit = sum_u64 > 0xffffffffull};
     }
     else
     {
+        auto const dynamic_offset_u32{static_cast<::std::uint_least32_t>(address)};
         auto const static_offset_u32{static_cast<::std::uint_least32_t>(static_offset)};
         ::std::uint_least32_t low{};
-        bool out_of_range{};
-
-        if(address >= 0) [[likely]]
-        {
-            auto const dynamic_offset_u32{static_cast<::std::uint_least32_t>(address)};
-            out_of_range = llvm_jit_add_overflow(dynamic_offset_u32, static_offset_u32, low);
-        }
-        else
-        {
-            auto const abs_dynamic_offset{static_cast<::std::uint_least32_t>(0u - static_cast<::std::uint_least32_t>(address))};
-            low = static_cast<::std::uint_least32_t>(static_offset_u32 - abs_dynamic_offset);
-            out_of_range = static_offset_u32 < abs_dynamic_offset;
-        }
+        auto const out_of_range{llvm_jit_add_overflow(dynamic_offset_u32, static_offset_u32, low)};
 
         return {.offset = static_cast<::std::uint_least64_t>(low), .offset_65_bit = out_of_range};
     }
+}
+
+// Emit the same unsigned Wasm32 effective-address calculation used by the checked bridge helpers.  Keeping this as a
+// named helper lets direct mmap lowering and focused IR tests share the zero-extension invariant.
+[[nodiscard]] inline constexpr ::llvm::Value*
+    emit_llvm_wasm32_effective_offset(::llvm::IRBuilder<>& ir_builder,
+                                      ::llvm::Value* address_value,
+                                      validation_module_traits_t::wasm_u32 static_offset) noexcept
+{
+    if(address_value == nullptr || !address_value->getType()->isIntegerTy(32)) [[unlikely]] { return nullptr; }
+
+    auto llvm_i64_type{::llvm::Type::getInt64Ty(ir_builder.getContext())};
+    return ir_builder.CreateAdd(ir_builder.CreateZExt(address_value, llvm_i64_type),
+                                ::llvm::ConstantInt::get(llvm_i64_type, static_cast<::std::uint_least32_t>(static_offset)));
+}
+
+// Wasm32 defines the effective address in an unbounded intermediate domain and traps when the dynamic address plus the
+// memarg offset is not representable as u32.  Fully protected mmap memories still need this explicit predicate: their
+// guard reservation covers every in-range u32 access, but not the complete almost-8-GiB range of a widened u32+u32 sum.
+[[nodiscard]] inline constexpr ::llvm::Value*
+    emit_llvm_wasm32_effective_offset_out_of_range(::llvm::IRBuilder<>& ir_builder, ::llvm::Value* effective_offset) noexcept
+{
+    if(effective_offset == nullptr || !effective_offset->getType()->isIntegerTy(64)) [[unlikely]] { return nullptr; }
+    return ir_builder.CreateICmpUGT(effective_offset, ::llvm::ConstantInt::get(effective_offset->getType(), 0xffffffffull));
+}
+
+// A Wasm memarg alignment exponent is only an optimization hint; it does not constrain the runtime address.  Direct
+// mmap loads and stores therefore must advertise byte alignment to LLVM unless the effective pointer is proven aligned.
+[[nodiscard]] inline constexpr ::llvm::Align
+    get_llvm_wasm_memory_access_alignment(::std::size_t, validation_module_traits_t::wasm_u32) noexcept
+{
+    return ::llvm::Align{1u};
 }
 
 // Load an integer from Wasm memory in little-endian order without assuming host alignment.
@@ -8629,28 +8650,6 @@ template <llvm_jit_simd_code Op,
                 bridge_arguments);
         }};
 
-    // Clamp a Wasm memarg alignment exponent to the natural access size.  Wasm encodes alignment as log2 bytes, while
-    // LLVM expects an Align object and treats over-stated alignment as a stronger promise.
-    auto const get_llvm_memory_access_alignment{
-        [](::std::size_t access_size, validation_module_traits_t::wasm_u32 memarg_align) constexpr noexcept -> ::llvm::Align
-        {
-            ::std::size_t natural_alignment{access_size == 0uz ? 1uz : access_size};
-            ::std::size_t requested_alignment{1uz};
-
-            if(memarg_align < static_cast<validation_module_traits_t::wasm_u32>(sizeof(::std::size_t) * 8u))
-            {
-                requested_alignment <<= static_cast<unsigned>(memarg_align);
-            }
-            else
-            {
-                requested_alignment = natural_alignment;
-            }
-
-            if(requested_alignment == 0uz) { requested_alignment = natural_alignment; }
-            if(requested_alignment > natural_alignment) { requested_alignment = natural_alignment; }
-            return ::llvm::Align(static_cast<std::uint64_t>(requested_alignment == 0uz ? 1uz : requested_alignment));
-        }};
-
     // Emit a load of the current direct-memory byte length.  mmap-backed memory uses an acquire atomic length load because
     // growth may publish a new length concurrently with JIT code execution.
     auto const emit_direct_memory_byte_length_value{
@@ -8752,11 +8751,10 @@ template <llvm_jit_simd_code Op,
                 auto llvm_i64_type{::llvm::Type::getInt64Ty(llvm_context)};
                 auto llvm_intptr_type{::llvm::Type::getIntNTy(llvm_context, static_cast<unsigned>(sizeof(::std::uintptr_t) * 8u))};
 
-                // Preserve the runtime's Wasm32 effective-address convention: the dynamic i32 address is sign-extended
-                // before adding the unsigned static memarg offset, and negative/high results are handled by the checks
-                // below.
-                auto effective_offset{ir_builder.CreateAdd(ir_builder.CreateSExt(address_value, llvm_i64_type),
-                                                           ::llvm::ConstantInt::get(llvm_i64_type, static_cast<::std::uint_least32_t>(static_offset)))};
+                // Wasm32 addresses are unsigned i32 bit patterns.  Widen before adding the static memarg offset so a
+                // high address cannot alias low memory (for example, 0xffffffff + 1 must overflow instead of becoming 0).
+                auto effective_offset{emit_llvm_wasm32_effective_offset(ir_builder, address_value, static_offset)};
+                if(effective_offset == nullptr) [[unlikely]] { return nullptr; }
                 static_cast<void>(llvm_i8_ptr_type);
                 auto runtime_module_ptr{local_func_storage.runtime_module_ptr};
                 if(runtime_module_ptr == nullptr) [[unlikely]] { return nullptr; }
@@ -8776,8 +8774,7 @@ template <llvm_jit_simd_code Op,
                     auto memory_length_load{emit_direct_memory_byte_length_value()};
                     if(memory_length_load == nullptr) [[unlikely]] { return nullptr; }
 
-                    auto effective_negative{ir_builder.CreateICmpSLT(effective_offset, ::llvm::ConstantInt::getSigned(llvm_i64_type, 0))};
-                    auto effective_too_large{ir_builder.CreateICmpUGT(effective_offset, ::llvm::ConstantInt::get(llvm_i64_type, 0xffffffffull))};
+                    auto effective_too_large{emit_llvm_wasm32_effective_offset_out_of_range(ir_builder, effective_offset)};
                     auto memory_length_i64{ir_builder.CreateZExt(memory_length_load, llvm_i64_type)};
                     auto access_size_i64{::llvm::ConstantInt::get(llvm_i64_type, access_size)};
                     auto memory_too_small{ir_builder.CreateICmpULT(memory_length_i64, access_size_i64)};
@@ -8785,29 +8782,27 @@ template <llvm_jit_simd_code Op,
                     // `memory_too_small` predicate keeps the underflowed value from making the access look valid.
                     auto max_access_offset{ir_builder.CreateSub(memory_length_i64, access_size_i64)};
                     auto access_oob{ir_builder.CreateICmpUGT(effective_offset, max_access_offset)};
-                    auto offset_out_of_range{ir_builder.CreateOr(effective_negative, effective_too_large)};
 
                     emit_llvm_conditional_memory_out_of_bounds_trap(*llvm_module,
                                                                     ir_builder,
-                                                                    ir_builder.CreateOr(offset_out_of_range, ir_builder.CreateOr(memory_too_small, access_oob)),
+                                                                    ir_builder.CreateOr(effective_too_large, ir_builder.CreateOr(memory_too_small, access_oob)),
                                                                     0uz,
                                                                     static_cast<::std::uint_least64_t>(static_cast<::std::uint_least32_t>(static_offset)),
                                                                     effective_offset,
-                                                                    offset_out_of_range,
+                                                                    effective_too_large,
                                                                     memory_length_load,
                                                                     access_size);
                 }
                 else if(memory0_access_info.mmap_uses_partial_protection)
                 {
-                    // Partial mmap protection lets low in-range accesses fault naturally, but negative or high offsets
-                    // must still be checked against the current length in generated IR.
-                    auto effective_negative{ir_builder.CreateICmpSLT(effective_offset, ::llvm::ConstantInt::getSigned(llvm_i64_type, 0))};
+                    // Partial mmap protection lets low in-range accesses fault naturally, but high offsets must still be
+                    // checked against the current length in generated IR.
                     ::llvm::Value* partial_limit_escape{};
                     partial_limit_escape =
                         ir_builder.CreateICmpUGE(effective_offset,
                                                  ::llvm::ConstantInt::get(llvm_i64_type, get_runtime_partial_protection_limit_escape_offset()));
 
-                    auto needs_dynamic_bounds_check{ir_builder.CreateOr(effective_negative, partial_limit_escape)};
+                    auto needs_dynamic_bounds_check{partial_limit_escape};
                     auto current_block{ir_builder.GetInsertBlock()};
                     auto current_function{current_block == nullptr ? nullptr : current_block->getParent()};
                     if(current_function == nullptr) [[unlikely]] { return nullptr; }
@@ -8822,30 +8817,39 @@ template <llvm_jit_simd_code Op,
                     auto memory_length_load{emit_direct_memory_byte_length_value()};
                     if(memory_length_load == nullptr) [[unlikely]] { return nullptr; }
 
-                    auto effective_too_large{ir_builder.CreateICmpUGT(effective_offset, ::llvm::ConstantInt::get(llvm_i64_type, 0xffffffffull))};
+                    auto effective_too_large{emit_llvm_wasm32_effective_offset_out_of_range(ir_builder, effective_offset)};
                     auto memory_length_i64{ir_builder.CreateZExt(memory_length_load, llvm_i64_type)};
                     auto access_size_i64{::llvm::ConstantInt::get(llvm_i64_type, access_size)};
                     auto memory_too_small{ir_builder.CreateICmpULT(memory_length_i64, access_size_i64)};
                     // Same underflow-safe max-offset pattern as the full dynamic-bounds path.
                     auto max_access_offset{ir_builder.CreateSub(memory_length_i64, access_size_i64)};
                     auto access_oob{ir_builder.CreateICmpUGT(effective_offset, max_access_offset)};
-                    auto offset_out_of_range{ir_builder.CreateOr(effective_negative, effective_too_large)};
 
                     emit_llvm_conditional_memory_out_of_bounds_trap(*llvm_module,
                                                                     ir_builder,
-                                                                    ir_builder.CreateOr(offset_out_of_range, ir_builder.CreateOr(memory_too_small, access_oob)),
+                                                                    ir_builder.CreateOr(effective_too_large, ir_builder.CreateOr(memory_too_small, access_oob)),
                                                                     0uz,
                                                                     static_cast<::std::uint_least64_t>(static_cast<::std::uint_least32_t>(static_offset)),
                                                                     effective_offset,
-                                                                    offset_out_of_range,
+                                                                    effective_too_large,
                                                                     memory_length_load,
                                                                     access_size);
                     ir_builder.CreateBr(partial_continue_block);
                     ir_builder.SetInsertPoint(partial_continue_block);
                 }
+                else
+                {
+                    // Hardware guards cover every address in the Wasm32 domain, including accesses that cross the
+                    // current logical length.  They do not cover the widened u32+u32 overflow range, so reject it before
+                    // forming a native pointer that could escape the registered reservation.
+                    emit_llvm_conditional_trap(*llvm_module,
+                                               ir_builder,
+                                               emit_llvm_wasm32_effective_offset_out_of_range(ir_builder, effective_offset),
+                                               ::uwvm2::runtime::lib::llvm_jit_trap_kind::memory_out_of_bounds);
+                }
 
                 // Form the final byte pointer only after any required software checks have dominated this point.  For
-                // fully protected mmap memories, invalid addresses are intentionally left to the guard mapping.
+                // fully protected mmap memories, in-domain invalid addresses are intentionally left to the guard mapping.
                 auto memory_begin_address{ir_builder.CreatePtrToInt(stable_memory_begin, llvm_intptr_type)};
                 auto effective_offset_intptr{ir_builder.CreateIntCast(effective_offset, llvm_intptr_type, false)};
                 auto memory_address{ir_builder.CreateAdd(memory_begin_address, effective_offset_intptr, get_llvm_string_ref(u8"memory.addr.int"))};
@@ -9744,7 +9748,7 @@ template <llvm_jit_simd_code Op,
 
                 if(direct_memory_pointer != nullptr)
                 {
-                    auto const memory_alignment{get_llvm_memory_access_alignment(load_bytes, memarg_align)};
+                    auto const memory_alignment{get_llvm_wasm_memory_access_alignment(load_bytes, memarg_align)};
                     auto direct_value{emit_direct_memory_load_value(direct_memory_pointer, result_type, load_bytes, signed_load, memory_alignment)};
                     if(direct_value == nullptr) [[unlikely]] { return false; }
 
@@ -9789,7 +9793,7 @@ template <llvm_jit_simd_code Op,
 
                 if(direct_memory_pointer != nullptr)
                 {
-                    auto const memory_alignment{get_llvm_memory_access_alignment(store_bytes, memarg_align)};
+                    auto const memory_alignment{get_llvm_wasm_memory_access_alignment(store_bytes, memarg_align)};
                     return emit_direct_memory_store_value(direct_memory_pointer, value_type, value.value, store_bytes, memory_alignment) != nullptr;
                 }
             }
