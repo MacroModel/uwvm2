@@ -3841,6 +3841,42 @@ template <typename MemoryT, typename Fn>
     }
 }
 
+// Resolve the current byte length of a local-imported memory without retaining the provider's raw snapshot pointer.
+// Local-imported memories can relocate while growing, so bulk operations validate the complete range from this snapshot
+// and then perform the actual transfer through provider-owned read/write calls.  Memory can grow but cannot shrink,
+// therefore an in-bounds range remains valid after this check without exposing a stale allocation address.
+[[nodiscard]] inline constexpr bool
+    llvm_jit_local_imported_memory_byte_length(::uwvm2::uwvm::wasm::type::local_imported_t* local_imported_module,
+                                               ::std::size_t memory_index,
+                                               ::std::size_t& byte_length_out) noexcept
+{
+    if(local_imported_module == nullptr) [[unlikely]] { return false; }
+
+    ::uwvm2::uwvm::wasm::type::memory_access_snapshot_result_t snapshot{};
+    if(!local_imported_module->memory_access_snapshot_from_index(memory_index, snapshot)) [[unlikely]] { return false; }
+
+    auto const page_size_bytes_u64{local_imported_module->memory_page_size_from_index(memory_index)};
+    if(page_size_bytes_u64 == 0u) [[unlikely]] { return false; }
+    if constexpr(::std::numeric_limits<::std::size_t>::digits < ::std::numeric_limits<::std::uint_least64_t>::digits)
+    {
+        if(page_size_bytes_u64 > static_cast<::std::uint_least64_t>((::std::numeric_limits<::std::size_t>::max)())) [[unlikely]] { return false; }
+    }
+
+    auto const page_size_bytes{static_cast<::std::size_t>(page_size_bytes_u64)};
+    auto const max_page_count{(::std::numeric_limits<::std::size_t>::max)() / page_size_bytes};
+    if constexpr(::std::numeric_limits<::std::size_t>::digits < ::std::numeric_limits<::std::uint_least64_t>::digits)
+    {
+        if(snapshot.page_count > static_cast<::std::uint_least64_t>(max_page_count)) [[unlikely]] { return false; }
+    }
+    else
+    {
+        if(static_cast<::std::size_t>(snapshot.page_count) > max_page_count) [[unlikely]] { return false; }
+    }
+
+    byte_length_out = static_cast<::std::size_t>(snapshot.page_count) * page_size_bytes;
+    return true;
+}
+
 inline constexpr void llvm_jit_memory_copy_bridge(::std::uintptr_t memory_address,
                                                   runtime_wasm_i32 dst_i32,
                                                   runtime_wasm_i32 src_i32,
@@ -3933,6 +3969,104 @@ inline constexpr void llvm_jit_memory_fill_bridge(::std::uintptr_t memory_addres
                                                          }));
 }
 
+// Local-imported memory.copy bridge.  A fixed staging buffer keeps the provider's lock/snapshot discipline inside each
+// read/write call.  Copy direction is selected exactly like memmove so overlapping ranges retain WebAssembly semantics.
+inline constexpr void llvm_jit_local_imported_memory_copy_bridge(::std::uintptr_t local_imported_module_address,
+                                                                 ::std::size_t memory_index,
+                                                                 runtime_wasm_i32 dst_i32,
+                                                                 runtime_wasm_i32 src_i32,
+                                                                 runtime_wasm_i32 len_i32) noexcept
+{
+    auto local_imported_module{reinterpret_cast<::uwvm2::uwvm::wasm::type::local_imported_t*>(local_imported_module_address)};
+    auto const dst{static_cast<::std::size_t>(llvm_jit_wasm_i32_bits_to_u32(dst_i32))};
+    auto const src{static_cast<::std::size_t>(llvm_jit_wasm_i32_bits_to_u32(src_i32))};
+    auto const len{static_cast<::std::size_t>(llvm_jit_wasm_i32_bits_to_u32(len_i32))};
+
+    ::std::size_t memory_length{};
+    if(!llvm_jit_local_imported_memory_byte_length(local_imported_module, memory_index, memory_length) ||
+       llvm_jit_bulk_memory_range_oob(src, len, memory_length) || llvm_jit_bulk_memory_range_oob(dst, len, memory_length)) [[unlikely]]
+    {
+        llvm_jit_memory_bridge_trap();
+        return;
+    }
+    if(len == 0uz) { return; }
+
+    constexpr ::std::size_t staging_capacity{4096uz};
+    ::std::byte staging[staging_capacity]{};
+    if(dst > src && dst - src < len)
+    {
+        // The destination begins inside the source range: walk backwards so a completed write cannot clobber a later read.
+        ::std::size_t remaining{len};
+        while(remaining != 0uz)
+        {
+            auto const chunk_size{remaining < staging_capacity ? remaining : staging_capacity};
+            auto const chunk_offset{remaining - chunk_size};
+            if(!local_imported_module->memory_read_from_index(memory_index, src + chunk_offset, staging, chunk_size) ||
+               !local_imported_module->memory_write_to_index(memory_index, dst + chunk_offset, staging, chunk_size)) [[unlikely]]
+            {
+                llvm_jit_memory_bridge_trap();
+                return;
+            }
+            remaining = chunk_offset;
+        }
+        return;
+    }
+
+    // Forward copying covers non-overlap and the case where the destination begins before the source.
+    ::std::size_t copied{};
+    while(copied != len)
+    {
+        auto const remaining{len - copied};
+        auto const chunk_size{remaining < staging_capacity ? remaining : staging_capacity};
+        if(!local_imported_module->memory_read_from_index(memory_index, src + copied, staging, chunk_size) ||
+           !local_imported_module->memory_write_to_index(memory_index, dst + copied, staging, chunk_size)) [[unlikely]]
+        {
+            llvm_jit_memory_bridge_trap();
+            return;
+        }
+        copied += chunk_size;
+    }
+}
+
+// Local-imported memory.fill bridge.  Validate the complete destination range before the first provider write so an
+// out-of-bounds instruction cannot leave a partially filled memory.
+inline constexpr void llvm_jit_local_imported_memory_fill_bridge(::std::uintptr_t local_imported_module_address,
+                                                                 ::std::size_t memory_index,
+                                                                 runtime_wasm_i32 dst_i32,
+                                                                 runtime_wasm_i32 value_i32,
+                                                                 runtime_wasm_i32 len_i32) noexcept
+{
+    auto local_imported_module{reinterpret_cast<::uwvm2::uwvm::wasm::type::local_imported_t*>(local_imported_module_address)};
+    auto const dst{static_cast<::std::size_t>(llvm_jit_wasm_i32_bits_to_u32(dst_i32))};
+    auto const value{static_cast<int>(static_cast<unsigned char>(llvm_jit_wasm_i32_bits_to_u32(value_i32)))};
+    auto const len{static_cast<::std::size_t>(llvm_jit_wasm_i32_bits_to_u32(len_i32))};
+
+    ::std::size_t memory_length{};
+    if(!llvm_jit_local_imported_memory_byte_length(local_imported_module, memory_index, memory_length) ||
+       llvm_jit_bulk_memory_range_oob(dst, len, memory_length)) [[unlikely]]
+    {
+        llvm_jit_memory_bridge_trap();
+        return;
+    }
+    if(len == 0uz) { return; }
+
+    constexpr ::std::size_t staging_capacity{4096uz};
+    ::std::byte staging[staging_capacity]{};
+    ::std::memset(staging, value, staging_capacity);
+    ::std::size_t filled{};
+    while(filled != len)
+    {
+        auto const remaining{len - filled};
+        auto const chunk_size{remaining < staging_capacity ? remaining : staging_capacity};
+        if(!local_imported_module->memory_write_to_index(memory_index, dst + filled, staging, chunk_size)) [[unlikely]]
+        {
+            llvm_jit_memory_bridge_trap();
+            return;
+        }
+        filled += chunk_size;
+    }
+}
+
 // Drop one data instance without routing the complete function through the interpreter.  The module address is stable
 // for the lifetime of generated code and the data index has already been checked by the authoritative wasm2 validator.
 inline constexpr void llvm_jit_data_drop_bridge(::std::uintptr_t runtime_module_address, runtime_wasm_u32 data_index) noexcept
@@ -4004,6 +4138,57 @@ inline constexpr void llvm_jit_memory_init_bridge(::std::uintptr_t memory_addres
                                                              }
                                                              return true;
                                                          }));
+}
+
+// Local-imported memory.init bridge.  The passive data instance remains owned by the importing runtime module, while the
+// destination provider owns the actual memory write.  Source and destination ranges are both validated before the
+// provider is called; after data.drop the source length is zero, preserving the WebAssembly data-instance semantics.
+inline constexpr void llvm_jit_local_imported_memory_init_bridge(::std::uintptr_t local_imported_module_address,
+                                                                 ::std::size_t memory_index,
+                                                                 ::std::uintptr_t runtime_module_address,
+                                                                 runtime_wasm_u32 data_index,
+                                                                 runtime_wasm_i32 dst_i32,
+                                                                 runtime_wasm_i32 src_i32,
+                                                                 runtime_wasm_i32 len_i32) noexcept
+{
+    auto local_imported_module{reinterpret_cast<::uwvm2::uwvm::wasm::type::local_imported_t*>(local_imported_module_address)};
+    auto runtime_module{reinterpret_cast<runtime_module_storage_t*>(runtime_module_address)};
+    auto const dst{static_cast<::std::size_t>(llvm_jit_wasm_i32_bits_to_u32(dst_i32))};
+    auto const src{static_cast<::std::size_t>(llvm_jit_wasm_i32_bits_to_u32(src_i32))};
+    auto const len{static_cast<::std::size_t>(llvm_jit_wasm_i32_bits_to_u32(len_i32))};
+
+    if(local_imported_module == nullptr || runtime_module == nullptr ||
+       static_cast<::std::size_t>(data_index) >= runtime_module->local_defined_data_vec_storage.size()) [[unlikely]]
+    {
+        llvm_jit_memory_bridge_trap();
+        return;
+    }
+
+    auto const& data{runtime_module->local_defined_data_vec_storage.index_unchecked(static_cast<::std::size_t>(data_index)).data};
+    auto const data_begin{data.byte_begin};
+    auto const data_end{data.byte_end};
+    if((data_begin == nullptr) != (data_end == nullptr)) [[unlikely]] { ::fast_io::fast_terminate(); }
+    auto const data_length{data_begin == nullptr ? 0uz : static_cast<::std::size_t>(data_end - data_begin)};
+    if(llvm_jit_bulk_memory_range_oob(src, len, data_length)) [[unlikely]]
+    {
+        llvm_jit_memory_bridge_trap();
+        return;
+    }
+
+    ::std::size_t memory_length{};
+    if(!llvm_jit_local_imported_memory_byte_length(local_imported_module, memory_index, memory_length) ||
+       llvm_jit_bulk_memory_range_oob(dst, len, memory_length)) [[unlikely]]
+    {
+        llvm_jit_memory_bridge_trap();
+        return;
+    }
+    if(len == 0uz) { return; }
+
+    if(data_begin == nullptr || !local_imported_module->memory_write_to_index(memory_index, dst, data_begin + src, len)) [[unlikely]]
+    {
+        llvm_jit_memory_bridge_trap();
+        return;
+    }
 }
 
 // Reference/table bridge helpers keep the generated ABI target-independent. LLVM holds a reference as opaque integer
@@ -9836,6 +10021,56 @@ template <llvm_jit_simd_code Op,
             return emit_runtime_bridge_call.template operator()<llvm_jit_memory_fill_bridge>(bridge_function_type, {memory_address, dst, value, len});
         }};
 
+    auto const emit_local_imported_memory_copy_bridge_call{
+        [&](::llvm::Value* dst, ::llvm::Value* src, ::llvm::Value* len) constexpr noexcept -> ::llvm::CallInst*
+        {
+            if(!ensure_memory0_access_info() || memory0_access_info.local_imported_module_ptr == nullptr || dst == nullptr || src == nullptr || len == nullptr)
+                [[unlikely]]
+            {
+                return nullptr;
+            }
+
+            auto llvm_void_type{::llvm::Type::getVoidTy(llvm_context)};
+            auto llvm_i32_type{::llvm::Type::getInt32Ty(llvm_context)};
+            auto llvm_intptr_type{::llvm::Type::getIntNTy(llvm_context, static_cast<unsigned>(sizeof(::std::uintptr_t) * 8u))};
+            auto bridge_function_type{
+                ::llvm::FunctionType::get(llvm_void_type, {llvm_intptr_type, llvm_intptr_type, llvm_i32_type, llvm_i32_type, llvm_i32_type}, false)};
+            auto module_address{emit_local_imported_memory_module_address()};
+            if(module_address == nullptr) [[unlikely]] { return nullptr; }
+            return emit_runtime_bridge_call.template operator()<llvm_jit_local_imported_memory_copy_bridge>(
+                bridge_function_type,
+                {module_address,
+                 ::llvm::ConstantInt::get(llvm_intptr_type, memory0_access_info.local_imported_memory_index),
+                 dst,
+                 src,
+                 len});
+        }};
+
+    auto const emit_local_imported_memory_fill_bridge_call{
+        [&](::llvm::Value* dst, ::llvm::Value* value, ::llvm::Value* len) constexpr noexcept -> ::llvm::CallInst*
+        {
+            if(!ensure_memory0_access_info() || memory0_access_info.local_imported_module_ptr == nullptr || dst == nullptr || value == nullptr || len == nullptr)
+                [[unlikely]]
+            {
+                return nullptr;
+            }
+
+            auto llvm_void_type{::llvm::Type::getVoidTy(llvm_context)};
+            auto llvm_i32_type{::llvm::Type::getInt32Ty(llvm_context)};
+            auto llvm_intptr_type{::llvm::Type::getIntNTy(llvm_context, static_cast<unsigned>(sizeof(::std::uintptr_t) * 8u))};
+            auto bridge_function_type{
+                ::llvm::FunctionType::get(llvm_void_type, {llvm_intptr_type, llvm_intptr_type, llvm_i32_type, llvm_i32_type, llvm_i32_type}, false)};
+            auto module_address{emit_local_imported_memory_module_address()};
+            if(module_address == nullptr) [[unlikely]] { return nullptr; }
+            return emit_runtime_bridge_call.template operator()<llvm_jit_local_imported_memory_fill_bridge>(
+                bridge_function_type,
+                {module_address,
+                 ::llvm::ConstantInt::get(llvm_intptr_type, memory0_access_info.local_imported_memory_index),
+                 dst,
+                 value,
+                 len});
+        }};
+
     auto const emit_memory_copy_call{[&]() constexpr noexcept -> bool
                                      {
                                          if(operand_stack.size() < 3uz) [[unlikely]] { return false; }
@@ -9853,7 +10088,12 @@ template <llvm_jit_simd_code Op,
                                              return false;
                                          }
 
-                                         return emit_native_memory_copy_bridge_call(dst.value, src.value, len.value) != nullptr;
+                                         if(!ensure_memory0_access_info()) [[unlikely]] { return false; }
+                                         if(memory0_access_info.memory_p != nullptr)
+                                         {
+                                             return emit_native_memory_copy_bridge_call(dst.value, src.value, len.value) != nullptr;
+                                         }
+                                         return emit_local_imported_memory_copy_bridge_call(dst.value, src.value, len.value) != nullptr;
                                      }};
 
     auto const emit_memory_fill_call{[&]() constexpr noexcept -> bool
@@ -9873,7 +10113,12 @@ template <llvm_jit_simd_code Op,
                                              return false;
                                          }
 
-                                         return emit_native_memory_fill_bridge_call(dst.value, value.value, len.value) != nullptr;
+                                         if(!ensure_memory0_access_info()) [[unlikely]] { return false; }
+                                         if(memory0_access_info.memory_p != nullptr)
+                                         {
+                                             return emit_native_memory_fill_bridge_call(dst.value, value.value, len.value) != nullptr;
+                                         }
+                                         return emit_local_imported_memory_fill_bridge_call(dst.value, value.value, len.value) != nullptr;
                                      }};
 
     auto const emit_data_drop_call{[&](validation_module_traits_t::wasm_u32 data_index) constexpr noexcept -> bool
@@ -9898,8 +10143,7 @@ template <llvm_jit_simd_code Op,
 
     auto const emit_memory_init_call{[&](validation_module_traits_t::wasm_u32 data_index) constexpr noexcept -> bool
                                      {
-                                         if(!ensure_memory0_access_info() || memory0_access_info.memory_p == nullptr || operand_stack.size() < 3uz)
-                                             [[unlikely]]
+                                         if(!ensure_memory0_access_info() || operand_stack.size() < 3uz) [[unlikely]]
                                          {
                                              return false;
                                          }
@@ -9917,14 +10161,45 @@ template <llvm_jit_simd_code Op,
                                              return false;
                                          }
 
-                                         auto memory_address{emit_native_memory_object_address()};
                                          auto module_address{emit_runtime_module_object_address()};
-                                         if(memory_address == nullptr || module_address == nullptr) [[unlikely]] { return false; }
+                                         if(module_address == nullptr) [[unlikely]] { return false; }
 
                                          auto llvm_void_type{::llvm::Type::getVoidTy(llvm_context)};
                                          auto llvm_i32_type{::llvm::Type::getInt32Ty(llvm_context)};
                                          auto llvm_intptr_type{
                                              ::llvm::Type::getIntNTy(llvm_context, static_cast<unsigned>(sizeof(::std::uintptr_t) * 8u))};
+
+                                         if(memory0_access_info.local_imported_module_ptr != nullptr)
+                                         {
+                                             auto local_imported_module_address{emit_local_imported_memory_module_address()};
+                                             if(local_imported_module_address == nullptr) [[unlikely]] { return false; }
+
+                                             auto bridge_function_type{::llvm::FunctionType::get(
+                                                 llvm_void_type,
+                                                 {llvm_intptr_type,
+                                                  llvm_intptr_type,
+                                                  llvm_intptr_type,
+                                                  llvm_i32_type,
+                                                  llvm_i32_type,
+                                                  llvm_i32_type,
+                                                  llvm_i32_type},
+                                                 false)};
+                                             ::llvm::Value* bridge_arguments[]{
+                                                 local_imported_module_address,
+                                                 ::llvm::ConstantInt::get(llvm_intptr_type, memory0_access_info.local_imported_memory_index),
+                                                 module_address,
+                                                 ::llvm::ConstantInt::get(llvm_i32_type, data_index),
+                                                 dst.value,
+                                                 src.value,
+                                                 len.value};
+                                             return emit_runtime_local_func_llvm_jit_runtime_bridge_call<&llvm_jit_local_imported_memory_init_bridge>(
+                                                        state,
+                                                        bridge_function_type,
+                                                        {bridge_arguments}) != nullptr;
+                                         }
+
+                                         auto memory_address{emit_native_memory_object_address()};
+                                         if(memory_address == nullptr) [[unlikely]] { return false; }
                                          auto bridge_function_type{::llvm::FunctionType::get(
                                              llvm_void_type,
                                              {llvm_intptr_type, llvm_intptr_type, llvm_i32_type, llvm_i32_type, llvm_i32_type, llvm_i32_type},
