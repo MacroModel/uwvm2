@@ -69,6 +69,7 @@
 # include <uwvm2/utils/thread/impl.h>
 # include <uwvm2/parser/wasm/base/impl.h>
 # include <uwvm2/parser/wasm/standard/wasm1/impl.h>
+# include <uwvm2/parser/wasm/standard/wasm1p1/features/call_indirect_immediate.h>
 # include <uwvm2/parser/wasm/binfmt/binfmt_ver1/impl.h>
 # include <uwvm2/validation/error/impl.h>
 # include <uwvm2/validation/standard/wasm1/impl.h>
@@ -763,11 +764,47 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
             ::uwvm2::runtime::llvm_jit_cache::details::append_cache_key_value(policy, u8"tune-cpu", target_config.tune_cpu_name);
         }
 
+        struct call_indirect_scan_policy_t
+        {
+            bool mvp_reserved_byte{};
+        };
+
+        [[nodiscard]] inline constexpr call_indirect_scan_policy_t
+            get_call_indirect_scan_policy(parser_feature_parameter_t const* validator_feature_parameter) noexcept
+        {
+            parser_feature_parameter_t const default_validator_feature_parameter{};
+            auto const& effective_validator_feature_parameter{
+                validator_feature_parameter == nullptr ? default_validator_feature_parameter : *validator_feature_parameter};
+            auto const& wasm1p1_para{
+                ::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(effective_validator_feature_parameter)};
+            return {.mvp_reserved_byte =
+                        ::uwvm2::parser::wasm::standard::wasm1p1::features::uses_mvp_call_indirect_reserved_byte(wasm1p1_para)};
+        }
+
+        [[nodiscard]] inline constexpr bool parse_call_indirect_table_index_for_scan(
+            ::std::byte const*& code_curr,
+            ::std::byte const* code_end,
+            parser_feature_parameter_t const* validator_feature_parameter,
+            all_details::validation_module_traits_t::wasm_u32& table_index) noexcept
+        {
+            auto const policy{get_call_indirect_scan_policy(validator_feature_parameter)};
+            // The scanner caller has already consumed and validated the opcode/type-index prefix; this wrapper commits
+            // only the trailing immediate. On success the complete trailing immediate has been consumed:
+            // call_indirect type_index table_index ...
+            // [                safe              ] unsafe (could be the section_end)
+            //                                      ^^ code_curr
+            // On failure the shared decoder leaves code_curr at its original trailing-immediate position.
+            return ::uwvm2::parser::wasm::standard::wasm1p1::features::parse_call_indirect_trailing_immediate(
+                code_curr, code_end, policy.mvp_reserved_byte, table_index);
+        }
+
         // Advances over one Wasm instruction while scanning for direct `call` opcodes.  Structured control opcodes need
-        // special handling because their block-result immediate is parsed by a different helper.
+        // special handling because their block-result immediate is parsed by a different helper.  On failure code_curr
+        // may already be past the opcode and a validated immediate prefix; this scanner does not restore instruction start.
         [[nodiscard]] inline constexpr bool skip_wasm_instruction_for_direct_call_scan(runtime_module_storage_t const& curr_module,
                                                                                        ::std::byte const*& code_curr,
-                                                                                       ::std::byte const* code_end) noexcept
+                                                                                       ::std::byte const* code_end,
+                                                                                       parser_feature_parameter_t const* validator_feature_parameter) noexcept
         {
             if(code_curr == code_end) [[unlikely]] { return false; }
 
@@ -785,7 +822,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                 }
                 default:
                 {
-                    return all_details::skip_wasm_unreachable_noncontrol_instruction(code_curr, code_end);
+                    auto const policy{get_call_indirect_scan_policy(validator_feature_parameter)};
+                    return all_details::skip_wasm_unreachable_noncontrol_instruction(code_curr,
+                                                                                     code_end,
+                                                                                     policy.mvp_reserved_byte);
                 }
             }
         }
@@ -801,7 +841,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
         // calls and calls to imports are not grouped because they do not identify a single local materialization target.
         [[nodiscard]] inline constexpr bool collect_direct_defined_callees(runtime_module_storage_t const& curr_module,
                                                                            ::std::size_t local_function_index,
-                                                                           ::uwvm2::utils::container::vector<::std::size_t>& callees) noexcept
+                                                                           ::uwvm2::utils::container::vector<::std::size_t>& callees,
+                                                                           parser_feature_parameter_t const* validator_feature_parameter) noexcept
         {
             callees.clear();
             if(local_function_index >= curr_module.local_defined_function_vec_storage.size()) [[unlikely]] { return false; }
@@ -835,7 +876,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                     continue;
                 }
 
-                if(!skip_wasm_instruction_for_direct_call_scan(curr_module, code_curr, code_end)) [[unlikely]] { return false; }
+                if(!skip_wasm_instruction_for_direct_call_scan(curr_module, code_curr, code_end, validator_feature_parameter)) [[unlikely]]
+                {
+                    return false;
+                }
             }
 
             return true;
@@ -869,7 +913,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
 
         [[nodiscard]] inline constexpr bool collect_unwind_defined_callees(runtime_module_storage_t const& curr_module,
                                                                            ::std::size_t local_function_index,
-                                                                           ::uwvm2::utils::container::vector<::std::size_t>& callees) noexcept
+                                                                           ::uwvm2::utils::container::vector<::std::size_t>& callees,
+                                                                           parser_feature_parameter_t const* validator_feature_parameter) noexcept
         {
             callees.clear();
             if(local_function_index >= curr_module.local_defined_function_vec_storage.size()) [[unlikely]] { return false; }
@@ -910,10 +955,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                     all_details::validation_module_traits_t::wasm_u32 type_index{};
                     all_details::validation_module_traits_t::wasm_u32 table_index{};
                     if(!all_details::parse_wasm_leb128_immediate(code_curr, code_end, type_index) ||
-                       !all_details::parse_wasm_leb128_immediate(code_curr, code_end, table_index)) [[unlikely]]
+                       !parse_call_indirect_table_index_for_scan(code_curr, code_end, validator_feature_parameter, table_index)) [[unlikely]]
                     {
+                        // The failing immediate itself is not committed.  A preceding type index may already be consumed,
+                        // and this scanner intentionally does not restore code_curr to the call_indirect opcode.
                         return false;
                     }
+
+                    // call_indirect type_index table_index ...
+                    // [                safe              ] unsafe (could be the section_end)
+                    //                                      ^^ code_curr
 
                     if(static_cast<::std::size_t>(table_index) >= all_table_count) [[unlikely]] { return false; }
                     // Native unwind mode must not discover a table target by entering the lazy raw trampoline from an
@@ -923,7 +974,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                     continue;
                 }
 
-                if(!skip_wasm_instruction_for_direct_call_scan(curr_module, code_curr, code_end)) [[unlikely]] { return false; }
+                if(!skip_wasm_instruction_for_direct_call_scan(curr_module, code_curr, code_end, validator_feature_parameter)) [[unlikely]]
+                {
+                    return false;
+                }
             }
 
             return true;
@@ -1423,7 +1477,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
         inline constexpr void collect_lazy_direct_call_group(runtime_module_storage_t const& curr_module,
                                                              lazy_module_storage_t& storage,
                                                              ::std::size_t entry_local_function_index,
-                                                             ::uwvm2::utils::container::vector<::std::size_t>& out) noexcept
+                                                             ::uwvm2::utils::container::vector<::std::size_t>& out,
+                                                             parser_feature_parameter_t const* validator_feature_parameter) noexcept
         {
             constexpr ::std::size_t group_function_budget{16uz};
             constexpr ::std::size_t group_code_size_budget{8uz * 1024uz};
@@ -1438,7 +1493,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
             for(::std::size_t cursor{}; cursor < out.size() && out.size() < group_function_budget && total_code_size < group_code_size_budget; ++cursor)
             {
                 callees.clear();
-                if(!collect_direct_defined_callees(curr_module, out.index_unchecked(cursor), callees)) { continue; }
+                if(!collect_direct_defined_callees(curr_module, out.index_unchecked(cursor), callees, validator_feature_parameter)) { continue; }
 
                 for(auto remaining{callees.size()}; remaining != 0uz && out.size() < group_function_budget && total_code_size < group_code_size_budget;)
                 {
@@ -1467,7 +1522,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
         inline constexpr void collect_lazy_unwind_direct_call_group(runtime_module_storage_t const& curr_module,
                                                                     lazy_module_storage_t& storage,
                                                                     ::std::size_t entry_local_function_index,
-                                                                    ::uwvm2::utils::container::vector<::std::size_t>& out) noexcept
+                                                                    ::uwvm2::utils::container::vector<::std::size_t>& out,
+                                                                    parser_feature_parameter_t const* validator_feature_parameter) noexcept
         {
             out.clear();
             auto const local_count{curr_module.local_defined_function_vec_storage.size()};
@@ -1489,7 +1545,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                 out.push_back(local_index);
 
                 callees.clear();
-                if(!collect_unwind_defined_callees(curr_module, local_index, callees)) { continue; }
+                if(!collect_unwind_defined_callees(curr_module, local_index, callees, validator_feature_parameter)) { continue; }
 
                 for(auto remaining{callees.size()}; remaining != 0uz;)
                 {
@@ -1515,7 +1571,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
             ::uwvm2::utils::container::vector<::std::size_t> candidate_group{};
             if(options.compile_options.emit_unwind_call_stack_frames)
             {
-                collect_lazy_unwind_direct_call_group(curr_module, storage, entry_local_function_index, candidate_group);
+                collect_lazy_unwind_direct_call_group(
+                    curr_module, storage, entry_local_function_index, candidate_group, options.validator_feature_parameter);
             }
             else if(lazy_llvm_jit_object_cache_policy().enable)
             {
@@ -1525,7 +1582,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
             }
             else
             {
-                collect_lazy_direct_call_group(curr_module, storage, entry_local_function_index, candidate_group);
+                collect_lazy_direct_call_group(
+                    curr_module, storage, entry_local_function_index, candidate_group, options.validator_feature_parameter);
             }
             if(candidate_group.empty()) { candidate_group.push_back(entry_local_function_index); }
 
@@ -1864,8 +1922,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
     // Public wrapper for direct-callee discovery, primarily used by runtime prefetch/tiering heuristics.
     [[nodiscard]] inline constexpr bool collect_direct_defined_callees(runtime_module_storage_t const& curr_module,
                                                                        ::std::size_t local_function_index,
-                                                                       ::uwvm2::utils::container::vector<::std::size_t>& callees) noexcept
-    { return details::collect_direct_defined_callees(curr_module, local_function_index, callees); }
+                                                                       ::uwvm2::utils::container::vector<::std::size_t>& callees,
+                                                                       parser_feature_parameter_t const* validator_feature_parameter) noexcept
+    { return details::collect_direct_defined_callees(curr_module, local_function_index, callees, validator_feature_parameter); }
 
     // Synchronously compiles the compile unit identified by `compile_unit_index`.  Invalid indices and failed
     // materialization are fatal because callers use this path when execution cannot proceed without native code.

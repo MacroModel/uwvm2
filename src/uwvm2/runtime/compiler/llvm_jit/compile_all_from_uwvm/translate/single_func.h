@@ -1151,6 +1151,8 @@ namespace details
             {
                 return ::uwvm2::parser::wasm::standard::wasm2::features::feature_enabled(wasm1p1_para, feature);
             }};
+        llvm_jit_emit_state.mvp_call_indirect_reserved_byte =
+            ::uwvm2::parser::wasm::standard::wasm1p1::features::uses_mvp_call_indirect_reserved_byte(wasm1p1_para);
 
         auto const opcode_byte{[](wasm1p1_code opcode) constexpr noexcept -> validation_module_traits_t::wasm_u32
                                { return static_cast<validation_module_traits_t::wasm_u32>(static_cast<::std::uint_least8_t>(opcode)); }};

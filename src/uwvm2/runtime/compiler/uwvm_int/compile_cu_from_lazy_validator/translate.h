@@ -43,6 +43,7 @@
 # include <uwvm2/utils/thread/impl.h>
 # include <uwvm2/parser/wasm/base/impl.h>
 # include <uwvm2/parser/wasm/standard/wasm1/impl.h>
+# include <uwvm2/parser/wasm/standard/wasm1p1/features/call_indirect_immediate.h>
 # include <uwvm2/parser/wasm/standard/wasm2/features/impl.h>
 # include <uwvm2/validation/error/impl.h>
 # include <uwvm2/validation/standard/wasm1/impl.h>
@@ -805,7 +806,32 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                 case wasm1_code::call_indirect:
                 {
                     (void)read_leb128_immediate<wasm_u32>(code_curr, code_end, op_begin, code_validation_error_code::invalid_type_index, err);
-                    (void)read_table_index(static_cast<wasm_u32>(static_cast<wasm_byte>(wasm1_code::call_indirect)));
+                    auto const mvp_reserved_zero_byte{
+                        ::uwvm2::parser::wasm::standard::wasm1p1::features::uses_mvp_call_indirect_reserved_byte(wasm1p1_para)};
+                    wasm_u32 table_index{};
+                    if(!::uwvm2::parser::wasm::standard::wasm1p1::features::parse_call_indirect_trailing_immediate(
+                           code_curr, code_end, mvp_reserved_zero_byte, table_index)) [[unlikely]]
+                    {
+                        // The transactional decoder leaves code_curr at the trailing-immediate start on failure.
+                        // The splitter has already consumed the opcode and type index and does not rewind the whole instruction.
+                        fail_lazy_split(op_begin, code_validation_error_code::invalid_table_index, err);
+                    }
+
+                    // Reference Types/Core 2.0 keep the u32 grammar even when policy restricts the decoded value to zero.
+                    if(!mvp_reserved_zero_byte && !wasm2_feature_enabled(wasm2_feature_kind::multiple_tables) && table_index != 0u)
+                        [[unlikely]]
+                    {
+                        fail_lazy_wasm2_feature_required(
+                            op_begin,
+                            err,
+                            static_cast<wasm_u32>(static_cast<wasm_byte>(wasm1_code::call_indirect)),
+                            ::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables,
+                            ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
+                    }
+
+                    // call_indirect type_index table_index ...
+                    // [                safe              ] unsafe (could be the section_end)
+                    //                                      ^^ code_curr
                     return;
                 }
                 case wasm1_code::local_get:

@@ -5108,8 +5108,11 @@ struct llvm_jit_branch_target_t
 }
 
 // Advance over a non-control instruction while the current structured context is unreachable.  This avoids emitting IR for
-// dead code while still honoring nested block/else/end boundaries in the dispatcher.
-[[nodiscard]] inline constexpr bool skip_wasm_unreachable_noncontrol_instruction(::std::byte const*& code_curr, ::std::byte const* code_end) noexcept
+// dead code while still honoring nested block/else/end boundaries in the dispatcher.  On failure code_curr may already be
+// past the opcode and any validated immediate prefix; this scanner does not roll back the whole instruction.
+[[nodiscard]] inline constexpr bool skip_wasm_unreachable_noncontrol_instruction(::std::byte const*& code_curr,
+                                                                                  ::std::byte const* code_end,
+                                                                                  bool mvp_call_indirect_reserved_byte) noexcept
 {
     if(code_curr == code_end) [[unlikely]] { return false; }
 
@@ -5144,7 +5147,19 @@ struct llvm_jit_branch_target_t
             ++code_curr;
             validation_module_traits_t::wasm_u32 type_index{};
             validation_module_traits_t::wasm_u32 table_index{};
-            return parse_wasm_leb128_immediate(code_curr, code_end, type_index) && parse_wasm_leb128_immediate(code_curr, code_end, table_index);
+            if(!parse_wasm_leb128_immediate(code_curr, code_end, type_index) ||
+               !::uwvm2::parser::wasm::standard::wasm1p1::features::parse_call_indirect_trailing_immediate(
+                   code_curr, code_end, mvp_call_indirect_reserved_byte, table_index)) [[unlikely]]
+            {
+                // Each decoder commits code_curr only on success: a bad type leaves it just after the opcode, while a bad
+                // trailing immediate leaves it just after the validated type. The scanner never restores the opcode.
+                return false;
+            }
+
+            // call_indirect type_index table_index ...
+            // [                safe              ] unsafe (could be the section_end)
+            //                                      ^^ code_curr
+            return true;
         }
         case wasm1_code::br_table:
         {
@@ -5256,8 +5271,12 @@ struct runtime_local_func_llvm_jit_emit_state_t
     // Enables runtime logical call-stack push/pop around public Wasm entries.
     bool emit_call_stack_frames{true};
 
-    // Enables DWARF/unwind metadata so optimized native frames can be mapped back to Wasm frames.
+    // Enables native unwind metadata so concrete generated frames can be mapped back to Wasm frames.
     bool emit_unwind_call_stack_frames{};
+
+    // Instruction-boundary scanners must distinguish Core 1.0's literal 0x00
+    // from the u32 table index used by Reference Types and Core 2.0.
+    bool mvp_call_indirect_reserved_byte{};
 
     // Runtime local-function storage being compiled.
     local_func_storage_t const* local_func_storage_ptr{};
@@ -10582,7 +10601,12 @@ template <llvm_jit_simd_code Op,
             }
             [[unlikely]] default:
             {
-                if(!skip_wasm_unreachable_noncontrol_instruction(code_curr, code_end)) [[unlikely]] { return false; }
+                if(!skip_wasm_unreachable_noncontrol_instruction(code_curr,
+                                                                 code_end,
+                                                                 state.mvp_call_indirect_reserved_byte)) [[unlikely]]
+                {
+                    return false;
+                }
                 return code_curr == code_end;
             }
         }
