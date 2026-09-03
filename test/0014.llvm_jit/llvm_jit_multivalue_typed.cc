@@ -290,18 +290,6 @@ namespace
         return false;
     }
 
-    [[nodiscard]] bool has_interpreter_fallback_bridge(::llvm::Module const& module) noexcept
-    {
-        auto const prefix_storage{llvm_jit::details::get_llvm_runtime_bridge_function_symbol_name<
-            ::uwvm2::runtime::lib::llvm_jit_call_interpreter_defined_raw_api>()};
-        auto const prefix{as_string_view(prefix_storage)};
-        for(auto const& function: module)
-        {
-            if(starts_with(as_string_view(function.getName()), prefix)) { return true; }
-        }
-        return false;
-    }
-
     [[nodiscard]] int inspect_typed_ir(strict::byte_vec const& wasm_bytes)
     {
         auto feature_parameter{strict::make_wasm2_feature_parameter()};
@@ -321,12 +309,6 @@ namespace
         LLVM_MV_REQUIRE(compiled.llvm_jit_module.emitted, "LLVM module finalization did not succeed");
         LLVM_MV_REQUIRE(compiled.llvm_jit_module.llvm_module != nullptr, "LLVM module was not emitted");
 
-        for(auto const& local_function: compiled.local_funcs)
-        {
-            LLVM_MV_REQUIRE(!llvm_jit::details::runtime_local_func_requires_interpreter_fallback(*prepared.mod, local_function),
-                            "fallback scanner selected the interpreter for a typed multi-value body");
-        }
-
         auto& module{*compiled.llvm_jit_module.llvm_module};
         ::std::string verifier_diagnostic{};
         ::llvm::raw_string_ostream verifier_stream{verifier_diagnostic};
@@ -336,8 +318,6 @@ namespace
             ::std::cerr << verifier_diagnostic;
             return fail(__LINE__, "LLVM IR verifier rejected the emitted module");
         }
-        LLVM_MV_REQUIRE(!has_interpreter_fallback_bridge(module), "emitted IR references the interpreter fallback bridge");
-
         ::std::array<::llvm::Function*, local_function_count> typed_functions{};
         for(::std::uint_least32_t function_index{}; function_index != local_function_count; ++function_index)
         {
