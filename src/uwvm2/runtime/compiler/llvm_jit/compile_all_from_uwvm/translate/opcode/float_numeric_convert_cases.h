@@ -194,9 +194,8 @@ case wasm1_code::f64_trunc:
 }
 
 // f32.nearest / f64.nearest
-// Stack effect: (fN) -> (fN).  Round to the nearest integral floating-point value with the
-// WebAssembly nearest/ties-to-even semantics represented through LLVM `rint`, keeping the
-// operation intrinsic and overloaded on the original operand type.
+// Stack effect: (fN) -> (fN).  LLVM `roundeven` encodes WebAssembly's fixed ties-to-even
+// semantics without observing the host floating-point rounding mode.
 case wasm1_code::f32_nearest:
 case wasm1_code::f64_nearest:
 {
@@ -223,7 +222,7 @@ case wasm1_code::f64_nearest:
 
                    ::llvm::Type* overloaded_types[]{operand.value->getType()};
                    ::llvm::Value* arguments[]{operand.value};
-                   return call_llvm_intrinsic(*llvm_module, ir_builder, ::llvm::Intrinsic::rint, overloaded_types, arguments);
+                   return call_llvm_intrinsic(*llvm_module, ir_builder, get_llvm_wasm_nearest_intrinsic_id(), overloaded_types, arguments);
                })) [[unlikely]]
         {
             disable_inline_llvm_jit_emission();
