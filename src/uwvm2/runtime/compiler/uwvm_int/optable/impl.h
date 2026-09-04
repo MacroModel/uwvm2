@@ -30,7 +30,6 @@
 # include "constop.h"
 # include "control.h"
 # include "convert.h"
-# include "lazy.h"
 # include "memory.h"
 # include "numeric.h"
 # include "stack.h"

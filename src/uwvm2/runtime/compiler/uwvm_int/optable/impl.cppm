@@ -33,7 +33,6 @@ export import :compare;
 export import :constop;
 export import :control;
 export import :convert;
-export import :lazy;
 export import :memory;
 export import :wasm1p1;
 export import :numeric;
