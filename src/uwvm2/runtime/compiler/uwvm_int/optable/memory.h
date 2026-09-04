@@ -23,12 +23,15 @@
 
 #ifndef UWVM_MODULE
 // std
+# include <atomic>
+# include <concepts>
 # include <cstddef>
 # include <cstdint>
 # include <cstring>
 # include <bit>
 # include <limits>
 # include <memory>
+# include <type_traits>
 // macro
 # include <uwvm2/utils/macro/push_macros.h>
 # include <uwvm2/runtime/compiler/uwvm_int/macro/push_macros.h>
@@ -212,7 +215,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             }
         }
 
-        // Mirror the JIT's "definitely fail" front-end for native memories: if the current page count already exceeds
+        // Mirror the LLVM AOT backend's "definitely fail" front-end for native memories: if the current page count already exceeds
         // the effective max, or the requested delta cannot fit even before entering the backend grow path, Wasm must
         // observe `-1`. This precheck is safe because memories never shrink.
         UWVM_ALWAYS_INLINE inline constexpr bool memory_grow_definitely_fails(native_memory_t const& memory,
@@ -356,7 +359,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 # endif
 
                 // mmap backend:
-                // - Full protection: no check on hot path, rely on page protection.
+                // - Full protection: reject Wasm32 effective-address overflow, then rely on page protection.
                 // - Partial fixed protection: only check the fixed max (power-of-two) to avoid UB pointer overflow; the rest relies on page protection.
                 // - custom_page < platform_page: must do per-access dynamic bounds check using the atomic memory length.
                 if(memory.require_dynamic_determination_memory_size())
@@ -376,13 +379,20 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                     if constexpr(sizeof(::std::size_t) >= sizeof(::std::uint_least64_t))
                     {
                         // 64-bit platform:
-                        // - wasm32: full protection → no check
+                        // - wasm32: full protection → only the widened u32+u32 overflow needs a software check
                         // - wasm64: partial fixed protection (1<<::uwvm2::object::memory::linear::max_partial_protection_wasm64_index)
 # if defined(UWVM_SUPPORT_MMAP)
+                        if(effective_offset.offset_65_bit) [[unlikely]]
+                        {
+#  if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
+                            if(memory.memory_length_p == nullptr) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
+#  endif
+                            auto const memory_length{memory.memory_length_p->load(::std::memory_order_acquire)};
+                            memory_oob_terminate(memory_idx, memory_static_offset, effective_offset, memory_length, wasm_bytes);
+                        }
                         if(memory.status == ::uwvm2::object::memory::linear::mmap_memory_status_t::wasm64) [[unlikely]]
                         {
-                            if(effective_offset.offset_65_bit ||
-                               !offset_in_pow2_bound<::uwvm2::object::memory::linear::max_partial_protection_wasm64_index>(effective_offset.offset))
+                            if(!offset_in_pow2_bound<::uwvm2::object::memory::linear::max_partial_protection_wasm64_index>(effective_offset.offset))
                             {
 #  if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
                                 if(memory.memory_length_p == nullptr) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
@@ -447,10 +457,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 if constexpr(sizeof(::std::size_t) >= sizeof(::std::uint_least64_t))
                 {
 # if defined(UWVM_SUPPORT_MMAP)
+                    if(effective_offset.offset_65_bit) { return true; }
                     if(memory.status == ::uwvm2::object::memory::linear::mmap_memory_status_t::wasm64)
                     {
-                        return effective_offset.offset_65_bit ||
-                               !offset_in_pow2_bound<::uwvm2::object::memory::linear::max_partial_protection_wasm64_index>(effective_offset.offset);
+                        return !offset_in_pow2_bound<::uwvm2::object::memory::linear::max_partial_protection_wasm64_index>(effective_offset.offset);
                     }
 # endif
                     return false;
@@ -568,17 +578,24 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         { check_memory_bounds_unlocked(memory, memory_idx, memory_static_offset, effective_offset, wasm_bytes); }
 
 # if defined(UWVM_SUPPORT_MMAP)
-        UWVM_ALWAYS_INLINE inline constexpr void bounds_check_mmap_full([[maybe_unused]] native_memory_t const& memory,
-                                                                        [[maybe_unused]] ::std::size_t memory_idx,
-                                                                        [[maybe_unused]] ::std::uint_least64_t memory_static_offset,
-                                                                        [[maybe_unused]] memory_offset_t effective_offset,
-                                                                        [[maybe_unused]] ::std::size_t wasm_bytes) noexcept
+        UWVM_ALWAYS_INLINE inline constexpr void bounds_check_mmap_full(native_memory_t const& memory,
+                                                                        ::std::size_t memory_idx,
+                                                                        ::std::uint_least64_t memory_static_offset,
+                                                                        memory_offset_t effective_offset,
+                                                                        ::std::size_t wasm_bytes) noexcept
         {
 #  if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
             auto const memory_begin{memory.memory_begin};
             if(memory_begin == nullptr) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
             if(memory.memory_length_p == nullptr) [[unlikely]] { ::uwvm2::utils::debug::trap_and_inform_bug_pos(); }
 #  endif
+            // The guard mapping covers the full u32 address domain but not every widened u32+u32 sum.  Trap the overflow
+            // before pointer formation; all in-domain logical bounds remain protected by the guard pages.
+            if(effective_offset.offset_65_bit) [[unlikely]]
+            {
+                auto const memory_length{memory.memory_length_p->load(::std::memory_order_acquire)};
+                memory_oob_terminate(memory_idx, memory_static_offset, effective_offset, memory_length, wasm_bytes);
+            }
         }
 
         UWVM_ALWAYS_INLINE inline constexpr void bounds_check_mmap_path(native_memory_t const& memory,
@@ -655,13 +672,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         UWVM_ALWAYS_INLINE inline constexpr memory_offset_t wasm32_effective_offset(wasm_i32 addr, wasm_u32 static_offset) noexcept
         {
-            // uwvm2 memory addressing rule for wasm32:
-            //   effective = (i64)dynamic_offset(i32 signed) + (i64)static_offset(u32)
-            // and the result must be within [0, UINT32_MAX]; otherwise trap (overflow/underflow).
+            // WebAssembly interprets an i32 memory address by its unsigned bit pattern:
+            //   effective = (u64)(u32)dynamic_offset + (u64)static_offset
+            // and the result must be within [0, UINT32_MAX]; otherwise trap on overflow.
             //
             // Important: we intentionally forbid wrapped effective addresses from re-entering the protected range in fault-based bounds schemes.
             //
-            // On 64-bit ISAs it is typically cheaper to compute the signed sum in 64-bit and test the upper 32 bits once.
+            // On 64-bit ISAs it is typically cheaper to compute the unsigned sum in 64-bit and compare against UINT32_MAX once.
             // On 32-bit ISAs we keep a carry/borrow based implementation to avoid synthesizing 64-bit arithmetic.
             //
             // `offset_65_bit` is used as the effective-address out-of-range trap flag:
@@ -669,32 +686,20 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             // - wasm64: carry/borrow beyond [0, UINT64_MAX]
             if constexpr(sizeof(::std::size_t) >= sizeof(::std::uint_least64_t))
             {
-                auto const dyn{static_cast<::std::int_least64_t>(addr)};
-                auto const stat{static_cast<::std::int_least64_t>(static_cast<::std::uint_least32_t>(static_offset))};
-                auto const sum_u64{static_cast<::std::uint_least64_t>(dyn + stat)};
-                bool const out_of_range{(sum_u64 & 0xffffffff00000000ull) != 0ull};
+                auto const dyn{static_cast<::std::uint_least64_t>(static_cast<::std::uint_least32_t>(addr))};
+                auto const stat{static_cast<::std::uint_least64_t>(static_cast<::std::uint_least32_t>(static_offset))};
+                auto const sum_u64{dyn + stat};
+                bool const out_of_range{sum_u64 > 0xffffffffull};
                 // Keep the full u64 sum in `.offset` to improve codegen: the caller can use the same 64-bit register for the address
                 // after checking `offset_65_bit`, avoiding extra masking/moves on 64-bit ISAs.
                 return memory_offset_t{.offset = sum_u64, .offset_65_bit = out_of_range};
             }
             else
             {
+                auto const dyn{static_cast<::std::uint_least32_t>(addr)};
                 auto const stat{static_cast<::std::uint_least32_t>(static_offset)};
-                ::std::uint_least32_t low{};  // no init
-                bool out_of_range{};          // no init
-
-                if(addr >= 0) [[likely]]
-                {
-                    auto const dyn{static_cast<::std::uint_least32_t>(addr)};
-                    out_of_range = add_overflow(dyn, stat, low);
-                }
-                else
-                {
-                    // effective = stat - abs(addr). Use unsigned arithmetic to avoid UB on INT32_MIN.
-                    auto const abs_dyn{static_cast<::std::uint_least32_t>(0u - static_cast<::std::uint_least32_t>(addr))};
-                    low = static_cast<::std::uint_least32_t>(stat - abs_dyn);
-                    out_of_range = stat < abs_dyn;
-                }
+                ::std::uint_least32_t low{};
+                auto const out_of_range{add_overflow(dyn, stat, low)};
 
                 return memory_offset_t{.offset = static_cast<::std::uint_least64_t>(low), .offset_65_bit = out_of_range};
             }
