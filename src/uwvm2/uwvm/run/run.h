@@ -1919,6 +1919,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::run
                         // validation work.  Per-function compilation may still occur lazily.
                         if(!::uwvm2::uwvm::runtime::validator::validate_all_wasm_code()) [[unlikely]]
                         {
+                            // Runtime storage has already been initialized at this point. Release backend artifacts and invalidate
+                            // pointer caches before returning so an embedding host can load another module set safely.
+                            ::uwvm2::runtime::lib::reset_runtime_state_host_api();
                             return static_cast<int>(::uwvm2::uwvm::run::retval::check_module_error);
                         }
 
@@ -2047,16 +2050,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::run
             }
         }
 
-# if defined(UWVM_RUNTIME_LLVM_JIT)
-        // Normal executable-mode exit must release LLVM JIT runtime state before
-        // process teardown. The runtime library intentionally avoids destroying
-        // MCJIT objects from static destructors, because they can run after other
-        // LLVM globals have already started tearing down. Cleaning here keeps
-        // sanitizer builds from reporting the live runtime-owned LLVM graph as a
-        // process-exit leak while preserving the defensive static-destruction
-        // guard for abnormal exit paths.
-        ::uwvm2::runtime::lib::llvm_jit_reset_runtime_state_host_api();
-# endif
+        // Normal executable-mode exit invalidates backend-neutral caches, stops
+        // lazy workers, and releases selected-backend artifacts before their
+        // runtime module storage is destroyed.
+        ::uwvm2::runtime::lib::reset_runtime_state_host_api();
 
         return static_cast<int>(::uwvm2::uwvm::run::retval::ok);
 #endif

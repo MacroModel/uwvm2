@@ -68,10 +68,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::lib
 
     /// @brief Full-compile and run the main module using the configured runtime backend.
     /// @note  This expects uwvm runtime initialization to be complete (runtime storages + import resolution).
+    /// @note  After a runtime registry is published, changing full/lazy mode or backend configuration requires a quiescent
+    ///        reset_runtime_state_host_api() call before the next run; incompatible reuse fails closed.
     extern "C++" void full_compile_and_run_main_module(::uwvm2::utils::container::u8string_view main_module_name, full_compile_run_config) noexcept;
 
     /// @brief Lazily compile and run the main module using the configured lazy-capable backend.
     /// @note  This expects uwvm runtime initialization to be complete (runtime storages + import resolution).
+    /// @note  After a runtime registry is published, changing full/lazy mode or backend configuration requires a quiescent
+    ///        reset_runtime_state_host_api() call before the next run; incompatible reuse fails closed.
     extern "C++" void lazy_compile_and_run_main_module(::uwvm2::utils::container::u8string_view main_module_name, lazy_compile_run_config) noexcept;
 
     /// @brief Stop lazy background compilation before a WASI proc_exit leaves the normal run loop.
@@ -80,8 +84,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::lib
     ///       destroyed by the host process exit path.
     extern "C++" void lazy_compile_stop_before_proc_exit_host_api() noexcept;
 
+    /// @brief Clear backend-neutral and selected-backend runtime state before loading a fresh module set in the same process.
+    /// @note  Embedders must call this before destroying or replacing runtime storage referenced by compiled or lazy caches.
+    /// @note  The caller must first quiesce wasm execution and host API calls. Reset joins internal workers but is not a barrier for
+    ///        caller-owned execution threads; their surviving TLS caches are invalidated by the runtime generation on next entry.
+    extern "C++" void reset_runtime_state_host_api() noexcept;
+
 #if defined(UWVM_RUNTIME_LLVM_JIT)
-    /// @brief Clear compiled runtime state before loading a fresh module set in the same process.
+    /// @brief Compatibility spelling retained for existing LLVM embedding callers.
     extern "C++" void llvm_jit_reset_runtime_state_host_api() noexcept;
 
     extern "C++" void llvm_jit_call_raw_host_api(void const* runtime_module_ptr,
@@ -91,12 +101,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::lib
                                                  void const* param_buffer,
                                                  ::std::size_t param_bytes) noexcept;
 
-    extern "C++" void llvm_jit_call_interpreter_defined_raw_api(void const* runtime_module_ptr,
-                                                                ::std::uint_least32_t func_index,
-                                                                void* result_buffer,
-                                                                ::std::size_t result_bytes,
-                                                                void const* param_buffer,
-                                                                ::std::size_t param_bytes) noexcept;
 #endif
 
     extern "C++" ::std::size_t preload_memory_descriptor_count_host_api() noexcept;
