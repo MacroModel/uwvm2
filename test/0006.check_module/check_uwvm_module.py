@@ -22,6 +22,9 @@ Rules:
   global module fragment. Named-module imports never propagate macros.
 - Function-like ``UWVM_HAS_*`` feature tests visible in module mode need the
   utils macro provider in that unit's global fragment, before any such test.
+- Project self-containment policy: standard C++ headers explicitly included by
+  a paired header must also occur in the global module fragment. Do not rely
+  on another named module's transitive standard-library declarations.
 - xmake must not remove frontend module partitions selected by that stable
   dependency graph.
 - Header include order must respect category sequence:
@@ -83,6 +86,22 @@ BACKEND_CONFIG_GUARD_RE = re.compile(
 )
 RUNTIME_CONFIG_PUSH_HEADER = "uwvm2/uwvm/runtime/macro/push_macros.h"
 FEATURE_CONFIG_PUSH_HEADER = "uwvm2/utils/macro/push_macros.h"
+STANDARD_CXX_HEADERS = frozenset(
+    "algorithm any array atomic barrier bit bitset cassert ccomplex cctype cerrno "
+    "cfenv cfloat charconv chrono cinttypes ciso646 climits clocale cmath codecvt "
+    "compare complex concepts condition_variable coroutine csetjmp csignal "
+    "cstdalign cstdarg cstdbool cstddef cstdint cstdio cstdlib cstring ctgmath "
+    "ctime cuchar cwchar cwctype deque exception execution expected filesystem "
+    "flat_map flat_set format forward_list fstream functional future generator "
+    "hazard_pointer hive initializer_list inplace_vector iomanip ios iosfwd "
+    "iostream istream iterator latch limits linalg list locale map mdspan memory "
+    "memory_resource mutex new numbers numeric optional ostream print queue "
+    "random ranges ratio rcu regex scoped_allocator semaphore set shared_mutex "
+    "source_location span spanstream sstream stack stacktrace stdexcept "
+    "stdfloat stop_token streambuf string string_view strstream syncstream "
+    "system_error text_encoding thread tuple type_traits typeindex typeinfo "
+    "unordered_map unordered_set utility valarray variant vector version".split()
+)
 FEATURE_TEST_RE = re.compile(r"\b(UWVM_HAS_(?:BUILTIN|ATTRIBUTE|CPP_ATTRIBUTE))\s*\(")
 PP_DIRECTIVE_RE = re.compile(r"^\s*#\s*(if|ifdef|ifndef|elif|else|endif)\b(.*)")
 CXX_COMMENT_OR_STRING_RE = re.compile(
@@ -373,6 +392,35 @@ def feature_macro_dependency_problem(module_text: str, surface_text: str) -> str
             f"include <{FEATURE_CONFIG_PUSH_HEADER}> unconditionally in the global module fragment before any feature test"
         )
     return None
+
+
+def missing_standard_headers(module_text: str, header_text: str) -> List[str]:
+    """Check explicit header parity, not arbitrary preprocessor conditions.
+
+    This is a project self-containment rule, not a complete C++ visibility
+    analysis. Includes from every target branch count; real target builds
+    still verify their guards and the declarations actually used. A named
+    module import is deliberately not a substitute for a direct std header.
+    """
+    expected: set[str] = set()
+    provided: set[str] = set()
+    for line in preprocessing_lines(header_text):
+        match = INCLUDE_RE.match(line)
+        if match and match.group(1) == "<" and match.group(2) in STANDARD_CXX_HEADERS:
+            expected.add(match.group(2))
+
+    in_global_fragment = False
+    for line in preprocessing_lines(module_text):
+        if not in_global_fragment:
+            if GLOBAL_MODULE_FRAGMENT_RE.match(line):
+                in_global_fragment = True
+            continue
+        if NAMED_MODULE_DECL_RE.match(line):
+            break
+        match = INCLUDE_RE.match(line)
+        if match and match.group(1) == "<" and match.group(2) in STANDARD_CXX_HEADERS:
+            provided.add(match.group(2))
+    return sorted(expected - provided)
 
 
 def win32_text_attr_provider_precedes_surface(
@@ -744,6 +792,14 @@ def main() -> int:
     for pair in cppm_h_pairs:
         cppm_txt = read_text(pair.a)
         h_txt = read_text(pair.b)
+
+        missing_std = missing_standard_headers(cppm_txt, h_txt)
+        if missing_std:
+            problems.append(
+                f"[STANDARD HEADER] {pair.a}: global module fragment is missing "
+                + ", ".join(f"<{header}>" for header in missing_std)
+                + f" explicitly included by {pair.b}"
+            )
 
         feature_problem = feature_macro_dependency_problem(cppm_txt, h_txt)
         if feature_problem is not None:
