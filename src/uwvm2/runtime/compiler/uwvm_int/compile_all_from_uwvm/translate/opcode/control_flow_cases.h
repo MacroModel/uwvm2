@@ -62,7 +62,7 @@ case wasm1_code::block:
 
     // block  blocktype ...
     // [safe] unsafe (could be the section_end)
-    //        ^^ op_begin
+    //        ^^ code_curr
 
     auto const signature{parse_block_type(op_begin, u8"block")};
 

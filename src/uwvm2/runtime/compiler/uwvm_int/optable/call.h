@@ -147,7 +147,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
     /// @brief `call_indirect` opcode (tail-call): calls a function through a table entry and then tail-calls the next interpreter op.
     /// @details
-    /// - Stack-top optimization: requires all arguments (and the table index operand) to reside in the operand stack memory. When stack-top caching is enabled,
+    /// - Stack-top optimization: requires all arguments (and the table-element index operand, distinct from the encoded `table_index`) to reside in the operand stack memory. When stack-top caching is enabled,
     ///   the compiler must emit stack-top spills so `type...[1u]` points at the full operand stack before executing `call_indirect`.
     /// - `type[0]` layout: `[opfunc_ptr][curr_module_id][type_index][table_index][next_opfunc_ptr]`.
     /// @note The actual bounds/null/type checks are performed by `call_indirect_func` provided by the runtime.

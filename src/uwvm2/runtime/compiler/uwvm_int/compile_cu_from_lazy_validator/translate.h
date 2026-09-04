@@ -805,7 +805,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                 }
                 case wasm1_code::call_indirect:
                 {
+                    // call_indirect type_index table_index ...
+                    // [    safe   ] unsafe (could be the section_end)
+                    //               ^^ code_curr
+
                     (void)read_leb128_immediate<wasm_u32>(code_curr, code_end, op_begin, code_validation_error_code::invalid_type_index, err);
+
+                    // call_indirect type_index table_index ...
+                    // [          safe        ] unsafe (could be the section_end)
+                    //                          ^^ code_curr
+
                     auto const mvp_reserved_zero_byte{
                         ::uwvm2::parser::wasm::standard::wasm1p1::features::uses_mvp_call_indirect_reserved_byte(wasm1p1_para)};
                     wasm_u32 table_index{};
@@ -933,8 +942,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                             // [                 safe               ] unsafe (could be the section_end)
                             //                                        ^^ code_curr
 
-                            // Each immediate reader commits code_curr only after validating its complete field. A count
-                            // failure leaves the outer cursor after the opcode; a type failure leaves it after the count.
+                            // Field commits are transactional: a count-LEB decode failure leaves the cursor after the opcode;
+                            // a decoded-count arity rejection or type decode failure leaves it after the count, and a
+                            // type-policy rejection follows the type byte.
                             ensure_lazy_wasm1p1_value_type_enabled(op_begin,
                                                                     result_type_byte,
                                                                     wasm_feature_parameter,

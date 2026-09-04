@@ -42,8 +42,8 @@ case static_cast<wasm1_code>(wasm1p1_code::select_t):
     // [                 safe               ] unsafe (could be the section_end)
     //                                        ^^ code_curr
 
-    // Each immediate reader commits code_curr only after validating its complete field. A count failure leaves the
-    // outer instruction cursor after the opcode; a result-type failure leaves it after the committed count.
+    // Field commits are transactional: a count-LEB decode failure leaves the cursor after the opcode; a decoded-count
+    // arity rejection or result-type decode failure leaves it after the count; a type-policy rejection follows the type byte.
     auto const result_type{static_cast<curr_operand_stack_value_type>(result_type_byte)};
     ensure_wasm1p1_value_type_enabled(op_begin, result_type, ::uwvm2::parser::wasm::base::wasm1p1_error_subject::instruction);
 
