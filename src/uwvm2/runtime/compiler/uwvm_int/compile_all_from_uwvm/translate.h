@@ -26,6 +26,7 @@
 # include <algorithm>
 # include <atomic>
 # include <bit>
+# include <coroutine>
 # include <cstddef>
 # include <cstdint>
 # include <cstring>
@@ -57,6 +58,7 @@
 # include <uwvm2/uwvm/wasm/type/impl.h>
 # include <uwvm2/uwvm/runtime/storage/impl.h>
 # include <uwvm2/uwvm/runtime/runtime_mode/impl.h>
+# include <uwvm2/runtime/compiler/shared/wasm1p1_simd.h>
 # include <uwvm2/runtime/compiler/uwvm_int/optable/impl.h>
 #endif
 
