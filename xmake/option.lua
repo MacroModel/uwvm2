@@ -284,8 +284,8 @@ option("enable-uwvm-int-delay-local", function()
     (
         "Enable delay-local variantization for uwvm-int.",
         [[    none: disable delay-local fusions.]],
-        [[    soft: enable minimal delay-local fusions (default).]],
-        [[    heavy: enable soft + extended delay-local fusions.]]
+        [[    soft: enable minimal delay-local fusions.]],
+        [[    heavy: enable soft + extended delay-local fusions (default).]]
     )
     set_default("heavy")
     set_values("none", "soft", "heavy")
