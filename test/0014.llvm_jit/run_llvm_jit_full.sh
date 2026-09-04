@@ -104,10 +104,11 @@ COMMON_F_FLAGS=(
   --use-llvm-compiler=y
   --ccache=n
   --cxflags=-Wno-error
-  --test-libfuzzer=y
+  --test-libfuzzer=n
   --enable-test-llvm-jit=y
   --use-cxx-module=n
   --static=none
+  --execution-int=none
   --execution-jit=llvm
 )
 
