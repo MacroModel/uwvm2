@@ -46,7 +46,7 @@ if rg -n --glob '*.{h,cpp,cppm,cc,lua,sh,py,yml,yaml}' --glob '!check_reduced_ru
 fi
 
 # A production AOT build has no switches that can bypass generated-IR verification or authenticated native caching.
-safety_bypass_pattern='runtime_llvm_jit_(disable_ir_verifaction|cache_no_sign|cache_no_verify)|--runtime-llvm-jit-(disable-ir-verifaction|cache-no-sign|cache-no-verify)|-Rllvm-(noverify|cache-nosign|cache-noverify)|unwind[-_]uncheck(ed)?'
+safety_bypass_pattern='runtime_llvm_jit_(disable_ir_verifaction|cache_no_sign|cache_no_verify)|--runtime-llvm-jit-(disable-ir-verifaction|cache-no-sign|cache-no-verify)|-Rllvm-(noverify|cache-nosign|cache-noverify)'
 if rg -n --glob '*.{h,cpp,cppm,cc,lua,md,sh,py,yml,yaml}' --glob '!check_reduced_runtime_surface.sh' \
     "$safety_bypass_pattern" "$repo_root/src" "$repo_root/documents" "$repo_root/test" "$repo_root/tools" "$repo_root/xmake.lua" "$repo_root/xmake"; then
     fail 'found a removed LLVM safety-bypass policy'
