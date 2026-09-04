@@ -522,24 +522,32 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
 
         // Publishes a function-level terminal state and mirrors it to the primary compile unit so both scheduler waiters
         // and compile-unit observers are notified.
+        struct lazy_compile_state_notifier
+        {
+            inline constexpr void operator()(::uwvm2::utils::thread::lazy_compile_unit_state& unit) const noexcept
+            { ::uwvm2::utils::thread::lazy_compile_notify_unit(unit); }
+        };
+
+        template <typename Notify = lazy_compile_state_notifier>
         inline constexpr void mark_function_compile_units_state(lazy_module_storage_t& storage,
                                                                 lazy_function_storage_t& fn,
-                                                                ::uwvm2::utils::thread::lazy_compile_state state) noexcept
+                                                                ::uwvm2::utils::thread::lazy_compile_state state,
+                                                                Notify notify = {}) noexcept
         {
-            // This release store is the function-level publication barrier.  By the time a waiter observes `compiled`
-            // with an acquire load/wait, the materialized record, its `ready` publication, and any runtime target-table
-            // stores sequenced before this call are visible.  `failed` is also published with release so waiters never
-            // miss diagnostics or cleanup state written before failure.
-            fn.materialization_state.state.store(state, ::std::memory_order_release);
-            ::uwvm2::utils::thread::lazy_compile_notify_unit(fn.materialization_state);
+            static_assert(noexcept(notify(fn.materialization_state)), "lazy terminal-state notifiers must not throw");
             if(fn.primary_cu_index < storage.compile_units.size())
             {
                 auto& cu_state{storage.compile_units.index_unchecked(fn.primary_cu_index).state};
-                // The compile-unit state is a mirror for observers that do not hold the function record directly.  Use the
-                // same release order so either state object can be used as the synchronization point for terminal states.
+                // Publish the compile-unit mirror first.  Acquiring the authoritative function state below then also
+                // observes this mirror, in addition to all materialized payload written before this call.
                 cu_state.state.store(state, ::std::memory_order_release);
-                ::uwvm2::utils::thread::lazy_compile_notify_unit(cu_state);
+                notify(cu_state);
             }
+            // This release store is the function-level publication barrier.  By the time a waiter observes `compiled`
+            // with an acquire load/wait, the materialized record, its `ready` publication, runtime target-table stores,
+            // and the compile-unit mirror are visible.  `failed` likewise publishes diagnostics and cleanup state.
+            fn.materialization_state.state.store(state, ::std::memory_order_release);
+            notify(fn.materialization_state);
         }
 
         // Runs standard Wasm code validation for one local function when the lazy mode requires it.

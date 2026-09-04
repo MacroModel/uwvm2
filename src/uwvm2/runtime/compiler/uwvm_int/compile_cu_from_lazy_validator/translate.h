@@ -1730,17 +1730,30 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
             }
         }
 
+        struct lazy_compile_state_notifier
+        {
+            inline constexpr void operator()(::uwvm2::utils::thread::lazy_compile_unit_state& unit) const noexcept
+            { ::uwvm2::utils::thread::lazy_compile_notify_unit(unit); }
+        };
+
+        template <typename Notify = lazy_compile_state_notifier>
         inline constexpr void mark_function_compile_units_state(lazy_module_storage_t& storage,
                                                                 lazy_function_storage_t& fn,
-                                                                ::uwvm2::utils::thread::lazy_compile_state state) noexcept
+                                                                ::uwvm2::utils::thread::lazy_compile_state state,
+                                                                Notify notify = {}) noexcept
         {
-            // Publish the function state first because whole-function materialization is currently authoritative for execution.
-            fn.materialization_state.state.store(state, ::std::memory_order_release);
+            static_assert(noexcept(notify(fn.materialization_state)), "lazy terminal-state notifiers must not throw");
+            // Publish and wake every compile-unit observer before the authoritative function state.  A waiter that acquires a
+            // terminal function state then also observes all sibling mirrors, while explicit notify calls wake Linux atomic::wait
+            // users instead of leaving them asleep after a plain atomic store.
             for(::std::size_t i{fn.first_cu_index}; i != fn.first_cu_index + fn.cu_count; ++i)
             {
-                // Mirror the state onto child compile units so diagnostics and future per-range scheduling observe a consistent view.
-                storage.compile_units.index_unchecked(i).state.state.store(state, ::std::memory_order_release);
+                auto& cu_state{storage.compile_units.index_unchecked(i).state};
+                cu_state.state.store(state, ::std::memory_order_release);
+                notify(cu_state);
             }
+            fn.materialization_state.state.store(state, ::std::memory_order_release);
+            notify(fn.materialization_state);
         }
 
         inline constexpr void validate_function_if_needed(runtime_module_storage_t const& curr_module,
@@ -2059,8 +2072,22 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
         }
 
         // Once this thread owns compilation, emit the full function and publish completion to all sibling compile units.
-        details::compile_lazy_local_function<CompileOption>(curr_module, storage, options, cu.local_function_index, err);
-        details::mark_function_compile_units_state(storage, fn, ::uwvm2::utils::thread::lazy_compile_state::compiled);
+# ifdef UWVM_CPP_EXCEPTIONS
+        try
+# endif
+        {
+            details::compile_lazy_local_function<CompileOption>(curr_module, storage, options, cu.local_function_index, err);
+            details::mark_function_compile_units_state(storage, fn, ::uwvm2::utils::thread::lazy_compile_state::compiled);
+        }
+# ifdef UWVM_CPP_EXCEPTIONS
+        catch(...)
+        {
+            // This synchronous entry point has already published `compiling`.  Publish failure to the function and every sibling CU
+            // before preserving the original exception; otherwise concurrent waiters can spin forever on an abandoned owner.
+            details::mark_function_compile_units_state(storage, fn, ::uwvm2::utils::thread::lazy_compile_state::failed);
+            throw;
+        }
+# endif
         ::fast_io::unix_timestamp compile_end_time{};
         if(::uwvm2::runtime::compiler::uwvm_int::lazy_runtime_log::enabled()) [[unlikely]]
         {
