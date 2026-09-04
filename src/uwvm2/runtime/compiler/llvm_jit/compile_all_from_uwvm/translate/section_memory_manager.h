@@ -46,12 +46,15 @@
 # endif
 # if defined(UWVM_RUNTIME_LLVM_JIT) && !defined(_WIN32) && !defined(__arm__) && !defined(__thumb__) && __has_include(<unwind.h>)
 #  include <unwind.h>
-extern "C" void __register_frame(void const*);
-extern "C" void __deregister_frame(void const*);
+#  include "dwarf_eh_frame_registration.h"
 # endif
 // import
 # include <fast_io.h>
 # include <uwvm2/utils/container/impl.h>
+#endif
+
+#ifndef UWVM_MODULE_EXPORT
+# define UWVM_MODULE_EXPORT
 #endif
 
 #pragma push_macro("UWVM2_RUNTIME_LLVM_JIT_SECTION_MEMORY_MANAGER_HAS_WIN64_SEH")
@@ -87,7 +90,7 @@ extern "C" void __deregister_frame(void const*);
 # define UWVM2_RUNTIME_LLVM_JIT_SECTION_MEMORY_MANAGER_HAS_RISCV64_LOW_MAPPER 0
 #endif
 
-namespace uwvm2::runtime::compiler::llvm_jit::details
+UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::details
 {
 #if defined(UWVM_RUNTIME_LLVM_JIT)
 # if UWVM2_RUNTIME_LLVM_JIT_SECTION_MEMORY_MANAGER_HAS_RISCV64_LOW_MAPPER
