@@ -15,7 +15,6 @@ namespace
     {
         char const* name;
         char const* args;
-        bool trap_executes_llvm;
         ::std::vector<::std::size_t> expected_funcs;
         ::std::vector<::std::string_view> required_log_patterns;
         ::std::vector<::std::string_view> forbidden_log_patterns;
@@ -25,7 +24,6 @@ namespace
     struct run_result_t
     {
         bool valid{};
-        bool trap_executed_llvm{};
         ::std::vector<::std::size_t> func_indices{};
         ::std::filesystem::path output_path{};
         ::std::filesystem::path log_path{};
@@ -320,16 +318,6 @@ namespace
         return false;
     }
 
-    [[nodiscard]] bool trap_executed_compiled_llvm(strategy_case_t const& test_case, ::std::string_view log) noexcept
-    {
-        if(!test_case.trap_executes_llvm) { return false; }
-
-        // A tiered request/compile-start is asynchronous and does not prove that the trapping invocation entered
-        // generated code. Completion (or a ready Tier 2 module) is the observable hand-off point.
-        return log.find("[llvm-jit-lazy] compile-end") != ::std::string_view::npos ||
-               log.find("[llvm-jit-lazy] tiered-full-ready") != ::std::string_view::npos;
-    }
-
     [[nodiscard]] run_result_t run_case(::std::filesystem::path const& uwvm_path,
                                         ::std::filesystem::path const& wasm_path,
                                         ::std::filesystem::path const& artifact_dir,
@@ -382,7 +370,6 @@ namespace
         auto const plain_output{strip_ansi_codes(output)};
         auto funcs{parse_func_indices(plain_output)};
         auto const reached_runtime_trap{plain_output.find("Runtime crash (") != ::std::string::npos};
-        auto const trap_executed_llvm{trap_executed_compiled_llvm(test_case, log)};
         auto const stack_matches{funcs == test_case.expected_funcs};
         auto const valid{reached_runtime_trap && stack_matches};
         if(!valid)
@@ -403,11 +390,7 @@ namespace
             ::std::cerr << "] output=" << output_path << '\n';
         }
 
-        return {.valid = valid,
-                .trap_executed_llvm = trap_executed_llvm,
-                .func_indices = ::std::move(funcs),
-                .output_path = output_path,
-                .log_path = log_path};
+        return {.valid = valid, .func_indices = ::std::move(funcs), .output_path = output_path, .log_path = log_path};
     }
 
     [[nodiscard]] bool check_call_stack_semantics(strategy_case_t const& test_case,
@@ -710,58 +693,52 @@ namespace
         ::std::vector<strategy_case_t> cases{};
         cases.push_back({"t0_interpreter_fallback",
                          "-Rtiered",
-                         false,
                          {0uz, 1uz, 2uz, 3uz},
                          {"[uwvm-int-lazy] demand-request"},
                          {"[llvm-jit-lazy] tiered-demand-request", "[llvm-jit-lazy] tiered-osr-request", "[llvm-jit-lazy] tiered-full-request"},
                          make_t0_fallback_wat()});
         cases.push_back({"tier1_function_entry_inline",
                          "-Rtiered",
-                         true,
                          {0uz, 1uz},
                          {"[llvm-jit-lazy] tiered-demand-request", "lane=inline"},
                          {},
                          make_tier1_inline_wat()});
         cases.push_back({"tier1_function_entry_urgent",
                          "-Rtiered",
-                         true,
                          {0uz, 1uz},
                          {"[llvm-jit-lazy] tiered-demand-request", "lane=urgent"},
                          {},
                          make_tier1_urgent_wat()});
         cases.push_back({"no_t0_raw_entry",
                          "-Rtiered -Rtiered-disable-t0",
-                         true,
                          {0uz, 1uz, 2uz, 3uz},
                          {"[llvm-jit-lazy] demand-request", "lane=inline"},
                          {"[uwvm-int-lazy] demand-request"},
                          make_t0_fallback_wat()});
         cases.push_back({"tiered_loop_osr_inline",
                          "-Rtiered -Rtiered-disable-t2",
-                         true,
                          {0uz, 1uz, 2uz},
                          {"[llvm-jit-lazy] tiered-osr-request", "lane=inline"},
                          {},
                          make_osr_lane_wat(14uz, 1600uz, 350000u)});
         cases.push_back({"tiered_loop_osr_urgent",
                          "-Rtiered -Rtiered-disable-t2",
-                         true,
                          {0uz, 1uz, 2uz},
                          {"[llvm-jit-lazy] tiered-osr-request", "lane=urgent"},
                          {},
                          make_osr_lane_wat(510uz, 4096uz, 500000u)});
         cases.push_back({"tiered_loop_osr_normal",
                          "-Rtiered -Rtiered-disable-t2",
-                         true,
                          {0uz, 1uz, 2uz},
                          {"[llvm-jit-lazy] tiered-osr-request", "lane=normal"},
                          {},
                          make_osr_lane_wat(130uz, 32uz, 12000000u)});
+        // These cases verify Tier 2 compilation/materialization publication plus the final trap and logical stack.
+        // A `tiered-full-ready` record does not prove that the trapping invocation entered the published Tier 2 code.
         auto const add_full_ready_case{[&](char const* name, ::std::string_view leaf_trap_body)
                                        {
                                            cases.push_back({name,
                                                             "-Rtiered -Rct 2 -Rllvm-policy max",
-                                                            true,
                                                             {0uz, 1uz},
                                                             {"[llvm-jit-lazy] tiered-full-request", "[llvm-jit-lazy] tiered-full-ready"},
                                                             {},
