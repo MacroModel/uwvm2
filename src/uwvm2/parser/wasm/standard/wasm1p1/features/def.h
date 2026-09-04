@@ -48,22 +48,54 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1p1::features
 {
     struct wasm1p1;
 
-    /// @brief Runtime switches for independent WebAssembly 1.1 feature groups.
-    /// @details The disable_* fields are false by default, so WebAssembly 1.1 features are enabled unless the user explicitly disables them.
-    /// @details The explicit_* fields record CLI ownership so the feature collection and its subfeatures can report conflicts deterministically.
-    /// @warning Extension point: every new wasm1.1 subfeature flag needs CLI ownership, feature conflict handling, parser gating, and ECO output.
+    /// @brief Parser-owned COP tag selecting the WebAssembly 1.1 validation strategy.
+    struct wasm1p1_code_version
+    {};
+
+    /// @brief Records which mutually-exclusive family of Wasm feature switches owns the command line.
+    /// @details Each of the three complete feature-set switches (MVP, WebAssembly 1.1, and WebAssembly 2.0) conflicts with
+    ///          either of the other two complete switches and with every scoped feature switch.
+    enum class wasm_feature_cli_mode : ::std::uint_least8_t
+    {
+        unspecified,
+        direct_mvp,
+        direct_wasm1p1,
+        direct_wasm2,
+        scoped
+    };
+
+    /// @brief Runtime feature-policy storage shared by the WebAssembly 1.1 and WebAssembly 2.0 parser paths.
+    /// @details The disable_* fields are false by default; the selected complete mode and scoped switches determine the effective policy.
+    /// @details The explicit_* fields record CLI ownership so shared feature collection can report conflicts deterministically and emit version-correct ECO output.
+    /// @warning Extension point: every new shared WebAssembly 1.1/2.0 subfeature flag needs CLI ownership, feature conflict handling, parser gating, and version-correct ECO output.
     struct wasm_binfmt1p1_feature_parameter
     {
+        wasm_feature_cli_mode cli_mode{};
+
         bool disable_multi_value{};
         bool disable_reference_types{};
+        bool disable_table_instructions{};
+        bool disable_multiple_tables{};
         bool disable_bulk_memory{};
         bool disable_sign_extension{};
         bool disable_nontrapping_float_to_int{};
         bool disable_simd{};
 
         bool explicit_feature_mvp{};
+        bool explicit_feature_wasm1p1{};
+        bool explicit_feature_wasm2{};
+        bool explicit_enable_multi_value{};
+        bool explicit_enable_reference_types{};
+        bool explicit_enable_table_instructions{};
+        bool explicit_enable_multiple_tables{};
+        bool explicit_enable_bulk_memory{};
+        bool explicit_enable_sign_extension{};
+        bool explicit_enable_nontrapping_float_to_int{};
+        bool explicit_enable_simd{};
         bool explicit_disable_multi_value{};
         bool explicit_disable_reference_types{};
+        bool explicit_disable_table_instructions{};
+        bool explicit_disable_multiple_tables{};
         bool explicit_disable_bulk_memory{};
         bool explicit_disable_sign_extension{};
         bool explicit_disable_nontrapping_float_to_int{};
