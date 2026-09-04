@@ -41,8 +41,12 @@ export module uwvm2.runtime.compiler.uwvm_int.optable:memory;
 import fast_io;
 import uwvm2.utils.container;
 import uwvm2.utils.debug;
+// The memory optable directly uses rwlock_pause and grow_strict. Imports of
+// their users do not re-export these implementation dependencies.
+import uwvm2.utils.mutex;
 import uwvm2.parser.wasm.standard.wasm1;
 import uwvm2.object;
+import uwvm2.object.memory.flags;
 import :define;
 import :storage;
 import :register_ring;
