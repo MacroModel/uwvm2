@@ -1095,7 +1095,8 @@ namespace uwvm2test::uwvm_int_strict
         byte_vec const& wasm_bytes,
         ::uwvm2::utils::container::u8string_view module_name,
         ::std::initializer_list<preloaded_wasm_module> preloaded = {},
-        wasm_feature_parameter_t wasm_feature_parameter = {})
+        wasm_feature_parameter_t wasm_feature_parameter = {},
+        ::std::initializer_list<::uwvm2::uwvm::wasm::type::local_imported_t> local_imported = {})
     {
         ::uwvm2::uwvm::io::show_verbose = false;
         ::uwvm2::uwvm::io::show_depend_warning = false;
@@ -1116,11 +1117,17 @@ namespace uwvm2test::uwvm_int_strict
         ::uwvm2::uwvm::wasm::storage::weak_symbol.clear();
 #endif
         ::uwvm2::uwvm::wasm::storage::preload_local_imported.clear();
+        auto local_imported_reserve_size{local_imported.size()};
+#if !defined(UWVM_DISABLE_LOCAL_IMPORTED_WASIP1)
+        ++local_imported_reserve_size;
+#endif
+        ::uwvm2::uwvm::wasm::storage::preload_local_imported.reserve(local_imported_reserve_size);
 #if !defined(UWVM_DISABLE_LOCAL_IMPORTED_WASIP1)
         // Allow tests to load WASI-Preview1 importing modules (e.g. reference workloads) without depending on the CLI loader.
         ::uwvm2::uwvm::wasm::storage::preload_local_imported.emplace_back(
             ::uwvm2::uwvm::imported::wasi::wasip1::local_imported::wasip1_local_imported_module);
 #endif
+        for(auto const& module: local_imported) { ::uwvm2::uwvm::wasm::storage::preload_local_imported.emplace_back(module); }
 
         if(preloaded.size() != 0uz)
         {
