@@ -647,7 +647,7 @@ for _, file in ipairs(os.files("test/**.cc")) do
 		-- third-parties/boost
 		add_includedirs("third-parties/boost_unordered/include")
 
-		if is_llvm_jit_test then
+		if uwvm_uses_llvm_jit and is_llvm_jit_test then
 			uwvm_add_llvm_jit_cache_openssl()
 		end
 
@@ -679,7 +679,7 @@ for _, file in ipairs(os.files("test/**.cc")) do
 			add_files("src/uwvm2/validation/**.cppm", { public = is_debug_mode })
 
 			-- uwvm
-			add_files("src/uwvm2/uwvm/**.cppm", { public = is_debug_mode })
+			uwvm_add_frontend_module_files(is_debug_mode)
 		end
 
 		set_warnings("all", "extra", "error")
@@ -1075,10 +1075,10 @@ if get_config("enable-test-backend-fuzzer") then
 	target_end()
 end
 
--- LLVM JIT mirror of the 0013 strict uwvm-int suites. These targets compile the
--- original 0013 source files with a runner macro that routes Runner::run through
--- llvm_jit_call_raw_host_api, so the LLVM coverage stays aligned with 0013.
-if get_config("enable-test-llvm-jit") and ((get_config("execution-jit") == "llvm") or (get_config("execution-jit") == "default")) then
+-- LLVM mirror of the 0013 strict/lazy uwvm-int suites. These sources inspect
+-- interpreter translation artifacts, so register the mirrors only for combined builds.
+-- Pure LLVM builds retain the native 0014 LLVM tests without pulling in the int harness.
+if get_config("enable-test-llvm-jit") and uwvm_uses_uwvm_int and uwvm_uses_llvm_jit then
 	local llvm_jit_strict_files = os.files("test/0013.uwvm_int/strict/**.cc")
 	table.sort(llvm_jit_strict_files)
 	for index, file in ipairs(llvm_jit_strict_files) do
@@ -1145,7 +1145,7 @@ if get_config("enable-test-llvm-jit") and ((get_config("execution-jit") == "llvm
 				add_files("src/uwvm2/validation/**.cppm", { public = is_debug_mode })
 
 				-- uwvm
-				add_files("src/uwvm2/uwvm/**.cppm", { public = is_debug_mode })
+				uwvm_add_frontend_module_files(is_debug_mode)
 			end
 
 			set_warnings("all", "extra", "error")
@@ -1235,7 +1235,7 @@ if get_config("enable-test-llvm-jit") and ((get_config("execution-jit") == "llvm
 				add_files("src/uwvm2/validation/**.cppm", { public = is_debug_mode })
 
 				-- uwvm
-				add_files("src/uwvm2/uwvm/**.cppm", { public = is_debug_mode })
+				uwvm_add_frontend_module_files(is_debug_mode)
 			end
 
 			set_warnings("all", "extra", "error")
