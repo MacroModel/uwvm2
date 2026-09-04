@@ -9,6 +9,10 @@
  * @details     Each Release 2.0 feature is disabled independently against one minimal module that requires it.
  */
 
+#if defined(UWVM_DISABLE_INT) && !defined(UWVM2TEST_STRICT_NO_INTERPRETER)
+# define UWVM2TEST_STRICT_NO_INTERPRETER 1
+#endif
+
 #include "../0013.uwvm_int/strict/uwvm_int_translate_strict_common.h"
 
 #include <uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/impl.h>
@@ -28,7 +32,9 @@
 namespace
 {
     namespace strict = ::uwvm2test::uwvm_int_strict;
+#ifndef UWVM_DISABLE_INT
     namespace int_compiler = ::uwvm2::runtime::compiler::uwvm_int;
+#endif
     namespace llvm_compiler = ::uwvm2::runtime::compiler::llvm_jit::compile_all_from_uwvm;
     namespace llvm_details = llvm_compiler::details;
 
@@ -235,6 +241,7 @@ namespace
         return err;
     }
 
+#ifndef UWVM_DISABLE_INT
     [[nodiscard]] validation_error validate_uwvm_int(strict::runtime_module_t const& runtime_module,
                                                      feature_parameter const& policy) noexcept
     {
@@ -260,6 +267,7 @@ namespace
         {}
         return err;
     }
+#endif
 
     [[nodiscard]] validation_error validate_llvm_internal(llvm_details::validation_module_storage_t const& validation_module,
                                                           llvm_compiler::local_func_storage_t const& local_function,
@@ -287,6 +295,32 @@ namespace
         catch(::fast_io::error const&)
         {}
         return err;
+    }
+
+    struct llvm_compile_result
+    {
+        validation_error error{};
+        bool materialized{};
+    };
+
+    /// Exercise the same serial LLVM module pipeline used by the AOT runtime.  Successful cases must survive IR
+    /// verification and retain a finalized module; malformed immediates must report through the compiler-owned error.
+    [[nodiscard]] llvm_compile_result compile_llvm_call_indirect(strict::runtime_module_t const& runtime_module,
+                                                                 feature_parameter const& policy) noexcept
+    {
+        llvm_compile_result result{};
+        llvm_compiler::compile_option options{};
+        options.validator_feature_parameter = ::std::addressof(policy);
+        options.verify_llvm_jit_ir = true;
+        options.emit_call_stack_frames = false;
+        try
+        {
+            auto compiled{llvm_compiler::compile_all_from_uwvm(runtime_module, options, result.error, 0uz)};
+            result.materialized = compiled.llvm_jit_module.emitted && compiled.llvm_jit_module.llvm_module != nullptr;
+        }
+        catch(::fast_io::error const&)
+        {}
+        return result;
     }
 
     [[nodiscard]] int fail(::std::size_t const case_index, char const* message) noexcept
@@ -406,20 +440,37 @@ namespace
         auto const validation_module{llvm_details::build_runtime_validation_module(*prepared.mod)};
         auto const local_function{llvm_details::get_runtime_local_func_storage(*prepared.mod, 0uz, local_storage_error)};
         auto const standard_error{validate_standard(validation_module, local_function, policy)};
+#ifndef UWVM_DISABLE_INT
         auto const int_error{validate_uwvm_int(*prepared.mod, policy)};
-        auto const llvm_error{validate_llvm_internal(validation_module, local_function, policy)};
+#endif
+        auto const llvm_result{compile_llvm_call_indirect(*prepared.mod, policy)};
 
-        if(standard_error.err_code != expected || int_error.err_code != expected || llvm_error.err_code != expected)
+        if(standard_error.err_code != expected || llvm_result.error.err_code != expected
+#ifndef UWVM_DISABLE_INT
+           || int_error.err_code != expected
+#endif
+        )
         {
             ::std::fprintf(stderr, "call_indirect_reserved_encoding[%s]: validator result mismatch\n", case_name);
             return 1;
         }
-        if(expected == error_code::wasm2_feature_required &&
-           (!same_feature_diagnostic(standard_error, int_error) || !same_feature_diagnostic(standard_error, llvm_error)))
+        if(expected == error_code::ok && !llvm_result.materialized)
+        {
+            ::std::fprintf(stderr, "call_indirect_reserved_encoding[%s]: LLVM module materialization failed\n", case_name);
+            return 1;
+        }
+        if(expected == error_code::wasm2_feature_required && !same_feature_diagnostic(standard_error, llvm_result.error))
         {
             ::std::fprintf(stderr, "call_indirect_reserved_encoding[%s]: feature diagnostic mismatch\n", case_name);
             return 1;
         }
+#ifndef UWVM_DISABLE_INT
+        if(expected == error_code::wasm2_feature_required && !same_feature_diagnostic(standard_error, int_error))
+        {
+            ::std::fprintf(stderr, "call_indirect_reserved_encoding[%s]: uwvm-int feature diagnostic mismatch\n", case_name);
+            return 1;
+        }
+#endif
         return 0;
     }
 }
@@ -450,31 +501,47 @@ int main(int argc, char** argv)
         auto const policy{make_disabled_policy(test_case.feature)};
 
         auto const standard_error{validate_standard(validation_module, local_function, policy)};
+#ifndef UWVM_DISABLE_INT
         auto const int_error{validate_uwvm_int(*prepared.mod, policy)};
+#endif
         auto const llvm_error{validate_llvm_internal(validation_module, local_function, policy)};
 
         if(!expected_feature(standard_error, test_case.feature)) { return fail(case_index, "standard validator selected the wrong feature error"); }
+#ifndef UWVM_DISABLE_INT
         if(!same_feature_diagnostic(standard_error, int_error)) { return fail(case_index, "uwvm-int feature diagnostic differs from the standard validator"); }
+#endif
         if(!same_feature_diagnostic(standard_error, llvm_error)) { return fail(case_index, "LLVM feature diagnostic differs from the standard validator"); }
 
-        if(standard_error.err_curr == nullptr || int_error.err_curr == nullptr || llvm_error.err_curr == nullptr)
+        if(standard_error.err_curr == nullptr || llvm_error.err_curr == nullptr
+#ifndef UWVM_DISABLE_INT
+           || int_error.err_curr == nullptr
+#endif
+        )
         {
             return fail(case_index, "validator did not report an instruction location");
         }
         auto const standard_offset{standard_error.err_curr - local_function.code_begin};
+#ifndef UWVM_DISABLE_INT
         auto const int_offset{int_error.err_curr - local_function.code_begin};
+#endif
         auto const llvm_offset{llvm_error.err_curr - local_function.code_begin};
-        if(standard_offset != int_offset || standard_offset != llvm_offset)
+        if(standard_offset != llvm_offset
+#ifndef UWVM_DISABLE_INT
+           || standard_offset != int_offset
+#endif
+        )
         {
             return fail(case_index, "validator first-error offsets differ");
         }
 
         // Exercise the real command parser and loader with both standalone backends. The process must fail specifically
         // with the disabled feature name, not merely later because these compact validation fixtures have no entry export.
+#ifndef UWVM_DISABLE_INT
         if(!run_cli_rejection(uwvm_path, artifact_directory, test_case, case_index, "int"))
         {
             return fail(case_index, "uwvm-int CLI did not reject the disabled feature");
         }
+#endif
         if(!run_cli_rejection(uwvm_path, artifact_directory, test_case, case_index, "jit"))
         {
             return fail(case_index, "LLVM-JIT CLI did not reject the disabled feature");
@@ -498,6 +565,12 @@ int main(int argc, char** argv)
     auto mvp_policy{wasm1p1_policy};
     ::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(mvp_policy).cli_mode =
         ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm_feature_cli_mode::direct_wasmmvp;
+    if(validate_call_indirect_encoding(call_indirect_reserved_zero_module,
+                                       sizeof(call_indirect_reserved_zero_module),
+                                       mvp_policy,
+                                       error_code::ok,
+                                       "mvp-canonical-reserved-byte") != 0)
+    { return 1; }
     if(validate_call_indirect_encoding(call_indirect_nonminimal_zero_module,
                                        sizeof(call_indirect_nonminimal_zero_module),
                                        mvp_policy,

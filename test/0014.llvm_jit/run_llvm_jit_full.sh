@@ -148,6 +148,7 @@ else
       printf '%s\n' llvm_aot_noinline_policy
       printf '%s\n' llvm_aot_unaligned_memory
       printf '%s\n' llvm_jit_imported_bulk_memory
+      printf '%s\n' wasm2_feature_validator_parity
       if [[ "${UWVM_LLVM_JIT_TEST_PROFILE}" == "full" ]]; then
         printf '%s\n' llvm_jit_multivalue_typed
         printf '%s\n' llvm_jit_trap_matrix_wat
@@ -177,7 +178,7 @@ fi
 if [[ "${UWVM_LLVM_JIT_TEST_PROFILE}" == "aot" ]]; then
   for t in "${TARGETS[@]}"; do
     case "${t}" in
-      lj13s_*|lj13l_*|llvm_jit_cache_integration|llvm_jit_lazy_raw_body_scanner|llvm_jit_multivalue_typed|llvm_jit_trap_matrix_wat|llvm_jit_trunc_boundary_matrix|llvm_jit_unwind_call_stack_wat|llvm_jit_wasm1p1_clang_cpp_matrix|tiered_*|wasm2_feature_validator_parity|wasm32_effective_address)
+      lj13s_*|lj13l_*|llvm_jit_cache_integration|llvm_jit_lazy_raw_body_scanner|llvm_jit_multivalue_typed|llvm_jit_trap_matrix_wat|llvm_jit_trunc_boundary_matrix|llvm_jit_unwind_call_stack_wat|llvm_jit_wasm1p1_clang_cpp_matrix|tiered_*|wasm32_effective_address)
         echo "ERR: target ${t} requires int, lazy, or tiered coverage and is invalid in the aot profile" >&2
         exit 2
         ;;
