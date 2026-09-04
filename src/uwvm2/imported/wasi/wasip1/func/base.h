@@ -43,6 +43,7 @@
 // import
 # include <fast_io.h>
 # include <fast_io_device.h>
+# include <fast_io_dsal/string_view.h>
 # include <uwvm2/uwvm_predefine/utils/ansies/impl.h>
 # include <uwvm2/uwvm_predefine/io/impl.h>
 # include <uwvm2/utils/container/impl.h>
@@ -69,21 +70,33 @@ UWVM_MODULE_EXPORT namespace uwvm2::imported::wasi::wasip1::func
     UWVM_GNU_COLD [[noreturn]] inline constexpr void output_wasip1_guest_pointer_alignment_error(
         ::std::uint_least64_t guest_offset,
         ::std::size_t required_alignment,
-        char8_t const* pointer_name) noexcept
+        ::fast_io::u8string_view pointer_name) noexcept
     {
 # ifdef UWVM
         ::fast_io::io::perr(::uwvm2::uwvm::io::u8log_output,
-                            u8"uwvm: [fatal] WASI Preview 1 guest pointer alignment trap: ",
-                            ::fast_io::mnp::os_c_str(pointer_name),
+                            ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL_AND_SET_WHITE),
+                            u8"uwvm: ",
+                            ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_LT_RED),
+                            u8"[fatal] ",
+                            ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                            u8"WASI Preview 1 guest pointer alignment trap: ",
+                            ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                            pointer_name,
+                            ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
                             u8" = ",
+                            ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_LT_RED),
                             ::fast_io::mnp::addrvw(guest_offset),
+                            ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
                             u8", required alignment = ",
+                            ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_CYAN),
                             required_alignment,
-                            u8" bytes\n\n");
+                            ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                            u8" bytes\n\n",
+                            ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL));
 # else
         ::fast_io::io::perr(::fast_io::u8err(),
                             u8"uwvm: [fatal] WASI Preview 1 guest pointer alignment trap: ",
-                            ::fast_io::mnp::os_c_str(pointer_name),
+                            pointer_name,
                             u8" = ",
                             ::fast_io::mnp::addrvw(guest_offset),
                             u8", required alignment = ",
@@ -99,7 +112,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::imported::wasi::wasip1::func
     /// @see https://github.com/WebAssembly/WASI/blob/wasi-0.1/tools/witx-docs.md#pointers
     /// @tparam RequiredAlignment Explicit alignment from the guest ABI layout; never infer this from a host C++ pointer or host ABI.
     template <::std::size_t RequiredAlignment, ::std::unsigned_integral Pointer>
-    inline constexpr void check_wasip1_guest_pointer_alignment(Pointer guest_offset, char8_t const* pointer_name) noexcept
+    inline constexpr void check_wasip1_guest_pointer_alignment(Pointer guest_offset, ::fast_io::u8string_view pointer_name) noexcept
     {
         static_assert(RequiredAlignment != 0uz && (RequiredAlignment & (RequiredAlignment - 1uz)) == 0uz,
                       "WASI guest pointer alignment must be a nonzero power of two");
