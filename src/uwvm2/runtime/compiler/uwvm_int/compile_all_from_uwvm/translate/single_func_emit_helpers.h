@@ -1795,6 +1795,9 @@ auto const stacktop_fill_one_from_memory_to{[&](bytecode_vec_t& dst) constexpr U
 
                                                 // Fill consecutive same-typed values from memory into cache in one opfunc when possible.
                                                 auto const vt{codegen_operand_stack.index_unchecked(stacktop_memory_count - 1uz).type};
+                                                // Reference values are memory-only. They form a barrier: values below them cannot be
+                                                // moved into a stack-top register without changing the mixed-type stack order.
+                                                if(!stacktop_enabled_for_vt(vt)) { return; }
                                                 ::std::size_t const begin_pos{stacktop_range_begin_pos(vt)};
                                                 ::std::size_t const end_pos{stacktop_range_end_pos(vt)};
                                                 ::std::size_t const group_cnt{stacktop_cache_count_for_range(begin_pos, end_pos)};
@@ -2063,6 +2066,9 @@ auto const stacktop_fill_to_canonical{[&](bytecode_vec_t& dst) constexpr UWVM_TH
                                               while(stacktop_memory_count != 0uz)
                                               {
                                                   auto const vt{codegen_operand_stack.index_unchecked(stacktop_memory_count - 1uz).type};
+                                                  // Keep memory-only reference values at the top of the materialized prefix. A
+                                                  // canonical fill may resume after a later opcode consumes that barrier value.
+                                                  if(!stacktop_enabled_for_vt(vt)) { break; }
                                                   ::std::size_t const begin_pos{stacktop_range_begin_pos(vt)};
                                                   ::std::size_t const end_pos{stacktop_range_end_pos(vt)};
                                                   ::std::size_t const ring_size{end_pos - begin_pos};
