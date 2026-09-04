@@ -44,6 +44,8 @@ import uwvm2.utils.debug;
 import uwvm2.utils.thread;
 import uwvm2.parser.wasm.base;
 import uwvm2.parser.wasm.standard.wasm1;
+import uwvm2.parser.wasm.standard.wasm1p1.type;
+import uwvm2.parser.wasm.standard.wasm1p1.opcode;
 import uwvm2.parser.wasm.standard.wasm1p1.features;
 import uwvm2.parser.wasm.standard.wasm2.features;
 import uwvm2.validation.error;
