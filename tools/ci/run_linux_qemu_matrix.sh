@@ -37,11 +37,22 @@ Fixture and output:
                                 single-thread-alloc are accepted.
 
 Matrix and resource controls:
-  --policies <csv>              instruction,auto,unwind (default: all three).
-                                Explicit unwind is rejected-probed and skipped
-                                when the target does not advertise libunwind.
+  --modes <csv|auto>            Runtime modes to exercise. Default: auto, which
+                                selects only modes advertised by the target.
+                                Explicit values: int, aot, full, lazy, tiered,
+                                tiered-no-t0, tiered-no-t2, and
+                                tiered-no-t0-no-t2.
+  --policies <csv>              logical, instruction, auto, unwind, and
+                                unwind-uncheck. Default: all five. logical is
+                                the implicit interpreter stack policy and never
+                                adds an LLVM call-stack option. Unsupported
+                                native policies are rejection-probed but not run
+                                as matrix rows.
   --jobs <n>                    Concurrent target processes (default: 1).
-  --compile-threads <n>         -Rct value for each target (default: 1).
+  --compile-threads <n>         -Rct extra worker count for each target (default:
+                                0, compilation stays on the calling thread).
+                                The tier-2 background readiness witness needs
+                                at least 2 workers and is SKIP below that cap.
   --timeout <seconds>           Per probe/fixture/run timeout (default: 120).
   --max-rss-mib <MiB>           Sampled per-process-group soft RSS cap (default:
                                 4096; 0 disables). Use a container/cgroup memory
@@ -52,10 +63,12 @@ Matrix and resource controls:
                                 SKIP instead of FAIL.
   -h, --help                    Show this help.
 
-The fixed mode matrix is full (-Rcm full -Rcc jit), lazy (-Rjit), tiered,
-tiered-no-t0, tiered-no-t2, and tiered-no-t0-no-t2. Normal fixtures must exit
-zero. Trap fixtures must exit nonzero and report the exact Wasm trap kind.
-Metadata, results.tsv, and per-run logs are written below build/test by default.
+Auto mode selection adds int (-Rint) when advertised, prefers full
+(-Rcm full -Rcc jit) over its aot shorthand (-Raot), then adds each advertised
+lazy/tiered variant. Missing source-pruned modes are recorded in metadata rather
+than treated as failures. Normal fixtures must exit zero. Trap fixtures must
+exit nonzero and report the exact Wasm trap kind. Metadata, results.tsv, and
+per-run logs are written below build/test by default.
 EOF
 }
 
@@ -75,9 +88,10 @@ WAT2WASM_BIN=${WAT2WASM:-}
 OUTPUT_DIR=
 LABEL=
 EXPECT_MEMORY_MODEL=
-POLICY_CSV=instruction,auto,unwind
+MODE_CSV=${UWVM_QEMU_MODES:-auto}
+POLICY_CSV=logical,instruction,auto,unwind,unwind-uncheck
 JOBS=${UWVM_QEMU_JOBS:-1}
-COMPILE_THREADS=${UWVM_QEMU_COMPILE_THREADS:-1}
+COMPILE_THREADS=${UWVM_QEMU_COMPILE_THREADS:-0}
 TIMEOUT_SECONDS=${UWVM_QEMU_TIMEOUT:-120}
 MAX_RSS_MIB=${UWVM_QEMU_MAX_RSS_MIB:-4096}
 MEMORY_BUDGET_MIB=${UWVM_QEMU_MEMORY_BUDGET_MIB:-8192}
@@ -133,6 +147,11 @@ while (($# != 0)); do
             POLICY_CSV=$2
             shift 2
             ;;
+        --modes)
+            (($# >= 2)) || die "--modes requires auto or a comma-separated list"
+            MODE_CSV=$2
+            shift 2
+            ;;
         --jobs)
             (($# >= 2)) || die "--jobs requires a value"
             JOBS=$2
@@ -184,7 +203,6 @@ for numeric in "$JOBS" "$COMPILE_THREADS" "$TIMEOUT_SECONDS" "$MAX_RSS_MIB" "$ME
     is_uint "$numeric" || die "resource-control values must be non-negative integers"
 done
 ((JOBS >= 1)) || die "--jobs must be at least 1"
-((COMPILE_THREADS >= 1)) || die "--compile-threads must be at least 1"
 ((TIMEOUT_SECONDS >= 1)) || die "--timeout must be at least 1"
 if ((MAX_RSS_MIB != 0 && MEMORY_BUDGET_MIB != 0 && JOBS * MAX_RSS_MIB > MEMORY_BUDGET_MIB)); then
     die "jobs * max RSS exceeds --memory-budget-mib (${JOBS} * ${MAX_RSS_MIB} > ${MEMORY_BUDGET_MIB})"
@@ -402,7 +420,7 @@ probe_target()
     local name=$1
     shift
     local log="${LOG_DIR}/probe-${name}.log"
-    run_limited "$log" "${RUN_PREFIX[@]}" "$UWVM" "$@"
+    run_limited "$log" "${RUN_PREFIX[@]+"${RUN_PREFIX[@]}"}" "$UWVM" "$@"
     if ((RUN_RC != 0)); then
         die "target probe ${name} failed (rc=${RUN_RC}, reason=${RUN_LIMIT_REASON}, log=${log})"
     fi
@@ -441,7 +459,9 @@ LLVM_VERSION=${LLVM_VERSION:-unknown}
 CALL_STACK_MODES=${CALL_STACK_MODES:-none}
 WAT2WASM_VERSION=${WAT2WASM_VERSION:-unknown}
 
+CAP_INT=0
 CAP_FULL=0
+CAP_AOT=0
 CAP_LAZY=0
 CAP_TIERED=0
 CAP_TIERED_NO_T0=0
@@ -450,28 +470,125 @@ CAP_CALL_STACK=0
 CAP_INSTRUCTION=0
 CAP_AUTO=0
 CAP_UNWIND=0
+CAP_UNWIND_UNCHECK=0
 CAP_WASM2=0
 
-if [[ $RUNTIME_COMPILER == *LLVM-JIT* ]] && grep -q -- '--runtime-custom-mode' "$RUNTIME_HELP_TEXT" && \
-    grep -q -- '--runtime-custom-compiler' "$RUNTIME_HELP_TEXT"; then
+option_advertised()
+{
+    local requested=$1
+    grep -Eq "(^|[^[:alnum:]_-])${requested}([^[:alnum:]_-]|$)" "$RUNTIME_HELP_TEXT"
+}
+
+if [[ $RUNTIME_COMPILER == *LLVM-JIT* ]] && option_advertised --runtime-custom-mode && \
+    option_advertised --runtime-custom-compiler; then
     CAP_FULL=1
 fi
-if grep -q -- '--runtime-jit' "$RUNTIME_HELP_TEXT"; then CAP_LAZY=1; fi
-if grep -q -- '--runtime-tiered' "$RUNTIME_HELP_TEXT"; then CAP_TIERED=1; fi
-if grep -q -- '--runtime-tiered-disable-uwvm-int-lazy-interpreter' "$RUNTIME_HELP_TEXT"; then CAP_TIERED_NO_T0=1; fi
-if grep -q -- '--runtime-tiered-disable-llvm-full-jit' "$RUNTIME_HELP_TEXT"; then CAP_TIERED_NO_T2=1; fi
-if grep -q -- '--runtime-llvm-jit-call-stack' "$RUNTIME_HELP_TEXT"; then CAP_CALL_STACK=1; fi
+if option_advertised --runtime-int; then CAP_INT=1; fi
+if option_advertised --runtime-aot; then CAP_AOT=1; fi
+if option_advertised --runtime-jit; then CAP_LAZY=1; fi
+if option_advertised --runtime-tiered; then CAP_TIERED=1; fi
+if option_advertised --runtime-tiered-disable-uwvm-int-lazy-interpreter; then CAP_TIERED_NO_T0=1; fi
+if option_advertised --runtime-tiered-disable-llvm-full-jit; then CAP_TIERED_NO_T2=1; fi
+if option_advertised --runtime-llvm-jit-call-stack; then CAP_CALL_STACK=1; fi
 CALL_STACK_USAGE=$(awk '
     /--runtime-llvm-jit-call-stack/ { in_call_stack = 1 }
     in_call_stack && /Usage:/ { print; exit }
 ' "$RUNTIME_HELP_TEXT")
-call_stack_mode_list=" $(printf '%s' "$CALL_STACK_MODES" | tr ',' ' ') "
-if ((CAP_CALL_STACK)) && [[ $CALL_STACK_USAGE == *instruction* && $call_stack_mode_list == *" instruction "* ]]; then CAP_INSTRUCTION=1; fi
+
+call_stack_mode_advertised()
+{
+    local requested=$1
+    printf '%s\n' "$CALL_STACK_MODES" |
+        grep -Eq "(^|[[:space:],])${requested}([[:space:],()]|$)"
+}
+
+if ((CAP_CALL_STACK)) && [[ $CALL_STACK_USAGE == *instruction* ]] && call_stack_mode_advertised instruction; then CAP_INSTRUCTION=1; fi
 if ((CAP_CALL_STACK)) && [[ $CALL_STACK_USAGE == *auto* ]]; then CAP_AUTO=1; fi
-if ((CAP_CALL_STACK)) && [[ $CALL_STACK_USAGE == *unwind* && $call_stack_mode_list == *" unwind "* ]]; then CAP_UNWIND=1; fi
+if ((CAP_CALL_STACK)) && [[ $CALL_STACK_USAGE =~ (^|[^[:alnum:]_-])unwind([^[:alnum:]_-]|$) ]] && \
+    call_stack_mode_advertised unwind; then CAP_UNWIND=1; fi
+if ((CAP_CALL_STACK)) && [[ $CALL_STACK_USAGE == *unwind-uncheck* ]] && \
+    call_stack_mode_advertised unwind-uncheck; then CAP_UNWIND_UNCHECK=1; fi
 if grep -q -- '--wasm-feature-wasm2' "$WASM_HELP_TEXT"; then CAP_WASM2=1; fi
 
-CAPABILITIES="full=${CAP_FULL},lazy=${CAP_LAZY},tiered=${CAP_TIERED},tiered_no_t0=${CAP_TIERED_NO_T0},tiered_no_t2=${CAP_TIERED_NO_T2},instruction=${CAP_INSTRUCTION},auto=${CAP_AUTO},unwind=${CAP_UNWIND},wasm2=${CAP_WASM2}"
+CAPABILITIES="int=${CAP_INT},aot=${CAP_AOT},full=${CAP_FULL},lazy=${CAP_LAZY},tiered=${CAP_TIERED},tiered_no_t0=${CAP_TIERED_NO_T0},tiered_no_t2=${CAP_TIERED_NO_T2},instruction=${CAP_INSTRUCTION},auto=${CAP_AUTO},unwind=${CAP_UNWIND},unwind_uncheck=${CAP_UNWIND_UNCHECK},wasm2=${CAP_WASM2}"
+
+ALL_MODE_NAMES=(int aot full lazy tiered tiered-no-t0 tiered-no-t2 tiered-no-t0-no-t2)
+
+mode_supported()
+{
+    case $1 in
+        int) ((CAP_INT)) ;;
+        aot) ((CAP_AOT)) ;;
+        full) ((CAP_FULL)) ;;
+        lazy) ((CAP_LAZY)) ;;
+        tiered) ((CAP_TIERED)) ;;
+        tiered-no-t0) ((CAP_TIERED && CAP_TIERED_NO_T0)) ;;
+        tiered-no-t2) ((CAP_TIERED && CAP_TIERED_NO_T2)) ;;
+        tiered-no-t0-no-t2) ((CAP_TIERED && CAP_TIERED_NO_T0 && CAP_TIERED_NO_T2)) ;;
+        *) return 1 ;;
+    esac
+}
+
+join_csv()
+{
+    local joined=
+    local value
+    for value in "$@"; do
+        if [[ -n $joined ]]; then joined+=,; fi
+        joined+=$value
+    done
+    printf '%s' "$joined"
+}
+
+MODE_NAMES=()
+ADVERTISED_MODE_NAMES=()
+AUTO_SKIPPED_MODE_NAMES=()
+for mode in "${ALL_MODE_NAMES[@]}"; do
+    if mode_supported "$mode"; then
+        ADVERTISED_MODE_NAMES+=("$mode")
+    else
+        AUTO_SKIPPED_MODE_NAMES+=("$mode")
+    fi
+done
+
+MODE_SELECTION=explicit
+if [[ ${MODE_CSV//[[:space:]]/} == auto ]]; then
+    MODE_SELECTION=auto
+    if ((CAP_INT)); then MODE_NAMES+=(int); fi
+    if ((CAP_FULL)); then
+        MODE_NAMES+=(full)
+    elif ((CAP_AOT)); then
+        MODE_NAMES+=(aot)
+    fi
+    if ((CAP_LAZY)); then MODE_NAMES+=(lazy); fi
+    if ((CAP_TIERED)); then MODE_NAMES+=(tiered); fi
+    if ((CAP_TIERED && CAP_TIERED_NO_T0)); then MODE_NAMES+=(tiered-no-t0); fi
+    if ((CAP_TIERED && CAP_TIERED_NO_T2)); then MODE_NAMES+=(tiered-no-t2); fi
+    if ((CAP_TIERED && CAP_TIERED_NO_T0 && CAP_TIERED_NO_T2)); then MODE_NAMES+=(tiered-no-t0-no-t2); fi
+else
+    IFS=',' read -r -a MODE_NAMES <<<"$MODE_CSV"
+    ((${#MODE_NAMES[@]} != 0)) || die "--modes must not be empty"
+    NORMALIZED_MODE_NAMES=()
+    for index in "${!MODE_NAMES[@]}"; do
+        mode=${MODE_NAMES[$index]//[[:space:]]/}
+        case $mode in
+            int|aot|full|lazy|tiered|tiered-no-t0|tiered-no-t2|tiered-no-t0-no-t2) ;;
+            *) die "unsupported runtime mode: ${mode:-<empty>}" ;;
+        esac
+        for existing_mode in "${NORMALIZED_MODE_NAMES[@]+"${NORMALIZED_MODE_NAMES[@]}"}"; do
+            [[ $existing_mode != "$mode" ]] || die "duplicate runtime mode: ${mode}"
+        done
+        NORMALIZED_MODE_NAMES+=("$mode")
+    done
+    MODE_NAMES=("${NORMALIZED_MODE_NAMES[@]}")
+fi
+
+ADVERTISED_MODES=$(join_csv "${ADVERTISED_MODE_NAMES[@]+"${ADVERTISED_MODE_NAMES[@]}"}")
+SELECTED_MODES=$(join_csv "${MODE_NAMES[@]+"${MODE_NAMES[@]}"}")
+AUTO_SKIPPED_MODES=$(join_csv "${AUTO_SKIPPED_MODE_NAMES[@]+"${AUTO_SKIPPED_MODE_NAMES[@]}"}")
+ADVERTISED_MODES=${ADVERTISED_MODES:-none}
+SELECTED_MODES=${SELECTED_MODES:-none}
+AUTO_SKIPPED_MODES=${AUTO_SKIPPED_MODES:-none}
 WRAPPER_DISPLAY='<none>'
 EXTRA_ARGS_DISPLAY='<none>'
 if ((${#RUN_PREFIX[@]} != 0)); then printf -v WRAPPER_DISPLAY '%q ' "${RUN_PREFIX[@]}"; fi
@@ -492,6 +609,11 @@ if ((${#EXTRA_UWVM_ARGS[@]} != 0)); then printf -v EXTRA_ARGS_DISPLAY '%q ' "${E
     printf 'llvm_version\t%s\n' "$LLVM_VERSION"
     printf 'call_stack_modes\t%s\n' "$CALL_STACK_MODES"
     printf 'capabilities\t%s\n' "$CAPABILITIES"
+    printf 'mode_selection\t%s\n' "$MODE_SELECTION"
+    printf 'requested_modes\t%s\n' "$MODE_CSV"
+    printf 'advertised_modes\t%s\n' "$ADVERTISED_MODES"
+    printf 'selected_modes\t%s\n' "$SELECTED_MODES"
+    printf 'auto_skipped_unadvertised_modes\t%s\n' "$AUTO_SKIPPED_MODES"
     printf 'wat2wasm\t%s\n' "$WAT2WASM_BIN"
     printf 'wat2wasm_version\t%s\n' "$WAT2WASM_VERSION"
     printf 'jobs\t%s\n' "$JOBS"
@@ -516,9 +638,27 @@ IFS=',' read -r -a POLICIES <<<"$POLICY_CSV"
 for index in "${!POLICIES[@]}"; do
     POLICIES[$index]=${POLICIES[$index]//[[:space:]]/}
     case ${POLICIES[$index]} in
-        instruction|auto|unwind) ;;
+        logical|instruction|auto|unwind|unwind-uncheck) ;;
         *) die "unsupported call-stack policy: ${POLICIES[$index]}" ;;
     esac
+done
+
+SUPPORTED_POLICY_NAMES=()
+if ((CAP_INT)); then SUPPORTED_POLICY_NAMES+=(logical); fi
+if ((CAP_INSTRUCTION)); then SUPPORTED_POLICY_NAMES+=(instruction); fi
+if ((CAP_AUTO)); then SUPPORTED_POLICY_NAMES+=(auto); fi
+if ((CAP_UNWIND)); then SUPPORTED_POLICY_NAMES+=(unwind); fi
+if ((CAP_UNWIND_UNCHECK)); then SUPPORTED_POLICY_NAMES+=(unwind-uncheck); fi
+SUPPORTED_POLICIES=$(join_csv "${SUPPORTED_POLICY_NAMES[@]+"${SUPPORTED_POLICY_NAMES[@]}"}")
+SUPPORTED_POLICIES=${SUPPORTED_POLICIES:-none}
+printf 'requested_policies\t%s\n' "$(join_csv "${POLICIES[@]}")" >>"$METADATA_TSV"
+printf 'supported_policies\t%s\n' "$SUPPORTED_POLICIES" >>"$METADATA_TSV"
+
+AUTO_REQUESTED=0
+UNWIND_UNCHECK_REQUESTED=0
+for policy in "${POLICIES[@]}"; do
+    if [[ $policy == auto ]]; then AUTO_REQUESTED=1; fi
+    if [[ $policy == unwind-uncheck ]]; then UNWIND_UNCHECK_REQUESTED=1; fi
 done
 
 FIXTURE_NAMES=(
@@ -589,21 +729,6 @@ for index in "${!FIXTURE_NAMES[@]}"; do
     FIXTURE_WASMS+=("$output_wasm")
 done
 
-MODE_NAMES=(full lazy tiered tiered-no-t0 tiered-no-t2 tiered-no-t0-no-t2)
-
-mode_supported()
-{
-    case $1 in
-        full) ((CAP_FULL)) ;;
-        lazy) ((CAP_LAZY)) ;;
-        tiered) ((CAP_TIERED)) ;;
-        tiered-no-t0) ((CAP_TIERED && CAP_TIERED_NO_T0)) ;;
-        tiered-no-t2) ((CAP_TIERED && CAP_TIERED_NO_T2)) ;;
-        tiered-no-t0-no-t2) ((CAP_TIERED && CAP_TIERED_NO_T0 && CAP_TIERED_NO_T2)) ;;
-        *) return 1 ;;
-    esac
-}
-
 fixture_applicable_to_mode()
 {
     local fixture_index=$1
@@ -621,9 +746,48 @@ fixture_applicable_to_mode()
 policy_supported()
 {
     case $1 in
+        logical) ((CAP_INT)) ;;
         instruction) ((CAP_INSTRUCTION)) ;;
         auto) ((CAP_AUTO)) ;;
         unwind) ((CAP_UNWIND)) ;;
+        unwind-uncheck) ((CAP_UNWIND_UNCHECK)) ;;
+        *) return 1 ;;
+    esac
+}
+
+mode_uses_llvm()
+{
+    case $1 in
+        aot|full|lazy|tiered|tiered-no-t0|tiered-no-t2|tiered-no-t0-no-t2) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+policy_applicable_to_mode()
+{
+    local mode=$1
+    local policy=$2
+    if [[ $mode == int ]]; then
+        [[ $policy == logical ]]
+    elif mode_uses_llvm "$mode"; then
+        [[ $policy != logical ]]
+    else
+        return 1
+    fi
+}
+
+set_mode_args()
+{
+    MODE_ARGS=()
+    case $1 in
+        int) MODE_ARGS=(-Rint) ;;
+        aot) MODE_ARGS=(-Raot) ;;
+        full) MODE_ARGS=(-Rcm full -Rcc jit) ;;
+        lazy) MODE_ARGS=(-Rjit) ;;
+        tiered) MODE_ARGS=(-Rtiered) ;;
+        tiered-no-t0) MODE_ARGS=(-Rtiered -Rtiered-disable-t0) ;;
+        tiered-no-t2) MODE_ARGS=(-Rtiered -Rtiered-disable-t2) ;;
+        tiered-no-t0-no-t2) MODE_ARGS=(-Rtiered -Rtiered-disable-t0 -Rtiered-disable-t2) ;;
         *) return 1 ;;
     esac
 }
@@ -696,11 +860,46 @@ unsupported_outcome()
     fi
 }
 
+HAS_SELECTED_LLVM_MODE=0
+for mode in "${MODE_NAMES[@]+"${MODE_NAMES[@]}"}"; do
+    if ! mode_supported "$mode"; then continue; fi
+    if mode_uses_llvm "$mode"; then
+        HAS_SELECTED_LLVM_MODE=1
+    fi
+done
+
+if [[ $MODE_SELECTION == explicit ]]; then
+    for mode in "${MODE_NAMES[@]}"; do
+        if ! mode_supported "$mode"; then
+            allocate_id
+            write_result "$ALLOCATED_ID" "$mode" - - capability capability supported - "$(unsupported_outcome)" \
+                "requested runtime mode is not advertised" 0 0 - -
+        fi
+    done
+elif ((${#MODE_NAMES[@]} == 0)); then
+    allocate_id
+    write_result "$ALLOCATED_ID" - - - capability capability 'an advertised int/AOT/full/lazy/tiered mode' - FAIL \
+        "auto mode selection found no runnable compiler mode" 0 0 - -
+fi
+
 for mode in "${MODE_NAMES[@]}"; do
-    if ! mode_supported "$mode"; then
+    if ! mode_supported "$mode"; then continue; fi
+    has_applicable_policy=0
+    for policy in "${POLICIES[@]}"; do
+        if policy_applicable_to_mode "$mode" "$policy"; then
+            has_applicable_policy=1
+            break
+        fi
+    done
+    if ((has_applicable_policy == 0)); then
         allocate_id
-        write_result "$ALLOCATED_ID" "$mode" - - capability capability supported - "$(unsupported_outcome)" \
-            "required runtime mode is not advertised" 0 0 - -
+        if [[ $mode == int ]]; then
+            incompatible_policy_detail='interpreter mode requires the logical policy and never accepts an LLVM call-stack policy'
+        else
+            incompatible_policy_detail='LLVM runtime mode requires instruction, auto, unwind, or unwind-uncheck; logical is interpreter-only'
+        fi
+        write_result "$ALLOCATED_ID" "$mode" "$(join_csv "${POLICIES[@]}")" - capability capability 'an applicable policy' - \
+            "$(unsupported_outcome)" "$incompatible_policy_detail" 0 0 - -
     fi
 done
 
@@ -715,7 +914,7 @@ if ((CAP_WASM2 == 0)); then
 fi
 
 for policy in "${POLICIES[@]}"; do
-    if [[ $policy != unwind ]] && ! policy_supported "$policy"; then
+    if ((HAS_SELECTED_LLVM_MODE)) && [[ $policy != logical && $policy != unwind && $policy != unwind-uncheck ]] && ! policy_supported "$policy"; then
         allocate_id
         write_result "$ALLOCATED_ID" - "$policy" - capability capability supported - "$(unsupported_outcome)" \
             "call-stack policy is not advertised" 0 0 - -
@@ -739,36 +938,123 @@ extract_trap_kind()
     fi
 }
 
-extract_actual_policy()
+extract_optimize_field()
 {
     local compiler_log=$1
-    local token=
-    if [[ -s $compiler_log ]]; then
-        while IFS= read -r match; do
-            token=${match#call_stack=}
-            token=${token%%[[:space:],;]*}
-        done < <(grep -ao 'call_stack=[^[:space:],;]*' "$compiler_log" 2>/dev/null || true)
-    fi
-    printf '%s' "${token:-unknown}"
+    local field=$2
+    awk -v field="$field" '
+        index($0, "[llvm-jit-full] optimize-start ") != 0 {
+            for (i = 1; i <= NF; ++i) {
+                prefix = field "="
+                if (index($i, prefix) == 1) {
+                    current = substr($i, length(prefix) + 1)
+                    sub(/[,:;\r]+$/, "", current)
+                    if (value != "" && current != value) inconsistent = 1
+                    value = current
+                    found = 1
+                }
+            }
+        }
+        END {
+            if (inconsistent) print "inconsistent"
+            else if (found) print value
+            else print "unknown"
+        }
+    ' "$compiler_log" 2>/dev/null
+}
+
+extract_actual_policy()
+{
+    extract_optimize_field "$1" call_stack
 }
 
 extract_call_stack_frames()
 {
-    local compiler_log=$1
-    local token=
-    if [[ -s $compiler_log ]]; then
-        while IFS= read -r match; do
-            token=${match#call_stack_frames=}
-            token=${token%%[[:space:],;]*}
-        done < <(grep -ao 'call_stack_frames=[^[:space:],;]*' "$compiler_log" 2>/dev/null || true)
-    fi
-    printf '%s' "${token:-unknown}"
+    extract_optimize_field "$1" call_stack_frames
 }
 
-has_strict_native_capture()
+policy_declarations_match()
 {
     local compiler_log=$1
-    grep -aEq '\[llvm-jit-unwind\] capture_source=seeded-libunwind backend=libunwind resolved_jit_caller=yes' "$compiler_log" 2>/dev/null
+    local expected_policy=$2
+    local expected_check=$3
+    local expected_replace=$4
+    local expected_frames=$5
+    local expected_backend=${6:-any}
+    awk \
+        -v expected_policy="$expected_policy" \
+        -v expected_check="$expected_check" \
+        -v expected_replace="$expected_replace" \
+        -v expected_frames="$expected_frames" \
+        -v expected_backend="$expected_backend" '
+        function value_of(token, key, value) {
+            if (index(token, key "=") != 1) return ""
+            value = substr(token, length(key) + 2)
+            sub(/[,:;\r]+$/, "", value)
+            return value
+        }
+        index($0, "[llvm-jit-full] optimize-start ") != 0 {
+            found = 1
+            policy = check = replace = frames = backend = ""
+            for (i = 1; i <= NF; ++i) {
+                value = value_of($i, "call_stack")
+                if (value != "") policy = value
+                value = value_of($i, "unwind_check")
+                if (value != "") check = value
+                value = value_of($i, "unwind_replace_frames")
+                if (value != "") replace = value
+                value = value_of($i, "call_stack_frames")
+                if (value != "") frames = value
+                value = value_of($i, "unwind_backend")
+                if (value != "") backend = value
+            }
+            if (policy != expected_policy || check != expected_check ||
+                replace != expected_replace || frames != expected_frames ||
+                (expected_backend != "any" && backend != expected_backend)) bad = 1
+        }
+        END { exit !(found && !bad) }
+    ' "$compiler_log" 2>/dev/null
+}
+
+has_live_unwind_declaration()
+{
+    # The current runtime has exactly one authoritative native unwinder: an
+    # explicit Win64 SEH caller context.  POSIX unwind.h is diagnostic-only.
+    policy_declarations_match "$1" unwind live yes omit win64-seh
+}
+
+has_instruction_fallback_declaration()
+{
+    policy_declarations_match "$1" instruction off no emit
+}
+
+has_none_declaration()
+{
+    local compiler_log=$1
+    [[ $(extract_actual_policy "$compiler_log") == none && $(extract_call_stack_frames "$compiler_log") == omit && \
+        $(extract_optimize_field "$compiler_log" unwind_check) == off ]]
+}
+
+has_auxiliary_unwind_uncheck_declaration()
+{
+    local compiler_log=$1
+    local backend
+    policy_declarations_match "$compiler_log" unwind-uncheck static no emit || return 1
+    backend=$(extract_optimize_field "$compiler_log" unwind_backend)
+    [[ $backend != unknown && $backend != inconsistent && $backend != unavailable ]]
+}
+
+has_expected_policy_declaration()
+{
+    local compiler_log=$1
+    local policy=$2
+    case $policy in
+        instruction) has_instruction_fallback_declaration "$compiler_log" ;;
+        unwind) has_live_unwind_declaration "$compiler_log" ;;
+        unwind-uncheck) has_auxiliary_unwind_uncheck_declaration "$compiler_log" ;;
+        none) has_none_declaration "$compiler_log" ;;
+        *) return 1 ;;
+    esac
 }
 
 regular_case_executes_llvm()
@@ -779,7 +1065,7 @@ regular_case_executes_llvm()
         tiered_osr_oob|tiered_full_ready_oob) return 0 ;;
     esac
     case $mode in
-        full|lazy|tiered-no-t0|tiered-no-t0-no-t2) return 0 ;;
+        aot|full|lazy|tiered-no-t0|tiered-no-t0-no-t2) return 0 ;;
         tiered|tiered-no-t2) return 1 ;;
         *) return 1 ;;
     esac
@@ -840,7 +1126,7 @@ has_expected_llvm_log()
             ;;
     esac
     case $mode in
-        full) grep -aFq '[llvm-jit-full] optimize-start' "$compiler_log" ;;
+        aot|full) grep -aFq '[llvm-jit-full] optimize-start' "$compiler_log" ;;
         lazy|tiered-no-t0|tiered-no-t0-no-t2) grep -aFq '[llvm-jit-lazy] compile-end' "$compiler_log" ;;
         tiered|tiered-no-t2) return 0 ;;
         *) return 1 ;;
@@ -860,17 +1146,26 @@ extract_func_indices()
     printf '%s' "$indices"
 }
 
+POLICY_PROBE_MODE=
+if ((CAP_FULL)); then
+    POLICY_PROBE_MODE=full
+elif ((CAP_AOT)); then
+    POLICY_PROBE_MODE=aot
+fi
+printf 'policy_probe_mode\t%s\n' "${POLICY_PROBE_MODE:-unavailable}" >>"$METADATA_TSV"
+
 AUTO_EFFECTIVE_POLICY=unavailable
-if ((CAP_AUTO && CAP_FULL && CAP_CALL_STACK)); then
+if ((HAS_SELECTED_LLVM_MODE && AUTO_REQUESTED && CAP_AUTO && CAP_CALL_STACK)) && [[ -n $POLICY_PROBE_MODE ]]; then
     allocate_id
     auto_probe_id=$ALLOCATED_ID
     auto_probe_log="${LOG_DIR}/$(printf '%06d' "$auto_probe_id")-auto-live-probe.log"
     auto_probe_compiler_log="${LOG_DIR}/$(printf '%06d' "$auto_probe_id")-auto-live-probe.compiler.log"
     : >"$auto_probe_compiler_log"
+    set_mode_args "$POLICY_PROBE_MODE" || die "internal invalid policy probe mode: $POLICY_PROBE_MODE"
     run_limited "$auto_probe_log" \
-        "${RUN_PREFIX[@]}" "$UWVM" -Rcm full -Rcc jit -Rct "$COMPILE_THREADS" \
+        "${RUN_PREFIX[@]+"${RUN_PREFIX[@]}"}" "$UWVM" "${MODE_ARGS[@]}" -Rct "$COMPILE_THREADS" \
         -Rllvm-cache-path disable -Rllvm-call-stack auto -Rclog file "$auto_probe_compiler_log" \
-        "${EXTRA_UWVM_ARGS[@]}" --run "${FIXTURE_WASMS[4]}"
+        "${EXTRA_UWVM_ARGS[@]+"${EXTRA_UWVM_ARGS[@]}"}" --run "${FIXTURE_WASMS[4]}"
 
     AUTO_EFFECTIVE_POLICY=$(extract_actual_policy "$auto_probe_compiler_log")
     auto_probe_frames=$(extract_call_stack_frames "$auto_probe_compiler_log")
@@ -890,27 +1185,32 @@ if ((CAP_AUTO && CAP_FULL && CAP_CALL_STACK)); then
                 if [[ $auto_probe_stack != '0,1,2,3' ]]; then
                     auto_probe_outcome=FAIL
                     auto_probe_detail="auto unwind stack mismatch: ${auto_probe_stack:-missing}"
-                elif ! has_strict_native_capture "$auto_probe_compiler_log"; then
+                elif ! has_live_unwind_declaration "$auto_probe_compiler_log"; then
                     auto_probe_outcome=FAIL
-                    auto_probe_detail='auto unwind did not use seeded libunwind to resolve a JIT caller'
+                    auto_probe_detail='auto unwind lacks live checked native unwind with frame replacement'
                 else
-                    auto_probe_detail='auto=unwind;capture=seeded-libunwind;resolved_jit_caller=yes'
+                    auto_probe_detail='auto=unwind;unwind_check=live;unwind_replace_frames=yes;call_stack_frames=omit'
                 fi
                 ;;
             none)
-                if [[ $auto_probe_frames != omit ]]; then
-                    auto_probe_outcome=FAIL
-                    auto_probe_detail="auto none did not omit JIT call-stack frames: ${auto_probe_frames}"
-                elif [[ -n $auto_probe_stack ]]; then
-                    auto_probe_outcome=FAIL
-                    auto_probe_detail="auto none emitted Instruction frames: ${auto_probe_stack}"
-                else
-                    auto_probe_detail='auto=none;call_stack_frames=omit'
-                fi
+                # auto must preserve a logical stack.  It may select native
+                # unwind only after the authoritative live probe succeeds;
+                # otherwise the runtime falls back to Instruction frames.
+                # Resolving auto to none is therefore an impossible runtime
+                # state, not a third valid outcome for this test matrix.
+                auto_probe_outcome=FAIL
+                auto_probe_detail="invalid auto resolution to none; expected instruction or checked unwind (call_stack_frames=${auto_probe_frames})"
                 ;;
             instruction)
-                auto_probe_outcome=FAIL
-                auto_probe_detail='forbidden auto fallback to Instruction'
+                if [[ $auto_probe_stack != '0,1,2,3' ]]; then
+                    auto_probe_outcome=FAIL
+                    auto_probe_detail="auto instruction logical stack mismatch: ${auto_probe_stack:-missing}"
+                elif ! has_instruction_fallback_declaration "$auto_probe_compiler_log"; then
+                    auto_probe_outcome=FAIL
+                    auto_probe_detail='auto instruction lacks non-replacing logical-frame declaration'
+                else
+                    auto_probe_detail='auto=instruction;unwind_check=off;unwind_replace_frames=no;logical_frames=verified'
+                fi
                 ;;
             *)
                 auto_probe_outcome=FAIL
@@ -918,19 +1218,76 @@ if ((CAP_AUTO && CAP_FULL && CAP_CALL_STACK)); then
                 ;;
         esac
     fi
-    write_result "$auto_probe_id" capability auto "$AUTO_EFFECTIVE_POLICY" auto-live-probe trap \
-        'unwind-or-none' "$RUN_RC" "$auto_probe_outcome" "$auto_probe_detail" \
+    write_result "$auto_probe_id" "$POLICY_PROBE_MODE" auto "$AUTO_EFFECTIVE_POLICY" auto-live-probe trap \
+        'instruction-or-checked-unwind' "$RUN_RC" "$auto_probe_outcome" "$auto_probe_detail" \
         "$RUN_PEAK_RSS_KIB" "$RUN_ELAPSED_MS" "$auto_probe_log" "$auto_probe_compiler_log"
     if [[ $auto_probe_outcome != PASS ]]; then AUTO_EFFECTIVE_POLICY=invalid; fi
 fi
 printf 'auto_effective_policy\t%s\n' "$AUTO_EFFECTIVE_POLICY" >>"$METADATA_TSV"
 
+UNWIND_UNCHECK_AUXILIARY_STATUS=unavailable
+if ((HAS_SELECTED_LLVM_MODE && UNWIND_UNCHECK_REQUESTED && CAP_UNWIND_UNCHECK && CAP_CALL_STACK)) && [[ -n $POLICY_PROBE_MODE ]]; then
+    allocate_id
+    uncheck_probe_id=$ALLOCATED_ID
+    uncheck_probe_log="${LOG_DIR}/$(printf '%06d' "$uncheck_probe_id")-unwind-uncheck-auxiliary-probe.log"
+    uncheck_probe_compiler_log="${LOG_DIR}/$(printf '%06d' "$uncheck_probe_id")-unwind-uncheck-auxiliary-probe.compiler.log"
+    : >"$uncheck_probe_compiler_log"
+    set_mode_args "$POLICY_PROBE_MODE" || die "internal invalid policy probe mode: $POLICY_PROBE_MODE"
+    run_limited "$uncheck_probe_log" \
+        "${RUN_PREFIX[@]+"${RUN_PREFIX[@]}"}" "$UWVM" "${MODE_ARGS[@]}" -Rct "$COMPILE_THREADS" \
+        -Rllvm-cache-path disable -Rllvm-call-stack unwind-uncheck -Rclog file "$uncheck_probe_compiler_log" \
+        "${EXTRA_UWVM_ARGS[@]+"${EXTRA_UWVM_ARGS[@]}"}" --run "${FIXTURE_WASMS[4]}"
+
+    uncheck_probe_policy=$(extract_actual_policy "$uncheck_probe_compiler_log")
+    uncheck_probe_stack=$(extract_func_indices "$uncheck_probe_log")
+    uncheck_probe_trap=$(extract_trap_kind "$uncheck_probe_log")
+    uncheck_probe_outcome=PASS
+    uncheck_probe_detail='unwind-uncheck is auxiliary;logical_frames=verified'
+    if [[ $RUN_LIMIT_REASON != exit ]]; then
+        uncheck_probe_outcome=FAIL
+        uncheck_probe_detail="unwind-uncheck probe hit ${RUN_LIMIT_REASON}"
+    elif ((RUN_RC == 0)) || [[ $uncheck_probe_trap != 'memory access out of bounds' ]]; then
+        uncheck_probe_outcome=FAIL
+        uncheck_probe_detail='unwind-uncheck probe did not produce the expected OOB trap'
+    elif [[ $uncheck_probe_policy != unwind-uncheck ]]; then
+        uncheck_probe_outcome=FAIL
+        uncheck_probe_detail="unwind-uncheck effective policy mismatch: ${uncheck_probe_policy}"
+    elif ! has_auxiliary_unwind_uncheck_declaration "$uncheck_probe_compiler_log"; then
+        uncheck_probe_outcome=FAIL
+        uncheck_probe_detail='unwind-uncheck did not declare an available, non-replacing auxiliary backend'
+    elif [[ $uncheck_probe_stack != '0,1,2,3' ]]; then
+        uncheck_probe_outcome=FAIL
+        uncheck_probe_detail="unwind-uncheck logical stack mismatch: ${uncheck_probe_stack:-missing}"
+    fi
+    write_result "$uncheck_probe_id" "$POLICY_PROBE_MODE" unwind-uncheck "$uncheck_probe_policy" \
+        unwind-uncheck-auxiliary-probe trap 'logical-stack-plus-auxiliary-native-unwind' "$RUN_RC" \
+        "$uncheck_probe_outcome" "$uncheck_probe_detail" "$RUN_PEAK_RSS_KIB" "$RUN_ELAPSED_MS" \
+        "$uncheck_probe_log" "$uncheck_probe_compiler_log"
+    if [[ $uncheck_probe_outcome == PASS ]]; then
+        UNWIND_UNCHECK_AUXILIARY_STATUS=verified
+    else
+        UNWIND_UNCHECK_AUXILIARY_STATUS=invalid
+    fi
+elif ((HAS_SELECTED_LLVM_MODE && UNWIND_UNCHECK_REQUESTED && CAP_UNWIND_UNCHECK)); then
+    # An advertised lazy-only target cannot satisfy this full/AOT probe.  Do
+    # not silently produce an empty successful matrix when every selected
+    # policy needs an auxiliary-unwind verification we could not perform.
+    allocate_id
+    write_result "$ALLOCATED_ID" capability unwind-uncheck unavailable unwind-uncheck-auxiliary-probe capability \
+        'an advertised AOT/full policy-probe mode' - "$(unsupported_outcome)" \
+        'cannot verify auxiliary unwind without an advertised AOT/full mode and call-stack option' 0 0 - -
+elif ((UNWIND_UNCHECK_REQUESTED == 0)); then
+    UNWIND_UNCHECK_AUXILIARY_STATUS=not-requested
+fi
+printf 'unwind_uncheck_auxiliary_status\t%s\n' "$UNWIND_UNCHECK_AUXILIARY_STATUS" >>"$METADATA_TSV"
+
 TIER2_WITNESS_POLICY=
-for preferred_policy in auto unwind instruction; do
+for preferred_policy in auto unwind instruction unwind-uncheck; do
     for selected_policy in "${POLICIES[@]}"; do
         if [[ $selected_policy != "$preferred_policy" ]]; then continue; fi
         if ! policy_supported "$selected_policy"; then continue; fi
         if [[ $selected_policy == auto && $AUTO_EFFECTIVE_POLICY == invalid ]]; then continue; fi
+        if [[ $selected_policy == unwind-uncheck && $UNWIND_UNCHECK_AUXILIARY_STATUS != verified ]]; then continue; fi
         TIER2_WITNESS_POLICY=$selected_policy
         break 2
     done
@@ -955,25 +1312,23 @@ run_matrix_case()
     local mode_args=()
     local command=()
 
-    case $mode in
-        full) mode_args=(-Rcm full -Rcc jit) ;;
-        lazy) mode_args=(-Rjit) ;;
-        tiered) mode_args=(-Rtiered) ;;
-        tiered-no-t0) mode_args=(-Rtiered -Rtiered-disable-t0) ;;
-        tiered-no-t2) mode_args=(-Rtiered -Rtiered-disable-t2) ;;
-        tiered-no-t0-no-t2) mode_args=(-Rtiered -Rtiered-disable-t0 -Rtiered-disable-t2) ;;
-        *)
-            write_result "$id" "$mode" "$policy" - "$fixture" "$fixture_class" "$expected" - FAIL \
-                "internal unknown mode" 0 0 - -
-            return 0
-            ;;
-    esac
+    if [[ $fixture == tiered_full_ready_oob ]] && ((case_compile_threads < 2)); then
+        write_result "$id" "$mode" "$policy" - "$fixture" "$fixture_class" "$expected" - SKIP \
+            'tier-2 background readiness requires --compile-threads >= 2; requested worker cap preserved' 0 0 - -
+        return 0
+    fi
+
+    if ! set_mode_args "$mode"; then
+        write_result "$id" "$mode" "$policy" - "$fixture" "$fixture_class" "$expected" - FAIL \
+            "internal unknown mode" 0 0 - -
+        return 0
+    fi
+    mode_args=("${MODE_ARGS[@]}")
     if [[ $fixture == tiered_full_ready_oob ]]; then
         # Keep this witness focused on tier-2/full readiness without blocking
         # callers from selecting a scoped lazy policy for platforms whose T1
         # backend needs a conservative compile pipeline.
         mode_args+=(-Rllvm-full-policy pb-o3)
-        if ((case_compile_threads < 2)); then case_compile_threads=2; fi
     fi
 
     stem=$(printf '%06d-%s-%s-%s' "$id" "$mode" "$policy" "$fixture")
@@ -981,14 +1336,15 @@ run_matrix_case()
     compiler_log="${LOG_DIR}/${stem}.compiler.log"
     : >"$compiler_log"
     command=(
-        "${RUN_PREFIX[@]}" "$UWVM"
+        "${RUN_PREFIX[@]+"${RUN_PREFIX[@]}"}" "$UWVM"
         "${mode_args[@]}"
         -Rct "$case_compile_threads"
-        -Rllvm-cache-path disable
-        -Rllvm-call-stack "$policy"
-        -Rclog file "$compiler_log"
-        "${EXTRA_UWVM_ARGS[@]}"
     )
+    if mode_uses_llvm "$mode"; then
+        command+=(-Rllvm-cache-path disable -Rllvm-call-stack "$policy")
+    fi
+    command+=(-Rclog file "$compiler_log")
+    command+=("${EXTRA_UWVM_ARGS[@]+"${EXTRA_UWVM_ARGS[@]}"}")
     if [[ $feature == wasm2 ]]; then
         command+=(--wasm-feature-wasm2)
     fi
@@ -997,19 +1353,26 @@ run_matrix_case()
     run_limited "$output_log" "${command[@]}"
     trap_kind=$(extract_trap_kind "$output_log")
     func_indices=$(extract_func_indices "$output_log")
-    observed_policy=$(extract_actual_policy "$compiler_log")
-    call_stack_frames=$(extract_call_stack_frames "$compiler_log")
-    if [[ $observed_policy != unknown ]]; then
-        actual_policy=$observed_policy
-    elif [[ $policy == auto ]]; then
-        actual_policy=$AUTO_EFFECTIVE_POLICY
+    if [[ $mode == int ]]; then
+        observed_policy=unknown
+        actual_policy=logical
+        expected_effective_policy=logical
+        call_stack_frames=logical
     else
-        actual_policy=$policy
-    fi
-    if [[ $policy == auto ]]; then
-        expected_effective_policy=$AUTO_EFFECTIVE_POLICY
-    else
-        expected_effective_policy=$policy
+        observed_policy=$(extract_actual_policy "$compiler_log")
+        call_stack_frames=$(extract_call_stack_frames "$compiler_log")
+        if [[ $observed_policy != unknown ]]; then
+            actual_policy=$observed_policy
+        elif [[ $policy == auto ]]; then
+            actual_policy=$AUTO_EFFECTIVE_POLICY
+        else
+            actual_policy=$policy
+        fi
+        if [[ $policy == auto ]]; then
+            expected_effective_policy=$AUTO_EFFECTIVE_POLICY
+        else
+            expected_effective_policy=$policy
+        fi
     fi
     outcome=PASS
     detail=ok
@@ -1023,15 +1386,18 @@ run_matrix_case()
     elif regular_case_executes_llvm "$mode" "$fixture" && ! has_expected_llvm_log "$mode" "$compiler_log" "$fixture"; then
         outcome=FAIL
         detail='required LLVM JIT execution marker is missing'
-    elif [[ $actual_policy == invalid || $actual_policy == unavailable ]]; then
+    elif [[ $actual_policy == invalid || $actual_policy == unavailable || $actual_policy == inconsistent ]]; then
         outcome=FAIL
         detail="call-stack policy is unavailable: ${actual_policy}"
-    elif [[ $mode == full && $observed_policy == unknown ]]; then
+    elif [[ $mode == full || $mode == aot ]] && [[ $observed_policy == unknown ]]; then
         outcome=FAIL
-        detail='full JIT did not log the effective call-stack policy'
+        detail='LLVM full/AOT did not log the effective call-stack policy'
     elif [[ $observed_policy != unknown && $observed_policy != "$expected_effective_policy" ]]; then
         outcome=FAIL
         detail="call-stack policy mismatch: expected ${expected_effective_policy}, actual ${observed_policy}"
+    elif [[ $mode == full || $mode == aot ]] && ! has_expected_policy_declaration "$compiler_log" "$actual_policy"; then
+        outcome=FAIL
+        detail="invalid ${actual_policy} optimize-start declaration"
     elif [[ $fixture_class == normal ]]; then
         if ((RUN_RC != 0)); then
             outcome=FAIL
@@ -1047,7 +1413,7 @@ run_matrix_case()
         else
             if regular_case_executes_llvm "$mode" "$fixture" && [[ $actual_policy == none ]]; then
                 case $mode in
-                    full|lazy)
+                    aot|full|lazy)
                         expect_stack=0
                         ;;
                     *)
@@ -1068,9 +1434,6 @@ run_matrix_case()
             elif ((expect_stack == 0)) && [[ -n $func_indices ]]; then
                 outcome=FAIL
                 detail="auto none emitted forbidden Instruction frames: ${func_indices}"
-            elif regular_case_executes_llvm "$mode" "$fixture" && [[ $actual_policy == unwind ]] && ! has_strict_native_capture "$compiler_log"; then
-                outcome=FAIL
-                detail='native stack did not use seeded libunwind to resolve a JIT caller'
             else
                 detail="trap=${trap_kind};funcs=${func_indices:-omitted};frames=${call_stack_frames}"
             fi
@@ -1082,23 +1445,28 @@ run_matrix_case()
     return 0
 }
 
-unwind_requested=0
-for policy in "${POLICIES[@]}"; do
-    if [[ $policy == unwind ]]; then unwind_requested=1; fi
-done
-
-if ((unwind_requested && CAP_UNWIND == 0)); then
-    for unavailable_policy in unwind unwind-uncheck; do
+for unavailable_policy in unwind unwind-uncheck; do
+    native_policy_requested=0
+    native_policy_supported=0
+    for policy in "${POLICIES[@]}"; do
+        if [[ $policy == "$unavailable_policy" ]]; then native_policy_requested=1; fi
+    done
+    case $unavailable_policy in
+        unwind) native_policy_supported=$CAP_UNWIND ;;
+        unwind-uncheck) native_policy_supported=$CAP_UNWIND_UNCHECK ;;
+    esac
+    if ((HAS_SELECTED_LLVM_MODE && native_policy_requested && native_policy_supported == 0)); then
         allocate_id
         guard_id=$ALLOCATED_ID
         guard_log="${LOG_DIR}/$(printf '%06d' "$guard_id")-unavailable-${unavailable_policy}-guard.log"
         guard_compiler_log="${LOG_DIR}/$(printf '%06d' "$guard_id")-unavailable-${unavailable_policy}-guard.compiler.log"
         : >"$guard_compiler_log"
-        if ((CAP_FULL && CAP_CALL_STACK)); then
+        if ((CAP_CALL_STACK)) && [[ -n $POLICY_PROBE_MODE ]]; then
+            set_mode_args "$POLICY_PROBE_MODE" || die "internal invalid policy probe mode: $POLICY_PROBE_MODE"
             run_limited "$guard_log" \
-                "${RUN_PREFIX[@]}" "$UWVM" -Rcm full -Rcc jit -Rct "$COMPILE_THREADS" \
+                "${RUN_PREFIX[@]+"${RUN_PREFIX[@]}"}" "$UWVM" "${MODE_ARGS[@]}" -Rct "$COMPILE_THREADS" \
                 -Rllvm-cache-path disable -Rllvm-call-stack "$unavailable_policy" -Rclog file "$guard_compiler_log" \
-                "${EXTRA_UWVM_ARGS[@]}" --run "${FIXTURE_WASMS[0]}"
+                "${EXTRA_UWVM_ARGS[@]+"${EXTRA_UWVM_ARGS[@]}"}" --run "${FIXTURE_WASMS[0]}"
             guard_output=$(tail -n +2 "$guard_log")
             guard_outcome=PASS
             guard_detail="explicit unavailable ${unavailable_policy} was rejected"
@@ -1119,10 +1487,10 @@ if ((unwind_requested && CAP_UNWIND == 0)); then
                 "$guard_outcome" "$guard_detail" "$RUN_PEAK_RSS_KIB" "$RUN_ELAPSED_MS" "$guard_log" "$guard_compiler_log"
         else
             write_result "$guard_id" capability "$unavailable_policy" unsupported unwind-availability capability rejected - "$(unsupported_outcome)" \
-                'cannot run rejection guard without full JIT and call-stack option' 0 0 - -
+                'cannot run rejection guard without an advertised AOT/full mode and call-stack option' 0 0 - -
         fi
-    done
-fi
+    fi
+done
 
 active_pids=()
 reap_first_task()
@@ -1143,11 +1511,13 @@ schedule_case()
     fi
 }
 
-for mode in "${MODE_NAMES[@]}"; do
+for mode in "${MODE_NAMES[@]+"${MODE_NAMES[@]}"}"; do
     if ! mode_supported "$mode"; then continue; fi
     for policy in "${POLICIES[@]}"; do
+        if ! policy_applicable_to_mode "$mode" "$policy"; then continue; fi
         if ! policy_supported "$policy"; then continue; fi
         if [[ $policy == auto && $AUTO_EFFECTIVE_POLICY == invalid ]]; then continue; fi
+        if [[ $policy == unwind-uncheck && $UNWIND_UNCHECK_AUXILIARY_STATUS != verified ]]; then continue; fi
         for fixture_index in "${!FIXTURE_NAMES[@]}"; do
             if [[ ${FIXTURE_FEATURES[$fixture_index]} == wasm2 && $CAP_WASM2 == 0 ]]; then continue; fi
             if ! fixture_applicable_to_mode "$fixture_index" "$mode"; then continue; fi
