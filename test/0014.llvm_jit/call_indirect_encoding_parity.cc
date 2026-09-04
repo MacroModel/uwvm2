@@ -10,6 +10,10 @@
  *          use tableidx ::= u32; a single-table policy constrains the decoded value.
  */
 
+#if defined(UWVM_DISABLE_INT) && !defined(UWVM2TEST_STRICT_NO_INTERPRETER)
+# define UWVM2TEST_STRICT_NO_INTERPRETER 1
+#endif
+
 #include "../0013.uwvm_int/strict/uwvm_int_translate_strict_common.h"
 
 #include <uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/impl.h>
@@ -20,7 +24,9 @@
 namespace
 {
     namespace strict = ::uwvm2test::uwvm_int_strict;
+#ifndef UWVM_DISABLE_INT
     namespace int_compiler = ::uwvm2::runtime::compiler::uwvm_int;
+#endif
     namespace llvm_compiler = ::uwvm2::runtime::compiler::llvm_jit::compile_all_from_uwvm;
     namespace llvm_details = llvm_compiler::details;
 
@@ -83,6 +89,7 @@ namespace
         return error;
     }
 
+#ifndef UWVM_DISABLE_INT
     [[nodiscard]] validation_error validate_int(strict::runtime_module_t const& runtime_module,
                                                 feature_parameter const& policy) noexcept
     {
@@ -104,28 +111,32 @@ namespace
         {}
         return error;
     }
+#endif
 
-    [[nodiscard]] validation_error validate_llvm(llvm_details::validation_module_storage_t const& validation_module,
-                                                 llvm_compiler::local_func_storage_t const& local_function,
-                                                 feature_parameter const& policy) noexcept
+    struct llvm_compile_result
     {
         validation_error error{};
+        bool materialized{};
+    };
+
+    /// Exercise the real serial AOT pipeline. Valid encodings must survive IR verification and retain a finalized
+    /// module; malformed or disabled immediates must return their error through the compiler-owned validation path.
+    [[nodiscard]] llvm_compile_result compile_llvm(strict::runtime_module_t const& runtime_module,
+                                                   feature_parameter const& policy) noexcept
+    {
+        llvm_compile_result result{};
+        llvm_compiler::compile_option options{};
+        options.validator_feature_parameter = ::std::addressof(policy);
+        options.verify_llvm_jit_ir = true;
+        options.emit_call_stack_frames = false;
         try
         {
-            llvm_details::validate_runtime_local_func(validation_module,
-                                                      local_function,
-                                                      error,
-                                                      nullptr,
-                                                      false,
-                                                      false,
-                                                      false,
-                                                      false,
-                                                      ::std::addressof(policy),
-                                                      nullptr);
+            auto compiled{llvm_compiler::compile_all_from_uwvm(runtime_module, options, result.error, 0uz)};
+            result.materialized = compiled.llvm_jit_module.emitted && compiled.llvm_jit_module.llvm_module != nullptr;
         }
         catch(::fast_io::error const&)
         {}
-        return error;
+        return result;
     }
 
     template <::std::size_t N>
@@ -146,21 +157,30 @@ namespace
         auto const validation_module{llvm_details::build_runtime_validation_module(*prepared.mod)};
         auto const local_function{llvm_details::get_runtime_local_func_storage(*prepared.mod, 0uz, local_storage_error)};
         auto const standard_error{validate_standard(validation_module, local_function, policy)};
+#ifndef UWVM_DISABLE_INT
         auto const int_error{validate_int(*prepared.mod, policy)};
-        auto const llvm_error{validate_llvm(validation_module, local_function, policy)};
+#endif
+        auto const llvm_result{compile_llvm(*prepared.mod, policy)};
 
         UWVM2TEST_REQUIRE(standard_error.err_code == expected);
+#ifndef UWVM_DISABLE_INT
         UWVM2TEST_REQUIRE(int_error.err_code == expected);
-        UWVM2TEST_REQUIRE(llvm_error.err_code == expected);
+#endif
+        UWVM2TEST_REQUIRE(llvm_result.error.err_code == expected);
+        UWVM2TEST_REQUIRE(expected != error_code::ok || llvm_result.materialized);
         if(expected == error_code::wasm2_feature_required)
         {
             constexpr auto feature{::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables};
             UWVM2TEST_REQUIRE(standard_error.err_selectable.wasm2_feature_required.feature == feature);
+#ifndef UWVM_DISABLE_INT
             UWVM2TEST_REQUIRE(int_error.err_selectable.wasm2_feature_required.feature == feature);
-            UWVM2TEST_REQUIRE(llvm_error.err_selectable.wasm2_feature_required.feature == feature);
+#endif
+            UWVM2TEST_REQUIRE(llvm_result.error.err_selectable.wasm2_feature_required.feature == feature);
             UWVM2TEST_REQUIRE(standard_error.err_selectable.wasm2_feature_required.value == 0x11u);
+#ifndef UWVM_DISABLE_INT
             UWVM2TEST_REQUIRE(int_error.err_selectable.wasm2_feature_required.value == 0x11u);
-            UWVM2TEST_REQUIRE(llvm_error.err_selectable.wasm2_feature_required.value == 0x11u);
+#endif
+            UWVM2TEST_REQUIRE(llvm_result.error.err_selectable.wasm2_feature_required.value == 0x11u);
         }
         return 0;
     }

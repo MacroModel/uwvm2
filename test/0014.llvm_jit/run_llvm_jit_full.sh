@@ -135,6 +135,7 @@ else
       printf '%s\n' llvm_aot_nearest_rounding
       printf '%s\n' llvm_aot_noinline_policy
       printf '%s\n' llvm_aot_unaligned_memory
+      printf '%s\n' call_indirect_encoding_parity
       printf '%s\n' llvm_jit_cache_integration
       printf '%s\n' llvm_jit_imported_bulk_memory
       printf '%s\n' llvm_jit_trap_matrix_wat
@@ -148,7 +149,7 @@ fi
 # translation path and therefore cannot be requested after --execution-int=none removed that backend.
 for t in "${TARGETS[@]}"; do
   case "${t}" in
-    call_indirect_encoding_parity|lj13s_*|lj13l_*|llvm_jit_trunc_boundary_matrix|wasm32_effective_address)
+    lj13s_*|lj13l_*|llvm_jit_trunc_boundary_matrix|wasm32_effective_address)
       echo "ERR: target ${t} depends on uwvm-int and is invalid in the ROS AOT-only suite" >&2
       exit 2
       ;;
