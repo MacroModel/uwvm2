@@ -161,15 +161,15 @@ namespace
     //     local.get 0
     //     i32.load
     //     drop)
-    //   (func $inline_candidate (type $t1) (param i32) local.get 0 call $leaf_trap)
-    //   (func $wrapper (type $t1) (param i32) local.get 0 call $inline_candidate)
+    //   (func $callee (type $t1) (param i32) local.get 0 call $leaf_trap)
+    //   (func $wrapper (type $t1) (param i32) local.get 0 call $callee)
     //   (func $_start (type $t0) (export "_start") i32.const -1 call $wrapper))
     //
     // The out-of-bounds load traps at a real Wasm access site. Instruction
-    // call-stack mode verifies that the complete logical stack survives full
-    // LLVM inlining; explicit unwind mode verifies native frame reporting on
-    // the same generated full/lazy JIT code paths.
-    inline constexpr ::std::array<unsigned char, 75uz> inline_unwind_trap_wasm{
+    // call-stack mode verifies the complete authoritative logical stack while
+    // every generated function remains NoInline. Native unwind is checked only
+    // as an auxiliary source unless the Win64 SEH caller context is authoritative.
+    inline constexpr ::std::array<unsigned char, 75uz> noinline_unwind_trap_wasm{
         0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u, 0x01u, 0x08u, 0x02u, 0x60u, 0x00u, 0x00u,
         0x60u, 0x01u, 0x7fu, 0x00u, 0x03u, 0x05u, 0x04u, 0x01u, 0x01u, 0x01u, 0x00u, 0x05u, 0x03u, 0x01u,
         0x00u, 0x01u, 0x07u, 0x0au, 0x01u, 0x06u, 0x5fu, 0x73u, 0x74u, 0x61u, 0x72u, 0x74u, 0x00u, 0x03u,
@@ -313,7 +313,7 @@ namespace
         return true;
     }
 
-    [[nodiscard]] ::std::array<bool, 4uz> collect_inline_call_stack_func_idx(::std::string_view output) noexcept
+    [[nodiscard]] ::std::array<bool, 4uz> collect_logical_call_stack_func_idx(::std::string_view output) noexcept
     {
         ::std::array<bool, 4uz> seen{};
         constexpr ::std::string_view prefix{" func_idx="};
@@ -364,7 +364,7 @@ namespace
         return out;
     }
 
-    [[nodiscard]] bool check_inline_call_stack_trap_output(::std::filesystem::path const& output_path, char const* label)
+    [[nodiscard]] bool check_logical_call_stack_trap_output(::std::filesystem::path const& output_path, char const* label)
     {
         ::std::string output{};
         if(!read_text_file(output_path, output)) [[unlikely]] { return false; }
@@ -372,10 +372,10 @@ namespace
         auto const plain_output{strip_ansi_codes(output)};
         auto const has_call_stack_header{plain_output.find("Call stack:") != ::std::string::npos};
         auto const has_module{plain_output.find(" module=") != ::std::string::npos};
-        auto const seen{collect_inline_call_stack_func_idx(plain_output)};
+        auto const seen{collect_logical_call_stack_func_idx(plain_output)};
         if(has_call_stack_header && has_module && seen[0uz] && seen[1uz] && seen[2uz] && seen[3uz]) [[likely]] { return true; }
 
-        ::std::cerr << "missing expected LLVM JIT inline call-stack frame chain in " << label << " output:\n" << output << '\n';
+        ::std::cerr << "missing expected LLVM JIT logical call-stack frame chain in " << label << " output:\n" << output << '\n';
         return false;
     }
 
@@ -395,31 +395,17 @@ namespace
         return false;
     }
 
-    [[nodiscard]] bool check_omitted_call_stack_trap_output(::std::filesystem::path const& output_path, char const* label)
+    [[nodiscard]] bool has_authoritative_win64_unwind_policy(::std::string_view log) noexcept
     {
-        ::std::string output{};
-        if(!read_text_file(output_path, output)) [[unlikely]] { return false; }
-
-        auto const plain_output{strip_ansi_codes(output)};
-        auto const has_runtime_trap{plain_output.find("Runtime crash (") != ::std::string::npos};
-        auto const has_func_idx{plain_output.find(" func_idx=") != ::std::string::npos};
-        if(has_runtime_trap && !has_func_idx) [[likely]] { return true; }
-
-        ::std::cerr << "LLVM JIT none policy emitted a Wasm call-stack frame in " << label << " output:\n" << output << '\n';
-        return false;
-    }
-
-    [[nodiscard]] bool has_strict_native_unwind_capture(::std::string_view log) noexcept
-    {
-        return log.find("[llvm-jit-unwind] capture_source=seeded-libunwind backend=libunwind resolved_jit_caller=yes") !=
-                   ::std::string_view::npos ||
-               log.find("[llvm-jit-unwind] capture_source=seeded-win64-seh backend=win64-seh resolved_jit_caller=yes") !=
-                   ::std::string_view::npos;
+        return log.find("unwind_backend=win64-seh") != ::std::string_view::npos &&
+               log.find("unwind_check=live") != ::std::string_view::npos &&
+               log.find("unwind_replace_frames=yes") != ::std::string_view::npos &&
+               log.find("call_stack_frames=omit") != ::std::string_view::npos;
     }
 
     enum class auto_call_stack_probe_result : unsigned char
     {
-        none,
+        instruction,
         unwind
     };
 
@@ -428,7 +414,8 @@ namespace
                                                     ::std::filesystem::path const& artifact_dir,
                                                     ::std::string_view policy_args,
                                                     char const* label,
-                                                    auto_call_stack_probe_result& result)
+                                                    auto_call_stack_probe_result& result,
+                                                    bool& native_unwind_backend_available)
     {
         auto const output_path{artifact_dir / (::std::string{label} + "_call_stack_probe.out")};
         auto const log_path{artifact_dir / (::std::string{label} + "_call_stack_probe.log")};
@@ -448,6 +435,9 @@ namespace
         ::std::string log{};
         if(!read_text_file(log_path, log)) [[unlikely]] { return false; }
 
+        native_unwind_backend_available = log.find("unwind_backend=unwind.h") != ::std::string::npos ||
+                                          log.find("unwind_backend=win64-seh") != ::std::string::npos;
+
         auto const uses_instruction{log.find("call_stack=instruction") != ::std::string::npos};
         auto const uses_unwind{log.find("call_stack=unwind") != ::std::string::npos};
         auto const uses_none{log.find("call_stack=none") != ::std::string::npos};
@@ -455,11 +445,17 @@ namespace
 
         if(uses_instruction)
         {
-            ::std::cerr << label << " LLVM JIT auto policy must not convert to instruction frames:\n" << log << '\n';
-            return false;
+            if(uses_unwind || uses_none || omits_instruction_frames)
+            {
+                ::std::cerr << label << " LLVM JIT auto instruction policy is inconsistent:\n" << log << '\n';
+                return false;
+            }
+            if(!check_logical_call_stack_trap_output(output_path, label)) [[unlikely]] { return false; }
+            result = auto_call_stack_probe_result::instruction;
+            return true;
         }
 
-        if(uses_unwind == uses_none)
+        if(!uses_unwind || uses_none)
         {
             ::std::cerr << "unable to determine an unambiguous " << label << " LLVM JIT auto call-stack policy from log:\n" << log << '\n';
             return false;
@@ -473,9 +469,9 @@ namespace
 
         if(uses_unwind)
         {
-            if(log.find("unwind_check=live") == ::std::string::npos || !has_strict_native_unwind_capture(log))
+            if(!has_authoritative_win64_unwind_policy(log))
             {
-                ::std::cerr << label << " LLVM JIT auto unwind did not use a checked seeded native context to resolve a JIT caller:\n"
+                ::std::cerr << label << " LLVM JIT auto unwind did not use the checked Win64 SEH caller context:\n"
                             << log << '\n';
                 return false;
             }
@@ -484,26 +480,24 @@ namespace
             return true;
         }
 
-        if(!check_omitted_call_stack_trap_output(output_path, label)) [[unlikely]] { return false; }
-        result = auto_call_stack_probe_result::none;
-        return true;
+        return false;
     }
 
-    [[nodiscard]] bool run_inline_unwind_trap_fixture(::std::filesystem::path const& uwvm_path, ::std::filesystem::path const& executable_dir)
+    [[nodiscard]] bool run_noinline_unwind_trap_fixture(::std::filesystem::path const& uwvm_path, ::std::filesystem::path const& executable_dir)
     {
         auto const artifact_dir{executable_dir / "test-artifacts" / "0014.llvm_jit"};
-        auto const wasm_path{artifact_dir / "inline_unwind_trap.wasm"};
-        if(!write_fixture(wasm_path, inline_unwind_trap_wasm)) [[unlikely]] { return false; }
+        auto const wasm_path{artifact_dir / "noinline_unwind_trap.wasm"};
+        if(!write_fixture(wasm_path, noinline_unwind_trap_wasm)) [[unlikely]] { return false; }
 
-        auto const run_inline_mode{[&](::std::string_view policy,
-                                       ::std::string_view mode_name,
-                                       ::std::string_view mode_args,
-                                       bool expect_full_inline_chain,
-                                       bool require_strict_native_unwind = false) -> bool
+        auto const run_call_stack_mode{[&](::std::string_view policy,
+                                           ::std::string_view mode_name,
+                                           ::std::string_view mode_args,
+                                           bool expect_logical_chain,
+                                           bool require_authoritative_native_unwind = false) -> bool
                                    {
                                        auto const label{::std::string{policy} + "_" + ::std::string{mode_name}};
-                                       auto const output_path{artifact_dir / (::std::string{"inline_"} + label + ".out")};
-                                       auto const log_path{artifact_dir / (::std::string{"inline_"} + label + ".log")};
+                                       auto const output_path{artifact_dir / (::std::string{"noinline_"} + label + ".out")};
+                                       auto const log_path{artifact_dir / (::std::string{"noinline_"} + label + ".log")};
                                        ::std::error_code ec{};
                                        ::std::filesystem::remove(log_path, ec);
                                        if(ec) [[unlikely]]
@@ -516,8 +510,8 @@ namespace
                                                           quote_argument(log_path) + " --run " + quote_argument(wasm_path)};
 
                                        if(!run_trap_command(command, output_path, label.c_str())) [[unlikely]] { return false; }
-                                       if(expect_full_inline_chain) { return check_inline_call_stack_trap_output(output_path, label.c_str()); }
-                                       if(require_strict_native_unwind)
+                                       if(expect_logical_chain) { return check_logical_call_stack_trap_output(output_path, label.c_str()); }
+                                       if(require_authoritative_native_unwind)
                                        {
                                            ::std::string log{};
                                            if(!read_text_file(log_path, log)) [[unlikely]] { return false; }
@@ -526,9 +520,10 @@ namespace
                                                log.find("call_stack=unwind") != ::std::string::npos &&
                                                log.find("unwind_check=live") != ::std::string::npos &&
                                                log.find("call_stack_frames=omit") != ::std::string::npos};
-                                           if(!has_strict_native_unwind_capture(log) || (logs_call_stack_policy && !logged_policy_is_checked_unwind))
+                                           if(!has_authoritative_win64_unwind_policy(log) ||
+                                              (logs_call_stack_policy && !logged_policy_is_checked_unwind))
                                            {
-                                               ::std::cerr << "checked LLVM JIT unwind did not use a seeded native context in " << label << ":\n"
+                                               ::std::cerr << "checked LLVM JIT unwind did not use the Win64 SEH caller context in " << label << ":\n"
                                                            << log << '\n';
                                                return false;
                                            }
@@ -536,38 +531,58 @@ namespace
                                        return check_unwind_trap_output(output_path, label.c_str());
                                    }};
 
-        if(!run_inline_mode("instruction", "full", "-Rcm full -Rcc jit", true)) [[unlikely]] { return false; }
-        if(!run_inline_mode("instruction", "aot", "-Raot", true)) [[unlikely]] { return false; }
-        if(!run_inline_mode("instruction", "lazy", "-Rjit", true)) [[unlikely]] { return false; }
-        if(!run_inline_mode("instruction", "lazy_verification", "-Rcm lazy+verification -Rcc jit", true)) [[unlikely]] { return false; }
+        if(!run_call_stack_mode("instruction", "full", "-Rcm full -Rcc jit", true)) [[unlikely]] { return false; }
+        if(!run_call_stack_mode("instruction", "aot", "-Raot", true)) [[unlikely]] { return false; }
+        if(!run_call_stack_mode("instruction", "lazy", "-Rjit", true)) [[unlikely]] { return false; }
+        if(!run_call_stack_mode("instruction", "lazy_verification", "-Rcm lazy+verification -Rcc jit", true)) [[unlikely]] { return false; }
 
         auto_call_stack_probe_result default_probe_result{};
-        if(!probe_auto_call_stack_policy(uwvm_path, wasm_path, artifact_dir, {}, "default", default_probe_result)) [[unlikely]] { return false; }
-        auto_call_stack_probe_result explicit_auto_probe_result{};
+        bool default_native_unwind_backend_available{};
         if(!probe_auto_call_stack_policy(
-               uwvm_path, wasm_path, artifact_dir, "-Rllvm-call-stack auto", "auto", explicit_auto_probe_result)) [[unlikely]]
+               uwvm_path, wasm_path, artifact_dir, {}, "default", default_probe_result, default_native_unwind_backend_available)) [[unlikely]]
         {
             return false;
         }
-        if(default_probe_result != explicit_auto_probe_result)
+        auto_call_stack_probe_result explicit_auto_probe_result{};
+        bool explicit_auto_native_unwind_backend_available{};
+        if(!probe_auto_call_stack_policy(
+               uwvm_path,
+               wasm_path,
+               artifact_dir,
+               "-Rllvm-call-stack auto",
+               "auto",
+               explicit_auto_probe_result,
+               explicit_auto_native_unwind_backend_available)) [[unlikely]]
         {
-            ::std::cerr << "default and explicit auto LLVM JIT call-stack probes selected different effective policies\n";
             return false;
         }
-        if(default_probe_result == auto_call_stack_probe_result::none)
+        if(default_probe_result != explicit_auto_probe_result ||
+           default_native_unwind_backend_available != explicit_auto_native_unwind_backend_available)
         {
-            ::std::cout << "[llvm_jit] skip explicit unwind trap fixture: checked native unwind probe is unavailable\n";
-            return true;
+            ::std::cerr << "default and explicit auto LLVM JIT call-stack probes reported different capabilities\n";
+            return false;
         }
-
-        if(!run_inline_mode("unwind", "full", "-Rcm full -Rcc jit", false, true)) [[unlikely]] { return false; }
-        if(!run_inline_mode("unwind", "aot", "-Raot", false, true)) [[unlikely]] { return false; }
-        if(!run_inline_mode("unwind", "lazy", "-Rjit", false, true)) [[unlikely]] { return false; }
-        if(!run_inline_mode("unwind", "lazy_verification", "-Rcm lazy+verification -Rcc jit", false, true)) [[unlikely]] { return false; }
-        if(!run_inline_mode("unwind-uncheck", "full", "-Rcm full -Rcc jit", false)) [[unlikely]] { return false; }
-        if(!run_inline_mode("unwind-uncheck", "aot", "-Raot", false)) [[unlikely]] { return false; }
-        if(!run_inline_mode("unwind-uncheck", "lazy", "-Rjit", false)) [[unlikely]] { return false; }
-        if(!run_inline_mode("unwind-uncheck", "lazy_verification", "-Rcm lazy+verification -Rcc jit", false)) [[unlikely]] { return false; }
+        auto const authoritative_native_unwind{default_probe_result == auto_call_stack_probe_result::unwind};
+        if(!authoritative_native_unwind)
+        {
+            ::std::cout << "[llvm_jit] POSIX/native unwind is auxiliary; retaining authoritative logical frames\n";
+        }
+        else
+        {
+            if(!run_call_stack_mode("unwind", "full", "-Rcm full -Rcc jit", false, true)) [[unlikely]] { return false; }
+            if(!run_call_stack_mode("unwind", "aot", "-Raot", false, true)) [[unlikely]] { return false; }
+            if(!run_call_stack_mode("unwind", "lazy", "-Rjit", false, true)) [[unlikely]] { return false; }
+            if(!run_call_stack_mode("unwind", "lazy_verification", "-Rcm lazy+verification -Rcc jit", false, true)) [[unlikely]] { return false; }
+        }
+        if(default_native_unwind_backend_available &&
+           (!run_call_stack_mode("unwind-uncheck", "full", "-Rcm full -Rcc jit", !authoritative_native_unwind) ||
+            !run_call_stack_mode("unwind-uncheck", "aot", "-Raot", !authoritative_native_unwind) ||
+            !run_call_stack_mode("unwind-uncheck", "lazy", "-Rjit", !authoritative_native_unwind) ||
+            !run_call_stack_mode(
+                "unwind-uncheck", "lazy_verification", "-Rcm lazy+verification -Rcc jit", !authoritative_native_unwind))) [[unlikely]]
+        {
+            return false;
+        }
         return true;
     }
 
@@ -800,7 +815,7 @@ int main(int argc, char** argv)
             return 1;
         }
     }
-    if(!run_inline_unwind_trap_fixture(uwvm_path, executable_dir)) [[unlikely]] { return 1; }
+    if(!run_noinline_unwind_trap_fixture(uwvm_path, executable_dir)) [[unlikely]] { return 1; }
 
     return 0;
 }

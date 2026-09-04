@@ -36,9 +36,6 @@ namespace
     struct run_result_t
     {
         bool valid{};
-        bool native_unwind_capture{};
-        bool call_stack_none{};
-        bool instruction_frames_omitted{};
         ::std::string trap_kind{};
         ::std::vector<::std::size_t> func_indices{};
         ::std::filesystem::path output_path{};
@@ -105,7 +102,7 @@ namespace
         base_mode_t{"tiered_no_t0_no_t2",  "-Rtiered -Rtiered-disable-t0 -Rtiered-disable-t2"},
     };
 
-    inline constexpr ::std::array compare_policies{"unwind", "auto"};
+    inline constexpr ::std::array compare_policies{"unwind", "unwind-uncheck", "auto"};
 
     [[nodiscard]] ::std::uint_least64_t policy_seed() noexcept
     {
@@ -394,7 +391,9 @@ namespace
     [[nodiscard]] bool probe_default_call_stack_unwind(::std::filesystem::path const& uwvm_path,
                                                        ::std::filesystem::path const& wasm_path,
                                                        ::std::filesystem::path const& artifact_dir,
-                                                       bool& default_uses_unwind)
+                                                       fixture_t const& fixture,
+                                                       bool& authoritative_win64_unwind,
+                                                       bool& native_unwind_backend_available)
     {
         auto const output_path{artifact_dir / "default_call_stack_probe.out"};
         auto const log_path{artifact_dir / "default_call_stack_probe.log"};
@@ -417,53 +416,67 @@ namespace
 
         ::std::string output{};
         if(!read_text_file(output_path, output)) { return false; }
-        if(strip_ansi_codes(output).find("Runtime crash (") == ::std::string::npos)
+        auto const plain_output{strip_ansi_codes(output)};
+        auto const trap_kind{parse_trap_kind(plain_output)};
+        auto const func_indices{parse_func_indices(plain_output)};
+        auto const stack_matches{func_indices.size() == fixture.expected_func_count &&
+                                 ::std::equal(func_indices.begin(), func_indices.end(), fixture.expected_func_indices.begin())};
+        if(trap_kind != fixture.expected_trap_kind || !stack_matches)
         {
-            ::std::cerr << "call-stack capability probe did not reach a runtime trap:\n" << output << '\n';
+            ::std::cerr << "call-stack capability probe did not preserve the authoritative Wasm trap stack:\n" << output << '\n';
             return false;
         }
 
         ::std::string log{};
         if(!read_text_file(log_path, log)) { return false; }
-        if(log.find("call_stack=unwind") != ::std::string::npos)
+        auto const backend_pos{log.find("unwind_backend=")};
+        if(backend_pos == ::std::string::npos)
         {
-            auto const strict_native_capture{
-                log.find("resolved_jit_caller=yes") != ::std::string::npos &&
-                (log.find("capture_source=seeded-libunwind") != ::std::string::npos ||
-                 log.find("capture_source=seeded-win64-seh") != ::std::string::npos)};
-            if(!strict_native_capture)
-            {
-                ::std::cerr << "auto unwind did not use a seeded native context to resolve a JIT caller:\n" << log << '\n';
-                return false;
-            }
-            default_uses_unwind = true;
-            return true;
-        }
-        if(log.find("call_stack=none") != ::std::string::npos)
-        {
-            if(log.find("call_stack_frames=omit") == ::std::string::npos || log.find("call_stack=instruction") != ::std::string::npos)
-            {
-                ::std::cerr << "auto call-stack policy converted to instruction frames on a target without usable native unwind:\n" << log << '\n';
-                return false;
-            }
-            default_uses_unwind = false;
-            return true;
-        }
-        if(log.find("call_stack=instruction") != ::std::string::npos)
-        {
-            ::std::cerr << "auto call-stack policy must not convert to instruction frames:\n" << log << '\n';
+            ::std::cerr << "call-stack capability probe did not log the native-unwind backend:\n" << log << '\n';
             return false;
         }
+        native_unwind_backend_available = log.find("unwind_backend=unavailable", backend_pos) == ::std::string::npos;
 
-        ::std::cerr << "unable to determine default LLVM JIT call-stack policy from probe log:\n" << log << '\n';
+        auto const uses_instruction{log.find("call_stack=instruction") != ::std::string::npos};
+        auto const uses_unwind{log.find("call_stack=unwind") != ::std::string::npos};
+        auto const uses_none{log.find("call_stack=none") != ::std::string::npos};
+        auto const emits_instruction_frames{log.find("call_stack_frames=emit") != ::std::string::npos};
+        auto const omits_instruction_frames{log.find("call_stack_frames=omit") != ::std::string::npos};
+
+        if(uses_instruction)
+        {
+            if(uses_unwind || uses_none || !emits_instruction_frames || omits_instruction_frames)
+            {
+                ::std::cerr << "auto instruction call-stack policy is inconsistent:\n" << log << '\n';
+                return false;
+            }
+            authoritative_win64_unwind = false;
+            return true;
+        }
+
+        if(uses_unwind)
+        {
+#ifdef _WIN32
+            auto const checked_authoritative_win64_context{
+                native_unwind_backend_available && log.find("unwind_check=live") != ::std::string::npos &&
+                log.find("unwind_replace_frames=yes") != ::std::string::npos && omits_instruction_frames && !emits_instruction_frames && !uses_none};
+            if(!checked_authoritative_win64_context)
+            {
+                ::std::cerr << "auto unwind did not use the checked authoritative Win64 caller context:\n" << log << '\n';
+                return false;
+            }
+            authoritative_win64_unwind = true;
+            return true;
+#else
+            ::std::cerr << "POSIX auto call-stack policy must retain authoritative logical instruction frames:\n" << log << '\n';
+            return false;
+#endif
+        }
+
+        ::std::cerr << "unable to determine default LLVM JIT call-stack policy from probe log"
+                    << (uses_none ? " (unexpected none policy)" : "") << ":\n"
+                    << log << '\n';
         return false;
-    }
-
-    [[nodiscard]] bool mode_trap_executes_llvm(mode_t const& mode) noexcept
-    {
-        auto const tiered{mode.args.find("-Rtiered") != ::std::string::npos};
-        auto const disables_t0{mode.args.find("-Rtiered-disable-t0") != ::std::string::npos};
-        return !tiered || disables_t0;
     }
 
     [[nodiscard]] bool mode_logs_full_call_stack_policy(mode_t const& mode) noexcept
@@ -476,9 +489,7 @@ namespace
                                         ::std::filesystem::path const& artifact_dir,
                                         fixture_t const& fixture,
                                         mode_t const& mode,
-                                        char const* policy,
-                                        bool require_stack = true,
-                                        bool require_native_unwind = false)
+                                        char const* policy)
     {
         auto const stem{::std::string{fixture.name} + "." + mode.name + "." + policy};
         auto const output_path{artifact_dir / (stem + ".out")};
@@ -511,13 +522,26 @@ namespace
         auto const stack_matches{func_indices.size() == fixture.expected_func_count &&
                                  ::std::equal(func_indices.begin(), func_indices.end(), expected_func_begin)};
         auto const trap_matches{trap_kind == fixture.expected_trap_kind};
-        auto const native_unwind_capture{
-            log.find("resolved_jit_caller=yes") != ::std::string::npos &&
-            (log.find("capture_source=seeded-libunwind") != ::std::string::npos ||
-             log.find("capture_source=seeded-win64-seh") != ::std::string::npos)};
-        auto const call_stack_none{log.find("call_stack=none") != ::std::string::npos};
-        auto const instruction_frames_omitted{log.find("call_stack_frames=omit") != ::std::string::npos};
-        auto const valid{trap_matches && (!require_stack || stack_matches) && (!require_native_unwind || native_unwind_capture)};
+        bool policy_matches{true};
+#ifndef _WIN32
+        if(mode_logs_full_call_stack_policy(mode))
+        {
+            auto const policy_name{::std::string_view{policy}};
+            if(policy_name == "auto")
+            {
+                policy_matches = log.find("call_stack=instruction") != ::std::string::npos &&
+                                 log.find("unwind_replace_frames=no") != ::std::string::npos &&
+                                 log.find("call_stack_frames=emit") != ::std::string::npos;
+            }
+            else if(policy_name == "unwind-uncheck")
+            {
+                policy_matches = log.find("call_stack=unwind-uncheck") != ::std::string::npos &&
+                                 log.find("unwind_replace_frames=no") != ::std::string::npos &&
+                                 log.find("call_stack_frames=emit") != ::std::string::npos;
+            }
+        }
+#endif
+        auto const valid{trap_matches && stack_matches && policy_matches};
         if(!valid)
         {
             ::std::cerr << "failed to parse trap output for " << stem << ":\n" << output << '\n';
@@ -533,13 +557,11 @@ namespace
                 if(i != 0uz) { ::std::cerr << ','; }
                 ::std::cerr << func_indices[i];
             }
-            ::std::cerr << "] native_unwind_capture=" << native_unwind_capture << "\n";
+            ::std::cerr << "] policy_preserves_logical_frames=" << policy_matches << "\n";
+            if(!policy_matches) { ::std::cerr << "  policy log:\n" << log << '\n'; }
         }
 
         return {.valid = valid,
-                .native_unwind_capture = native_unwind_capture,
-                .call_stack_none = call_stack_none,
-                .instruction_frames_omitted = instruction_frames_omitted,
                 .trap_kind = ::std::move(trap_kind),
                 .func_indices = ::std::move(func_indices),
                 .output_path = output_path,
@@ -609,7 +631,8 @@ int main(int argc, char** argv)
 
     bool ok{true};
     bool call_stack_capability_probed{};
-    bool explicit_unwind_supported{};
+    bool authoritative_win64_unwind{};
+    bool native_unwind_backend_available{};
     ::std::size_t mismatch_count{};
     auto const modes{make_modes()};
     ::std::cout << "[trap-matrix] deterministic policy seed=" << policy_seed() << " randomized_modes=" << seeded_policy_mode_count << '\n';
@@ -621,12 +644,19 @@ int main(int argc, char** argv)
 
         if(!call_stack_capability_probed)
         {
-            if(!probe_default_call_stack_unwind(uwvm_path, wasm_path, artifact_dir, explicit_unwind_supported)) { return 1; }
-            call_stack_capability_probed = true;
-            if(!explicit_unwind_supported)
+            if(!probe_default_call_stack_unwind(
+                   uwvm_path, wasm_path, artifact_dir, fixture, authoritative_win64_unwind, native_unwind_backend_available))
             {
-                ::std::cout << "[trap-matrix] native unwind unsupported; auto must omit JIT frames and never convert to instruction\n";
+                return 1;
             }
+            call_stack_capability_probed = true;
+#ifdef _WIN32
+            ::std::cout << (authoritative_win64_unwind
+                                ? "[trap-matrix] checked Win64 unwind owns generated Wasm frames\n"
+                                : "[trap-matrix] checked Win64 unwind unavailable; auto retains logical instruction frames\n");
+#else
+            ::std::cout << "[trap-matrix] POSIX native unwind is auxiliary; auto retains logical instruction frames\n";
+#endif
         }
 
         for(::std::size_t mode_index{}; mode_index != modes.size(); ++mode_index)
@@ -648,33 +678,12 @@ int main(int argc, char** argv)
 
             for(auto const* policy: compare_policies)
             {
-                if(::std::string_view{policy} == "unwind" && !explicit_unwind_supported) { continue; }
-                auto const unsupported_auto{::std::string_view{policy} == "auto" && !explicit_unwind_supported};
-                auto const executes_llvm{mode_trap_executes_llvm(mode)};
-                auto const compared{run_case(uwvm_path,
-                                             wasm_path,
-                                             artifact_dir,
-                                             fixture,
-                                             mode,
-                                             policy,
-                                             !unsupported_auto || !executes_llvm,
-                                             !unsupported_auto && executes_llvm)};
-                if(unsupported_auto)
-                {
-                    auto const t0_matches{!executes_llvm && same_result(instruction, compared)};
-                    auto const jit_omits_frames{executes_llvm && compared.valid && compared.trap_kind == instruction.trap_kind &&
-                                               compared.func_indices.empty() &&
-                                               (!mode_logs_full_call_stack_policy(mode) ||
-                                                (compared.call_stack_none && compared.instruction_frames_omitted))};
-                    if(t0_matches || jit_omits_frames)
-                    {
-                        continue;
-                    }
-                }
-                else if(same_result(instruction, compared))
-                {
-                    continue;
-                }
+                auto const policy_name{::std::string_view{policy}};
+                if(policy_name == "unwind" && !authoritative_win64_unwind) { continue; }
+                if(policy_name == "unwind-uncheck" && !native_unwind_backend_available) { continue; }
+
+                auto const compared{run_case(uwvm_path, wasm_path, artifact_dir, fixture, mode, policy)};
+                if(same_result(instruction, compared)) { continue; }
 
                 ++mismatch_count;
                 ok = false;

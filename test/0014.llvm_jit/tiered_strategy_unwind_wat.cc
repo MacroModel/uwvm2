@@ -31,7 +31,14 @@ namespace
         ::std::filesystem::path log_path{};
     };
 
-    inline constexpr ::std::array comparison_policies{"unwind", "auto"};
+    inline constexpr ::std::array comparison_policies{"unwind", "unwind-uncheck", "auto"};
+
+#if defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) && !defined(__CYGWIN__) &&                                  \
+    (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64))
+    inline constexpr bool native_unwind_can_replace_logical_frames{true};
+#else
+    inline constexpr bool native_unwind_can_replace_logical_frames{false};
+#endif
 
     [[nodiscard]] ::std::string quote_argument(::std::filesystem::path const& path)
     {
@@ -191,17 +198,11 @@ namespace
         return out;
     }
 
-    [[nodiscard]] bool has_seeded_native_capture(::std::string_view log) noexcept
-    {
-        return log.find("resolved_jit_caller=yes") != ::std::string_view::npos &&
-               (log.find("capture_source=seeded-libunwind") != ::std::string_view::npos ||
-                log.find("capture_source=seeded-win64-seh") != ::std::string_view::npos);
-    }
-
     [[nodiscard]] bool probe_auto_call_stack_unwind(::std::filesystem::path const& uwvm_path,
                                                     ::std::filesystem::path const& wasm_path,
                                                     ::std::filesystem::path const& artifact_dir,
-                                                    bool& auto_uses_unwind)
+                                                    bool& auto_uses_authoritative_unwind,
+                                                    bool& native_unwind_backend_available)
     {
         auto const output_path{artifact_dir / "default_call_stack_probe.out"};
         auto const log_path{artifact_dir / "default_call_stack_probe.log"};
@@ -232,11 +233,17 @@ namespace
 
         ::std::string log{};
         if(!read_text_file(log_path, log)) { return false; }
+        native_unwind_backend_available = log.find("unwind_backend=unwind.h") != ::std::string::npos ||
+                                          log.find("unwind_backend=win64-seh") != ::std::string::npos;
         if(log.find("call_stack=unwind") != ::std::string::npos)
         {
-            if(log.find("unwind_check=live") == ::std::string::npos || !has_seeded_native_capture(log))
+            auto const authoritative_win64{
+                native_unwind_can_replace_logical_frames && log.find("unwind_check=live") != ::std::string::npos &&
+                log.find("unwind_backend=win64-seh") != ::std::string::npos && log.find("unwind_replace_frames=yes") != ::std::string::npos &&
+                log.find("call_stack_frames=omit") != ::std::string::npos};
+            if(!authoritative_win64)
             {
-                ::std::cerr << "auto unwind did not pass the live probe and resolve a JIT caller from a seeded native context:\n" << log << '\n';
+                ::std::cerr << "auto selected native frame replacement without an authoritative Win64 SEH caller context:\n" << log << '\n';
                 return false;
             }
             if(log.find("call_stack=instruction") != ::std::string::npos)
@@ -244,31 +251,33 @@ namespace
                 ::std::cerr << "auto unwind also enabled instruction-frame conversion:\n" << log << '\n';
                 return false;
             }
-            auto_uses_unwind = true;
-            return true;
-        }
-        if(log.find("call_stack=none") != ::std::string::npos)
-        {
-            auto const plain_output{strip_ansi_codes(output)};
-            if(log.find("call_stack_frames=omit") == ::std::string::npos || log.find("call_stack=instruction") != ::std::string::npos ||
-               plain_output.find(" func_idx=") != ::std::string::npos)
-            {
-                ::std::cerr << "auto call-stack policy converted the AOT trap to instruction frames without usable native unwind:\n"
-                            << log << "\noutput:\n"
-                            << output << '\n';
-                return false;
-            }
-            auto_uses_unwind = false;
+            auto_uses_authoritative_unwind = true;
             return true;
         }
         if(log.find("call_stack=instruction") != ::std::string::npos)
         {
-            ::std::cerr << "auto call-stack policy must not convert JIT traps to instruction frames:\n" << log << '\n';
-            return false;
+            auto const plain_output{strip_ansi_codes(output)};
+            auto const posix_claims_frame_replacement{
+                !native_unwind_can_replace_logical_frames && log.find("unwind_replace_frames=yes") != ::std::string::npos};
+            if(log.find("call_stack_frames=emit") == ::std::string::npos || log.find("call_stack=none") != ::std::string::npos ||
+               posix_claims_frame_replacement || plain_output.find(" func_idx=") == ::std::string::npos)
+            {
+                ::std::cerr << "auto call-stack policy did not preserve authoritative logical instruction frames:\n"
+                            << log << "\noutput:\n"
+                            << output << '\n';
+                return false;
+            }
+            auto_uses_authoritative_unwind = false;
+            return true;
         }
 
         ::std::cerr << "unable to determine default LLVM JIT call-stack policy from probe log:\n" << log << '\n';
         return false;
+    }
+
+    [[nodiscard]] bool policy_requests_native_unwind(::std::string_view policy, bool auto_uses_authoritative_unwind) noexcept
+    {
+        return policy == "unwind" || policy == "unwind-uncheck" || (policy == "auto" && auto_uses_authoritative_unwind);
     }
 
     [[nodiscard]] ::std::vector<::std::size_t> parse_func_indices(::std::string_view plain_output)
@@ -325,8 +334,7 @@ namespace
                                         ::std::filesystem::path const& wasm_path,
                                         ::std::filesystem::path const& artifact_dir,
                                         strategy_case_t const& test_case,
-                                        char const* policy,
-                                        bool auto_uses_unwind)
+                                        char const* policy)
     {
         auto const stem{::std::string{test_case.name} + "." + policy};
         auto const output_path{artifact_dir / (stem + ".out")};
@@ -375,21 +383,16 @@ namespace
         auto funcs{parse_func_indices(plain_output)};
         auto const reached_runtime_trap{plain_output.find("Runtime crash (") != ::std::string::npos};
         auto const trap_executed_llvm{trap_executed_compiled_llvm(test_case, log)};
-        auto const policy_view{::std::string_view{policy}};
-        auto const expect_stack{policy_view == "instruction" || policy_view == "unwind" || auto_uses_unwind || !trap_executed_llvm};
-        auto const stack_matches{expect_stack ? funcs == test_case.expected_funcs : funcs.empty()};
+        auto const stack_matches{funcs == test_case.expected_funcs};
         auto const valid{reached_runtime_trap && stack_matches};
         if(!valid)
         {
             ::std::cerr << "unexpected stack for strategy=" << test_case.name << " policy=" << policy << '\n';
-            ::std::cerr << "  expected=" << (expect_stack ? "[" : "no func_idx [");
-            if(expect_stack)
+            ::std::cerr << "  expected=[";
+            for(::std::size_t i{}; i != test_case.expected_funcs.size(); ++i)
             {
-                for(::std::size_t i{}; i != test_case.expected_funcs.size(); ++i)
-                {
-                    if(i != 0uz) { ::std::cerr << ','; }
-                    ::std::cerr << test_case.expected_funcs[i];
-                }
+                if(i != 0uz) { ::std::cerr << ','; }
+                ::std::cerr << test_case.expected_funcs[i];
             }
             ::std::cerr << "] actual=[";
             for(::std::size_t i{}; i != funcs.size(); ++i)
@@ -410,7 +413,7 @@ namespace
     [[nodiscard]] bool check_call_stack_semantics(strategy_case_t const& test_case,
                                                   ::std::filesystem::path const& log_path,
                                                   char const* policy,
-                                                  bool auto_uses_unwind)
+                                                  bool auto_uses_authoritative_unwind)
     {
         auto const policy_view{::std::string_view{policy}};
         if(policy_view == "instruction") { return true; }
@@ -418,34 +421,80 @@ namespace
         ::std::string log{};
         if(!read_text_file(log_path, log)) { return false; }
 
-        auto const effective_unwind{policy_view == "unwind" || (policy_view == "auto" && auto_uses_unwind)};
-        if(effective_unwind)
+        if(!native_unwind_can_replace_logical_frames && log.find("unwind_replace_frames=yes") != ::std::string::npos)
         {
-            if(!trap_executed_compiled_llvm(test_case, log) || has_seeded_native_capture(log)) { return true; }
-
-            ::std::cerr << "LLVM trap did not resolve its JIT caller from a seeded native context for strategy=" << test_case.name
-                        << " policy=" << policy << "\n  log=" << log_path << '\n';
+            ::std::cerr << "non-Win64 native unwind claimed authority over logical frames for strategy=" << test_case.name << " policy=" << policy
+                        << "\n  log=" << log_path << '\n';
+            return false;
+        }
+        if(log.find("unwind_replace_frames=yes") != ::std::string::npos && log.find("unwind_backend=win64-seh") == ::std::string::npos)
+        {
+            ::std::cerr << "native frame replacement was not backed by Win64 SEH for strategy=" << test_case.name << " policy=" << policy
+                        << "\n  log=" << log_path << '\n';
             return false;
         }
 
-        if(log.find("call_stack=instruction") == ::std::string::npos) { return true; }
+        if(policy_view == "auto")
+        {
+            auto const contradictory_mode{auto_uses_authoritative_unwind ? log.find("call_stack=instruction") != ::std::string::npos
+                                                                         : log.find("call_stack=unwind ") != ::std::string::npos};
+            auto const suppresses_posix_logical_frames{!auto_uses_authoritative_unwind && log.find("call_stack_frames=omit") != ::std::string::npos};
+            if(!contradictory_mode && !suppresses_posix_logical_frames) { return true; }
 
-        ::std::cerr << "auto call-stack policy converted to instruction frames without usable native unwind for strategy=" << test_case.name
-                    << "\n  log=" << log_path << '\n';
-        return false;
+            ::std::cerr << "auto call-stack policy contradicted the probed native-unwind authority for strategy=" << test_case.name
+                        << "\n  log=" << log_path << '\n';
+            return false;
+        }
+
+        if(policy_view == "unwind-uncheck" && !native_unwind_can_replace_logical_frames &&
+           log.find("call_stack_frames=omit") != ::std::string::npos)
+        {
+            ::std::cerr << "POSIX auxiliary unwind suppressed logical frames for strategy=" << test_case.name << "\n  log=" << log_path << '\n';
+            return false;
+        }
+
+        return true;
     }
 
-    [[nodiscard]] bool check_log_patterns(strategy_case_t const& test_case, ::std::filesystem::path const& log_path)
+    [[nodiscard]] bool check_log_patterns(strategy_case_t const& test_case,
+                                          ::std::filesystem::path const& log_path,
+                                          ::std::string_view policy,
+                                          bool auto_uses_authoritative_unwind)
     {
         ::std::string log{};
         if(!read_text_file(log_path, log)) { return false; }
 
         bool ok{true};
+        auto const serialize_native_compilation{policy_requests_native_unwind(policy, auto_uses_authoritative_unwind)};
+        bool expects_tiered_demand_or_osr{};
+        bool expects_tiered_full{};
         for(auto const pattern: test_case.required_log_patterns)
         {
+            if(pattern.find("tiered-demand-request") != ::std::string_view::npos || pattern.find("tiered-osr-request") != ::std::string_view::npos)
+            {
+                expects_tiered_demand_or_osr = true;
+            }
+            if(pattern.find("tiered-full-") != ::std::string_view::npos) { expects_tiered_full = true; }
+            if(serialize_native_compilation &&
+               (pattern == "lane=urgent" || pattern == "lane=normal" || pattern.find("tiered-full-") != ::std::string_view::npos))
+            {
+                continue;
+            }
             if(log.find(pattern) != ::std::string::npos) { continue; }
             ok = false;
             ::std::cerr << "missing required log pattern for strategy=" << test_case.name << ": " << pattern << '\n';
+        }
+        if(serialize_native_compilation && expects_tiered_demand_or_osr && log.find("lane=inline") == ::std::string::npos)
+        {
+            ok = false;
+            ::std::cerr << "native unwind did not serialize tiered demand/OSR compilation for strategy=" << test_case.name << '\n';
+        }
+        if(serialize_native_compilation && expects_tiered_full &&
+           (log.find("[llvm-jit-lazy] tiered-full-request") != ::std::string::npos ||
+            log.find("[llvm-jit-lazy] tiered-full-ready") != ::std::string::npos))
+        {
+            ok = false;
+            ::std::cerr << "native unwind allowed background Tier 2 compilation for strategy=" << test_case.name << '\n';
         }
         for(auto const pattern: test_case.forbidden_log_patterns)
         {
@@ -803,7 +852,8 @@ int main(int argc, char** argv)
 
     bool ok{true};
     bool call_stack_capability_probed{};
-    bool auto_uses_unwind{};
+    bool auto_uses_authoritative_unwind{};
+    bool native_unwind_backend_available{};
     for(auto const& test_case: make_cases())
     {
         auto const wat_path{artifact_dir / (::std::string{test_case.name} + ".wat")};
@@ -813,35 +863,39 @@ int main(int argc, char** argv)
 
         if(!call_stack_capability_probed)
         {
-            if(!probe_auto_call_stack_unwind(uwvm_path, wasm_path, artifact_dir, auto_uses_unwind)) { return 1; }
-            call_stack_capability_probed = true;
-            if(!auto_uses_unwind)
+            if(!probe_auto_call_stack_unwind(
+                   uwvm_path, wasm_path, artifact_dir, auto_uses_authoritative_unwind, native_unwind_backend_available))
             {
-                ::std::cout << "[tiered-strategy] native unwind unavailable; auto omits LLVM JIT call-stack frames\n";
+                return 1;
+            }
+            call_stack_capability_probed = true;
+            if(!auto_uses_authoritative_unwind)
+            {
+                ::std::cout << "[tiered-strategy] native unwind is non-authoritative or unavailable; auto retains logical instruction frames\n";
             }
         }
 
-        auto const instruction{run_case(uwvm_path, wasm_path, artifact_dir, test_case, "instruction", auto_uses_unwind)};
+        auto const instruction{run_case(uwvm_path, wasm_path, artifact_dir, test_case, "instruction")};
         if(!instruction.valid)
         {
             ok = false;
             ::std::cerr << "[tiered-strategy] instruction baseline parse failure for " << test_case.name << '\n';
         }
-        if(!check_log_patterns(test_case, instruction.log_path)) { ok = false; }
+        if(!check_log_patterns(test_case, instruction.log_path, "instruction", auto_uses_authoritative_unwind)) { ok = false; }
 
         for(auto const* policy: comparison_policies)
         {
             auto const policy_view{::std::string_view{policy}};
-            if(policy_view == "unwind" && !auto_uses_unwind) { continue; }
-            auto const compared{run_case(uwvm_path, wasm_path, artifact_dir, test_case, policy, auto_uses_unwind)};
-            if(!instruction.valid || !compared.valid ||
-               (!compared.func_indices.empty() && instruction.func_indices != compared.func_indices))
+            if(policy_view == "unwind" && !auto_uses_authoritative_unwind) { continue; }
+            if(policy_view == "unwind-uncheck" && !native_unwind_backend_available) { continue; }
+            auto const compared{run_case(uwvm_path, wasm_path, artifact_dir, test_case, policy)};
+            if(!instruction.valid || !compared.valid || instruction.func_indices != compared.func_indices)
             {
                 ok = false;
                 ::std::cerr << "[tiered-strategy] stack mismatch or parse failure for " << test_case.name << '/' << policy << '\n';
             }
-            if(!check_log_patterns(test_case, compared.log_path)) { ok = false; }
-            if(!check_call_stack_semantics(test_case, compared.log_path, policy, auto_uses_unwind)) { ok = false; }
+            if(!check_log_patterns(test_case, compared.log_path, policy_view, auto_uses_authoritative_unwind)) { ok = false; }
+            if(!check_call_stack_semantics(test_case, compared.log_path, policy, auto_uses_authoritative_unwind)) { ok = false; }
         }
     }
 
