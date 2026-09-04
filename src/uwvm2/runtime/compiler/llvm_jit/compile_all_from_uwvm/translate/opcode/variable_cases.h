@@ -429,6 +429,20 @@ case wasm1_code::global_get:
         curr_global_type = globalsec.local_globals.index_unchecked(local_global_index).global.type;
     }
 
+    if(capability_failure != nullptr && !is_runtime_wasm_value_type_llvm_scalar(curr_global_type)) [[unlikely]]
+    {
+        report_capability_failure(llvm_jit_capability_failure_kind::instruction,
+                                  u8"global.get result is not an LLVM scalar",
+                                  op_begin,
+                                  static_cast<::std::uint_least32_t>(static_cast<::std::uint_least8_t>(wasm1_code::global_get)),
+                                  true,
+                                  0u,
+                                  false,
+                                  static_cast<::std::int_least64_t>(get_runtime_wasm_value_type_encoding(curr_global_type)),
+                                  true);
+        return;
+    }
+
     // global.get always pushes one value of the global's type (even in polymorphic mode)
     operand_stack_push(curr_global_type);
 
@@ -514,6 +528,20 @@ case wasm1_code::global_set:
         auto const& local_global{globalsec.local_globals.index_unchecked(local_global_index).global};
         curr_global_type = local_global.type;
         curr_global_mutable = local_global.is_mutable;
+    }
+
+    if(capability_failure != nullptr && !is_runtime_wasm_value_type_llvm_scalar(curr_global_type)) [[unlikely]]
+    {
+        report_capability_failure(llvm_jit_capability_failure_kind::instruction,
+                                  u8"global.set operand is not an LLVM scalar",
+                                  op_begin,
+                                  static_cast<::std::uint_least32_t>(static_cast<::std::uint_least8_t>(wasm1_code::global_set)),
+                                  true,
+                                  0u,
+                                  false,
+                                  static_cast<::std::int_least64_t>(get_runtime_wasm_value_type_encoding(curr_global_type)),
+                                  true);
+        return;
     }
 
     // global.set requires the target global to be mutable (immutable globals cannot be written)

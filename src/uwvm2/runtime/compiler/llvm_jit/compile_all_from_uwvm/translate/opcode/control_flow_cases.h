@@ -74,7 +74,7 @@ case wasm1_code::block:
 
     // block  blocktype ...
     // [safe] unsafe (could be the section_end)
-    //        ^^ op_begin
+    //        ^^ code_curr
 
     if(code_curr == code_end) [[unlikely]]
     {
@@ -83,64 +83,27 @@ case wasm1_code::block:
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::end_of_file);
     }
 
-    // block blocktype ...
-    // [     safe    ] unsafe (could be the section_end)
-    //       ^^ op_begin
-
-    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte blocktype_byte;  // No initialization necessary
-    ::std::memcpy(::std::addressof(blocktype_byte), code_curr, sizeof(blocktype_byte));
-
-    ++code_curr;
-
-    // block blocktype ...
-    // [     safe    ] unsafe (could be the section_end)
-    //                 ^^ op_begin
-
-    // WebAssembly 1.0/MVP blocktype is either 0x40 (empty) or one scalar value type.  Multi-value blocktypes can also
-    // encode a type index with parameters/results; when enabling that proposal, update this parser, runtime block-result
-    // storage, branch label arity validation, and LLVM PHI/result lowering together.
     runtime_block_result_type block_result{};
-
-    switch(blocktype_byte)
+    if(!try_read_llvm_supported_block_result_type(op_begin, block_result)) [[unlikely]]
     {
-        case 0x40u:
+        // Standard validation has already accepted this s33 block signature.  It is therefore an LLVM capability miss
+        // (type-index/multi-value/ref/v128), not malformed Wasm.  Invalidate all previously emitted functions before
+        // returning so materialization fails closed and cannot publish partial IR.
+        if(capability_failure != nullptr)
         {
-            // empty result
-            block_result = {};
-            break;
+            report_capability_failure(llvm_jit_capability_failure_kind::block_signature,
+                                      u8"block uses a type-index/reference/SIMD signature",
+                                      op_begin,
+                                      static_cast<::std::uint_least32_t>(static_cast<::std::uint_least8_t>(wasm1_code::block)),
+                                      true,
+                                      0u,
+                                      false,
+                                      last_decoded_blocktype,
+                                      true);
+            return;
         }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::i32):
-        {
-            block_result.begin = i32_result_arr;
-            block_result.end = i32_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::i64):
-        {
-            block_result.begin = i64_result_arr;
-            block_result.end = i64_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::f32):
-        {
-            block_result.begin = f32_result_arr;
-            block_result.end = f32_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::f64):
-        {
-            block_result.begin = f64_result_arr;
-            block_result.end = f64_result_arr + 1u;
-            break;
-        }
-        [[unlikely]] default:
-        {
-            // Unknown blocktype encoding; treat as invalid code.
-            err.err_curr = op_begin;
-            err.err_selectable.u8 = blocktype_byte;
-            err.err_code = ::uwvm2::validation::error::code_validation_error_code::illegal_block_type;
-            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-        }
+        if(emitted_llvm_jit_ir_storage != nullptr) { disable_inline_llvm_jit_emission(); }
+        return;
     }
 
     control_flow_stack.push_back(
@@ -183,63 +146,24 @@ case wasm1_code::loop:
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::end_of_file);
     }
 
-    // loop blocktype ...
-    // [    safe    ] unsafe (could be the section_end)
-    //      ^^ code_curr
-
-    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte blocktype_byte;  // No initialization necessary
-    ::std::memcpy(::std::addressof(blocktype_byte), code_curr, sizeof(blocktype_byte));
-
-    ++code_curr;
-
-    // loop blocktype ...
-    // [    safe    ] unsafe (could be the section_end)
-    //                ^^ code_curr
-
-    // WebAssembly 1.0/MVP blocktype is either 0x40 (empty) or one scalar value type.  Multi-value blocktypes can also
-    // encode a type index with parameters/results; when enabling that proposal, update this parser, runtime block-result
-    // storage, branch label arity validation, and LLVM loop-entry/latch lowering together.
     runtime_block_result_type block_result{};
-
-    switch(blocktype_byte)
+    if(!try_read_llvm_supported_block_result_type(op_begin, block_result)) [[unlikely]]
     {
-        case 0x40u:
+        if(capability_failure != nullptr)
         {
-            // empty result
-            block_result = {};
-            break;
+            report_capability_failure(llvm_jit_capability_failure_kind::block_signature,
+                                      u8"loop uses a type-index/reference/SIMD signature",
+                                      op_begin,
+                                      static_cast<::std::uint_least32_t>(static_cast<::std::uint_least8_t>(wasm1_code::loop)),
+                                      true,
+                                      0u,
+                                      false,
+                                      last_decoded_blocktype,
+                                      true);
+            return;
         }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::i32):
-        {
-            block_result.begin = i32_result_arr;
-            block_result.end = i32_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::i64):
-        {
-            block_result.begin = i64_result_arr;
-            block_result.end = i64_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::f32):
-        {
-            block_result.begin = f32_result_arr;
-            block_result.end = f32_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::f64):
-        {
-            block_result.begin = f64_result_arr;
-            block_result.end = f64_result_arr + 1u;
-            break;
-        }
-        [[unlikely]] default:
-        {
-            err.err_curr = op_begin;
-            err.err_selectable.u8 = blocktype_byte;
-            err.err_code = ::uwvm2::validation::error::code_validation_error_code::illegal_block_type;
-            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-        }
+        if(emitted_llvm_jit_ir_storage != nullptr) { disable_inline_llvm_jit_emission(); }
+        return;
     }
 
     control_flow_stack.push_back({.result = block_result,
@@ -285,62 +209,24 @@ case wasm1_code::if_:
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::end_of_file);
     }
 
-    // if blocktype ...
-    // [   safe   ] unsafe (could be the section_end)
-    //    ^^ code_curr
-
-    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte blocktype_byte;  // No initialization necessary
-    ::std::memcpy(::std::addressof(blocktype_byte), code_curr, sizeof(blocktype_byte));
-
-    ++code_curr;
-
-    // if blocktype ...
-    // [   safe   ] unsafe (could be the section_end)
-    //              ^^ code_curr
-
-    // WebAssembly 1.0/MVP blocktype is either 0x40 (empty) or one scalar value type.  Multi-value blocktypes can also
-    // encode a type index with parameters/results; when enabling that proposal, update this parser, if/else result
-    // merging, branch arity validation, and LLVM PHI/result lowering together.
     runtime_block_result_type block_result{};
-
-    switch(blocktype_byte)
+    if(!try_read_llvm_supported_block_result_type(op_begin, block_result)) [[unlikely]]
     {
-        case 0x40u:
+        if(capability_failure != nullptr)
         {
-            block_result = {};
-            break;
+            report_capability_failure(llvm_jit_capability_failure_kind::block_signature,
+                                      u8"if uses a type-index/reference/SIMD signature",
+                                      op_begin,
+                                      static_cast<::std::uint_least32_t>(static_cast<::std::uint_least8_t>(wasm1_code::if_)),
+                                      true,
+                                      0u,
+                                      false,
+                                      last_decoded_blocktype,
+                                      true);
+            return;
         }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::i32):
-        {
-            block_result.begin = i32_result_arr;
-            block_result.end = i32_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::i64):
-        {
-            block_result.begin = i64_result_arr;
-            block_result.end = i64_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::f32):
-        {
-            block_result.begin = f32_result_arr;
-            block_result.end = f32_result_arr + 1u;
-            break;
-        }
-        case static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(::uwvm2::parser::wasm::standard::wasm1::type::value_type::f64):
-        {
-            block_result.begin = f64_result_arr;
-            block_result.end = f64_result_arr + 1u;
-            break;
-        }
-        [[unlikely]] default:
-        {
-            err.err_curr = op_begin;
-            err.err_selectable.u8 = blocktype_byte;
-            err.err_code = ::uwvm2::validation::error::code_validation_error_code::illegal_block_type;
-            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-        }
+        if(emitted_llvm_jit_ir_storage != nullptr) { disable_inline_llvm_jit_emission(); }
+        return;
     }
 
     // Stack effect: (i32 cond) -> () before entering the then branch.
@@ -648,7 +534,6 @@ case wasm1_code::end:
             {
                 disable_inline_llvm_jit_emission();
             }
-            else if(tiered_loop_reentries_out != nullptr) { *tiered_loop_reentries_out = llvm_jit_emit_state.tiered_loop_reentries; }
         }
 
         return;

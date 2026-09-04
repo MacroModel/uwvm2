@@ -73,9 +73,12 @@
 # include <uwvm2/parser/wasm/base/impl.h>
 # include <uwvm2/parser/wasm/concepts/impl.h>
 # include <uwvm2/parser/wasm/standard/wasm1/impl.h>
+# include <uwvm2/parser/wasm/standard/wasm1p1/impl.h>
+# include <uwvm2/parser/wasm/standard/wasm1p1/features/call_indirect_immediate.h>
 # include <uwvm2/parser/wasm/binfmt/binfmt_ver1/impl.h>
 # include <uwvm2/validation/error/impl.h>
 # include <uwvm2/validation/standard/wasm1p1/impl.h>
+# include <uwvm2/validation/standard/wasm2/impl.h>
 # include <uwvm2/object/impl.h>
 # include <uwvm2/object/memory/flags/impl.h>
 # include <uwvm2/uwvm/io/impl.h>
@@ -138,12 +141,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::lib
                                                  void const* param_buffer,
                                                  ::std::size_t param_bytes) noexcept;
 
-    extern "C++" void llvm_jit_call_interpreter_defined_raw_api(void const* runtime_module_ptr,
-                                                                ::std::uint_least32_t func_index,
-                                                                void* result_buffer,
-                                                                ::std::size_t result_bytes,
-                                                                void const* param_buffer,
-                                                                ::std::size_t param_bytes) noexcept;
 }
 
 UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_all_from_uwvm

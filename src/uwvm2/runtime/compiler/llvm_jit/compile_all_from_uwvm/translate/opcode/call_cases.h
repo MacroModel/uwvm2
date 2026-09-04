@@ -83,6 +83,8 @@ case wasm1_code::call:
     auto const param_count{static_cast<::std::size_t>(callee_type.parameter.end - callee_type.parameter.begin)};
     auto const result_count{static_cast<::std::size_t>(callee_type.result.end - callee_type.result.begin)};
 
+    if(reject_unsupported_call_signature(callee_type, op_begin, wasm1_code::call, false)) [[unlikely]] { return; }
+
     if(!is_polymorphic && concrete_operand_count() < param_count) [[unlikely]] { report_operand_stack_underflow(op_begin, u8"call", param_count); }
 
     // Type-check arguments when the stack is non-polymorphic.
@@ -238,12 +240,14 @@ case wasm1_code::call_indirect:
     auto const param_count{static_cast<::std::size_t>(callee_type.parameter.end - callee_type.parameter.begin)};
     auto const result_count{static_cast<::std::size_t>(callee_type.result.end - callee_type.result.begin)};
 
-    // Stack effect: (args..., i32 func_index) -> (results...)
-    constexpr auto max_operand_stack_requirement{::std::numeric_limits<::std::size_t>::max()};
-    auto const param_count_plus_table_index_overflows{param_count == max_operand_stack_requirement};
-    auto const required_stack_size{param_count_plus_table_index_overflows ? max_operand_stack_requirement : (param_count + 1uz)};
+    if(reject_unsupported_call_signature(callee_type, op_begin, wasm1_code::call_indirect, true)) [[unlikely]] { return; }
 
-    if(!is_polymorphic && (param_count_plus_table_index_overflows || concrete_operand_count() < required_stack_size)) [[unlikely]]
+    // Stack effect: (args..., i32 table_element_index) -> (results...)
+    constexpr auto max_operand_stack_requirement{::std::numeric_limits<::std::size_t>::max()};
+    auto const param_count_plus_element_index_overflows{param_count == max_operand_stack_requirement};
+    auto const required_stack_size{param_count_plus_element_index_overflows ? max_operand_stack_requirement : (param_count + 1uz)};
+
+    if(!is_polymorphic && (param_count_plus_element_index_overflows || concrete_operand_count() < required_stack_size)) [[unlikely]]
     {
         report_operand_stack_underflow(op_begin, u8"call_indirect", required_stack_size);
     }

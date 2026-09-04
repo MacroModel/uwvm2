@@ -8,21 +8,20 @@ case static_cast<wasm1_code>(wasm1p1_code::select_t):
     auto const op_begin{code_curr};
     ++code_curr;
 
+    if(wasm1p1_para.disable_reference_types) [[unlikely]]
+    {
+        fail_wasm1p1_feature_required(op_begin,
+                                      opcode_byte(wasm1p1_code::select_t),
+                                      ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::reference_types,
+                                      ::uwvm2::parser::wasm::base::wasm1p1_error_subject::instruction);
+    }
+
     auto const result_type_count{
         read_leb128.template operator()<validation_module_traits_t::wasm_u32>(code_curr, code_end, op_begin, u8"select.result_types")};
 
-    auto const is_untyped_select_value_type{[&](curr_operand_stack_value_type type) constexpr noexcept -> bool
-                                            {
-                                                if(type == curr_operand_stack_value_type::i32 || type == curr_operand_stack_value_type::i64 ||
-                                                   type == curr_operand_stack_value_type::f32 || type == curr_operand_stack_value_type::f64)
-                                                {
-                                                    return true;
-                                                }
-
-                                                return static_cast<::uwvm2::parser::wasm::standard::wasm1p1::type::value_type>(type) ==
-                                                           ::uwvm2::parser::wasm::standard::wasm1p1::type::value_type::v128 &&
-                                                       !wasm1p1_para.disable_simd;
-                                            }};
+    // select_t result_type_count result_type ...
+    // [           safe         ] unsafe (could be the section_end)
+    //                            ^^ code_curr
 
     auto const validate_select_condition{[&](concrete_operand_t cond) constexpr UWVM_THROWS
                                          {
@@ -35,65 +34,32 @@ case static_cast<wasm1_code>(wasm1p1_code::select_t):
                                              }
                                          }};
 
-    if(result_type_count == 0u)
-    {
-        if(!is_polymorphic && concrete_operand_count() < 3uz) [[unlikely]] { report_operand_stack_underflow(op_begin, u8"select", 3uz); }
-
-        auto const cond{try_pop_concrete_operand()};
-        validate_select_condition(cond);
-
-        auto const v2{try_pop_concrete_operand()};
-        auto const v1{try_pop_concrete_operand()};
-
-        if(v1.from_stack && v2.from_stack && v1.type != v2.type) [[unlikely]]
-        {
-            err.err_curr = op_begin;
-            err.err_selectable.select_type_mismatch.type_v1 = to_wasm1_diagnostic_value_type(v1.type);
-            err.err_selectable.select_type_mismatch.type_v2 = to_wasm1_diagnostic_value_type(v2.type);
-            err.err_code = code_validation_error_code::select_type_mismatch;
-            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-        }
-
-        bool const have_known_select_value_type{v1.from_stack || v2.from_stack};
-        auto const select_value_type{v1.from_stack ? v1.type : v2.type};
-        if(have_known_select_value_type && !is_untyped_select_value_type(select_value_type)) [[unlikely]]
-        {
-            err.err_curr = op_begin;
-            err.err_selectable.select_type_mismatch.type_v1 = to_wasm1_diagnostic_value_type(select_value_type);
-            err.err_selectable.select_type_mismatch.type_v2 = to_wasm1_diagnostic_value_type(select_value_type);
-            err.err_code = code_validation_error_code::select_type_mismatch;
-            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-        }
-
-        if(v1.from_stack) { operand_stack_push(v1.type); }
-        else if(v2.from_stack)
-        {
-            operand_stack_push(v2.type);
-        }
-
-        if(emit_llvm_jit_active)
-        {
-            llvm_jit_instruction_emitted_inline = true;
-            if(have_known_select_value_type &&
-               (select_value_type == curr_operand_stack_value_type::i32 || select_value_type == curr_operand_stack_value_type::i64 ||
-                select_value_type == curr_operand_stack_value_type::f32 || select_value_type == curr_operand_stack_value_type::f64))
-            {
-                if(!try_emit_runtime_local_func_llvm_jit_select(llvm_jit_emit_state)) [[unlikely]] { disable_inline_llvm_jit_emission(); }
-            }
-            else
-            {
-                disable_inline_llvm_jit_emission();
-            }
-        }
-
-        break;
-    }
-
     if(result_type_count != 1u) [[unlikely]] { fail_invalid_immediate(op_begin, u8"select.result_types"); }
 
     auto const result_type_byte{read_u8_immediate(code_curr, code_end, op_begin, u8"select.result_type")};
+
+    // select_t result_type_count result_type ...
+    // [                 safe               ] unsafe (could be the section_end)
+    //                                        ^^ code_curr
+
+    // Field commits are transactional: a count-LEB decode failure leaves the cursor after the opcode; a decoded-count
+    // arity rejection or result-type decode failure leaves it after the count; a type-policy rejection follows the type byte.
     auto const result_type{static_cast<curr_operand_stack_value_type>(result_type_byte)};
     ensure_wasm1p1_value_type_enabled(op_begin, result_type, ::uwvm2::parser::wasm::base::wasm1p1_error_subject::instruction);
+
+    if(capability_failure != nullptr && !is_runtime_wasm_value_type_llvm_scalar(result_type)) [[unlikely]]
+    {
+        report_capability_failure(llvm_jit_capability_failure_kind::instruction,
+                                  u8"typed select result is not an LLVM scalar",
+                                  op_begin,
+                                  opcode_byte(wasm1p1_code::select_t),
+                                  true,
+                                  0u,
+                                  false,
+                                  static_cast<::std::int_least64_t>(result_type_byte),
+                                  true);
+        return;
+    }
 
     if(!is_polymorphic && concrete_operand_count() < 3uz) [[unlikely]] { report_operand_stack_underflow(op_begin, u8"select", 3uz); }
 
@@ -538,6 +504,38 @@ case static_cast<wasm1_code>(wasm1p1_code::numeric_prefix):
             break;
         }
         [[unlikely]] default:
+            // The standard validator already accepted this prefixed opcode. It is valid Wasm 1.1 but has no native
+            // LLVM AOT lowering here; invalidate the module rather than misreporting it as malformed or falling back
+            // to the interpreter.
+            if(capability_failure != nullptr)
+            {
+                ::uwvm2::utils::container::u8string_view reason{u8"numeric-prefixed instruction has no LLVM lowering"};
+                switch(numeric_code)
+                {
+                    case wasm1p1_numeric_code::memory_init: reason = u8"memory.init has no LLVM lowering"; break;
+                    case wasm1p1_numeric_code::data_drop: reason = u8"data.drop has no LLVM lowering"; break;
+                    case wasm1p1_numeric_code::table_init: reason = u8"table.init has no LLVM lowering"; break;
+                    case wasm1p1_numeric_code::elem_drop: reason = u8"elem.drop has no LLVM lowering"; break;
+                    case wasm1p1_numeric_code::table_copy: reason = u8"table.copy has no LLVM lowering"; break;
+                    case wasm1p1_numeric_code::table_grow: reason = u8"table.grow has no LLVM lowering"; break;
+                    case wasm1p1_numeric_code::table_size: reason = u8"table.size has no LLVM lowering"; break;
+                    case wasm1p1_numeric_code::table_fill: reason = u8"table.fill has no LLVM lowering"; break;
+                    default: break;
+                }
+                report_capability_failure(llvm_jit_capability_failure_kind::instruction,
+                                          reason,
+                                          op_begin,
+                                          opcode_byte(wasm1p1_code::numeric_prefix),
+                                          true,
+                                          subopcode,
+                                          true);
+                return;
+            }
+            if(emitted_llvm_jit_ir_storage != nullptr)
+            {
+                disable_inline_llvm_jit_emission();
+                return;
+            }
             err.err_curr = op_begin;
             err.err_selectable.u8 = static_cast<::std::uint_least8_t>(subopcode);
             err.err_code = code_validation_error_code::illegal_opbase;
