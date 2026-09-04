@@ -1722,7 +1722,6 @@ namespace uwvm2::runtime::lib
             no_frame_replacement
         };
 
-# if !UWVM2_RUNTIME_LLVM_JIT_HAS_UNWIND_BACKTRACE
         [[nodiscard]] inline constexpr ::uwvm2::utils::container::u8string_view
             runtime_llvm_jit_unwind_capability_status_reason(runtime_llvm_jit_unwind_capability_status st) noexcept
         {
@@ -1735,7 +1734,6 @@ namespace uwvm2::runtime::lib
 
             return u8"unknown unwind capability failure";
         }
-# endif
 
         [[maybe_unused]] [[nodiscard]] inline constexpr runtime_llvm_jit_unwind_capability_status runtime_llvm_jit_unwind_capability() noexcept
         {
@@ -1772,15 +1770,18 @@ namespace uwvm2::runtime::lib
             namespace runtime_mode = ::uwvm2::uwvm::runtime::runtime_mode;
             if(!runtime_llvm_jit_call_stack_applies_to_current_compiler()) { return false; }
             auto const mode{get_runtime_llvm_jit_effective_call_stack_mode()};
+            if(mode == runtime_mode::runtime_llvm_jit_call_stack_t::unwind_uncheck)
+            {
 # if UWVM2_RUNTIME_LLVM_JIT_HAS_UNWIND_BACKTRACE
-            return mode == runtime_mode::runtime_llvm_jit_call_stack_t::unwind;
+                return true;
 # else
-            static_cast<void>(mode);
-            return false;
+                return false;
 # endif
+            }
+            if(mode != runtime_mode::runtime_llvm_jit_call_stack_t::unwind) { return false; }
+            return runtime_llvm_jit_unwind_capability() == runtime_llvm_jit_unwind_capability_status::ok;
         }
 
-# if !UWVM2_RUNTIME_LLVM_JIT_HAS_UNWIND_BACKTRACE
         [[noreturn]] inline constexpr void runtime_llvm_jit_explicit_unwind_call_stack_fatal(runtime_llvm_jit_unwind_capability_status st) noexcept
         {
             ::fast_io::io::perr(::uwvm2::uwvm::io::u8log_output,
@@ -1805,26 +1806,35 @@ namespace uwvm2::runtime::lib
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_CYAN),
                                 u8"instruction",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
-                                u8". Native unwind must be compiled for this target; POSIX native frames remain auxiliary to the logical Wasm stack. ",
+                                u8"; use ",
+                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_CYAN),
+                                u8"unwind-uncheck",
+                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                u8" to keep POSIX native frames auxiliary to the authoritative logical Wasm stack. ",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_ORANGE),
                                 u8"(runtime)\n\n",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL));
             ::fast_io::fast_terminate();
             ::std::unreachable();
         }
-# endif
 
         inline constexpr void validate_runtime_llvm_jit_unwind_call_stack_or_fatal() noexcept
         {
             namespace runtime_mode = ::uwvm2::uwvm::runtime::runtime_mode;
             auto const requested{runtime_mode::global_runtime_llvm_jit_call_stack};
-            if(requested != runtime_mode::runtime_llvm_jit_call_stack_t::unwind) { return; }
+            if(requested != runtime_mode::runtime_llvm_jit_call_stack_t::unwind &&
+               requested != runtime_mode::runtime_llvm_jit_call_stack_t::unwind_uncheck)
+            {
+                return;
+            }
 
 # if !UWVM2_RUNTIME_LLVM_JIT_HAS_UNWIND_BACKTRACE
             runtime_llvm_jit_explicit_unwind_call_stack_fatal(runtime_llvm_jit_unwind_capability_status::no_backend);
 # else
-            // Explicit unwind enables the compiled native diagnostic backend. On POSIX the generated logical Wasm frames
-            // remain enabled and authoritative; only Win64's explicit SEH caller context may replace them.
+            if(requested == runtime_mode::runtime_llvm_jit_call_stack_t::unwind_uncheck) { return; }
+
+            auto const st{runtime_llvm_jit_unwind_capability()};
+            if(st != runtime_llvm_jit_unwind_capability_status::ok) [[unlikely]] { runtime_llvm_jit_explicit_unwind_call_stack_fatal(st); }
 # endif
         }
 
@@ -2948,6 +2958,7 @@ namespace uwvm2::runtime::lib
                 case runtime_llvm_jit_call_stack_t::instruction: return u8"instruction";
                 case runtime_llvm_jit_call_stack_t::none: return u8"none";
                 case runtime_llvm_jit_call_stack_t::unwind: return u8"unwind";
+                case runtime_llvm_jit_call_stack_t::unwind_uncheck: return u8"unwind-uncheck";
             }
 
             return u8"instruction";
@@ -2964,7 +2975,8 @@ namespace uwvm2::runtime::lib
             {
                 case runtime_llvm_jit_call_stack_t::auto_policy: [[fallthrough]];
                 case runtime_llvm_jit_call_stack_t::instruction: return true;
-                case runtime_llvm_jit_call_stack_t::unwind: return !runtime_llvm_jit_unwind_can_replace_instruction_frames();
+                case runtime_llvm_jit_call_stack_t::unwind: [[fallthrough]];
+                case runtime_llvm_jit_call_stack_t::unwind_uncheck: return !runtime_llvm_jit_unwind_can_replace_instruction_frames();
                 case runtime_llvm_jit_call_stack_t::none: return false;
             }
 

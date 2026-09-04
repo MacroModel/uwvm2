@@ -76,9 +76,11 @@
 # define UWVM_MODULE_EXPORT
 #endif
 
-#pragma push_macro("UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_UNWIND")
+#pragma push_macro("UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND")
+#pragma push_macro("UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND")
 #pragma push_macro("UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND")
-#undef UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_UNWIND
+#undef UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND
+#undef UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND
 #undef UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND
 #if defined(__APPLE__) && !defined(_WIN32)
 # define UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND
@@ -94,7 +96,11 @@
      (defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) &&                                                                                    \
       (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64)) &&                                          \
       !defined(__CYGWIN__)))
-# define UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_UNWIND
+# define UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND
+#endif
+#if defined(UWVM_RUNTIME_LLVM_JIT) && defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) && \
+    (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64)) && !defined(__CYGWIN__)
+# define UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND
 #endif
 
 UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
@@ -223,8 +229,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                             u8"    - LLVM Version: Unknown\n",
 # endif
                             u8"    - Call Stack Modes Support: instruction"
-# ifdef UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_UNWIND
-                            u8", unwind"
+# ifdef UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND
+                            u8", unwind, unwind-uncheck"
+# elif defined(UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND)
+                            u8", unwind-uncheck (auxiliary)"
 # endif
                             u8"\n");
     }
@@ -1413,7 +1421,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 }  // namespace uwvm2::uwvm::cmdline::params::details
 
 #pragma pop_macro("UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND")
-#pragma pop_macro("UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_UNWIND")
+#pragma pop_macro("UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND")
+#pragma pop_macro("UWVM2_UWVM_CMDLINE_VERSION_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND")
 
 #ifndef UWVM_MODULE
 # include <uwvm2/uwvm/runtime/macro/pop_macros.h>

@@ -45,12 +45,14 @@
 # define UWVM_MODULE_EXPORT
 #endif
 
-#pragma push_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_UNWIND")
+#pragma push_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND")
+#pragma push_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND")
 #pragma push_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND")
-#undef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_UNWIND
+#undef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND
+#undef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND
 #undef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND
-// Keep the CLI in lock-step with the runtime native-unwind allow-list.  Untested ELF ISAs must not expose checked or unchecked
-// native unwind modes merely because an ordinary <unwind.h> backtrace interface is present.
+// Availability and authority are separate. A supported POSIX <unwind.h> walk is exposed only through the explicitly auxiliary
+// unchecked mode; checked `unwind` is accepted only where the Win64 SEH caller context may replace logical Wasm frames.
 #if defined(__APPLE__) && !defined(_WIN32)
 # define UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND
 #elif defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) &&                                                                                     \
@@ -64,7 +66,11 @@
      (defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) &&                                                                                  \
       (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64)) &&                                          \
       !defined(__CYGWIN__)))
-# define UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_UNWIND
+# define UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND
+#endif
+#if defined(UWVM_RUNTIME_LLVM_JIT) && defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) && \
+    (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64)) && !defined(__CYGWIN__)
+# define UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND
 #endif
 
 UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
@@ -111,8 +117,14 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
             ::uwvm2::uwvm::runtime::runtime_mode::global_runtime_llvm_jit_call_stack = runtime_llvm_jit_call_stack_t::instruction;
         }
         else if(currp1_str == u8"none") { ::uwvm2::uwvm::runtime::runtime_mode::global_runtime_llvm_jit_call_stack = runtime_llvm_jit_call_stack_t::none; }
-# ifdef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_UNWIND
+# ifdef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND
         else if(currp1_str == u8"unwind") { ::uwvm2::uwvm::runtime::runtime_mode::global_runtime_llvm_jit_call_stack = runtime_llvm_jit_call_stack_t::unwind; }
+# endif
+# ifdef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND
+        else if(currp1_str == u8"unwind-uncheck" || currp1_str == u8"unwind-unchecked")
+        {
+            ::uwvm2::uwvm::runtime::runtime_mode::global_runtime_llvm_jit_call_stack = runtime_llvm_jit_call_stack_t::unwind_uncheck;
+        }
 # endif
         else [[unlikely]]
         {
@@ -137,11 +149,17 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                                 u8", ",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_CYAN),
                                 u8"none",
-# ifdef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_UNWIND
+# ifdef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND
+                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                u8", ",
+                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_CYAN),
+                                u8"unwind",
+# endif
+# ifdef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
                                 u8", or ",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_CYAN),
-                                u8"unwind",
+                                u8"unwind-uncheck",
 # endif
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
                                 u8". Usage: ",
@@ -156,7 +174,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 }  // namespace uwvm2::uwvm::cmdline::params::details
 
 #pragma pop_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND")
-#pragma pop_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_UNWIND")
+#pragma pop_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND")
+#pragma pop_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND")
 
 #ifndef UWVM_MODULE
 // macro
