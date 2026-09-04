@@ -18,7 +18,7 @@ The tiered backend has three execution tiers:
    native entry is not ready, the runtime compiles or reuses the `uwvm-int`
    lazy execution unit and normally runs the interpreter result without waiting
    for LLVM. The current entry path has one small-module exception: very small
-   loop-shaped functions may compile Tier 1 inline so micro workloads can reach
+   loop-shaped functions may compile Tier 1 synchronously on the executing thread so micro workloads can reach
    native code immediately. Loop OSR polls are intentionally lightweight: the
    interpreter reads the smallest required state, exits immediately on a miss,
    and only transfers to native code when a ready reentry is already published.
@@ -126,29 +126,27 @@ Pure modes do not request or observe the Tier 2 scheduler unit:
 ## Call-Stack Reporting
 
 Tiered execution uses the same runtime call-stack policy as the LLVM JIT modes.
-The default `-Rllvm-call-stack auto` policy selects native unwind reporting when
-the target has a validated native-unwind implementation and the generated-code
-live probe passes. If either condition fails, `auto` resolves to `none` and omits
-JIT body frames; it never converts them to instruction frames. Explicit
-`-Rllvm-call-stack instruction` is the only policy that emits logical JIT
-push/pop frames. Explicit `-Rllvm-call-stack unwind` is exposed only when the
-native unwind path is available, and a live-probe failure is fatal.
+The default `-Rllvm-call-stack auto` policy selects native replacement only when
+the target supplies an authoritative generated-caller context and its checked
+path succeeds. Otherwise it resolves to `instruction`, so generated JIT frames
+remain represented by logical TLS push/pop operations. At present only the
+explicit Win64 SEH caller-context path is authoritative. A normal POSIX
+`_Unwind_Backtrace` starts in the runtime helper and is auxiliary; it never
+replaces logical Wasm frames.
 
 Unwind reporting does not require release uwvm host code to be built with
-unwind tables. Generated Wasm functions carry registered unwind metadata,
-disable tail calls, and keep frame pointers when unwind reporting is active.
-When a generated function traps through a runtime bridge, the runtime records
-the JIT caller return address and frame pointer at that bridge boundary, seeds
-libunwind from the JIT context, and resolves only IPs that fall inside loaded
-JIT text sections. This avoids walking through host uwvm frames that may be
-built with `-fno-unwind-tables -fno-asynchronous-unwind-tables`, and prevents
-non-JIT host or sanitizer frames from being reported as Wasm frames.
+unwind tables. Generated Wasm functions carry registered asynchronous unwind
+metadata and are permanently marked LLVM `NoInline`, including under max/O3;
+function-local optimization remains enabled. Fixed frame pointers and explicit
+generated frame/stack context are limited to the Win64 SEH bridge. The POSIX
+path does not seed a cursor from JIT registers, scan frame-pointer chains, scan
+raw stack words, or reconstruct synthetic inline frames.
 
-Instruction reporting remains available when native unwind support is missing
-or when debugging a platform-specific unwinder issue, but it must be selected
-explicitly. This keeps an unvalidated native-unwind platform from silently
-changing JIT code generation or presenting instruction frames as an automatic
-substitute for native unwind results.
+Explicit `instruction` always selects logical tracking. Explicit checked
+`unwind` requires an authoritative replacement path and fails on an
+auxiliary-only POSIX backend. `unwind-uncheck` may append resolved POSIX JIT
+addresses after the authoritative logical stack, while `none` intentionally
+omits generated body frames.
 
 ## Scheduling Policy
 
@@ -199,7 +197,7 @@ The log names use the `tiered_full_*` prefix for full-tier data and
 ## Correctness Rules
 
 - When Tier 0 is enabled, the interpreter result is used when LLVM native code
-  is not ready, except for the explicit small-loop inline Tier 1 fast path.
+  is not ready, except for the explicit small-loop synchronous Tier 1 fast path.
   When Tier 0 is disabled, the runtime synchronously materializes Tier 1
   instead.
 - Native target tables are the only handoff mechanism between tiers; code does
@@ -279,7 +277,7 @@ compile units can request after 2 or 4 runtime signals, while smaller compile
 units use an estimated work gate based on 8 MiB of interpreted work and are
 clamped between 512 and 65535 signals. Huge loop sentinel functions require
 131072 runtime OSR signals before requesting LLVM. The request remains
-asynchronous unless the policy chooses an inline or wait-for-urgent path; the
+asynchronous unless the policy chooses a synchronous or wait-for-urgent path; the
 interpreter continues until a ready loop reentry is published.
 
 When a loop OSR request is queued, the interpreter continues to poll the

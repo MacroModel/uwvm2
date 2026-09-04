@@ -274,18 +274,19 @@ uwvm -Rllvm-call-stack none
 
 Behavior:
 
-- `auto`: default. Use native `unwind` only when the target has a validated native-unwind implementation and the generated-code live unwind probe succeeds. If the backend is unavailable, the target is not validated for native frame replacement, or the live probe fails, the effective mode is `none`: uwvm warns once and omits JIT body frames instead of converting them to instruction frames. If runtime warnings are disabled, this decision is silent; if runtime warnings are converted to fatal errors, the warning is fatal.
-- `instruction`: explicitly emit per-function LLVM JIT call-stack push/pop instructions. This is the only mode that converts JIT execution into logical instruction frames, preserving trap diagnostics without relying on generated-code unwind metadata.
+- `auto`: default. Use native `unwind` only when the target supplies an authoritative generated-caller context and its checked path succeeds. Otherwise the effective mode is `instruction`; a failed live probe on an otherwise authoritative path causes a one-time fallback warning. The ordinary POSIX `<unwind.h>` walk is auxiliary and never replaces logical Wasm frames.
+- `instruction`: explicitly emit per-function LLVM JIT call-stack push/pop instructions. These logical frames are authoritative on POSIX and preserve trap diagnostics without relying on a native walk.
 - `none`: omit per-function LLVM JIT call-stack push/pop instructions. This can substantially improve hot Wasm-to-Wasm call workloads, but trap stack reports lose JIT body frames.
-- `unwind`: force generated-code unwind metadata for LLVM JIT frames at trap-report time. This value is exposed only on target/build combinations with a validated native-unwind implementation and a compiled backend. At runtime, uwvm runs a tiny generated-code live unwind probe once before relying on native frames; failure is fatal and never changes the mode to `instruction`.
-- `unwind-uncheck`: use the same generated-code unwind metadata as `unwind`, but skip the live unwind probe. This is intended only for deployments that have independently validated the JIT unwind path and deliberately accept the unchecked native-unwind result.
+- `unwind`: require native unwind to replace generated logical frames. This is valid only for an authoritative implementation such as the explicit Win64 SEH caller-context path; selecting it with an auxiliary-only POSIX backend is fatal.
+- `unwind-uncheck`: request native unwind without the checked replacement requirement. On an auxiliary-only POSIX backend, logical instruction frames remain enabled and are printed first; the ordinary native walk can only append resolved JIT addresses.
 - `unwind-unchecked`: accepted as an alias for `unwind-uncheck`.
 - Default: `auto`.
-- Targets without validated native-unwind support advertise only `auto`, `instruction`, and `none`. On those targets, `auto` resolves to `none` for JIT code; select `instruction` explicitly when logical JIT frames are required.
+- Targets without a compiled native-unwind backend advertise only `auto`, `instruction`, and `none`, and `auto` resolves to `instruction` for JIT code.
 - uwvm itself may still be built without unwind tables. Host-runtime unwindability is not a requirement for JIT unwind mode, and uwvm does not warn when ordinary host-runtime frames cannot be walked.
 - On Apple targets, uwvm registers generated `.eh_frame` FDEs directly. On Win64 x86_64 targets, uwvm registers generated SEH function tables with the OS.
+- Every generated Wasm function, raw wrapper, tiered core, and OSR entry is marked LLVM `NoInline`, including the max/O3 policy. Function-local optimization remains enabled.
 - This command is independent of `--runtime-llvm-jit-policy`, `--runtime-llvm-jit-lazy-policy`, and `--runtime-llvm-jit-full-policy`.
-- Runtime compiler logs report the effective mode as `call_stack=`, the selected unwind backend as `unwind_backend=`, the probe decision as `unwind_check=live|static|off`, whether generated-code unwind metadata is allowed to replace instruction frames as `unwind_replace_frames=yes|no`, and the actual instruction-frame emission as `call_stack_frames=emit|omit`. Native trap capture also logs `[llvm-jit-unwind]` with `capture_source=`, `backend=`, and `resolved_jit_caller=`.
+- Runtime compiler logs report the effective mode as `call_stack=`, the selected unwind backend as `unwind_backend=`, the check decision as `unwind_check=live|static|off`, whether native unwind is allowed to replace instruction frames as `unwind_replace_frames=yes|no`, and the actual instruction-frame emission as `call_stack_frames=emit|omit`.
 
 ## `--runtime-llvm-jit-disable-ir-verifaction`
 
