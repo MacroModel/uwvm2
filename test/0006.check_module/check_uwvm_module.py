@@ -20,6 +20,8 @@ Rules:
 - A module unit whose paired header guards declarations with a derived
   ``UWVM_RUNTIME_*`` backend macro must establish those macros in its own
   global module fragment. Named-module imports never propagate macros.
+- Function-like ``UWVM_HAS_*`` feature tests visible in module mode need the
+  utils macro provider in that unit's global fragment, before any such test.
 - xmake must not remove frontend module partitions selected by that stable
   dependency graph.
 - Header include order must respect category sequence:
@@ -80,6 +82,13 @@ BACKEND_CONFIG_GUARD_RE = re.compile(
     re.MULTILINE,
 )
 RUNTIME_CONFIG_PUSH_HEADER = "uwvm2/uwvm/runtime/macro/push_macros.h"
+FEATURE_CONFIG_PUSH_HEADER = "uwvm2/utils/macro/push_macros.h"
+FEATURE_TEST_RE = re.compile(r"\b(UWVM_HAS_(?:BUILTIN|ATTRIBUTE|CPP_ATTRIBUTE))\s*\(")
+PP_DIRECTIVE_RE = re.compile(r"^\s*#\s*(if|ifdef|ifndef|elif|else|endif)\b(.*)")
+CXX_COMMENT_OR_STRING_RE = re.compile(
+    r'R"(?P<raw_delimiter>[^\s()\\]{0,16})\([\s\S]*?\)(?P=raw_delimiter)"'
+    r'|//[^\n]*|/\*[\s\S]*?\*/|"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\''
+)
 WIN32_TEXT_ATTR_PROVIDER_MODULES = frozenset(
     {
         "uwvm2.utils.ansies",
@@ -275,6 +284,95 @@ def runtime_config_push_precedes_backend_guards(text: str) -> bool:
     return push_line is not None and (
         first_guard_line is None or push_line < first_guard_line
     )
+
+
+def preprocessing_lines(text: str) -> List[str]:
+    """Join directive continuations and ignore comments, retaining include strings."""
+    text = re.sub(r"\\\r?\n", "", text)
+    text = CXX_COMMENT_OR_STRING_RE.sub(
+        lambda match: re.sub(r"[^\n]", " ", match.group())
+        if match.group().startswith(("//", "/*", 'R"')) else match.group(),
+        text,
+    )
+    return text.splitlines()
+
+
+def find_feature_macro_tests(text: str) -> List[str]:
+    """Find feature queries in #if/#elif expressions visible in module mode.
+
+    This deliberately does not interpret arbitrary target conditionals. Only
+    exact UWVM_MODULE guards are resolved, so feature checks in the header's
+    non-module include block do not create spurious module requirements.
+    Macro definitions, comments and ordinary string literals are not queries.
+    """
+    conditions: List[Tuple[bool | None, bool]] = []
+    tests: List[str] = []
+    for line in preprocessing_lines(text):
+        directive = PP_DIRECTIVE_RE.match(line)
+        if directive is None:
+            continue
+        kind, expression = directive.groups()
+        expression = expression.strip()
+        if kind in {"if", "ifdef", "ifndef"}:
+            module_condition: bool | None = None
+            if kind in {"ifdef", "ifndef"} and expression == "UWVM_MODULE":
+                module_condition = kind == "ifdef"
+            elif kind == "if":
+                condition = re.fullmatch(r"(!?)\s*defined\s*(?:\(\s*UWVM_MODULE\s*\)|UWVM_MODULE)", expression)
+                if condition is not None:
+                    module_condition = not bool(condition.group(1))
+            conditions.append((module_condition, module_condition is False))
+        elif kind == "endif":
+            if conditions:
+                conditions.pop()
+        elif kind in {"else", "elif"} and conditions:
+            module_condition, _ = conditions[-1]
+            conditions[-1] = (module_condition, module_condition is True)
+        if kind in {"if", "elif"} and not any(disabled for _, disabled in conditions):
+            tests.extend(FEATURE_TEST_RE.findall(expression))
+    return stable_unique(tests)
+
+
+def feature_config_push_precedes_tests(text: str) -> bool:
+    """Require the real feature provider, not a named import or backend setup.
+
+    Runtime push_macros.h derives UWVM_RUNTIME_* only; it does not define
+    UWVM_HAS_*. The utils provider must be unconditional in this global
+    fragment and must precede feature tests used for platform includes.
+    """
+    in_global_fragment = False
+    conditional_depth = 0
+    has_provider = False
+    for line in preprocessing_lines(text):
+        if not in_global_fragment:
+            if GLOBAL_MODULE_FRAGMENT_RE.match(line):
+                in_global_fragment = True
+            continue
+        if NAMED_MODULE_DECL_RE.match(line):
+            break
+        directive = PP_DIRECTIVE_RE.match(line)
+        if directive is not None:
+            kind, expression = directive.groups()
+            if kind in {"if", "elif"} and FEATURE_TEST_RE.search(expression) and not has_provider:
+                return False
+            if kind in {"if", "ifdef", "ifndef"}:
+                conditional_depth += 1
+            elif kind == "endif":
+                conditional_depth = max(0, conditional_depth - 1)
+        include = INCLUDE_RE.match(line)
+        if include is not None and include.group(2).strip() == FEATURE_CONFIG_PUSH_HEADER and conditional_depth == 0:
+            has_provider = True
+    return has_provider
+
+
+def feature_macro_dependency_problem(module_text: str, surface_text: str) -> str | None:
+    tests = stable_unique(find_feature_macro_tests(surface_text) + find_feature_macro_tests(module_text))
+    if tests and not feature_config_push_precedes_tests(module_text):
+        return (
+            f"module-visible feature tests use {', '.join(tests)}; "
+            f"include <{FEATURE_CONFIG_PUSH_HEADER}> unconditionally in the global module fragment before any feature test"
+        )
+    return None
 
 
 def win32_text_attr_provider_precedes_surface(
@@ -646,6 +744,10 @@ def main() -> int:
     for pair in cppm_h_pairs:
         cppm_txt = read_text(pair.a)
         h_txt = read_text(pair.b)
+
+        feature_problem = feature_macro_dependency_problem(cppm_txt, h_txt)
+        if feature_problem is not None:
+            problems.append(f"[FEATURE MACRO] {pair.a}: {feature_problem}")
 
         backend_guards = find_backend_config_guards(h_txt)
         if backend_guards and not runtime_config_push_precedes_backend_guards(cppm_txt):

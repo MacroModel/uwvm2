@@ -147,6 +147,136 @@ export module uwvm2.example;
             MODULE_CHECKER.runtime_config_push_precedes_backend_guards(module_text)
         )
 
+    def test_feature_query_without_own_provider_is_rejected(self) -> None:
+        module_text = """\
+export module uwvm2.example;
+import uwvm2.utils.macro;
+#include "surface.h"
+"""
+        for feature_macro in ("UWVM_HAS_BUILTIN", "UWVM_HAS_ATTRIBUTE", "UWVM_HAS_CPP_ATTRIBUTE"):
+            with self.subTest(feature_macro=feature_macro):
+                problem = MODULE_CHECKER.feature_macro_dependency_problem(
+                    module_text, f"#if {feature_macro}(feature)\n#endif\n"
+                )
+                self.assertIsNotNone(problem)
+                self.assertIn(feature_macro, problem)
+
+    def test_feature_provider_in_global_fragment_is_legal(self) -> None:
+        module_text = """\
+module;
+#include <uwvm2/utils/macro/push_macros.h>
+export module uwvm2.example;
+#include "surface.h"
+"""
+        self.assertIsNone(MODULE_CHECKER.feature_macro_dependency_problem(
+            module_text, "#if UWVM_HAS_BUILTIN(__builtin_available)\n#endif\n"
+        ))
+
+    def test_runtime_backend_provider_does_not_define_feature_queries(self) -> None:
+        module_text = """\
+module;
+#include <uwvm2/uwvm/runtime/macro/push_macros.h>
+export module uwvm2.example;
+"""
+        self.assertFalse(MODULE_CHECKER.feature_config_push_precedes_tests(module_text))
+
+    def test_feature_provider_after_module_declaration_is_rejected(self) -> None:
+        module_text = """\
+module;
+export module uwvm2.example;
+#include <uwvm2/utils/macro/push_macros.h>
+"""
+        self.assertFalse(MODULE_CHECKER.feature_config_push_precedes_tests(module_text))
+
+    def test_feature_provider_must_precede_platform_test(self) -> None:
+        module_text = """\
+module;
+#if UWVM_HAS_BUILTIN(__builtin_available)
+#include <unistd.h>
+#endif
+#include <uwvm2/utils/macro/push_macros.h>
+export module uwvm2.example;
+"""
+        self.assertFalse(MODULE_CHECKER.feature_config_push_precedes_tests(module_text))
+
+    def test_conditionally_included_feature_provider_is_rejected(self) -> None:
+        module_text = """\
+module;
+#if defined(__APPLE__)
+#include <uwvm2/utils/macro/push_macros.h>
+#endif
+export module uwvm2.example;
+"""
+        self.assertFalse(MODULE_CHECKER.feature_config_push_precedes_tests(module_text))
+
+    def test_nonmodule_include_block_feature_queries_are_ignored(self) -> None:
+        header_text = """\
+#ifndef UWVM_MODULE
+#include <uwvm2/utils/macro/push_macros.h>
+#if UWVM_HAS_BUILTIN(__builtin_alloca)
+#include <alloca.h>
+#endif
+#endif
+"""
+        self.assertEqual(MODULE_CHECKER.find_feature_macro_tests(header_text), [])
+        self.assertIsNone(MODULE_CHECKER.feature_macro_dependency_problem(
+            "export module uwvm2.example;\n", header_text
+        ))
+
+    def test_module_else_branch_feature_query_is_checked(self) -> None:
+        header_text = """\
+#if !defined(UWVM_MODULE)
+#if UWVM_HAS_BUILTIN(nonmodule_only)
+#endif
+#else
+#if UWVM_HAS_CPP_ATTRIBUTE(maybe_unused)
+#endif
+#endif
+"""
+        self.assertEqual(MODULE_CHECKER.find_feature_macro_tests(header_text), ["UWVM_HAS_CPP_ATTRIBUTE"])
+
+    def test_nonmodule_else_branch_feature_query_is_ignored(self) -> None:
+        header_text = """\
+#ifdef UWVM_MODULE
+#else
+#if UWVM_HAS_BUILTIN(nonmodule_only)
+#endif
+#endif
+"""
+        self.assertEqual(MODULE_CHECKER.find_feature_macro_tests(header_text), [])
+
+    def test_feature_query_continuation_and_elif_are_recognized(self) -> None:
+        header_text = (
+            "#if defined(__APPLE__) && \\\n"
+            "    UWVM_HAS_BUILTIN(__builtin_available)\n"
+            "#elif UWVM_HAS_ATTRIBUTE(noreturn)\n"
+            "#endif\n"
+        )
+        self.assertEqual(MODULE_CHECKER.find_feature_macro_tests(header_text), ["UWVM_HAS_BUILTIN", "UWVM_HAS_ATTRIBUTE"])
+
+    def test_feature_documentation_definitions_and_literals_are_ignored(self) -> None:
+        header_text = '''\
+/*
+#if UWVM_HAS_BUILTIN(commented_out)
+*/
+// #if UWVM_HAS_BUILTIN(commented_out)
+#define UWVM_HAS_BUILTIN(...) 0
+char const* example = "UWVM_HAS_CPP_ATTRIBUTE(maybe_unused)";
+char const* raw_example = R"example(
+#if UWVM_HAS_ATTRIBUTE(documented_only)
+)example";
+#if defined(__APPLE__) // UWVM_HAS_BUILTIN(commented_out)
+#endif
+'''
+        self.assertEqual(MODULE_CHECKER.find_feature_macro_tests(header_text), [])
+
+    def test_actual_madvise_partition_has_its_own_feature_provider(self) -> None:
+        source_dir = THIS_DIR.parent.parent / "src/uwvm2/utils/madvise"
+        module_text = (source_dir / "madvise.cppm").read_text(encoding="utf-8")
+        header_text = (source_dir / "madvise.h").read_text(encoding="utf-8")
+        self.assertIn("UWVM_HAS_BUILTIN", MODULE_CHECKER.find_feature_macro_tests(header_text))
+        self.assertIsNone(MODULE_CHECKER.feature_macro_dependency_problem(module_text, header_text))
+
     def test_additional_direct_module_import_is_legal(self) -> None:
         module_text = """\
 export module uwvm2.example;
