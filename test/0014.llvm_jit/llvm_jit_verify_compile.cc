@@ -177,6 +177,53 @@ namespace
             ::uwvm2::runtime::compiler::llvm_jit::compile_all_from_uwvm::compile_all_from_uwvm(module, opt, err, 0uz)};
     }
 
+    [[nodiscard]] bool test_runtime_table_resolution_guards()
+    {
+        namespace llvm_details = ::uwvm2::runtime::compiler::llvm_jit::compile_all_from_uwvm::details;
+        using imported_table_t = ::uwvm2::uwvm::runtime::storage::imported_table_storage_t;
+
+        ::uwvm2::uwvm::runtime::storage::wasm_module_storage_t module{};
+        module.imported_table_vec_storage.resize(2uz);
+        auto& first{module.imported_table_vec_storage.index_unchecked(0uz)};
+        auto& second{module.imported_table_vec_storage.index_unchecked(1uz)};
+        first.link_kind = imported_table_t::imported_table_link_kind::imported;
+        first.target.imported_ptr = ::std::addressof(second);
+        second.link_kind = imported_table_t::imported_table_link_kind::imported;
+        second.target.imported_ptr = ::std::addressof(first);
+        if(llvm_details::resolve_runtime_table_storage(module, 0u) != nullptr) [[unlikely]]
+        {
+            ::std::cerr << "cyclic imported-table aliases did not fail closed\n";
+            return false;
+        }
+
+        ::std::array<::std::uint64_t, 2uz> storage{};
+        ::std::uint64_t external{};
+        ::std::size_t index{};
+        if(llvm_details::classify_runtime_storage_pointer(storage.data(), storage.size(), storage.data() + 1uz, index) !=
+               llvm_details::runtime_storage_pointer_membership::element ||
+           index != 1uz) [[unlikely]]
+        {
+            ::std::cerr << "exact runtime-storage element was not recognized\n";
+            return false;
+        }
+        if(llvm_details::classify_runtime_storage_pointer(storage.data(), storage.size(), ::std::addressof(external), index) !=
+           llvm_details::runtime_storage_pointer_membership::outside) [[unlikely]]
+        {
+            ::std::cerr << "cross-module runtime-storage pointer was not classified as external\n";
+            return false;
+        }
+
+        auto const misaligned_address{reinterpret_cast<::std::uintptr_t>(storage.data()) + 1u};
+        auto const misaligned_pointer{reinterpret_cast<::std::uint64_t const*>(misaligned_address)};
+        if(llvm_details::classify_runtime_storage_pointer(storage.data(), storage.size(), misaligned_pointer, index) !=
+           llvm_details::runtime_storage_pointer_membership::invalid) [[unlikely]]
+        {
+            ::std::cerr << "misaligned in-range runtime-storage pointer did not fail closed\n";
+            return false;
+        }
+        return true;
+    }
+
     [[maybe_unused]] void test_parser_entry()
     {
         using Wasm1 = ::uwvm2::parser::wasm::standard::wasm1::features::wasm1;
@@ -628,6 +675,7 @@ namespace
 
 int main(int argc, char** argv)
 {
+    if(!test_runtime_table_resolution_guards()) [[unlikely]] { return 1; }
     if(argc <= 0 || argv == nullptr || argv[0] == nullptr) [[unlikely]]
     {
         ::std::cerr << "missing argv[0]\n";
