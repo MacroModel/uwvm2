@@ -23,6 +23,7 @@
 
 #ifndef UWVM_MODULE
 // std
+# include <algorithm>
 # include <bit>
 # include <cmath>
 # include <cstddef>
@@ -31,6 +32,7 @@
 # include <concepts>
 # include <limits>
 # include <memory>
+# include <type_traits>
 // macro
 # include <uwvm2/utils/macro/push_macros.h>
 # include <uwvm2/runtime/compiler/uwvm_int/macro/push_macros.h>

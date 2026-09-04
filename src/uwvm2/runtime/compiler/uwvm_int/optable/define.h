@@ -31,6 +31,7 @@
 # include <tuple>
 # include <memory>
 # include <concepts>
+# include <type_traits>
 // macro
 # include <uwvm2/utils/macro/push_macros.h>
 # include <uwvm2/runtime/compiler/uwvm_int/macro/push_macros.h>
@@ -297,10 +298,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         ///           }
         bool is_tail_call{};
 
-# if defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
-        bool enable_tiered_loop_osr_poll{};
-# endif
-
         /// @details  `local_stack_ptr_pos` and `operand_stack_ptr_pos` can be merged; set one of them to `SIZE_MAX`, and the other will be used as the base
         ///           address. If both are set to `SIZE_MAX`, a compile‑time error will occur.
 
@@ -390,86 +387,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
     using interpreter_call_indirect_func_t = void(
         UWVM_INTERPRETER_OPFUNC_TYPE_MACRO*)(::std::size_t wasm_module_id, ::std::size_t type_index, ::std::size_t table_index, ::std::byte** stack_top_ptr)
         UWVM_THROWS;
-
-# if defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
-    inline constexpr ::std::uintptr_t interpreter_tiered_loop_osr_disabled_state_address{::std::numeric_limits<::std::uintptr_t>::max()};
-
-    using interpreter_tiered_loop_osr_func_t = bool(UWVM_INTERPRETER_OPFUNC_TYPE_MACRO*)(::std::size_t wasm_module_id,
-                                                                                         ::std::size_t func_index,
-                                                                                         ::std::size_t loop_wasm_code_offset,
-                                                                                         ::std::byte* result_buffer,
-                                                                                         ::std::size_t result_bytes,
-                                                                                         ::std::byte const* local_base,
-                                                                                         ::std::size_t local_bytes,
-                                                                                         ::std::uintptr_t* compile_state_address_ptr) noexcept;
-
-    struct interpreter_tiered_loop_osr_immediate_t
-    {
-        ::std::size_t wasm_module_id{};
-        ::std::size_t func_index{};
-        ::std::size_t loop_wasm_code_offset{};
-        ::std::size_t result_bytes{};
-        ::std::size_t local_bytes{};
-        ::std::uint_least32_t countdown{};
-        ::std::uint_least32_t reset_countdown{};
-        ::std::uint_least32_t request_countdown{};
-        ::std::uintptr_t compile_state_address{};
-    };
-
-    struct interpreter_tiered_loop_osr_counter_policy_t
-    {
-        ::std::uint_least32_t initial_countdown{};
-        ::std::uint_least32_t reset_countdown{};
-        ::std::uint_least32_t request_countdown{};
-    };
-
-    inline constexpr ::std::uint_least32_t interpreter_tiered_osr_request_countdown_disabled{(::std::numeric_limits<::std::uint_least32_t>::max)()};
-    // Large modules still need loop sampling so hot interpreter loops can be detected.
-    // CPython-like modules can have a huge eval loop in a 32KB+ function; tiered policy should
-    // let the execution thread report that hot loop to an urgent coordinator instead of relying
-    // on ordinary lazy demand compilation.  That model also leaves a clean upgrade path once
-    // WASI threads are available.
-    inline constexpr ::std::size_t interpreter_tiered_osr_poll_module_local_function_limit{8192uz};
-    inline constexpr ::std::size_t interpreter_tiered_large_loop_sentinel_function_size{32768uz};
-
-    [[nodiscard]] inline constexpr bool interpreter_tiered_osr_poll_enabled_for_module_local_function_count(::std::size_t local_function_count) noexcept
-    { return local_function_count < interpreter_tiered_osr_poll_module_local_function_limit; }
-
-    [[nodiscard]] inline constexpr interpreter_tiered_loop_osr_counter_policy_t interpreter_tiered_loop_osr_counter_policy_for_function_size(
-        ::std::size_t function_code_size) noexcept
-    {
-        if(function_code_size >= interpreter_tiered_large_loop_sentinel_function_size)
-        {
-            return {.initial_countdown = 256u, .reset_countdown = 256u, .request_countdown = 16u};
-        }
-        if(function_code_size >= 4096uz) { return {.initial_countdown = 4u, .reset_countdown = 64u, .request_countdown = 512u}; }
-        if(function_code_size >= 1536uz) { return {.initial_countdown = 8u, .reset_countdown = 128u, .request_countdown = 256u}; }
-        if(function_code_size >= 1024uz) { return {.initial_countdown = 16u, .reset_countdown = 128u, .request_countdown = 2048u}; }
-        return {.initial_countdown = 1024u, .reset_countdown = 1024u, .request_countdown = 2048u};
-    }
-
-    [[nodiscard]] inline constexpr bool interpreter_tiered_loop_osr_poll_should_emit(::std::size_t local_function_count,
-
-                                                                                     ::std::size_t function_code_size) noexcept
-    {
-        if(function_code_size >= interpreter_tiered_large_loop_sentinel_function_size) { return true; }
-        if(!interpreter_tiered_osr_poll_enabled_for_module_local_function_count(local_function_count)) { return false; }
-        if(local_function_count < 128uz) { return function_code_size >= 1536uz; }
-        return true;
-    }
-
-    [[nodiscard]] inline constexpr ::std::uint_least32_t interpreter_tiered_block_osr_request_countdown_for_function_size(
-        ::std::size_t function_code_size) noexcept
-    {
-        // Do not request the current LLVM OSR path for very large functions.  They are sampled
-        // by the large-loop sentinel above, then need a dedicated urgent artifact strategy; the
-        // old "just compile the huge function here" policy regressed CPython eval workloads.
-        if(function_code_size >= 32768uz) { return interpreter_tiered_osr_request_countdown_disabled; }
-        if(function_code_size >= 4096uz) { return 512u; }
-        if(function_code_size >= 1024uz) { return 512u; }
-        return 64u;
-    }
-# endif
 
     struct compile_option
     {

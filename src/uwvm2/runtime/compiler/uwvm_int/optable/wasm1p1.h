@@ -172,6 +172,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         [[nodiscard]] UWVM_ALWAYS_INLINE inline constexpr runtime_table_elem_storage_t table_elem_from_funcref(runtime_module_storage_t const* module,
                                                                                                                wasm_funcref const& ref) noexcept
         {
+            static_cast<void>(module);
             runtime_table_elem_storage_t out{};
             switch(ref.ref.kind)
             {
@@ -181,7 +182,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 }
                 case ::uwvm2::object::global::wasm_ref_kind::wasm_func:
                 {
-                    return resolve_table_elem_from_func_index(module, ref.ref.storage.func_idx);
+                    // Bare function indices are initializer-only staging values. A runtime value must carry its defining storage
+                    // pointer; otherwise an imported global could be reinterpreted in the consumer's function index space.
+                    ::fast_io::fast_terminate();
                 }
                 case ::uwvm2::object::global::wasm_ref_kind::wasm_func_imported:
                 {
@@ -204,12 +207,94 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
             }
         }
 
+        [[nodiscard]] UWVM_ALWAYS_INLINE inline constexpr wasm_externref
+            externref_from_table_elem(runtime_table_elem_storage_t const& elem) noexcept
+        {
+            wasm_externref out{};
+            if(elem.type != runtime_table_elem_type::extern_ref) [[unlikely]]
+            {
+                // Zero-initialized legacy slots also represent a null reference. Properly
+                // initialized externref tables always carry the explicit extern_ref tag.
+                if(elem.storage.imported_ptr == nullptr)
+                {
+                    out.ref.kind = ::uwvm2::object::global::wasm_ref_kind::wasm_null;
+                    return out;
+                }
+                ::fast_io::fast_terminate();
+            }
+
+            out.ref.storage.ptr = elem.storage.extern_ptr;
+            out.ref.kind = elem.storage.extern_ptr == nullptr ? ::uwvm2::object::global::wasm_ref_kind::wasm_null
+                                                              : ::uwvm2::object::global::wasm_ref_kind::wasm_extern;
+            return out;
+        }
+
+        [[nodiscard]] UWVM_ALWAYS_INLINE inline constexpr runtime_table_elem_storage_t table_elem_from_externref(wasm_externref const& ref) noexcept
+        {
+            runtime_table_elem_storage_t out{};
+            out.type = runtime_table_elem_type::extern_ref;
+            switch(ref.ref.kind)
+            {
+                case ::uwvm2::object::global::wasm_ref_kind::wasm_null:
+                {
+                    out.storage.extern_ptr = nullptr;
+                    return out;
+                }
+                case ::uwvm2::object::global::wasm_ref_kind::wasm_extern:
+                {
+                    out.storage.extern_ptr = ref.ref.storage.ptr;
+                    return out;
+                }
+                [[unlikely]] default: ::fast_io::fast_terminate();
+            }
+        }
+
         UWVM_ALWAYS_INLINE inline constexpr bool range_oob(::std::size_t begin, ::std::size_t len, ::std::size_t bound) noexcept
         { return begin > bound || len > bound - begin; }
 
         UWVM_ALWAYS_INLINE inline constexpr void check_table_range(::std::size_t begin, ::std::size_t len, ::std::size_t bound) noexcept
         {
             if(range_oob(begin, len, bound)) [[unlikely]] { table_oob_terminate(); }
+        }
+
+        UWVM_ALWAYS_INLINE inline constexpr void copy_funcref_element_segment(runtime_table_storage_t& table,
+                                                                               runtime_element_storage_t const& element_record,
+                                                                               runtime_module_storage_t const* module,
+                                                                               ::std::size_t dst,
+                                                                               ::std::size_t src,
+                                                                               ::std::size_t len) noexcept
+        {
+            auto const& element{element_record.element};
+            auto const funcidx_begin{element.funcidx_begin};
+            auto const funcidx_end{element.funcidx_end};
+            auto const funcref_begin{element.funcref_begin};
+            auto const funcref_end{element.funcref_end};
+            if((funcidx_begin == nullptr) != (funcidx_end == nullptr) ||
+               (funcref_begin == nullptr) != (funcref_end == nullptr) ||
+               (funcidx_begin != nullptr && funcref_begin != nullptr)) [[unlikely]]
+            {
+                ::fast_io::fast_terminate();
+            }
+
+            auto const source_size{funcref_begin == nullptr ? (funcidx_begin == nullptr ? 0uz : static_cast<::std::size_t>(funcidx_end - funcidx_begin))
+                                                             : static_cast<::std::size_t>(funcref_end - funcref_begin)};
+            check_table_range(src, len, source_size);
+            check_table_range(dst, len, table.elems.size());
+
+            if(funcref_begin != nullptr)
+            {
+                for(::std::size_t i{}; i != len; ++i) { table.elems.index_unchecked(dst + i) = funcref_begin[src + i]; }
+                return;
+            }
+
+            if(module == nullptr && len != 0uz) [[unlikely]] { ::fast_io::fast_terminate(); }
+            for(::std::size_t i{}; i != len; ++i)
+            {
+                auto const funcidx{funcidx_begin[src + i]};
+                table.elems.index_unchecked(dst + i) = funcidx == (::std::numeric_limits<wasm_u32>::max)()
+                                                           ? runtime_table_elem_storage_t{}
+                                                           : resolve_table_elem_from_func_index(module, funcidx);
+            }
         }
 
         template <uwvm_interpreter_translate_option_t CompileOption, typename OperandT>
@@ -2672,11 +2757,12 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
                 {
                     for(::std::size_t i{}; i != 4uz; ++i)
                     {
-                        auto const a0{static_cast<::std::int_least32_t>(as_signed_lane<u16>(l.lane[i * 2uz]))};
-                        auto const a1{static_cast<::std::int_least32_t>(as_signed_lane<u16>(l.lane[i * 2uz + 1uz]))};
-                        auto const b0{static_cast<::std::int_least32_t>(as_signed_lane<u16>(r.lane[i * 2uz]))};
-                        auto const b1{static_cast<::std::int_least32_t>(as_signed_lane<u16>(r.lane[i * 2uz + 1uz]))};
-                        out.lane[i] = from_signed_lane<u32>(static_cast<s32>(a0 * b0 + a1 * b1));
+                        auto const a0{static_cast<::std::int_least64_t>(as_signed_lane<u16>(l.lane[i * 2uz]))};
+                        auto const a1{static_cast<::std::int_least64_t>(as_signed_lane<u16>(l.lane[i * 2uz + 1uz]))};
+                        auto const b0{static_cast<::std::int_least64_t>(as_signed_lane<u16>(r.lane[i * 2uz]))};
+                        auto const b1{static_cast<::std::int_least64_t>(as_signed_lane<u16>(r.lane[i * 2uz + 1uz]))};
+                        // The mathematical sum can be 2^31. Compute it without signed overflow, then apply Wasm's i32 wrap.
+                        out.lane[i] = static_cast<u32>(a0 * b0 + a1 * b1);
                     }
                 }
                 else
@@ -4382,14 +4468,84 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
     template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
         requires (CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_table_get_externref(Type... type) UWVM_THROWS
+    {
+        type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
+        auto const table{wasm1p1_details::read_imm<wasm1p1_details::runtime_table_storage_t*>(type...[0])};
+        if(table == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+        auto const index{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(type...)))};
+        if(index >= table->elems.size()) [[unlikely]] { wasm1p1_details::table_oob_terminate(); }
+
+        auto const out{wasm1p1_details::externref_from_table_elem(table->elems.index_unchecked(index))};
+        ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
+        type...[1u] += sizeof(out);
+
+        uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
+        ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
+        UWVM_MUSTTAIL return next_interpreter(type...);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeRef>
+        requires (!CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_table_get_externref(TypeRef & ... typeref) UWVM_THROWS
+    {
+        typeref...[0] += sizeof(uwvm_interpreter_opfunc_byref_t<TypeRef...>);
+        auto const table{wasm1p1_details::read_imm<wasm1p1_details::runtime_table_storage_t*>(typeref...[0])};
+        if(table == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+        auto const index{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(typeref...)))};
+        if(index >= table->elems.size()) [[unlikely]] { wasm1p1_details::table_oob_terminate(); }
+
+        auto const out{wasm1p1_details::externref_from_table_elem(table->elems.index_unchecked(index))};
+        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
+        typeref...[1u] += sizeof(out);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+        requires (CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_table_set_externref(Type... type) UWVM_THROWS
+    {
+        type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
+        auto const table{wasm1p1_details::read_imm<wasm1p1_details::runtime_table_storage_t*>(type...[0])};
+        if(table == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+        auto const value{get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_externref>(type...)};
+        auto const index{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(type...)))};
+        if(index >= table->elems.size()) [[unlikely]] { wasm1p1_details::table_oob_terminate(); }
+        table->elems.index_unchecked(index) = wasm1p1_details::table_elem_from_externref(value);
+
+        uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
+        ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
+        UWVM_MUSTTAIL return next_interpreter(type...);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeRef>
+        requires (!CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_table_set_externref(TypeRef & ... typeref) UWVM_THROWS
+    {
+        typeref...[0] += sizeof(uwvm_interpreter_opfunc_byref_t<TypeRef...>);
+        auto const table{wasm1p1_details::read_imm<wasm1p1_details::runtime_table_storage_t*>(typeref...[0])};
+        if(table == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+        auto const value{get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_externref>(typeref...)};
+        auto const index{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(typeref...)))};
+        if(index >= table->elems.size()) [[unlikely]] { wasm1p1_details::table_oob_terminate(); }
+        table->elems.index_unchecked(index) = wasm1p1_details::table_elem_from_externref(value);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+        requires (CompileOption.is_tail_call)
     UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_data_drop(Type... type) UWVM_THROWS
     {
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
         auto const data{wasm1p1_details::read_imm<wasm1p1_details::runtime_data_storage_t*>(type...[0])};
         if(data == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
-        data->data.dropped = true;
-        data->data.byte_begin = nullptr;
-        data->data.byte_end = nullptr;
+        ::uwvm2::uwvm::runtime::storage::drop_wasm_data_segment_payload(data->data);
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -4403,9 +4559,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         typeref...[0] += sizeof(uwvm_interpreter_opfunc_byref_t<TypeRef...>);
         auto const data{wasm1p1_details::read_imm<wasm1p1_details::runtime_data_storage_t*>(typeref...[0])};
         if(data == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
-        data->data.dropped = true;
-        data->data.byte_begin = nullptr;
-        data->data.byte_end = nullptr;
+        ::uwvm2::uwvm::runtime::storage::drop_wasm_data_segment_payload(data->data);
     }
 
     template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
@@ -4415,9 +4569,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
         auto const element{wasm1p1_details::read_imm<wasm1p1_details::runtime_element_storage_t*>(type...[0])};
         if(element == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
-        element->element.dropped = true;
-        element->element.funcidx_begin = nullptr;
-        element->element.funcidx_end = nullptr;
+        ::uwvm2::uwvm::runtime::storage::drop_wasm_element_segment_payload(element->element);
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -4431,9 +4583,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         typeref...[0] += sizeof(uwvm_interpreter_opfunc_byref_t<TypeRef...>);
         auto const element{wasm1p1_details::read_imm<wasm1p1_details::runtime_element_storage_t*>(typeref...[0])};
         if(element == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
-        element->element.dropped = true;
-        element->element.funcidx_begin = nullptr;
-        element->element.funcidx_end = nullptr;
+        ::uwvm2::uwvm::runtime::storage::drop_wasm_element_segment_payload(element->element);
     }
 
     template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
@@ -4650,20 +4800,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const src{static_cast<::std::size_t>(wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(type...)))};
         auto const dst{static_cast<::std::size_t>(wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(type...)))};
 
-        auto const begin{element->element.funcidx_begin};
-        auto const end{element->element.funcidx_end};
-        if((begin == nullptr) != (end == nullptr)) [[unlikely]] { ::fast_io::fast_terminate(); }
-        auto const elem_len{begin == nullptr ? 0uz : static_cast<::std::size_t>(end - begin)};
-        wasm1p1_details::check_table_range(src, len, elem_len);
-        wasm1p1_details::check_table_range(dst, len, table->elems.size());
-
-        for(::std::size_t i{}; i != len; ++i)
-        {
-            auto const funcidx{begin[src + i]};
-            table->elems.index_unchecked(dst + i) = funcidx == (::std::numeric_limits<wasm1p1_details::wasm_u32>::max)()
-                                                        ? wasm1p1_details::runtime_table_elem_storage_t{}
-                                                        : wasm1p1_details::resolve_table_elem_from_func_index(module, funcidx);
-        }
+        wasm1p1_details::copy_funcref_element_segment(*table, *element, module, dst, src, len);
 
         uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
         ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
@@ -4684,8 +4821,27 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         auto const src{static_cast<::std::size_t>(wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(typeref...)))};
         auto const dst{static_cast<::std::size_t>(wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(typeref...)))};
 
-        auto const begin{element->element.funcidx_begin};
-        auto const end{element->element.funcidx_end};
+        wasm1p1_details::copy_funcref_element_segment(*table, *element, module, dst, src, len);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+        requires (CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_table_init_externref(Type... type) UWVM_THROWS
+    {
+        type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
+        auto const table{wasm1p1_details::read_imm<wasm1p1_details::runtime_table_storage_t*>(type...[0])};
+        auto const element{wasm1p1_details::read_imm<wasm1p1_details::runtime_element_storage_t*>(type...[0])};
+        if(table == nullptr || element == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+        auto const len{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(type...)))};
+        auto const src{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(type...)))};
+        auto const dst{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(type...)))};
+
+        auto const begin{element->element.externref_begin};
+        auto const end{element->element.externref_end};
         if((begin == nullptr) != (end == nullptr)) [[unlikely]] { ::fast_io::fast_terminate(); }
         auto const elem_len{begin == nullptr ? 0uz : static_cast<::std::size_t>(end - begin)};
         wasm1p1_details::check_table_range(src, len, elem_len);
@@ -4693,10 +4849,44 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         for(::std::size_t i{}; i != len; ++i)
         {
-            auto const funcidx{begin[src + i]};
-            table->elems.index_unchecked(dst + i) = funcidx == (::std::numeric_limits<wasm1p1_details::wasm_u32>::max)()
-                                                        ? wasm1p1_details::runtime_table_elem_storage_t{}
-                                                        : wasm1p1_details::resolve_table_elem_from_func_index(module, funcidx);
+            auto& slot{table->elems.index_unchecked(dst + i)};
+            slot.storage.extern_ptr = begin[src + i];
+            slot.type = wasm1p1_details::runtime_table_elem_type::extern_ref;
+        }
+
+        uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
+        ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
+        UWVM_MUSTTAIL return next_interpreter(type...);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeRef>
+        requires (!CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_table_init_externref(TypeRef & ... typeref) UWVM_THROWS
+    {
+        typeref...[0] += sizeof(uwvm_interpreter_opfunc_byref_t<TypeRef...>);
+        auto const table{wasm1p1_details::read_imm<wasm1p1_details::runtime_table_storage_t*>(typeref...[0])};
+        auto const element{wasm1p1_details::read_imm<wasm1p1_details::runtime_element_storage_t*>(typeref...[0])};
+        if(table == nullptr || element == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+        auto const len{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(typeref...)))};
+        auto const src{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(typeref...)))};
+        auto const dst{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(typeref...)))};
+
+        auto const begin{element->element.externref_begin};
+        auto const end{element->element.externref_end};
+        if((begin == nullptr) != (end == nullptr)) [[unlikely]] { ::fast_io::fast_terminate(); }
+        auto const elem_len{begin == nullptr ? 0uz : static_cast<::std::size_t>(end - begin)};
+        wasm1p1_details::check_table_range(src, len, elem_len);
+        wasm1p1_details::check_table_range(dst, len, table->elems.size());
+
+        for(::std::size_t i{}; i != len; ++i)
+        {
+            auto& slot{table->elems.index_unchecked(dst + i)};
+            slot.storage.extern_ptr = begin[src + i];
+            slot.type = wasm1p1_details::runtime_table_elem_type::extern_ref;
         }
     }
 
@@ -4808,6 +4998,67 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
     template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
         requires (CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_table_grow_externref(Type... type) UWVM_THROWS
+    {
+        type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
+        auto const table{wasm1p1_details::read_imm<wasm1p1_details::runtime_table_storage_t*>(type...[0])};
+        if(table == nullptr || table->table_type_ptr == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+        auto const delta{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(type...)))};
+        auto const value{get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_externref>(type...)};
+        auto const old_size{table->elems.size()};
+        wasm1p1_details::wasm_i32 out{wasm1p1_details::u32_to_i32((::std::numeric_limits<::std::uint_least32_t>::max)())};
+
+        auto const& limits{table->table_type_ptr->limits};
+        auto const max_size{static_cast<::std::size_t>(limits.max)};
+        if(old_size <= max_size && delta <= max_size - old_size)
+        {
+            auto const new_size{old_size + delta};
+            auto const elem{wasm1p1_details::table_elem_from_externref(value)};
+            table->elems.resize(new_size);
+            for(::std::size_t i{old_size}; i != new_size; ++i) { table->elems.index_unchecked(i) = elem; }
+            out = wasm1p1_details::u32_to_i32(static_cast<::std::uint_least32_t>(old_size));
+        }
+
+        ::std::memcpy(type...[1u], ::std::addressof(out), sizeof(out));
+        type...[1u] += sizeof(out);
+        uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
+        ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
+        UWVM_MUSTTAIL return next_interpreter(type...);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeRef>
+        requires (!CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_table_grow_externref(TypeRef & ... typeref) UWVM_THROWS
+    {
+        typeref...[0] += sizeof(uwvm_interpreter_opfunc_byref_t<TypeRef...>);
+        auto const table{wasm1p1_details::read_imm<wasm1p1_details::runtime_table_storage_t*>(typeref...[0])};
+        if(table == nullptr || table->table_type_ptr == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+        auto const delta{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(typeref...)))};
+        auto const value{get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_externref>(typeref...)};
+        auto const old_size{table->elems.size()};
+        wasm1p1_details::wasm_i32 out{wasm1p1_details::u32_to_i32((::std::numeric_limits<::std::uint_least32_t>::max)())};
+
+        auto const& limits{table->table_type_ptr->limits};
+        auto const max_size{static_cast<::std::size_t>(limits.max)};
+        if(old_size <= max_size && delta <= max_size - old_size)
+        {
+            auto const new_size{old_size + delta};
+            auto const elem{wasm1p1_details::table_elem_from_externref(value)};
+            table->elems.resize(new_size);
+            for(::std::size_t i{old_size}; i != new_size; ++i) { table->elems.index_unchecked(i) = elem; }
+            out = wasm1p1_details::u32_to_i32(static_cast<::std::uint_least32_t>(old_size));
+        }
+
+        ::std::memcpy(typeref...[1u], ::std::addressof(out), sizeof(out));
+        typeref...[1u] += sizeof(out);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+        requires (CompileOption.is_tail_call)
     UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_table_size(Type... type) UWVM_THROWS
     {
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
@@ -4871,6 +5122,48 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         wasm1p1_details::check_table_range(index, len, table->elems.size());
 
         auto const elem{wasm1p1_details::table_elem_from_funcref(module, value)};
+        for(::std::size_t i{}; i != len; ++i) { table->elems.index_unchecked(index + i) = elem; }
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+        requires (CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_table_fill_externref(Type... type) UWVM_THROWS
+    {
+        type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
+        auto const table{wasm1p1_details::read_imm<wasm1p1_details::runtime_table_storage_t*>(type...[0])};
+        if(table == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+        auto const len{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(type...)))};
+        auto const value{get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_externref>(type...)};
+        auto const index{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(type...)))};
+        wasm1p1_details::check_table_range(index, len, table->elems.size());
+
+        auto const elem{wasm1p1_details::table_elem_from_externref(value)};
+        for(::std::size_t i{}; i != len; ++i) { table->elems.index_unchecked(index + i) = elem; }
+
+        uwvm_interpreter_opfunc_t<Type...> next_interpreter;  // no init
+        ::std::memcpy(::std::addressof(next_interpreter), type...[0], sizeof(next_interpreter));
+        UWVM_MUSTTAIL return next_interpreter(type...);
+    }
+
+    template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeRef>
+        requires (!CompileOption.is_tail_call)
+    UWVM_INTERPRETER_OPFUNC_HOT_MACRO inline constexpr void uwvmint_table_fill_externref(TypeRef & ... typeref) UWVM_THROWS
+    {
+        typeref...[0] += sizeof(uwvm_interpreter_opfunc_byref_t<TypeRef...>);
+        auto const table{wasm1p1_details::read_imm<wasm1p1_details::runtime_table_storage_t*>(typeref...[0])};
+        if(table == nullptr) [[unlikely]] { ::fast_io::fast_terminate(); }
+
+        auto const len{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(typeref...)))};
+        auto const value{get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_externref>(typeref...)};
+        auto const index{static_cast<::std::size_t>(
+            wasm1p1_details::i32_to_u32(get_curr_val_from_operand_stack_cache<wasm1p1_details::wasm_i32>(typeref...)))};
+        wasm1p1_details::check_table_range(index, len, table->elems.size());
+
+        auto const elem{wasm1p1_details::table_elem_from_externref(value)};
         for(::std::size_t i{}; i != len; ++i) { table->elems.index_unchecked(index + i) = elem; }
     }
 
@@ -5481,6 +5774,36 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
             requires (CompileOption.is_tail_call)
+        inline constexpr uwvm_interpreter_opfunc_t<Type...> get_uwvmint_table_get_externref_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
+        { return uwvmint_table_get_externref<CompileOption, Type...>; }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+            requires (!CompileOption.is_tail_call)
+        inline constexpr uwvm_interpreter_opfunc_byref_t<Type...> get_uwvmint_table_get_externref_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
+        { return uwvmint_table_get_externref<CompileOption, Type...>; }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeInTuple>
+        inline constexpr auto get_uwvmint_table_get_externref_fptr_from_tuple(uwvm_interpreter_stacktop_currpos_t const& curr_stacktop,
+                                                                              ::uwvm2::utils::container::tuple<TypeInTuple...> const&) noexcept
+        { return get_uwvmint_table_get_externref_fptr<CompileOption, TypeInTuple...>(curr_stacktop); }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+            requires (CompileOption.is_tail_call)
+        inline constexpr uwvm_interpreter_opfunc_t<Type...> get_uwvmint_table_set_externref_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
+        { return uwvmint_table_set_externref<CompileOption, Type...>; }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+            requires (!CompileOption.is_tail_call)
+        inline constexpr uwvm_interpreter_opfunc_byref_t<Type...> get_uwvmint_table_set_externref_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
+        { return uwvmint_table_set_externref<CompileOption, Type...>; }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeInTuple>
+        inline constexpr auto get_uwvmint_table_set_externref_fptr_from_tuple(uwvm_interpreter_stacktop_currpos_t const& curr_stacktop,
+                                                                              ::uwvm2::utils::container::tuple<TypeInTuple...> const&) noexcept
+        { return get_uwvmint_table_set_externref_fptr<CompileOption, TypeInTuple...>(curr_stacktop); }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+            requires (CompileOption.is_tail_call)
         inline constexpr uwvm_interpreter_opfunc_t<Type...> get_uwvmint_data_drop_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
         { return uwvmint_data_drop<CompileOption, Type...>; }
 
@@ -5571,6 +5894,21 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
             requires (CompileOption.is_tail_call)
+        inline constexpr uwvm_interpreter_opfunc_t<Type...> get_uwvmint_table_init_externref_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
+        { return uwvmint_table_init_externref<CompileOption, Type...>; }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+            requires (!CompileOption.is_tail_call)
+        inline constexpr uwvm_interpreter_opfunc_byref_t<Type...> get_uwvmint_table_init_externref_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
+        { return uwvmint_table_init_externref<CompileOption, Type...>; }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeInTuple>
+        inline constexpr auto get_uwvmint_table_init_externref_fptr_from_tuple(uwvm_interpreter_stacktop_currpos_t const& curr_stacktop,
+                                                                               ::uwvm2::utils::container::tuple<TypeInTuple...> const&) noexcept
+        { return get_uwvmint_table_init_externref_fptr<CompileOption, TypeInTuple...>(curr_stacktop); }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+            requires (CompileOption.is_tail_call)
         inline constexpr uwvm_interpreter_opfunc_t<Type...> get_uwvmint_table_copy_funcref_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
         { return uwvmint_table_copy_funcref<CompileOption, Type...>; }
 
@@ -5601,6 +5939,21 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
             requires (CompileOption.is_tail_call)
+        inline constexpr uwvm_interpreter_opfunc_t<Type...> get_uwvmint_table_grow_externref_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
+        { return uwvmint_table_grow_externref<CompileOption, Type...>; }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+            requires (!CompileOption.is_tail_call)
+        inline constexpr uwvm_interpreter_opfunc_byref_t<Type...> get_uwvmint_table_grow_externref_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
+        { return uwvmint_table_grow_externref<CompileOption, Type...>; }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeInTuple>
+        inline constexpr auto get_uwvmint_table_grow_externref_fptr_from_tuple(uwvm_interpreter_stacktop_currpos_t const& curr_stacktop,
+                                                                               ::uwvm2::utils::container::tuple<TypeInTuple...> const&) noexcept
+        { return get_uwvmint_table_grow_externref_fptr<CompileOption, TypeInTuple...>(curr_stacktop); }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+            requires (CompileOption.is_tail_call)
         inline constexpr uwvm_interpreter_opfunc_t<Type...> get_uwvmint_table_size_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
         { return uwvmint_table_size<CompileOption, Type...>; }
 
@@ -5628,6 +5981,21 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
         inline constexpr auto get_uwvmint_table_fill_funcref_fptr_from_tuple(uwvm_interpreter_stacktop_currpos_t const& curr_stacktop,
                                                                              ::uwvm2::utils::container::tuple<TypeInTuple...> const&) noexcept
         { return get_uwvmint_table_fill_funcref_fptr<CompileOption, TypeInTuple...>(curr_stacktop); }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+            requires (CompileOption.is_tail_call)
+        inline constexpr uwvm_interpreter_opfunc_t<Type...> get_uwvmint_table_fill_externref_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
+        { return uwvmint_table_fill_externref<CompileOption, Type...>; }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... Type>
+            requires (!CompileOption.is_tail_call)
+        inline constexpr uwvm_interpreter_opfunc_byref_t<Type...> get_uwvmint_table_fill_externref_fptr(uwvm_interpreter_stacktop_currpos_t const&) noexcept
+        { return uwvmint_table_fill_externref<CompileOption, Type...>; }
+
+        template <uwvm_interpreter_translate_option_t CompileOption, uwvm_int_stack_top_type... TypeInTuple>
+        inline constexpr auto get_uwvmint_table_fill_externref_fptr_from_tuple(uwvm_interpreter_stacktop_currpos_t const& curr_stacktop,
+                                                                               ::uwvm2::utils::container::tuple<TypeInTuple...> const&) noexcept
+        { return get_uwvmint_table_fill_externref_fptr<CompileOption, TypeInTuple...>(curr_stacktop); }
     }  // namespace translate
 }
 #endif
