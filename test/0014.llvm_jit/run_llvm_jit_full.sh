@@ -34,6 +34,18 @@ case "${UWVM_XMAKE_MODE}" in
 esac
 echo "INFO: xmake mode = ${UWVM_XMAKE_MODE}"
 
+# The full repository supports two intentional LLVM validation surfaces.  Keep AOT as the resource-safe default used by
+# existing CI; request `full` explicitly for the combined uwvm-int + LLVM lazy/tiered matrix.
+UWVM_LLVM_JIT_TEST_PROFILE="${UWVM_LLVM_JIT_TEST_PROFILE:-aot}"
+case "${UWVM_LLVM_JIT_TEST_PROFILE}" in
+  full|aot) ;;
+  *)
+    echo "ERR: UWVM_LLVM_JIT_TEST_PROFILE must be full or aot; got: ${UWVM_LLVM_JIT_TEST_PROFILE}" >&2
+    exit 2
+    ;;
+esac
+echo "INFO: llvm-jit test profile = ${UWVM_LLVM_JIT_TEST_PROFILE}"
+
 xmake_build() {
   xmake b -v -j 1 "$@"
 }
@@ -105,12 +117,18 @@ COMMON_F_FLAGS=(
   --ccache=n
   --cxflags=-Wno-error
   --test-libfuzzer=n
+  --enable-test-backend-fuzzer=n
   --enable-test-llvm-jit=y
   --use-cxx-module=n
   --static=none
-  --execution-int=none
   --execution-jit=llvm
 )
+
+if [[ "${UWVM_LLVM_JIT_TEST_PROFILE}" == "full" ]]; then
+  COMMON_F_FLAGS+=(--execution-int=uwvm-int)
+else
+  COMMON_F_FLAGS+=(--execution-int=none)
+fi
 
 if [[ -n "${SYSROOT:-}" ]]; then
   COMMON_F_FLAGS+=("--sysroot=${SYSROOT}")
@@ -125,29 +143,46 @@ else
   done < <(
     {
       printf '%s\n' llvm_jit_verify_compile
+      printf '%s\n' llvm_aot_fp_environment_wat
+      printf '%s\n' llvm_aot_nearest_rounding
+      printf '%s\n' llvm_aot_noinline_policy
+      printf '%s\n' llvm_aot_unaligned_memory
       printf '%s\n' llvm_jit_imported_bulk_memory
-      printf '%s\n' llvm_jit_multivalue_typed
-      printf '%s\n' llvm_jit_trap_matrix_wat
-      printf '%s\n' llvm_jit_unwind_call_stack_wat
-      printf '%s\n' tiered_osr_call_stack_wat
-      printf '%s\n' tiered_strategy_unwind_wat
-      index=0
-      find test/0013.uwvm_int/strict -type f -name '*.cc' | sort | while IFS= read -r file; do
-        index=$((index + 1))
-        printf 'lj13s_%03d\n' "${index}"
-      done
-      index=0
-      find test/0013.uwvm_int/lazy -type f -name '*.cc' | sort | while IFS= read -r file; do
-        # Bash 3.2 misparses a nested `case ... pattern)` while this loop lives inside the process substitution above.
-        # Keep the portable `[[ ... ]]` form so the directed-suite generator also works on the supported Darwin shell.
-        if [[ "${file}" == */uwvm_int_lazy_split.cc || "${file}" == */uwvm_int_lazy_strategy_matrix.cc ]]; then
-          continue
-        fi
-        index=$((index + 1))
-        printf 'lj13l_%03d\n' "${index}"
-      done
+      if [[ "${UWVM_LLVM_JIT_TEST_PROFILE}" == "full" ]]; then
+        printf '%s\n' llvm_jit_multivalue_typed
+        printf '%s\n' llvm_jit_trap_matrix_wat
+        printf '%s\n' llvm_jit_unwind_call_stack_wat
+        printf '%s\n' tiered_osr_call_stack_wat
+        printf '%s\n' tiered_strategy_unwind_wat
+        index=0
+        find test/0013.uwvm_int/strict -type f -name '*.cc' | sort | while IFS= read -r file; do
+          index=$((index + 1))
+          printf 'lj13s_%03d\n' "${index}"
+        done
+        index=0
+        find test/0013.uwvm_int/lazy -type f -name '*.cc' | sort | while IFS= read -r file; do
+          # Bash 3.2 misparses a nested `case ... pattern)` while this loop lives inside the process substitution above.
+          # Keep the portable `[[ ... ]]` form so the directed-suite generator also works on the supported Darwin shell.
+          if [[ "${file}" == */uwvm_int_lazy_split.cc || "${file}" == */uwvm_int_lazy_strategy_matrix.cc ]]; then
+            continue
+          fi
+          index=$((index + 1))
+          printf 'lj13l_%03d\n' "${index}"
+        done
+      fi
     } | awk '!seen[$0]++'
   )
+fi
+
+if [[ "${UWVM_LLVM_JIT_TEST_PROFILE}" == "aot" ]]; then
+  for t in "${TARGETS[@]}"; do
+    case "${t}" in
+      lj13s_*|lj13l_*|llvm_jit_cache_integration|llvm_jit_lazy_raw_body_scanner|llvm_jit_multivalue_typed|llvm_jit_trap_matrix_wat|llvm_jit_trunc_boundary_matrix|llvm_jit_unwind_call_stack_wat|llvm_jit_wasm1p1_clang_cpp_matrix|tiered_*|wasm2_feature_validator_parity|wasm32_effective_address)
+        echo "ERR: target ${t} requires int, lazy, or tiered coverage and is invalid in the aot profile" >&2
+        exit 2
+        ;;
+    esac
+  done
 fi
 
 if [[ "${#TARGETS[@]}" -eq 0 ]]; then
@@ -193,4 +228,4 @@ for i in "${!TARGETS[@]}"; do
   "${ROOT_DIR}/${exe}"
 done
 
-echo "OK: llvm-jit full run completed"
+echo "OK: llvm-jit ${UWVM_LLVM_JIT_TEST_PROFILE} run completed"

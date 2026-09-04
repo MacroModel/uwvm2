@@ -636,8 +636,12 @@ namespace
 
         if(!run_call_stack_mode("instruction", "full", "-Rcm full -Rcc jit", true)) [[unlikely]] { return false; }
         if(!run_call_stack_mode("instruction", "aot", "-Raot", true)) [[unlikely]] { return false; }
+#ifndef UWVM_DISABLE_INT
+        // A pure LLVM configuration is the AOT-only validation profile.  Lazy coverage remains part of the combined
+        // uwvm-int + LLVM profile, where the complete full-repository runtime matrix is available.
         if(!run_call_stack_mode("instruction", "lazy", "-Rjit", true)) [[unlikely]] { return false; }
         if(!run_call_stack_mode("instruction", "lazy_verification", "-Rcm lazy+verification -Rcc jit", true)) [[unlikely]] { return false; }
+#endif
 
         auto_call_stack_probe_result default_probe_result{};
         bool default_native_unwind_backend_available{};
@@ -674,17 +678,26 @@ namespace
         {
             if(!run_call_stack_mode("unwind", "full", "-Rcm full -Rcc jit", false, true)) [[unlikely]] { return false; }
             if(!run_call_stack_mode("unwind", "aot", "-Raot", false, true)) [[unlikely]] { return false; }
+#ifndef UWVM_DISABLE_INT
             if(!run_call_stack_mode("unwind", "lazy", "-Rjit", false, true)) [[unlikely]] { return false; }
             if(!run_call_stack_mode("unwind", "lazy_verification", "-Rcm lazy+verification -Rcc jit", false, true)) [[unlikely]] { return false; }
+#endif
         }
-        if(default_native_unwind_backend_available &&
-           (!run_call_stack_mode("unwind-uncheck", "full", "-Rcm full -Rcc jit", !authoritative_native_unwind) ||
-            !run_call_stack_mode("unwind-uncheck", "aot", "-Raot", !authoritative_native_unwind) ||
-            !run_call_stack_mode("unwind-uncheck", "lazy", "-Rjit", !authoritative_native_unwind) ||
-            !run_call_stack_mode(
-                "unwind-uncheck", "lazy_verification", "-Rcm lazy+verification -Rcc jit", !authoritative_native_unwind))) [[unlikely]]
+        if(default_native_unwind_backend_available)
         {
-            return false;
+            if(!run_call_stack_mode("unwind-uncheck", "full", "-Rcm full -Rcc jit", !authoritative_native_unwind) ||
+               !run_call_stack_mode("unwind-uncheck", "aot", "-Raot", !authoritative_native_unwind)) [[unlikely]]
+            {
+                return false;
+            }
+#ifndef UWVM_DISABLE_INT
+            if(!run_call_stack_mode("unwind-uncheck", "lazy", "-Rjit", !authoritative_native_unwind) ||
+               !run_call_stack_mode(
+                   "unwind-uncheck", "lazy_verification", "-Rcm lazy+verification -Rcc jit", !authoritative_native_unwind)) [[unlikely]]
+            {
+                return false;
+            }
+#endif
         }
         return true;
     }
@@ -711,6 +724,7 @@ namespace
         return run_command(command, "full llvm-jit");
     }
 
+#ifndef UWVM_DISABLE_INT
     [[nodiscard]] bool run_lazy_mode(::std::filesystem::path const& uwvm_path,
                                      ::std::filesystem::path const& wasm_path,
                                      ::std::string_view extra_args = {})
@@ -744,6 +758,7 @@ namespace
         command += " --run " + quote_argument(wasm_path);
         return run_command(command, "tiered llvm-jit");
     }
+#endif
 
     [[nodiscard]] bool run_aot_shortcut(::std::filesystem::path const& uwvm_path,
                                         ::std::filesystem::path const& wasm_path,
@@ -797,8 +812,10 @@ namespace
 
         if(!run_full_mode(uwvm_path, wasm_path, extra_args)) [[unlikely]] { return false; }
         if(!run_aot_shortcut(uwvm_path, wasm_path, extra_args)) [[unlikely]] { return false; }
+#ifndef UWVM_DISABLE_INT
         if(!run_lazy_mode(uwvm_path, wasm_path, extra_args)) [[unlikely]] { return false; }
         if(!run_lazy_verification_mode(uwvm_path, wasm_path, extra_args)) [[unlikely]] { return false; }
+#endif
         return true;
     }
 
@@ -849,6 +866,7 @@ namespace
                                                "LLVM AOT WASI alignment");
     }
 
+#ifndef UWVM_DISABLE_INT
     [[nodiscard]] bool run_wasm1p1_tiered_matrix(::std::filesystem::path const& uwvm_path,
                                                  ::std::filesystem::path const& wasm_path,
                                                  ::std::string_view extra_args)
@@ -873,6 +891,7 @@ namespace
 
         return true;
     }
+#endif
 
     [[nodiscard]] bool run_wasm1p1_policy_matrix(::std::filesystem::path const& uwvm_path, ::std::filesystem::path const& executable_dir)
     {
@@ -887,6 +906,7 @@ namespace
             if(!run_full_mode(uwvm_path, wasm_path, extra_args)) [[unlikely]] { return false; }
         }
 
+#ifndef UWVM_DISABLE_INT
         for(::std::string_view policy: {::std::string_view{"debug"}, ::std::string_view{"light"}, ::std::string_view{"balanced"}})
         {
             auto extra_args{::std::string{wasm1p1_scalar_runtime_args} + " --runtime-llvm-jit-lazy-policy " + ::std::string{policy}};
@@ -894,6 +914,9 @@ namespace
         }
 
         return run_wasm1p1_tiered_matrix(uwvm_path, wasm_path, wasm1p1_scalar_runtime_args);
+#else
+        return true;
+#endif
     }
 
 }  // namespace
@@ -994,6 +1017,7 @@ int main(int argc, char** argv)
         return 1;
     }
     if(!run_wasm1p1_policy_matrix(uwvm_path, executable_dir)) [[unlikely]] { return 1; }
+#ifndef UWVM_DISABLE_INT
     for(auto const file_name: {::std::string_view{"wasm1p1_scalar_edges_start.wasm"},
                                ::std::string_view{"wasm1p1_bulk_memory_start.wasm"},
                                ::std::string_view{"wasm1p1_export_declared_ref_func_start.wasm"},
@@ -1010,6 +1034,7 @@ int main(int argc, char** argv)
             return 1;
         }
     }
+#endif
     if(!run_noinline_unwind_trap_fixture(uwvm_path, executable_dir)) [[unlikely]] { return 1; }
 
     return 0;
