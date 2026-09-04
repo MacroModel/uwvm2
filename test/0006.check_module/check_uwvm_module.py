@@ -4,19 +4,28 @@ Check UWVM_MODULE imports across the src tree.
 
 Rules:
 - For each pair (.cppm, .h) in the same directory with the same basename,
-  their UWVM_MODULE imports must match in content and order.
-- For each pair (*.module.cpp, *.default.cpp) in the same directory with the same basename,
-  their imports must match in content and order.
-- Import order must respect category sequence:
+  every module-correlated dependency included by the header must be imported
+  by the module unit or included in its global module fragment.
+- For each pair (*.module.cpp, *.default.cpp) in the same directory with the
+  same basename, apply the same dependency-coverage rule.
+- Additional explicit module imports are permitted. Named modules do not see
+  dependencies that a textual header obtained transitively, so module units
+  may legitimately need a larger direct dependency surface.
+- Header include order must respect category sequence:
   1) uwvm_predefine/*
-  2) utils/* (including fast_io)
+  2) project utils/*
   3) parser/*
   4) uwvm/io/*
   5) uwvm/utils/*
   After these categories, the order of any remaining headers is not constrained.
+- The category-order style rule applies only to dual-surface headers.
+  A *.default.cpp file is an implementation translation unit whose textual
+  include order follows implementation dependencies; it is still checked for
+  dependency coverage against its *.module.cpp peer.
 
 Notes:
-- In .cppm/.module.cpp, we read `import ...;` lines.
+- In .cppm/.module.cpp, we read `import ...;` lines and module-correlated
+  includes in the global module fragment.
 - In .h/.default.cpp, we read `#include <.../impl.h>`, `#include <fast_io.h>`, and relative `#include "*.h"`
   within the `#ifndef UWVM_MODULE` guarded region, ignoring other includes (e.g., macros, std headers).
 - We normalize imports to canonical names so that, for example:
@@ -39,9 +48,11 @@ THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 SRC_ROOT = os.path.abspath(os.path.join(THIS_DIR, "..", "..", "src"))
 
 
-IMPORT_LINE_RE = re.compile(r"^\s*(?:export\s+)?import\s+([^;\s]+)\s*;\s*$")
+IMPORT_LINE_RE = re.compile(r"^\s*(?:export\s+)?import\s+([^;\s]+)\s*;\s*(?://.*)?$")
 MODULE_NAME_RE = re.compile(r"^\s*export\s+module\s+([^;\s]+)\s*;\s*$", re.MULTILINE)
-INCLUDE_RE = re.compile(r"^\s*#\s*include\s+[<\"]([^>\"]+)[>\"]")
+INCLUDE_RE = re.compile(r"^\s*#\s*include\s*([<\"])([^>\"]+)[>\"]")
+GLOBAL_MODULE_FRAGMENT_RE = re.compile(r"^\s*module\s*;\s*(?://.*)?$")
+NAMED_MODULE_DECL_RE = re.compile(r"^\s*(?:export\s+)?module\s+[^;]+;")
 
 
 @dataclass
@@ -87,7 +98,12 @@ def list_files(root: str) -> List[str]:
     return paths
 
 
-def normalize_header_to_import_name(header: str) -> str | None:
+def normalize_header_to_import_name(
+    header: str,
+    *,
+    is_local: bool,
+    local_header_exists: bool = False,
+) -> str | None:
     """Map header include path to canonical import name.
 
     Examples:
@@ -110,7 +126,9 @@ def normalize_header_to_import_name(header: str) -> str | None:
         return None
 
     # Special-case fast_io
-    if header == "fast_io.h" or header.startswith("fast_io/"):
+    if header == "fast_io_crypto.h":
+        return "fast_io_crypto"
+    if header == "fast_io.h" or header.startswith("fast_io_") or header.startswith("fast_io/"):
         return "fast_io"
 
     # Only consider impl.h and local .h as module-correlated
@@ -119,7 +137,7 @@ def normalize_header_to_import_name(header: str) -> str | None:
         return core.replace("/", ".")
 
     # Local relative header like "def.h" or nested like "types/abc.h"
-    if "/" not in header and header.endswith(".h"):
+    if is_local and local_header_exists and "/" not in header and header.endswith(".h"):
         base = header[:-2]
         return f":{base}"
 
@@ -148,7 +166,49 @@ def extract_imports_from_cppm_or_module_cpp(text: str) -> List[str]:
     return imports
 
 
-def extract_guarded_includes(text: str, *, base_module: str | None = None, restrict_to: List[str] | None = None) -> List[str]:
+def local_header_exists(source_path: str | None, header: str) -> bool:
+    """Return whether a quoted include resolves beside its source file."""
+    return source_path is not None and os.path.isfile(os.path.join(os.path.dirname(source_path), header))
+
+
+def extract_global_fragment_includes(text: str, *, source_path: str | None = None) -> List[str]:
+    """Extract module-correlated textual dependencies from `module;`.
+
+    A dependency mirrored textually in a module unit's global fragment is
+    already available to that translation unit and must not be diagnosed as a
+    missing named-module import.
+    """
+    includes: List[str] = []
+    in_global_fragment = False
+    for line in text.splitlines():
+        if not in_global_fragment:
+            if GLOBAL_MODULE_FRAGMENT_RE.match(line):
+                in_global_fragment = True
+            continue
+        if NAMED_MODULE_DECL_RE.match(line):
+            break
+        match = INCLUDE_RE.match(line)
+        if match is None:
+            continue
+        header = match.group(2).strip()
+        is_local = match.group(1) == '"'
+        norm = normalize_header_to_import_name(
+            header,
+            is_local=is_local,
+            local_header_exists=is_local and local_header_exists(source_path, header),
+        )
+        if norm is not None:
+            includes.append(norm)
+    return includes
+
+
+def extract_guarded_includes(
+    text: str,
+    *,
+    base_module: str | None = None,
+    include_local_partitions: bool = True,
+    source_path: str | None = None,
+) -> List[str]:
     """Extract ordered list of canonical import names from the #ifndef UWVM_MODULE region.
 
     Only keep includes that map to module-like imports:
@@ -182,10 +242,12 @@ def extract_guarded_includes(text: str, *, base_module: str | None = None, restr
         elif depth > 0:
             m = INCLUDE_RE.match(ln)
             if m:
-                hdr = m.group(1).strip()
+                is_local = m.group(1) == '"'
+                hdr = m.group(2).strip()
+                resolved_local_header = is_local and local_header_exists(source_path, hdr)
                 norm = None
                 # Special mapping for relative submodule aggregator paths like "sub/impl.h"
-                if base_module and (not ("/" in hdr and hdr.startswith("uwvm2/"))):
+                if resolved_local_header and base_module and (not ("/" in hdr and hdr.startswith("uwvm2/"))):
                     # relative include
                     if hdr.endswith("/impl.h") and "/" in hdr:
                         sub = hdr[: -len("/impl.h")]
@@ -194,18 +256,17 @@ def extract_guarded_includes(text: str, *, base_module: str | None = None, restr
                     elif hdr.endswith(".h") and "/" not in hdr:
                         # local partition header, map to partition
                         norm = f":{hdr[:-2]}"
-                if norm is None:
-                    norm = normalize_header_to_import_name(hdr)
+                if norm is None and (include_local_partitions or not is_local):
+                    norm = normalize_header_to_import_name(
+                        hdr,
+                        is_local=is_local,
+                        local_header_exists=resolved_local_header,
+                    )
                 if norm is not None:
                     includes.append(norm)
         i += 1
 
     debug(f"includes-from-guard: {includes}")
-    # If restrict_to provided, filter to only those present in restrict_to (preserving order)
-    if restrict_to is not None:
-        restrict_set = set(restrict_to)
-        includes = [x for x in includes if x in restrict_set]
-
     return includes
 
 
@@ -234,7 +295,9 @@ def _is_utils(name: str) -> bool:
     # Exclude uwvm_predefine subtree entirely from utils detection, even though it contains "utils" segment
     if n.startswith("uwvm_predefine."):
         return False
-    return name == "fast_io" or name.startswith("fast_io.") or n.startswith("utils.")
+    # Third-party fast_io imports conventionally lead many module dependency
+    # lists and are not part of the project's internal utils ordering rule.
+    return n.startswith("utils.")
 
 
 def _is_parser(name: str) -> bool:
@@ -328,26 +391,21 @@ def check_order(seq: List[str]) -> Tuple[bool, str | None]:
     return True, None
 
 
-def compare_sequences(ref: List[str], other: List[str]) -> Tuple[bool, List[str]]:
-    """Compare two sequences for equality, after stable-deduping.
+def compare_dependency_coverage(module_dependencies: List[str], header_includes: List[str]) -> Tuple[bool, List[str]]:
+    """Require every header dependency in the corresponding module unit.
 
-    We dedupe to avoid false positives when one side repeats the same import.
+    Extra module imports are intentional and safe: module mode cannot rely on
+    declarations exposed transitively by textual includes. Repeated imports or
+    includes are ignored after their first occurrence.
     """
-    a = stable_unique(ref)
-    b = stable_unique(other)
-    if a == b:
+    dependencies = stable_unique(module_dependencies)
+    includes = stable_unique(header_includes)
+    missing = [name for name in includes if name not in dependencies]
+
+    if not missing:
         return True, []
-    diffs: List[str] = []
-    diffs.append("Expected (A): " + ", ".join(a))
-    diffs.append("Found    (B): " + ", ".join(b))
-    # Also show missing and extra for clarity
-    missing = [x for x in a if x not in b]
-    extra = [x for x in b if x not in a]
-    if missing:
-        diffs.append("Missing in B: " + ", ".join(missing))
-    if extra:
-        diffs.append("Extra in B: " + ", ".join(extra))
-    return False, diffs
+
+    return False, ["Header dependencies missing from module unit: " + ", ".join(missing)]
 
 
 def find_cppm_h_pairs(files: List[str]) -> List[Pair]:
@@ -418,6 +476,7 @@ def main() -> int:
         h_txt = read_text(pair.b)
 
         imports_cppm = extract_imports_from_cppm_or_module_cpp(cppm_txt)
+        dependencies_cppm = imports_cppm + extract_global_fragment_includes(cppm_txt, source_path=pair.a)
 
         if is_impl_pair(pair):
             # Special logic for impl.cppm <-> impl.h
@@ -425,16 +484,16 @@ def main() -> int:
             if base_module is None:
                 base_module = ""
 
-            includes_h = extract_guarded_includes(h_txt, base_module=base_module, restrict_to=imports_cppm)
+            includes_h = extract_guarded_includes(h_txt, base_module=base_module, source_path=pair.b)
         else:
-            includes_h = extract_guarded_includes(h_txt)
+            includes_h = extract_guarded_includes(h_txt, source_path=pair.b)
 
         # Enforce category order only on header-side includes, not on module import lines
         ok_order_h, msg_h = check_order(includes_h)
         if not ok_order_h:
             problems.append(f"[ORDER] {pair.b}: {msg_h}")
 
-        ok_eq, diffs = compare_sequences(imports_cppm, includes_h)
+        ok_eq, diffs = compare_dependency_coverage(dependencies_cppm, includes_h)
         if not ok_eq:
             problems.append(f"[MISMATCH] {pair.a} <-> {pair.b}")
             problems.extend(["  " + d for d in diffs])
@@ -445,14 +504,13 @@ def main() -> int:
         def_txt = read_text(pair.b)
 
         imports_mod = extract_imports_from_cppm_or_module_cpp(mod_txt)
-        includes_def = extract_guarded_includes(def_txt)
+        dependencies_mod = imports_mod + extract_global_fragment_includes(mod_txt, source_path=pair.a)
+        # Quoted helper headers in a *.default.cpp are textual implementation
+        # details mirrored by includes in the module unit's global fragment;
+        # they are not named-module imports or partitions.
+        includes_def = extract_guarded_includes(def_txt, include_local_partitions=False, source_path=pair.b)
 
-        # Enforce category order only on default.cpp includes, not on module.cpp import lines
-        ok_order_def, msg_def = check_order(includes_def)
-        if not ok_order_def:
-            problems.append(f"[ORDER] {pair.b}: {msg_def}")
-
-        ok_eq, diffs = compare_sequences(imports_mod, includes_def)
+        ok_eq, diffs = compare_dependency_coverage(dependencies_mod, includes_def)
         if not ok_eq:
             problems.append(f"[MISMATCH] {pair.a} <-> {pair.b}")
             problems.extend(["  " + d for d in diffs])
@@ -469,5 +527,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-
-
