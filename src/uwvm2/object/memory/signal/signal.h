@@ -463,74 +463,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::object::memory::signal
 #  endif
         }
 
-        /// @brief      Extract the frame pointer from a POSIX ucontext, when the platform exposes one.
-        /// @details    Mmap-backed wasm OOB traps arrive as asynchronous signals rather than normal runtime
-        ///             trap calls. Capturing the interrupted frame pointer lets the LLVM-JIT unwind path resume
-        ///             from the generated wasm frame and recover callers that were optimized or inlined.
-        [[nodiscard]] inline constexpr ::std::uintptr_t get_signal_frame_address([[maybe_unused]] void* context) noexcept
-        {
-#  ifdef UWVM2_OBJECT_MEMORY_SIGNAL_HAS_UCONTEXT
-            if(context == nullptr) [[unlikely]] { return 0u; }
-            [[maybe_unused]] auto const uctx{static_cast<::ucontext_t const*>(context)};
-
-#   if defined(__linux__) && defined(__x86_64__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext.gregs[REG_RBP]);
-#   elif defined(__linux__) && defined(__i386__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext.gregs[REG_EBP]);
-#   elif defined(__linux__) && defined(__aarch64__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext.regs[29u]);
-#   elif defined(__linux__) && defined(__arm__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext.arm_fp);
-#   elif defined(__APPLE__) && defined(__x86_64__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext->__ss.__rbp);
-#   elif defined(__APPLE__) && defined(__i386__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext->__ss.__ebp);
-#   elif defined(__APPLE__) && defined(__aarch64__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext->__ss.__fp);
-#   else
-            // static_cast<void>(uctx);
-            return 0u;
-#   endif
-#  else
-            // static_cast<void>(context);
-            return 0u;
-#  endif
-        }
-
-        /// @brief      Extract the stack pointer from a POSIX ucontext, when supported.
-        /// @details    The current non-Windows DWARF path can derive a seed stack pointer from the frame
-        ///             record, but preserving the architectural SP keeps the fault report complete for
-        ///             platforms whose unwinders require an exact interrupted stack pointer.
-        [[nodiscard]] inline constexpr ::std::uintptr_t get_signal_stack_pointer([[maybe_unused]] void* context) noexcept
-        {
-#  ifdef UWVM2_OBJECT_MEMORY_SIGNAL_HAS_UCONTEXT
-            if(context == nullptr) [[unlikely]] { return 0u; }
-            [[maybe_unused]] auto const uctx{static_cast<::ucontext_t const*>(context)};
-
-#   if defined(__linux__) && defined(__x86_64__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext.gregs[REG_RSP]);
-#   elif defined(__linux__) && defined(__i386__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext.gregs[REG_ESP]);
-#   elif defined(__linux__) && defined(__aarch64__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext.sp);
-#   elif defined(__linux__) && defined(__arm__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext.arm_sp);
-#   elif defined(__APPLE__) && defined(__x86_64__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext->__ss.__rsp);
-#   elif defined(__APPLE__) && defined(__i386__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext->__ss.__esp);
-#   elif defined(__APPLE__) && defined(__aarch64__)
-            return static_cast<::std::uintptr_t>(uctx->uc_mcontext->__ss.__sp);
-#   else
-            // static_cast<void>(uctx);
-            return 0u;
-#   endif
-#  else
-            // static_cast<void>(context);
-            return 0u;
-#  endif
-        }
-
         /// @brief      Forward an unhandled POSIX signal to the handler that was installed before UWVM.
         /// @details    Both SA_SIGINFO handlers and classic one-argument handlers are supported. Default
         ///             handlers are restored and re-raised so the process observes the platform's normal
@@ -566,16 +498,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::object::memory::signal
 
         /// @brief      POSIX SIGSEGV/SIGBUS entry point used to intercept protected-memory faults.
         /// @details    Faults inside registered protected segments are converted to wasm memory diagnostics.
+        ///             POSIX captures only the faulting instruction address; generated frame and stack
+        ///             pointers are deliberately not seeded into the auxiliary native unwind path.
         ///             Other faults are delegated to the previous handler, or to the platform default action
         ///             when no previous handler is available.
         inline constexpr void posix_signal_handler(int signal, ::siginfo_t* siginfo, void* context) noexcept
         {
             auto const fault_addr{siginfo == nullptr ? nullptr : reinterpret_cast<::std::byte const*>(siginfo->si_addr)};
             auto const instruction_address{get_signal_instruction_address(context)};
-            auto const frame_address{get_signal_frame_address(context)};
-            auto const stack_pointer{get_signal_stack_pointer(context)};
 
-            if(handle_fault_address(fault_addr, instruction_address, frame_address, stack_pointer)) { return; }
+            if(handle_fault_address(fault_addr, instruction_address, 0u, 0u)) { return; }
 
             if(signal == SIGSEGV && signal_handlers.has_previous_sigsegv)
             {
