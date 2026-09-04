@@ -143,10 +143,10 @@ path does not seed a cursor from JIT registers, scan frame-pointer chains, scan
 raw stack words, or reconstruct synthetic inline frames.
 
 Explicit `instruction` always selects logical tracking. Explicit checked
-`unwind` requires an authoritative replacement path and fails on an
-auxiliary-only POSIX backend. `unwind-uncheck` may append resolved POSIX JIT
-addresses after the authoritative logical stack, while `none` intentionally
-omits generated body frames.
+`unwind` is exposed only for an authoritative replacement path; an unsupported
+programmatic selection fails closed. `unwind-uncheck` may append resolved POSIX
+JIT addresses after the authoritative logical stack, while `none`
+intentionally omits generated body frames.
 
 ## Scheduling Policy
 

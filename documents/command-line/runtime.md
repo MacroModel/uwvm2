@@ -277,11 +277,11 @@ Behavior:
 - `auto`: default. Use native `unwind` only when the target supplies an authoritative generated-caller context and its checked path succeeds. Otherwise the effective mode is `instruction`; a failed live probe on an otherwise authoritative path causes a one-time fallback warning. The ordinary POSIX `<unwind.h>` walk is auxiliary and never replaces logical Wasm frames.
 - `instruction`: explicitly emit per-function LLVM JIT call-stack push/pop instructions. These logical frames are authoritative on POSIX and preserve trap diagnostics without relying on a native walk.
 - `none`: omit per-function LLVM JIT call-stack push/pop instructions. This can substantially improve hot Wasm-to-Wasm call workloads, but trap stack reports lose JIT body frames.
-- `unwind`: require native unwind to replace generated logical frames. This is valid only for an authoritative implementation such as the explicit Win64 SEH caller-context path; selecting it with an auxiliary-only POSIX backend is fatal.
+- `unwind`: require native unwind to replace generated logical frames. The CLI exposes this value only for an authoritative implementation such as the explicit Win64 SEH caller-context path; an unsupported programmatic selection still fails closed.
 - `unwind-uncheck`: request native unwind without the checked replacement requirement. On an auxiliary-only POSIX backend, logical instruction frames remain enabled and are printed first; the ordinary native walk can only append resolved JIT addresses.
 - `unwind-unchecked`: accepted as an alias for `unwind-uncheck`.
 - Default: `auto`.
-- Targets without a compiled native-unwind backend advertise only `auto`, `instruction`, and `none`, and `auto` resolves to `instruction` for JIT code.
+- Auxiliary-only POSIX targets additionally advertise `unwind-uncheck`; they do not advertise checked `unwind`. Targets without a compiled native-unwind backend advertise only `auto`, `instruction`, and `none`. In both cases, `auto` resolves to `instruction` for JIT code.
 - uwvm itself may still be built without unwind tables. Host-runtime unwindability is not a requirement for JIT unwind mode, and uwvm does not warn when ordinary host-runtime frames cannot be walked.
 - On Apple targets, uwvm registers generated `.eh_frame` FDEs directly. On Win64 x86_64 targets, uwvm registers generated SEH function tables with the OS.
 - Every generated Wasm function, raw wrapper, tiered core, and OSR entry is marked LLVM `NoInline`, including the max/O3 policy. Function-local optimization remains enabled.
