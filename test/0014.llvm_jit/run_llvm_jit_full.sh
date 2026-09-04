@@ -125,6 +125,7 @@ else
   done < <(
     {
       printf '%s\n' llvm_jit_verify_compile
+      printf '%s\n' llvm_jit_imported_bulk_memory
       printf '%s\n' llvm_jit_multivalue_typed
       printf '%s\n' llvm_jit_trap_matrix_wat
       printf '%s\n' llvm_jit_unwind_call_stack_wat
@@ -137,9 +138,11 @@ else
       done
       index=0
       find test/0013.uwvm_int/lazy -type f -name '*.cc' | sort | while IFS= read -r file; do
-        case "${file}" in
-          *"/uwvm_int_lazy_split.cc"|*"/uwvm_int_lazy_strategy_matrix.cc") continue ;;
-        esac
+        # Bash 3.2 misparses a nested `case ... pattern)` while this loop lives inside the process substitution above.
+        # Keep the portable `[[ ... ]]` form so the directed-suite generator also works on the supported Darwin shell.
+        if [[ "${file}" == */uwvm_int_lazy_split.cc || "${file}" == */uwvm_int_lazy_strategy_matrix.cc ]]; then
+          continue
+        fi
         index=$((index + 1))
         printf 'lj13l_%03d\n' "${index}"
       done
