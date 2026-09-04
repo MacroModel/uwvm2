@@ -22,6 +22,8 @@ module;
 #include <memory>
 #include <string>
 #include <system_error>
+// backend configuration
+#include <uwvm2/uwvm/runtime/macro/push_macros.h>
 // platform
 #if defined(UWVM_RUNTIME_LLVM_JIT)
 # include <llvm/Config/llvm-config.h>
