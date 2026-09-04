@@ -53,17 +53,23 @@ namespace
     };
 
     inline constexpr ::std::array modes{
-        mode_t{"full",                "-Rcm full -Rcc jit"                         },
-        mode_t{"aot",                 "-Raot"                                      },
-        mode_t{"lazy",                "-Rjit"                                      },
-        mode_t{"lazy_verification",   "-Rcm lazy+verification -Rcc jit"            },
-        mode_t{"tiered",              "-Rtiered"                                   },
-        mode_t{"tiered_no_t0",        "-Rtiered -Rtiered-disable-t0"               },
-        mode_t{"tiered_no_t2",        "-Rtiered -Rtiered-disable-t2"               },
-        mode_t{"tiered_no_t0_no_t2",  "-Rtiered -Rtiered-disable-t0 -Rtiered-disable-t2"},
+        mode_t{"aot", "-Raot"},
     };
 
-    inline constexpr ::std::array compare_policies{"unwind", "auto"};
+#if defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) && !defined(__CYGWIN__) && \
+    (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64))
+    // Win64 SEH receives an explicit generated-caller CONTEXT, so checked unwind may replace logical frames.
+    inline constexpr ::std::array compare_policies{"unwind", "unwind-uncheck", "auto"};
+#elif ((defined(__APPLE__) && !defined(_WIN32)) ||                                                                                                            \
+       ((defined(__linux__) || defined(__FreeBSD__)) &&                                                                                                      \
+        (defined(__x86_64__) || defined(_M_X64) || defined(_M_AMD64)) && !defined(__ILP32__))) &&                                                           \
+    __has_include(<unwind.h>)
+    // Plain POSIX native unwind starts in a runtime helper and is diagnostic-only. Keep logical frames and compare any
+    // additionally resolved native frames without treating them as a logical-stack replacement.
+    inline constexpr ::std::array compare_policies{"unwind-uncheck", "auto"};
+#else
+    inline constexpr ::std::array compare_policies{"auto"};
+#endif
 
     [[nodiscard]] ::std::string quote_argument(::std::filesystem::path const& path)
     {

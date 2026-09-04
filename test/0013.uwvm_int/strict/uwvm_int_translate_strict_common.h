@@ -26,8 +26,10 @@
 # include <uwvm2/parser/wasm/base/impl.h>
 # include <uwvm2/parser/wasm/standard/wasm1/opcode/mvp.h>
 # include <uwvm2/parser/wasm/standard/wasm1p1/opcode/additions.h>
-# include <uwvm2/runtime/compiler/uwvm_int/compile_all_from_uwvm/translate.h>
-# include <uwvm2/runtime/compiler/uwvm_int/optable/storage.h>
+# if !defined(UWVM2TEST_STRICT_NO_INTERPRETER)
+#  include <uwvm2/runtime/compiler/uwvm_int/compile_all_from_uwvm/translate.h>
+#  include <uwvm2/runtime/compiler/uwvm_int/optable/storage.h>
+# endif
 # include <uwvm2/uwvm/io/impl.h>
 # include <uwvm2/uwvm/runtime/initializer/init.h>
 # include <uwvm2/uwvm/imported/wasi/wasip1/impl.h>
@@ -70,11 +72,12 @@ namespace uwvm2test::uwvm_int_strict
     using wasm_value_type = ::uwvm2::parser::wasm::standard::wasm1::type::value_type;
     using wasm_feature_parameter_t = ::uwvm2::uwvm::wasm::feature::wasm_binfmt_ver1_feature_parameter_storage_t;
 
-    namespace compiler = ::uwvm2::runtime::compiler::uwvm_int::compile_all_from_uwvm;
-    namespace optable = ::uwvm2::runtime::compiler::uwvm_int::optable;
-
     using runtime_module_t = ::uwvm2::uwvm::runtime::storage::wasm_module_storage_t;
     using runtime_local_func_t = ::uwvm2::uwvm::runtime::storage::local_defined_function_storage_t;
+
+#if !defined(UWVM2TEST_STRICT_NO_INTERPRETER)
+    namespace compiler = ::uwvm2::runtime::compiler::uwvm_int::compile_all_from_uwvm;
+    namespace optable = ::uwvm2::runtime::compiler::uwvm_int::optable;
 
     using compiled_module_t = optable::uwvm_interpreter_full_function_symbol_t;
     using compiled_local_func_t = optable::local_func_storage_t;
@@ -102,6 +105,7 @@ namespace uwvm2test::uwvm_int_strict
         optable::trap_integer_overflow_func = strict_trap_unexpected;
         optable::trap_table_out_of_bounds_func = strict_trap_unexpected;
     }
+#endif
 
     [[nodiscard]] constexpr ::std::uint8_t u8(wasm_op op) noexcept
     {
@@ -283,6 +287,7 @@ namespace uwvm2test::uwvm_int_strict
         }
     }
 
+#if !defined(UWVM2TEST_STRICT_NO_INTERPRETER)
     template <::std::size_t IntSlots, ::std::size_t FloatSlots, bool ShareV128 = false>
     [[nodiscard]] consteval optable::uwvm_interpreter_translate_option_t make_tailcall_hardfloat_abi_opt() noexcept
     {
@@ -405,6 +410,7 @@ namespace uwvm2test::uwvm_int_strict
             return {};
         }
     }
+#endif
 
     [[nodiscard]] inline bool abi_mode_enabled(char const* token) noexcept
     {
@@ -507,6 +513,7 @@ namespace uwvm2test::uwvm_int_strict
     constexpr ::std::uint8_t k_val_i64 = 0x7eu;
     constexpr ::std::uint8_t k_val_f32 = 0x7du;
     constexpr ::std::uint8_t k_val_f64 = 0x7cu;
+    constexpr ::std::uint8_t k_ref_externref = 0x6fu;
     constexpr ::std::uint8_t k_ref_funcref = 0x70u;
 
     struct func_type
@@ -1037,7 +1044,8 @@ namespace uwvm2test::uwvm_int_strict
         byte_vec const& wasm_bytes,
         ::uwvm2::utils::container::u8string_view module_name,
         ::std::initializer_list<preloaded_wasm_module> preloaded = {},
-        wasm_feature_parameter_t wasm_feature_parameter = {})
+        wasm_feature_parameter_t wasm_feature_parameter = {},
+        ::std::initializer_list<::uwvm2::uwvm::wasm::type::local_imported_t> local_imported = {})
     {
         ::uwvm2::uwvm::io::show_verbose = false;
         ::uwvm2::uwvm::io::show_depend_warning = false;
@@ -1058,11 +1066,17 @@ namespace uwvm2test::uwvm_int_strict
         ::uwvm2::uwvm::wasm::storage::weak_symbol.clear();
 #endif
         ::uwvm2::uwvm::wasm::storage::preload_local_imported.clear();
+        auto local_imported_reserve_size{local_imported.size()};
+#if !defined(UWVM_DISABLE_LOCAL_IMPORTED_WASIP1)
+        ++local_imported_reserve_size;
+#endif
+        ::uwvm2::uwvm::wasm::storage::preload_local_imported.reserve(local_imported_reserve_size);
 #if !defined(UWVM_DISABLE_LOCAL_IMPORTED_WASIP1)
         // Allow tests to load WASI-Preview1 importing modules (e.g. reference workloads) without depending on the CLI loader.
         ::uwvm2::uwvm::wasm::storage::preload_local_imported.emplace_back(
             ::uwvm2::uwvm::imported::wasi::wasip1::local_imported::wasip1_local_imported_module);
 #endif
+        for(auto const& module: local_imported) { ::uwvm2::uwvm::wasm::storage::preload_local_imported.emplace_back(module); }
 
         if(preloaded.size() != 0uz)
         {
@@ -1190,6 +1204,7 @@ namespace uwvm2test::uwvm_int_strict
     }
 #endif
 
+#if !defined(UWVM2TEST_STRICT_NO_INTERPRETER)
     template <optable::uwvm_interpreter_translate_option_t CompileOption>
     struct interpreter_runner
     {
@@ -1308,6 +1323,7 @@ namespace uwvm2test::uwvm_int_strict
 #endif
         }
     };
+#endif
 
     [[nodiscard]] inline ::std::int32_t load_i32(byte_vec const& b, ::std::size_t off = 0uz) noexcept
     {

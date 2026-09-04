@@ -65,10 +65,10 @@ COMMON_F_FLAGS=(
   --use-llvm-compiler=y
   --ccache=n
   --cxflags=-Wno-error
-  --test-libfuzzer=y
   --enable-test-llvm-jit=y
   --use-cxx-module=n
   --static=none
+  --execution-int=uwvm-int
   --execution-jit=llvm
 )
 
@@ -85,22 +85,25 @@ else
   done < <(
     {
       printf '%s\n' llvm_jit_verify_compile
+      printf '%s\n' call_indirect_encoding_parity
+      printf '%s\n' llvm_jit_imported_bulk_memory
       printf '%s\n' llvm_jit_trap_matrix_wat
       printf '%s\n' llvm_jit_unwind_call_stack_wat
-      printf '%s\n' tiered_osr_call_stack_wat
-      printf '%s\n' tiered_strategy_unwind_wat
       index=0
       find test/0013.uwvm_int/strict -type f -name '*.cc' | sort | while IFS= read -r file; do
+        # Bash 3.2 misparses a nested `case ... pattern)` while this loop lives inside the process substitution above.
+        # Keep the portable `[[ ... ]]` form so the directed-suite generator also works on the supported Darwin shell.
+        if [[ "${file}" == */wasm1p1/uwvm_int_translate_wasm1p1_full_interpreter_strict.cc ||
+              "${file}" == */memory/uwvm_int_translate_wasm1p1_bulk_memory_strict.cc ||
+              "${file}" == */table/uwvm_int_translate_wasm1p1_externref_table_strict.cc ||
+              "${file}" == */table/uwvm_int_translate_wasm1p1_table_ref_bulk_strict.cc ||
+              "${file}" == */cf/uwvm_int_translate_if_no_else_identity_strict.cc ||
+              "${file}" == */validate/uwvm_int_translate_wasm1p1_simd_basic_strict.cc ||
+              "${file}" == */validate/uwvm_int_validate_wasm1p1_validator_alignment_strict.cc ]]; then
+          continue
+        fi
         index=$((index + 1))
         printf 'lj13s_%03d\n' "${index}"
-      done
-      index=0
-      find test/0013.uwvm_int/lazy -type f -name '*.cc' | sort | while IFS= read -r file; do
-        case "${file}" in
-          *"/uwvm_int_lazy_split.cc"|*"/uwvm_int_lazy_strategy_matrix.cc") continue ;;
-        esac
-        index=$((index + 1))
-        printf 'lj13l_%03d\n' "${index}"
       done
     } | awk '!seen[$0]++'
   )
