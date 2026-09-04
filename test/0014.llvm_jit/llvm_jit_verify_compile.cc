@@ -53,6 +53,20 @@ namespace
         0x36u, 0x02u, 0x00u, 0x41u, 0x01u, 0x28u, 0x02u, 0x00u, 0x41u, 0x92u, 0xe8u, 0xd8u,
         0xc2u, 0x07u, 0x47u, 0x04u, 0x40u, 0x00u, 0x0bu, 0x0bu};
 
+    // Generated from Wasmtime's wasi_misaligned_pointer.wat regression fixture.  Unlike ordinary Wasm loads/stores above, the WASI Preview 1 WITX
+    // guest ABI requires pointer arguments to be aligned to their pointee type.  fd_write receives ciovec-array address 1 and must therefore trap.
+    // Source: https://github.com/bytecodealliance/wasmtime/blob/main/tests/all/cli_tests/wasi_misaligned_pointer.wat
+    inline constexpr ::std::array<unsigned char, 106uz> wasi_misaligned_pointer_start_wasm{
+        0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u, 0x01u, 0x0cu, 0x02u, 0x60u,
+        0x04u, 0x7fu, 0x7fu, 0x7fu, 0x7fu, 0x01u, 0x7fu, 0x60u, 0x00u, 0x00u, 0x02u, 0x23u,
+        0x01u, 0x16u, 0x77u, 0x61u, 0x73u, 0x69u, 0x5fu, 0x73u, 0x6eu, 0x61u, 0x70u, 0x73u,
+        0x68u, 0x6fu, 0x74u, 0x5fu, 0x70u, 0x72u, 0x65u, 0x76u, 0x69u, 0x65u, 0x77u, 0x31u,
+        0x08u, 0x66u, 0x64u, 0x5fu, 0x77u, 0x72u, 0x69u, 0x74u, 0x65u, 0x00u, 0x00u, 0x03u,
+        0x02u, 0x01u, 0x01u, 0x05u, 0x03u, 0x01u, 0x00u, 0x01u, 0x07u, 0x13u, 0x02u, 0x06u,
+        0x6du, 0x65u, 0x6du, 0x6fu, 0x72u, 0x79u, 0x02u, 0x00u, 0x06u, 0x5fu, 0x73u, 0x74u,
+        0x61u, 0x72u, 0x74u, 0x00u, 0x01u, 0x0au, 0x0fu, 0x01u, 0x0du, 0x00u, 0x41u, 0x01u,
+        0x41u, 0x01u, 0x41u, 0x01u, 0x41u, 0x00u, 0x10u, 0x00u, 0x1au, 0x0bu};
+
     // WebAssembly 1.1 scalar fixture:
     // - i32.extend8_s and i64.extend8_s require the sign-extension feature;
     // - select_t exercises typed select immediate decoding;
@@ -788,6 +802,53 @@ namespace
         return true;
     }
 
+    [[nodiscard]] bool run_wasi_alignment_trap_command(::std::filesystem::path const& uwvm_path,
+                                                       ::std::filesystem::path const& wasm_path,
+                                                       ::std::string_view runtime_args,
+                                                       ::std::string_view output_suffix,
+                                                       char const* label)
+    {
+        auto command{quote_argument(uwvm_path)};
+        append_extra_args(command, runtime_args);
+        command += " --wasm-feature-mvp --run " + quote_argument(wasm_path);
+
+        auto output_path{wasm_path};
+        output_path += output_suffix;
+        if(!run_trap_command(command, output_path, label)) [[unlikely]] { return false; }
+
+        ::std::string output{};
+        if(!read_text_file(output_path, output)) [[unlikely]] { return false; }
+        auto const plain_output{strip_ansi_codes(output)};
+        if(plain_output.find("WASI Preview 1 guest pointer alignment trap") != ::std::string::npos &&
+           plain_output.find("fd_write.iovs") != ::std::string::npos &&
+           plain_output.find("required alignment = 4 bytes") != ::std::string::npos) [[likely]]
+        {
+            return true;
+        }
+
+        ::std::cerr << "expected a precise WASI guest-pointer alignment diagnostic for " << label << ":\n" << output << '\n';
+        return false;
+    }
+
+    [[nodiscard]] bool run_wasi_alignment_trap_fixture(::std::filesystem::path const& uwvm_path,
+                                                       ::std::filesystem::path const& executable_dir)
+    {
+        auto const wasm_path{llvm_jit_fixture_path(executable_dir, "wasi_misaligned_pointer_start.wasm")};
+        if(!write_fixture(wasm_path, wasi_misaligned_pointer_start_wasm)) [[unlikely]] { return false; }
+
+#ifndef UWVM_DISABLE_INT
+        if(!run_wasi_alignment_trap_command(uwvm_path, wasm_path, "-Rint", ".int-alignment-trap.out", "uwvm-int WASI alignment")) [[unlikely]]
+        {
+            return false;
+        }
+#endif
+        return run_wasi_alignment_trap_command(uwvm_path,
+                                               wasm_path,
+                                               "-Raot -Rllvm-cache-path disable",
+                                               ".aot-alignment-trap.out",
+                                               "LLVM AOT WASI alignment");
+    }
+
     [[nodiscard]] bool run_wasm1p1_tiered_matrix(::std::filesystem::path const& uwvm_path,
                                                  ::std::filesystem::path const& wasm_path,
                                                  ::std::string_view extra_args)
@@ -859,6 +920,7 @@ int main(int argc, char** argv)
     if(!run_fixture(uwvm_path, executable_dir, "select_start.wasm", select_start_wasm)) [[unlikely]] { return 1; }
     if(!run_overlong_blocktype_failure(uwvm_path, executable_dir)) [[unlikely]] { return 1; }
     if(!run_fixture(uwvm_path, executable_dir, "unaligned_memory_start.wasm", unaligned_memory_start_wasm)) [[unlikely]] { return 1; }
+    if(!run_wasi_alignment_trap_fixture(uwvm_path, executable_dir)) [[unlikely]] { return 1; }
     if(!run_fixture(uwvm_path,
                     executable_dir,
                     "wasm1p1_scalar_start.wasm",
