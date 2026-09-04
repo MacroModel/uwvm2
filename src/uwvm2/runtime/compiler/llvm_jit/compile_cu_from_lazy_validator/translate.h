@@ -32,6 +32,7 @@
 # include <limits>
 # include <memory>
 # include <string>
+# include <type_traits>
 # include <utility>
 // macro
 # include <uwvm2/utils/macro/push_macros.h>
@@ -788,45 +789,477 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
             all_details::validation_module_traits_t::wasm_u32& table_index) noexcept
         {
             auto const policy{get_call_indirect_scan_policy(validator_feature_parameter)};
-            // The scanner caller has already consumed and validated the opcode/type-index prefix; this wrapper commits
-            // only the trailing immediate. On success the complete trailing immediate has been consumed:
+            // The scanner caller has already consumed and decoded the opcode/type-index prefix. At entry, the trailing
+            // immediate may already be section_end:
+            // call_indirect type_index table_index ...
+            // [          safe        ] unsafe (could be the section_end)
+            //                          ^^ code_curr
+            // On success the complete trailing immediate has been consumed:
             // call_indirect type_index table_index ...
             // [                safe              ] unsafe (could be the section_end)
             //                                      ^^ code_curr
-            // On failure the shared decoder leaves code_curr at its original trailing-immediate position.
+            // This wrapper commits only that complete trailing immediate. On failure the shared decoder leaves code_curr
+            // at the entry position above and leaves table_index unchanged.
             return ::uwvm2::parser::wasm::standard::wasm1p1::features::parse_call_indirect_trailing_immediate(
                 code_curr, code_end, policy.mvp_reserved_byte, table_index);
         }
 
-        // Advances over one Wasm instruction while scanning for direct `call` opcodes.  Structured control opcodes need
-        // special handling because their block-result immediate is parsed by a different helper.  On failure code_curr
-        // may already be past the opcode and a validated immediate prefix; this scanner does not restore instruction start.
-        [[nodiscard]] inline constexpr bool skip_wasm_instruction_for_direct_call_scan(runtime_module_storage_t const& curr_module,
-                                                                                       ::std::byte const*& code_curr,
-                                                                                       ::std::byte const* code_end,
-                                                                                       parser_feature_parameter_t const* validator_feature_parameter) noexcept
+        // Decode one blocktype only far enough to establish its byte boundary. Direct value forms are literal one-byte
+        // alternatives; the remaining grammar is a non-negative s33 type index. Runtime type-section bounds belong to
+        // validation and are deliberately not consulted by this raw-body scanner. Failure leaves code_curr at entry.
+        [[nodiscard]] inline constexpr bool skip_wasm_blocktype_for_callee_scan(::std::byte const*& code_curr,
+                                                                                ::std::byte const* code_end) noexcept
         {
+            // control_op blocktype ...
+            // [  safe  ] unsafe (could be the section_end)
+            //            ^^ code_curr
+
+            auto cursor{code_curr};
+            auto const blocktype_begin{cursor};
+            ::std::int_least64_t blocktype{};
+            if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, blocktype)) [[unlikely]] { return false; }
+
+            auto const encoded_size{static_cast<::std::size_t>(cursor - blocktype_begin)};
+            if(encoded_size > 5uz) [[unlikely]] { return false; }
+            if(blocktype < 0)
+            {
+                if(encoded_size != 1uz) [[unlikely]] { return false; }
+                switch(blocktype)
+                {
+                    case -64:  // empty
+                    case -1:   // i32
+                    case -2:   // i64
+                    case -3:   // f32
+                    case -4:   // f64
+                    case -5:   // v128
+                    case -16:  // funcref
+                    case -17:  // externref
+                        break;
+                    [[unlikely]] default: return false;
+                }
+            }
+            else if(static_cast<::std::uint_least64_t>(blocktype) >
+                    static_cast<::std::uint_least64_t>((::std::numeric_limits<all_details::validation_module_traits_t::wasm_u32>::max)()))
+                [[unlikely]]
+            {
+                return false;
+            }
+
+            code_curr = cursor;
+
+            // control_op blocktype ...
+            // [       safe       ] unsafe (could be the section_end)
+            //                      ^^ code_curr
+            return true;
+        }
+
+        // Fixed-width fields first prove the complete range. Truncation leaves code_curr at entry.
+        [[nodiscard]] inline constexpr bool skip_wasm_fixed_immediate_for_callee_scan(::std::byte const*& code_curr,
+                                                                                      ::std::byte const* code_end,
+                                                                                      ::std::size_t byte_count) noexcept
+        {
+            // fixed_immediate[byte_count] ...
+            // unsafe (could be the section_end)
+            // ^^ code_curr
+
+            if(static_cast<::std::size_t>(code_end - code_curr) < byte_count) [[unlikely]] { return false; }
+            code_curr += byte_count;
+
+            // instruction fixed_immediate[byte_count] ...
+            // [                safe                 ] unsafe (could be the section_end)
+            //                                         ^^ code_curr
+            return true;
+        }
+
+        // MVP memory instructions and the bulk-memory encodings below use literal reserved zero bytes, not u32 indices.
+        // At entry, the immediate may already be section_end:
+        // reserved_zero ...
+        // unsafe (could be the section_end)
+        // ^^ code_curr
+        // A missing/nonzero byte fails without advancing code_curr. On success:
+        // reserved_zero ...
+        // [   safe    ] unsafe (could be the section_end)
+        //               ^^ code_curr
+        [[nodiscard]] inline constexpr bool parse_wasm_reserved_zero_for_callee_scan(::std::byte const*& code_curr,
+                                                                                     ::std::byte const* code_end) noexcept
+        {
+            if(code_curr == code_end || *code_curr != ::std::byte{}) [[unlikely]] { return false; }
+            ++code_curr;
+            return true;
+        }
+
+        // Both u32 fields are decoded through a local cursor; either failure leaves code_curr at entry.
+        [[nodiscard]] inline constexpr bool skip_wasm_memarg_for_callee_scan(::std::byte const*& code_curr,
+                                                                             ::std::byte const* code_end) noexcept
+        {
+            // alignment offset ...
+            // unsafe (could be the section_end)
+            // ^^ code_curr
+
+            auto cursor{code_curr};
+            all_details::validation_module_traits_t::wasm_u32 alignment{};
+            all_details::validation_module_traits_t::wasm_u32 offset{};
+            if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, alignment) ||
+               !all_details::parse_wasm_leb128_immediate(cursor, code_end, offset)) [[unlikely]]
+            {
+                return false;
+            }
+
+            code_curr = cursor;
+
+            // memory_op alignment offset ...
+            // [          safe          ] unsafe (could be the section_end)
+            //                            ^^ code_curr
+            return true;
+        }
+
+        // Decode the vector immediate of typed select. The binary vector may have any encoded count; the validator owns
+        // the current semantic restriction to exactly one result type. Every element must still be a grammatical valtype.
+        // Count truncation, insufficient remaining bytes, or an invalid valtype leaves code_curr at entry.
+        [[nodiscard]] inline constexpr bool skip_wasm_typed_select_for_callee_scan(::std::byte const*& code_curr,
+                                                                                   ::std::byte const* code_end) noexcept
+        {
+            using wasm_u32 = all_details::validation_module_traits_t::wasm_u32;
+            using value_type = ::uwvm2::parser::wasm::standard::wasm1p1::type::value_type;
+
+            // result_type_count result_type ...
+            // unsafe (could be the section_end)
+            // ^^ code_curr
+
+            auto cursor{code_curr};
+            wasm_u32 result_type_count{};
+            if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, result_type_count)) [[unlikely]] { return false; }
+
+            auto const result_type_count_uz{static_cast<::std::size_t>(result_type_count)};
+            if(static_cast<wasm_u32>(result_type_count_uz) != result_type_count ||
+               result_type_count_uz > static_cast<::std::size_t>(code_end - cursor)) [[unlikely]]
+            {
+                return false;
+            }
+
+            for(::std::size_t i{}; i != result_type_count_uz; ++i)
+            {
+                auto const type_byte{::std::to_integer<::std::uint_least8_t>(cursor[i])};
+                if(!::uwvm2::parser::wasm::standard::wasm1p1::type::is_valid_value_type(static_cast<value_type>(type_byte))) [[unlikely]]
+                {
+                    return false;
+                }
+            }
+            cursor += result_type_count_uz;
+            code_curr = cursor;
+
+            // select_t result_type_count result_type ...
+            // [                safe                ] unsafe (could be the section_end)
+            //                                        ^^ code_curr
+            return true;
+        }
+
+        // Decode one 0xfc instruction. Feature gates and index bounds are semantic checks performed by the validator;
+        // this helper recognizes every retained subopcode and consumes only its binary immediates. Unknown/truncated
+        // subopcodes or immediates leave code_curr at entry.
+        [[nodiscard]] inline constexpr bool skip_wasm_numeric_prefix_for_callee_scan(::std::byte const*& code_curr,
+                                                                                     ::std::byte const* code_end) noexcept
+        {
+            using wasm_u32 = all_details::validation_module_traits_t::wasm_u32;
+            using numeric_code = ::uwvm2::parser::wasm::standard::wasm1p1::opcode::op_numeric;
+
+            // subopcode immediates ...
+            // unsafe (could be the section_end)
+            // ^^ code_curr
+
+            auto cursor{code_curr};
+            wasm_u32 subopcode{};
+            if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, subopcode)) [[unlikely]] { return false; }
+
+            wasm_u32 index{};
+            switch(static_cast<numeric_code>(subopcode))
+            {
+                case numeric_code::i32_trunc_sat_f32_s:
+                case numeric_code::i32_trunc_sat_f32_u:
+                case numeric_code::i32_trunc_sat_f64_s:
+                case numeric_code::i32_trunc_sat_f64_u:
+                case numeric_code::i64_trunc_sat_f32_s:
+                case numeric_code::i64_trunc_sat_f32_u:
+                case numeric_code::i64_trunc_sat_f64_s:
+                case numeric_code::i64_trunc_sat_f64_u: break;
+                case numeric_code::memory_init:
+                    if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, index) ||
+                       !parse_wasm_reserved_zero_for_callee_scan(cursor, code_end)) [[unlikely]]
+                    {
+                        return false;
+                    }
+                    break;
+                case numeric_code::data_drop:
+                case numeric_code::elem_drop:
+                case numeric_code::table_grow:
+                case numeric_code::table_size:
+                case numeric_code::table_fill:
+                    if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, index)) [[unlikely]] { return false; }
+                    break;
+                case numeric_code::memory_copy:
+                    if(!parse_wasm_reserved_zero_for_callee_scan(cursor, code_end) ||
+                       !parse_wasm_reserved_zero_for_callee_scan(cursor, code_end)) [[unlikely]]
+                    {
+                        return false;
+                    }
+                    break;
+                case numeric_code::memory_fill:
+                    if(!parse_wasm_reserved_zero_for_callee_scan(cursor, code_end)) [[unlikely]] { return false; }
+                    break;
+                case numeric_code::table_init:
+                case numeric_code::table_copy:
+                    if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, index) ||
+                       !all_details::parse_wasm_leb128_immediate(cursor, code_end, index)) [[unlikely]]
+                    {
+                        return false;
+                    }
+                    break;
+                [[unlikely]] default: return false;
+            }
+
+            code_curr = cursor;
+
+            // numeric_prefix subopcode immediates ...
+            // [              safe               ] unsafe (could be the section_end)
+            //                                     ^^ code_curr
+            return true;
+        }
+
+        // Decode one 0xfd instruction through the same exhaustive opcode visitor used by LLVM lowering. The visitor
+        // supplies the immediate shape; lane/alignment ranges remain validator semantics and do not affect boundaries.
+        // Unknown/truncated subopcodes or immediates leave code_curr at entry.
+        [[nodiscard]] inline constexpr bool skip_wasm_simd_prefix_for_callee_scan(::std::byte const*& code_curr,
+                                                                                  ::std::byte const* code_end) noexcept
+        {
+            using wasm_u32 = all_details::validation_module_traits_t::wasm_u32;
+            namespace shared_simd = ::uwvm2::runtime::compiler::shared;
+
+            // subopcode immediates ...
+            // unsafe (could be the section_end)
+            // ^^ code_curr
+
+            auto cursor{code_curr};
+            wasm_u32 subopcode{};
+            if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, subopcode)) [[unlikely]] { return false; }
+
+            auto const valid_instruction{shared_simd::visit_wasm1p1_simd_instruction(
+                static_cast<shared_simd::wasm1p1_simd_details::simd_code>(subopcode),
+                [&]<shared_simd::wasm1p1_simd_details::simd_code Op,
+                    shared_simd::wasm1p1_simd_instruction_kind Kind,
+                    shared_simd::wasm1p1_simd_scalar_kind ScalarKind,
+                    ::std::size_t LaneCount,
+                    ::std::uint_least32_t MaxAlign>() constexpr noexcept -> bool
+                {
+                    static_cast<void>(Op);
+                    static_cast<void>(ScalarKind);
+                    static_cast<void>(MaxAlign);
+                    if constexpr(Kind == shared_simd::wasm1p1_simd_instruction_kind::memory_load ||
+                                 Kind == shared_simd::wasm1p1_simd_instruction_kind::memory_store)
+                    {
+                        if(!skip_wasm_memarg_for_callee_scan(cursor, code_end)) [[unlikely]] { return false; }
+                        if constexpr(LaneCount != 0uz)
+                        {
+                            return skip_wasm_fixed_immediate_for_callee_scan(cursor, code_end, 1uz);
+                        }
+                    }
+                    else if constexpr(Kind == shared_simd::wasm1p1_simd_instruction_kind::constant ||
+                                      Kind == shared_simd::wasm1p1_simd_instruction_kind::shuffle)
+                    {
+                        return skip_wasm_fixed_immediate_for_callee_scan(cursor, code_end, 16uz);
+                    }
+                    else if constexpr(Kind == shared_simd::wasm1p1_simd_instruction_kind::extract_lane ||
+                                      Kind == shared_simd::wasm1p1_simd_instruction_kind::replace_lane)
+                    {
+                        return skip_wasm_fixed_immediate_for_callee_scan(cursor, code_end, 1uz);
+                    }
+                    return true;
+                })};
+            if(!valid_instruction) [[unlikely]] { return false; }
+
+            code_curr = cursor;
+
+            // simd_prefix subopcode immediates ...
+            // [             safe             ] unsafe (could be the section_end)
+            //                                  ^^ code_curr
+            return true;
+        }
+
+        // Advance over exactly one raw Wasm instruction while scanning a complete function body. The outer cursor is
+        // committed only after the opcode and all of its immediates have been decoded; malformed or unknown opcodes leave
+        // it at the instruction start so a caller can fail closed without interpreting immediate bytes as opcodes.
+        [[nodiscard]] inline constexpr bool skip_wasm_instruction_for_direct_call_scan(
+            ::std::byte const*& code_curr,
+            ::std::byte const* code_end,
+            parser_feature_parameter_t const* validator_feature_parameter) noexcept
+        {
+            // instruction opcode immediates ...
+            // unsafe (could be the section_end)
+            // ^^ code_curr
+
             if(code_curr == code_end) [[unlikely]] { return false; }
 
-            all_details::wasm1_code op;  // no init necessary
-            ::std::memcpy(::std::addressof(op), code_curr, sizeof(op));
-            switch(op)
+            using wasm1_code = all_details::wasm1_code;
+            using wasm1p1_code = all_details::wasm1p1_code;
+            using wasm_u32 = all_details::validation_module_traits_t::wasm_u32;
+
+            auto cursor{code_curr};
+            auto const opcode{::std::to_integer<::std::uint_least8_t>(*cursor)};
+            ++cursor;
+
+            auto const commit{[&]() constexpr noexcept
+                              {
+                                  code_curr = cursor;
+
+                                  // instruction opcode immediates ...
+                                  // [           safe            ] unsafe (could be the section_end)
+                                  //                               ^^ code_curr
+                                  return true;
+                              }};
+
+            if(opcode >= static_cast<::std::uint_least8_t>(wasm1_code::i32_load) &&
+               opcode <= static_cast<::std::uint_least8_t>(wasm1_code::i64_store32))
             {
-                case all_details::wasm1_code::block:
-                case all_details::wasm1_code::loop:
-                case all_details::wasm1_code::if_:
+                if(!skip_wasm_memarg_for_callee_scan(cursor, code_end)) [[unlikely]] { return false; }
+                return commit();
+            }
+
+            // MVP scalar comparisons, numeric operators, conversions, and reinterpretations are one-byte instructions.
+            if(opcode >= static_cast<::std::uint_least8_t>(wasm1_code::i32_eqz) &&
+               opcode <= static_cast<::std::uint_least8_t>(wasm1_code::f64_reinterpret_i64))
+            {
+                return commit();
+            }
+
+            // The sign-extension proposal adds a contiguous no-immediate range immediately after MVP numeric opcodes.
+            if(opcode >= static_cast<::std::uint_least8_t>(wasm1p1_code::i32_extend8_s) &&
+               opcode <= static_cast<::std::uint_least8_t>(wasm1p1_code::i64_extend32_s))
+            {
+                return commit();
+            }
+
+            switch(opcode)
+            {
+                case static_cast<::std::uint_least8_t>(wasm1_code::unreachable):
+                case static_cast<::std::uint_least8_t>(wasm1_code::nop):
+                case static_cast<::std::uint_least8_t>(wasm1_code::else_):
+                case static_cast<::std::uint_least8_t>(wasm1_code::end):
+                case static_cast<::std::uint_least8_t>(wasm1_code::return_):
+                case static_cast<::std::uint_least8_t>(wasm1_code::drop):
+                case static_cast<::std::uint_least8_t>(wasm1_code::select):
+                case static_cast<::std::uint_least8_t>(wasm1p1_code::ref_is_null): return commit();
+                case static_cast<::std::uint_least8_t>(wasm1_code::block):
+                case static_cast<::std::uint_least8_t>(wasm1_code::loop):
+                case static_cast<::std::uint_least8_t>(wasm1_code::if_):
+                    if(!skip_wasm_blocktype_for_callee_scan(cursor, code_end)) [[unlikely]] { return false; }
+                    return commit();
+                case static_cast<::std::uint_least8_t>(wasm1_code::br):
+                case static_cast<::std::uint_least8_t>(wasm1_code::br_if):
+                case static_cast<::std::uint_least8_t>(wasm1_code::call):
+                case static_cast<::std::uint_least8_t>(wasm1_code::local_get):
+                case static_cast<::std::uint_least8_t>(wasm1_code::local_set):
+                case static_cast<::std::uint_least8_t>(wasm1_code::local_tee):
+                case static_cast<::std::uint_least8_t>(wasm1_code::global_get):
+                case static_cast<::std::uint_least8_t>(wasm1_code::global_set):
+                case static_cast<::std::uint_least8_t>(wasm1p1_code::table_get):
+                case static_cast<::std::uint_least8_t>(wasm1p1_code::table_set):
+                case static_cast<::std::uint_least8_t>(wasm1p1_code::ref_func):
                 {
-                    ++code_curr;
-                    all_details::runtime_block_signature_type block_signature{};
-                    return all_details::parse_wasm_block_signature_type(code_curr, code_end, curr_module, block_signature);
+                    wasm_u32 index{};
+                    if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, index)) [[unlikely]] { return false; }
+                    return commit();
                 }
-                default:
+                case static_cast<::std::uint_least8_t>(wasm1_code::call_indirect):
                 {
-                    auto const policy{get_call_indirect_scan_policy(validator_feature_parameter)};
-                    return all_details::skip_wasm_unreachable_noncontrol_instruction(code_curr,
-                                                                                     code_end,
-                                                                                     policy.mvp_reserved_byte);
+                    // call_indirect type_index table_index ...
+                    // [    safe   ] unsafe (could be the section_end)
+                    //               ^^ cursor
+
+                    wasm_u32 type_index{};
+                    wasm_u32 table_index{};
+                    if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, type_index) ||
+                       !parse_call_indirect_table_index_for_scan(cursor, code_end, validator_feature_parameter, table_index)) [[unlikely]]
+                    {
+                        return false;
+                    }
+
+                    // call_indirect type_index table_index ...
+                    // [                safe              ] unsafe (could be the section_end)
+                    //                                      ^^ cursor
+                    return commit();
                 }
+                case static_cast<::std::uint_least8_t>(wasm1_code::br_table):
+                {
+                    wasm_u32 target_count{};
+                    if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, target_count)) [[unlikely]] { return false; }
+
+                    auto const target_count_uz{static_cast<::std::size_t>(target_count)};
+                    auto const remaining_bytes{static_cast<::std::size_t>(code_end - cursor)};
+                    if(static_cast<wasm_u32>(target_count_uz) != target_count || target_count_uz >= remaining_bytes) [[unlikely]]
+                    {
+                        // Each target and the mandatory default label need at least one byte. This guard also makes
+                        // `target_count + 1` safe in size_t before the bounded decode loop below.
+                        return false;
+                    }
+
+                    auto const label_count{target_count_uz + 1uz};
+                    for(::std::size_t i{}; i != label_count; ++i)
+                    {
+                        wasm_u32 label_index{};
+                        if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, label_index)) [[unlikely]] { return false; }
+                    }
+                    return commit();
+                }
+                case static_cast<::std::uint_least8_t>(wasm1_code::memory_size):
+                case static_cast<::std::uint_least8_t>(wasm1_code::memory_grow):
+                    if(!parse_wasm_reserved_zero_for_callee_scan(cursor, code_end)) [[unlikely]] { return false; }
+                    return commit();
+                case static_cast<::std::uint_least8_t>(wasm1_code::i32_const):
+                {
+                    ::std::int_least32_t immediate{};
+                    if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, immediate)) [[unlikely]] { return false; }
+                    return commit();
+                }
+                case static_cast<::std::uint_least8_t>(wasm1_code::i64_const):
+                {
+                    ::std::int_least64_t immediate{};
+                    if(!all_details::parse_wasm_leb128_immediate(cursor, code_end, immediate)) [[unlikely]] { return false; }
+                    return commit();
+                }
+                case static_cast<::std::uint_least8_t>(wasm1_code::f32_const):
+                {
+                    ::std::uint_least32_t immediate{};
+                    if(!all_details::parse_wasm_little_endian_immediate(cursor, code_end, immediate)) [[unlikely]] { return false; }
+                    return commit();
+                }
+                case static_cast<::std::uint_least8_t>(wasm1_code::f64_const):
+                {
+                    ::std::uint_least64_t immediate{};
+                    if(!all_details::parse_wasm_little_endian_immediate(cursor, code_end, immediate)) [[unlikely]] { return false; }
+                    return commit();
+                }
+                case static_cast<::std::uint_least8_t>(wasm1p1_code::select_t):
+                    if(!skip_wasm_typed_select_for_callee_scan(cursor, code_end)) [[unlikely]] { return false; }
+                    return commit();
+                case static_cast<::std::uint_least8_t>(wasm1p1_code::ref_null):
+                {
+                    using value_type = ::uwvm2::parser::wasm::standard::wasm1p1::type::value_type;
+                    if(cursor == code_end) [[unlikely]] { return false; }
+                    auto const reference_type_byte{::std::to_integer<::std::uint_least8_t>(*cursor)};
+                    auto const reference_type{static_cast<value_type>(reference_type_byte)};
+                    if(!::uwvm2::parser::wasm::standard::wasm1p1::type::is_valid_reference_type(reference_type)) [[unlikely]]
+                    {
+                        return false;
+                    }
+                    ++cursor;
+                    return commit();
+                }
+                case static_cast<::std::uint_least8_t>(wasm1p1_code::numeric_prefix):
+                    if(!skip_wasm_numeric_prefix_for_callee_scan(cursor, code_end)) [[unlikely]] { return false; }
+                    return commit();
+                case static_cast<::std::uint_least8_t>(wasm1p1_code::simd_prefix):
+                    if(!skip_wasm_simd_prefix_for_callee_scan(cursor, code_end)) [[unlikely]] { return false; }
+                    return commit();
+                [[unlikely]] default: return false;
             }
         }
 
@@ -865,8 +1298,21 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                 if(op == all_details::wasm1_code::call)
                 {
                     ++code_curr;
+
+                    // call     func_index ...
+                    // [ safe ] unsafe (could be the section_end)
+                    //          ^^ code_curr
+
                     all_details::validation_module_traits_t::wasm_u32 function_index{};
-                    if(!all_details::parse_wasm_leb128_immediate(code_curr, code_end, function_index)) [[unlikely]] { return false; }
+                    if(!all_details::parse_wasm_leb128_immediate(code_curr, code_end, function_index)) [[unlikely]]
+                    {
+                        // The LEB decoder does not commit a partial field; failure leaves code_curr at func_index above.
+                        return false;
+                    }
+
+                    // call func_index ...
+                    // [      safe   ] unsafe (could be the section_end)
+                    //                 ^^ code_curr
 
                     auto const function_index_uz{static_cast<::std::size_t>(function_index)};
                     if(function_index_uz >= import_count && function_index_uz < all_function_count)
@@ -876,7 +1322,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                     continue;
                 }
 
-                if(!skip_wasm_instruction_for_direct_call_scan(curr_module, code_curr, code_end, validator_feature_parameter)) [[unlikely]]
+                if(!skip_wasm_instruction_for_direct_call_scan(code_curr, code_end, validator_feature_parameter)) [[unlikely]]
                 {
                     return false;
                 }
@@ -938,8 +1384,21 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                 if(op == all_details::wasm1_code::call)
                 {
                     ++code_curr;
+
+                    // call     func_index ...
+                    // [ safe ] unsafe (could be the section_end)
+                    //          ^^ code_curr
+
                     all_details::validation_module_traits_t::wasm_u32 function_index{};
-                    if(!all_details::parse_wasm_leb128_immediate(code_curr, code_end, function_index)) [[unlikely]] { return false; }
+                    if(!all_details::parse_wasm_leb128_immediate(code_curr, code_end, function_index)) [[unlikely]]
+                    {
+                        // The LEB decoder does not commit a partial field; failure leaves code_curr at func_index above.
+                        return false;
+                    }
+
+                    // call func_index ...
+                    // [      safe   ] unsafe (could be the section_end)
+                    //                 ^^ code_curr
 
                     auto const function_index_uz{static_cast<::std::size_t>(function_index)};
                     if(function_index_uz >= import_count && function_index_uz < all_function_count)
@@ -952,6 +1411,11 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                 if(op == all_details::wasm1_code::call_indirect)
                 {
                     ++code_curr;
+
+                    // call_indirect type_index table_index ...
+                    // [    safe   ] unsafe (could be the section_end)
+                    //               ^^ code_curr
+
                     all_details::validation_module_traits_t::wasm_u32 type_index{};
                     all_details::validation_module_traits_t::wasm_u32 table_index{};
                     if(!all_details::parse_wasm_leb128_immediate(code_curr, code_end, type_index) ||
@@ -968,13 +1432,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
 
                     if(static_cast<::std::size_t>(table_index) >= all_table_count) [[unlikely]] { return false; }
                     // Native unwind mode must not discover a table target by entering the lazy raw trampoline from an
-                    // active JIT frame: Rosetta and libunwind may then see only the callee object.  Pre-materialize all
+                    // active JIT frame: a native walk may then see only the callee object. Pre-materialize all
                     // current-module targets of the selected table so call_indirect can take the typed native entry.
                     if(!collect_call_indirect_defined_targets(curr_module, table_index, callees)) [[unlikely]] { return false; }
                     continue;
                 }
 
-                if(!skip_wasm_instruction_for_direct_call_scan(curr_module, code_curr, code_end, validator_feature_parameter)) [[unlikely]]
+                if(!skip_wasm_instruction_for_direct_call_scan(code_curr, code_end, validator_feature_parameter)) [[unlikely]]
                 {
                     return false;
                 }
