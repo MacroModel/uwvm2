@@ -439,6 +439,14 @@ namespace
         validation_error local_storage_error{};
         auto const validation_module{llvm_details::build_runtime_validation_module(*prepared.mod)};
         auto const local_function{llvm_details::get_runtime_local_func_storage(*prepared.mod, 0uz, local_storage_error)};
+        constexpr ::std::size_t call_indirect_opcode_offset{2uz};
+        if(static_cast<::std::size_t>(local_function.code_end - local_function.code_begin) <= call_indirect_opcode_offset ||
+           local_function.code_begin[call_indirect_opcode_offset] != ::std::byte{0x11u})
+        {
+            ::std::fprintf(stderr, "call_indirect_reserved_encoding[%s]: fixture opcode offset mismatch\n", case_name);
+            return 1;
+        }
+        auto const* const call_indirect_opcode{local_function.code_begin + call_indirect_opcode_offset};
         auto const standard_error{validate_standard(validation_module, local_function, policy)};
 #ifndef UWVM_DISABLE_INT
         auto const int_error{validate_uwvm_int(*prepared.mod, policy)};
@@ -452,6 +460,16 @@ namespace
         )
         {
             ::std::fprintf(stderr, "call_indirect_reserved_encoding[%s]: validator result mismatch\n", case_name);
+            return 1;
+        }
+        auto error_cursor_matches{standard_error.err_curr == call_indirect_opcode &&
+                                  llvm_result.error.err_curr == call_indirect_opcode};
+#ifndef UWVM_DISABLE_INT
+        error_cursor_matches = error_cursor_matches && int_error.err_curr == call_indirect_opcode;
+#endif
+        if(expected != error_code::ok && !error_cursor_matches)
+        {
+            ::std::fprintf(stderr, "call_indirect_reserved_encoding[%s]: error cursor is not the opcode\n", case_name);
             return 1;
         }
         if(expected == error_code::ok && !llvm_result.materialized)
