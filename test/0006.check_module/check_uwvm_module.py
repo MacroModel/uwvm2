@@ -17,6 +17,9 @@ Rules:
 - Exported named-module imports must not be hidden behind conditional
   preprocessing. Keep the dependency graph stable and guard declarations in
   the paired implementation header instead.
+- A module unit whose paired header guards declarations with a derived
+  ``UWVM_RUNTIME_*`` backend macro must establish those macros in its own
+  global module fragment. Named-module imports never propagate macros.
 - xmake must not remove frontend module partitions selected by that stable
   dependency graph.
 - Header include order must respect category sequence:
@@ -72,6 +75,11 @@ UWVM_COLOR_MACRO_USE_RE = re.compile(r"\bUWVM_COLOR_[A-Z0-9_]+\b")
 UWVM_COLOR_MACRO_HEADER_RE = re.compile(r"^\s*#\s*include\s*[<\"][^>\"]*uwvm_color_push_macro\.h[>\"]", re.MULTILINE)
 WIN32_TEXT_ATTR_MACRO_USE_RE = re.compile(r"\bUWVM_WIN32_TEXTATTR_[A-Z0-9_]+\b")
 WIN32_TEXT_ATTR_MACRO_HEADER_RE = re.compile(r"^\s*#\s*include\s*[<\"][^>\"]*win32_text_attr_push_macro\.h[>\"]", re.MULTILINE)
+BACKEND_CONFIG_GUARD_RE = re.compile(
+    r"^\s*#\s*(?:if|ifdef|ifndef)\b[^\n]*\b(UWVM_RUNTIME_(?:UWVM_INTERPRETER|LLVM_JIT|HAS_BACKEND))\b",
+    re.MULTILINE,
+)
+RUNTIME_CONFIG_PUSH_HEADER = "uwvm2/uwvm/runtime/macro/push_macros.h"
 WIN32_TEXT_ATTR_PROVIDER_MODULES = frozenset(
     {
         "uwvm2.utils.ansies",
@@ -227,6 +235,46 @@ def find_frontend_module_removals(text: str) -> List[int]:
         for line_number, line in enumerate(text.splitlines(), start=1)
         if FRONTEND_MODULE_REMOVE_RE.search(line) is not None
     ]
+
+
+def find_backend_config_guards(text: str) -> List[str]:
+    """Return derived backend macros used by preprocessing conditionals."""
+    return stable_unique(match.group(1) for match in BACKEND_CONFIG_GUARD_RE.finditer(text))
+
+
+def runtime_config_push_precedes_backend_guards(text: str) -> bool:
+    """Check the runtime macro setup inside a module's global fragment.
+
+    ``UWVM_RUNTIME_*`` is derived from command-line selection macros by this
+    header.  An import cannot supply that macro state, so the include must be
+    before both the named-module declaration and any guarded platform include.
+    """
+    in_global_fragment = False
+    push_line: int | None = None
+    first_guard_line: int | None = None
+
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        if not in_global_fragment:
+            if GLOBAL_MODULE_FRAGMENT_RE.match(line):
+                in_global_fragment = True
+            continue
+        if NAMED_MODULE_DECL_RE.match(line):
+            break
+
+        include_match = INCLUDE_RE.match(line)
+        if (
+            include_match is not None
+            and include_match.group(2).strip() == RUNTIME_CONFIG_PUSH_HEADER
+            and push_line is None
+        ):
+            push_line = line_number
+
+        if BACKEND_CONFIG_GUARD_RE.match(line) is not None and first_guard_line is None:
+            first_guard_line = line_number
+
+    return push_line is not None and (
+        first_guard_line is None or push_line < first_guard_line
+    )
 
 
 def win32_text_attr_provider_precedes_surface(
@@ -598,6 +646,20 @@ def main() -> int:
     for pair in cppm_h_pairs:
         cppm_txt = read_text(pair.a)
         h_txt = read_text(pair.b)
+
+        backend_guards = find_backend_config_guards(h_txt)
+        if backend_guards and not runtime_config_push_precedes_backend_guards(cppm_txt):
+            problems.append(
+                f"[BACKEND MACRO] {pair.a}: paired header uses {', '.join(backend_guards)}, "
+                f"but <{RUNTIME_CONFIG_PUSH_HEADER}> is missing from the global module fragment"
+            )
+
+        cppm_backend_guards = find_backend_config_guards(cppm_txt)
+        if cppm_backend_guards and not runtime_config_push_precedes_backend_guards(cppm_txt):
+            problems.append(
+                f"[BACKEND MACRO] {pair.a}: global module fragment uses {', '.join(cppm_backend_guards)} "
+                f"before including <{RUNTIME_CONFIG_PUSH_HEADER}>"
+            )
 
         imports_cppm = extract_imports_from_cppm_or_module_cpp(cppm_txt)
         dependencies_cppm = imports_cppm + extract_global_fragment_includes(cppm_txt, source_path=pair.a)

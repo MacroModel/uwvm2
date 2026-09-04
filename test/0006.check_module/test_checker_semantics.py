@@ -107,6 +107,46 @@ remove_files("src/uwvm2/uwvm/cmdline/params/runtime_aot.cppm")
             MODULE_CHECKER.find_frontend_module_removals(xmake_text), [2]
         )
 
+    def test_backend_config_guard_is_recognized(self) -> None:
+        header_text = """\
+#if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
+int backend_declaration;
+#endif
+"""
+
+        self.assertEqual(
+            MODULE_CHECKER.find_backend_config_guards(header_text),
+            ["UWVM_RUNTIME_UWVM_INTERPRETER"],
+        )
+
+    def test_runtime_config_push_in_global_fragment_is_legal(self) -> None:
+        module_text = """\
+module;
+#include <uwvm2/uwvm/runtime/macro/push_macros.h>
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+#include <llvm/ExecutionEngine/SectionMemoryManager.h>
+#endif
+export module uwvm2.example;
+"""
+
+        self.assertTrue(
+            MODULE_CHECKER.runtime_config_push_precedes_backend_guards(module_text)
+        )
+
+    def test_runtime_config_push_after_backend_guard_is_rejected(self) -> None:
+        module_text = """\
+module;
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+#include <llvm/ExecutionEngine/SectionMemoryManager.h>
+#endif
+#include <uwvm2/uwvm/runtime/macro/push_macros.h>
+export module uwvm2.example;
+"""
+
+        self.assertFalse(
+            MODULE_CHECKER.runtime_config_push_precedes_backend_guards(module_text)
+        )
+
     def test_additional_direct_module_import_is_legal(self) -> None:
         module_text = """\
 export module uwvm2.example;
