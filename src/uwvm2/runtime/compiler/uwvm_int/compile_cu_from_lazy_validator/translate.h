@@ -737,11 +737,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                                                                    ::std::byte const* code_end,
                                                                    ::std::byte const* op_begin,
                                                                    wasm1_code curr_opbase,
+                                                                   runtime_module_storage_t const& curr_module,
                                                                    parser_feature_parameter_t const& wasm_feature_parameter,
                                                                    ::uwvm2::validation::error::code_validation_error_impl& err) UWVM_THROWS
         {
             // Non-structural immediates are skipped precisely so the scanner can continue finding block/loop/if/else/end opcodes
-            // without performing full stack validation or semantic checks.
+            // without performing full stack validation.  Where this indexing pass can reject an instruction, it preserves the
+            // eager validator's immediate-first semantic diagnostic order.
             /// @warning Extension point: every opcode with immediates must be listed here or lazy structural splitting will desynchronize.
             auto const& wasm1p1_para{::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(wasm_feature_parameter)};
             using wasm2_feature_kind = ::uwvm2::parser::wasm::standard::wasm2::features::wasm2_feature_kind;
@@ -809,7 +811,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                     // [    safe   ] unsafe (could be the section_end)
                     //               ^^ code_curr
 
-                    (void)read_leb128_immediate<wasm_u32>(code_curr, code_end, op_begin, code_validation_error_code::invalid_type_index, err);
+                    auto const type_index{
+                        read_leb128_immediate<wasm_u32>(code_curr, code_end, op_begin, code_validation_error_code::invalid_type_index, err)};
 
                     // call_indirect type_index table_index ...
                     // [          safe        ] unsafe (could be the section_end)
@@ -826,6 +829,26 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                         fail_lazy_split(op_begin, code_validation_error_code::invalid_table_index, err);
                     }
 
+                    // call_indirect type_index table_index ...
+                    // [                safe              ] unsafe (could be the section_end)
+                    //                                      ^^ code_curr
+
+                    // Both immediate fields are now completely decoded.  Match eager uwvm-int/LLVM/AOT for compound-invalid
+                    // operands: type bounds precede the multiple-tables feature gate; table cardinality remains the next check in
+                    // whole-function materialization.  Every semantic failure still identifies the opcode through err_curr.
+                    auto const types_begin{curr_module.type_section_storage.type_section_begin};
+                    auto const types_end{curr_module.type_section_storage.type_section_end};
+                    auto const all_type_count_uz{
+                        (types_begin == nullptr || types_end == nullptr) ? 0uz : static_cast<::std::size_t>(types_end - types_begin)};
+                    if(static_cast<::std::size_t>(type_index) >= all_type_count_uz) [[unlikely]]
+                    {
+                        err.err_curr = op_begin;
+                        err.err_selectable.illegal_type_index.type_index = type_index;
+                        err.err_selectable.illegal_type_index.all_type_count = static_cast<wasm_u32>(all_type_count_uz);
+                        err.err_code = code_validation_error_code::illegal_type_index;
+                        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+                    }
+
                     // Reference Types/Core 2.0 keep the u32 grammar even when policy restricts the decoded value to zero.
                     if(!mvp_reserved_zero_byte && !wasm2_feature_enabled(wasm2_feature_kind::multiple_tables) && table_index != 0u)
                         [[unlikely]]
@@ -838,9 +861,6 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                             ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
                     }
 
-                    // call_indirect type_index table_index ...
-                    // [                safe              ] unsafe (could be the section_end)
-                    //                                      ^^ code_curr
                     return;
                 }
                 case wasm1_code::local_get:
@@ -1671,7 +1691,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::compile_cu_from
                     }
                     default:
                     {
-                        skip_wasm1_non_structural_immediates(code_curr, code_end, op_begin, curr_opbase, wasm_feature_parameter, err);
+                        skip_wasm1_non_structural_immediates(code_curr, code_end, op_begin, curr_opbase, curr_module, wasm_feature_parameter, err);
                         break;
                     }
                 }

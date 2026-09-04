@@ -326,6 +326,15 @@ namespace
                                                                  wasm2_single_table_policy,
                                                                  errc::wasm2_feature_required) == 0);
 
+        // Both immediates are syntactically valid, but typeidx 1 is out of range and tableidx 1 requires multiple tables.
+        // The structured splitter must consume the complete instruction, then report the type error at the opcode before
+        // considering the feature policy, exactly like eager uwvm-int, LLVM, and AOT materialization.
+        UWVM2TEST_REQUIRE(expect_lazy_call_indirect_compile<opt>({0x01u, 0x01u},
+                                                                 true,
+                                                                 u8"uwvm2test_lazy_call_indirect_invalid_type_nonzero_table",
+                                                                 wasm2_single_table_policy,
+                                                                 errc::illegal_type_index) == 0);
+
         // u32 permits at most five bytes and only the low four payload bits in byte five.  Overflow must fail before semantic lookup.
         UWVM2TEST_REQUIRE(expect_lazy_call_indirect_compile<opt>({0x00u, 0xffu, 0xffu, 0xffu, 0xffu, 0x1fu},
                                                                  true,
