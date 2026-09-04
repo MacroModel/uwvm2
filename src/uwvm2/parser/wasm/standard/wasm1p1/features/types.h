@@ -113,14 +113,37 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1::features
 
         auto const reftype{static_cast<::uwvm2::parser::wasm::standard::wasm1p1::type::reference_type>(elemtype)};
         if(!::uwvm2::parser::wasm::standard::wasm1p1::type::is_valid_reference_type(
-               ::uwvm2::parser::wasm::standard::wasm1p1::features::to_value_type(reftype)) ||
-           !::uwvm2::parser::wasm::standard::wasm1p1::features::reference_type_enabled(reftype, fs_para)) [[unlikely]]
+               ::uwvm2::parser::wasm::standard::wasm1p1::features::to_value_type(reftype))) [[unlikely]]
         {
             err.err_curr = section_curr;
             err.err_selectable.wasm1p1_reference_type.value = elemtype;
             err.err_selectable.wasm1p1_reference_type.subject = ::uwvm2::parser::wasm::base::wasm1p1_error_subject::table_type;
             err.err_code = ::uwvm2::parser::wasm::base::wasm_parse_error_code::wasm1p1_invalid_reference_type;
             ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+        }
+
+        using reference_type = ::uwvm2::parser::wasm::standard::wasm1p1::type::reference_type;
+        if(reftype != reference_type::funcref)
+        {
+            auto const& para{::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(fs_para)};
+            if(para.disable_table_instructions) [[unlikely]]
+            {
+                err.err_curr = section_curr;
+                err.err_selectable.wasm2_feature_required.value = elemtype;
+                err.err_selectable.wasm2_feature_required.feature = ::uwvm2::parser::wasm::base::wasm2_feature_kind::table_instructions;
+                err.err_selectable.wasm2_feature_required.subject = ::uwvm2::parser::wasm::base::wasm2_error_subject::table_type;
+                err.err_code = ::uwvm2::parser::wasm::base::wasm_parse_error_code::wasm2_feature_required;
+                ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+            }
+            if(para.disable_reference_types) [[unlikely]]
+            {
+                err.err_curr = section_curr;
+                err.err_selectable.wasm1p1_feature_required.value = elemtype;
+                err.err_selectable.wasm1p1_feature_required.feature = ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::reference_types;
+                err.err_selectable.wasm1p1_feature_required.subject = ::uwvm2::parser::wasm::base::wasm1p1_error_subject::table_type;
+                err.err_code = ::uwvm2::parser::wasm::base::wasm_parse_error_code::wasm1p1_feature_required;
+                ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+            }
         }
 
         table_r.reftype = reftype;

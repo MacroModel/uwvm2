@@ -164,6 +164,21 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1p1::features
         }
     }
 
+    /// @brief Return whether a reference type is legal specifically as a table element type.
+    template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
+    inline constexpr bool table_reference_type_enabled(::uwvm2::parser::wasm::standard::wasm1p1::type::reference_type rt,
+                                                       ::uwvm2::parser::wasm::concepts::feature_parameter_t<Fs...> const& fs_para) noexcept
+    {
+        auto const& para{get_wasm1p1_parameter(fs_para)};
+        switch(rt)
+        {
+            case ::uwvm2::parser::wasm::standard::wasm1p1::type::reference_type::funcref: return true;
+            case ::uwvm2::parser::wasm::standard::wasm1p1::type::reference_type::externref:
+                return !para.disable_reference_types && !para.disable_table_instructions;
+            default: return false;
+        }
+    }
+
     /// @brief Convert a reference type byte into the matching value-type enum used by shared parser storage.
     /// @warning Extension point: new reference_type enumerators must be converted explicitly or validated before reaching shared storage.
     inline constexpr ::uwvm2::parser::wasm::standard::wasm1p1::type::value_type to_value_type(
