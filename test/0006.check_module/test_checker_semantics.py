@@ -71,6 +71,70 @@ class PragmaOnceGuardTests(unittest.TestCase):
 
 
 class ModuleDependencyTests(unittest.TestCase):
+    def test_standard_headers_missing_from_global_fragment_are_reported(self) -> None:
+        self.assertEqual(
+            MODULE_CHECKER.missing_standard_headers(
+                "module;\n#include <cstddef>\nexport module test;\n",
+                "#ifndef UWVM_MODULE\n#include <cstddef>\n#include <cstring>\n"
+                "#include <concepts>\n#endif\n",
+            ),
+            ["concepts", "cstring"],
+        )
+
+    def test_standard_headers_in_global_fragment_are_sufficient(self) -> None:
+        self.assertEqual(
+            MODULE_CHECKER.missing_standard_headers(
+                "module;\n#include <cstring>\n#include <memory>\nexport module test;\n",
+                "#include <cstring>\n#include <cstring>\n",
+            ),
+            [],
+        )
+
+    def test_standard_header_after_named_module_is_not_global(self) -> None:
+        self.assertEqual(
+            MODULE_CHECKER.missing_standard_headers(
+                "module;\nexport module test;\n#include <cstring>\n",
+                "#include <cstring>\n",
+            ),
+            ["cstring"],
+        )
+
+    def test_standard_header_named_import_does_not_satisfy_project_policy(self) -> None:
+        self.assertEqual(
+            MODULE_CHECKER.missing_standard_headers(
+                "export module test;\nimport std;\nimport fast_io;\n",
+                "#include <cstring>\n",
+            ),
+            ["cstring"],
+        )
+
+    def test_standard_header_scan_ignores_comments_and_raw_strings(self) -> None:
+        noise = '/*\n#include <bit>\n*/\nR"tag(\n#include <limits>\n)tag";\n'
+        self.assertEqual(MODULE_CHECKER.missing_standard_headers("", noise), [])
+        self.assertEqual(
+            MODULE_CHECKER.missing_standard_headers(
+                "module;\n" + noise + "export module test;\n", "#include <bit>\n"
+            ),
+            ["bit"],
+        )
+
+    def test_standard_header_scan_ignores_project_and_platform_headers(self) -> None:
+        self.assertEqual(
+            MODULE_CHECKER.missing_standard_headers(
+                "", '#include <sys/mman.h>\n#include <fast_io.h>\n#include "memory"\n'
+            ),
+            [],
+        )
+
+    def test_standard_header_continuations_and_target_branches(self) -> None:
+        self.assertEqual(
+            MODULE_CHECKER.missing_standard_headers(
+                "module;\n#if TARGET\n# include \\\n<cstring>\n#endif\nexport module test;\n",
+                "#if TARGET\n#include <cstring>\n#else\n#include <bit>\n#endif\n",
+            ),
+            ["bit"],
+        )
+
     def test_conditional_export_import_is_reported(self) -> None:
         module_text = """\
 export module uwvm2.example;
