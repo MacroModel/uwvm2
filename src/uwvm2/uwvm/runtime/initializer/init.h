@@ -3600,7 +3600,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::initializer
                     auto const& extra{importsec.importdesc.index_unchecked(idx)};
                     if(extra.empty()) { continue; }
 
-                    ::fast_io::u8string_view const kind_name{idx == importdesc_tag_index ? u8"tag" : u8"unknown"};
+                    auto const kind_name{idx == importdesc_tag_index ? ::fast_io::u8string_view{u8"tag"} : ::fast_io::u8string_view{u8"unknown"}};
 
                     {
                         auto u8log_output_osr{::fast_io::operations::output_stream_ref(::uwvm2::uwvm::io::u8log_output)};
