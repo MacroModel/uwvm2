@@ -391,7 +391,7 @@ namespace
 
     [[nodiscard]] bool flip_context_abi_byte(::std::vector<unsigned char>& bytes)
     {
-        auto const needle{::std::string_view{"uwvm2-runtime-abi-v5"}};
+        auto const needle{::std::string_view{"uwvm2-runtime-abi-v7"}};
         auto const iter{::std::search(bytes.begin(), bytes.end(), needle.begin(), needle.end())};
         if(iter == bytes.end()) { return false; }
         auto const offset{static_cast<::std::size_t>(iter - bytes.begin())};
@@ -639,11 +639,11 @@ namespace
             ::std::cerr << "signed cache integrity setup produced no cache file\n";
             return false;
         }
-        if(!first_cache_context_contains(cache_dir, "uwvm2-runtime-abi-v5") ||
+        if(!first_cache_context_contains(cache_dir, "uwvm2-runtime-abi-v7") ||
            !first_cache_context_contains(cache_dir, "llvm-wasm-typed-result-abi") ||
            !first_cache_context_contains(cache_dir, "void-scalar-tuple-struct-v1"))
         {
-            ::std::cerr << "cache context is missing the v5 typed multi-result ABI fingerprint\n";
+            ::std::cerr << "cache context is missing the v7 native-only typed multi-result ABI fingerprint\n";
             return false;
         }
         if(!expect_clean_cache_hit(uwvm_path, artifact_dir, wasm_path, cache_args, "signed_integrity_clean_hit")) { return false; }
