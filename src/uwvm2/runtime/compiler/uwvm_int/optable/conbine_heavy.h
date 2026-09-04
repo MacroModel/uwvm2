@@ -2104,12 +2104,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
-        constexpr wasm_f32 min_v{static_cast<wasm_f32>(::std::numeric_limits<out_i32_t>::min())};
-        constexpr wasm_f32 max_plus_one{static_cast<wasm_f32>(static_cast<long double>(::std::numeric_limits<out_i32_t>::max()) + 1.0L)};
-
         auto const local_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
         wasm_f32 const x{conbine_details::load_local<wasm_f32>(type...[2u], local_off)};
-        if(!(x >= min_v && x < max_plus_one)) [[unlikely]]
+        if(!details::trunc_float_to_int_s_in_range<out_i32_t>(x)) [[unlikely]]
         {
             if(x != x) [[unlikely]] { UWVM_MUSTTAIL return details::trap_invalid_conversion_to_integer_tail<CompileOption>(type...); }  // NaN
             UWVM_MUSTTAIL return details::trap_integer_overflow_tail<CompileOption>(type...);
@@ -2175,11 +2172,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
-        constexpr wasm_f32 max_plus_one{static_cast<wasm_f32>(static_cast<long double>(::std::numeric_limits<out_u32_t>::max()) + 1.0L)};
-
         auto const local_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
         wasm_f32 const x{conbine_details::load_local<wasm_f32>(type...[2u], local_off)};
-        if(!(x >= static_cast<wasm_f32>(0) && x < max_plus_one)) [[unlikely]]
+        if(!details::trunc_float_to_int_u_in_range<out_u32_t>(x)) [[unlikely]]
         {
             if(x != x) [[unlikely]] { UWVM_MUSTTAIL return details::trap_invalid_conversion_to_integer_tail<CompileOption>(type...); }  // NaN
             UWVM_MUSTTAIL return details::trap_integer_overflow_tail<CompileOption>(type...);
@@ -2245,12 +2240,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
-        constexpr wasm_f64 min_v{static_cast<wasm_f64>(::std::numeric_limits<out_i32_t>::min())};
-        constexpr wasm_f64 max_plus_one{static_cast<wasm_f64>(static_cast<long double>(::std::numeric_limits<out_i32_t>::max()) + 1.0L)};
-
         auto const local_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
         wasm_f64 const x{conbine_details::load_local<wasm_f64>(type...[2u], local_off)};
-        if(!(x >= min_v && x < max_plus_one)) [[unlikely]]
+        if(!details::trunc_float_to_int_s_in_range<out_i32_t>(x)) [[unlikely]]
         {
             if(x != x) [[unlikely]] { UWVM_MUSTTAIL return details::trap_invalid_conversion_to_integer_tail<CompileOption>(type...); }  // NaN
             UWVM_MUSTTAIL return details::trap_integer_overflow_tail<CompileOption>(type...);
@@ -2316,11 +2308,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::uwvm_int::optable
 
         type...[0] += sizeof(uwvm_interpreter_opfunc_t<Type...>);
 
-        constexpr wasm_f64 max_plus_one{static_cast<wasm_f64>(static_cast<long double>(::std::numeric_limits<out_u32_t>::max()) + 1.0L)};
-
         auto const local_off{conbine_details::read_imm<conbine_details::local_offset_t>(type...[0])};
         wasm_f64 const x{conbine_details::load_local<wasm_f64>(type...[2u], local_off)};
-        if(!(x >= static_cast<wasm_f64>(0) && x < max_plus_one)) [[unlikely]]
+        if(!details::trunc_float_to_int_u_in_range<out_u32_t>(x)) [[unlikely]]
         {
             if(x != x) [[unlikely]] { UWVM_MUSTTAIL return details::trap_invalid_conversion_to_integer_tail<CompileOption>(type...); }  // NaN
             UWVM_MUSTTAIL return details::trap_integer_overflow_tail<CompileOption>(type...);
