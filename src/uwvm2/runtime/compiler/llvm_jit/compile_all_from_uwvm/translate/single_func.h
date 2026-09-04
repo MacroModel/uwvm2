@@ -877,9 +877,9 @@ namespace details
         auto const& imported_tables{importsec.importdesc.index_unchecked(1u)};
         auto const imported_table_count{static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>(imported_tables.size())};
         auto const local_table_count{static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>(tablesec.tables.size())};
-        // MVP has at most one table in the core spec, but this runtime storage can still count imported/local table
-        // records.  Reference-types/table proposal work must revisit all_table_count consumers and call_indirect mem/table
-        // immediates together.
+        // Imported and local tables share one index space. Core 1.0/MVP encodes call_indirect's table operand as the
+        // literal reserved byte 0x00; Reference Types/Core 2.0 encode `tableidx ::= u32`. Opcode validation first decodes
+        // that versioned syntax, then applies the enabled multiple-table policy and this combined range.
         auto const all_table_count{static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>(imported_table_count + local_table_count)};
 
         auto const& elemsec{
