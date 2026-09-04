@@ -112,6 +112,16 @@ namespace
         0x00u, 0x6au, 0x41u, 0xf8u, 0x00u, 0x47u, 0x04u, 0x40u, 0x00u, 0x0bu, 0x0bu, 0x0bu,
         0x09u, 0x01u, 0x01u, 0x06u, 0x0au, 0x14u, 0x1eu, 0x28u, 0x32u, 0x3cu};
 
+    // The target of ref.func is declared solely by its function export.  The
+    // reconstructed runtime-validation module must preserve that declaration
+    // before the full backend lowers the instruction.
+    inline constexpr ::std::array<unsigned char, 52uz> wasm1p1_export_declared_ref_func_start_wasm{
+        0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u, 0x01u, 0x04u, 0x01u, 0x60u,
+        0x00u, 0x00u, 0x03u, 0x03u, 0x02u, 0x00u, 0x00u, 0x07u, 0x13u, 0x02u, 0x06u, 0x5fu,
+        0x73u, 0x74u, 0x61u, 0x72u, 0x74u, 0x00u, 0x01u, 0x06u, 0x74u, 0x61u, 0x72u, 0x67u,
+        0x65u, 0x74u, 0x00u, 0x00u, 0x0au, 0x0au, 0x02u, 0x02u, 0x00u, 0x0bu, 0x05u, 0x00u,
+        0xd2u, 0x00u, 0x1au, 0x0bu};
+
     // WebAssembly 1.1 table/reference fixture covering ref.null,
     // ref.is_null, ref.func, table.get/set, table.init/drop/copy/grow/size/fill.
     inline constexpr ::std::array<unsigned char, 181uz> wasm1p1_table_ref_bulk_start_wasm{
@@ -875,6 +885,14 @@ int main(int argc, char** argv)
     }
     if(!run_fixture(uwvm_path,
                     executable_dir,
+                    "wasm1p1_export_declared_ref_func_start.wasm",
+                    wasm1p1_export_declared_ref_func_start_wasm,
+                    wasm1p1_all_runtime_args)) [[unlikely]]
+    {
+        return 1;
+    }
+    if(!run_fixture(uwvm_path,
+                    executable_dir,
                     "wasm1p1_table_ref_bulk_start.wasm",
                     wasm1p1_table_ref_bulk_start_wasm,
                     wasm1p1_all_runtime_args)) [[unlikely]]
@@ -916,6 +934,7 @@ int main(int argc, char** argv)
     if(!run_wasm1p1_policy_matrix(uwvm_path, executable_dir)) [[unlikely]] { return 1; }
     for(auto const file_name: {::std::string_view{"wasm1p1_scalar_edges_start.wasm"},
                                ::std::string_view{"wasm1p1_bulk_memory_start.wasm"},
+                               ::std::string_view{"wasm1p1_export_declared_ref_func_start.wasm"},
                                ::std::string_view{"wasm1p1_table_ref_bulk_start.wasm"},
                                ::std::string_view{"wasm1p1_simd_basic_start.wasm"},
                                ::std::string_view{"wasm1p1_simd_dot_i16x8_wrap_start.wasm"},
