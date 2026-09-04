@@ -945,10 +945,6 @@ namespace uwvm2::runtime::lib
             suppressed_call_stack_frame_t suppressed_call_stack_frame{};
 # if defined(UWVM_RUNTIME_LLVM_JIT)
             ::std::uintptr_t llvm_jit_trap_return_address{};
-#  if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE
-            ::std::uintptr_t llvm_jit_trap_frame_address{};
-            ::std::uintptr_t llvm_jit_trap_stack_pointer{};
-#  endif
             llvm_jit_trap_kind llvm_jit_last_trap_kind{};
 #  if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE
             win64_context_t llvm_jit_win64_trap_caller_context{};
@@ -1022,14 +1018,6 @@ namespace uwvm2::runtime::lib
         // the direct TLS variables are the fast path and should stay visible in preprocessed code.
         [[nodiscard]] UWVM_ALWAYS_INLINE inline constexpr ::std::uintptr_t& get_llvm_jit_trap_return_address() noexcept
         { return get_thread_state().llvm_jit_trap_return_address; }
-
-# if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE
-        [[nodiscard]] UWVM_ALWAYS_INLINE inline constexpr ::std::uintptr_t& get_llvm_jit_trap_frame_address() noexcept
-        { return get_thread_state().llvm_jit_trap_frame_address; }
-
-        [[nodiscard]] UWVM_ALWAYS_INLINE inline constexpr ::std::uintptr_t& get_llvm_jit_trap_stack_pointer() noexcept
-        { return get_thread_state().llvm_jit_trap_stack_pointer; }
-# endif
 
         [[nodiscard]] UWVM_ALWAYS_INLINE inline constexpr llvm_jit_trap_kind& get_llvm_jit_last_trap_kind() noexcept
         { return get_thread_state().llvm_jit_last_trap_kind; }
@@ -1314,32 +1302,6 @@ namespace uwvm2::runtime::lib
         [[maybe_unused]]
 #  endif
         inline thread_local ::std::uintptr_t llvm_jit_trap_return_address{};  // [global] [thread-local]
-# endif
-# if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE && defined(UWVM_USE_THREAD_LOCAL)
-#  if UWVM_HAS_CPP_ATTRIBUTE(__gnu__::__tls_model__)
-#   ifdef UWVM
-        [[__gnu__::__tls_model__("local-exec")]]
-#   else
-        [[__gnu__::__tls_model__("local-dynamic")]]
-#   endif
-#  endif
-#  if UWVM_HAS_CPP_ATTRIBUTE(maybe_unused)
-        [[maybe_unused]]
-#  endif
-        inline thread_local ::std::uintptr_t llvm_jit_trap_frame_address{};  // [global] [thread-local]
-# endif
-# if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE && defined(UWVM_USE_THREAD_LOCAL)
-#  if UWVM_HAS_CPP_ATTRIBUTE(__gnu__::__tls_model__)
-#   ifdef UWVM
-        [[__gnu__::__tls_model__("local-exec")]]
-#   else
-        [[__gnu__::__tls_model__("local-dynamic")]]
-#   endif
-#  endif
-#  if UWVM_HAS_CPP_ATTRIBUTE(maybe_unused)
-        [[maybe_unused]]
-#  endif
-        inline thread_local ::std::uintptr_t llvm_jit_trap_stack_pointer{};  // [global] [thread-local]
 # endif
 # if defined(UWVM_USE_THREAD_LOCAL)
 #  if UWVM_HAS_CPP_ATTRIBUTE(__gnu__::__tls_model__)
@@ -2503,32 +2465,16 @@ namespace uwvm2::runtime::lib
         }
 
 #if defined(UWVM_RUNTIME_LLVM_JIT)
-        inline constexpr void store_llvm_jit_trap_context(llvm_jit_trap_kind k,
-                                                          ::std::uintptr_t return_address,
-                                                          ::std::uintptr_t frame_address = 0u,
-                                                          ::std::uintptr_t stack_pointer = 0u) noexcept
+        inline constexpr void store_llvm_jit_trap_context(llvm_jit_trap_kind k, ::std::uintptr_t return_address) noexcept
         {
-            // Generated code passes just enough native context for later trap reporting. Store it before the generic fatal path runs.
+            // Keep only the context consumed by the portable trap reporter. Win64 caller register state is recorded separately in
+            // llvm_jit_win64_trap_caller_context, where RtlVirtualUnwind can consume it as one coherent CONTEXT snapshot.
 # if defined(UWVM_USE_THREAD_LOCAL)
             llvm_jit_last_trap_kind = k;
             llvm_jit_trap_return_address = return_address;
-#  if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE
-            llvm_jit_trap_frame_address = frame_address;
-            llvm_jit_trap_stack_pointer = stack_pointer;
-#  else
-            static_cast<void>(frame_address);
-            static_cast<void>(stack_pointer);
-#  endif
 # else
             get_llvm_jit_last_trap_kind() = k;
             get_llvm_jit_trap_return_address() = return_address;
-#  if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE
-            get_llvm_jit_trap_frame_address() = frame_address;
-            get_llvm_jit_trap_stack_pointer() = stack_pointer;
-#  else
-            static_cast<void>(frame_address);
-            static_cast<void>(stack_pointer);
-#  endif
 # endif
         }
 
@@ -2680,9 +2626,7 @@ namespace uwvm2::runtime::lib
         {
 # if defined(UWVM_RUNTIME_LLVM_JIT)
             store_llvm_jit_trap_context(::uwvm2::runtime::lib::llvm_jit_trap_kind::memory_out_of_bounds,
-                                        llvm_jit_signal_trap_return_address(memerr.instruction_address),
-                                        memerr.frame_address,
-                                        memerr.stack_pointer);
+                                        llvm_jit_signal_trap_return_address(memerr.instruction_address));
 #  if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE
             store_llvm_jit_win64_trap_caller_context(llvm_jit_signal_trap_return_address(memerr.instruction_address),
                                                      memerr.frame_address,
@@ -13380,10 +13324,9 @@ namespace uwvm2::runtime::lib
 # else
         constexpr ::std::uintptr_t return_address{};
 # endif
-        auto const frame_address{explicit_frame_address};
-        store_llvm_jit_trap_context(k, return_address, frame_address, explicit_stack_pointer);
+        store_llvm_jit_trap_context(k, return_address);
 # if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE
-        store_llvm_jit_win64_trap_caller_context(return_address, frame_address, explicit_stack_pointer);
+        store_llvm_jit_win64_trap_caller_context(return_address, explicit_frame_address, explicit_stack_pointer);
 # endif
         switch(k)
         {
@@ -13465,10 +13408,9 @@ namespace uwvm2::runtime::lib
 # else
         constexpr ::std::uintptr_t return_address{};
 # endif
-        auto const frame_address{explicit_frame_address};
-        store_llvm_jit_trap_context(llvm_jit_trap_kind::memory_out_of_bounds, return_address, frame_address, explicit_stack_pointer);
+        store_llvm_jit_trap_context(llvm_jit_trap_kind::memory_out_of_bounds, return_address);
 # if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE
-        store_llvm_jit_win64_trap_caller_context(return_address, frame_address, explicit_stack_pointer);
+        store_llvm_jit_win64_trap_caller_context(return_address, explicit_frame_address, explicit_stack_pointer);
 # endif
 
         ::uwvm2::object::memory::error::memory_error_t const memerr{
@@ -14138,8 +14080,6 @@ namespace uwvm2::runtime::lib
         llvm_jit_trap_return_address = 0u;
         llvm_jit_last_trap_kind = {};
 # if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE
-        llvm_jit_trap_frame_address = 0u;
-        llvm_jit_trap_stack_pointer = 0u;
         llvm_jit_win64_trap_caller_context = {};
         llvm_jit_win64_trap_caller_context_valid = false;
 # endif
