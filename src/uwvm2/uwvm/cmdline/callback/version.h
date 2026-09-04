@@ -21,9 +21,9 @@
 
 #pragma once
 
-#include <uwvm2/runtime/compiler/llvm_jit/native_unwind_platform.h>
-
 #ifndef UWVM_MODULE
+// platform
+# include <uwvm2/runtime/compiler/llvm_jit/native_unwind_platform.h>
 // std
 # include <cstddef>
 # include <memory>
