@@ -210,6 +210,7 @@ namespace details
         using table_section_storage_t = ::uwvm2::parser::wasm::standard::wasm1::features::table_section_storage_t<Fs...>;
         using memory_section_storage_t = ::uwvm2::parser::wasm::standard::wasm1::features::memory_section_storage_t<Fs...>;
         using global_section_storage_t = ::uwvm2::parser::wasm::standard::wasm1::features::global_section_storage_t<Fs...>;
+        using export_section_storage_t = ::uwvm2::parser::wasm::standard::wasm1::features::export_section_storage_t<Fs...>;
         using element_section_storage_t = ::uwvm2::parser::wasm::standard::wasm1::features::element_section_storage_t<Fs...>;
         using data_section_storage_t = ::uwvm2::parser::wasm::standard::wasm1::features::data_section_storage_t<Fs...>;
         using data_count_section_storage_t = ::uwvm2::parser::wasm::standard::wasm1p1::features::data_count_section_storage_t<Fs...>;
@@ -627,6 +628,8 @@ namespace details
             validation_module.sections)};
         auto& globalsec{::uwvm2::parser::wasm::concepts::operation::get_first_type_in_tuple<validation_module_traits_t::global_section_storage_t>(
             validation_module.sections)};
+        auto& exportsec{::uwvm2::parser::wasm::concepts::operation::get_first_type_in_tuple<validation_module_traits_t::export_section_storage_t>(
+            validation_module.sections)};
         auto& elemsec{::uwvm2::parser::wasm::concepts::operation::get_first_type_in_tuple<validation_module_traits_t::element_section_storage_t>(
             validation_module.sections)};
         auto& datasec{::uwvm2::parser::wasm::concepts::operation::get_first_type_in_tuple<validation_module_traits_t::data_section_storage_t>(
@@ -748,6 +751,18 @@ namespace details
         {
             if(local_global.local_global_type_ptr == nullptr) [[unlikely]] { runtime_storage_bug(); }
             globalsec.local_globals.push_back_unchecked(*local_global.local_global_type_ptr);
+        }
+
+        // Runtime storage keeps the validator's complete declared-ref set, while the original export records are not retained.
+        // Rebuild synthetic function exports so standard validation still recognizes an exported function as declared before
+        // the reduced LLVM backend rejects ref.func through its explicit fail-closed capability preflight.
+        exportsec.exports.reserve(curr_module.declared_ref_funcidx_vec_storage.size());
+        for(auto const function_index: curr_module.declared_ref_funcidx_vec_storage)
+        {
+            exportsec.exports.emplace_back();
+            auto& synthetic_export{exportsec.exports.back_unchecked().exports};
+            synthetic_export.type = validation_module_traits_t::external_types::func;
+            synthetic_export.storage.func_idx = function_index;
         }
 
         elemsec.elems.reserve(curr_module.local_defined_element_vec_storage.size());

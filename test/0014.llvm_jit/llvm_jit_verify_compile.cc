@@ -143,6 +143,16 @@ namespace
         0x74u, 0x61u, 0x72u, 0x74u, 0x00u, 0x00u, 0x0au, 0x07u, 0x01u, 0x05u, 0x00u, 0xd0u,
         0x70u, 0x1au, 0x0bu};
 
+    // The target of ref.func is declared solely by its function export.  The
+    // reconstructed runtime-validation module must preserve that declaration
+    // before the reduced backend rejects ref.func in capability preflight.
+    inline constexpr ::std::array<unsigned char, 52uz> wasm1p1_export_declared_ref_func_start_wasm{
+        0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u, 0x01u, 0x04u, 0x01u, 0x60u,
+        0x00u, 0x00u, 0x03u, 0x03u, 0x02u, 0x00u, 0x00u, 0x07u, 0x13u, 0x02u, 0x06u, 0x5fu,
+        0x73u, 0x74u, 0x61u, 0x72u, 0x74u, 0x00u, 0x01u, 0x06u, 0x74u, 0x61u, 0x72u, 0x67u,
+        0x65u, 0x74u, 0x00u, 0x00u, 0x0au, 0x0au, 0x02u, 0x02u, 0x00u, 0x0bu, 0x05u, 0x00u,
+        0xd2u, 0x00u, 0x1au, 0x0bu};
+
     // A minimal table.get body makes the table capability diagnostic
     // independent of the larger table/bulk-memory fixture and pins its exact
     // function-relative instruction offset.
@@ -767,6 +777,16 @@ int main(int argc, char** argv)
                                     wasm1p1_ref_null_start_wasm,
                                     "ref.null has no LLVM lowering",
                                     "function=0, byte-offset=0, opcode=208",
+                                    wasm1p1_all_runtime_args)) [[unlikely]]
+    {
+        return 1;
+    }
+    if(!run_unsupported_aot_fixture(uwvm_path,
+                                    executable_dir,
+                                    "wasm1p1_export_declared_ref_func_start.wasm",
+                                    wasm1p1_export_declared_ref_func_start_wasm,
+                                    "ref.func has no LLVM lowering",
+                                    "function=1, byte-offset=0, opcode=210",
                                     wasm1p1_all_runtime_args)) [[unlikely]]
     {
         return 1;
