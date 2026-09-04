@@ -68,6 +68,10 @@
 # include <uwvm2/imported/wasi/wasip1/feature/feature_push_macro.h>
 # include <uwvm2/uwvm/runtime/macro/push_macros.h>
 
+# if defined(UWVM_RUNTIME_LLVM_JIT)
+#  include "uwvm_runtime_wasm_fp_environment.h"
+# endif
+
 // platform
 // alloca is used for short-lived call-frame and ABI staging buffers. Prefer compiler builtins when available, and include the
 // platform header only for toolchains that need an explicit declaration.
@@ -187,6 +191,24 @@ namespace uwvm2::runtime::lib
 {
     namespace
     {
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+        [[nodiscard]] inline constexpr bool& get_llvm_wasm_fp_environment_active_marker() noexcept;
+#endif
+
+        template <typename Callable>
+        inline void invoke_host_preserving_llvm_wasm_fp_environment(Callable&& callable) noexcept
+        {
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+            // Host code may change rounding, exception masks, or the architecture's FTZ/DAZ controls.  Save and restore
+            // the active Wasm environment around every normal callback return.  A non-local jump across this C++ frame
+            // is outside the embedding contract; fatal Wasm traps terminate the process and do not attempt recovery.
+            ::uwvm2::runtime::lib::details::scoped_llvm_wasm_host_fp_environment_restore fp_environment_guard{
+                get_llvm_wasm_fp_environment_active_marker()};
+            if(!fp_environment_guard.ready()) [[unlikely]] { ::fast_io::fast_terminate(); }
+#endif
+            ::std::forward<Callable>(callable)();
+        }
+
         // Short aliases keep this runtime glue readable. Most code in this file coordinates already-built runtime storage with
         // compiled backends and host ABI buffers rather than implementing wasm semantics directly.
         using wasm_value_type = ::uwvm2::parser::wasm::standard::wasm1::type::value_type;
@@ -677,6 +699,9 @@ namespace uwvm2::runtime::lib
 
             using thread_local_allocator = ::fast_io::native_thread_local_allocator;
             ::uwvm2::utils::container::vector<call_stack_frame, thread_local_allocator> frames{};
+            // The active marker shares whichever per-thread storage backend owns the logical call stack.
+            bool llvm_wasm_fp_environment_active{};
+
 
 #if defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
             // Active only while a tiered raw JIT entry is executing below an interpreter caller. It lives in the same TLS object as
@@ -819,7 +844,10 @@ namespace uwvm2::runtime::lib
         [[nodiscard]] UWVM_ALWAYS_INLINE inline constexpr suppressed_call_stack_frame_t& get_suppressed_call_stack_frame() noexcept
         { return g_suppressed_call_stack_frame; }
 
-        inline constexpr void erase_current_thread_state() noexcept {}
+        inline constexpr void erase_current_thread_state() noexcept
+        {
+            g_call_stack.llvm_wasm_fp_environment_active = false;
+        }
 #else
         // Keep the UWVM_USE_THREAD_LOCAL branch as direct thread_local storage.
         // This map exists only for toolchains/platforms where C++ thread_local is disabled.
@@ -901,6 +929,11 @@ namespace uwvm2::runtime::lib
         { return get_thread_state().suppressed_call_stack_frame; }
 
         inline constexpr void erase_current_thread_state() noexcept { g_thread_states.erase(current_thread_id()); }
+#endif
+
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+        [[nodiscard]] inline constexpr bool& get_llvm_wasm_fp_environment_active_marker() noexcept
+        { return get_call_stack().llvm_wasm_fp_environment_active; }
 #endif
 
 #if defined(UWVM_RUNTIME_LLVM_JIT) && !defined(UWVM_USE_THREAD_LOCAL)
@@ -5592,7 +5625,8 @@ namespace uwvm2::runtime::lib
             // insufficient.
             if(try_prepare_default_global_wasip1_env_fast_path(caller_module_id)) [[likely]]
             {
-                module.call_func_index(function_index, result_buffer, param_buffer);
+                invoke_host_preserving_llvm_wasm_fp_environment(
+                    [&]() noexcept { module.call_func_index(function_index, result_buffer, param_buffer); });
                 return;
             }
 
@@ -5601,12 +5635,14 @@ namespace uwvm2::runtime::lib
 
             if(is_current_wasip1_env_selected(wasip1_env)) [[likely]]
             {
-                module.call_func_index(function_index, result_buffer, param_buffer);
+                invoke_host_preserving_llvm_wasm_fp_environment(
+                    [&]() noexcept { module.call_func_index(function_index, result_buffer, param_buffer); });
                 return;
             }
 
             ::uwvm2::uwvm::imported::wasi::wasip1::storage::scoped_current_wasip1_env_t wasip1_env_guard{wasip1_env};
-            module.call_func_index(function_index, result_buffer, param_buffer);
+            invoke_host_preserving_llvm_wasm_fp_environment(
+                [&]() noexcept { module.call_func_index(function_index, result_buffer, param_buffer); });
         }
 
         inline constexpr void call_capi_with_wasip1_env(capi_function_t const& function,
@@ -5621,7 +5657,7 @@ namespace uwvm2::runtime::lib
 
             if(try_prepare_default_global_wasip1_env_fast_path(caller_module_id)) [[likely]]
             {
-                function.func_ptr(result_buffer, param_buffer);
+                invoke_host_preserving_llvm_wasm_fp_environment([&]() noexcept { function.func_ptr(result_buffer, param_buffer); });
                 return;
             }
 
@@ -5637,11 +5673,11 @@ namespace uwvm2::runtime::lib
                     if(has_target)
                     {
                         ::uwvm2::uwvm::imported::wasi::wasip1::storage::scoped_current_wasip1_target_t wasip1_target_guard{target_kind, target_module_name};
-                        function.func_ptr(result_buffer, param_buffer);
+                        invoke_host_preserving_llvm_wasm_fp_environment([&]() noexcept { function.func_ptr(result_buffer, param_buffer); });
                     }
                     else
                     {
-                        function.func_ptr(result_buffer, param_buffer);
+                        invoke_host_preserving_llvm_wasm_fp_environment([&]() noexcept { function.func_ptr(result_buffer, param_buffer); });
                     }
                 }};
 
@@ -5662,7 +5698,7 @@ namespace uwvm2::runtime::lib
                                                                   ::std::byte* result_buffer,
                                                                   ::std::byte* param_buffer,
                                                                   ::std::size_t) noexcept
-        { module.call_func_index(function_index, result_buffer, param_buffer); }
+        { invoke_host_preserving_llvm_wasm_fp_environment([&]() noexcept { module.call_func_index(function_index, result_buffer, param_buffer); }); }
 
         inline constexpr void call_capi_with_wasip1_env(capi_function_t const& function,
                                                         preload_module_memory_attribute_t const* preload_module_memory_attribute,
@@ -5671,7 +5707,7 @@ namespace uwvm2::runtime::lib
                                                         ::std::size_t caller_module_id) noexcept
         {
             preload_call_context_guard preload_guard{preload_module_memory_attribute, ::std::addressof(function), caller_module_id};
-            function.func_ptr(result_buffer, param_buffer);
+            invoke_host_preserving_llvm_wasm_fp_environment([&]() noexcept { function.func_ptr(result_buffer, param_buffer); });
         }
 #endif
 
@@ -13014,7 +13050,18 @@ namespace uwvm2::runtime::lib
     // =========================================================================
     extern "C++" void full_compile_and_run_main_module(::uwvm2::utils::container::u8string_view main_module_name, full_compile_run_config cfg) noexcept
     {
+        // Declare cleanup before the FP scope: reverse destruction restores the caller-owned FP marker before the
+        // map-backed thread-state node can be erased.
+        struct current_thread_state_erase_guard
+        {
+            inline constexpr ~current_thread_state_erase_guard() noexcept { erase_current_thread_state(); }
+        } thread_state_erase_guard{};
+
 #if defined(UWVM_RUNTIME_LLVM_JIT)
+        ::uwvm2::runtime::lib::details::scoped_llvm_wasm_fp_environment fp_environment_guard{
+            get_llvm_wasm_fp_environment_active_marker(), runtime_compiler_requests_llvm_jit_translation()};
+        if(!fp_environment_guard.ready()) [[unlikely]] { ::fast_io::fast_terminate(); }
+
         auto native_unwind_execution_guard{
             g_runtime.llvm_jit_native_unwind_execution_gate.enter_if(runtime_llvm_jit_unwind_call_stack_requested())};
 #endif
@@ -13131,7 +13178,6 @@ namespace uwvm2::runtime::lib
                                                              param_bytes))
             {
                 ::uwvm2::uwvm::global::record_total_wasm_time_end();
-                erase_current_thread_state();
                 return;
             }
             ::uwvm2::uwvm::global::discard_total_wasm_time_record();
@@ -13203,9 +13249,6 @@ namespace uwvm2::runtime::lib
 # endif
         if(result_bytes != 0uz) { ::std::memcpy(cfg.entry_abi_buffers.result_buffer, host_stack_base, result_bytes); }
 
-        // Currently only main-thread execution exists. Clean up current thread state on exit to avoid state growth and
-        // possible thread-id reuse issues. Do NOT `clear()` here: main-thread exit does not imply other threads exit.
-        erase_current_thread_state();
 #endif
     }
 
@@ -13336,6 +13379,10 @@ namespace uwvm2::runtime::lib
                                                  void const* param_buffer,
                                                  ::std::size_t param_bytes) noexcept
     {
+        ::uwvm2::runtime::lib::details::scoped_llvm_wasm_fp_environment fp_environment_guard{
+            get_llvm_wasm_fp_environment_active_marker()};
+        if(!fp_environment_guard.ready()) [[unlikely]] { ::fast_io::fast_terminate(); }
+
         auto native_unwind_execution_guard{
             g_runtime.llvm_jit_native_unwind_execution_gate.enter_if(runtime_llvm_jit_unwind_call_stack_requested())};
         // External raw calls use explicit ABI byte buffers and a runtime module pointer supplied by the host. The function validates

@@ -37,6 +37,10 @@
 #include <uwvm2/uwvm/runtime/macro/push_macros.h>
 
 // platform
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+# include "uwvm_runtime_wasm_fp_environment.h"
+#endif
+
 #if !UWVM_HAS_BUILTIN(__builtin_alloca) && (defined(_WIN32) && !defined(__WINE__) && !defined(__BIONIC__) && !defined(__CYGWIN__))
 # include <malloc.h>
 #elif !UWVM_HAS_BUILTIN(__builtin_alloca)

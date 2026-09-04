@@ -602,6 +602,11 @@ inline constexpr void apply_llvm_jit_semantic_function_attrs(::llvm::Function& f
     // native target profitability, because Wasm tail-call semantics are represented by separate tail-call proposal opcodes.
     // LLVM exposes this as a string-valued semantic attribute rather than a stable enum attribute on the Function API.
     function.addFnAttr(get_llvm_string_ref(u8"disable-tail-calls"), get_llvm_string_ref(u8"true"));
+
+    // LLVM execution enters with FE_DFL_ENV, and both scalar formats require gradual underflow. State this explicitly
+    // so target lowering cannot inherit a flush-to-zero denormal policy from ambient toolchain defaults.
+    function.addFnAttr(get_llvm_string_ref(u8"denormal-fp-math"), get_llvm_string_ref(u8"ieee,ieee"));
+    function.addFnAttr(get_llvm_string_ref(u8"denormal-fp-math-f32"), get_llvm_string_ref(u8"ieee,ieee"));
 }
 
 // Keep a physical frame pointer in functions that may need to report an exact trap call-site frame.
