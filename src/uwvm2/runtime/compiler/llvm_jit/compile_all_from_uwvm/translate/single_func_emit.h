@@ -6281,11 +6281,28 @@ inline constexpr void push_runtime_local_func_llvm_jit_tuple(
 
     if(current_context.type == llvm_jit_control_context_type::if_then)
     {
-        // An if without an explicit else is valid only for empty result arity in MVP validation.  The missing else edge is
-        // represented by a direct branch from the else block to the end block.
-        if(get_runtime_block_result_count(current_context.result) != 0uz || current_context.else_block == nullptr) [[unlikely]] { return false; }
+        // A missing else is the identity function over the original block parameters. Validation requires the parameter
+        // and result tuples to be identical; check it again at the IR boundary before wiring those captured SSA values
+        // into the false edge's result PHIs.
+        auto const result_count{get_runtime_block_result_count(current_context.result)};
+        if(!runtime_block_result_types_equal(current_context.params, current_context.result) || current_context.entry_params.size() != result_count ||
+           current_context.end_phis.size() != result_count || current_context.else_block == nullptr) [[unlikely]]
+        {
+            return false;
+        }
         if(current_context.is_reachable && !try_emit_runtime_local_func_llvm_jit_branch_to_target(state, branch_target)) [[unlikely]] { return false; }
 
+        for(::std::size_t result_index{}; result_index != result_count; ++result_index)
+        {
+            auto const& false_result{current_context.entry_params.index_unchecked(result_index)};
+            auto false_result_phi{current_context.end_phis.index_unchecked(result_index)};
+            if(false_result.value == nullptr || false_result.type != current_context.result.begin[result_index] || false_result_phi == nullptr ||
+               false_result_phi->getType() != false_result.value->getType()) [[unlikely]]
+            {
+                return false;
+            }
+            false_result_phi->addIncoming(false_result.value, current_context.else_block);
+        }
         ::llvm::IRBuilder<> else_builder(current_context.else_block);
         else_builder.CreateBr(current_context.end_block);
         current_context.end_block_has_incoming = true;
