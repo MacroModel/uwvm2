@@ -27,6 +27,7 @@
 # include <atomic>
 # include <bit>
 # include <concepts>
+# include <coroutine>
 # include <cstddef>
 # include <cstdint>
 # include <cstring>
