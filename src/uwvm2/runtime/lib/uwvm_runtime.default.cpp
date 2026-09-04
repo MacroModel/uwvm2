@@ -4363,6 +4363,7 @@ namespace uwvm2::runtime::lib
 
         [[nodiscard]] inline constexpr bool collect_llvm_jit_lazy_entry_direct_graph_order(runtime_module_storage_t const& runtime_module,
                                                                                            ::std::size_t entry_local_function_index,
+                                                                                           lazy_parser_feature_parameter_t const* validator_feature_parameter,
                                                                                            ::std::size_t graph_budget,
                                                                                            ::uwvm2::utils::container::vector<::std::size_t>& out) noexcept
         {
@@ -4390,7 +4391,8 @@ namespace uwvm2::runtime::lib
                 out.push_back(local_index);
 
                 callees.clear();
-                if(!::uwvm2::runtime::compiler::llvm_jit::compile_cu_from_lazy_validator::collect_direct_defined_callees(runtime_module, local_index, callees))
+                if(!::uwvm2::runtime::compiler::llvm_jit::compile_cu_from_lazy_validator::collect_direct_defined_callees(
+                       runtime_module, local_index, callees, validator_feature_parameter))
                 {
                     continue;
                 }
@@ -4428,7 +4430,11 @@ namespace uwvm2::runtime::lib
 # endif
 
             ::uwvm2::utils::container::vector<::std::size_t> graph_order{};
-            if(!collect_llvm_jit_lazy_entry_direct_graph_order(*rec.runtime_module, entry_local_function_index, background_graph_budget, graph_order))
+            if(!collect_llvm_jit_lazy_entry_direct_graph_order(*rec.runtime_module,
+                                                               entry_local_function_index,
+                                                               rec.llvm_jit_lazy_compile_options.validator_feature_parameter,
+                                                               background_graph_budget,
+                                                               graph_order))
             {
                 return false;
             }
@@ -5217,7 +5223,11 @@ namespace uwvm2::runtime::lib
                 wasm1_code op{};
                 ::std::memcpy(::std::addressof(op), code_curr, sizeof(op));
                 if(op == wasm1_code::loop) { return true; }
-                if(!llvm_lazy::details::skip_wasm_instruction_for_direct_call_scan(*rec.runtime_module, code_curr, code_end)) [[unlikely]] { return false; }
+                if(!llvm_lazy::details::skip_wasm_instruction_for_direct_call_scan(
+                       *rec.runtime_module, code_curr, code_end, rec.llvm_jit_lazy_compile_options.validator_feature_parameter)) [[unlikely]]
+                {
+                    return false;
+                }
             }
             return false;
         }
@@ -5249,7 +5259,11 @@ namespace uwvm2::runtime::lib
                 {
                     if(++fp_ops >= 8uz) { return true; }
                 }
-                if(!llvm_lazy::details::skip_wasm_instruction_for_direct_call_scan(*rec.runtime_module, code_curr, code_end)) [[unlikely]] { return false; }
+                if(!llvm_lazy::details::skip_wasm_instruction_for_direct_call_scan(
+                       *rec.runtime_module, code_curr, code_end, rec.llvm_jit_lazy_compile_options.validator_feature_parameter)) [[unlikely]]
+                {
+                    return false;
+                }
             }
             return false;
         }
@@ -8471,7 +8485,12 @@ namespace uwvm2::runtime::lib
             if(entry_local_index >= local_n) [[unlikely]] { return false; }
 
             ::uwvm2::utils::container::vector<::std::size_t> graph_order{};
-            if(!collect_llvm_jit_lazy_entry_direct_graph_order(*runtime_module, entry_local_index, local_n, graph_order) || graph_order.empty()) [[unlikely]]
+            if(!collect_llvm_jit_lazy_entry_direct_graph_order(*runtime_module,
+                                                               entry_local_index,
+                                                               rec.llvm_jit_lazy_compile_options.validator_feature_parameter,
+                                                               local_n,
+                                                               graph_order) ||
+               graph_order.empty()) [[unlikely]]
             {
                 return false;
             }
