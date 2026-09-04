@@ -42,6 +42,53 @@ assert_no_fail_rows()
         fail "unexpected FAIL row in ${file}"
 }
 
+assert_unique_metadata_keys()
+{
+    local file=$1
+    ! awk -F '\t' 'seen[$1]++ { duplicate = 1 } END { exit !duplicate }' "$file" ||
+        fail "duplicate metadata key in ${file}"
+}
+
+assert_mode_pass_count()
+{
+    local file=$1
+    local mode=$2
+    local expected=$3
+    awk -F '\t' -v mode="$mode" -v expected="$expected" \
+        'NR > 1 && $8 == mode && $15 == "PASS" { count++ } END { exit count != expected }' "$file" ||
+        fail "${file}: ${mode}: expected ${expected} PASS rows"
+}
+
+test_sha256_file()
+{
+    local input=$1
+    if command -v sha256sum >/dev/null 2>&1; then
+        sha256sum -- "$input" | awk '{ print $1; exit }'
+    elif command -v shasum >/dev/null 2>&1; then
+        shasum -a 256 -- "$input" | awk '{ print $1; exit }'
+    else
+        openssl dgst -sha256 <"$input" | awk '{ print $NF; exit }'
+    fi
+}
+
+assert_profile_rejected()
+{
+    local mock_profile=$1
+    local case_name=$2
+    local output="${TEST_TMP}/out-${case_name}"
+    local rc=0
+    set +e
+    PATH="${TEST_TMP}:$PATH" MOCK_PROFILE=$mock_profile "$RUNNER" \
+        --uwvm "$MOCK_UWVM" --wat2wasm "$MOCK_WAT2WASM" --output "$output" \
+        --label "$case_name" --profile ros --modes auto --policies logical \
+        --max-rss-mib 0 --memory-budget-mib 0 >"${TEST_TMP}/${case_name}.log" 2>&1
+    rc=$?
+    set -e
+    [[ $rc == 2 ]] || fail "${case_name}: expected profile rejection exit 2, got ${rc}"
+    grep -q -- '--profile ros does not match the advertised reduced ROS runtime surface' \
+        "${TEST_TMP}/${case_name}.log" || fail "${case_name}: missing precise ROS profile rejection"
+}
+
 MOCK_WAT2WASM="${TEST_TMP}/wat2wasm"
 MOCK_UWVM="${TEST_TMP}/uwvm"
 MOCK_REALPATH="${TEST_TMP}/realpath"
@@ -85,13 +132,19 @@ if [[ ${1:-} == --version ]]; then
     printf 'C Library: glibc\n'
     printf 'WASM Memory Model: Memory Map\n'
     case $profile in
+        full-product|full-product-no-wasm2) printf 'Runtime Compiler: UWVM2-Interpreter, LLVM-JIT\n' ;;
+        ros-product|ros-*-remnant)
+            printf 'Runtime Compiler: UWVM2-Interpreter, LLVM-AOT\n'
+            ;;
         full-live|full-bad|full-aux-authority|full-tiered*|lazy-only) printf 'Runtime Compiler: LLVM-JIT\n' ;;
         int-*) printf 'Runtime Compiler: UWVM2-Interpreter\n' ;;
         *) printf 'Runtime Compiler: LLVM-AOT\n' ;;
     esac
     case $profile in
         full-tiered-native|full-live|full-bad|full-aux-authority) printf 'Call Stack Modes Support: instruction, unwind, unwind-uncheck\n' ;;
-        ros-instruction|full-tiered*|lazy-only) printf 'Call Stack Modes Support: instruction, unwind-uncheck (auxiliary)\n' ;;
+        full-product|full-product-no-wasm2|ros-product|ros-*-remnant|ros-instruction|full-tiered*|lazy-only)
+            printf 'Call Stack Modes Support: instruction, unwind-uncheck (auxiliary)\n'
+            ;;
         auto-none) printf 'Call Stack Modes Support: instruction\n' ;;
     esac
     exit 0
@@ -103,35 +156,61 @@ if [[ ${1:-} == --help && ${2:-} == runtime ]]; then
         printf '%s\n' '--runtime-compile-threads'
         printf '%s\n' '--runtime-compiler-log'
     else
-        if [[ $profile == lazy-only ]]; then
-            printf '%s\n' '--runtime-jit'
-        else
-            printf '%s\n' '--runtime-aot'
-        fi
-        if [[ $profile == full-tiered* ]]; then
-            printf '%s\n' '--runtime-tiered'
-        fi
-        if [[ $profile == full-live || $profile == full-bad || $profile == full-aux-authority ]]; then
-            printf '%s\n' '--runtime-custom-mode'
-            printf '%s\n' '--runtime-custom-compiler'
-        fi
-        if [[ $profile == ros-instruction ]]; then
-            # These longer options must not make the exact --runtime-tiered token
-            # appear advertised in a source-pruned runtime.
-            printf '%s\n' '--runtime-tiered-disable-uwvm-int-lazy-interpreter'
-            printf '%s\n' '--runtime-tiered-disable-llvm-full-jit'
-        fi
+        case $profile in
+            full-product|full-product-no-wasm2)
+                printf '%s\n' '--runtime-int' '--runtime-aot' '--runtime-jit' '--runtime-tiered'
+                printf '%s\n' '--runtime-custom-mode' '--runtime-custom-compiler'
+                printf '%s\n' '--runtime-tiered-disable-uwvm-int-lazy-interpreter'
+                printf '%s\n' '--runtime-tiered-disable-llvm-full-jit'
+                ;;
+            ros-product)
+                printf '%s\n' '--runtime-int' '--runtime-aot'
+                ;;
+            ros-custom-mode-remnant)
+                printf '%s\n' '--runtime-int' '--runtime-aot' '--runtime-custom-mode'
+                ;;
+            ros-custom-compiler-remnant)
+                printf '%s\n' '--runtime-int' '--runtime-aot' '--runtime-custom-compiler'
+                ;;
+            ros-tiered-disable-remnant)
+                printf '%s\n' '--runtime-int' '--runtime-aot'
+                printf '%s\n' '--runtime-tiered-disable-uwvm-int-lazy-interpreter'
+                ;;
+            ros-tiered-disable-t2-remnant)
+                printf '%s\n' '--runtime-int' '--runtime-aot'
+                printf '%s\n' '--runtime-tiered-disable-llvm-full-jit'
+                ;;
+            lazy-only)
+                printf '%s\n' '--runtime-jit'
+                ;;
+            *)
+                printf '%s\n' '--runtime-aot'
+                if [[ $profile == full-tiered* ]]; then printf '%s\n' '--runtime-tiered'; fi
+                if [[ $profile == full-live || $profile == full-bad || $profile == full-aux-authority ]]; then
+                    printf '%s\n' '--runtime-custom-mode' '--runtime-custom-compiler'
+                fi
+                if [[ $profile == ros-instruction ]]; then
+                    # These longer options must not make the exact --runtime-tiered token
+                    # appear advertised in a source-pruned runtime.
+                    printf '%s\n' '--runtime-tiered-disable-uwvm-int-lazy-interpreter'
+                    printf '%s\n' '--runtime-tiered-disable-llvm-full-jit'
+                fi
+                ;;
+        esac
         printf '%s\n' '--runtime-llvm-jit-call-stack'
         case $profile in
             full-tiered-native|full-live|full-bad|full-aux-authority) printf 'Usage: -Rllvm-call-stack [auto|instruction|none|unwind|unwind-uncheck]\n' ;;
-            ros-instruction|full-tiered*|lazy-only) printf 'Usage: -Rllvm-call-stack [auto|instruction|none|unwind-uncheck]\n' ;;
+            full-product|full-product-no-wasm2|ros-product|ros-*-remnant|ros-instruction|full-tiered*|lazy-only)
+                printf 'Usage: -Rllvm-call-stack [auto|instruction|none|unwind-uncheck]\n'
+                ;;
             auto-none) printf 'Usage: -Rllvm-call-stack [auto|instruction|none]\n' ;;
         esac
     fi
     exit 0
 fi
 if [[ ${1:-} == --help && ${2:-} == wasm ]]; then
-    if [[ $profile == int-* || $profile == full-tiered* || $profile == lazy-only ]]; then
+    if [[ $profile == int-* || $profile == full-product || $profile == ros-product || $profile == ros-*-remnant || $profile == full-tiered* || \
+          $profile == lazy-only ]]; then
         printf '%s\n' '--wasm-feature-wasm2'
     else
         printf 'mock wasm help\n'
@@ -143,6 +222,8 @@ policy=auto
 compiler_log=
 wasm=
 int_mode=0
+compile_mode=unknown
+compiler_backend=unknown
 while (($# != 0)); do
     if [[ $profile == int-* && $1 == -Rllvm-* ]]; then
         printf 'int-only mock received forbidden LLVM argument: %s\n' "$1" >&2
@@ -151,7 +232,32 @@ while (($# != 0)); do
     case $1 in
         -Rint)
             int_mode=1
+            compile_mode=auto
+            compiler_backend=int
             shift
+            ;;
+        -Raot)
+            compile_mode=full
+            compiler_backend=jit
+            shift
+            ;;
+        -Rjit)
+            compile_mode=lazy
+            compiler_backend=jit
+            shift
+            ;;
+        -Rtiered)
+            compile_mode=lazy
+            compiler_backend=tiered
+            shift
+            ;;
+        -Rcm)
+            compile_mode=$2
+            shift 2
+            ;;
+        -Rcc)
+            compiler_backend=$2
+            shift 2
             ;;
         -Rllvm-call-stack)
             policy=$2
@@ -176,6 +282,8 @@ if [[ $profile == int-* ]]; then
         printf 'int-only mock did not receive -Rint\n' >&2
         exit 98
     }
+    effective=logical
+elif [[ $compiler_backend == int ]]; then
     effective=logical
 else
     case $profile:$policy in
@@ -239,6 +347,9 @@ else
 
     printf '[llvm-jit-full] optimize-start fn=0 call_stack=%s unwind_backend=%s unwind_check=%s unwind_replace_frames=%s call_stack_frames=%s\n' \
         "$effective" "$backend" "$check" "$replace" "$frames" >>"$compiler_log"
+    if [[ $compiler_backend == jit && $compile_mode == lazy ]]; then
+        printf '[llvm-jit-lazy] compile-end fn=0 cu=0 state=compiled\n' >>"$compiler_log"
+    fi
 fi
 
 fixture=$(basename -- "$wasm")
@@ -305,6 +416,7 @@ run_profile()
     local allow_unsupported=${5:-1}
     local case_name=${6:-$profile}
     local compile_threads=${7:-0}
+    local product_profile=${8:-auto}
     local output="${TEST_TMP}/out-${case_name}"
     local rc=0
     local -a args=(
@@ -312,6 +424,7 @@ run_profile()
         --wat2wasm "$MOCK_WAT2WASM"
         --output "$output"
         --label "$case_name"
+        --profile "$product_profile"
         --modes "$modes"
         --jobs 1
         --compile-threads "$compile_threads"
@@ -341,6 +454,193 @@ run_profile()
 
 [[ -x $RUNNER ]] || fail "runner is not executable: $RUNNER"
 ! grep -Eq 'seeded-libunwind|resolved_jit_caller' "$RUNNER" || fail 'obsolete seeded-unwind requirement remains'
+
+full_product_output=$(run_profile full-product logical,instruction 0 auto 0 full-product-auto 2 auto)
+assert_tsv_value "$full_product_output/metadata.tsv" profile_requested auto
+assert_tsv_value "$full_product_output/metadata.tsv" profile_resolved full
+assert_tsv_value "$full_product_output/metadata.tsv" profile_source capability-auto-full
+grep -q $'^capabilities\t.*custom_mode=1,custom_compiler=1,custom_selectors=1' "$full_product_output/metadata.tsv" ||
+    fail 'Full product did not report both individual custom-selector capabilities'
+assert_tsv_value "$full_product_output/metadata.tsv" selected_modes int-full,int-lazy,llvm-full,llvm-lazy,tiered
+assert_tsv_value "$full_product_output/metadata.tsv" profile_n_a_modes none
+assert_tsv_value "$full_product_output/metadata.tsv" release_qualified true
+assert_tsv_value "$full_product_output/metadata.tsv" release_qualification_reason fail-and-skip-counts-zero-and-pass-count-positive
+assert_tsv_value "$full_product_output/metadata.tsv" result_pass_count 42
+assert_tsv_value "$full_product_output/metadata.tsv" result_fail_count 0
+assert_tsv_value "$full_product_output/metadata.tsv" result_skip_count 0
+assert_tsv_value "$full_product_output/metadata.tsv" result_n_a_count 0
+assert_tsv_value "$full_product_output/metadata.tsv" runner_sha256 "$(test_sha256_file "$RUNNER")"
+assert_tsv_value "$full_product_output/metadata.tsv" uwvm_sha256 "$(test_sha256_file "$MOCK_UWVM")"
+assert_tsv_value "$full_product_output/metadata.tsv" wat2wasm_sha256 "$(test_sha256_file "$MOCK_WAT2WASM")"
+grep -Eq $'^run_started_utc\t[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$' \
+    "$full_product_output/metadata.tsv" || fail 'missing canonical UTC start timestamp'
+grep -Eq $'^run_finished_utc\t[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$' \
+    "$full_product_output/metadata.tsv" || fail 'missing canonical UTC finish timestamp'
+fixture_manifest="$full_product_output/fixture-manifest.tsv"
+[[ $(awk 'END { print NR }' "$fixture_manifest") == 11 ]] || fail 'fixture manifest does not contain exactly ten fixtures plus its header'
+assert_tsv_value "$full_product_output/metadata.tsv" fixture_manifest "$fixture_manifest"
+assert_tsv_value "$full_product_output/metadata.tsv" fixture_manifest_sha256 "$(test_sha256_file "$fixture_manifest")"
+grep -Fq $'wat2wasm_command_template\t' "$full_product_output/metadata.tsv" || fail 'missing wat2wasm command template'
+grep -Fq '%INPUT_WAT% -o %OUTPUT_WASM%' "$full_product_output/metadata.tsv" ||
+    fail 'wat2wasm command template does not identify its input and output operands'
+mvp_source=$(realpath "${SCRIPT_DIR}/../../test/0014.llvm_jit/nontrivial_start.wat")
+mvp_wasm="$full_product_output/fixtures/mvp_smoke.wasm"
+awk -F '\t' -v source="$mvp_source" -v source_sha="$(test_sha256_file "$mvp_source")" \
+    -v wasm="$mvp_wasm" -v wasm_sha="$(test_sha256_file "$mvp_wasm")" \
+    -v tool_sha="$(test_sha256_file "$MOCK_WAT2WASM")" \
+    'NR > 1 && $1 == "mvp_smoke" && $2 == source && $3 == source_sha && $4 == source &&
+        $5 == source_sha && $6 == wasm && $7 == wasm_sha && $9 == tool_sha { found = 1 }
+     END { exit !found }' "$fixture_manifest" || fail 'MVP fixture provenance row is incomplete or incorrect'
+assert_tsv_value "$full_product_output/metadata.tsv" selected_mode_arguments \
+    'int-full=-Rcm full -Rcc int[canonical-explicit];int-lazy=-Rcm lazy -Rcc int[canonical-explicit];llvm-full=-Rcm full -Rcc jit[canonical-explicit];llvm-lazy=-Rcm lazy -Rcc jit[canonical-explicit];tiered=-Rtiered[canonical-retained-alias]'
+assert_unique_metadata_keys "$full_product_output/metadata.tsv"
+assert_mode_pass_count "$full_product_output/results.tsv" int-full 8
+assert_mode_pass_count "$full_product_output/results.tsv" int-lazy 8
+assert_mode_pass_count "$full_product_output/results.tsv" llvm-full 8
+assert_mode_pass_count "$full_product_output/results.tsv" llvm-lazy 8
+assert_mode_pass_count "$full_product_output/results.tsv" tiered 10
+assert_no_fail_rows "$full_product_output/results.tsv"
+grep -Fq -- '-Rcm full -Rcc int -Rct 2' "$full_product_output"/logs/*-int-full-logical-mvp_smoke.log ||
+    fail 'canonical int-full did not use explicit full/int selectors'
+grep -Fq -- '-Rcm lazy -Rcc int -Rct 2' "$full_product_output"/logs/*-int-lazy-logical-mvp_smoke.log ||
+    fail 'canonical int-lazy did not use explicit lazy/int selectors'
+grep -Fq -- '-Rcm full -Rcc jit -Rct 2' "$full_product_output"/logs/*-llvm-full-instruction-mvp_smoke.log ||
+    fail 'canonical llvm-full did not use explicit full/jit selectors'
+grep -Fq -- '-Rcm lazy -Rcc jit -Rct 2' "$full_product_output"/logs/*-llvm-lazy-instruction-mvp_smoke.log ||
+    fail 'canonical llvm-lazy did not use explicit lazy/jit selectors'
+grep -Fq -- '-Rtiered -Rct 2' "$full_product_output"/logs/*-tiered-instruction-mvp_smoke.log ||
+    fail 'canonical tiered did not retain the tiered selector'
+if grep -E -- '-Rllvm-' "$full_product_output"/logs/*-int-{full,lazy}-logical-*.log >/dev/null 2>&1; then
+    fail 'canonical interpreter mode received a forbidden LLVM argument'
+fi
+if grep -Eq $'\t(tiered-no-t0|tiered-no-t2|tiered-no-t0-no-t2)\t' "$full_product_output/results.tsv"; then
+    fail 'Full auto selected a diagnostic tiered variant'
+fi
+
+ros_product_output=$(run_profile ros-product logical,instruction 0 auto 0 ros-product-auto 0 auto)
+assert_tsv_value "$ros_product_output/metadata.tsv" profile_requested auto
+assert_tsv_value "$ros_product_output/metadata.tsv" profile_resolved ros
+assert_tsv_value "$ros_product_output/metadata.tsv" profile_source capability-auto-ros
+grep -q $'^capabilities\t.*custom_mode=0,custom_compiler=0,custom_selectors=0' "$ros_product_output/metadata.tsv" ||
+    fail 'ROS product did not report both custom selectors as source-pruned'
+assert_tsv_value "$ros_product_output/metadata.tsv" selected_modes int-full,llvm-full
+assert_tsv_value "$ros_product_output/metadata.tsv" release_qualified true
+assert_tsv_value "$ros_product_output/metadata.tsv" result_pass_count 16
+assert_tsv_value "$ros_product_output/metadata.tsv" result_fail_count 0
+assert_tsv_value "$ros_product_output/metadata.tsv" result_n_a_count 3
+assert_tsv_value "$ros_product_output/metadata.tsv" profile_n_a_modes \
+    int-lazy,llvm-lazy,tiered,full,lazy,tiered-no-t0,tiered-no-t2,tiered-no-t0-no-t2
+assert_tsv_value "$ros_product_output/metadata.tsv" selected_mode_arguments \
+    'int-full=-Rint[canonical-ros-alias];llvm-full=-Raot[canonical-ros-alias]'
+assert_unique_metadata_keys "$ros_product_output/metadata.tsv"
+assert_mode_pass_count "$ros_product_output/results.tsv" int-full 8
+assert_mode_pass_count "$ros_product_output/results.tsv" llvm-full 8
+awk -F '\t' 'NR > 1 && $15 == "N-A" { count++ } END { exit count != 3 }' "$ros_product_output/results.tsv" ||
+    fail 'ROS auto did not record the three source-pruned product modes as N-A'
+assert_no_fail_rows "$ros_product_output/results.tsv"
+grep -Fq -- '-Rint -Rct 0' "$ros_product_output"/logs/*-int-full-logical-mvp_smoke.log ||
+    fail 'ROS canonical int-full did not map to the retained -Rint alias'
+grep -Fq -- '-Raot -Rct 0' "$ros_product_output"/logs/*-llvm-full-instruction-mvp_smoke.log ||
+    fail 'ROS canonical llvm-full did not map to the retained -Raot alias'
+if grep -R -E -- '-Rcm|-Rcc|-Rjit|-Rtiered' "$ros_product_output/logs" >/dev/null 2>&1; then
+    fail 'ROS product auto used a source-pruned runtime selector'
+fi
+
+ros_na_output=$(run_profile ros-product logical,instruction 1 int-lazy,llvm-lazy,tiered,full,lazy 0 ros-product-n-a 0 ros)
+awk -F '\t' 'NR > 1 && $15 == "N-A" { count++ } END { exit count != 5 }' "$ros_na_output/results.tsv" ||
+    fail 'ROS removed-mode request did not produce five N-A rows'
+if awk -F '\t' 'NR > 1 && ($11 != "capability" || $15 != "N-A") { bad = 1 } END { exit bad }' \
+    "$ros_na_output/results.tsv"; then :; else
+    fail 'ROS removed-mode matrix produced a non-capability or non-N-A row'
+fi
+if find "$ros_na_output/logs" -maxdepth 1 -type f \
+    \( -name '*int-lazy*' -o -name '*llvm-lazy*' -o -name '*tiered-*' -o -name '*-full-*' -o -name '*-lazy-*' \) \
+    -print -quit | grep -q .; then
+    fail 'ROS source-pruned mode unexpectedly launched a fixture'
+fi
+assert_tsv_value "$ros_na_output/metadata.tsv" result_pass_count 0
+assert_tsv_value "$ros_na_output/metadata.tsv" result_fail_count 0
+assert_tsv_value "$ros_na_output/metadata.tsv" result_n_a_count 5
+assert_tsv_value "$ros_na_output/metadata.tsv" release_qualified false
+assert_tsv_value "$ros_na_output/metadata.tsv" release_qualification_reason no-passing-executed-case
+
+ros_na_allowed_output=$(run_profile ros-product logical,instruction 1 int-lazy,llvm-lazy,tiered,full,lazy 1 ros-product-n-a-allowed 0 ros)
+awk -F '\t' 'NR > 1 && $15 == "N-A" { count++ } END { exit count != 5 }' "$ros_na_allowed_output/results.tsv" ||
+    fail '--allow-unsupported changed ROS N-A classification'
+assert_tsv_value "$ros_na_allowed_output/metadata.tsv" release_qualified false
+
+product_all_skip_output=$(run_profile full-product instruction 1 int-full 1 full-product-all-skip 0 full)
+grep -q $'\tint-full\tinstruction\t-\tcapability\tcapability\tan applicable policy\t-\tSKIP\t' \
+    "$product_all_skip_output/results.tsv" || fail 'product all-SKIP setup did not produce its expected SKIP row'
+assert_tsv_value "$product_all_skip_output/metadata.tsv" result_pass_count 0
+assert_tsv_value "$product_all_skip_output/metadata.tsv" result_fail_count 0
+assert_tsv_value "$product_all_skip_output/metadata.tsv" result_skip_count 1
+assert_tsv_value "$product_all_skip_output/metadata.tsv" release_qualified false
+assert_tsv_value "$product_all_skip_output/metadata.tsv" release_qualification_reason skip-count-nonzero
+
+product_mixed_skip_output=$(run_profile full-product-no-wasm2 logical,instruction 1 auto 1 full-product-mixed-skip 2 full)
+awk -F '\t' 'NR > 1 && $15 == "PASS" { count++ } END { exit count == 0 }' "$product_mixed_skip_output/results.tsv" ||
+    fail 'product mixed-SKIP setup did not execute any passing cases'
+awk -F '\t' 'NR > 1 && $15 == "SKIP" { count++ } END { exit count == 0 }' "$product_mixed_skip_output/results.tsv" ||
+    fail 'product mixed-SKIP setup did not produce an unsupported-policy SKIP'
+assert_tsv_value "$product_mixed_skip_output/metadata.tsv" result_fail_count 0
+assert_tsv_value "$product_mixed_skip_output/metadata.tsv" release_qualified false
+assert_tsv_value "$product_mixed_skip_output/metadata.tsv" release_qualification_reason skip-count-nonzero
+
+assert_profile_rejected ros-custom-mode-remnant ros-custom-mode-remnant-rejected
+assert_profile_rejected ros-custom-compiler-remnant ros-custom-compiler-remnant-rejected
+assert_profile_rejected ros-tiered-disable-remnant ros-tiered-disable-remnant-rejected
+assert_profile_rejected ros-tiered-disable-t2-remnant ros-tiered-disable-t2-remnant-rejected
+
+legacy_int_output=$(run_profile full-product logical 0 int 0 legacy-int 0 full)
+grep -Fq -- '-Rint -Rct 0' "$legacy_int_output"/logs/*-int-logical-mvp_smoke.log ||
+    fail 'legacy int alias changed arguments'
+if grep -E -- '-Rcm|-Rcc' "$legacy_int_output"/logs/*-int-logical-mvp_smoke.log >/dev/null 2>&1; then
+    fail 'legacy int alias was silently canonicalized'
+fi
+printf 'stale fixture that must never be reused' >"$legacy_int_output/fixtures/mvp_smoke.wasm"
+legacy_int_rebuilt_output=$(run_profile full-product logical 0 int 0 legacy-int 0 full)
+[[ $legacy_int_rebuilt_output == "$legacy_int_output" ]] || fail 'fixture rebuild check unexpectedly changed output directory'
+[[ ! -s $legacy_int_rebuilt_output/fixtures/mvp_smoke.wasm ]] ||
+    fail 'newer stale fixture was reused instead of being deterministically rebuilt'
+assert_tsv_value "$legacy_int_rebuilt_output/metadata.tsv" fixture_manifest_sha256 \
+    "$(test_sha256_file "$legacy_int_rebuilt_output/fixture-manifest.tsv")"
+legacy_aot_output=$(run_profile full-product instruction 0 aot 0 legacy-aot 0 full)
+grep -Fq -- '-Raot -Rct 0' "$legacy_aot_output"/logs/*-aot-instruction-mvp_smoke.log ||
+    fail 'legacy aot alias changed arguments'
+legacy_full_output=$(run_profile full-product instruction 0 full 0 legacy-full 0 full)
+grep -Fq -- '-Rcm full -Rcc jit -Rct 0' "$legacy_full_output"/logs/*-full-instruction-mvp_smoke.log ||
+    fail 'legacy full alias changed arguments'
+legacy_lazy_output=$(run_profile full-product instruction 0 lazy 0 legacy-lazy 0 full)
+grep -Fq -- '-Rjit -Rct 0' "$legacy_lazy_output"/logs/*-lazy-instruction-mvp_smoke.log ||
+    fail 'legacy lazy alias changed arguments'
+if grep -E -- '-Rcm|-Rcc' "$legacy_lazy_output"/logs/*-lazy-instruction-mvp_smoke.log >/dev/null 2>&1; then
+    fail 'legacy lazy alias was silently canonicalized'
+fi
+
+broken_canonical_output=$(run_profile full-live logical 1 int-lazy 0 broken-canonical)
+grep -q $'\tint-lazy\t-\t-\tcapability\tcapability\tsupported\t-\tFAIL\trequested runtime mode is not advertised' \
+    "$broken_canonical_output/results.tsv" || fail 'unknown/broken Full mode was incorrectly classified N-A'
+
+legacy_int_full_output=$(run_profile int-only logical 1 int-full 0 legacy-int-full-rejected)
+grep -q $'\tint-full\t-\t-\tcapability\tcapability\tsupported\t-\tFAIL\trequested runtime mode is not advertised' \
+    "$legacy_int_full_output/results.tsv" || fail 'canonical int-full fell back to the legacy -Rint auto selector'
+if find "$legacy_int_full_output/logs" -maxdepth 1 -type f -name '*int-full*' -print -quit | grep -q .; then
+    fail 'unsupported canonical int-full unexpectedly launched a fixture'
+fi
+
+conflict_output="${TEST_TMP}/out-canonical-conflict"
+set +e
+PATH="${TEST_TMP}:$PATH" MOCK_PROFILE=full-product "$RUNNER" \
+    --uwvm "$MOCK_UWVM" --wat2wasm "$MOCK_WAT2WASM" --output "$conflict_output" \
+    --label canonical-conflict --profile full --modes int-full --policies logical \
+    --uwvm-arg -Rcm --uwvm-arg lazy --max-rss-mib 0 --memory-budget-mib 0 \
+    >"${TEST_TMP}/canonical-conflict.log" 2>&1
+conflict_rc=$?
+set -e
+[[ $conflict_rc == 2 ]] || fail "canonical selector conflict: expected exit 2, got ${conflict_rc}"
+grep -q 'canonical modes reject a conflicting --uwvm-arg runtime selector: -Rcm' \
+    "${TEST_TMP}/canonical-conflict.log" || fail 'canonical selector conflict lacked a precise diagnostic'
 
 int_output=$(run_profile int-only default 0 auto 0 int-only-default)
 assert_tsv_value "$int_output/metadata.tsv" selected_modes int
@@ -373,6 +673,8 @@ grep -q $'\tint\tinstruction\t-\tcapability\tcapability\tan applicable policy\t-
 int_skip_output=$(run_profile int-only instruction 0 int 1 int-only-instruction-skip)
 grep -q $'\tint\tinstruction\t-\tcapability\tcapability\tan applicable policy\t-\tSKIP\tinterpreter mode requires the logical policy' \
     "$int_skip_output/results.tsv" || fail 'allowed int/instruction mismatch was not reported as SKIP'
+assert_tsv_value "$int_skip_output/metadata.tsv" profile_resolved legacy
+assert_tsv_value "$int_skip_output/metadata.tsv" release_qualified not-applicable
 assert_no_fail_rows "$int_skip_output/results.tsv"
 
 llvm_skip_output=$(run_profile full-live logical 0 full 1 full-logical-skip)

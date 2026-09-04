@@ -26,6 +26,10 @@ Target execution:
                                 useful when an argument contains whitespace.
   --uwvm-arg <arg>              Add one uwvm argument before --run. Repeatable.
   --label <name>                Platform/build label used in TSV output.
+  --profile <auto|full|ros>     Product surface used by canonical mode names.
+                                auto recognizes a complete Full or reduced ROS
+                                command surface and otherwise preserves legacy
+                                capability selection. Default: auto.
 
 Fixture and output:
   --wat2wasm <path>             Existing wat2wasm. Defaults to WAT2WASM, PATH,
@@ -37,9 +41,12 @@ Fixture and output:
                                 single-thread-alloc are accepted.
 
 Matrix and resource controls:
-  --modes <csv|auto>            Runtime modes to exercise. Default: auto, which
-                                selects only modes advertised by the target.
-                                Explicit values: int, aot, full, lazy, tiered,
+  --modes <csv|auto>            Runtime modes to exercise. Canonical values are
+                                int-full, int-lazy, llvm-full, llvm-lazy, and
+                                tiered. Full auto selects those five; ROS auto
+                                selects int-full and llvm-full. Legacy int,
+                                aot, full, and lazy aliases remain unchanged.
+                                Explicit diagnostic values also include
                                 tiered-no-t0, tiered-no-t2, and
                                 tiered-no-t0-no-t2.
   --policies <csv>              logical, instruction, auto, unwind, and
@@ -65,12 +72,13 @@ Matrix and resource controls:
                                 SKIP instead of FAIL.
   -h, --help                    Show this help.
 
-Auto mode selection adds int (-Rint) when advertised, prefers full
-(-Rcm full -Rcc jit) over its aot shorthand (-Raot), then adds each advertised
-lazy/tiered variant. Missing source-pruned modes are recorded in metadata rather
-than treated as failures. Normal fixtures must exit zero. Trap fixtures must
-exit nonzero and report the exact Wasm trap kind. Metadata, results.tsv, and
-per-run logs are written below build/test by default.
+Canonical Full modes use explicit -Rcm/-Rcc pairs, so -Rint's automatic compile
+mode can never be mistaken for int-full. Canonical ROS int-full and llvm-full
+map to the retained -Rint and -Raot aliases; removed ROS modes are N-A and are
+never executed. Legacy aliases keep their old argument spelling and selection
+semantics. Normal fixtures must exit zero. Trap fixtures must exit nonzero and
+report the exact Wasm trap kind. Metadata, results.tsv, and per-run logs are
+written below build/test by default.
 The tiered_full_ready_oob case checks publication/readiness and the trap only;
 its PASS explicitly retains t2_entry_execution=unverified. It uses instruction
 or auto resolved to instruction, since native unwind disables background T2.
@@ -92,6 +100,7 @@ UWVM=
 WAT2WASM_BIN=${WAT2WASM:-}
 OUTPUT_DIR=
 LABEL=
+PROFILE_REQUESTED=${UWVM_QEMU_PROFILE:-auto}
 EXPECT_MEMORY_MODEL=
 MODE_CSV=${UWVM_QEMU_MODES:-auto}
 POLICY_CSV=logical,instruction,auto,unwind,unwind-uncheck
@@ -140,6 +149,11 @@ while (($# != 0)); do
         --label)
             (($# >= 2)) || die "--label requires a value"
             LABEL=$2
+            shift 2
+            ;;
+        --profile)
+            (($# >= 2)) || die "--profile requires auto, full, or ros"
+            PROFILE_REQUESTED=$2
             shift 2
             ;;
         --expect-memory-model)
@@ -203,6 +217,10 @@ done
 (($# == 0)) || die "unexpected positional arguments: $*"
 [[ -n $UWVM ]] || die "--uwvm is required"
 [[ -f $UWVM ]] || die "uwvm binary does not exist: $UWVM"
+case $PROFILE_REQUESTED in
+    auto|full|ros) ;;
+    *) die "--profile must be auto, full, or ros: $PROFILE_REQUESTED" ;;
+esac
 
 for numeric in "$JOBS" "$COMPILE_THREADS" "$TIMEOUT_SECONDS" "$MAX_RSS_MIB" "$MEMORY_BUDGET_MIB"; do
     is_uint "$numeric" || die "resource-control values must be non-negative integers"
@@ -240,6 +258,7 @@ fi
 
 UWVM=$(realpath -m -- "$UWVM")
 WAT2WASM_BIN=$(realpath -m -- "$WAT2WASM_BIN")
+RUNNER_PATH=$(realpath -m -- "${BASH_SOURCE[0]}")
 
 if [[ -z $LABEL ]]; then
     LABEL=$(basename -- "$(dirname -- "$UWVM")")
@@ -263,8 +282,45 @@ FIXTURE_DIR="${OUTPUT_DIR}/fixtures"
 FRAGMENT_DIR="${OUTPUT_DIR}/.result-fragments"
 RESULTS_TSV="${OUTPUT_DIR}/results.tsv"
 METADATA_TSV="${OUTPUT_DIR}/metadata.tsv"
+FIXTURE_MANIFEST_TSV="${OUTPUT_DIR}/fixture-manifest.tsv"
 mkdir -p -- "$LOG_DIR" "$FIXTURE_DIR" "$FRAGMENT_DIR"
 find "$FRAGMENT_DIR" -maxdepth 1 -type f -name '*.tsv' -delete
+
+SHA256_TOOL=
+if command -v sha256sum >/dev/null 2>&1; then
+    SHA256_TOOL=sha256sum
+elif command -v shasum >/dev/null 2>&1; then
+    SHA256_TOOL=shasum
+elif command -v openssl >/dev/null 2>&1; then
+    SHA256_TOOL=openssl
+else
+    die "SHA-256 tool not found (tried sha256sum, shasum, and openssl)"
+fi
+
+sha256_file()
+{
+    local input=$1
+    local digest=
+    case $SHA256_TOOL in
+        sha256sum) digest=$(sha256sum -- "$input" | awk '{ print $1; exit }') ;;
+        shasum) digest=$(shasum -a 256 -- "$input" | awk '{ print $1; exit }') ;;
+        openssl) digest=$(openssl dgst -sha256 <"$input" | awk '{ print $NF; exit }') ;;
+        *) die "internal invalid SHA-256 tool: $SHA256_TOOL" ;;
+    esac
+    [[ $digest =~ ^[[:xdigit:]]{64}$ ]] || die "failed to compute SHA-256 for $input"
+    printf '%s' "$digest"
+}
+
+clean_field()
+{
+    local value=$1
+    value=${value//$'\t'/ }
+    value=${value//$'\r'/ }
+    value=${value//$'\n'/ }
+    printf '%s' "$value"
+}
+
+RUN_STARTED_UTC=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
 
 RUN_RC=0
 RUN_PEAK_RSS_KIB=0
@@ -464,11 +520,19 @@ LLVM_VERSION=${LLVM_VERSION:-unknown}
 CALL_STACK_MODES=${CALL_STACK_MODES:-none}
 WAT2WASM_VERSION=${WAT2WASM_VERSION:-unknown}
 
+RUNNER_SHA256=$(sha256_file "$RUNNER_PATH")
+UWVM_SHA256=$(sha256_file "$UWVM")
+WAT2WASM_SHA256=$(sha256_file "$WAT2WASM_BIN")
+printf -v WAT2WASM_COMMAND_TEMPLATE '%q %%INPUT_WAT%% -o %%OUTPUT_WASM%%' "$WAT2WASM_BIN"
+
 CAP_INT=0
 CAP_FULL=0
 CAP_AOT=0
 CAP_LAZY=0
 CAP_TIERED=0
+CAP_CUSTOM_MODE=0
+CAP_CUSTOM_COMPILER=0
+CAP_CUSTOM_SELECTORS=0
 CAP_TIERED_NO_T0=0
 CAP_TIERED_NO_T2=0
 CAP_CALL_STACK=0
@@ -484,14 +548,14 @@ option_advertised()
     grep -Eq "(^|[^[:alnum:]_-])${requested}([^[:alnum:]_-]|$)" "$RUNTIME_HELP_TEXT"
 }
 
-if [[ $RUNTIME_COMPILER == *LLVM-JIT* ]] && option_advertised --runtime-custom-mode && \
-    option_advertised --runtime-custom-compiler; then
-    CAP_FULL=1
-fi
 if option_advertised --runtime-int; then CAP_INT=1; fi
 if option_advertised --runtime-aot; then CAP_AOT=1; fi
 if option_advertised --runtime-jit; then CAP_LAZY=1; fi
 if option_advertised --runtime-tiered; then CAP_TIERED=1; fi
+if option_advertised --runtime-custom-mode; then CAP_CUSTOM_MODE=1; fi
+if option_advertised --runtime-custom-compiler; then CAP_CUSTOM_COMPILER=1; fi
+if ((CAP_CUSTOM_MODE && CAP_CUSTOM_COMPILER)); then CAP_CUSTOM_SELECTORS=1; fi
+if [[ $RUNTIME_COMPILER == *LLVM-JIT* ]] && ((CAP_CUSTOM_SELECTORS)); then CAP_FULL=1; fi
 if option_advertised --runtime-tiered-disable-uwvm-int-lazy-interpreter; then CAP_TIERED_NO_T0=1; fi
 if option_advertised --runtime-tiered-disable-llvm-full-jit; then CAP_TIERED_NO_T2=1; fi
 if option_advertised --runtime-llvm-jit-call-stack; then CAP_CALL_STACK=1; fi
@@ -515,13 +579,78 @@ if ((CAP_CALL_STACK)) && [[ $CALL_STACK_USAGE == *unwind-uncheck* ]] && \
     call_stack_mode_advertised unwind-uncheck; then CAP_UNWIND_UNCHECK=1; fi
 if grep -q -- '--wasm-feature-wasm2' "$WASM_HELP_TEXT"; then CAP_WASM2=1; fi
 
-CAPABILITIES="int=${CAP_INT},aot=${CAP_AOT},full=${CAP_FULL},lazy=${CAP_LAZY},tiered=${CAP_TIERED},tiered_no_t0=${CAP_TIERED_NO_T0},tiered_no_t2=${CAP_TIERED_NO_T2},instruction=${CAP_INSTRUCTION},auto=${CAP_AUTO},unwind=${CAP_UNWIND},unwind_uncheck=${CAP_UNWIND_UNCHECK},wasm2=${CAP_WASM2}"
+FULL_PROFILE_CAPABLE=0
+ROS_PROFILE_CAPABLE=0
+if [[ $RUNTIME_COMPILER == *LLVM-JIT* ]] && \
+    ((CAP_CUSTOM_SELECTORS && CAP_INT && CAP_AOT && CAP_LAZY && CAP_TIERED)); then
+    FULL_PROFILE_CAPABLE=1
+fi
+if [[ $RUNTIME_COMPILER == *LLVM-AOT* && $RUNTIME_COMPILER != *LLVM-JIT* ]] && \
+    ((CAP_INT && CAP_AOT && !CAP_CUSTOM_MODE && !CAP_CUSTOM_COMPILER && !CAP_LAZY && !CAP_TIERED &&
+      !CAP_TIERED_NO_T0 && !CAP_TIERED_NO_T2)); then
+    ROS_PROFILE_CAPABLE=1
+fi
 
-ALL_MODE_NAMES=(int aot full lazy tiered tiered-no-t0 tiered-no-t2 tiered-no-t0-no-t2)
+PROFILE_RESOLVED=legacy
+PROFILE_SOURCE=capability-auto-legacy
+case $PROFILE_REQUESTED in
+    auto)
+        if ((FULL_PROFILE_CAPABLE)); then
+            PROFILE_RESOLVED=full
+            PROFILE_SOURCE=capability-auto-full
+        elif ((ROS_PROFILE_CAPABLE)); then
+            PROFILE_RESOLVED=ros
+            PROFILE_SOURCE=capability-auto-ros
+        fi
+        ;;
+    full)
+        ((FULL_PROFILE_CAPABLE)) || die "--profile full does not match the advertised complete Full runtime surface"
+        PROFILE_RESOLVED=full
+        PROFILE_SOURCE=explicit-full
+        ;;
+    ros)
+        ((ROS_PROFILE_CAPABLE)) || die "--profile ros does not match the advertised reduced ROS runtime surface"
+        PROFILE_RESOLVED=ros
+        PROFILE_SOURCE=explicit-ros
+        ;;
+esac
+
+CAPABILITIES="int=${CAP_INT},aot=${CAP_AOT},full=${CAP_FULL},lazy=${CAP_LAZY},tiered=${CAP_TIERED},tiered_no_t0=${CAP_TIERED_NO_T0},tiered_no_t2=${CAP_TIERED_NO_T2},custom_mode=${CAP_CUSTOM_MODE},custom_compiler=${CAP_CUSTOM_COMPILER},custom_selectors=${CAP_CUSTOM_SELECTORS},instruction=${CAP_INSTRUCTION},auto=${CAP_AUTO},unwind=${CAP_UNWIND},unwind_uncheck=${CAP_UNWIND_UNCHECK},wasm2=${CAP_WASM2}"
+
+ALL_MODE_NAMES=(int-full int-lazy llvm-full llvm-lazy tiered int aot full lazy tiered-no-t0 tiered-no-t2 tiered-no-t0-no-t2)
+
+mode_is_canonical()
+{
+    case $1 in
+        int-full|int-lazy|llvm-full|llvm-lazy|tiered) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+mode_is_profile_na()
+{
+    [[ $PROFILE_RESOLVED == ros ]] || return 1
+    case $1 in
+        int-lazy|llvm-lazy|tiered|full|lazy|tiered-no-t0|tiered-no-t2|tiered-no-t0-no-t2) return 0 ;;
+        *) return 1 ;;
+    esac
+}
 
 mode_supported()
 {
     case $1 in
+        int-full)
+            if [[ $PROFILE_RESOLVED == ros ]]; then
+                ((CAP_INT))
+            else
+                ((CAP_INT && CAP_CUSTOM_SELECTORS))
+            fi
+            ;;
+        int-lazy) [[ $PROFILE_RESOLVED != ros ]] && ((CAP_INT && CAP_CUSTOM_SELECTORS)) ;;
+        llvm-full)
+            if [[ $PROFILE_RESOLVED == ros ]]; then ((CAP_AOT)); else ((CAP_FULL || CAP_AOT)); fi
+            ;;
+        llvm-lazy) [[ $PROFILE_RESOLVED != ros ]] && ((CAP_LAZY)) ;;
         int) ((CAP_INT)) ;;
         aot) ((CAP_AOT)) ;;
         full) ((CAP_FULL)) ;;
@@ -548,28 +677,36 @@ join_csv()
 MODE_NAMES=()
 ADVERTISED_MODE_NAMES=()
 AUTO_SKIPPED_MODE_NAMES=()
+PROFILE_NA_MODE_NAMES=()
 for mode in "${ALL_MODE_NAMES[@]}"; do
     if mode_supported "$mode"; then
         ADVERTISED_MODE_NAMES+=("$mode")
     else
         AUTO_SKIPPED_MODE_NAMES+=("$mode")
     fi
+    if mode_is_profile_na "$mode"; then PROFILE_NA_MODE_NAMES+=("$mode"); fi
 done
 
 MODE_SELECTION=explicit
 if [[ ${MODE_CSV//[[:space:]]/} == auto ]]; then
     MODE_SELECTION=auto
-    if ((CAP_INT)); then MODE_NAMES+=(int); fi
-    if ((CAP_FULL)); then
-        MODE_NAMES+=(full)
-    elif ((CAP_AOT)); then
-        MODE_NAMES+=(aot)
-    fi
-    if ((CAP_LAZY)); then MODE_NAMES+=(lazy); fi
-    if ((CAP_TIERED)); then MODE_NAMES+=(tiered); fi
-    if ((CAP_TIERED && CAP_TIERED_NO_T0)); then MODE_NAMES+=(tiered-no-t0); fi
-    if ((CAP_TIERED && CAP_TIERED_NO_T2)); then MODE_NAMES+=(tiered-no-t2); fi
-    if ((CAP_TIERED && CAP_TIERED_NO_T0 && CAP_TIERED_NO_T2)); then MODE_NAMES+=(tiered-no-t0-no-t2); fi
+    case $PROFILE_RESOLVED in
+        full) MODE_NAMES=(int-full int-lazy llvm-full llvm-lazy tiered) ;;
+        ros) MODE_NAMES=(int-full llvm-full) ;;
+        legacy)
+            if ((CAP_INT)); then MODE_NAMES+=(int); fi
+            if ((CAP_FULL)); then
+                MODE_NAMES+=(full)
+            elif ((CAP_AOT)); then
+                MODE_NAMES+=(aot)
+            fi
+            if ((CAP_LAZY)); then MODE_NAMES+=(lazy); fi
+            if ((CAP_TIERED)); then MODE_NAMES+=(tiered); fi
+            if ((CAP_TIERED && CAP_TIERED_NO_T0)); then MODE_NAMES+=(tiered-no-t0); fi
+            if ((CAP_TIERED && CAP_TIERED_NO_T2)); then MODE_NAMES+=(tiered-no-t2); fi
+            if ((CAP_TIERED && CAP_TIERED_NO_T0 && CAP_TIERED_NO_T2)); then MODE_NAMES+=(tiered-no-t0-no-t2); fi
+            ;;
+    esac
 else
     IFS=',' read -r -a MODE_NAMES <<<"$MODE_CSV"
     ((${#MODE_NAMES[@]} != 0)) || die "--modes must not be empty"
@@ -577,7 +714,7 @@ else
     for index in "${!MODE_NAMES[@]}"; do
         mode=${MODE_NAMES[$index]//[[:space:]]/}
         case $mode in
-            int|aot|full|lazy|tiered|tiered-no-t0|tiered-no-t2|tiered-no-t0-no-t2) ;;
+            int-full|int-lazy|llvm-full|llvm-lazy|int|aot|full|lazy|tiered|tiered-no-t0|tiered-no-t2|tiered-no-t0-no-t2) ;;
             *) die "unsupported runtime mode: ${mode:-<empty>}" ;;
         esac
         for existing_mode in "${NORMALIZED_MODE_NAMES[@]+"${NORMALIZED_MODE_NAMES[@]}"}"; do
@@ -588,12 +725,32 @@ else
     MODE_NAMES=("${NORMALIZED_MODE_NAMES[@]}")
 fi
 
+CANONICAL_MODE_SELECTED=0
+for mode in "${MODE_NAMES[@]+"${MODE_NAMES[@]}"}"; do
+    if mode_is_canonical "$mode"; then CANONICAL_MODE_SELECTED=1; fi
+done
+if ((CANONICAL_MODE_SELECTED)); then
+    for extra_arg in "${EXTRA_UWVM_ARGS[@]+"${EXTRA_UWVM_ARGS[@]}"}"; do
+        case $extra_arg in
+            -Rint|-Raot|-Rjit|-Rtiered|-Rcm|-Rcc|-Rtiered-disable-t0|-Rtiered-disable-t2|\
+            --runtime-int|--runtime-aot|--runtime-jit|--runtime-tiered|--runtime-custom-mode|\
+            --runtime-custom-compiler|--runtime-tiered-disable-uwvm-int-lazy-interpreter|\
+            --runtime-tiered-disable-llvm-full-jit|--runtime-debug-int|\
+            --runtime-custom-mode=*|--runtime-custom-compiler=*)
+                die "canonical modes reject a conflicting --uwvm-arg runtime selector: $extra_arg"
+                ;;
+        esac
+    done
+fi
+
 ADVERTISED_MODES=$(join_csv "${ADVERTISED_MODE_NAMES[@]+"${ADVERTISED_MODE_NAMES[@]}"}")
 SELECTED_MODES=$(join_csv "${MODE_NAMES[@]+"${MODE_NAMES[@]}"}")
 AUTO_SKIPPED_MODES=$(join_csv "${AUTO_SKIPPED_MODE_NAMES[@]+"${AUTO_SKIPPED_MODE_NAMES[@]}"}")
+PROFILE_NA_MODES=$(join_csv "${PROFILE_NA_MODE_NAMES[@]+"${PROFILE_NA_MODE_NAMES[@]}"}")
 ADVERTISED_MODES=${ADVERTISED_MODES:-none}
 SELECTED_MODES=${SELECTED_MODES:-none}
 AUTO_SKIPPED_MODES=${AUTO_SKIPPED_MODES:-none}
+PROFILE_NA_MODES=${PROFILE_NA_MODES:-none}
 WRAPPER_DISPLAY='<none>'
 EXTRA_ARGS_DISPLAY='<none>'
 if ((${#RUN_PREFIX[@]} != 0)); then printf -v WRAPPER_DISPLAY '%q ' "${RUN_PREFIX[@]}"; fi
@@ -602,9 +759,16 @@ if ((${#EXTRA_UWVM_ARGS[@]} != 0)); then printf -v EXTRA_ARGS_DISPLAY '%q ' "${E
 {
     printf 'key\tvalue\n'
     printf 'label\t%s\n' "$LABEL"
+    printf 'run_started_utc\t%s\n' "$RUN_STARTED_UTC"
+    printf 'runner\t%s\n' "$RUNNER_PATH"
+    printf 'runner_sha256\t%s\n' "$RUNNER_SHA256"
     printf 'uwvm\t%s\n' "$UWVM"
+    printf 'uwvm_sha256\t%s\n' "$UWVM_SHA256"
     printf 'wrapper\t%s\n' "$WRAPPER_DISPLAY"
     printf 'extra_uwvm_args\t%s\n' "$EXTRA_ARGS_DISPLAY"
+    printf 'profile_requested\t%s\n' "$PROFILE_REQUESTED"
+    printf 'profile_resolved\t%s\n' "$PROFILE_RESOLVED"
+    printf 'profile_source\t%s\n' "$PROFILE_SOURCE"
     printf 'version\t%s\n' "$VERSION"
     printf 'architecture\t%s\n' "$ARCHITECTURE"
     printf 'os\t%s\n' "$TARGET_OS"
@@ -619,8 +783,12 @@ if ((${#EXTRA_UWVM_ARGS[@]} != 0)); then printf -v EXTRA_ARGS_DISPLAY '%q ' "${E
     printf 'advertised_modes\t%s\n' "$ADVERTISED_MODES"
     printf 'selected_modes\t%s\n' "$SELECTED_MODES"
     printf 'auto_skipped_unadvertised_modes\t%s\n' "$AUTO_SKIPPED_MODES"
+    printf 'profile_n_a_modes\t%s\n' "$PROFILE_NA_MODES"
     printf 'wat2wasm\t%s\n' "$WAT2WASM_BIN"
+    printf 'wat2wasm_sha256\t%s\n' "$WAT2WASM_SHA256"
     printf 'wat2wasm_version\t%s\n' "$WAT2WASM_VERSION"
+    printf 'wat2wasm_command_template\t%s\n' "$WAT2WASM_COMMAND_TEMPLATE"
+    printf 'sha256_tool\t%s\n' "$SHA256_TOOL"
     printf 'jobs\t%s\n' "$JOBS"
     printf 'compile_threads\t%s\n' "$COMPILE_THREADS"
     printf 'timeout_seconds\t%s\n' "$TIMEOUT_SECONDS"
@@ -717,22 +885,61 @@ FIXTURE_SOURCES=(
     "$TIERED_OSR_GENERATED"
     "${ROOT_DIR}/test/0014.llvm_jit/wat/tiered_full_ready_oob.wat"
 )
+FIXTURE_ORIGIN_SOURCES=(
+    "${ROOT_DIR}/test/0014.llvm_jit/nontrivial_start.wat"
+    "${ROOT_DIR}/test/0014.llvm_jit/wat/wasm2_bulk_memory_native.wat"
+    "${ROOT_DIR}/test/0014.llvm_jit/wat/wasm2_multiple_tables.wat"
+    "${ROOT_DIR}/test/0014.llvm_jit/wat/wasm2_multivalue_typed.wat"
+    "${ROOT_DIR}/test/0014.llvm_jit/wat/trap_matrix/oob_load.wat"
+    "${ROOT_DIR}/test/0014.llvm_jit/wat/trap_matrix/invalid_conversion.wat"
+    "${ROOT_DIR}/test/0014.llvm_jit/wat/trap_matrix/wasm2_memory_copy_oob.wat"
+    "${ROOT_DIR}/test/0014.llvm_jit/wat/trap_matrix/wasm2_table_copy_oob.wat"
+    "$TIERED_OSR_TEMPLATE"
+    "${ROOT_DIR}/test/0014.llvm_jit/wat/tiered_full_ready_oob.wat"
+)
 FIXTURE_MODE_SCOPES=(all all all all all all all all tiered-all tiered-t2)
 FIXTURE_WASMS=()
 
+printf 'fixture\tinput_wat\tinput_wat_sha256\torigin_wat\torigin_wat_sha256\twasm\twasm_sha256\twat2wasm\twat2wasm_sha256\tcommand\tcompile_log\n' \
+    >"$FIXTURE_MANIFEST_TSV"
+
 for index in "${!FIXTURE_NAMES[@]}"; do
     source_wat=${FIXTURE_SOURCES[$index]}
+    origin_wat=${FIXTURE_ORIGIN_SOURCES[$index]}
     output_wasm="${FIXTURE_DIR}/${FIXTURE_NAMES[$index]}.wasm"
     compile_log="${LOG_DIR}/wat2wasm-${FIXTURE_NAMES[$index]}.log"
     [[ -f $source_wat ]] || die "fixture source missing: $source_wat"
-    if [[ ! -s $output_wasm || $source_wat -nt $output_wasm ]]; then
-        run_limited "$compile_log" "$WAT2WASM_BIN" "$source_wat" -o "$output_wasm"
-        ((RUN_RC == 0)) || die "wat2wasm failed for ${FIXTURE_NAMES[$index]} (rc=${RUN_RC}, log=${compile_log})"
-    else
-        printf '# reused %s (newer than %s)\n' "$output_wasm" "$source_wat" >"$compile_log"
+    [[ -f $origin_wat ]] || die "fixture origin source missing: $origin_wat"
+    output_wasm_tmp=$(mktemp "${output_wasm}.tmp.XXXXXX") || die "cannot create temporary fixture output for ${FIXTURE_NAMES[$index]}"
+    run_limited "$compile_log" "$WAT2WASM_BIN" "$source_wat" -o "$output_wasm_tmp"
+    if ((RUN_RC != 0)); then
+        rm -f -- "$output_wasm_tmp"
+        die "wat2wasm failed for ${FIXTURE_NAMES[$index]} (rc=${RUN_RC}, log=${compile_log})"
     fi
+    mv -f -- "$output_wasm_tmp" "$output_wasm"
+
+    source_wat_sha256=$(sha256_file "$source_wat")
+    origin_wat_sha256=$(sha256_file "$origin_wat")
+    output_wasm_sha256=$(sha256_file "$output_wasm")
+    printf -v fixture_command '%q %q -o %q' "$WAT2WASM_BIN" "$source_wat" "$output_wasm"
+    printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+        "$(clean_field "${FIXTURE_NAMES[$index]}")" \
+        "$(clean_field "$source_wat")" \
+        "$source_wat_sha256" \
+        "$(clean_field "$origin_wat")" \
+        "$origin_wat_sha256" \
+        "$(clean_field "$output_wasm")" \
+        "$output_wasm_sha256" \
+        "$(clean_field "$WAT2WASM_BIN")" \
+        "$WAT2WASM_SHA256" \
+        "$(clean_field "$fixture_command")" \
+        "$(clean_field "$compile_log")" >>"$FIXTURE_MANIFEST_TSV"
     FIXTURE_WASMS+=("$output_wasm")
 done
+
+FIXTURE_MANIFEST_SHA256=$(sha256_file "$FIXTURE_MANIFEST_TSV")
+printf 'fixture_manifest\t%s\nfixture_manifest_sha256\t%s\n' \
+    "$FIXTURE_MANIFEST_TSV" "$FIXTURE_MANIFEST_SHA256" >>"$METADATA_TSV"
 
 fixture_applicable_to_mode()
 {
@@ -763,7 +970,15 @@ policy_supported()
 mode_uses_llvm()
 {
     case $1 in
-        aot|full|lazy|tiered|tiered-no-t0|tiered-no-t2|tiered-no-t0-no-t2) return 0 ;;
+        llvm-full|llvm-lazy|aot|full|lazy|tiered|tiered-no-t0|tiered-no-t2|tiered-no-t0-no-t2) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+mode_uses_interpreter()
+{
+    case $1 in
+        int|int-full|int-lazy) return 0 ;;
         *) return 1 ;;
     esac
 }
@@ -772,7 +987,7 @@ policy_applicable_to_mode()
 {
     local mode=$1
     local policy=$2
-    if [[ $mode == int ]]; then
+    if mode_uses_interpreter "$mode"; then
         [[ $policy == logical ]]
     elif mode_uses_llvm "$mode"; then
         [[ $policy != logical ]]
@@ -785,6 +1000,28 @@ set_mode_args()
 {
     MODE_ARGS=()
     case $1 in
+        int-full)
+            if [[ $PROFILE_RESOLVED == ros ]]; then
+                MODE_ARGS=(-Rint)
+            else
+                MODE_ARGS=(-Rcm full -Rcc int)
+            fi
+            ;;
+        int-lazy) MODE_ARGS=(-Rcm lazy -Rcc int) ;;
+        llvm-full)
+            if [[ $PROFILE_RESOLVED == ros ]] || ((CAP_FULL == 0)); then
+                MODE_ARGS=(-Raot)
+            else
+                MODE_ARGS=(-Rcm full -Rcc jit)
+            fi
+            ;;
+        llvm-lazy)
+            if ((CAP_CUSTOM_SELECTORS)); then
+                MODE_ARGS=(-Rcm lazy -Rcc jit)
+            else
+                MODE_ARGS=(-Rjit)
+            fi
+            ;;
         int) MODE_ARGS=(-Rint) ;;
         aot) MODE_ARGS=(-Raot) ;;
         full) MODE_ARGS=(-Rcm full -Rcc jit) ;;
@@ -797,14 +1034,50 @@ set_mode_args()
     esac
 }
 
-clean_field()
+mode_argument_origin()
 {
-    local value=$1
-    value=${value//$'\t'/ }
-    value=${value//$'\r'/ }
-    value=${value//$'\n'/ }
-    printf '%s' "$value"
+    case $1 in
+        int-full)
+            if [[ $PROFILE_RESOLVED == ros ]]; then
+                printf canonical-ros-alias
+            else
+                printf canonical-explicit
+            fi
+            ;;
+        llvm-full)
+            if [[ $PROFILE_RESOLVED == ros ]]; then
+                printf canonical-ros-alias
+            elif ((CAP_FULL)); then
+                printf canonical-explicit
+            else
+                printf canonical-legacy-aot-alias
+            fi
+            ;;
+        int-lazy) printf canonical-explicit ;;
+        llvm-lazy)
+            if ((CAP_CUSTOM_SELECTORS)); then printf canonical-explicit; else printf canonical-legacy-jit-alias; fi
+            ;;
+        tiered) printf canonical-retained-alias ;;
+        int|aot|full|lazy) printf legacy-alias ;;
+        tiered-no-t0|tiered-no-t2|tiered-no-t0-no-t2) printf explicit-diagnostic-alias ;;
+        *) printf unknown ;;
+    esac
 }
+
+SELECTED_MODE_ARGUMENTS=
+for selected_mode in "${MODE_NAMES[@]+"${MODE_NAMES[@]}"}"; do
+    if [[ -n $SELECTED_MODE_ARGUMENTS ]]; then SELECTED_MODE_ARGUMENTS+=';'; fi
+    if mode_is_profile_na "$selected_mode"; then
+        SELECTED_MODE_ARGUMENTS+="${selected_mode}=N-A(profile-ros)"
+    elif set_mode_args "$selected_mode"; then
+        printf -v selected_args_display '%q ' "${MODE_ARGS[@]}"
+        selected_args_display=${selected_args_display% }
+        SELECTED_MODE_ARGUMENTS+="${selected_mode}=${selected_args_display}[$(mode_argument_origin "$selected_mode")]"
+    else
+        SELECTED_MODE_ARGUMENTS+="${selected_mode}=unavailable"
+    fi
+done
+printf 'selected_mode_arguments\t%s\n' "${SELECTED_MODE_ARGUMENTS:-none}" >>"$METADATA_TSV"
 
 write_result()
 {
@@ -877,9 +1150,20 @@ if [[ $MODE_SELECTION == explicit ]]; then
     for mode in "${MODE_NAMES[@]}"; do
         if ! mode_supported "$mode"; then
             allocate_id
-            write_result "$ALLOCATED_ID" "$mode" - - capability capability supported - "$(unsupported_outcome)" \
-                "requested runtime mode is not advertised" 0 0 - -
+            if mode_is_profile_na "$mode"; then
+                write_result "$ALLOCATED_ID" "$mode" - - capability capability N-A - N-A \
+                    "runtime mode is source-pruned from the ROS product profile" 0 0 - -
+            else
+                write_result "$ALLOCATED_ID" "$mode" - - capability capability supported - "$(unsupported_outcome)" \
+                    "requested runtime mode is not advertised" 0 0 - -
+            fi
         fi
+    done
+elif [[ $PROFILE_RESOLVED == ros ]]; then
+    for mode in int-lazy llvm-lazy tiered; do
+        allocate_id
+        write_result "$ALLOCATED_ID" "$mode" - - capability capability N-A - N-A \
+            "runtime mode is source-pruned from the ROS product profile" 0 0 - -
     done
 elif ((${#MODE_NAMES[@]} == 0)); then
     allocate_id
@@ -898,7 +1182,7 @@ for mode in "${MODE_NAMES[@]}"; do
     done
     if ((has_applicable_policy == 0)); then
         allocate_id
-        if [[ $mode == int ]]; then
+        if mode_uses_interpreter "$mode"; then
             incompatible_policy_detail='interpreter mode requires the logical policy and never accepts an LLVM call-stack policy'
         else
             incompatible_policy_detail='LLVM runtime mode requires instruction, auto, unwind, or unwind-uncheck; logical is interpreter-only'
@@ -1070,7 +1354,7 @@ regular_case_requires_llvm_log()
         tiered_osr_oob|tiered_full_ready_oob) return 0 ;;
     esac
     case $mode in
-        aot|full|lazy|tiered-no-t0|tiered-no-t0-no-t2) return 0 ;;
+        llvm-full|llvm-lazy|aot|full|lazy|tiered-no-t0|tiered-no-t0-no-t2) return 0 ;;
         tiered|tiered-no-t2) return 1 ;;
         *) return 1 ;;
     esac
@@ -1133,8 +1417,8 @@ has_expected_llvm_log()
             ;;
     esac
     case $mode in
-        aot|full) grep -aFq '[llvm-jit-full] optimize-start' "$compiler_log" ;;
-        lazy|tiered-no-t0|tiered-no-t0-no-t2) grep -aFq '[llvm-jit-lazy] compile-end' "$compiler_log" ;;
+        llvm-full|aot|full) grep -aFq '[llvm-jit-full] optimize-start' "$compiler_log" ;;
+        llvm-lazy|lazy|tiered-no-t0|tiered-no-t0-no-t2) grep -aFq '[llvm-jit-lazy] compile-end' "$compiler_log" ;;
         tiered|tiered-no-t2) return 0 ;;
         *) return 1 ;;
     esac
@@ -1154,7 +1438,11 @@ extract_func_indices()
 }
 
 POLICY_PROBE_MODE=
-if ((CAP_FULL)); then
+if [[ $PROFILE_RESOLVED == full ]] && mode_supported llvm-full; then
+    POLICY_PROBE_MODE=llvm-full
+elif [[ $PROFILE_RESOLVED == ros ]] && mode_supported llvm-full; then
+    POLICY_PROBE_MODE=llvm-full
+elif ((CAP_FULL)); then
     POLICY_PROBE_MODE=full
 elif ((CAP_AOT)); then
     POLICY_PROBE_MODE=aot
@@ -1363,7 +1651,7 @@ run_matrix_case()
     run_limited "$output_log" "${command[@]}"
     trap_kind=$(extract_trap_kind "$output_log")
     func_indices=$(extract_func_indices "$output_log")
-    if [[ $mode == int ]]; then
+    if mode_uses_interpreter "$mode"; then
         observed_policy=unknown
         actual_policy=logical
         expected_effective_policy=logical
@@ -1403,13 +1691,13 @@ run_matrix_case()
     elif [[ $actual_policy == invalid || $actual_policy == unavailable || $actual_policy == inconsistent ]]; then
         outcome=FAIL
         detail="call-stack policy is unavailable: ${actual_policy}"
-    elif [[ $mode == full || $mode == aot ]] && [[ $observed_policy == unknown ]]; then
+    elif [[ $mode == llvm-full || $mode == full || $mode == aot ]] && [[ $observed_policy == unknown ]]; then
         outcome=FAIL
         detail='LLVM full/AOT did not log the effective call-stack policy'
     elif [[ $observed_policy != unknown && $observed_policy != "$expected_effective_policy" ]]; then
         outcome=FAIL
         detail="call-stack policy mismatch: expected ${expected_effective_policy}, actual ${observed_policy}"
-    elif [[ $mode == full || $mode == aot ]] && ! has_expected_policy_declaration "$compiler_log" "$actual_policy"; then
+    elif [[ $mode == llvm-full || $mode == full || $mode == aot ]] && ! has_expected_policy_declaration "$compiler_log" "$actual_policy"; then
         outcome=FAIL
         detail="invalid ${actual_policy} optimize-start declaration"
     elif [[ $fixture_class == normal ]]; then
@@ -1427,7 +1715,7 @@ run_matrix_case()
         else
             if regular_case_requires_llvm_log "$mode" "$fixture" && [[ $actual_policy == none ]]; then
                 case $mode in
-                    aot|full|lazy)
+                    llvm-full|llvm-lazy|aot|full|lazy)
                         expect_stack=0
                         ;;
                     *)
@@ -1568,10 +1856,44 @@ done
 PASS_COUNT=$(awk -F '\t' 'NR > 1 && $15 == "PASS" { count++ } END { print count + 0 }' "$RESULTS_TSV")
 FAIL_COUNT=$(awk -F '\t' 'NR > 1 && $15 == "FAIL" { count++ } END { print count + 0 }' "$RESULTS_TSV")
 SKIP_COUNT=$(awk -F '\t' 'NR > 1 && $15 == "SKIP" { count++ } END { print count + 0 }' "$RESULTS_TSV")
+NA_COUNT=$(awk -F '\t' 'NR > 1 && $15 == "N-A" { count++ } END { print count + 0 }' "$RESULTS_TSV")
 
-printf '[qemu-matrix] PASS=%s FAIL=%s SKIP=%s results=%s metadata=%s\n' \
-    "$PASS_COUNT" "$FAIL_COUNT" "$SKIP_COUNT" "$RESULTS_TSV" "$METADATA_TSV"
+RELEASE_QUALIFIED=not-applicable
+RELEASE_QUALIFICATION_REASON=legacy-profile-preserves-compatible-exit-status
+if [[ $PROFILE_RESOLVED == full || $PROFILE_RESOLVED == ros ]]; then
+    if ((FAIL_COUNT != 0)); then
+        RELEASE_QUALIFIED=false
+        RELEASE_QUALIFICATION_REASON=fail-count-nonzero
+    elif ((SKIP_COUNT != 0)); then
+        RELEASE_QUALIFIED=false
+        RELEASE_QUALIFICATION_REASON=skip-count-nonzero
+    elif ((PASS_COUNT > 0)); then
+        RELEASE_QUALIFIED=true
+        RELEASE_QUALIFICATION_REASON=fail-and-skip-counts-zero-and-pass-count-positive
+    else
+        RELEASE_QUALIFIED=false
+        RELEASE_QUALIFICATION_REASON=no-passing-executed-case
+    fi
+fi
+RUN_FINISHED_UTC=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
+{
+    printf 'run_finished_utc\t%s\n' "$RUN_FINISHED_UTC"
+    printf 'result_pass_count\t%s\n' "$PASS_COUNT"
+    printf 'result_fail_count\t%s\n' "$FAIL_COUNT"
+    printf 'result_skip_count\t%s\n' "$SKIP_COUNT"
+    printf 'result_n_a_count\t%s\n' "$NA_COUNT"
+    printf 'release_qualification_rule\tFAIL=0, SKIP=0, and PASS>0 for resolved full/ros; legacy exit compatibility preserved\n'
+    printf 'release_qualified\t%s\n' "$RELEASE_QUALIFIED"
+    printf 'release_qualification_reason\t%s\n' "$RELEASE_QUALIFICATION_REASON"
+} >>"$METADATA_TSV"
+
+printf '[qemu-matrix] PASS=%s FAIL=%s SKIP=%s N-A=%s release_qualified=%s profile=%s results=%s metadata=%s fixtures=%s\n' \
+    "$PASS_COUNT" "$FAIL_COUNT" "$SKIP_COUNT" "$NA_COUNT" "$RELEASE_QUALIFIED" "$PROFILE_RESOLVED" \
+    "$RESULTS_TSV" "$METADATA_TSV" "$FIXTURE_MANIFEST_TSV"
 
 if ((FAIL_COUNT != 0)); then
+    exit 1
+fi
+if [[ $PROFILE_RESOLVED != legacy && $RELEASE_QUALIFIED != true ]]; then
     exit 1
 fi
