@@ -21,6 +21,8 @@
 
 module;
 
+// platform
+#include <uwvm2/runtime/compiler/llvm_jit/native_unwind_platform.h>
 // std
 #include <cstddef>
 #include <memory>

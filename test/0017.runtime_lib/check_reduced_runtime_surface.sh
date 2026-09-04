@@ -4,7 +4,18 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 runtime_lib="$repo_root/src/uwvm2/runtime/lib"
+native_unwind_platform="$repo_root/src/uwvm2/runtime/compiler/llvm_jit/native_unwind_platform.h"
 signal_handler="$repo_root/src/uwvm2/object/memory/signal/signal.h"
+unwind_consumer_headers=(
+    "$repo_root/src/uwvm2/uwvm/cmdline/params/runtime_llvm_jit_call_stack.h"
+    "$repo_root/src/uwvm2/uwvm/cmdline/callback/runtime_llvm_jit_call_stack.h"
+    "$repo_root/src/uwvm2/uwvm/cmdline/callback/version.h"
+)
+unwind_consumer_modules=(
+    "$repo_root/src/uwvm2/uwvm/cmdline/params/runtime_llvm_jit_call_stack.cppm"
+    "$repo_root/src/uwvm2/uwvm/cmdline/callback/runtime_llvm_jit_call_stack.cppm"
+    "$repo_root/src/uwvm2/uwvm/cmdline/callback/version.cppm"
+)
 production_source_boundary=(
     "$repo_root/src/uwvm2/runtime"
     "$repo_root/src/uwvm2/parser"
@@ -147,13 +158,74 @@ if rg -n 'get_signal_(frame_address|stack_pointer)|<libunwind\.h>|UNW_LOCAL_ONLY
     fail 'found seeded/signal/raw-stack POSIX unwind reconstruction'
 fi
 
+# Platform/ISA capability is defined once as a scoped, backend-independent allowlist. Traditional headers include it inside their
+# non-module surface; module units include it in the global module fragment so no capability #if can wrap export/import declarations.
+[[ -f "$native_unwind_platform" ]] || fail 'missing centralized native-unwind platform allowlist'
+rg -q '#pragma push_macro\("UWVM2_RUNTIME_LLVM_JIT_WIN64_SEH_PLATFORM_SUPPORTED"\)' "$native_unwind_platform" ||
+    fail 'native-unwind platform helper does not scope the Win64 SEH capability'
+rg -q '#pragma push_macro\("UWVM2_RUNTIME_LLVM_JIT_NATIVE_UNWIND_PLATFORM_SUPPORTED"\)' "$native_unwind_platform" ||
+    fail 'native-unwind platform helper does not scope the native-unwind capability'
+if rg -n '#pragma once|UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED|compile_cu_from_lazy|tiered[_ -]|lazy[_ -]' "$native_unwind_platform"; then
+    fail 'native-unwind platform helper is guarded or imports a deleted execution strategy'
+fi
+
+if rg -n 'UWVM2_UWVM_CMDLINE_(RUNTIME|VERSION)_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND' "${unwind_consumer_headers[@]}"; then
+    fail 'command-line native-unwind platform allowlist is still duplicated locally'
+fi
+
+for header in "${unwind_consumer_headers[@]}"; do
+    grep -Fq '# include <uwvm2/runtime/compiler/llvm_jit/native_unwind_platform.h>' "$header" ||
+        fail "traditional command-line header does not include the centralized unwind allowlist: $header"
+    grep -Fq '#pragma pop_macro("UWVM2_RUNTIME_LLVM_JIT_NATIVE_UNWIND_PLATFORM_SUPPORTED")' "$header" ||
+        fail "command-line header does not restore the native-unwind platform macro: $header"
+    grep -Fq '#pragma pop_macro("UWVM2_RUNTIME_LLVM_JIT_WIN64_SEH_PLATFORM_SUPPORTED")' "$header" ||
+        fail "command-line header does not restore the Win64 SEH platform macro: $header"
+
+    capability_block="$(sed -n '/#pragma push_macro(".*CALL_STACK_HAS_NATIVE_UNWIND")/,/UWVM_MODULE_EXPORT namespace/p' "$header")"
+    if rg -n 'defined\(__APPLE__\)|defined\(__linux__\)|defined\(__FreeBSD__\)|defined\(_WIN64\)|defined\(__arm64ec__\)|defined\(_M_ARM64EC\)|defined\(__CYGWIN__\)|defined\(__ILP32__\)' \
+        <<<"$capability_block"; then
+        fail "command-line capability block duplicates the centralized platform allowlist: $header"
+    fi
+done
+
+for module_file in "${unwind_consumer_modules[@]}"; do
+    module_fragment_line="$(grep -n -m1 '^module;$' "$module_file" | cut -d: -f1)"
+    platform_include_line="$(grep -n -m1 '^#include <uwvm2/runtime/compiler/llvm_jit/native_unwind_platform.h>$' "$module_file" | cut -d: -f1)"
+    export_module_line="$(grep -n -m1 '^export module ' "$module_file" | cut -d: -f1)"
+    [[ -n "$module_fragment_line" && -n "$platform_include_line" && -n "$export_module_line" ]] ||
+        fail "module unit is missing its global-fragment unwind include or module declarations: $module_file"
+    ((module_fragment_line < platform_include_line && platform_include_line < export_module_line)) ||
+        fail "native-unwind platform helper is not included in the global module fragment: $module_file"
+
+    awk '
+        /^[[:space:]]*#[[:space:]]*(if|ifdef|ifndef)([[:space:]]|$)/ { ++depth }
+        /^[[:space:]]*#[[:space:]]*endif([[:space:]]|$)/ { --depth }
+        /^#include <uwvm2\/runtime\/compiler\/llvm_jit\/native_unwind_platform\.h>$/ {
+            found_platform_include = 1
+            if(depth != 0) bad = 1
+        }
+        /^[[:space:]]*export[[:space:]]+module[[:space:]]/ { found_export = 1; if(depth != 0) bad = 1 }
+        /^[[:space:]]*import[[:space:]]/ { if(depth != 0) bad = 1 }
+        END { exit(!found_platform_include || !found_export || bad || depth != 0) }
+    ' "$module_file" || fail "module export/import is controlled by a preprocessor branch: $module_file"
+done
+
+grep -Fq '#include <uwvm2/runtime/compiler/llvm_jit/native_unwind_platform.h>' "$runtime_lib/uwvm_runtime_native_unwind.h" ||
+    fail 'runtime native-unwind capability does not use the centralized platform allowlist'
+grep -Fq '#pragma pop_macro("UWVM2_RUNTIME_LLVM_JIT_NATIVE_UNWIND_PLATFORM_SUPPORTED")' "$runtime_lib/uwvm_runtime_native_unwind.h" ||
+    fail 'runtime native-unwind capability does not restore the platform allowlist macro'
+grep -Fq '#pragma pop_macro("UWVM2_RUNTIME_LLVM_JIT_WIN64_SEH_PLATFORM_SUPPORTED")' "$runtime_lib/uwvm_runtime_native_unwind.h" ||
+    fail 'runtime native-unwind capability does not restore the Win64 SEH platform macro'
+
+bash "$repo_root/test/0017.runtime/check_native_unwind_platform_policy.sh"
+
 cxx="${CXX:-c++}"
 command -v "$cxx" >/dev/null 2>&1 || fail "C++ preprocessor is unavailable: $cxx"
 linux_unwind_macros="$({
     printf '%s\n' '#define UWVM_RUNTIME_LLVM_JIT 1'
     printf '%s\n' '#include "uwvm_runtime_native_unwind.h"'
 } | "$cxx" -E -dM -x c++ -U__APPLE__ -U__MACH__ -U_WIN32 -U_WIN64 -D__linux__=1 -D__x86_64__=1 '-D__has_include(x)=0' \
-    -I"$runtime_lib" - 2>/dev/null)"
+    -I"$runtime_lib" -I"$repo_root/src" - 2>/dev/null)"
 grep -q '^#define UWVM2_RUNTIME_LLVM_JIT_UNWIND_REPLACES_INSTRUCTION_FRAMES 0$' <<<"$linux_unwind_macros" ||
     fail 'Linux native unwind claims it can replace logical Wasm frames'
 grep -q '^#define UWVM2_RUNTIME_LLVM_JIT_HAS_TRAP_FRAME_POINTER_CHAIN 0$' <<<"$linux_unwind_macros" ||

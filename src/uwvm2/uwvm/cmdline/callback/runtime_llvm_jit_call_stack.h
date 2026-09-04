@@ -23,6 +23,8 @@
 #pragma once
 
 #ifndef UWVM_MODULE
+// platform
+# include <uwvm2/runtime/compiler/llvm_jit/native_unwind_platform.h>
 // std
 # include <memory>
 // macro
@@ -46,30 +48,16 @@
 #endif
 
 #pragma push_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND")
-#pragma push_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND")
-#pragma push_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND")
 #undef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND
+#pragma push_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND")
 #undef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND
-#undef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND
 // Availability and authority are separate. A supported POSIX <unwind.h> walk is exposed only through the explicitly auxiliary
 // unchecked mode; checked `unwind` is accepted only where the Win64 SEH caller context may replace logical Wasm frames.
-#if defined(__APPLE__) && !defined(_WIN32)
-# define UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND
-#elif defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) &&                                                                                     \
-    (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64)) && !defined(__CYGWIN__)
-# define UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND
-#elif (defined(__linux__) || defined(__FreeBSD__)) && ((defined(__x86_64__) || defined(_M_X64) || defined(_M_AMD64)) && !defined(__ILP32__))
-# define UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND
-#endif
-#if (defined(UWVM_RUNTIME_LLVM_JIT)) &&                                                              \
-    defined(UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND) && ((!defined(_WIN32) && __has_include(<unwind.h>)) ||                                                                                                  \
-     (defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) &&                                                                                  \
-      (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64)) &&                                          \
-      !defined(__CYGWIN__)))
+#if defined(UWVM_RUNTIME_LLVM_JIT) && UWVM2_RUNTIME_LLVM_JIT_NATIVE_UNWIND_PLATFORM_SUPPORTED &&                                                             \
+    ((!defined(_WIN32) && __has_include(<unwind.h>)) || UWVM2_RUNTIME_LLVM_JIT_WIN64_SEH_PLATFORM_SUPPORTED)
 # define UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND
 #endif
-#if defined(UWVM_RUNTIME_LLVM_JIT) && defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) && \
-    (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64)) && !defined(__CYGWIN__)
+#if defined(UWVM_RUNTIME_LLVM_JIT) && UWVM2_RUNTIME_LLVM_JIT_WIN64_SEH_PLATFORM_SUPPORTED
 # define UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND
 #endif
 
@@ -173,9 +161,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 #endif
 }  // namespace uwvm2::uwvm::cmdline::params::details
 
-#pragma pop_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND")
 #pragma pop_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_AUTHORITATIVE_UNWIND")
 #pragma pop_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_NATIVE_UNWIND")
+#pragma pop_macro("UWVM2_RUNTIME_LLVM_JIT_NATIVE_UNWIND_PLATFORM_SUPPORTED")
+#pragma pop_macro("UWVM2_RUNTIME_LLVM_JIT_WIN64_SEH_PLATFORM_SUPPORTED")
 
 #ifndef UWVM_MODULE
 // macro
