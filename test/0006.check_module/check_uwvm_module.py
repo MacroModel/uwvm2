@@ -14,6 +14,11 @@ Rules:
 - A surface that expands UWVM Win32 macros must import the matching provider
   before it is included: the high-level color-policy module for UWVM_COLOR,
   or the low-level text-attribute module for direct UWVM_WIN32_TEXTATTR use.
+- Exported named-module imports must not be hidden behind conditional
+  preprocessing. Keep the dependency graph stable and guard declarations in
+  the paired implementation header instead.
+- xmake must not remove frontend module partitions selected by that stable
+  dependency graph.
 - Header include order must respect category sequence:
   1) uwvm_predefine/*
   2) project utils/*
@@ -49,11 +54,18 @@ from typing import Dict, List, Tuple, Iterable
 # Root directories
 THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 SRC_ROOT = os.path.abspath(os.path.join(THIS_DIR, "..", "..", "src"))
+REPO_ROOT = os.path.abspath(os.path.join(THIS_DIR, "..", ".."))
 
 
 IMPORT_LINE_RE = re.compile(r"^\s*(?:export\s+)?import\s+([^;\s]+)\s*;\s*(?://.*)?$")
+EXPORTED_IMPORT_LINE_RE = re.compile(r"^\s*export\s+import\s+([^;\s]+)\s*;\s*(?://.*)?$")
 MODULE_NAME_RE = re.compile(r"^\s*export\s+module\s+([^;\s]+)\s*;\s*$", re.MULTILINE)
 INCLUDE_RE = re.compile(r"^\s*#\s*include\s*([<\"])([^>\"]+)[>\"]")
+PP_CONDITIONAL_START_RE = re.compile(r"^\s*#\s*(?:if|ifdef|ifndef)\b")
+PP_CONDITIONAL_END_RE = re.compile(r"^\s*#\s*endif\b")
+FRONTEND_MODULE_REMOVE_RE = re.compile(
+    r"\bremove_files\s*\(\s*['\"]src/uwvm2/uwvm/"
+)
 GLOBAL_MODULE_FRAGMENT_RE = re.compile(r"^\s*module\s*;\s*(?://.*)?$")
 NAMED_MODULE_DECL_RE = re.compile(r"^\s*(?:export\s+)?module\s+[^;]+;")
 UWVM_COLOR_MACRO_USE_RE = re.compile(r"\bUWVM_COLOR_[A-Z0-9_]+\b")
@@ -184,6 +196,37 @@ def extract_imports_from_cppm_or_module_cpp(text: str) -> List[str]:
         imports.append(name)
     debug(f"imports-from-cppm/module: {imports}")
     return imports
+
+
+def find_conditionally_exported_imports(text: str) -> List[Tuple[int, str]]:
+    """Return exported named-module imports nested in a #if group.
+
+    Module dependency discovery must not depend on backend macro state. A
+    backend-specific partition remains importable when disabled; its paired
+    header simply exports no backend declarations.
+    """
+    conditional_depth = 0
+    findings: List[Tuple[int, str]] = []
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        if PP_CONDITIONAL_START_RE.match(line):
+            conditional_depth += 1
+            continue
+        if PP_CONDITIONAL_END_RE.match(line):
+            conditional_depth = max(0, conditional_depth - 1)
+            continue
+        match = EXPORTED_IMPORT_LINE_RE.match(line)
+        if conditional_depth and match is not None:
+            findings.append((line_number, match.group(1).strip()))
+    return findings
+
+
+def find_frontend_module_removals(text: str) -> List[int]:
+    """Return xmake lines that prune source units from the frontend module graph."""
+    return [
+        line_number
+        for line_number, line in enumerate(text.splitlines(), start=1)
+        if FRONTEND_MODULE_REMOVE_RE.search(line) is not None
+    ]
 
 
 def win32_text_attr_provider_precedes_surface(
@@ -533,6 +576,23 @@ def main() -> int:
     mod_def_pairs = find_module_default_pairs(files)
 
     problems: List[str] = []
+
+    for path in files:
+        if not is_cppm(path):
+            continue
+        for line_number, imported_name in find_conditionally_exported_imports(read_text(path)):
+            problems.append(
+                f"[CONDITIONAL IMPORT] {path}:{line_number}: export import {imported_name}; "
+                "must stay unconditional; guard declarations in the partition header"
+            )
+
+    xmake_path = os.path.join(REPO_ROOT, "xmake.lua")
+    if os.path.isfile(xmake_path):
+        for line_number in find_frontend_module_removals(read_text(xmake_path)):
+            problems.append(
+                f"[MODULE PRUNING] {xmake_path}:{line_number}: frontend .cppm files "
+                "must not be removed from the module dependency graph"
+            )
 
     # Check .cppm <-> .h
     for pair in cppm_h_pairs:

@@ -71,6 +71,42 @@ class PragmaOnceGuardTests(unittest.TestCase):
 
 
 class ModuleDependencyTests(unittest.TestCase):
+    def test_conditional_export_import_is_reported(self) -> None:
+        module_text = """\
+export module uwvm2.example;
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+export import :runtime_aot;
+#endif
+"""
+
+        self.assertEqual(
+            MODULE_CHECKER.find_conditionally_exported_imports(module_text),
+            [(3, ":runtime_aot")],
+        )
+
+    def test_backend_guard_after_unconditional_import_is_legal(self) -> None:
+        module_text = """\
+export module uwvm2.example;
+export import :runtime_aot;
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+int backend_declaration;
+#endif
+"""
+
+        self.assertEqual(
+            MODULE_CHECKER.find_conditionally_exported_imports(module_text), []
+        )
+
+    def test_frontend_module_partition_removal_is_reported(self) -> None:
+        xmake_text = """\
+add_files("src/uwvm2/uwvm/**.cppm")
+remove_files("src/uwvm2/uwvm/cmdline/params/runtime_aot.cppm")
+"""
+
+        self.assertEqual(
+            MODULE_CHECKER.find_frontend_module_removals(xmake_text), [2]
+        )
+
     def test_additional_direct_module_import_is_legal(self) -> None:
         module_text = """\
 export module uwvm2.example;
