@@ -755,7 +755,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
 
                 if(blocktype >= 0)
                 {
-                    if(wasm1p1_para.disable_multi_value) [[unlikely]]
+                    if(wasm1p1_para.disable_multi_value || wasm1p1_para.controllable_allow_multi_result_vector) [[unlikely]]
                     {
                         details::fail_feature_required(op_begin,
                                                        err,
@@ -2518,13 +2518,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
                     // [safe   ] unsafe (could be the section_end)
                     //           ^^ code_curr
 
-                    if(wasm1p1_para.disable_reference_types) [[unlikely]]
+                    if(wasm1p1_para.disable_table_instructions) [[unlikely]]
                     {
-                        details::fail_feature_required(op_begin,
-                                                       err,
-                                                       opcode_u32(wasm1p1_code::table_get),
-                                                       ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::reference_types,
-                                                       ::uwvm2::parser::wasm::base::wasm1p1_error_subject::instruction);
+                        details::fail_wasm2_feature_required(op_begin,
+                                                             err,
+                                                             opcode_u32(wasm1p1_code::table_get),
+                                                             ::uwvm2::parser::wasm::base::wasm2_feature_kind::table_instructions,
+                                                             ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
                     }
 
                     auto const table_index{
@@ -2554,13 +2554,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
                     // [safe   ] unsafe (could be the section_end)
                     //           ^^ code_curr
 
-                    if(wasm1p1_para.disable_reference_types) [[unlikely]]
+                    if(wasm1p1_para.disable_table_instructions) [[unlikely]]
                     {
-                        details::fail_feature_required(op_begin,
-                                                       err,
-                                                       opcode_u32(wasm1p1_code::table_set),
-                                                       ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::reference_types,
-                                                       ::uwvm2::parser::wasm::base::wasm1p1_error_subject::instruction);
+                        details::fail_wasm2_feature_required(op_begin,
+                                                             err,
+                                                             opcode_u32(wasm1p1_code::table_set),
+                                                             ::uwvm2::parser::wasm::base::wasm2_feature_kind::table_instructions,
+                                                             ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
                     }
 
                     auto const table_index{
@@ -2710,59 +2710,33 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
                     // [  safe ] unsafe (could be the section_end)
                     //          ^^ code_curr
 
+                    if(wasm1p1_para.disable_reference_types) [[unlikely]]
+                    {
+                        details::fail_feature_required(op_begin,
+                                                       err,
+                                                       opcode_u32(wasm1p1_code::select_t),
+                                                       ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::reference_types,
+                                                       ::uwvm2::parser::wasm::base::wasm1p1_error_subject::instruction);
+                    }
+
                     auto const result_type_count{details::read_leb128<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>(code_curr,
                                                                                                                               code_end,
                                                                                                                               op_begin,
                                                                                                                               err,
                                                                                                                               u8"select.result_types")};
 
-                    if(result_type_count == 0u)
-                    {
-                        if(!is_polymorphic && concrete_operand_count() < 3uz) [[unlikely]] { report_operand_stack_underflow(op_begin, u8"select", 3uz); }
+                    // select_t result_type_count result_type ...
+                    // [           safe         ] unsafe (could be the section_end)
+                    //                            ^^ code_curr
 
-                        auto const cond{try_pop_concrete_operand()};
-                        if(!operand_type_matches(cond, curr_operand_stack_value_type::i32)) [[unlikely]]
-                        {
-                            err.err_curr = op_begin;
-                            err.err_selectable.select_cond_type_not_i32.cond_type = to_wasm1_value_type(cond.type);
-                            err.err_code = code_validation_error_code::select_cond_type_not_i32;
-                            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-                        }
-
-                        auto const v2{try_pop_concrete_operand()};
-                        auto const v1{try_peek_concrete_operand()};
-
-                        if(v1.from_stack && v2.from_stack && !v1.is_unknown && !v2.is_unknown && v1.type != v2.type) [[unlikely]]
-                        {
-                            err.err_curr = op_begin;
-                            err.err_selectable.select_type_mismatch.type_v1 = to_wasm1_value_type(v1.type);
-                            err.err_selectable.select_type_mismatch.type_v2 = to_wasm1_value_type(v2.type);
-                            err.err_code = code_validation_error_code::select_type_mismatch;
-                            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-                        }
-
-                        bool const have_known_select_value_type{(v1.from_stack && !v1.is_unknown) || (v2.from_stack && !v2.is_unknown)};
-                        auto const select_value_type{(v1.from_stack && !v1.is_unknown) ? v1.type : v2.type};
-                        if(have_known_select_value_type && !is_untyped_select_value_type(select_value_type)) [[unlikely]]
-                        {
-                            err.err_curr = op_begin;
-                            err.err_selectable.select_type_mismatch.type_v1 = to_wasm1_value_type(select_value_type);
-                            err.err_selectable.select_type_mismatch.type_v2 = to_wasm1_value_type(select_value_type);
-                            err.err_code = code_validation_error_code::select_type_mismatch;
-                            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-                        }
-
-                        if(!v1.from_stack)
-                        {
-                            if(v2.from_stack) { operand_stack.push_back({v2.type, v2.is_unknown}); }
-                            else if(is_polymorphic) { push_unknown_operand(); }
-                        }
-
-                        break;
-                    }
                     if(result_type_count != 1u) [[unlikely]] { details::fail_invalid_immediate(op_begin, err, u8"select.result_types"); }
 
                     auto const result_type_byte{details::read_u8(code_curr, code_end, op_begin, err, u8"select.result_type")};
+
+                    // select_t result_type_count result_type ...
+                    // [                 safe               ] unsafe (could be the section_end)
+                    //                                        ^^ code_curr
+
                     auto const result_type{static_cast<curr_operand_stack_value_type>(result_type_byte)};
                     ensure_wasm1p1_value_type_enabled(op_begin, result_type, ::uwvm2::parser::wasm::base::wasm1p1_error_subject::instruction);
 
@@ -4830,13 +4804,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
                         }
                         case wasm1p1_numeric_code::table_grow:
                         {
-                            if(wasm1p1_para.disable_reference_types) [[unlikely]]
+                            if(wasm1p1_para.disable_table_instructions) [[unlikely]]
                             {
-                                details::fail_feature_required(op_begin,
-                                                               err,
-                                                               subopcode,
-                                                               ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::reference_types,
-                                                               ::uwvm2::parser::wasm::base::wasm1p1_error_subject::instruction);
+                                details::fail_wasm2_feature_required(op_begin,
+                                                                     err,
+                                                                     subopcode,
+                                                                     ::uwvm2::parser::wasm::base::wasm2_feature_kind::table_instructions,
+                                                                     ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
                             }
                             auto const table_index{details::read_leb128<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>(code_curr,
                                                                                                                                 code_end,
@@ -4878,13 +4852,13 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
                         }
                         case wasm1p1_numeric_code::table_size:
                         {
-                            if(wasm1p1_para.disable_reference_types) [[unlikely]]
+                            if(wasm1p1_para.disable_table_instructions) [[unlikely]]
                             {
-                                details::fail_feature_required(op_begin,
-                                                               err,
-                                                               subopcode,
-                                                               ::uwvm2::parser::wasm::base::wasm1p1_feature_kind::reference_types,
-                                                               ::uwvm2::parser::wasm::base::wasm1p1_error_subject::instruction);
+                                details::fail_wasm2_feature_required(op_begin,
+                                                                     err,
+                                                                     subopcode,
+                                                                     ::uwvm2::parser::wasm::base::wasm2_feature_kind::table_instructions,
+                                                                     ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
                             }
                             auto const table_index{details::read_leb128<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>(code_curr,
                                                                                                                                 code_end,
@@ -5629,6 +5603,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
             auto& para{::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(fs_para)};
             para.disable_multi_value = false;
             para.disable_reference_types = false;
+            para.disable_table_instructions = false;
+            para.disable_multiple_tables = false;
             para.disable_bulk_memory = false;
             para.disable_sign_extension = false;
             para.disable_nontrapping_float_to_int = false;
