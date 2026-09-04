@@ -18,6 +18,16 @@ from pathlib import Path
 ANSI_RE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
 ENTRY_RE = re.compile(r'\((?:start\b|export\s+"(?:_start|main)")')
 UWVM_TRAP_RE = re.compile(r"Runtime crash \(([^)]+)\)", re.IGNORECASE)
+UWVM_WASI_POINTER_ALIGNMENT_RE = re.compile(
+    r"^\s*uwvm:\s*\[fatal\]\s*wasi preview 1 guest pointer alignment trap:"
+    r"[^\r\n]*required alignment\s*=\s*(?:2|4|8)\s*bytes\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+WASMTIME_WASI_POINTER_ALIGNMENT_RE = re.compile(
+    r"^\s*(?:\d+:\s*)?pointer not aligned to (?:2|4|8):\s*"
+    r"region\s*\{\s*start:\s*\d+,\s*len:\s*\d+\s*\}\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
 
 MVP_VALIDATION_FLAGS = (
     "--disable-mutable-globals",
@@ -65,8 +75,10 @@ def strip_ansi(text: str) -> str:
 
 
 def canonical_trap(text: str) -> str | None:
-    plain = strip_ansi(text).lower()
-    uwvm_match = UWVM_TRAP_RE.search(strip_ansi(text))
+    stripped = strip_ansi(text)
+    plain = stripped.lower()
+
+    uwvm_match = UWVM_TRAP_RE.search(stripped)
     if uwvm_match:
         plain = uwvm_match.group(1).lower()
 
@@ -87,11 +99,28 @@ def canonical_trap(text: str) -> str | None:
     return None
 
 
+def canonical_wasi_pointer_alignment_trap(stderr: str) -> str | None:
+    """Recognize only the two stable Preview 1 host-ABI diagnostics on stderr."""
+
+    stripped = strip_ansi(stderr)
+    # Keep this narrower than a generic "pointer not aligned" match.  Ordinary
+    # unaligned core-Wasm loads/stores remain legal, and guest stdout must never
+    # be able to manufacture this cross-runtime equivalence class.
+    if UWVM_WASI_POINTER_ALIGNMENT_RE.search(stripped):
+        return "wasi-pointer-alignment"
+    if "error while executing at wasm backtrace" in stripped.lower() and WASMTIME_WASI_POINTER_ALIGNMENT_RE.search(stripped):
+        return "wasi-pointer-alignment"
+    return None
+
+
 def classify(returncode: int, timed_out: bool, stdout: str, stderr: str) -> str:
     if timed_out:
         return "timeout"
     if returncode == 0:
         return "ok"
+    wasi_pointer_trap = canonical_wasi_pointer_alignment_trap(stderr)
+    if wasi_pointer_trap:
+        return f"trap:{wasi_pointer_trap}"
     trap = canonical_trap(stdout + "\n" + stderr)
     if trap:
         return f"trap:{trap}"
@@ -167,6 +196,130 @@ def inherited_cpu_affinity() -> list[int] | None:
     if not hasattr(os, "sched_getaffinity"):
         return None
     return sorted(os.sched_getaffinity(0))
+
+
+def probe_command(argv: list[str], cwd: Path, timeout: float) -> dict[str, object]:
+    """Run a non-fatal provenance probe and preserve failures in the report."""
+
+    try:
+        result = run_process(argv, cwd, timeout)
+    except OSError as error:
+        return {
+            "status": "unavailable",
+            "text": None,
+            "error": f"{type(error).__name__}: {error}",
+            "result": {
+                "argv": argv,
+                "returncode": None,
+                "timed_out": False,
+                "elapsed_ms": 0.0,
+                "stdout": "",
+                "stderr": "",
+                "outcome": "spawn-error",
+            },
+        }
+
+    combined = strip_ansi(result.stdout + "\n" + result.stderr).strip()
+    status = "ok" if result.outcome == "ok" else ("timeout" if result.timed_out else "failed")
+    return {
+        "status": status,
+        "text": combined or None,
+        "error": None,
+        "result": asdict(result),
+    }
+
+
+def corpus_git_provenance(source_root: Path, timeout: float) -> dict[str, object]:
+    revision_probe = probe_command(["git", "-C", str(source_root), "rev-parse", "--verify", "HEAD"], source_root, timeout)
+    revision: str | None = None
+    result = revision_probe["result"]
+    if revision_probe["status"] == "ok" and isinstance(result, dict):
+        candidate = str(result.get("stdout", "")).strip()
+        if re.fullmatch(r"(?:[0-9a-fA-F]{40}|[0-9a-fA-F]{64})", candidate):
+            revision = candidate.lower()
+        else:
+            revision_probe["status"] = "failed"
+            revision_probe["error"] = "git rev-parse returned a non-object-id value"
+
+    status_probe = probe_command(
+        [
+            "git",
+            "-C",
+            str(source_root),
+            "status",
+            "--porcelain=v2",
+            "--untracked-files=all",
+            "--ignore-submodules=none",
+            "--",
+            ".",
+        ],
+        source_root,
+        timeout,
+    )
+    dirty: bool | None = None
+    tracked_changes: bool | None = None
+    untracked_changes: bool | None = None
+    submodule_changes: bool | None = None
+    status_entries: list[str] | None = None
+    status_result = status_probe["result"]
+    if status_probe["status"] == "ok" and isinstance(status_result, dict):
+        status_entries = [line.rstrip() for line in str(status_result.get("stdout", "")).splitlines() if line]
+        dirty = bool(status_entries)
+        tracked_changes = False
+        untracked_changes = False
+        submodule_changes = False
+        for line in status_entries:
+            if line.startswith(("1 ", "2 ", "u ")):
+                tracked_changes = True
+                fields = line.split(maxsplit=3)
+                if len(fields) >= 3 and fields[2].startswith("S"):
+                    submodule_changes = True
+            elif line.startswith("? "):
+                untracked_changes = True
+
+    return {
+        "revision": revision,
+        "dirty": dirty,
+        # These are intentionally non-exclusive: a dirty gitlink is a tracked
+        # change, while submodule_changes records the more specific cause.
+        "tracked_changes": tracked_changes,
+        "untracked_changes": untracked_changes,
+        "submodule_changes": submodule_changes,
+        "status": status_entries,
+        "revision_probe": revision_probe,
+        "status_probe": status_probe,
+    }
+
+
+def collect_provenance(
+    source_root: Path,
+    uwvm_int: Path,
+    uwvm_llvm: Path,
+    wasmtime: Path,
+    wat2wasm: Path,
+    wasm_validate: Path,
+    wasm_objdump: Path,
+    timeout: float,
+) -> dict[str, object]:
+    probe_timeout = min(timeout, 5.0)
+
+    def version(executable: Path) -> dict[str, object]:
+        return {
+            "path": str(executable),
+            "version": probe_command([str(executable), "--version"], source_root, probe_timeout),
+        }
+
+    return {
+        "corpus": {"path": str(source_root), "git": corpus_git_provenance(source_root, probe_timeout)},
+        "tools": {
+            "uwvm_int": version(uwvm_int),
+            "uwvm_llvm": version(uwvm_llvm),
+            "wasmtime": version(wasmtime),
+            "wat2wasm": version(wat2wasm),
+            "wasm_validate": version(wasm_validate),
+            "wasm_objdump": version(wasm_objdump),
+        },
+    }
 
 
 def main(argv: list[str]) -> int:
@@ -256,6 +409,18 @@ def main(argv: list[str]) -> int:
     if not selected:
         parser.error("no executable WAT fixtures selected")
 
+    started = time.time()
+    provenance = collect_provenance(
+        source_root,
+        uwvm_int,
+        uwvm_llvm,
+        args.wasmtime,
+        args.wat2wasm,
+        args.wasm_validate,
+        args.wasm_objdump,
+        args.timeout,
+    )
+
     cases: list[dict[str, object]] = []
     counters = {
         "selected": len(selected),
@@ -268,8 +433,6 @@ def main(argv: list[str]) -> int:
         "reference_mismatch": 0,
         "validation_rejected": 0,
     }
-    started = time.time()
-
     for index, (wat_path, relative) in enumerate(selected, start=1):
         stem = artifact_stem(relative)
         case_dir = artifacts_dir / stem
@@ -418,8 +581,9 @@ def main(argv: list[str]) -> int:
         )
 
     report = {
-        "schema": "uwvm2-wasmtime-full-backend-matrix-v2",
+        "schema": "uwvm2-wasmtime-full-backend-matrix-v3",
         "cpu_affinity": inherited_cpu_affinity(),
+        "provenance": provenance,
         "source_root": str(source_root),
         "uwvm_int": str(uwvm_int),
         "uwvm_llvm": str(uwvm_llvm),
