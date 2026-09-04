@@ -70,6 +70,9 @@ int main()
     constexpr ::std::uint8_t truncated_memarg[]{0x28u, 0x00u};
     constexpr ::std::uint8_t truncated_typed_select[]{0x1cu, 0x01u};
     constexpr ::std::uint8_t truncated_tableidx[]{0x11u, 0x00u, 0x80u};
+    // The fifth-byte payload may carry only four u32 bits, and a fifth continuation byte is always too long.
+    constexpr ::std::uint8_t overflowing_tableidx[]{0x11u, 0x00u, 0xffu, 0xffu, 0xffu, 0xffu, 0x1fu};
+    constexpr ::std::uint8_t too_long_tableidx[]{0x11u, 0x00u, 0x80u, 0x80u, 0x80u, 0x80u, 0x80u, 0x00u};
     constexpr ::std::uint8_t truncated_v128_const[]{
         0xfdu, 0x0cu,
         0x00u, 0x00u, 0x00u, 0x00u, 0x00u,
@@ -82,5 +85,7 @@ int main()
     if(!scan_one(truncated_tableidx, nullptr, false, 0uz)) { return 7; }
     if(!scan_one(truncated_v128_const, nullptr, false, 0uz)) { return 8; }
     if(!scan_one(unknown_opcode, nullptr, false, 0uz)) { return 9; }
+    if(!scan_one(overflowing_tableidx, nullptr, false, 0uz)) { return 10; }
+    if(!scan_one(too_long_tableidx, nullptr, false, 0uz)) { return 11; }
     return 0;
 }
