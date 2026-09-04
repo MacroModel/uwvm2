@@ -3,11 +3,12 @@ option("march", function()
     (
         [[Set the "-march" option for gcc and clang.]],
         "The option is automatically added if using our toolchain option.",
-        [[    none: Don't set the "-march" option, use the default march of the toolchain.]],
-        [[    default: Set the "-march" option as "-march=native" if possible, otherwise don't set the "-march" option and use the default march of the toolchain.]],
-        [[    arch: Set the "-march" option as "-march=arch". Note that "arch" is any value other than "no" and "default".]]
+        [[    none: Don't set the "-march" option; this is the toolchain-baseline default.]],
+        [[    native: Set "-march=native" explicitly for developer-local builds.]],
+        [[    default: Legacy explicit alias for "native".]],
+        [[    arch: Set the "-march" option as "-march=arch". Note that "arch" is any value other than "no", "none", and "default".]]
     )
-    set_default("default")
+    set_default("none")
     after_check(function(option)
         import("utility.utility")
         option:add("cxflags", utility.get_march_option())
@@ -157,7 +158,7 @@ option("use-llvm-compiler", function()
     set_description
     (
         "Use the LLVM/Clang compiler toolchain (Clang-CL on Windows, clang on other platforms).",
-        "This only switches the compiler toolchain and does not enable LLVM JIT by itself.",
+        "This only switches the compiler toolchain and does not enable the LLVM AOT backend by itself.",
         "default = false"
     )
     set_default(false)
@@ -196,10 +197,10 @@ end)
 option("execution-jit", function()
     set_description
     (
-        "select execution jit backend",
-        [[    none: disable execution jit backend.]],
-        [[    default: use default execution jit backend.]],
-        [[    llvm: use llvm execution jit backend.]]
+        "select the full-module LLVM AOT backend (legacy option name)",
+        [[    none: disable the LLVM AOT backend.]],
+        [[    default: use the default LLVM AOT backend.]],
+        [[    llvm: use the LLVM AOT backend.]]
     )
     set_default("default")
     set_values("none", "default", "llvm")
@@ -253,17 +254,6 @@ option("openssl-root", function()
         [[    default: use xmake package resolution.]],
         [[    path: use headers from path/include and libraries from path or path/lib.]]
     )
-end)
-
-option("debug-int", function()
-    set_description
-    (
-        "select debug int backend",
-        "default = false",
-        "    false: keep the unimplemented debug interpreter backend disabled.",
-        "    true: enable debug interpreter command-line surface for implementation work only."
-    )
-    set_default(false)
 end)
 
 option("enable-uwvm-int-combine-ops", function()
@@ -490,10 +480,10 @@ end)
 option("enable-test-llvm-jit", function()
     set_description
     (
-        "Register slow LLVM JIT validation/coverage targets.",
+        "Register slow LLVM AOT validation/coverage targets.",
         "default = false",
-        [[    true: register 0014.llvm_jit targets and 0013 strict LLVM-JIT mirror targets.]],
-        [[    false: skip registering slow LLVM JIT validation/coverage targets.]]
+        [[    true: register the historical 0014.llvm_jit targets and 0013 strict LLVM-AOT mirror targets.]],
+        [[    false: skip registering slow LLVM AOT validation/coverage targets.]]
     )
     set_default(false)
 end)

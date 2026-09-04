@@ -26,6 +26,14 @@ add_moduledirs("xmake")
 set_defaultmode("release")
 set_allowedmodes(support_rules_table)
 
+local function uwvm_target_supports_llvm_jit()
+	local arch = string.lower(tostring(get_config("arch") or os.arch() or ""))
+	local is_powerpc = string.sub(arch, 1, 3) == "ppc" or string.sub(arch, 1, 7) == "powerpc"
+	local is_32_bit_powerpc = is_powerpc and string.find(arch, "64", 1, true) == nil
+	local is_sparc = string.sub(arch, 1, 5) == "sparc"
+	return not is_32_bit_powerpc and not is_sparc
+end
+
 function def_build(opt)
 	opt = opt or {}
 	if is_mode("debug") then
@@ -47,7 +55,9 @@ function def_build(opt)
 	if enable_cxx_module then
 		add_defines("UWVM_MODULE")
 		set_policy("build.c++.modules", true)
-		-- set_policy("build.c++.modules.std", true)
+		-- The project uses named modules but does not import `std`. Do not make xmake synthesize a standard-library module:
+		-- its compiler-shipped std.cc must exactly match the selected C++ standard library and is not a project dependency.
+		set_policy("build.c++.modules.std", false)
 	end
 
 	local use_stdlib = get_config("stdlib")
@@ -110,7 +120,8 @@ function def_build(opt)
 	end
 
 	local execution_jit = get_config("execution-jit")
-	if not execution_jit or execution_jit == "none" then
+	local enable_llvm_jit = (execution_jit == "default" or execution_jit == "llvm") and uwvm_target_supports_llvm_jit()
+	if not enable_llvm_jit then
 		add_defines("UWVM_DISABLE_JIT")
 	elseif execution_jit == "default" then
 		add_defines("UWVM_USE_DEFAULT_JIT")
@@ -120,7 +131,7 @@ function def_build(opt)
 		add_options("llvm-jit-env")
 	end
 
-	if execution_jit == "default" or execution_jit == "llvm" then
+	if enable_llvm_jit then
 		add_cxxflags("-Wno-deprecated-declarations", { force = true })
 
 		on_load(function(target)
@@ -149,7 +160,7 @@ function def_build(opt)
 		end)
 	end
 
-	if (execution_jit == "default" or execution_jit == "llvm") and (is_plat("macosx") or is_plat("iphoneos") or is_plat("watchos")) then
+	if enable_llvm_jit and (is_plat("macosx") or is_plat("iphoneos") or is_plat("watchos")) then
 		on_load(function(target)
 			local utility = import("utility.utility", { anonymous = true })
 			-- Keep the runtime search path aligned with the LLVM installation
@@ -163,43 +174,38 @@ function def_build(opt)
 		end)
 	end
 
-	local debug_int = get_config("debug-int")
-	if debug_int then
-		add_defines("UWVM_ENABLE_DEBUG_INT")
-	else
-		add_defines("UWVM_DISABLE_DEBUG_INT")
-	end
+	if execution_int == "default" or execution_int == "uwvm-int" then
+		local combine_ops_mode = get_config("enable-uwvm-int-combine-ops")
 
-	local heavy_combine_ops_mode = get_config("enable-uwvm-int-combine-ops")
+		if combine_ops_mode ~= "none" then
+			-- Soft/light combine is enabled by default unless explicitly set to "none".
+			add_defines("UWVM_ENABLE_UWVM_INT_COMBINE_OPS")
 
-	if heavy_combine_ops_mode ~= "none" then
-		-- Soft/light combine is enabled by default unless explicitly set to "none".
-		add_defines("UWVM_ENABLE_UWVM_INT_COMBINE_OPS")
-
-		if heavy_combine_ops_mode == "heavy" or heavy_combine_ops_mode == "extra" then
-			add_defines("UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS")
-			if heavy_combine_ops_mode == "extra" then
-				add_defines("UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS")
+			if combine_ops_mode == "heavy" or combine_ops_mode == "extra" then
+				add_defines("UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS")
+				if combine_ops_mode == "extra" then
+					add_defines("UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS")
+				end
 			end
 		end
-	end
 
-	local delay_local_mode = get_config("enable-uwvm-int-delay-local")
-	if delay_local_mode == "soft" or delay_local_mode == "heavy" then
-		add_defines("UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT")
-		if delay_local_mode == "heavy" then
-			add_defines("UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY")
+		local delay_local_mode = get_config("enable-uwvm-int-delay-local")
+		if delay_local_mode == "soft" or delay_local_mode == "heavy" then
+			add_defines("UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT")
+			if delay_local_mode == "heavy" then
+				add_defines("UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY")
+			end
 		end
-	end
 
-	local enable_uwvm_int_instruction_reorder = get_config("enable-uwvm-int-instruction-reorder")
-	if enable_uwvm_int_instruction_reorder then
-		add_defines("UWVM_ENABLE_UWVM_INT_INSTRUCTION_REORDER")
-	end
+		local enable_uwvm_int_instruction_reorder = get_config("enable-uwvm-int-instruction-reorder")
+		if enable_uwvm_int_instruction_reorder then
+			add_defines("UWVM_ENABLE_UWVM_INT_INSTRUCTION_REORDER")
+		end
 
-	local enable_uwvm_int_loop_unwind = get_config("enable-uwvm-int-loop-unwind")
-	if enable_uwvm_int_loop_unwind then
-		add_defines("UWVM_ENABLE_UWVM_INT_LOOP_UNWIND")
+		local enable_uwvm_int_loop_unwind = get_config("enable-uwvm-int-loop-unwind")
+		if enable_uwvm_int_loop_unwind then
+			add_defines("UWVM_ENABLE_UWVM_INT_LOOP_UNWIND")
+		end
 	end
 
 	local use_thread_local = get_config("use-thread-local")
@@ -353,8 +359,28 @@ function def_build(opt)
 	)
 end
 
-local uwvm_uses_llvm_jit = (get_config("execution-jit") == "llvm") or (get_config("execution-jit") == "default")
-local uwvm_has_runtime_backend = (get_config("execution-int") == "uwvm-int" or get_config("execution-int") == "default") or uwvm_uses_llvm_jit
+local uwvm_uses_uwvm_int = (get_config("execution-int") == "uwvm-int") or (get_config("execution-int") == "default")
+local uwvm_uses_llvm_jit = ((get_config("execution-jit") == "llvm") or (get_config("execution-jit") == "default")) and
+	uwvm_target_supports_llvm_jit()
+local uwvm_has_runtime_backend = uwvm_uses_uwvm_int or uwvm_uses_llvm_jit
+
+local function uwvm_add_frontend_module_files(is_public)
+	add_files("src/uwvm2/uwvm/**.cppm", { public = is_public })
+
+	if not uwvm_uses_uwvm_int then
+		remove_files("src/uwvm2/uwvm/cmdline/params/runtime_int.cppm")
+		remove_files("src/uwvm2/uwvm/cmdline/params/runtime_uwvm_int_*.cppm")
+		remove_files("src/uwvm2/uwvm/cmdline/callback/runtime_int.cppm")
+		remove_files("src/uwvm2/uwvm/cmdline/callback/runtime_uwvm_int_*.cppm")
+	end
+
+	if not uwvm_uses_llvm_jit then
+		remove_files("src/uwvm2/uwvm/cmdline/params/runtime_aot.cppm")
+		remove_files("src/uwvm2/uwvm/cmdline/params/runtime_llvm_jit_*.cppm")
+		remove_files("src/uwvm2/uwvm/cmdline/callback/runtime_aot.cppm")
+		remove_files("src/uwvm2/uwvm/cmdline/callback/runtime_llvm_jit_*.cppm")
+	end
+end
 
 if uwvm_uses_llvm_jit and get_config("openssl-root") == "default" then
 	add_requires("openssl", {configs = {shared = false}})
@@ -447,7 +473,7 @@ target("uwvm")
 		add_files("src/uwvm2/validation/**.cppm", { public = is_debug_mode })
 
 		-- uwvm
-		add_files("src/uwvm2/uwvm/**.cppm", { public = is_debug_mode })
+		uwvm_add_frontend_module_files(is_debug_mode)
 	end
 
 	if enable_cxx_module then
@@ -517,10 +543,18 @@ target("uwvm_runtime")
 		add_files("src/uwvm2/validation/**.cppm", { public = is_debug_mode })
 
 		-- uwvm
-		add_files("src/uwvm2/uwvm/**.cppm", { public = is_debug_mode })
+		uwvm_add_frontend_module_files(is_debug_mode)
 
-		-- runtime
-		add_files("src/uwvm2/runtime/**.cppm", { public = is_debug_mode })
+		-- The runtime interface is backend-neutral and remains visible in every module build. Compiler/cache partitions are added only
+		-- for enabled backends so int-only builds never parse LLVM modules and LLVM-only builds never compile interpreter optables.
+		add_files("src/uwvm2/runtime/lib/**.cppm", { public = true })
+		if uwvm_uses_uwvm_int then
+			add_files("src/uwvm2/runtime/compiler/uwvm_int/**.cppm", { public = true })
+		end
+		if uwvm_uses_llvm_jit then
+			add_files("src/uwvm2/runtime/compiler/llvm_jit/**.cppm", { public = true })
+			add_files("src/uwvm2/runtime/llvm_jit_cache/**.cppm", { public = true })
+		end
 	end
 
 	if uwvm_has_runtime_backend then
@@ -542,18 +576,18 @@ target_end()
 -- test unit
 for _, file in ipairs(os.files("test/**.cc")) do
 	local is_0013_uwvm_int = (string.find(file, "test/0013.uwvm_int/", 1, true) ~= nil) or (string.find(file, "test\\0013.uwvm_int\\", 1, true) ~= nil)
-	local is_0013_uwvm_int_lazy = (string.find(file, "test/0013.uwvm_int/lazy/", 1, true) ~= nil) or (string.find(file, "test\\0013.uwvm_int\\lazy\\", 1, true) ~= nil)
 	local is_0014_llvm_jit = (string.find(file, "test/0014.llvm_jit/", 1, true) ~= nil) or (string.find(file, "test\\0014.llvm_jit\\", 1, true) ~= nil)
 	local is_0015_backend_fuzzer = (string.find(file, "test/0015.backend_fuzzer/", 1, true) ~= nil) or (string.find(file, "test\\0015.backend_fuzzer\\", 1, true) ~= nil)
 	local is_libfuzzer = (string.find(file, "test/0009.libfuzzer/", 1, true) ~= nil) or
 		(string.find(file, "test\\0009.libfuzzer\\", 1, true) ~= nil)
 	local is_llvm_jit_test = is_0014_llvm_jit or (string.find(file, "llvm_jit", 1, true) ~= nil)
+	local is_parallel_compile_failure_state = string.find(file, "parallel_compile_failure_state.cc", 1, true) ~= nil
 	local test_libfuzzer = get_config("test-libfuzzer")
-	local is_int_backend = get_config("execution-int") == "uwvm-int" or get_config("execution-int") == "default"
 
-	if not ((is_0013_uwvm_int and not get_config("enable-test-uwvm-int")) or
-		(is_0013_uwvm_int_lazy and not is_int_backend) or
+	if not ((is_0013_uwvm_int and (not get_config("enable-test-uwvm-int") or not uwvm_uses_uwvm_int)) or
 		(is_0014_llvm_jit and not get_config("enable-test-llvm-jit")) or
+		(is_llvm_jit_test and not uwvm_uses_llvm_jit) or
+		(is_parallel_compile_failure_state and not uwvm_uses_uwvm_int) or
 		is_0015_backend_fuzzer or
 		(is_libfuzzer and not test_libfuzzer)) then
 		local name = path.basename(file)
@@ -563,13 +597,7 @@ for _, file in ipairs(os.files("test/**.cc")) do
 		set_kind("binary")
 		def_build({ skip_static_libcxx = (is_libfuzzer and test_libfuzzer) or is_llvm_jit_test })
 
-		if ((get_config("execution-jit") == "llvm") or (get_config("execution-jit") == "default")) and
-			is_llvm_jit_test then
-			add_deps("uwvm_runtime")
-			add_deps("uwvm")
-		end
-
-		if is_0013_uwvm_int_lazy then
+		if uwvm_uses_llvm_jit and is_llvm_jit_test then
 			add_deps("uwvm_runtime")
 			add_deps("uwvm")
 		end
@@ -594,7 +622,7 @@ for _, file in ipairs(os.files("test/**.cc")) do
 		-- third-parties/boost
 		add_includedirs("third-parties/boost_unordered/include")
 
-		if is_llvm_jit_test then
+		if uwvm_uses_llvm_jit and is_llvm_jit_test then
 			uwvm_add_llvm_jit_cache_openssl()
 		end
 
@@ -626,7 +654,7 @@ for _, file in ipairs(os.files("test/**.cc")) do
 			add_files("src/uwvm2/validation/**.cppm", { public = is_debug_mode })
 
 			-- uwvm
-			add_files("src/uwvm2/uwvm/**.cppm", { public = is_debug_mode })
+			uwvm_add_frontend_module_files(is_debug_mode)
 		end
 
 		set_warnings("all", "extra", "error")
@@ -990,8 +1018,8 @@ for _, file in ipairs(os.files("test/**.cc")) do
 end
 
 if get_config("enable-test-backend-fuzzer") then
-	local backend_fuzzer_has_int = get_config("execution-int") == "uwvm-int" or get_config("execution-int") == "default"
-	local backend_fuzzer_has_jit = get_config("execution-jit") == "llvm" or get_config("execution-jit") == "default"
+	local backend_fuzzer_has_int = uwvm_uses_uwvm_int
+	local backend_fuzzer_has_jit = uwvm_uses_llvm_jit
 	if not backend_fuzzer_has_int or not backend_fuzzer_has_jit then
 		raise("test/0015.backend_fuzzer requires --execution-int=uwvm-int/default and --execution-jit=llvm/default.")
 	end
@@ -1022,11 +1050,29 @@ if get_config("enable-test-backend-fuzzer") then
 	target_end()
 end
 
--- LLVM JIT mirror of the 0013 strict uwvm-int suites. These targets compile the
--- original 0013 source files with a runner macro that routes Runner::run through
--- llvm_jit_call_raw_host_api, so the LLVM coverage stays aligned with 0013.
-if get_config("enable-test-llvm-jit") and ((get_config("execution-jit") == "llvm") or (get_config("execution-jit") == "default")) then
-	local llvm_jit_strict_files = os.files("test/0013.uwvm_int/strict/**.cc")
+-- LLVM AOT mirror of the 0013 strict uwvm-int suites. These sources still inspect
+-- interpreter translation artifacts, so register the mirrors only for combined builds.
+-- Pure LLVM builds retain the native 0014 LLVM tests without pulling in the int harness.
+if get_config("enable-test-llvm-jit") and uwvm_uses_uwvm_int and uwvm_uses_llvm_jit then
+	local llvm_aot_unsupported_strict_files = {
+		["uwvm_int_translate_wasm1p1_full_interpreter_strict.cc"] = true,
+		["uwvm_int_translate_wasm1p1_bulk_memory_strict.cc"] = true,
+		["uwvm_int_translate_wasm1p1_externref_table_strict.cc"] = true,
+		["uwvm_int_translate_wasm1p1_table_ref_bulk_strict.cc"] = true,
+		["uwvm_int_translate_wasm1p1_simd_basic_strict.cc"] = true,
+		["uwvm_int_translate_if_no_else_identity_strict.cc"] = true,
+		["uwvm_int_validate_wasm1p1_validator_alignment_strict.cc"] = true
+	}
+	local llvm_jit_strict_files = {}
+	for _, file in ipairs(os.files("test/0013.uwvm_int/strict/**.cc")) do
+		local normalized = file:gsub("\\", "/")
+		local filename = normalized:match("([^/]+)$")
+		-- These suites deliberately cover interpreter-only Wasm 1.1 operations. LLVM AOT no longer routes unsupported
+		-- functions through the interpreter, so keep them solely under -Rint.
+		if not llvm_aot_unsupported_strict_files[filename] then
+			table.insert(llvm_jit_strict_files, file)
+		end
+	end
 	table.sort(llvm_jit_strict_files)
 	for index, file in ipairs(llvm_jit_strict_files) do
 		local rel = file:gsub("\\", "/")
@@ -1092,7 +1138,7 @@ if get_config("enable-test-llvm-jit") and ((get_config("execution-jit") == "llvm
 				add_files("src/uwvm2/validation/**.cppm", { public = is_debug_mode })
 
 				-- uwvm
-				add_files("src/uwvm2/uwvm/**.cppm", { public = is_debug_mode })
+				uwvm_add_frontend_module_files(is_debug_mode)
 			end
 
 			set_warnings("all", "extra", "error")
@@ -1110,91 +1156,4 @@ if get_config("enable-test-llvm-jit") and ((get_config("execution-jit") == "llvm
 		target_end()
 	end
 
-	local llvm_jit_lazy_files = os.files("test/0013.uwvm_int/lazy/**.cc")
-	table.sort(llvm_jit_lazy_files)
-	local llvm_jit_lazy_index = 0
-	for _, file in ipairs(llvm_jit_lazy_files) do
-		local normalized = file:gsub("\\", "/")
-		if normalized:find("/uwvm_int_lazy_split.cc", 1, true) or normalized:find("/uwvm_int_lazy_strategy_matrix.cc", 1, true) then
-			goto continue_llvm_jit_lazy
-		end
-		local rel = normalized
-		rel = rel:gsub("^test/0013%.uwvm_int/lazy/", "")
-		llvm_jit_lazy_index = llvm_jit_lazy_index + 1
-		local name = string.format("lj13l_%03d", llvm_jit_lazy_index)
-
-		target(name)
-			set_group("test/0014.llvm_jit/lazy")
-			set_kind("binary")
-			def_build({ skip_static_libcxx = true })
-
-			add_deps("uwvm_runtime")
-			add_deps("uwvm")
-
-			-- uwvm uses precise floating-point model to ensure determinism.
-			set_fpmodels("precise")
-
-			set_default(false)
-
-			local enable_cxx_module = get_config("use-cxx-module")
-
-			-- third-parties/fast_io
-			add_includedirs("third-parties/fast_io/include")
-
-			if enable_cxx_module then
-				add_files("third-parties/fast_io/share/fast_io/fast_io.cppm", { public = is_debug_mode })
-				add_files("third-parties/fast_io/share/fast_io/fast_io_crypto.cppm", { public = is_debug_mode })
-			end
-			-- third-parties/bizwen
-			add_includedirs("third-parties/bizwen/include")
-
-			-- third-parties/boost
-			add_includedirs("third-parties/boost_unordered/include")
-
-			uwvm_add_llvm_jit_cache_openssl()
-
-			-- uwvm
-			add_defines("UWVM=2")
-			-- uwvm test
-			add_defines("UWVM_TEST=2")
-			add_defines("UWVM2TEST_RUNNER_USE_LLVM_JIT")
-
-			-- src
-			add_includedirs("src/")
-
-			if enable_cxx_module then
-				-- uwvm predefine
-				add_files("src/uwvm2/uwvm_predefine/**.cppm", { public = is_debug_mode })
-
-				-- utils
-				add_files("src/uwvm2/utils/**.cppm", { public = is_debug_mode })
-
-				-- object
-				add_files("src/uwvm2/object/**.cppm", { public = is_debug_mode })
-
-				-- imported
-				add_files("src/uwvm2/imported/**.cppm", { public = is_debug_mode })
-
-				-- wasm parser
-				add_files("src/uwvm2/parser/**.cppm", { public = is_debug_mode })
-
-				-- validation
-				add_files("src/uwvm2/validation/**.cppm", { public = is_debug_mode })
-
-				-- uwvm
-				add_files("src/uwvm2/uwvm/**.cppm", { public = is_debug_mode })
-			end
-
-			set_warnings("all", "extra", "error")
-
-			if get_config("use-llvm-compiler") then
-				add_cxxflags("-Wno-error=undefined-inline")
-				add_cxxflags("-Wno-undefined-inline")
-			end
-
-			add_tests("unit", { group = "default" }) -- xmake test -g default
-			add_files(file)
-		target_end()
-		::continue_llvm_jit_lazy::
-	end
 end
