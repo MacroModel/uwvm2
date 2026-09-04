@@ -63,6 +63,53 @@
 
 UWVM_MODULE_EXPORT namespace uwvm2::imported::wasi::wasip1::func
 {
+    /// @brief Report a WASI Preview 1 guest-ABI pointer alignment violation and trap.
+    /// @note  This is deliberately separate from WebAssembly linear-memory load/store handling: ordinary non-atomic Wasm memory operations may use
+    ///        unaligned effective addresses. The stricter rule belongs only to pointer arguments crossing the WASI host-call boundary.
+    UWVM_GNU_COLD [[noreturn]] inline constexpr void output_wasip1_guest_pointer_alignment_error(
+        ::std::uint_least64_t guest_offset,
+        ::std::size_t required_alignment,
+        char8_t const* pointer_name) noexcept
+    {
+# ifdef UWVM
+        ::fast_io::io::perr(::uwvm2::uwvm::io::u8log_output,
+                            u8"uwvm: [fatal] WASI Preview 1 guest pointer alignment trap: ",
+                            ::fast_io::mnp::os_c_str(pointer_name),
+                            u8" = ",
+                            ::fast_io::mnp::addrvw(guest_offset),
+                            u8", required alignment = ",
+                            required_alignment,
+                            u8" bytes\n\n");
+# else
+        ::fast_io::io::perr(::fast_io::u8err(),
+                            u8"uwvm: [fatal] WASI Preview 1 guest pointer alignment trap: ",
+                            ::fast_io::mnp::os_c_str(pointer_name),
+                            u8" = ",
+                            ::fast_io::mnp::addrvw(guest_offset),
+                            u8", required alignment = ",
+                            required_alignment,
+                            u8" bytes\n\n");
+# endif
+        ::fast_io::fast_terminate();
+    }
+
+    /// @brief Validate the alignment of a pointer argument in the guest ABI before any dereference or host-side syscall effect.
+    /// @details The normative WASI Preview 1 WITX rule states: "Pointer values are expected to be aligned, to the alignment of their pointee type. If a
+    ///          misaligned pointer is passed to a function, the function shall trap."
+    /// @see https://github.com/WebAssembly/WASI/blob/wasi-0.1/tools/witx-docs.md#pointers
+    /// @tparam RequiredAlignment Explicit alignment from the guest ABI layout; never infer this from a host C++ pointer or host ABI.
+    template <::std::size_t RequiredAlignment, ::std::unsigned_integral Pointer>
+    inline constexpr void check_wasip1_guest_pointer_alignment(Pointer guest_offset, char8_t const* pointer_name) noexcept
+    {
+        static_assert(RequiredAlignment != 0uz && (RequiredAlignment & (RequiredAlignment - 1uz)) == 0uz,
+                      "WASI guest pointer alignment must be a nonzero power of two");
+
+        if((guest_offset & static_cast<Pointer>(RequiredAlignment - 1uz)) != 0u) [[unlikely]]
+        {
+            output_wasip1_guest_pointer_alignment_error(static_cast<::std::uint_least64_t>(guest_offset), RequiredAlignment, pointer_name);
+        }
+    }
+
     template <::std::integral I>
         requires (::std::signed_integral<I>)
     inline constexpr bool add_overflow(I a, I b, I & result) noexcept

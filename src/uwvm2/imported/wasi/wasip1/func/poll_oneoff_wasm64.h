@@ -232,6 +232,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::imported::wasi::wasip1::func
 
         auto& memory{*env.wasip1_memory};
 
+        check_wasip1_guest_pointer_alignment<8uz>(in, u8"poll_oneoff_wasm64.in (subscription)");
+        check_wasip1_guest_pointer_alignment<8uz>(out, u8"poll_oneoff_wasm64.out (event)");
+        check_wasip1_guest_pointer_alignment<8uz>(nevents, u8"poll_oneoff_wasm64.nevents (size64)");
+
         auto const trace_wasip1_call{env.trace_wasip1_call};
 
         if(trace_wasip1_call) [[unlikely]]
