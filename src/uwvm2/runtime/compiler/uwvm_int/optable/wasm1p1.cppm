@@ -49,6 +49,9 @@ import :define;
 import :convert;
 import :storage;
 import :memory;
+// wasm1p1.h directly names the stack-top selector template declared by :stack.
+// Import its owning partition instead of depending on a later aggregate import.
+import :stack;
 import :register_ring;
 
 #ifndef UWVM_MODULE

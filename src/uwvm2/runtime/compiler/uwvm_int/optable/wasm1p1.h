@@ -48,6 +48,7 @@
 # include "convert.h"
 # include "storage.h"
 # include "memory.h"
+# include "stack.h"
 # include "register_ring.h"
 #endif
 
