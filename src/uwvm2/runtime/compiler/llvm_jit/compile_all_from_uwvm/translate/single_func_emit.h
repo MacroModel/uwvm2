@@ -4936,13 +4936,9 @@ struct runtime_local_func_llvm_jit_emit_state_t
     // Raw ABI byte offsets for locals, used by tiered OSR local snapshots.
     ::uwvm2::utils::container::vector<::std::size_t> local_offsets{};
 
-    // LLVM context/module/debug handles owned by the module storage object.
+    // LLVM context/module handles owned by the module storage object.
     ::llvm::LLVMContext* llvm_context_holder{};
     ::llvm::Module* llvm_module{};
-    ::llvm::DIBuilder* llvm_di_builder{};
-    ::llvm::DIFile* llvm_di_file{};
-    ::llvm::DICompileUnit* llvm_di_compile_unit{};
-    ::llvm::DISubprogram* llvm_di_subprogram{};
 
     // Function currently receiving the body.  In tiered mode this is the internal core function.
     ::llvm::Function* llvm_function{};
@@ -5052,11 +5048,12 @@ struct runtime_local_func_llvm_jit_emit_state_t
     return aggregate;
 }
 
-// Allocate LLVM context/module storage for a runtime module and optionally initialize compact DWARF metadata.
+// Allocate LLVM context/module storage for a runtime module.
 [[nodiscard]] inline constexpr bool try_prepare_runtime_llvm_jit_module_storage(::uwvm2::uwvm::runtime::storage::wasm_module_storage_t const& runtime_module,
                                                                                 llvm_jit_module_storage_t& module_storage,
                                                                                 bool emit_unwind_call_stack_frames = false) noexcept
 {
+    static_cast<void>(emit_unwind_call_stack_frames);
     module_storage = {};
     module_storage.llvm_context_holder = ::uwvm2::utils::container::make_delete_owned<::llvm::LLVMContext>();
     if(module_storage.llvm_context_holder == nullptr) [[unlikely]] { return false; }
@@ -5065,26 +5062,6 @@ struct runtime_local_func_llvm_jit_emit_state_t
     module_storage.llvm_module =
         ::uwvm2::utils::container::make_delete_owned<::llvm::Module>(get_llvm_string_ref(llvm_module_name), *module_storage.llvm_context_holder);
     if(module_storage.llvm_module == nullptr) [[unlikely]] { return false; }
-
-    if(emit_unwind_call_stack_frames)
-    {
-        // Full JIT and tier-2 JIT run cross-function optimization pipelines that may inline Wasm callees into their callers.
-        // Keep compact DWARF metadata so trap reporting can reconstruct the logical Wasm stack after native frames disappear.
-        module_storage.llvm_di_builder = ::uwvm2::utils::container::make_delete_owned<::llvm::DIBuilder>(*module_storage.llvm_module);
-        if(module_storage.llvm_di_builder == nullptr) [[unlikely]] { return false; }
-
-        module_storage.llvm_module->addModuleFlag(::llvm::Module::Warning, get_llvm_string_ref(u8"Debug Info Version"), ::llvm::DEBUG_METADATA_VERSION);
-        module_storage.llvm_module->addModuleFlag(::llvm::Module::Warning, get_llvm_string_ref(u8"Dwarf Version"), 4);
-
-        module_storage.llvm_di_file = module_storage.llvm_di_builder->createFile(get_llvm_string_ref(llvm_module_name), get_llvm_string_ref(u8"."));
-        module_storage.llvm_di_compile_unit = module_storage.llvm_di_builder->createCompileUnit(::llvm::dwarf::DW_LANG_C,
-                                                                                                module_storage.llvm_di_file,
-                                                                                                get_llvm_string_ref(u8"uwvm2-llvm-jit"),
-                                                                                                false,
-                                                                                                get_llvm_string_ref(u8""),
-                                                                                                0);
-        return module_storage.llvm_di_file != nullptr && module_storage.llvm_di_compile_unit != nullptr;
-    }
 
     return true;
 }
@@ -5176,13 +5153,10 @@ struct runtime_local_func_llvm_jit_emit_state_t
     state.func_result_count_uz = func_result_count_uz;
     state.function_result = runtime_block_result_type{func_result_begin, func_result_end};
 
-    // Borrow the LLVM and debug objects from module storage.  The emit state does not own these handles.
+    // Borrow the LLVM objects from module storage. The emit state does not own these handles.
     state.llvm_context_holder = module_storage.llvm_context_holder.get();
     auto& llvm_context{*state.llvm_context_holder};
     state.llvm_module = module_storage.llvm_module.get();
-    state.llvm_di_builder = module_storage.llvm_di_builder.get();
-    state.llvm_di_file = module_storage.llvm_di_file;
-    state.llvm_di_compile_unit = module_storage.llvm_di_compile_unit;
 
     ::uwvm2::utils::container::vector<::llvm::Type*> llvm_parameter_types{};
     llvm_parameter_types.reserve(func_parameter_count_uz);
@@ -5196,7 +5170,7 @@ struct runtime_local_func_llvm_jit_emit_state_t
     auto llvm_function_type{get_llvm_function_type_from_wasm_function_type(llvm_context, *function_type_ptr)};
     if(llvm_function_type == nullptr) [[unlikely]] { return false; }
     auto llvm_result_type{llvm_function_type->getReturnType()};
-    // Keep every LLVM symbol/debug name on the same checked Wasm32 function index; silent truncation here would alias
+    // Keep every LLVM symbol name on the same checked Wasm32 function index; silent truncation here would alias
     // two runtime functions to the same generated declaration.
     auto const function_name{get_llvm_wasm_function_name(*runtime_module_ptr, function_index)};
     state.llvm_public_entry_function = state.llvm_module->getFunction(get_llvm_string_ref(function_name));
@@ -5218,26 +5192,6 @@ struct runtime_local_func_llvm_jit_emit_state_t
     if(state.llvm_public_entry_function == nullptr) [[unlikely]] { return false; }
     apply_llvm_jit_wasm_calling_conv(*state.llvm_public_entry_function);
     if(state.emit_unwind_call_stack_frames) { apply_llvm_jit_unwind_call_stack_function_attrs(*state.llvm_public_entry_function); }
-    if(state.emit_unwind_call_stack_frames && state.llvm_di_builder != nullptr && state.llvm_di_file != nullptr)
-    {
-        // This subprogram name is intentionally machine-parseable by the runtime unwind reporter.  When LLVM inlines this
-        // function, the emitted DWARF inline chain is the only reliable source for the original Wasm function index stack.
-        auto const line{static_cast<unsigned>(local_func_storage.function_index + 1uz)};
-        auto const di_name{
-            ::uwvm2::utils::container::u8concat_uwvm(u8"uwvm-inline:m=", local_func_storage.module_id, u8":f=", local_func_storage.function_index)};
-        state.llvm_di_subprogram =
-            state.llvm_di_builder->createFunction(state.llvm_di_file,
-                                                  get_llvm_string_ref(di_name),
-                                                  get_llvm_string_ref(function_name),
-                                                  state.llvm_di_file,
-                                                  line,
-                                                  state.llvm_di_builder->createSubroutineType(state.llvm_di_builder->getOrCreateTypeArray({})),
-                                                  line,
-                                                  ::llvm::DINode::FlagZero,
-                                                  ::llvm::DISubprogram::SPFlagDefinition);
-        state.llvm_public_entry_function->setSubprogram(state.llvm_di_subprogram);
-    }
-
     if(emit_tiered_loop_reentry_entries)
     {
         // Tiered mode splits the function into a public typed wrapper and an internal core.  The core receives two hidden
@@ -5290,11 +5244,6 @@ struct runtime_local_func_llvm_jit_emit_state_t
     }
 
     state.ir_builder = ::uwvm2::utils::container::make_delete_owned<::llvm::IRBuilder<>>(body_init_block);
-    if(state.llvm_di_subprogram != nullptr)
-    {
-        auto const line{static_cast<unsigned>(local_func_storage.function_index + 1uz)};
-        state.ir_builder->SetCurrentDebugLocation(::llvm::DILocation::get(llvm_context, line, 1u, state.llvm_di_subprogram));
-    }
     if(state.emit_call_stack_frames && !emit_tiered_loop_reentry_entries &&
        !emit_runtime_local_func_llvm_jit_call_stack_push(*state.ir_builder, local_func_storage.module_id, local_func_storage.function_index)) [[unlikely]]
     {
@@ -5742,27 +5691,6 @@ struct runtime_local_func_llvm_jit_emit_state_t
             if(raw_entry_function == nullptr) [[unlikely]] { return false; }
             apply_llvm_jit_raw_entry_calling_conv(*raw_entry_function);
             if(state.emit_unwind_call_stack_frames) { apply_llvm_jit_unwind_call_stack_function_attrs(*raw_entry_function); }
-            ::llvm::DISubprogram* raw_di_subprogram{};
-            if(state.emit_unwind_call_stack_frames && state.llvm_di_builder != nullptr && state.llvm_di_file != nullptr)
-            {
-                // Raw ABI wrappers are not Wasm frames, but full/tier-2 optimization can inline the public Wasm entry into
-                // them.  Give wrappers a non-parseable debug scope so DWARF still records the inlined Wasm frame chain.
-                auto const line{static_cast<unsigned>(function_index_uz + 1uz)};
-                auto const raw_di_name{
-                    ::uwvm2::utils::container::u8concat_uwvm(u8"uwvm-raw-inline-anchor:m=", local_func_storage_ptr->module_id, u8":f=", function_index_uz)};
-                raw_di_subprogram =
-                    state.llvm_di_builder->createFunction(state.llvm_di_file,
-                                                          get_llvm_string_ref(raw_di_name),
-                                                          get_llvm_string_ref(raw_entry_function_name),
-                                                          state.llvm_di_file,
-                                                          line,
-                                                          state.llvm_di_builder->createSubroutineType(state.llvm_di_builder->getOrCreateTypeArray({})),
-                                                          line,
-                                                          ::llvm::DINode::FlagZero,
-                                                          ::llvm::DISubprogram::SPFlagDefinition);
-                raw_entry_function->setSubprogram(raw_di_subprogram);
-            }
-
             auto const abi_layout{get_runtime_wasm_call_abi_layout(*function_type_ptr)};
             if(!abi_layout.valid) [[unlikely]] { return false; }
 
@@ -5774,12 +5702,6 @@ struct runtime_local_func_llvm_jit_emit_state_t
             auto entry_block{::llvm::BasicBlock::Create(llvm_context, get_llvm_string_ref(u8"entry"), raw_entry_function)};
             if(entry_block == nullptr) [[unlikely]] { return false; }
             ::llvm::IRBuilder<> raw_ir_builder(entry_block);
-            if(raw_di_subprogram != nullptr)
-            {
-                auto const line{static_cast<unsigned>(function_index_uz + 1uz)};
-                raw_ir_builder.SetCurrentDebugLocation(::llvm::DILocation::get(llvm_context, line, 1u, raw_di_subprogram));
-            }
-
             auto const result_buffer_address{raw_entry_function->getArg(1u)};
             auto const result_bytes{raw_entry_function->getArg(2u)};
             auto const param_buffer_address{raw_entry_function->getArg(3u)};
