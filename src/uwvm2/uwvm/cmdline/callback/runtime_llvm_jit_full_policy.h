@@ -47,7 +47,7 @@
 
 UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 {
-#if defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
+#if defined(UWVM_RUNTIME_LLVM_JIT)
 # if defined(UWVM_MODULE)
     extern "C++" UWVM_GNU_COLD
 # else
@@ -80,7 +80,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RED),
                                 u8"[error] ",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
-                                u8"Conflicting runtime LLVM JIT policy parameters: \"",
+                                u8"Conflicting LLVM AOT policy parameters: \"",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_CYAN),
                                 u8"--runtime-llvm-jit-full-policy",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
@@ -132,7 +132,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RED),
                                 u8"[error] ",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
-                                u8"Invalid runtime LLVM JIT full policy: \"",
+                                u8"Invalid full-module LLVM AOT policy: \"",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_CYAN),
                                 currp1_str,
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),

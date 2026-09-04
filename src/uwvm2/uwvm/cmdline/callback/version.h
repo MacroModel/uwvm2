@@ -23,7 +23,9 @@
 
 #ifndef UWVM_MODULE
 // std
+# include <cstddef>
 # include <memory>
+# include <type_traits>
 # include <utility>
 // macro
 # include <uwvm2/utils/macro/push_macros.h>
@@ -207,12 +209,12 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
     inline constexpr void version_u8print_wasm_feature_from_tuple(Stm && stm, ::uwvm2::utils::container::tuple<Fs...>) noexcept
     { version_u8print_wasm_feature_impl<Stm, Fs...>(::std::forward<Stm>(stm)); }
 
-#if defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
+#if defined(UWVM_RUNTIME_LLVM_JIT)
     template <typename Stm>
     inline constexpr void version_u8print_llvm_jit_impl(Stm && stm) noexcept
     {
         ::fast_io::io::perr(::std::forward<Stm>(stm),
-                            u8"  * LLVM JIT Backend:\n",
+                            u8"  * LLVM AOT Backend:\n",
 # if defined(LLVM_VERSION_STRING)
                             u8"    - LLVM Version: ",
                             ::fast_io::mnp::code_cvt(LLVM_VERSION_STRING),
@@ -243,15 +245,11 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
     {
         ::fast_io::io::perr(::std::forward<Stm>(stm),
                             u8"  * Default Runtime Policy:\n",
-                            u8"    - Mode: lazy_compile\n",
-#if defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
-                            u8"    - Backend: uwvm_interpreter_llvm_jit_tiered\n"
-#elif defined(UWVM_RUNTIME_LLVM_JIT)
+                            u8"    - Mode: full_compile\n",
+#if defined(UWVM_RUNTIME_LLVM_JIT)
                             u8"    - Backend: llvm_jit_only\n"
 #elif defined(UWVM_RUNTIME_UWVM_INTERPRETER)
                             u8"    - Backend: uwvm_interpreter_only\n"
-#elif defined(UWVM_RUNTIME_DEBUG_INTERPRETER)
-                            u8"    - Backend: debug_interpreter\n"
 #else
                             u8"    - Backend: none_backend\n"
 #endif
@@ -1137,18 +1135,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 # ifdef UWVM_RUNTIME_UWVM_INTERPRETER
                             u8","
 # endif
-                            u8" LLVM-JIT"
-#endif
-#ifdef UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED
-                            u8", UWVM2-Interpreter + LLVM-JIT (Tiered)"
-#endif
-                            u8"\n"
-                            // debug backend
-                            u8"  * Runtime Debug Compiler:"
-#ifdef UWVM_RUNTIME_DEBUG_INTERPRETER
-                            u8" Debug Interpreter"
-#else
-                            u8" None"
+                            u8" LLVM-AOT"
 #endif
                             u8"\n");
 
@@ -1157,7 +1144,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
     (defined(__powerpc__) || defined(__ppc__) || defined(__PPC__) || defined(_ARCH_PPC))
 # define UWVM_VERSION_TARGET_POWERPC_FAMILY 1
 #endif
-#if defined(UWVM_RUNTIME_UWVM_INTERPRETER) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
+#if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
         {
             using size_type = ::std::size_t;
             constexpr size_type npos{static_cast<size_type>(-1)};
@@ -1405,8 +1392,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
         }
 #endif
 #undef UWVM_VERSION_TARGET_POWERPC_FAMILY
-        // LLVM JIT
-#if defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
+        // LLVM AOT
+#if defined(UWVM_RUNTIME_LLVM_JIT)
         version_u8print_llvm_jit_impl(u8log_output_ul);
 #endif
         // Default mode

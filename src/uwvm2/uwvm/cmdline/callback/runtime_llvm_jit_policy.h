@@ -47,7 +47,7 @@
 
 UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
 {
-#if defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
+#if defined(UWVM_RUNTIME_LLVM_JIT)
 # if defined(UWVM_MODULE)
     extern "C++" UWVM_GNU_COLD
 # else
@@ -72,8 +72,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                                     u8"\n\n");
             }};
 
-        if(::uwvm2::uwvm::runtime::runtime_mode::runtime_llvm_jit_lazy_policy_existed ||
-           ::uwvm2::uwvm::runtime::runtime_mode::runtime_llvm_jit_full_policy_existed) [[unlikely]]
+        if(::uwvm2::uwvm::runtime::runtime_mode::runtime_llvm_jit_full_policy_existed) [[unlikely]]
         {
             ::fast_io::io::perr(::uwvm2::uwvm::io::u8log_output,
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL_AND_SET_WHITE),
@@ -81,17 +80,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RED),
                                 u8"[error] ",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
-                                u8"Conflicting runtime LLVM JIT policy parameters: \"",
+                                u8"Conflicting LLVM AOT policy parameters: \"",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_CYAN),
                                 u8"--runtime-llvm-jit-policy",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
-                                u8"\" conflicts with scoped policy parameters "
-                                u8"(--runtime-llvm-jit-lazy-policy/--runtime-llvm-jit-full-policy).\n"
+                                u8"\" conflicts with --runtime-llvm-jit-full-policy.\n"
                                 u8"uwvm: ",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_LT_GREEN),
                                 u8"[info]  ",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
-                                u8"Use the high-level policy preset or scoped policies, not both.\n\n",
+                                u8"Use the high-level policy preset or the full-module policy, not both.\n\n",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL));
             return ::uwvm2::utils::cmdline::parameter_return_type::return_m1_imme;
         }
@@ -123,7 +121,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params::details
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RED),
                                 u8"[error] ",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
-                                u8"Invalid runtime LLVM JIT policy: \"",
+                                u8"Invalid LLVM AOT policy: \"",
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_CYAN),
                                 currp1_str,
                                 ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
