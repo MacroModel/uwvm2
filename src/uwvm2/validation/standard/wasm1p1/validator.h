@@ -656,7 +656,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
 
                 // op_name blocktype ...
                 // [safe ] unsafe (could be the section_end)
-                //        ^^ code_curr
+                //         ^^ code_curr
 
                 auto const blocktype_begin{code_curr};
                 auto const blocktype{
@@ -664,12 +664,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
                 auto const blocktype_encoded_size{static_cast<::std::size_t>(code_curr - blocktype_begin)};
 
                 // op_name blocktype ...
+                // [      safe     ] unsafe (could be the section_end)
+                //                   ^^ code_curr
+
+                // op_name blocktype ...
                 // [safe ] unsafe (could be the section_end)
-                //        ^^ blocktype_begin
+                //         ^^ blocktype_begin
 
                 // read_leb128 moved code_curr only after proving the whole blocktype immediate safe. A wasm1.1 blocktype is
                 // encoded as s33, so the binary encoding may occupy at most 5 bytes.
-                if(blocktype_encoded_size > 5uz) [[unlikely]]
+                if(blocktype_encoded_size > 5uz || (blocktype < 0 && blocktype_encoded_size != 1uz)) [[unlikely]]
                 {
                     ::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte first_blocktype_byte{};
                     ::std::memcpy(::std::addressof(first_blocktype_byte), blocktype_begin, sizeof(first_blocktype_byte));
