@@ -22,6 +22,8 @@
 module;
 
 // std
+#include <bit>
+#include <cmath>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>

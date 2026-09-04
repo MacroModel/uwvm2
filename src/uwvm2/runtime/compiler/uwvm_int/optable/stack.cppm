@@ -22,8 +22,10 @@
 module;
 
 // std
+#include <concepts>
 #include <cstddef>
 #include <cstdint>
+#include <cstring>
 #include <limits>
 #include <memory>
 // macro
