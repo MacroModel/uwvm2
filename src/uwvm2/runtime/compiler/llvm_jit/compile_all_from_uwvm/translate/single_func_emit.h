@@ -849,6 +849,11 @@ inline constexpr ::llvm::CallInst* apply_llvm_jit_wasm_calling_conv(::llvm::Call
     return ir_builder.CreateCall(llvm_intrinsic, arguments);
 }
 
+// WebAssembly `nearest` is IEEE roundToIntegralTiesToEven and must not observe the host floating-point rounding mode.
+// `llvm.rint` assumes the default FP environment; `llvm.roundeven` encodes the required mode-independent semantics.
+[[nodiscard]] inline consteval ::llvm::Intrinsic::ID get_llvm_wasm_nearest_intrinsic_id() noexcept
+{ return ::llvm::Intrinsic::roundeven; }
+
 // Return the bit width of an integer LLVM value.  The emitter only calls this after type-specific opcode validation.
 [[nodiscard]] inline constexpr unsigned get_llvm_integer_bit_width(::llvm::Value* value) noexcept
 {
