@@ -342,13 +342,12 @@ namespace details
             if(local_func.wasm_code_ptr == nullptr) [[unlikely]] { runtime_storage_bug(); }
             auto const code_begin{reinterpret_cast<::std::byte const*>(local_func.wasm_code_ptr->body.expr_begin)};
             auto const code_end{reinterpret_cast<::std::byte const*>(local_func.wasm_code_ptr->body.code_end)};
-            ::uwvm2::validation::standard::wasm1p1::validate_code(::uwvm2::validation::standard::wasm1p1::wasm1p1_code_version{},
-                                                                  validation_module,
-                                                                  import_func_count + local_function_idx,
-                                                                  code_begin,
-                                                                  code_end,
-                                                                  err,
-                                                                  effective_wasm_feature_parameter);
+            ::uwvm2::validation::standard::wasm2::validate_code_with_runtime_policy(validation_module,
+                                                                                    import_func_count + local_function_idx,
+                                                                                    code_begin,
+                                                                                    code_end,
+                                                                                    err,
+                                                                                    effective_wasm_feature_parameter);
         }
     }
 

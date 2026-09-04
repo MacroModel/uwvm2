@@ -250,7 +250,7 @@ auto const parse_block_type{
 
         if(blocktype >= 0)
         {
-            if(wasm1p1_para.disable_multi_value) [[unlikely]]
+            if(wasm1p1_para.disable_multi_value || wasm1p1_para.controllable_allow_multi_result_vector) [[unlikely]]
             {
                 fail_wasm1p1_feature_required(op_begin,
                                               static_cast<wasm_u32>(blocktype),
@@ -396,6 +396,14 @@ auto const validate_i32_operands{
 
 auto const check_table_index{[&](::std::byte const* op_begin, wasm_u32 table_index) constexpr UWVM_THROWS
                              {
+                                 if((wasm1p1_para.disable_multiple_tables || wasm1p1_para.controllable_allow_multi_table) && table_index != 0u)
+                                     [[unlikely]]
+                                 {
+                                     fail_wasm2_feature_required(op_begin,
+                                                                 table_index,
+                                                                 ::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables,
+                                                                 ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
+                                 }
                                  if(table_index >= all_table_count) [[unlikely]]
                                  {
                                      err.err_curr = op_begin;
@@ -871,7 +879,7 @@ struct resolved_memory0_t
 
 resolved_memory0_t resolved_memory0{};
 
-// Memory resolution is lazy because many functions never touch memory. Once a memory opcode appears,
+// Memory resolution is performed on demand because many functions never touch memory. Once a memory opcode appears,
 // cache the resolved native pointer and effective max limit so every following memory helper can use
 // compact immediates instead of rewalking import chains.
 auto const ensure_memory0_resolved{
@@ -1034,66 +1042,97 @@ auto const ensure_memory0_resolved{
         }
     }};
 
-// Global helpers emit direct storage pointers. This resolver follows imported-global forwarding
-// chains once at translation time so runtime global get/set opfuncs stay simple and branch-free.
-auto const resolve_global_storage_ptr{[&](wasm_u32 global_index) constexpr UWVM_THROWS -> wasm_global_storage_t*
-                                      {
-                                          using imported_global_storage_t = ::uwvm2::uwvm::runtime::storage::imported_global_storage_t;
-                                          using global_link_kind = imported_global_storage_t::imported_global_link_kind;
+enum class resolved_global_access_kind : unsigned
+{
+    direct,
+    local_imported
+};
 
-                                          if(global_index < imported_global_count)
-                                          {
-                                              imported_global_storage_t const* curr{::std::addressof(
-                                                  curr_module.imported_global_vec_storage.index_unchecked(static_cast<::std::size_t>(global_index)))};
+struct resolved_global_access_t
+{
+    resolved_global_access_kind kind{resolved_global_access_kind::direct};
+    wasm_global_storage_t* storage_ptr{};
+    ::uwvm2::uwvm::wasm::type::local_imported_t* local_imported_module_ptr{};
+    ::std::size_t local_imported_global_index{};
+};
 
-                                              for(;;)
-                                              {
-                                                  if(curr == nullptr) [[unlikely]]
-                                                  {
-#if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
-                                                      ::uwvm2::utils::debug::trap_and_inform_bug_pos();
-#endif
-                                                      ::fast_io::fast_terminate();
-                                                  }
+// Resolve imported-global forwarding once at translation time. Runtime-owned globals retain the
+// branch-free direct-storage opfunc; a host leaf is represented explicitly for a typed bridge opfunc.
+auto const resolve_global_access{[&](wasm_u32 global_index) constexpr UWVM_THROWS -> resolved_global_access_t
+                                 {
+                                     using imported_global_storage_t = ::uwvm2::uwvm::runtime::storage::imported_global_storage_t;
+                                     using global_link_kind = imported_global_storage_t::imported_global_link_kind;
 
-                                                  switch(curr->link_kind)
-                                                  {
-                                                      case global_link_kind::imported:
-                                                      {
-                                                          curr = curr->target.imported_ptr;
-                                                          continue;
-                                                      }
-                                                      case global_link_kind::defined:
-                                                      {
-                                                          auto def{curr->target.defined_ptr};
-                                                          if(def == nullptr) [[unlikely]]
-                                                          {
+                                     if(global_index < imported_global_count)
+                                     {
+                                         imported_global_storage_t const* curr{::std::addressof(
+                                             curr_module.imported_global_vec_storage.index_unchecked(static_cast<::std::size_t>(global_index)))};
+
+                                         for(;;)
+                                         {
+                                             if(curr == nullptr) [[unlikely]]
+                                             {
 #if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
-                                                              ::uwvm2::utils::debug::trap_and_inform_bug_pos();
+                                                 ::uwvm2::utils::debug::trap_and_inform_bug_pos();
 #endif
-                                                              ::fast_io::fast_terminate();
-                                                          }
-                                                          return const_cast<wasm_global_storage_t*>(::std::addressof(def->global));
-                                                      }
-                                                      case global_link_kind::local_imported:
-                                                          [[fallthrough]];
-                                                      [[unlikely]] default:
-                                                      {
+                                                 ::fast_io::fast_terminate();
+                                             }
+
+                                             switch(curr->link_kind)
+                                             {
+                                                 case global_link_kind::imported:
+                                                 {
+                                                     curr = curr->target.imported_ptr;
+                                                     continue;
+                                                 }
+                                                 case global_link_kind::defined:
+                                                 {
+                                                     auto def{curr->target.defined_ptr};
+                                                     if(def == nullptr) [[unlikely]]
+                                                     {
 #if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
-                                                          ::uwvm2::utils::debug::trap_and_inform_bug_pos();
+                                                         ::uwvm2::utils::debug::trap_and_inform_bug_pos();
 #endif
-                                                          ::fast_io::fast_terminate();
-                                                      }
-                                                  }
-                                              }
-                                          }
-                                          else
-                                          {
-                                              auto const local_idx{static_cast<::std::size_t>(global_index - imported_global_count)};
-                                              auto& local_global{curr_module.local_defined_global_vec_storage.index_unchecked(local_idx)};
-                                              return const_cast<wasm_global_storage_t*>(::std::addressof(local_global.global));
-                                          }
-                                      }};
+                                                         ::fast_io::fast_terminate();
+                                                     }
+                                                     return {resolved_global_access_kind::direct,
+                                                             const_cast<wasm_global_storage_t*>(::std::addressof(def->global)),
+                                                             nullptr,
+                                                             0uz};
+                                                 }
+                                                 case global_link_kind::local_imported:
+                                                 {
+                                                     auto const& local_imported{curr->target.local_imported};
+                                                     if(local_imported.module_ptr == nullptr) [[unlikely]]
+                                                     {
+#if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
+                                                         ::uwvm2::utils::debug::trap_and_inform_bug_pos();
+#endif
+                                                         ::fast_io::fast_terminate();
+                                                     }
+                                                     return {resolved_global_access_kind::local_imported,
+                                                             nullptr,
+                                                             local_imported.module_ptr,
+                                                             local_imported.index};
+                                                 }
+                                                 [[unlikely]] default:
+                                                 {
+#if (defined(_DEBUG) || defined(DEBUG)) && defined(UWVM_ENABLE_DETAILED_DEBUG_CHECK)
+                                                     ::uwvm2::utils::debug::trap_and_inform_bug_pos();
+#endif
+                                                     ::fast_io::fast_terminate();
+                                                 }
+                                             }
+                                         }
+                                     }
+
+                                     auto const local_idx{static_cast<::std::size_t>(global_index - imported_global_count)};
+                                     auto& local_global{curr_module.local_defined_global_vec_storage.index_unchecked(local_idx)};
+                                     return {resolved_global_access_kind::direct,
+                                             const_cast<wasm_global_storage_t*>(::std::addressof(local_global.global)),
+                                             nullptr,
+                                             0uz};
+                                 }};
 
 // [before_section ... ] | opbase opextent
 // [        safe       ] | unsafe (could be the section_end)
@@ -4513,7 +4552,7 @@ auto const translate_one_opcode{
 
         // The opcode fragments are included inside the switch so they can share the helper lambdas above
         // while still keeping each opcode family in a separate file.
-        /// @warning Extension point: new opcode families must be included here and mirrored in the lazy validator immediate scanner.
+        /// @warning Extension point: new opcode families must be included here.
         switch(curr_opbase)
         {
 #include "opcode/control_flow_cases.h"
