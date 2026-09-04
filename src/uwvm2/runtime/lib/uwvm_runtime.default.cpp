@@ -76,6 +76,7 @@
 # include "uwvm_runtime_wasip1_memory_bindings.h"
 # if defined(UWVM_RUNTIME_LLVM_JIT)
 #  include "uwvm_runtime_call_indirect_table_views.h"
+#  include "uwvm_runtime_llvm_lazy_worker_policy.h"
 #  include "uwvm_runtime_native_unwind_execution_gate.h"
 #  include "uwvm_runtime_wasm_fp_environment.h"
 # endif
@@ -5242,9 +5243,13 @@ namespace uwvm2::runtime::lib
         [[nodiscard]] inline constexpr bool ensure_llvm_jit_urgent_scheduler_started() noexcept
         {
             // LLVM lazy demand compilation has an urgent lane independent from normal background prefetching.
-            // Native-unwind registry mutation must stay on the caller thread holding the execution gate; never resurrect a worker
-            // after initialization deliberately started this scheduler with zero workers.
-            if(runtime_llvm_jit_unwind_call_stack_requested()) { return false; }
+            // Check the resolved budget before either reusing or starting that lane. With -Rct 0, even a large cold demand
+            // must fall back to ensure_ready on the caller thread. Native-unwind registry mutation also remains on that thread.
+            if(!::uwvm2::runtime::lib::details::llvm_lazy_urgent_worker_allowed(
+                   ::uwvm2::uwvm::runtime::runtime_mode::global_runtime_compile_threads_resolved, runtime_llvm_jit_unwind_call_stack_requested()))
+            {
+                return false;
+            }
             if(g_runtime.llvm_jit_urgent_scheduler.running()) { return true; }
 
             while(g_runtime.llvm_jit_urgent_start_lock.test_and_set(::std::memory_order_acquire))
