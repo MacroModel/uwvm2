@@ -31,6 +31,7 @@
 # include "control.h"
 # include "convert.h"
 # include "memory.h"
+# include "register_ring.h"
 # include "numeric.h"
 # include "stack.h"
 # include "wasm1p1.h"

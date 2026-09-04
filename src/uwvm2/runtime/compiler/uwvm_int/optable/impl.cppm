@@ -34,6 +34,9 @@ export import :constop;
 export import :control;
 export import :convert;
 export import :memory;
+// The public selector API is declared by :register_ring and is consumed through
+// this primary interface by the retained full translator.
+export import :register_ring;
 export import :wasm1p1;
 export import :numeric;
 export import :stack;
