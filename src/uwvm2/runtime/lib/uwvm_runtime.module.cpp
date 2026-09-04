@@ -61,6 +61,9 @@
 # include <uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/section_memory_manager.h>
 #endif
 
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+# include "uwvm_runtime_native_unwind_execution_gate.h"
+#endif
 #include "uwvm_runtime_native_unwind.h"
 
 import fast_io;

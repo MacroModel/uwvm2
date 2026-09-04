@@ -115,6 +115,9 @@
 #  include <llvm/Transforms/Utils.h>
 # endif
 
+# if defined(UWVM_RUNTIME_LLVM_JIT)
+#  include "uwvm_runtime_native_unwind_execution_gate.h"
+# endif
 # include "uwvm_runtime_native_unwind.h"
 
 // import
@@ -454,6 +457,9 @@ namespace uwvm2::runtime::lib
 #if defined(UWVM_RUNTIME_LLVM_JIT)
             // JIT unwind/debug metadata is published during materialization and read during trap reporting. Urgent schedulers are
             // separated from normal lazy background work so demand compilation is not starved.
+            // Unwind-backed execution holds this gate while mutable native address maps may be read. Reset takes the gate before
+            // destroying those maps, and recursive locking preserves same-thread host re-entry.
+            details::native_unwind_execution_gate llvm_jit_native_unwind_execution_gate{};
             ::uwvm2::utils::container::vector<llvm_jit_unwind_entry> llvm_jit_unwind_entries{};
             ::uwvm2::utils::container::vector<llvm_jit_code_range> llvm_jit_code_ranges{};
             ::uwvm2::utils::thread::lazy_compile_scheduler llvm_jit_urgent_scheduler{};
@@ -13008,6 +13014,10 @@ namespace uwvm2::runtime::lib
     // =========================================================================
     extern "C++" void full_compile_and_run_main_module(::uwvm2::utils::container::u8string_view main_module_name, full_compile_run_config cfg) noexcept
     {
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+        auto native_unwind_execution_guard{
+            g_runtime.llvm_jit_native_unwind_execution_gate.enter_if(runtime_llvm_jit_unwind_call_stack_requested())};
+#endif
         // Full execution forces all requested backend artifacts to be ready before selecting the entry. This keeps the run path simple
         // and makes JIT fallback policy an explicit choice below.
         compile_all_modules_if_needed();
@@ -13282,6 +13292,8 @@ namespace uwvm2::runtime::lib
 #if defined(UWVM_RUNTIME_LLVM_JIT)
     extern "C++" void llvm_jit_reset_runtime_state_host_api() noexcept
     {
+        // Destruction must not overlap an unwind-backed execution reading the address maps.
+        auto native_unwind_execution_guard{g_runtime.llvm_jit_native_unwind_execution_gate.enter_if(true)};
 
         // Reset is intended for embedding hosts that reload runtime storage in the same process. Stop schedulers first, then drop
         // caches and publication flags so the next entry path rebuilds a coherent runtime registry.
@@ -13324,6 +13336,8 @@ namespace uwvm2::runtime::lib
                                                  void const* param_buffer,
                                                  ::std::size_t param_bytes) noexcept
     {
+        auto native_unwind_execution_guard{
+            g_runtime.llvm_jit_native_unwind_execution_gate.enter_if(runtime_llvm_jit_unwind_call_stack_requested())};
         // External raw calls use explicit ABI byte buffers and a runtime module pointer supplied by the host. The function validates
         // the pointer against the runtime registry before dispatching to either a cached import or a local defined entry.
         compile_all_modules_if_needed(false);
