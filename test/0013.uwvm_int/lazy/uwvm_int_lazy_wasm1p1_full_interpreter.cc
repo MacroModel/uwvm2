@@ -321,6 +321,7 @@ namespace
     template <optable::uwvm_interpreter_translate_option_t Opt>
     [[nodiscard]] int run_alignment_error_suite_for_opt() noexcept
     {
+        auto legacy_features{strict::make_wasm1p1_feature_parameter()};
         auto all_features{strict::make_wasm2_feature_parameter()};
         auto ref_disabled_features{make_reference_feature_parameter(false)};
         auto sign_disabled_features{make_sign_extension_feature_parameter(false)};
@@ -371,6 +372,16 @@ namespace
                                                                all_features,
                                                                errc::numeric_operand_type_mismatch) == 0);
 
+        UWVM2TEST_REQUIRE(expect_validator_alignment_case<Opt>(build_invalid_select_t_empty_result_types_module(),
+                                                               literal_view(u8"uwvm2test_lazy_full_legacy_select_empty"),
+                                                               legacy_features,
+                                                               legacy_features,
+                                                               errc::invalid_const_immediate) == 0);
+        UWVM2TEST_REQUIRE(expect_validator_alignment_case<Opt>(build_invalid_select_t_count_module(),
+                                                               literal_view(u8"uwvm2test_lazy_full_legacy_select_count"),
+                                                               legacy_features,
+                                                               legacy_features,
+                                                               errc::invalid_const_immediate) == 0);
         UWVM2TEST_REQUIRE(expect_validator_alignment_case<Opt>(build_invalid_select_t_count_module(),
                                                                literal_view(u8"uwvm2test_lazy_full_select_count"),
                                                                all_features,

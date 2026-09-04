@@ -63,6 +63,29 @@ namespace
         return mb.build();
     }
 
+    [[nodiscard]] byte_vec build_select_t_reference_feature_module()
+    {
+        module_builder mb{};
+
+        auto op = [&](byte_vec& c, wasm_op o) { append_u8(c, u8(o)); };
+        auto op1p1 = [&](byte_vec& c, wasm1p1_op o) { append_u8(c, u8(o)); };
+        auto i32 = [&](byte_vec& c, ::std::int32_t v) { append_i32_leb(c, v); };
+
+        func_type ty{{}, {k_val_i32}};
+        func_body fb{};
+        auto& c = fb.code;
+        op(c, wasm_op::i32_const); i32(c, 7);
+        op(c, wasm_op::i32_const); i32(c, 9);
+        op(c, wasm_op::i32_const); i32(c, 1);
+        op1p1(c, wasm1p1_op::select_t);
+        append_u32_leb(c, 1u);
+        append_u8(c, k_val_i32);
+        op(c, wasm_op::end);
+
+        (void)mb.add_func(::std::move(ty), ::std::move(fb));
+        return mb.build();
+    }
+
     [[nodiscard]] byte_vec build_table_fill_bulk_feature_module()
     {
         module_builder mb{};
@@ -236,28 +259,6 @@ namespace
 
         (void)mb.add_func(::std::move(ty), ::std::move(fb));
         return mb.build();
-    }
-
-    template <optable::uwvm_interpreter_translate_option_t Opt>
-    [[nodiscard]] int compile_select_empty_and_run(byte_vec const& wasm, wasm_feature_parameter_t const& features) noexcept
-    {
-        auto prep = prepare_runtime_from_wasm(wasm, u8"uwvm2test_wasm1p1_select_t_empty_nomv", {}, features);
-        UWVM2TEST_REQUIRE(prep.mod != nullptr);
-        runtime_module_t const& rt = *prep.mod;
-
-        ::uwvm2::validation::error::code_validation_error_impl err{};
-        optable::compile_option cop{};
-        auto cm = compiler::compile_all_from_uwvm_single_func<Opt>(rt, cop, err, ::std::addressof(features));
-        UWVM2TEST_REQUIRE(err.err_code == ::uwvm2::validation::error::code_validation_error_code::ok);
-
-        using Runner = interpreter_runner<Opt>;
-        auto rr = Runner::run(cm.local_funcs.index_unchecked(0),
-                              rt.local_defined_function_vec_storage.index_unchecked(0),
-                              pack_no_params(),
-                              nullptr,
-                              nullptr);
-        UWVM2TEST_REQUIRE(load_i32(rr.results) == 7);
-        return 0;
     }
 
     template <optable::uwvm_interpreter_translate_option_t Opt>
@@ -437,6 +438,12 @@ namespace
         bulk_para.disable_bulk_memory = true;
         nontrapping_para.disable_nontrapping_float_to_int = true;
         simd_para.disable_simd = true;
+
+        UWVM2TEST_REQUIRE(compile_expect_error_with_features<Opt>(build_select_t_reference_feature_module(),
+                                                                  u8"uwvm2test_strict_select_t_ref_feature",
+                                                                  all_features,
+                                                                  ref_disabled_features,
+                                                                  errc::wasm1p1_feature_required) == 0);
 
         UWVM2TEST_REQUIRE(compile_expect_error_with_features<Opt>(full::build_invalid_ref_feature_module(),
                                                                   u8"uwvm2test_strict_full_ref_feature",
@@ -638,8 +645,15 @@ namespace
     template <optable::uwvm_interpreter_translate_option_t Opt>
     [[nodiscard]] int run_alignment_suite_for_opt() noexcept
     {
-        auto select_features = make_alignment_feature_parameter(false, false, true);
-        UWVM2TEST_REQUIRE(compile_select_empty_and_run<Opt>(build_select_t_empty_result_types_module(), select_features) == 0);
+        auto select_features = make_alignment_feature_parameter(false, true, true);
+        UWVM2TEST_REQUIRE(compile_expect_error<Opt>(build_select_t_empty_result_types_module(),
+                                                    u8"uwvm2test_wasm1p1_select_t_empty",
+                                                    select_features,
+                                                    errc::invalid_const_immediate) == 0);
+        UWVM2TEST_REQUIRE(compile_expect_error<Opt>(full::build_invalid_select_t_count_module(),
+                                                    u8"uwvm2test_wasm1p1_select_t_multiple",
+                                                    select_features,
+                                                    errc::invalid_const_immediate) == 0);
 
         auto wasm2_features = make_wasm2_feature_parameter();
         UWVM2TEST_REQUIRE(compile_expect_error<Opt>(build_select_t_empty_result_types_module(),

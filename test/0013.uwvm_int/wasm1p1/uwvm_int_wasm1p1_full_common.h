@@ -1297,6 +1297,18 @@ namespace uwvm2test::uwvm_int_wasm1p1_full
         return finish_single_func_module(::std::move(mb), ::std::move(ty), ::std::move(fb));
     }
 
+    [[nodiscard]] inline byte_vec build_invalid_select_t_empty_result_types_module()
+    {
+        module_builder mb{};
+        func_type ty{{}, {strict::k_val_i32}};
+        func_body fb{};
+        append_i32_triple(fb.code, 1, 2, 0);
+        append_wasm1p1_op(fb.code, wasm1p1_op::select_t);
+        strict::append_u32_leb(fb.code, 0u);
+        append_op(fb.code, wasm_op::end);
+        return finish_single_func_module(::std::move(mb), ::std::move(ty), ::std::move(fb));
+    }
+
     [[nodiscard]] inline byte_vec build_invalid_select_t_cond_type_module()
     {
         module_builder mb{};
