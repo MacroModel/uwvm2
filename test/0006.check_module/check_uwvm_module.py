@@ -11,6 +11,9 @@ Rules:
 - Additional explicit module imports are permitted. Named modules do not see
   dependencies that a textual header obtained transitively, so module units
   may legitimately need a larger direct dependency surface.
+- A surface that expands UWVM Win32 macros must import the matching provider
+  before it is included: the high-level color-policy module for UWVM_COLOR,
+  or the low-level text-attribute module for direct UWVM_WIN32_TEXTATTR use.
 - Header include order must respect category sequence:
   1) uwvm_predefine/*
   2) project utils/*
@@ -53,6 +56,23 @@ MODULE_NAME_RE = re.compile(r"^\s*export\s+module\s+([^;\s]+)\s*;\s*$", re.MULTI
 INCLUDE_RE = re.compile(r"^\s*#\s*include\s*([<\"])([^>\"]+)[>\"]")
 GLOBAL_MODULE_FRAGMENT_RE = re.compile(r"^\s*module\s*;\s*(?://.*)?$")
 NAMED_MODULE_DECL_RE = re.compile(r"^\s*(?:export\s+)?module\s+[^;]+;")
+UWVM_COLOR_MACRO_USE_RE = re.compile(r"\bUWVM_COLOR_[A-Z0-9_]+\b")
+UWVM_COLOR_MACRO_HEADER_RE = re.compile(r"^\s*#\s*include\s*[<\"][^>\"]*uwvm_color_push_macro\.h[>\"]", re.MULTILINE)
+WIN32_TEXT_ATTR_MACRO_USE_RE = re.compile(r"\bUWVM_WIN32_TEXTATTR_[A-Z0-9_]+\b")
+WIN32_TEXT_ATTR_MACRO_HEADER_RE = re.compile(r"^\s*#\s*include\s*[<\"][^>\"]*win32_text_attr_push_macro\.h[>\"]", re.MULTILINE)
+WIN32_TEXT_ATTR_PROVIDER_MODULES = frozenset(
+    {
+        "uwvm2.utils.ansies",
+        "uwvm2.uwvm_predefine.utils.ansies",
+        "uwvm2.uwvm.utils.ansies",
+    }
+)
+UWVM_COLOR_PROVIDER_MODULES = frozenset(
+    {
+        "uwvm2.uwvm_predefine.utils.ansies",
+        "uwvm2.uwvm.utils.ansies",
+    }
+)
 
 
 @dataclass
@@ -164,6 +184,50 @@ def extract_imports_from_cppm_or_module_cpp(text: str) -> List[str]:
         imports.append(name)
     debug(f"imports-from-cppm/module: {imports}")
     return imports
+
+
+def win32_text_attr_provider_precedes_surface(
+    module_text: str, surface_text: str, surface_filename: str
+) -> bool:
+    """Check that Win32 color manipulators are visible before a textual surface.
+
+    In module builds the macro headers intentionally do not textually redeclare
+    ``win32_text_attr``.  Direct text-attribute macros need its owning module;
+    UWVM_COLOR also needs the high-level ``log_win32_use_ansi_b`` policy.  Both
+    providers must be imported before the paired implementation surface.
+    """
+    needs_color_provider = (
+        UWVM_COLOR_MACRO_HEADER_RE.search(surface_text) is not None
+        and UWVM_COLOR_MACRO_USE_RE.search(surface_text) is not None
+    )
+    needs_text_attr_provider = (
+        WIN32_TEXT_ATTR_MACRO_HEADER_RE.search(surface_text) is not None
+        and WIN32_TEXT_ATTR_MACRO_USE_RE.search(surface_text) is not None
+    )
+    if not needs_color_provider and not needs_text_attr_provider:
+        return True
+
+    preceding_imports: set[str] = set()
+    surface_line: int | None = None
+    for line_number, line in enumerate(module_text.splitlines()):
+        import_match = IMPORT_LINE_RE.match(line)
+        if import_match is not None:
+            preceding_imports.add(import_match.group(1).strip())
+
+        include_match = INCLUDE_RE.match(line)
+        if include_match is not None and include_match.group(1) == '"':
+            header = include_match.group(2).strip()
+            if header == surface_filename or header.endswith("/" + surface_filename):
+                surface_line = line_number
+                break
+
+    if surface_line is None:
+        return False
+    if needs_color_provider and preceding_imports.isdisjoint(UWVM_COLOR_PROVIDER_MODULES):
+        return False
+    if needs_text_attr_provider and preceding_imports.isdisjoint(WIN32_TEXT_ATTR_PROVIDER_MODULES):
+        return False
+    return True
 
 
 def local_header_exists(source_path: str | None, header: str) -> bool:
@@ -498,6 +562,11 @@ def main() -> int:
             problems.append(f"[MISMATCH] {pair.a} <-> {pair.b}")
             problems.extend(["  " + d for d in diffs])
 
+        if not win32_text_attr_provider_precedes_surface(cppm_txt, h_txt, os.path.basename(pair.b)):
+            problems.append(
+                f"[ORDER] {pair.a}: the required Win32 macro provider must be imported before {os.path.basename(pair.b)}"
+            )
+
     # Check *.module.cpp <-> *.default.cpp
     for pair in mod_def_pairs:
         mod_txt = read_text(pair.a)
@@ -514,6 +583,11 @@ def main() -> int:
         if not ok_eq:
             problems.append(f"[MISMATCH] {pair.a} <-> {pair.b}")
             problems.extend(["  " + d for d in diffs])
+
+        if not win32_text_attr_provider_precedes_surface(mod_txt, def_txt, os.path.basename(pair.b)):
+            problems.append(
+                f"[ORDER] {pair.a}: the required Win32 macro provider must be imported before {os.path.basename(pair.b)}"
+            )
 
     if problems:
         print("Found issues:")

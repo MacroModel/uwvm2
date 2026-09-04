@@ -162,6 +162,106 @@ export module uwvm2.example;
 
         self.assertEqual(imports, ["uwvm2.utils.container"])
 
+    def test_win32_color_provider_must_precede_textual_surface(self) -> None:
+        surface_text = """\
+#include <uwvm2/uwvm_predefine/utils/ansies/uwvm_color_push_macro.h>
+inline void report() { use(UWVM_COLOR_RED); }
+"""
+        module_text = """\
+export module uwvm2.example;
+#include "surface.h"
+import uwvm2.uwvm_predefine.utils.ansies;
+"""
+
+        self.assertFalse(
+            MODULE_CHECKER.win32_text_attr_provider_precedes_surface(
+                module_text, surface_text, "surface.h"
+            )
+        )
+
+    def test_win32_color_provider_before_textual_surface_is_legal(self) -> None:
+        surface_text = """\
+#include <uwvm2/uwvm_predefine/utils/ansies/uwvm_color_push_macro.h>
+inline void report() { use(UWVM_COLOR_RED); }
+"""
+        module_text = """\
+export module uwvm2.example;
+import uwvm2.uwvm_predefine.utils.ansies;
+#include "surface.h"
+"""
+
+        self.assertTrue(
+            MODULE_CHECKER.win32_text_attr_provider_precedes_surface(
+                module_text, surface_text, "surface.h"
+            )
+        )
+
+    def test_win32_color_partition_is_not_an_external_provider(self) -> None:
+        surface_text = """\
+#include <uwvm2/uwvm_predefine/utils/ansies/uwvm_color_push_macro.h>
+inline void report() { use(UWVM_COLOR_RED); }
+"""
+        module_text = """\
+export module uwvm2.example;
+import uwvm2.utils.ansies:win32_text_attr;
+#include "surface.h"
+"""
+
+        # Partitions may only be imported by units of their owning named module;
+        # ordinary consumers must import the primary module or a re-exporter.
+        self.assertFalse(
+            MODULE_CHECKER.win32_text_attr_provider_precedes_surface(
+                module_text, surface_text, "surface.h"
+            )
+        )
+
+    def test_low_level_text_attr_provider_cannot_satisfy_uwvm_color(self) -> None:
+        surface_text = """\
+#include <uwvm2/uwvm_predefine/utils/ansies/uwvm_color_push_macro.h>
+inline void report() { use(UWVM_COLOR_RED); }
+"""
+        module_text = """\
+export module uwvm2.example;
+import uwvm2.utils.ansies;
+#include "surface.h"
+"""
+
+        self.assertFalse(
+            MODULE_CHECKER.win32_text_attr_provider_precedes_surface(
+                module_text, surface_text, "surface.h"
+            )
+        )
+
+    def test_low_level_provider_satisfies_direct_text_attr_macros(self) -> None:
+        surface_text = """\
+#include <uwvm2/utils/ansies/win32_text_attr_push_macro.h>
+inline void report() { use(UWVM_WIN32_TEXTATTR_RED); }
+"""
+        module_text = """\
+export module uwvm2.example;
+import uwvm2.utils.ansies;
+#include "surface.h"
+"""
+
+        self.assertTrue(
+            MODULE_CHECKER.win32_text_attr_provider_precedes_surface(
+                module_text, surface_text, "surface.h"
+            )
+        )
+
+    def test_win32_color_documentation_without_macro_header_is_ignored(self) -> None:
+        surface_text = "/// UWVM_COLOR_RED is documented here.\n"
+        module_text = """\
+export module uwvm2.example;
+#include "surface.h"
+"""
+
+        self.assertTrue(
+            MODULE_CHECKER.win32_text_attr_provider_precedes_surface(
+                module_text, surface_text, "surface.h"
+            )
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
