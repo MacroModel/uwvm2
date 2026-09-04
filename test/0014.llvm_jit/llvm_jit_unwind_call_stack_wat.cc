@@ -544,7 +544,22 @@ int main(int argc, char** argv)
         return dir / "test-artifacts" / "0014.llvm_jit" / "unwind_call_stack_wat";
     }(executable_dir)};
     auto comparison_policy{env_string("UWVM_UNWIND_COMPARISON_POLICY")};
-    if(comparison_policy.empty()) { comparison_policy = "unwind"; }
+    // POSIX native unwind is auxiliary and intentionally cannot replace logical frames. Exercise that path by default;
+    // Win64 may still use its explicit generated-caller SEH context as the authoritative source.
+    if(comparison_policy.empty())
+    {
+#if defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) && !defined(__CYGWIN__) && \
+    (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64))
+        comparison_policy = "unwind";
+#elif ((defined(__APPLE__) && !defined(_WIN32)) ||                                                                                                            \
+       ((defined(__linux__) || defined(__FreeBSD__)) &&                                                                                                      \
+        (defined(__x86_64__) || defined(_M_X64) || defined(_M_AMD64)) && !defined(__ILP32__))) &&                                                           \
+    __has_include(<unwind.h>)
+        comparison_policy = "unwind-uncheck";
+#else
+        comparison_policy = "auto";
+#endif
+    }
     bool ok{true};
 
     for(auto const& shape: make_shapes())
