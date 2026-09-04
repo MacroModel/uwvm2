@@ -271,11 +271,11 @@ option("enable-uwvm-int-combine-ops", function()
     (
         "Enable combined opcodes for uwvm-int.",
         [[    none: disable all combine ops.]],
-        [[    soft: enable only soft/light combine ops.]],
-        [[    heavy: enable soft + heavy combine ops (default).]],
+        [[    soft: enable only soft/light combine ops (default).]],
+        [[    heavy: enable soft + heavy combine ops (explicit performance profile).]],
         [[    extra: enable soft + heavy + extra-heavy combine ops (ultra-specific mega fusions).]]
     )
-    set_default("heavy")
+    set_default("soft")
     set_values("none", "soft", "heavy", "extra")
 end)
 
@@ -284,8 +284,8 @@ option("enable-uwvm-int-delay-local", function()
     (
         "Enable delay-local variantization for uwvm-int.",
         [[    none: disable delay-local fusions.]],
-        [[    soft: enable minimal delay-local fusions (default).]],
-        [[    heavy: enable soft + extended delay-local fusions.]]
+        [[    soft: enable minimal delay-local fusions.]],
+        [[    heavy: enable soft + extended delay-local fusions (default).]]
     )
     set_default("heavy")
     set_values("none", "soft", "heavy")
