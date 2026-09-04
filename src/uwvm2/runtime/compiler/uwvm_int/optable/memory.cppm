@@ -44,6 +44,7 @@ import uwvm2.utils.debug;
 import uwvm2.parser.wasm.standard.wasm1;
 import uwvm2.object;
 import :define;
+import :storage;
 import :register_ring;
 
 #ifndef UWVM_MODULE

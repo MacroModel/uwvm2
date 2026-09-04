@@ -39,9 +39,9 @@
 # include <fast_io.h>
 # include <uwvm2/utils/container/impl.h>
 # include <uwvm2/utils/debug/impl.h>
+# include <uwvm2/utils/thread/impl.h>
 # include <uwvm2/parser/wasm/standard/wasm1/impl.h>
 # include <uwvm2/object/impl.h>
-# include <uwvm2/utils/thread/impl.h>
 # include "define.h"
 # include "storage.h"
 #endif
