@@ -91,7 +91,6 @@
 # include <llvm/Transforms/Scalar.h>
 # include <llvm/Transforms/Scalar/GVN.h>
 # include <llvm/Transforms/Utils.h>
-# include <uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/section_memory_manager.h>
 #endif
 
 #include "uwvm_runtime_native_unwind.h"

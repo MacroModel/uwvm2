@@ -58,7 +58,6 @@ module;
 # if defined(__APPLE__) && !defined(_WIN32) && __has_include(<unwind.h>)
 #  include <unwind.h>
 # endif
-# include "../compile_all_from_uwvm/translate/section_memory_manager.h"
 #endif
 
 export module uwvm2.runtime.compiler.llvm_jit.compile_cu_from_lazy_validator:translate;
