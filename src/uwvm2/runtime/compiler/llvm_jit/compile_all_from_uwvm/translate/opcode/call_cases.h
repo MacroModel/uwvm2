@@ -166,6 +166,44 @@ case wasm1_code::call_indirect:
     // [          safe        ] unsafe (could be the section_end)
     //                          ^^ code_curr
 
+    // Decode through a local scanner and commit code_curr only after the complete trailing field.
+    // MVP likewise advances only after matching its literal 0x00, so every trailing-immediate decode
+    // failure leaves code_curr at the table_index position shown above.
+    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 table_index{};
+    if(!::uwvm2::parser::wasm::standard::wasm1p1::features::uses_mvp_call_indirect_reserved_byte(wasm1p1_para))
+    {
+        // Reference Types/Core 2.0 encode a real `tableidx ::= u32`; disabling
+        // multiple tables constrains the decoded value and does not alter this grammar.
+        auto const [table_next, table_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr),
+                                                                    reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                    ::fast_io::mnp::leb128_get(table_index))};
+        if(table_err != ::fast_io::parse_code::ok) [[unlikely]]
+        {
+            err.err_curr = op_begin;
+            err.err_code = ::uwvm2::validation::error::code_validation_error_code::invalid_table_index;
+            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(table_err);
+        }
+        code_curr = reinterpret_cast<::std::byte const*>(table_next);
+    }
+    else
+    {
+        // Core 1.0 section 5.4.1 uses one literal reserved byte in
+        // `0x11 typeidx 0x00`; it is not a ULEB128 table index.
+        if(code_curr == code_end || *code_curr != ::std::byte{}) [[unlikely]]
+        {
+            err.err_curr = op_begin;
+            err.err_code = ::uwvm2::validation::error::code_validation_error_code::invalid_table_index;
+            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+        }
+        ++code_curr;
+    }
+
+    // call_indirect type_index table_index ...
+    // [                safe              ] unsafe (could be the section_end)
+    //                                      ^^ code_curr
+
+    // Both immediate fields now have valid encodings.  Semantic checks intentionally start with
+    // type_index so the LLVM translator and standard validators agree on compound-invalid operands.
     auto const all_type_count_uz{typesec.types.size()};
     if(static_cast<::std::size_t>(type_index) >= all_type_count_uz) [[unlikely]]
     {
@@ -176,29 +214,15 @@ case wasm1_code::call_indirect:
         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
     }
 
-    // WebAssembly 1.0/MVP treats this second immediate as the reserved zero for the default table.  The translator decodes
-    // it into a table-index-shaped field so reference-types/multi-table support has a natural hook; when that restriction
-    // is relaxed, keep table validation, table storage, and LLVM selected-table lowering aligned.
-    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 table_index;  // No initialization necessary
-    auto const [table_next, table_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr),
-                                                                reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-                                                                ::fast_io::mnp::leb128_get(table_index))};
-    if(table_err != ::fast_io::parse_code::ok) [[unlikely]]
+    if((wasm1p1_para.disable_multiple_tables || wasm1p1_para.controllable_allow_multi_table) && table_index != 0u) [[unlikely]]
     {
-        err.err_curr = op_begin;
-        err.err_code = ::uwvm2::validation::error::code_validation_error_code::invalid_table_index;
-        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(table_err);
+        fail_wasm2_feature_required(
+            op_begin,
+            static_cast<validation_module_traits_t::wasm_u32>(
+                static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_byte>(wasm1_code::call_indirect)),
+            ::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables,
+            ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
     }
-
-    // call_indirect type_index table_index ...
-    // [                safe              ] unsafe (could be the section_end)
-    //                          ^^ code_curr
-
-    code_curr = reinterpret_cast<::std::byte const*>(table_next);
-
-    // call_indirect type_index table_index ...
-    // [                safe              ] unsafe (could be the section_end)
-    //                                      ^^ code_curr
 
     if(table_index >= all_table_count) [[unlikely]]
     {
@@ -224,7 +248,7 @@ case wasm1_code::call_indirect:
         report_operand_stack_underflow(op_begin, u8"call_indirect", required_stack_size);
     }
 
-    // function index operand (must be i32 if present)
+    // table-element index operand (must be i32 if present)
     if(auto const idx{try_pop_concrete_operand()}; idx.from_stack)
     {
         if(idx.type != curr_operand_stack_value_type::i32) [[unlikely]]

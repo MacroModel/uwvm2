@@ -68,9 +68,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
     inline constexpr wasm_byte opcode_byte(wasm1p1_code opcode) noexcept { return static_cast<wasm_byte>(opcode); }
     inline constexpr wasm_u32 opcode_u32(wasm1p1_code opcode) noexcept { return static_cast<wasm_u32>(opcode_byte(opcode)); }
 
-    struct wasm1p1_code_version
-    {
-    };
+    using wasm1p1_code_version = ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm1p1_code_version;
 
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
     using operand_stack_value_type = ::uwvm2::parser::wasm::standard::wasm1::features::final_value_type_t<Fs...>;
@@ -196,6 +194,20 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
             err.err_selectable.wasm1p1_feature_required.feature = feature;
             err.err_selectable.wasm1p1_feature_required.subject = subject;
             err.err_code = ::uwvm2::validation::error::code_validation_error_code::wasm1p1_feature_required;
+            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+        }
+
+        [[noreturn]] inline constexpr void fail_wasm2_feature_required(::std::byte const* const op_begin,
+                                                                       ::uwvm2::validation::error::code_validation_error_impl& err,
+                                                                       ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 const value,
+                                                                       ::uwvm2::parser::wasm::base::wasm2_feature_kind const feature,
+                                                                       ::uwvm2::parser::wasm::base::wasm2_error_subject const subject) UWVM_THROWS
+        {
+            err.err_curr = op_begin;
+            err.err_selectable.wasm2_feature_required.value = value;
+            err.err_selectable.wasm2_feature_required.feature = feature;
+            err.err_selectable.wasm2_feature_required.subject = subject;
+            err.err_code = ::uwvm2::validation::error::code_validation_error_code::wasm2_feature_required;
             ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
         }
 
@@ -1077,6 +1089,15 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
 
         auto const check_table_index{[&](::std::byte const* op_begin, ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 table_index) constexpr UWVM_THROWS
                                      {
+                                         if((wasm1p1_para.disable_multiple_tables || wasm1p1_para.controllable_allow_multi_table) && table_index != 0u)
+                                             [[unlikely]]
+                                         {
+                                             details::fail_wasm2_feature_required(op_begin,
+                                                                                  err,
+                                                                                  table_index,
+                                                                                  ::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables,
+                                                                                  ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
+                                         }
                                          if(table_index >= all_table_count) [[unlikely]]
                                          {
                                              err.err_curr = op_begin;
@@ -2331,6 +2352,46 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
                     // [          safe        ] unsafe (could be the section_end)
                     //                          ^^ code_curr
 
+                    // Decode through a local scanner and commit code_curr only after the complete trailing field.
+                    // MVP likewise advances only after matching its literal 0x00, so every trailing-immediate decode
+                    // failure leaves code_curr at the table_index position shown above.
+                    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 table_index{};
+                    if(!::uwvm2::parser::wasm::standard::wasm1p1::features::uses_mvp_call_indirect_reserved_byte(wasm1p1_para))
+                    {
+                        // Reference Types/Multiple Tables and Core 2.0 section 5.4.1:
+                        // `0x11 typeidx tableidx`, where `tableidx ::= u32` uses ULEB128.
+                        // A feature policy may require the decoded value to be zero, but it
+                        // cannot turn the field back into MVP's literal-byte grammar.
+                        auto const [table_next, table_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr),
+                                                                                    reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
+                                                                                    ::fast_io::mnp::leb128_get(table_index))};
+                        if(table_err != ::fast_io::parse_code::ok) [[unlikely]]
+                        {
+                            err.err_curr = op_begin;
+                            err.err_code = ::uwvm2::validation::error::code_validation_error_code::invalid_table_index;
+                            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(table_err);
+                        }
+                        code_curr = reinterpret_cast<::std::byte const*>(table_next);
+                    }
+                    else
+                    {
+                        // Core 1.0 section 5.4.1: `0x11 typeidx 0x00`.  MVP's last
+                        // token is one literal reserved byte, not a u32 table index.
+                        if(code_curr == code_end || *code_curr != ::std::byte{}) [[unlikely]]
+                        {
+                            err.err_curr = op_begin;
+                            err.err_code = ::uwvm2::validation::error::code_validation_error_code::invalid_table_index;
+                            ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+                        }
+                        ++code_curr;
+                    }
+
+                    // call_indirect type_index table_index ...
+                    // [                safe              ] unsafe (could be the section_end)
+                    //                                      ^^ code_curr
+
+                    // Both immediate fields now have valid encodings.  Semantic checks intentionally start with
+                    // type_index so every validator/backend reports the same first error for compound-invalid operands.
                     auto const all_type_count_uz{typesec.types.size()};
                     if(static_cast<::std::size_t>(type_index) >= all_type_count_uz) [[unlikely]]
                     {
@@ -2342,35 +2403,19 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
                         ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
                     }
 
-                    ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 table_index;  // No initialization necessary
-                    auto const [table_next, table_err]{::fast_io::parse_by_scan(reinterpret_cast<char8_t_const_may_alias_ptr>(code_curr),
-                                                                                reinterpret_cast<char8_t_const_may_alias_ptr>(code_end),
-                                                                                ::fast_io::mnp::leb128_get(table_index))};
-                    if(table_err != ::fast_io::parse_code::ok) [[unlikely]]
+                    // Feature-required diagnostics for an instruction identify the opcode,
+                    // while the decoded table index remains available to the bounds check.
+                    if((wasm1p1_para.disable_multiple_tables || wasm1p1_para.controllable_allow_multi_table) && table_index != 0u)
+                        [[unlikely]]
                     {
-                        err.err_curr = op_begin;
-                        err.err_code = ::uwvm2::validation::error::code_validation_error_code::invalid_table_index;
-                        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(table_err);
+                        details::fail_wasm2_feature_required(
+                            op_begin,
+                            err,
+                            static_cast<wasm_u32>(static_cast<wasm_byte>(wasm1_code::call_indirect)),
+                            ::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables,
+                            ::uwvm2::parser::wasm::base::wasm2_error_subject::instruction);
                     }
-
-                    // call_indirect type_index table_index ...
-                    // [                safe              ] unsafe (could be the section_end)
-                    //                          ^^ code_curr
-
-                    code_curr = reinterpret_cast<::std::byte const*>(table_next);
-
-                    // call_indirect type_index table_index ...
-                    // [                safe              ] unsafe (could be the section_end)
-                    //                                      ^^ code_curr
-
-                    if(table_index >= all_table_count) [[unlikely]]
-                    {
-                        err.err_curr = op_begin;
-                        err.err_selectable.illegal_table_index.table_index = table_index;
-                        err.err_selectable.illegal_table_index.all_table_count = all_table_count;
-                        err.err_code = ::uwvm2::validation::error::code_validation_error_code::illegal_table_index;
-                        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-                    }
+                    check_table_index(op_begin, table_index);
 
                     if(get_table_value_type(table_index) !=
                        static_cast<curr_operand_stack_value_type>(::uwvm2::parser::wasm::standard::wasm1p1::type::value_type::funcref)) [[unlikely]]
@@ -2389,17 +2434,17 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1p1
                     auto const param_count{static_cast<::std::size_t>(callee_type.parameter.end - callee_type.parameter.begin)};
                     auto const result_count{static_cast<::std::size_t>(callee_type.result.end - callee_type.result.begin)};
 
-                    // Stack effect: (args..., i32 func_index) -> (results...)
+                    // Stack effect: (args..., i32 table_element_index) -> (results...)
                     constexpr auto max_operand_stack_requirement{::std::numeric_limits<::std::size_t>::max()};
-                    auto const param_count_plus_table_index_overflows{param_count == max_operand_stack_requirement};
-                    auto const required_stack_size{param_count_plus_table_index_overflows ? max_operand_stack_requirement : (param_count + 1uz)};
+                    auto const param_count_plus_element_index_overflows{param_count == max_operand_stack_requirement};
+                    auto const required_stack_size{param_count_plus_element_index_overflows ? max_operand_stack_requirement : (param_count + 1uz)};
 
-                    if(!is_polymorphic && (param_count_plus_table_index_overflows || concrete_operand_count() < required_stack_size)) [[unlikely]]
+                    if(!is_polymorphic && (param_count_plus_element_index_overflows || concrete_operand_count() < required_stack_size)) [[unlikely]]
                     {
                         report_operand_stack_underflow(op_begin, u8"call_indirect", required_stack_size);
                     }
 
-                    // function index operand (must be i32 if present)
+                    // table-element index operand (must be i32 if present)
                     auto const idx{try_pop_concrete_operand()};
                         if(!operand_type_matches(idx, curr_operand_stack_value_type::i32)) [[unlikely]]
                         {

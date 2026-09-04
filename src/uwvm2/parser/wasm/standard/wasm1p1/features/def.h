@@ -108,6 +108,25 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1p1::features
         bool controllable_allow_multi_table{};
     };
 
+    /// @brief Select the legacy MVP encoding of `call_indirect`'s trailing immediate.
+    /// @details WebAssembly Core 1.0 section 5.4.1 encodes `call_indirect` as
+    ///          `0x11 typeidx 0x00`; that final token is a literal byte, not a
+    ///          `tableidx`.  Core 1.0 section 2.5.1's abstract `tableidx ::= u32`
+    ///          definition applies only where a grammar production actually
+    ///          references `tableidx`; MVP `call_indirect` does not.  The
+    ///          Reference Types/Multiple Tables grammar and
+    ///          WebAssembly Core 2.0 section 5.4.1 instead encode a real
+    ///          `tableidx ::= u32`.  Disabling multiple tables constrains that
+    ///          decoded index to zero, but does not change its binary type.
+    /// @details For a real `tableidx`, Core section 5.2.2 permits trailing-zero
+    ///          ULEB128 encodings within the u32 width bound.  Thus `0x80 0x00`
+    ///          is a valid encoding of index zero on the newer grammar path.
+    [[nodiscard]] inline constexpr bool uses_mvp_call_indirect_reserved_byte(
+        wasm_binfmt1p1_feature_parameter const& parameter) noexcept
+    {
+        return parameter.cli_mode == wasm_feature_cli_mode::direct_mvp;
+    }
+
     /// @brief Get the const wasm1.1 feature parameter from a parser feature-parameter tuple.
     template <::uwvm2::parser::wasm::concepts::wasm_feature... Fs>
     inline constexpr wasm_binfmt1p1_feature_parameter const& get_wasm1p1_parameter(

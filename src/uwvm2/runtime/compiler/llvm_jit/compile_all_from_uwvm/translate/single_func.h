@@ -1090,6 +1090,20 @@ namespace details
                 ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
             }};
 
+        auto const fail_wasm2_feature_required{
+            [&](::std::byte const* op_begin,
+                validation_module_traits_t::wasm_u32 value,
+                ::uwvm2::parser::wasm::base::wasm2_feature_kind feature,
+                ::uwvm2::parser::wasm::base::wasm2_error_subject subject) constexpr UWVM_THROWS
+            {
+                err.err_curr = op_begin;
+                err.err_selectable.wasm2_feature_required.value = value;
+                err.err_selectable.wasm2_feature_required.feature = feature;
+                err.err_selectable.wasm2_feature_required.subject = subject;
+                err.err_code = code_validation_error_code::wasm2_feature_required;
+                ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+            }};
+
         auto const fail_invalid_immediate{
             [&](::std::byte const* op_begin,
                 ::uwvm2::utils::container::u8string_view op_name,
