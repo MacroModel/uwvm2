@@ -2466,10 +2466,12 @@ struct runtime_call_indirect_callee_resolution_t
     if(table_index_uz < imported_table_count)
     {
         auto curr{::std::addressof(runtime_module.imported_table_vec_storage.index_unchecked(table_index_uz))};
-        for(;;)
+        for(::std::size_t steps{};; ++steps)
         {
             // Table imports use the same forwarding model as globals/functions: a valid initialized graph ends at a
-            // defined table, while null/unknown links are treated as runtime-storage corruption.
+            // defined table, while null/unknown links are treated as runtime-storage corruption.  Initialization rejects
+            // alias cycles; retain a hard bound here so corrupted embedding state cannot hang LLVM preparation.
+            if(steps > 8192uz) [[unlikely]] { return nullptr; }
             if(curr == nullptr) [[unlikely]] { return nullptr; }
 
             switch(curr->link_kind)
@@ -2496,6 +2498,49 @@ struct runtime_call_indirect_callee_resolution_t
     return ::std::addressof(runtime_module.local_defined_table_vec_storage.index_unchecked(local_table_index));
 }
 
+enum class runtime_storage_pointer_membership : unsigned
+{
+    outside,
+    element,
+    invalid,
+};
+
+// Classify a possibly cross-module runtime pointer without relationally comparing or subtracting unrelated C++
+// pointers.  An address outside this vector can legitimately name storage owned by the provider of an imported table;
+// an address inside the byte range must land exactly on an element boundary.
+template <typename Element>
+[[nodiscard]] inline constexpr runtime_storage_pointer_membership
+    classify_runtime_storage_pointer(Element const* begin, ::std::size_t count, Element const* element, ::std::size_t& index) noexcept
+{
+    index = 0uz;
+    if(element == nullptr) { return runtime_storage_pointer_membership::outside; }
+    if(begin == nullptr)
+    {
+        return count == 0uz ? runtime_storage_pointer_membership::outside : runtime_storage_pointer_membership::invalid;
+    }
+    if(count > (::std::numeric_limits<::std::uintptr_t>::max() / sizeof(Element))) [[unlikely]]
+    {
+        return runtime_storage_pointer_membership::invalid;
+    }
+
+    auto const begin_address{reinterpret_cast<::std::uintptr_t>(begin)};
+    auto const element_address{reinterpret_cast<::std::uintptr_t>(element)};
+    auto const storage_bytes{static_cast<::std::uintptr_t>(count * sizeof(Element))};
+    if(begin_address > (::std::numeric_limits<::std::uintptr_t>::max() - storage_bytes)) [[unlikely]]
+    {
+        return runtime_storage_pointer_membership::invalid;
+    }
+
+    auto const end_address{begin_address + storage_bytes};
+    if(element_address < begin_address || element_address >= end_address) { return runtime_storage_pointer_membership::outside; }
+
+    auto const byte_offset{element_address - begin_address};
+    if((byte_offset % sizeof(Element)) != 0u) [[unlikely]] { return runtime_storage_pointer_membership::invalid; }
+    index = static_cast<::std::size_t>(byte_offset / sizeof(Element));
+    if(index >= count) [[unlikely]] { return runtime_storage_pointer_membership::invalid; }
+    return runtime_storage_pointer_membership::element;
+}
+
 // Resolve a table element to a function reference and decide whether it belongs to the current module.  This helper is
 // used when building JIT table views and by paths that can pre-resolve indirect targets.
 [[nodiscard]] inline constexpr runtime_call_indirect_callee_resolution_t
@@ -2518,8 +2563,16 @@ struct runtime_call_indirect_callee_resolution_t
             auto imported_func_ptr{elem.storage.imported_ptr};
             if(imported_func_ptr == nullptr) { return result; }
 
+            result.present = true;
+            ::std::size_t func_index_uz{};
+            auto const membership{
+                classify_runtime_storage_pointer(imported_func_begin, imported_func_count, imported_func_ptr, func_index_uz)};
+            if(membership == runtime_storage_pointer_membership::invalid) [[unlikely]] { return {}; }
+            if(membership == runtime_storage_pointer_membership::outside) { return result; }
+
             // An imported function reference can be an empty table slot, a host/imported target, or a forwarding alias to
-            // a current-module function.  Resolve only far enough to decide whether direct typed calls are legal.
+            // a current-module function.  Dereference only after proving that the pointer names an exact element in this
+            // module's import vector; provider-module pointers intentionally remain non-direct targets here.
             auto import_type_ptr{imported_func_ptr->import_type_ptr};
             if(import_type_ptr == nullptr || import_type_ptr->imports.type != validation_module_traits_t::external_types::func ||
                import_type_ptr->imports.storage.function == nullptr) [[unlikely]]
@@ -2527,15 +2580,7 @@ struct runtime_call_indirect_callee_resolution_t
                 return {};
             }
 
-            result.present = true;
             result.function_type_ptr = import_type_ptr->imports.storage.function;
-
-            if(imported_func_begin == nullptr || imported_func_ptr < imported_func_begin || imported_func_ptr >= imported_func_begin + imported_func_count)
-            {
-                return result;
-            }
-
-            auto const func_index_uz{static_cast<::std::size_t>(imported_func_ptr - imported_func_begin)};
             if(func_index_uz > static_cast<::std::size_t>(::std::numeric_limits<validation_module_traits_t::wasm_u32>::max())) [[unlikely]] { return {}; }
 
             auto const callee_resolution{resolve_runtime_direct_callee(runtime_module, static_cast<validation_module_traits_t::wasm_u32>(func_index_uz))};
@@ -2552,14 +2597,15 @@ struct runtime_call_indirect_callee_resolution_t
         {
             auto defined_func_ptr{elem.storage.defined_ptr};
             if(defined_func_ptr == nullptr) { return result; }
-            if(defined_func_ptr->function_type_ptr == nullptr) [[unlikely]] { return {}; }
 
             result.present = true;
+            ::std::size_t local_func_index{};
+            auto const membership{classify_runtime_storage_pointer(local_func_begin, local_func_count, defined_func_ptr, local_func_index)};
+            if(membership == runtime_storage_pointer_membership::invalid) [[unlikely]] { return {}; }
+            if(membership == runtime_storage_pointer_membership::outside) { return result; }
+
+            if(defined_func_ptr->function_type_ptr == nullptr) [[unlikely]] { return {}; }
             result.function_type_ptr = defined_func_ptr->function_type_ptr;
-
-            if(local_func_begin == nullptr || defined_func_ptr < local_func_begin || defined_func_ptr >= local_func_begin + local_func_count) { return result; }
-
-            auto const local_func_index{static_cast<::std::size_t>(defined_func_ptr - local_func_begin)};
             if(imported_func_count > static_cast<::std::size_t>(::std::numeric_limits<validation_module_traits_t::wasm_u32>::max()) ||
                local_func_index > static_cast<::std::size_t>(::std::numeric_limits<validation_module_traits_t::wasm_u32>::max()) - imported_func_count)
                 [[unlikely]]
