@@ -1947,21 +1947,12 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1
                     // [          safe        ] unsafe (could be the section_end)
                     //                          ^^ code_curr
 
-                    auto const all_type_count_uz{typesec.types.size()};
-                    if(static_cast<::std::size_t>(type_index) >= all_type_count_uz) [[unlikely]]
-                    {
-                        err.err_curr = op_begin;
-                        err.err_selectable.illegal_type_index.type_index = type_index;
-                        err.err_selectable.illegal_type_index.all_type_count =
-                            static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>(all_type_count_uz);
-                        err.err_code = ::uwvm2::validation::error::code_validation_error_code::illegal_type_index;
-                        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-                    }
-
                     // WebAssembly Core 1.0, section 5.4.1, gives the binary grammar
                     // `0x11 x:typeidx 0x00 => call_indirect x`.  The trailing token is a literal
                     // reserved byte, not the `tableidx ::= u32` defined for constructs that
                     // actually carry a table index.  Consequently 0x80 0x00 is not valid here.
+                    // The byte is checked before incrementing, so failure leaves code_curr at
+                    // the trailing-immediate position shown above.
                     if(code_curr == code_end || *code_curr != ::std::byte{}) [[unlikely]]
                     {
                         err.err_curr = op_begin;
@@ -1974,6 +1965,19 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1
                     // call_indirect type_index table_index ...
                     // [                safe              ] unsafe (could be the section_end)
                     //                                      ^^ code_curr
+
+                    // Decode the complete instruction immediate before semantic lookup.  A malformed reserved byte
+                    // therefore reports invalid_table_index even when the independently decoded type index is out of range.
+                    auto const all_type_count_uz{typesec.types.size()};
+                    if(static_cast<::std::size_t>(type_index) >= all_type_count_uz) [[unlikely]]
+                    {
+                        err.err_curr = op_begin;
+                        err.err_selectable.illegal_type_index.type_index = type_index;
+                        err.err_selectable.illegal_type_index.all_type_count =
+                            static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>(all_type_count_uz);
+                        err.err_code = ::uwvm2::validation::error::code_validation_error_code::illegal_type_index;
+                        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+                    }
 
                     if(table_index >= all_table_count) [[unlikely]]
                     {
@@ -1989,17 +1993,17 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm1
                     auto const param_count{static_cast<::std::size_t>(callee_type.parameter.end - callee_type.parameter.begin)};
                     auto const result_count{static_cast<::std::size_t>(callee_type.result.end - callee_type.result.begin)};
 
-                    // Stack effect: (args..., i32 func_index) -> (results...)
+                    // Stack effect: (args..., i32 table_element_index) -> (results...)
                     constexpr auto max_operand_stack_requirement{::std::numeric_limits<::std::size_t>::max()};
-                    auto const param_count_plus_table_index_overflows{param_count == max_operand_stack_requirement};
-                    auto const required_stack_size{param_count_plus_table_index_overflows ? max_operand_stack_requirement : (param_count + 1uz)};
+                    auto const param_count_plus_element_index_overflows{param_count == max_operand_stack_requirement};
+                    auto const required_stack_size{param_count_plus_element_index_overflows ? max_operand_stack_requirement : (param_count + 1uz)};
 
-                    if(!is_polymorphic && (param_count_plus_table_index_overflows || concrete_operand_count() < required_stack_size)) [[unlikely]]
+                    if(!is_polymorphic && (param_count_plus_element_index_overflows || concrete_operand_count() < required_stack_size)) [[unlikely]]
                     {
                         report_operand_stack_underflow(op_begin, u8"call_indirect", required_stack_size);
                     }
 
-                    // function index operand (must be i32 if present)
+                    // table-element index operand (must be i32 if present)
                     auto const idx{try_pop_concrete_operand()};
                     if(idx.from_stack && idx.type != curr_operand_stack_value_type::i32) [[unlikely]]
                     {

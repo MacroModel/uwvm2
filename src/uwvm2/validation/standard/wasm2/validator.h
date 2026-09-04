@@ -2377,17 +2377,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm2
                     // [          safe        ] unsafe (could be the section_end)
                     //                          ^^ code_curr
 
-                    auto const all_type_count_uz{typesec.types.size()};
-                    if(static_cast<::std::size_t>(type_index) >= all_type_count_uz) [[unlikely]]
-                    {
-                        err.err_curr = op_begin;
-                        err.err_selectable.illegal_type_index.type_index = type_index;
-                        err.err_selectable.illegal_type_index.all_type_count =
-                            static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>(all_type_count_uz);
-                        err.err_code = ::uwvm2::validation::error::code_validation_error_code::illegal_type_index;
-                        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
-                    }
-
+                    // Decode through a local scanner and commit code_curr only after the complete u32 field, so a
+                    // malformed/truncated tableidx leaves code_curr at the table_index position shown above.
                     ::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32 table_index{};
                     // Core 2.0 section 5.4.1 always encodes the trailing immediate as
                     // `tableidx ::= u32`.  The multiple-tables policy is a validation
@@ -2406,6 +2397,19 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm2
                     // call_indirect type_index table_index ...
                     // [                safe              ] unsafe (could be the section_end)
                     //                                      ^^ code_curr
+
+                    // Both immediate fields now have valid encodings.  Semantic checks intentionally start with
+                    // type_index so every validator/backend reports the same first error for compound-invalid operands.
+                    auto const all_type_count_uz{typesec.types.size()};
+                    if(static_cast<::std::size_t>(type_index) >= all_type_count_uz) [[unlikely]]
+                    {
+                        err.err_curr = op_begin;
+                        err.err_selectable.illegal_type_index.type_index = type_index;
+                        err.err_selectable.illegal_type_index.all_type_count =
+                            static_cast<::uwvm2::parser::wasm::standard::wasm1::type::wasm_u32>(all_type_count_uz);
+                        err.err_code = ::uwvm2::validation::error::code_validation_error_code::illegal_type_index;
+                        ::uwvm2::parser::wasm::base::throw_wasm_parse_code(::fast_io::parse_code::invalid);
+                    }
 
                     check_table_index(op_begin,
                                       table_index,
@@ -2428,17 +2432,17 @@ UWVM_MODULE_EXPORT namespace uwvm2::validation::standard::wasm2
                     auto const param_count{static_cast<::std::size_t>(callee_type.parameter.end - callee_type.parameter.begin)};
                     auto const result_count{static_cast<::std::size_t>(callee_type.result.end - callee_type.result.begin)};
 
-                    // Stack effect: (args..., i32 func_index) -> (results...)
+                    // Stack effect: (args..., i32 table_element_index) -> (results...)
                     constexpr auto max_operand_stack_requirement{::std::numeric_limits<::std::size_t>::max()};
-                    auto const param_count_plus_table_index_overflows{param_count == max_operand_stack_requirement};
-                    auto const required_stack_size{param_count_plus_table_index_overflows ? max_operand_stack_requirement : (param_count + 1uz)};
+                    auto const param_count_plus_element_index_overflows{param_count == max_operand_stack_requirement};
+                    auto const required_stack_size{param_count_plus_element_index_overflows ? max_operand_stack_requirement : (param_count + 1uz)};
 
-                    if(!is_polymorphic && (param_count_plus_table_index_overflows || concrete_operand_count() < required_stack_size)) [[unlikely]]
+                    if(!is_polymorphic && (param_count_plus_element_index_overflows || concrete_operand_count() < required_stack_size)) [[unlikely]]
                     {
                         report_operand_stack_underflow(op_begin, u8"call_indirect", required_stack_size);
                     }
 
-                    // function index operand (must be i32 if present)
+                    // table-element index operand (must be i32 if present)
                     auto const idx{try_pop_concrete_operand()};
                         if(!operand_type_matches(idx, curr_operand_stack_value_type::i32)) [[unlikely]]
                         {

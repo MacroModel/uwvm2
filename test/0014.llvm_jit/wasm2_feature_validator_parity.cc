@@ -91,8 +91,8 @@ namespace
         0x01, 0x00, 0x04, 0x04, 0x01, 0x70, 0x00, 0x01, 0x0a, 0x09, 0x01, 0x07, 0x00, 0x41, 0x00, 0x11,
         0x00, 0x00, 0x0b};
 
-    // Same function with the reserved/table immediate encoded as the overlong u32 zero 0x80 0x00.
-    inline constexpr ::std::uint8_t call_indirect_overlong_zero_module[]{
+    // Same function with the table immediate encoded as the permitted non-minimal u32 zero 0x80 0x00.
+    inline constexpr ::std::uint8_t call_indirect_nonminimal_zero_module[]{
         0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00, 0x01, 0x04, 0x01, 0x60, 0x00, 0x00, 0x03, 0x02,
         0x01, 0x00, 0x04, 0x04, 0x01, 0x70, 0x00, 0x01, 0x0a, 0x0a, 0x01, 0x08, 0x00, 0x41, 0x00, 0x11,
         0x00, 0x80, 0x00, 0x0b};
@@ -104,6 +104,18 @@ namespace
         0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00, 0x01, 0x04, 0x01, 0x60, 0x00, 0x00, 0x03, 0x02,
         0x01, 0x00, 0x04, 0x04, 0x01, 0x70, 0x00, 0x01, 0x0a, 0x09, 0x01, 0x07, 0x00, 0x41, 0x00, 0x11,
         0x00, 0x01, 0x0b};
+
+    // A syntactically valid nonzero table index paired with an out-of-range type index.
+    inline constexpr ::std::uint8_t call_indirect_invalid_type_nonzero_table_module[]{
+        0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00, 0x01, 0x04, 0x01, 0x60, 0x00, 0x00, 0x03, 0x02,
+        0x01, 0x00, 0x04, 0x04, 0x01, 0x70, 0x00, 0x01, 0x0a, 0x09, 0x01, 0x07, 0x00, 0x41, 0x00, 0x11,
+        0x01, 0x01, 0x0b};
+
+    // The type index is also out of range, but the overflowing u32 table encoding is the first malformed field.
+    inline constexpr ::std::uint8_t call_indirect_invalid_type_overflowing_table_module[]{
+        0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00, 0x01, 0x04, 0x01, 0x60, 0x00, 0x00, 0x03, 0x02,
+        0x01, 0x00, 0x04, 0x04, 0x01, 0x70, 0x00, 0x01, 0x0a, 0x0d, 0x01, 0x0b, 0x00, 0x41, 0x00, 0x11,
+        0x01, 0xff, 0xff, 0xff, 0xff, 0x1f, 0x0b};
 
     struct feature_case
     {
@@ -476,26 +488,32 @@ int main(int argc, char** argv)
                                        error_code::ok,
                                        "wasm1p1-canonical") != 0)
     { return 1; }
-    if(validate_call_indirect_encoding(call_indirect_overlong_zero_module,
-                                       sizeof(call_indirect_overlong_zero_module),
+    if(validate_call_indirect_encoding(call_indirect_nonminimal_zero_module,
+                                       sizeof(call_indirect_nonminimal_zero_module),
                                        wasm1p1_policy,
                                        error_code::ok,
-                                       "wasm1p1-overlong") != 0)
+                                       "wasm1p1-nonminimal") != 0)
     { return 1; }
 
     auto mvp_policy{wasm1p1_policy};
     ::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(mvp_policy).cli_mode =
         ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm_feature_cli_mode::direct_wasmmvp;
-    if(validate_call_indirect_encoding(call_indirect_overlong_zero_module,
-                                       sizeof(call_indirect_overlong_zero_module),
+    if(validate_call_indirect_encoding(call_indirect_nonminimal_zero_module,
+                                       sizeof(call_indirect_nonminimal_zero_module),
                                        mvp_policy,
                                        error_code::invalid_table_index,
-                                       "mvp-overlong-reserved-byte") != 0)
+                                       "mvp-nonminimal-reserved-byte") != 0)
+    { return 1; }
+    if(validate_call_indirect_encoding(call_indirect_invalid_type_nonzero_table_module,
+                                       sizeof(call_indirect_invalid_type_nonzero_table_module),
+                                       mvp_policy,
+                                       error_code::invalid_table_index,
+                                       "mvp-invalid-type-bad-reserved-byte") != 0)
     { return 1; }
 
     auto const wasm2_policy{strict::make_wasm2_feature_parameter()};
-    if(validate_call_indirect_encoding(call_indirect_overlong_zero_module,
-                                       sizeof(call_indirect_overlong_zero_module),
+    if(validate_call_indirect_encoding(call_indirect_nonminimal_zero_module,
+                                       sizeof(call_indirect_nonminimal_zero_module),
                                        wasm2_policy,
                                        error_code::ok,
                                        "wasm2-multiple-tables-enabled") != 0)
@@ -505,17 +523,29 @@ int main(int argc, char** argv)
     auto& wasm2_single_table_para{::uwvm2::parser::wasm::standard::wasm2::features::get_wasm2_parameter(wasm2_single_table_policy)};
     wasm2_single_table_para.cli_mode = ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm_feature_cli_mode::scoped;
     wasm2_single_table_para.disable_multiple_tables = true;
-    if(validate_call_indirect_encoding(call_indirect_overlong_zero_module,
-                                       sizeof(call_indirect_overlong_zero_module),
+    if(validate_call_indirect_encoding(call_indirect_nonminimal_zero_module,
+                                       sizeof(call_indirect_nonminimal_zero_module),
                                        wasm2_single_table_policy,
                                        error_code::ok,
-                                       "wasm2-overlong-zero-single-table") != 0)
+                                       "wasm2-nonminimal-zero-single-table") != 0)
     { return 1; }
     if(validate_call_indirect_encoding(call_indirect_nonzero_table_module,
                                        sizeof(call_indirect_nonzero_table_module),
                                        wasm2_single_table_policy,
                                        error_code::wasm2_feature_required,
                                        "wasm2-nonzero-single-table") != 0)
+    { return 1; }
+    if(validate_call_indirect_encoding(call_indirect_invalid_type_overflowing_table_module,
+                                       sizeof(call_indirect_invalid_type_overflowing_table_module),
+                                       wasm2_single_table_policy,
+                                       error_code::invalid_table_index,
+                                       "wasm2-invalid-type-bad-table-encoding") != 0)
+    { return 1; }
+    if(validate_call_indirect_encoding(call_indirect_invalid_type_nonzero_table_module,
+                                       sizeof(call_indirect_invalid_type_nonzero_table_module),
+                                       wasm2_single_table_policy,
+                                       error_code::illegal_type_index,
+                                       "wasm2-invalid-type-nonzero-table") != 0)
     { return 1; }
     return 0;
 }

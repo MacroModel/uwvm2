@@ -907,8 +907,8 @@ case wasm1_code::call:
 }
 case wasm1_code::call_indirect:
 {
-    // Indirect calls add one dynamic table index operand on top of the function parameters. That is
-    // why validation computes `param_count + 1` and checks the table index type before parameters.
+    // call_indirect consumes one dynamic i32 table-element index above the function arguments.
+    // This stack operand is distinct from the encoded table_index immediate, which selects the table.
     // call_indirect  type_index table_index ...
     // [ safe      ] unsafe (could be the section_end)
     // ^^ code_curr
@@ -948,6 +948,9 @@ case wasm1_code::call_indirect:
     // [          safe        ] unsafe (could be the section_end)
     //                          ^^ code_curr
 
+    // Decode through a local scanner and commit code_curr only after the complete trailing field.
+    // MVP likewise advances only after matching its literal 0x00, so every trailing-immediate decode
+    // failure leaves code_curr at the table_index position shown above.
     wasm_u32 table_index{};
     if(!::uwvm2::parser::wasm::standard::wasm1p1::features::uses_mvp_call_indirect_reserved_byte(wasm1p1_para))
     {
@@ -981,9 +984,8 @@ case wasm1_code::call_indirect:
     // [                safe              ] unsafe (could be the section_end)
     //                                      ^^ code_curr
 
-    // The Release 2 validator resolves the encoded type index before applying the table-index feature and bounds
-    // checks.  Preserve that diagnostic order here so the independent translator validator reports the same first
-    // failure when both immediates are invalid.
+    // Both immediate fields now have valid encodings.  Semantic checks intentionally start with
+    // type_index so uwvm-int, LLVM, and the standard validators agree on compound-invalid operands.
     auto types_begin{curr_module.type_section_storage.type_section_begin};
     auto types_end{curr_module.type_section_storage.type_section_end};
 
@@ -1024,11 +1026,11 @@ case wasm1_code::call_indirect:
 #endif
 
     constexpr auto max_operand_stack_requirement{::std::numeric_limits<::std::size_t>::max()};
-    auto const param_count_plus_table_index_overflows{param_count == max_operand_stack_requirement};
-    auto const required_stack_size{param_count_plus_table_index_overflows ? max_operand_stack_requirement : (param_count + 1uz)};
+    auto const param_count_plus_element_index_overflows{param_count == max_operand_stack_requirement};
+    auto const required_stack_size{param_count_plus_element_index_overflows ? max_operand_stack_requirement : (param_count + 1uz)};
     [[maybe_unused]] auto const stack_size{operand_stack.size()};
 
-    if(!is_polymorphic && (param_count_plus_table_index_overflows || concrete_operand_count() < required_stack_size)) [[unlikely]]
+    if(!is_polymorphic && (param_count_plus_element_index_overflows || concrete_operand_count() < required_stack_size)) [[unlikely]]
     {
         report_operand_stack_underflow(op_begin, u8"call_indirect", required_stack_size);
     }
@@ -1078,7 +1080,7 @@ case wasm1_code::call_indirect:
         if(!is_polymorphic)
         {
             bool const n_ok{param_count <= 4uz};
-            bool const state_ok{stacktop_memory_count == 0uz && stacktop_cache_count == stack_size && !param_count_plus_table_index_overflows &&
+            bool const state_ok{stacktop_memory_count == 0uz && stacktop_cache_count == stack_size && !param_count_plus_element_index_overflows &&
                                 stack_size >= required_stack_size};
 
             if(n_ok && state_ok)

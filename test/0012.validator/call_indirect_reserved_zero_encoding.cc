@@ -28,7 +28,7 @@ namespace
         0x03u, 0x02u, 0x01u, 0x00u, 0x04u, 0x04u, 0x01u, 0x70u, 0x00u, 0x01u, 0x0au, 0x09u, 0x01u, 0x07u,
         0x00u, 0x41u, 0x00u, 0x11u, 0x00u, 0x00u, 0x0bu};
 
-    inline constexpr ::std::uint8_t overlong_zero_module[]{
+    inline constexpr ::std::uint8_t nonminimal_zero_module[]{
         0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u, 0x01u, 0x04u, 0x01u, 0x60u, 0x00u, 0x00u,
         0x03u, 0x02u, 0x01u, 0x00u, 0x04u, 0x04u, 0x01u, 0x70u, 0x00u, 0x01u, 0x0au, 0x0au, 0x01u, 0x08u,
         0x00u, 0x41u, 0x00u, 0x11u, 0x00u, 0x80u, 0x00u, 0x0bu};
@@ -37,6 +37,16 @@ namespace
         0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u, 0x01u, 0x04u, 0x01u, 0x60u, 0x00u, 0x00u,
         0x03u, 0x02u, 0x01u, 0x00u, 0x04u, 0x04u, 0x01u, 0x70u, 0x00u, 0x01u, 0x0au, 0x09u, 0x01u, 0x07u,
         0x00u, 0x41u, 0x00u, 0x11u, 0x00u, 0x01u, 0x0bu};
+
+    inline constexpr ::std::uint8_t invalid_type_nonzero_table_module[]{
+        0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u, 0x01u, 0x04u, 0x01u, 0x60u, 0x00u, 0x00u,
+        0x03u, 0x02u, 0x01u, 0x00u, 0x04u, 0x04u, 0x01u, 0x70u, 0x00u, 0x01u, 0x0au, 0x09u, 0x01u, 0x07u,
+        0x00u, 0x41u, 0x00u, 0x11u, 0x01u, 0x01u, 0x0bu};
+
+    inline constexpr ::std::uint8_t invalid_type_overflowing_table_module[]{
+        0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u, 0x01u, 0x04u, 0x01u, 0x60u, 0x00u, 0x00u,
+        0x03u, 0x02u, 0x01u, 0x00u, 0x04u, 0x04u, 0x01u, 0x70u, 0x00u, 0x01u, 0x0au, 0x0du, 0x01u, 0x0bu,
+        0x00u, 0x41u, 0x00u, 0x11u, 0x01u, 0xffu, 0xffu, 0xffu, 0xffu, 0x1fu, 0x0bu};
 
     template <::std::size_t N>
     [[nodiscard]] module_storage_t parse(::std::uint8_t const (&bytes)[N], fs_para_t const& policy)
@@ -126,28 +136,33 @@ int main()
 {
     fs_para_t all_enabled{};
     auto const canonical{parse(canonical_module, all_enabled)};
-    auto const overlong{parse(overlong_zero_module, all_enabled)};
+    auto const nonminimal{parse(nonminimal_zero_module, all_enabled)};
     auto const nonzero{parse(nonzero_table_module, all_enabled)};
+    auto const invalid_type_nonzero{parse(invalid_type_nonzero_table_module, all_enabled)};
+    auto const invalid_type_overflowing{parse(invalid_type_overflowing_table_module, all_enabled)};
 
     if(validate_wasm1p1(canonical, all_enabled) != error_code::ok) { return 1; }
-    if(validate_wasm1p1(overlong, all_enabled) != error_code::ok) { return 2; }
+    if(validate_wasm1p1(nonminimal, all_enabled) != error_code::ok) { return 2; }
     if(validate_wasm1(canonical) != error_code::ok) { return 3; }
-    if(validate_wasm1(overlong) != error_code::invalid_table_index) { return 4; }
-    if(validate_wasm2(overlong, all_enabled).err_code != error_code::ok) { return 5; }
+    if(validate_wasm1(nonminimal) != error_code::invalid_table_index) { return 4; }
+    if(validate_wasm2(nonminimal, all_enabled).err_code != error_code::ok) { return 5; }
 
     auto explicit_mvp{all_enabled};
     ::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(explicit_mvp).cli_mode = cli_mode::direct_wasmmvp;
-    if(validate_wasm1p1(overlong, explicit_mvp) != error_code::invalid_table_index) { return 6; }
+    if(validate_wasm1p1(nonminimal, explicit_mvp) != error_code::invalid_table_index) { return 6; }
+    if(validate_wasm1p1(invalid_type_nonzero, explicit_mvp) != error_code::invalid_table_index) { return 11; }
 
     auto multiple_tables_disabled{all_enabled};
     auto& para{::uwvm2::parser::wasm::standard::wasm2::features::get_wasm2_parameter(multiple_tables_disabled)};
     para.disable_multiple_tables = true;
-    if(validate_wasm2(overlong, multiple_tables_disabled).err_code != error_code::ok) { return 7; }
+    if(validate_wasm2(nonminimal, multiple_tables_disabled).err_code != error_code::ok) { return 7; }
+    if(validate_wasm2(invalid_type_overflowing, multiple_tables_disabled).err_code != error_code::invalid_table_index) { return 12; }
     auto const disabled_error{validate_wasm2(nonzero, multiple_tables_disabled)};
     if(disabled_error.err_code != error_code::wasm2_feature_required) { return 8; }
     if(disabled_error.err_selectable.wasm2_feature_required.feature !=
        ::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables)
     { return 9; }
     if(disabled_error.err_selectable.wasm2_feature_required.value != 0x11u) { return 10; }
+    if(validate_wasm2(invalid_type_nonzero, multiple_tables_disabled).err_code != error_code::illegal_type_index) { return 13; }
     return 0;
 }
