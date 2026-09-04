@@ -4641,14 +4641,22 @@ template <typename Immediate>
     return true;
 }
 
-// Parse the MVP reserved memory index byte used by memory.size and memory.grow.
+// Parse the literal reserved 0x00 memory-immediate byte used by the supported memory.size/grow and
+// bulk-memory encodings.
+// Entry (the immediate may already be section_end):
+// reserved_zero ...
+// unsafe (could be the section_end)
+// ^^ code_curr
+// A missing/nonzero byte fails transactionally and leaves code_curr at this entry position.
 [[nodiscard]] inline constexpr bool parse_wasm_reserved_zero_byte(::std::byte const*& code_curr, ::std::byte const* code_end) noexcept
 {
-    if(code_curr == code_end) [[unlikely]] { return false; }
-
-    auto const immediate{::std::to_integer<::std::uint_least8_t>(*code_curr)};
+    if(code_curr == code_end || *code_curr != ::std::byte{}) [[unlikely]] { return false; }
     ++code_curr;
-    return immediate == 0u;
+
+    // reserved_zero ...
+    // [    safe   ] unsafe (could be the section_end)
+    //               ^^ code_curr
+    return true;
 }
 
 // Parse a fixed-width little-endian immediate, used by f32.const and f64.const.
@@ -4781,16 +4789,30 @@ struct llvm_jit_branch_target_t
 
 // Parse and resolve a Wasm blocktype. Direct value forms describe an empty-parameter, zero/one-result signature. All other
 // valid forms are non-negative s33 type indices and borrow their parameter/result ranges from the runtime type section.
+// A LEB decode failure leaves code_curr at the blocktype start; later grammar/resolution failures occur after the complete
+// checked immediate has been committed, and this scanner helper does not roll it back.
 [[nodiscard]] inline constexpr bool
     parse_wasm_block_signature_type(::std::byte const*& code_curr,
                                     ::std::byte const* code_end,
                                     ::uwvm2::uwvm::runtime::storage::wasm_module_storage_t const& runtime_module,
                                     runtime_block_signature_type& block_signature) noexcept
 {
+    // control_op blocktype ...
+    // [  safe  ] unsafe (could be the section_end)
+    //            ^^ code_curr
+
     if(code_curr == code_end) [[unlikely]] { return false; }
+
     auto const blocktype_begin{code_curr};
     ::std::int_least64_t blocktype{};
-    if(!parse_wasm_leb128_immediate(code_curr, code_end, blocktype) || code_curr - blocktype_begin > 5) [[unlikely]] { return false; }
+    if(!parse_wasm_leb128_immediate(code_curr, code_end, blocktype)) [[unlikely]] { return false; }
+    auto const blocktype_encoded_size{static_cast<::std::size_t>(code_curr - blocktype_begin)};
+
+    // control_op blocktype ...
+    // [       safe       ] unsafe (could be the section_end)
+    //                      ^^ code_curr
+
+    if(blocktype_encoded_size > 5uz || (blocktype < 0 && blocktype_encoded_size != 1uz)) [[unlikely]] { return false; }
 
     switch(blocktype)
     {
@@ -4852,215 +4874,24 @@ struct llvm_jit_branch_target_t
     }
 }
 
-// Skip a memory immediate pair in unreachable code.  The validator already checked semantic legality; the JIT only needs
-// to keep instruction boundaries synchronized.
-[[nodiscard]] inline constexpr bool skip_wasm_memarg(::std::byte const*& code_curr, ::std::byte const* code_end) noexcept
-{
-    validation_module_traits_t::wasm_u32 align{};
-    validation_module_traits_t::wasm_u32 offset{};
-    return parse_wasm_leb128_immediate(code_curr, code_end, align) && parse_wasm_leb128_immediate(code_curr, code_end, offset);
-}
-
-// Skip one complete 0xfd SIMD instruction. The shared opcode visitor guarantees this boundary parser recognizes exactly
-// the same 236 instructions as typed LLVM lowering and uwvm-int semantics.
-[[nodiscard]] inline constexpr bool skip_wasm_simd_instruction(::std::byte const*& code_curr, ::std::byte const* code_end) noexcept
-{
-    if(code_curr == code_end ||
-       ::std::to_integer<::std::uint_least8_t>(*code_curr) !=
-           static_cast<::std::uint_least8_t>(::uwvm2::parser::wasm::standard::wasm1p1::opcode::op_basic::simd_prefix)) [[unlikely]]
-    {
-        return false;
-    }
-    ++code_curr;
-    validation_module_traits_t::wasm_u32 subopcode{};
-    if(!parse_wasm_leb128_immediate(code_curr, code_end, subopcode)) [[unlikely]] { return false; }
-    namespace shared_simd = ::uwvm2::runtime::compiler::shared;
-    return shared_simd::visit_wasm1p1_simd_instruction(
-        static_cast<shared_simd::wasm1p1_simd_details::simd_code>(subopcode),
-        [&]<shared_simd::wasm1p1_simd_details::simd_code Op,
-            shared_simd::wasm1p1_simd_instruction_kind Kind,
-            shared_simd::wasm1p1_simd_scalar_kind ScalarKind,
-            ::std::size_t LaneCount,
-            ::std::uint_least32_t MaxAlign>() constexpr noexcept -> bool
-        {
-            static_cast<void>(Op);
-            static_cast<void>(ScalarKind);
-            if constexpr(Kind == shared_simd::wasm1p1_simd_instruction_kind::memory_load ||
-                         Kind == shared_simd::wasm1p1_simd_instruction_kind::memory_store)
-            {
-                validation_module_traits_t::wasm_u32 alignment{};
-                validation_module_traits_t::wasm_u32 offset{};
-                if(!parse_wasm_leb128_immediate(code_curr, code_end, alignment) ||
-                   !parse_wasm_leb128_immediate(code_curr, code_end, offset) || alignment > MaxAlign) [[unlikely]]
-                {
-                    return false;
-                }
-                static_cast<void>(offset);
-                if constexpr(LaneCount != 0uz)
-                {
-                    if(code_curr == code_end) [[unlikely]] { return false; }
-                    auto const lane{::std::to_integer<::std::uint_least8_t>(*code_curr)};
-                    ++code_curr;
-                    if(static_cast<::std::size_t>(lane) >= LaneCount) [[unlikely]] { return false; }
-                }
-            }
-            else if constexpr(Kind == shared_simd::wasm1p1_simd_instruction_kind::constant ||
-                              Kind == shared_simd::wasm1p1_simd_instruction_kind::shuffle)
-            {
-                if(static_cast<::std::size_t>(code_end - code_curr) < 16uz) [[unlikely]] { return false; }
-                if constexpr(Kind == shared_simd::wasm1p1_simd_instruction_kind::shuffle)
-                {
-                    for(::std::size_t i{}; i != 16uz; ++i)
-                    {
-                        if(::std::to_integer<::std::uint_least8_t>(code_curr[i]) >= 32u) [[unlikely]] { return false; }
-                    }
-                }
-                code_curr += 16uz;
-            }
-            else if constexpr(Kind == shared_simd::wasm1p1_simd_instruction_kind::extract_lane ||
-                              Kind == shared_simd::wasm1p1_simd_instruction_kind::replace_lane)
-            {
-                if(code_curr == code_end) [[unlikely]] { return false; }
-                auto const lane{::std::to_integer<::std::uint_least8_t>(*code_curr)};
-                ++code_curr;
-                if(static_cast<::std::size_t>(lane) >= LaneCount) [[unlikely]] { return false; }
-            }
-            return true;
-        });
-}
-
-// Advance over a non-control instruction while the current structured context is unreachable.  This avoids emitting IR for
-// dead code while still honoring nested block/else/end boundaries in the dispatcher.  On failure code_curr may already be
-// past the opcode and any validated immediate prefix; this scanner does not roll back the whole instruction.
-[[nodiscard]] inline constexpr bool skip_wasm_unreachable_noncontrol_instruction(::std::byte const*& code_curr,
-                                                                                  ::std::byte const* code_end,
-                                                                                  bool mvp_call_indirect_reserved_byte) noexcept
+// The enclosing validation/translation dispatcher supplies exactly one instruction slice after accepting its binary grammar.
+// Unreachable instructions contribute no immediate-dependent LLVM state, so consume that established slice boundary
+// instead of maintaining a second partial decoder that can drift when proposal opcodes gain new immediate forms.
+// Entry is the validated instruction start; an empty slice fails without moving code_curr:
+// instruction ...
+// unsafe (could be the section_end)
+// ^^ code_curr
+// On success the sole cursor commit assigns code_end after the non-empty check.
+[[nodiscard]] inline constexpr bool consume_validated_wasm_instruction_slice(::std::byte const*& code_curr,
+                                                                              ::std::byte const* code_end) noexcept
 {
     if(code_curr == code_end) [[unlikely]] { return false; }
+    code_curr = code_end;
 
-    wasm1_code curr_opbase;
-    ::std::memcpy(::std::addressof(curr_opbase), code_curr, sizeof(wasm1_code));
-
-    // 0xfd belongs to the Wasm 1.1 extended opcode space and is intentionally not an enumerator of the MVP opcode enum.
-    // Handle it before the enum switch so -Wswitch does not diagnose an out-of-domain case label.
-    if(static_cast<::std::uint_least8_t>(curr_opbase) ==
-       static_cast<::std::uint_least8_t>(::uwvm2::parser::wasm::standard::wasm1p1::opcode::op_basic::simd_prefix))
-    {
-        return skip_wasm_simd_instruction(code_curr, code_end);
-    }
-
-    switch(curr_opbase)
-    {
-        case wasm1_code::local_get:
-        case wasm1_code::local_set:
-        case wasm1_code::local_tee:
-        case wasm1_code::global_get:
-        case wasm1_code::global_set:
-        case wasm1_code::call:
-        case wasm1_code::br:
-        case wasm1_code::br_if:
-        {
-            ++code_curr;
-            validation_module_traits_t::wasm_u32 immediate{};
-            return parse_wasm_leb128_immediate(code_curr, code_end, immediate);
-        }
-        case wasm1_code::call_indirect:
-        {
-            ++code_curr;
-            validation_module_traits_t::wasm_u32 type_index{};
-            validation_module_traits_t::wasm_u32 table_index{};
-            if(!parse_wasm_leb128_immediate(code_curr, code_end, type_index) ||
-               !::uwvm2::parser::wasm::standard::wasm1p1::features::parse_call_indirect_trailing_immediate(
-                   code_curr, code_end, mvp_call_indirect_reserved_byte, table_index)) [[unlikely]]
-            {
-                // Each decoder commits code_curr only on success: a bad type leaves it just after the opcode, while a bad
-                // trailing immediate leaves it just after the validated type. The scanner never restores the opcode.
-                return false;
-            }
-
-            // call_indirect type_index table_index ...
-            // [                safe              ] unsafe (could be the section_end)
-            //                                      ^^ code_curr
-            return true;
-        }
-        case wasm1_code::br_table:
-        {
-            ++code_curr;
-            validation_module_traits_t::wasm_u32 target_count{};
-            if(!parse_wasm_leb128_immediate(code_curr, code_end, target_count)) [[unlikely]] { return false; }
-
-            for(validation_module_traits_t::wasm_u32 i{}; i != target_count; ++i)
-            {
-                validation_module_traits_t::wasm_u32 label_index{};
-                if(!parse_wasm_leb128_immediate(code_curr, code_end, label_index)) [[unlikely]] { return false; }
-            }
-
-            validation_module_traits_t::wasm_u32 default_label{};
-            return parse_wasm_leb128_immediate(code_curr, code_end, default_label);
-        }
-        case wasm1_code::i32_const:
-        {
-            ++code_curr;
-            ::std::int_least32_t immediate{};
-            return parse_wasm_leb128_immediate(code_curr, code_end, immediate);
-        }
-        case wasm1_code::i64_const:
-        {
-            ++code_curr;
-            ::std::int_least64_t immediate{};
-            return parse_wasm_leb128_immediate(code_curr, code_end, immediate);
-        }
-        case wasm1_code::f32_const:
-        {
-            ++code_curr;
-            ::std::uint_least32_t immediate{};
-            return parse_wasm_little_endian_immediate(code_curr, code_end, immediate);
-        }
-        case wasm1_code::f64_const:
-        {
-            ++code_curr;
-            ::std::uint_least64_t immediate{};
-            return parse_wasm_little_endian_immediate(code_curr, code_end, immediate);
-        }
-        case wasm1_code::i32_load:
-        case wasm1_code::i64_load:
-        case wasm1_code::f32_load:
-        case wasm1_code::f64_load:
-        case wasm1_code::i32_load8_s:
-        case wasm1_code::i32_load8_u:
-        case wasm1_code::i32_load16_s:
-        case wasm1_code::i32_load16_u:
-        case wasm1_code::i64_load8_s:
-        case wasm1_code::i64_load8_u:
-        case wasm1_code::i64_load16_s:
-        case wasm1_code::i64_load16_u:
-        case wasm1_code::i64_load32_s:
-        case wasm1_code::i64_load32_u:
-        case wasm1_code::i32_store:
-        case wasm1_code::i64_store:
-        case wasm1_code::f32_store:
-        case wasm1_code::f64_store:
-        case wasm1_code::i32_store8:
-        case wasm1_code::i32_store16:
-        case wasm1_code::i64_store8:
-        case wasm1_code::i64_store16:
-        case wasm1_code::i64_store32:
-        {
-            ++code_curr;
-            return skip_wasm_memarg(code_curr, code_end);
-        }
-        case wasm1_code::memory_size:
-        case wasm1_code::memory_grow:
-        {
-            ++code_curr;
-            return parse_wasm_reserved_zero_byte(code_curr, code_end);
-        }
-        [[unlikely]] default:
-        {
-            ++code_curr;
-            return true;
-        }
-    }
+    // instruction ...
+    // [  safe   ] unsafe (could be the section_end)
+    //             ^^ code_curr / code_end
+    return true;
 }
 
 // Mutable state for lowering one local Wasm function to LLVM IR.  This object intentionally stores all transient stacks
@@ -5095,10 +4926,6 @@ struct runtime_local_func_llvm_jit_emit_state_t
 
     // Enables native unwind metadata so concrete generated frames can be mapped back to Wasm frames.
     bool emit_unwind_call_stack_frames{};
-
-    // Instruction-boundary scanners must distinguish Core 1.0's literal 0x00
-    // from the u32 table index used by Reference Types and Core 2.0.
-    bool mvp_call_indirect_reserved_byte{};
 
     // Runtime local-function storage being compiled.
     local_func_storage_t const* local_func_storage_ptr{};
@@ -10423,9 +10250,7 @@ template <llvm_jit_simd_code Op,
             }
             [[unlikely]] default:
             {
-                if(!skip_wasm_unreachable_noncontrol_instruction(code_curr,
-                                                                 code_end,
-                                                                 state.mvp_call_indirect_reserved_byte)) [[unlikely]]
+                if(!consume_validated_wasm_instruction_slice(code_curr, code_end)) [[unlikely]]
                 {
                     return false;
                 }
