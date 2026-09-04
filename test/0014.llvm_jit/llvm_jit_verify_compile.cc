@@ -35,6 +35,14 @@ namespace
         0x7fu, 0x41u, 0x0au, 0x41u, 0x14u, 0x41u, 0x01u, 0x1bu, 0x21u, 0x00u, 0x20u, 0x00u,
         0x41u, 0x0au, 0x47u, 0x04u, 0x40u, 0x00u, 0x0bu, 0x0bu};
 
+    // The block is otherwise valid as an i32-result block, but ff 7f is an invalid overlong spelling of the direct i32 blocktype.
+    inline constexpr ::std::array<unsigned char, 43uz> overlong_i32_blocktype_wasm{
+        0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u,
+        0x01u, 0x04u, 0x01u, 0x60u, 0x00u, 0x00u,
+        0x03u, 0x02u, 0x01u, 0x00u,
+        0x07u, 0x0au, 0x01u, 0x06u, 0x5fu, 0x73u, 0x74u, 0x61u, 0x72u, 0x74u, 0x00u, 0x00u,
+        0x0au, 0x0bu, 0x01u, 0x09u, 0x00u, 0x02u, 0xffu, 0x7fu, 0x41u, 0x00u, 0x0bu, 0x1au, 0x0bu};
+
     // WebAssembly 1.1 scalar fixture:
     // - i32.extend8_s and i64.extend8_s require the sign-extension feature;
     // - select_t exercises typed select immediate decoding;
@@ -700,6 +708,29 @@ namespace
         return run_command(command, "runtime-aot shortcut");
     }
 
+    [[nodiscard]] bool run_overlong_blocktype_failure(::std::filesystem::path const& uwvm_path,
+                                                       ::std::filesystem::path const& executable_dir)
+    {
+        auto const wasm_path{executable_dir / "test-artifacts" / "0014.llvm_jit" / "overlong_i32_blocktype.wasm"};
+        if(!write_fixture(wasm_path, overlong_i32_blocktype_wasm)) [[unlikely]] { return false; }
+
+        auto command{quote_argument(uwvm_path) + " -Raot"};
+        append_default_llvm_cache_disable_arg(command, wasm1p1_all_runtime_args);
+        append_extra_args(command, wasm1p1_all_runtime_args);
+        command += " --run " + quote_argument(wasm_path);
+
+        auto output_path{wasm_path};
+        output_path += ".aot-validation-failure.out";
+        if(!run_trap_command(command, output_path, "overlong direct blocktype")) [[unlikely]] { return false; }
+
+        ::std::string output{};
+        if(!read_text_file(output_path, output)) [[unlikely]] { return false; }
+        if(strip_ansi_codes(output).find("Illegal block type byte") != ::std::string::npos) [[likely]] { return true; }
+
+        ::std::cerr << "expected overlong direct blocktype validation failure:\n" << output << '\n';
+        return false;
+    }
+
     [[nodiscard]] ::std::filesystem::path llvm_jit_fixture_path(::std::filesystem::path const& executable_dir,
                                                                  ::std::string_view file_name)
     {
@@ -792,6 +823,7 @@ int main(int argc, char** argv)
 
     if(!run_fixture(uwvm_path, executable_dir, "nontrivial_start.wasm", nontrivial_start_wasm)) [[unlikely]] { return 1; }
     if(!run_fixture(uwvm_path, executable_dir, "select_start.wasm", select_start_wasm)) [[unlikely]] { return 1; }
+    if(!run_overlong_blocktype_failure(uwvm_path, executable_dir)) [[unlikely]] { return 1; }
     if(!run_fixture(uwvm_path,
                     executable_dir,
                     "wasm1p1_scalar_start.wasm",
