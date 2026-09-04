@@ -1051,7 +1051,8 @@ namespace uwvm2::runtime::lib
         // required unwind anchor.
         UWVM_NOINLINE inline constexpr void store_llvm_jit_win64_trap_caller_context(::std::uintptr_t expected_return_address,
                                                                                      ::std::uintptr_t trap_frame_address,
-                                                                                     ::std::uintptr_t trap_stack_pointer) noexcept;
+                                                                                     ::std::uintptr_t trap_stack_pointer,
+                                                                                     void const* platform_context = nullptr) noexcept;
         [[nodiscard]] inline constexpr bool load_llvm_jit_win64_trap_caller_context(win64_context_t& context) noexcept;
 # endif
 
@@ -1258,16 +1259,6 @@ namespace uwvm2::runtime::lib
             return value;
         }
 
-        [[nodiscard]] inline constexpr bool llvm_jit_frame_pointer_link_plausible(::std::uintptr_t current_frame_pointer,
-                                                                                  ::std::uintptr_t next_frame_pointer) noexcept
-        {
-            // A conservative plausibility check protects trap reporting from following corrupted or non-frame-pointer chains.
-            constexpr ::std::uintptr_t max_frame_chain_delta{64u << 20u};
-
-            if(next_frame_pointer == 0u || !llvm_jit_frame_record_address_aligned(next_frame_pointer)) { return false; }
-            if(next_frame_pointer <= current_frame_pointer) { return false; }
-            return next_frame_pointer - current_frame_pointer <= max_frame_chain_delta;
-        }
 #  endif
 
 #  if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE
@@ -1817,21 +1808,9 @@ namespace uwvm2::runtime::lib
             if(function_entry == nullptr)
             {
 #  if defined(_WIN64) && (defined(__aarch64__) || defined(_M_ARM64)) && !(defined(__arm64ec__) || defined(_M_ARM64EC))
-                auto const frame_pointer{llvm_jit_win64_context_frame_pointer(context)};
-                if(frame_pointer != 0u && llvm_jit_frame_record_address_aligned(frame_pointer))
-                {
-                    auto const return_address{llvm_jit_load_frame_record_word(frame_pointer + sizeof(::std::uintptr_t))};
-                    auto const next_frame_pointer{llvm_jit_load_frame_record_word(frame_pointer)};
-                    if(return_address != 0u && (next_frame_pointer == 0u || llvm_jit_frame_pointer_link_plausible(frame_pointer, next_frame_pointer)))
-                    {
-                        llvm_jit_win64_context_set_instruction_pointer(context, return_address);
-                        llvm_jit_win64_context_set_frame_pointer(context, next_frame_pointer);
-                        llvm_jit_win64_context_set_stack_pointer(context, frame_pointer + 2u * sizeof(::std::uintptr_t));
-                        llvm_jit_win64_context_set_link_register(context, return_address);
-                        return true;
-                    }
-                }
-
+                // A Win64 ARM64 function without a runtime-function entry is a leaf. The fault-time CONTEXT already
+                // owns its architectural LR, while X29 may still describe the caller. Reading an X29 frame record here
+                // would dereference stale caller state and can skip the immediate caller, so perform only the ABI leaf unwind.
                 auto const return_address{llvm_jit_win64_context_link_register(context)};
                 if(return_address == 0u) [[unlikely]] { return false; }
                 llvm_jit_win64_context_set_instruction_pointer(context, return_address);
@@ -1867,24 +1846,36 @@ namespace uwvm2::runtime::lib
 
         UWVM_NOINLINE inline constexpr void store_llvm_jit_win64_trap_caller_context(::std::uintptr_t expected_return_address,
                                                                                      ::std::uintptr_t trap_frame_address,
-                                                                                     ::std::uintptr_t trap_stack_pointer) noexcept
+                                                                                     ::std::uintptr_t trap_stack_pointer,
+                                                                                     void const* platform_context) noexcept
         {
             win64_context_t context{};
             bool valid{};
 
+            // A VEH guard-page trap already supplies the complete processor state at the fault. Copy it before any
+            // diagnostic output or host call, then retain the established return-address representation used by the
+            // common unwinder. Keeping the complete CONTEXT preserves ARM64 LR and every nonvolatile register needed
+            // by RtlVirtualUnwind; the scalar FP/SP path below remains only for generated helper calls.
+            if(platform_context != nullptr && expected_return_address != 0u)
+            {
+                ::std::memcpy(::std::addressof(context), platform_context, sizeof(context));
+                llvm_jit_win64_context_set_instruction_pointer(context, expected_return_address);
+                valid = llvm_jit_win64_context_stack_pointer(context) != 0u;
+            }
             // Start from the generated caller's architectural state when the trap helper was entered.  Win64 uses
             // frame-pointer offsets in SEH unwind metadata, so RSP must come from generated code instead of being
-            // reconstructed from RBP as a simple frame-record address.  This path is preferred because it avoids using
-            // the helper's mixed-ABI frame as the root of the JIT stack walk.
-            if(expected_return_address != 0u && trap_frame_address != 0u && trap_stack_pointer != 0u)
+            // reconstructed from RBP as a simple frame-record address. When no complete fault CONTEXT is usable, this
+            // scalar path is still preferred over capturing the reporter's mixed-ABI frame.
+            if(!valid && expected_return_address != 0u && trap_frame_address != 0u && trap_stack_pointer != 0u)
             {
+                context = {};
                 llvm_jit_win64_context_set_instruction_pointer(context, expected_return_address);
                 llvm_jit_win64_context_set_stack_pointer(context, trap_stack_pointer);
                 llvm_jit_win64_context_set_frame_pointer(context, trap_frame_address);
                 llvm_jit_win64_context_initialize_link_register(context, trap_frame_address);
                 valid = true;
             }
-            else if(expected_return_address != 0u)
+            else if(!valid && expected_return_address != 0u)
             {
                 // Best-effort fallback for older generated code or partially available trap context: capture the helper
                 // context and unwind a few frames until the expected JIT return address is recovered.
@@ -1944,7 +1935,8 @@ namespace uwvm2::runtime::lib
         }
 
 #if defined(UWVM_SUPPORT_MMAP)
-        inline constexpr void print_mmap_memory_out_of_bounds_trap(::uwvm2::object::memory::error::mmap_memory_error_t const& memerr) noexcept
+        inline constexpr void print_mmap_memory_out_of_bounds_trap(::uwvm2::object::memory::error::mmap_memory_error_t const& memerr,
+                                                                    void const* platform_context [[maybe_unused]]) noexcept
         {
 # if defined(UWVM_RUNTIME_LLVM_JIT)
             store_llvm_jit_trap_context(::uwvm2::runtime::lib::llvm_jit_trap_kind::memory_out_of_bounds,
@@ -1952,7 +1944,8 @@ namespace uwvm2::runtime::lib
 #  if UWVM2_RUNTIME_LLVM_JIT_HAS_WIN64_SEH_BACKTRACE
             store_llvm_jit_win64_trap_caller_context(llvm_jit_signal_trap_return_address(memerr.instruction_address),
                                                      memerr.frame_address,
-                                                     memerr.stack_pointer);
+                                                     memerr.stack_pointer,
+                                                     platform_context);
 #  endif
 # endif
             ::uwvm2::object::memory::error::output_mmap_memory_error_line(memerr);
@@ -1961,7 +1954,10 @@ namespace uwvm2::runtime::lib
         }
 
         inline constexpr void ensure_memory_signal_trap_bridge_initialized() noexcept
-        { ::uwvm2::object::memory::signal::set_mmap_memory_out_of_bounds_handler(print_mmap_memory_out_of_bounds_trap); }
+        {
+            ::uwvm2::object::memory::signal::detail::set_mmap_memory_out_of_bounds_with_context_handler(
+                print_mmap_memory_out_of_bounds_trap);
+        }
 #else
         // Non-mmap builds cannot receive guard-page memory traps, so the bridge initializer is intentionally a no-op.
         inline constexpr void ensure_memory_signal_trap_bridge_initialized() noexcept {}
