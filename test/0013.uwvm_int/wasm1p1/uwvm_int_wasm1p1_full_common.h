@@ -149,6 +149,21 @@ namespace uwvm2test::uwvm_int_wasm1p1_full
         return mb.build();
     }
 
+    [[nodiscard]] inline byte_vec build_overlong_inline_blocktype_module()
+    {
+        module_builder mb{};
+        func_type ty{{}, {}};
+        func_body fb{};
+        append_op(fb.code, wasm_op::block);
+        strict::append_u8(fb.code, 0xffu);
+        strict::append_u8(fb.code, 0x7fu);  // overlong signed-LEB spelling of the one-byte i32 blocktype
+        append_i32_const(fb.code, 0);
+        append_op(fb.code, wasm_op::end);
+        append_op(fb.code, wasm_op::drop);
+        append_op(fb.code, wasm_op::end);
+        return finish_single_func_module(::std::move(mb), ::std::move(ty), ::std::move(fb));
+    }
+
     [[nodiscard]] inline byte_vec build_full_wasm1p1_module()
     {
         module_builder mb{};

@@ -328,6 +328,12 @@ namespace
         auto nontrapping_disabled_features{make_nontrapping_feature_parameter(false)};
         auto simd_disabled_features{make_simd_feature_parameter(false)};
 
+        UWVM2TEST_REQUIRE(expect_validator_alignment_case<Opt>(build_overlong_inline_blocktype_module(),
+                                                               literal_view(u8"uwvm2test_lazy_overlong_inline_blocktype"),
+                                                               all_features,
+                                                               all_features,
+                                                               errc::illegal_block_type) == 0);
+
         UWVM2TEST_REQUIRE(expect_validator_alignment_case<Opt>(build_invalid_ref_feature_module(),
                                                                literal_view(u8"uwvm2test_lazy_full_ref_feature"),
                                                                all_features,
