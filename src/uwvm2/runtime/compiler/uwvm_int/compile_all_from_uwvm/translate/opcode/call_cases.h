@@ -310,8 +310,16 @@ case wasm1_code::call:
     [[maybe_unused]] bool fuse_call_local_tee{};
     [[maybe_unused]] local_offset_t fused_local_off{};
 
+    // Fusion has typed runtime stubs only for scalar results. Decide this before peeking at and
+    // consuming the following opcode: a v128/reference `call; drop` must leave `drop` for its own
+    // validation/emission path.
+    auto const result_type_ok{result_count == 1uz && (callee_type.result.begin[0] == curr_operand_stack_value_type::i32 ||
+                                                      callee_type.result.begin[0] == curr_operand_stack_value_type::i64 ||
+                                                      callee_type.result.begin[0] == curr_operand_stack_value_type::f32 ||
+                                                      callee_type.result.begin[0] == curr_operand_stack_value_type::f64)};
+
 #ifdef UWVM_ENABLE_UWVM_INT_COMBINE_OPS
-    if(allow_call_fusion && result_count == 1uz && code_curr != code_end)
+    if(allow_call_fusion && result_type_ok && code_curr != code_end)
     {
         if(use_stacktop_call_fast)
         {
@@ -383,10 +391,6 @@ case wasm1_code::call:
     }
 #endif
 
-    auto const result_type_ok{result_count == 1uz && (callee_type.result.begin[0] == curr_operand_stack_value_type::i32 ||
-                                                      callee_type.result.begin[0] == curr_operand_stack_value_type::i64 ||
-                                                      callee_type.result.begin[0] == curr_operand_stack_value_type::f32 ||
-                                                      callee_type.result.begin[0] == curr_operand_stack_value_type::f64)};
     if(!allow_call_fusion || !result_type_ok)
     {
         fuse_call_drop = false;
