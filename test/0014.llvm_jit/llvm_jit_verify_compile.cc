@@ -43,6 +43,16 @@ namespace
         0x07u, 0x0au, 0x01u, 0x06u, 0x5fu, 0x73u, 0x74u, 0x61u, 0x72u, 0x74u, 0x00u, 0x00u,
         0x0au, 0x0bu, 0x01u, 0x09u, 0x00u, 0x02u, 0xffu, 0x7fu, 0x41u, 0x00u, 0x0bu, 0x1au, 0x0bu};
 
+    // Generated from unaligned_memory_start.wat.  Wasm memarg align=4 is only a hint, so an i32 load/store at address 1
+    // is valid and must execute without LLVM being given a false four-byte alignment guarantee.
+    inline constexpr ::std::array<unsigned char, 68uz> unaligned_memory_start_wasm{
+        0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u, 0x01u, 0x04u, 0x01u, 0x60u,
+        0x00u, 0x00u, 0x03u, 0x02u, 0x01u, 0x00u, 0x05u, 0x03u, 0x01u, 0x00u, 0x01u, 0x07u,
+        0x0au, 0x01u, 0x06u, 0x5fu, 0x73u, 0x74u, 0x61u, 0x72u, 0x74u, 0x00u, 0x00u, 0x0au,
+        0x1fu, 0x01u, 0x1du, 0x00u, 0x41u, 0x01u, 0x41u, 0x92u, 0xe8u, 0xd8u, 0xc2u, 0x07u,
+        0x36u, 0x02u, 0x00u, 0x41u, 0x01u, 0x28u, 0x02u, 0x00u, 0x41u, 0x92u, 0xe8u, 0xd8u,
+        0xc2u, 0x07u, 0x47u, 0x04u, 0x40u, 0x00u, 0x0bu, 0x0bu};
+
     // WebAssembly 1.1 scalar fixture:
     // - i32.extend8_s and i64.extend8_s require the sign-extension feature;
     // - select_t exercises typed select immediate decoding;
@@ -824,6 +834,7 @@ int main(int argc, char** argv)
     if(!run_fixture(uwvm_path, executable_dir, "nontrivial_start.wasm", nontrivial_start_wasm)) [[unlikely]] { return 1; }
     if(!run_fixture(uwvm_path, executable_dir, "select_start.wasm", select_start_wasm)) [[unlikely]] { return 1; }
     if(!run_overlong_blocktype_failure(uwvm_path, executable_dir)) [[unlikely]] { return 1; }
+    if(!run_fixture(uwvm_path, executable_dir, "unaligned_memory_start.wasm", unaligned_memory_start_wasm)) [[unlikely]] { return 1; }
     if(!run_fixture(uwvm_path,
                     executable_dir,
                     "wasm1p1_scalar_start.wasm",
