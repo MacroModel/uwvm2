@@ -104,6 +104,7 @@ import uwvm2.utils.container;
 import uwvm2.utils.debug;
 import uwvm2.utils.hash;
 import uwvm2.utils.thread;
+import uwvm2.uwvm_predefine.utils.ansies;
 import uwvm2.uwvm.crtmain.global;
 import uwvm2.uwvm.io;
 import uwvm2.uwvm.imported.wasi.wasip1.storage;
