@@ -204,6 +204,10 @@ namespace uwvm2::runtime::lib
 {
     namespace
     {
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+        [[nodiscard]] inline constexpr bool& get_llvm_wasm_fp_environment_active_state() noexcept;
+#endif
+
         template <typename Callable>
         inline void invoke_host_preserving_llvm_wasm_fp_environment(Callable&& callable) noexcept
         {
@@ -211,7 +215,8 @@ namespace uwvm2::runtime::lib
             // Host code may change rounding, exception masks, or the architecture's FTZ/DAZ controls.  Save and restore
             // the active Wasm environment around every normal callback return.  A non-local jump across this C++ frame
             // is outside the embedding contract; fatal Wasm traps terminate the process and do not attempt recovery.
-            ::uwvm2::runtime::lib::details::scoped_llvm_wasm_host_fp_environment_restore fp_environment_guard{};
+            ::uwvm2::runtime::lib::details::scoped_llvm_wasm_host_fp_environment_restore fp_environment_guard{
+                get_llvm_wasm_fp_environment_active_state()};
             if(!fp_environment_guard.ready()) [[unlikely]] { ::fast_io::fast_terminate(); }
 #endif
             ::std::forward<Callable>(callable)();
@@ -759,6 +764,12 @@ namespace uwvm2::runtime::lib
             using thread_local_allocator = ::fast_io::native_thread_local_allocator;
             ::uwvm2::utils::container::vector<call_stack_frame, thread_local_allocator> frames{};
 
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+            // This marker follows the runtime's selected TLS representation. It must remain thread-specific because an imported
+            // host callback may recursively enter another LLVM Wasm activation on the same thread.
+            bool llvm_wasm_fp_environment_active{};
+#endif
+
 #if defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
             // Active only while a tiered raw JIT entry is executing below an interpreter caller. It lives in the same TLS object as
             // the logical stack so a trap can merge both views without consulting shared runtime state during unwinding.
@@ -907,6 +918,9 @@ namespace uwvm2::runtime::lib
             // lifetime of the thread. Retain vector capacity, but clear every module-specific value.
             g_call_stack.frames.clear();
             g_call_stack.call_indirect_cache = {};
+# if defined(UWVM_RUNTIME_LLVM_JIT)
+            g_call_stack.llvm_wasm_fp_environment_active = false;
+# endif
 # if defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
             g_call_stack.tiered_jit_entry_snapshot = {};
 # endif
@@ -996,6 +1010,11 @@ namespace uwvm2::runtime::lib
         { return get_thread_state().suppressed_call_stack_frame; }
 
         inline constexpr void erase_current_thread_state() noexcept { g_thread_states.erase(current_thread_id()); }
+#endif
+
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+        [[nodiscard]] inline constexpr bool& get_llvm_wasm_fp_environment_active_state() noexcept
+        { return get_call_stack().llvm_wasm_fp_environment_active; }
 #endif
 
 #if defined(UWVM_RUNTIME_LLVM_JIT) && !defined(UWVM_USE_THREAD_LOCAL)
@@ -5831,6 +5850,16 @@ namespace uwvm2::runtime::lib
             erase_current_thread_state();
             erase_current_thread_scratch_state();
         }
+
+        class current_thread_runtime_state_erase_guard
+        {
+        public:
+            current_thread_runtime_state_erase_guard() = default;
+            current_thread_runtime_state_erase_guard(current_thread_runtime_state_erase_guard const&) = delete;
+            current_thread_runtime_state_erase_guard& operator= (current_thread_runtime_state_erase_guard const&) = delete;
+
+            inline constexpr ~current_thread_runtime_state_erase_guard() { erase_current_thread_runtime_state(); }
+        };
 
 #if !defined(UWVM_DISABLE_LOCAL_IMPORTED_WASIP1) && defined(UWVM_IMPORT_WASI_WASIP1)
         inline constexpr ::uwvm2::object::memory::linear::native_memory_t const* resolve_memory0_ptr(runtime_module_storage_t const& rt) noexcept
@@ -13486,9 +13515,11 @@ namespace uwvm2::runtime::lib
     // =========================================================================
     extern "C++" void lazy_compile_and_run_main_module(::uwvm2::utils::container::u8string_view main_module_name, lazy_compile_run_config cfg) noexcept
     {
+        // Construct cleanup before the FP scope so map-backed thread state outlives every guard that references it.
+        current_thread_runtime_state_erase_guard thread_state_erase_guard{};
 # if defined(UWVM_RUNTIME_LLVM_JIT)
         ::uwvm2::runtime::lib::details::scoped_llvm_wasm_fp_environment fp_environment_guard{
-            runtime_compiler_requests_llvm_jit_translation()};
+            get_llvm_wasm_fp_environment_active_state(), runtime_compiler_requests_llvm_jit_translation()};
         if(!fp_environment_guard.ready()) [[unlikely]] { ::fast_io::fast_terminate(); }
 
         // Native-unwind address maps are mutable in lazy/tiered mode. Keep every caller-owned materialize/execute lifetime exclusive;
@@ -13785,7 +13816,6 @@ namespace uwvm2::runtime::lib
 
         ::uwvm2::uwvm::global::record_total_wasm_time_end();
         auto const lazy_exec_end{lazy_log_enabled ? lazy_clock_now() : ::fast_io::unix_timestamp{}};
-        erase_current_thread_runtime_state();
         // Stop lazy workers after the bounded run so embedding hosts can observe a quiescent runtime before process exit or reset.
         g_runtime.lazy_scheduler.stop();
 # if defined(UWVM_RUNTIME_LLVM_JIT)
@@ -13818,9 +13848,11 @@ namespace uwvm2::runtime::lib
     // =========================================================================
     extern "C++" void full_compile_and_run_main_module(::uwvm2::utils::container::u8string_view main_module_name, full_compile_run_config cfg) noexcept
     {
+        // Construct cleanup before the FP scope so map-backed thread state outlives every guard that references it.
+        current_thread_runtime_state_erase_guard thread_state_erase_guard{};
 #if defined(UWVM_RUNTIME_LLVM_JIT)
         ::uwvm2::runtime::lib::details::scoped_llvm_wasm_fp_environment fp_environment_guard{
-            runtime_compiler_requests_llvm_jit_translation()};
+            get_llvm_wasm_fp_environment_active_state(), runtime_compiler_requests_llvm_jit_translation()};
         if(!fp_environment_guard.ready()) [[unlikely]] { ::fast_io::fast_terminate(); }
 
         auto native_unwind_execution_guard{
@@ -13939,7 +13971,6 @@ namespace uwvm2::runtime::lib
                                                              param_bytes))
             {
                 ::uwvm2::uwvm::global::record_total_wasm_time_end();
-                erase_current_thread_runtime_state();
                 return;
             }
             ::uwvm2::uwvm::global::discard_total_wasm_time_record();
@@ -14011,9 +14042,6 @@ namespace uwvm2::runtime::lib
 # endif
         if(result_bytes != 0uz) { ::std::memcpy(cfg.entry_abi_buffers.result_buffer, host_stack_base, result_bytes); }
 
-        // In the TLS build this clears logical frames and pointer caches while preserving capacity; the map-backed build erases
-        // only the current thread's runtime and scratch nodes.
-        erase_current_thread_runtime_state();
 #endif
     }
 
@@ -14132,7 +14160,8 @@ namespace uwvm2::runtime::lib
                                                  void const* param_buffer,
                                                  ::std::size_t param_bytes) noexcept
     {
-        ::uwvm2::runtime::lib::details::scoped_llvm_wasm_fp_environment fp_environment_guard{};
+        ::uwvm2::runtime::lib::details::scoped_llvm_wasm_fp_environment fp_environment_guard{
+            get_llvm_wasm_fp_environment_active_state()};
         if(!fp_environment_guard.ready()) [[unlikely]] { ::fast_io::fast_terminate(); }
 
         auto native_unwind_execution_guard{

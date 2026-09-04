@@ -67,6 +67,7 @@ namespace
 
     [[nodiscard]] int test_fp_environment_scope() noexcept
     {
+        bool fp_environment_active{};
         initial_environment_restore restore_initial{};
         if(!restore_initial.valid) { return 1; }
         if(::std::fesetround(FE_DOWNWARD) != 0) { return 2; }
@@ -75,13 +76,13 @@ namespace
         if(::std::fegetround() != FE_DOWNWARD || !flush_controls_are_enabled() || (::std::fetestexcept(FE_ALL_EXCEPT) & FE_INVALID) == 0) { return 4; }
 
         {
-            fp::scoped_llvm_wasm_fp_environment wasm_environment{};
+            fp::scoped_llvm_wasm_fp_environment wasm_environment{fp_environment_active};
             if(!wasm_environment.ready()) { return 5; }
-            if(!fp::is_llvm_wasm_fp_environment_active()) { return 6; }
+            if(!fp::is_llvm_wasm_fp_environment_active(fp_environment_active)) { return 6; }
             if(::std::fegetround() != FE_TONEAREST || !flush_controls_are_default() || ::std::fetestexcept(FE_ALL_EXCEPT) != 0) { return 7; }
 
             {
-                fp::scoped_llvm_wasm_host_fp_environment_restore host_callback_environment{};
+                fp::scoped_llvm_wasm_host_fp_environment_restore host_callback_environment{fp_environment_active};
                 if(!host_callback_environment.ready()) { return 8; }
                 if(::std::fesetround(FE_UPWARD) != 0 || ::std::feraiseexcept(FE_DIVBYZERO) != 0) { return 9; }
                 enable_flush_controls();
@@ -97,15 +98,15 @@ namespace
             // A nested raw/LLVM entry installs another default scope but must preserve the outer active marker. Its
             // destructor restores the outer Wasm environment, not the original embedding environment.
             {
-                fp::scoped_llvm_wasm_fp_environment nested_wasm_environment{};
-                if(!nested_wasm_environment.ready() || !fp::is_llvm_wasm_fp_environment_active()) { return 12; }
+                fp::scoped_llvm_wasm_fp_environment nested_wasm_environment{fp_environment_active};
+                if(!nested_wasm_environment.ready() || !fp::is_llvm_wasm_fp_environment_active(fp_environment_active)) { return 12; }
                 if(::std::fegetround() != FE_TONEAREST || !flush_controls_are_default() || ::std::fetestexcept(FE_ALL_EXCEPT) != 0) { return 13; }
             }
-            if(!fp::is_llvm_wasm_fp_environment_active()) { return 14; }
+            if(!fp::is_llvm_wasm_fp_environment_active(fp_environment_active)) { return 14; }
             if(::std::fegetround() != FE_TONEAREST || !flush_controls_are_default() || ::std::fetestexcept(FE_ALL_EXCEPT) != 0) { return 15; }
         }
 
-        if(fp::is_llvm_wasm_fp_environment_active()) { return 16; }
+        if(fp::is_llvm_wasm_fp_environment_active(fp_environment_active)) { return 16; }
         if(::std::fegetround() != FE_DOWNWARD || !flush_controls_are_enabled() ||
            (::std::fetestexcept(FE_ALL_EXCEPT) & FE_INVALID) == 0 || (::std::fetestexcept(FE_ALL_EXCEPT) & FE_DIVBYZERO) != 0)
         {
@@ -113,8 +114,8 @@ namespace
         }
 
         {
-            fp::scoped_llvm_wasm_fp_environment disabled_environment{false};
-            if(!disabled_environment.ready() || fp::is_llvm_wasm_fp_environment_active()) { return 18; }
+            fp::scoped_llvm_wasm_fp_environment disabled_environment{fp_environment_active, false};
+            if(!disabled_environment.ready() || fp::is_llvm_wasm_fp_environment_active(fp_environment_active)) { return 18; }
             if(::std::fegetround() != FE_DOWNWARD || !flush_controls_are_enabled() || (::std::fetestexcept(FE_ALL_EXCEPT) & FE_INVALID) == 0) { return 19; }
         }
 
