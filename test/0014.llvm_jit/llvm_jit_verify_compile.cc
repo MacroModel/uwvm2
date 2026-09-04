@@ -147,6 +147,20 @@ namespace
         0x41u, 0x05u, 0xfdu, 0x11u, 0xfdu, 0xaeu, 0x01u, 0xfdu, 0x37u, 0xfdu, 0xa3u, 0x01u,
         0x20u, 0x00u, 0x41u, 0x08u, 0x46u, 0x71u, 0x45u, 0x04u, 0x40u, 0x00u, 0x0bu, 0x0bu};
 
+    // Generated from simd_dot_i16x8_wrap_start.wat. Every lane reaches the positive i32 boundary exactly:
+    // (-32768 * -32768) + (-32768 * -32768) == 2^31, which must wrap to i32.min without signed C++ overflow.
+    inline constexpr ::std::array<unsigned char, 111uz> wasm1p1_simd_dot_i16x8_wrap_start_wasm{
+        0x00u, 0x61u, 0x73u, 0x6du, 0x01u, 0x00u, 0x00u, 0x00u, 0x01u, 0x04u, 0x01u, 0x60u,
+        0x00u, 0x00u, 0x03u, 0x02u, 0x01u, 0x00u, 0x07u, 0x0au, 0x01u, 0x06u, 0x5fu, 0x73u,
+        0x74u, 0x61u, 0x72u, 0x74u, 0x00u, 0x00u, 0x0au, 0x4fu, 0x01u, 0x4du, 0x01u, 0x01u,
+        0x7bu, 0xfdu, 0x0cu, 0x00u, 0x80u, 0x00u, 0x80u, 0x00u, 0x80u, 0x00u, 0x80u, 0x00u,
+        0x80u, 0x00u, 0x80u, 0x00u, 0x80u, 0x00u, 0x80u, 0xfdu, 0x0cu, 0x00u, 0x80u, 0x00u,
+        0x80u, 0x00u, 0x80u, 0x00u, 0x80u, 0x00u, 0x80u, 0x00u, 0x80u, 0x00u, 0x80u, 0x00u,
+        0x80u, 0xfdu, 0xbau, 0x01u, 0x21u, 0x00u, 0x20u, 0x00u, 0xfdu, 0x1bu, 0x00u, 0x41u,
+        0x80u, 0x80u, 0x80u, 0x80u, 0x78u, 0x47u, 0x04u, 0x40u, 0x00u, 0x0bu, 0x20u, 0x00u,
+        0xfdu, 0x1bu, 0x03u, 0x41u, 0x80u, 0x80u, 0x80u, 0x80u, 0x78u, 0x47u, 0x04u, 0x40u,
+        0x00u, 0x0bu, 0x0bu};
+
     // WebAssembly 1.1 multi-value fixture. The helper returns two i32s and
     // `_start` consumes them through the typed LLVM tuple-result ABI; the raw
     // entry wrapper packs the same aggregate into the stable result buffer.
@@ -877,6 +891,14 @@ int main(int argc, char** argv)
     }
     if(!run_fixture(uwvm_path,
                     executable_dir,
+                    "wasm1p1_simd_dot_i16x8_wrap_start.wasm",
+                    wasm1p1_simd_dot_i16x8_wrap_start_wasm,
+                    wasm1p1_all_runtime_args)) [[unlikely]]
+    {
+        return 1;
+    }
+    if(!run_fixture(uwvm_path,
+                    executable_dir,
                     "wasm1p1_multivalue_start.wasm",
                     wasm1p1_multivalue_start_wasm,
                     wasm1p1_multivalue_runtime_args)) [[unlikely]]
@@ -896,6 +918,7 @@ int main(int argc, char** argv)
                                ::std::string_view{"wasm1p1_bulk_memory_start.wasm"},
                                ::std::string_view{"wasm1p1_table_ref_bulk_start.wasm"},
                                ::std::string_view{"wasm1p1_simd_basic_start.wasm"},
+                               ::std::string_view{"wasm1p1_simd_dot_i16x8_wrap_start.wasm"},
                                ::std::string_view{"wasm1p1_multivalue_start.wasm"},
                                ::std::string_view{"wasm2_multiple_tables_start.wasm"}})
     {
