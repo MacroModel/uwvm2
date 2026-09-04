@@ -4,7 +4,7 @@
 
 **u2** is UWVM2’s WebAssembly interpreter (`src/uwvm2/runtime/compiler/uwvm_int/`). It is a **non-JIT, non-self-modifying** engine built around **direct threading** (a stream of opfunc pointers + immediates) and a register-friendly **stack-top cache** implemented as a compile-time specialized **register ring**.
 
-The design goal is strong end-to-end performance for an interpreter tier: **fast translation** (linear-time emission of a code page with no runtime opcode decode) and **high interpreter throughput** (reduced operand-stack memory traffic + reduced dispatch density via fusion). u2 explicitly trades **code size** for predictable hot-path shape: it contains many template-specialized opfunc variants and therefore is not positioned as a minimal/lightweight interpreter in the wasm3/WAMR class. In a tiered system, u2 is intended to serve as a **JIT warm-start backend** rather than a smallest-possible standalone interpreter.
+The design goal is strong end-to-end performance for a standalone diagnostic interpreter: **fast full-module translation** (linear-time emission of a code page with no runtime opcode decode) and **high interpreter throughput** (reduced operand-stack memory traffic + reduced dispatch density via fusion). u2 explicitly trades **code size** for predictable hot-path shape: it contains many template-specialized opfunc variants and therefore is not positioned as a minimal/lightweight interpreter in the wasm3/WAMR class.
 
 This document summarizes both (1) the architecture and (2) the optimization workflow used to reach competitive results: instrument → quantify dispatch/fusion → audit codegen via AArch64 “asm stitching” → implement leaf-preserving fusion and translation-time peepholes.
 
@@ -100,6 +100,8 @@ Build knobs (see the analysis note for empirical motivation):
 - `--enable-uwvm-int-delay-local={none,soft,heavy}`
 - `--enable-uwvm-int-instruction-reorder=[y|n]` (experimental; default `n`, runtime default off)
 
+The default compile policy is `combine=soft, delay-local=heavy`. Heavy combine remains an explicit performance profile, while heavy delay-local stays enabled because reducing it saves little code but produces sharp tail regressions in local-heavy workloads. Use [`tools/benchmark_uwvm_int_policy.py`](../../../../../tools/benchmark_uwvm_int_policy.py) to compare policy builds on the same u2bench corpus.
+
 ### 5.3 Instruction reorder: bounded local-stack recompilation
 LLVM-generated MVP WebAssembly often expresses arithmetic as shallow local-heavy producer bursts and left folds:
 
@@ -159,7 +161,7 @@ u2 is evaluated on two axes:
 Key lessons from the 2026-02 analysis on AArch64 (Apple M-series) are:
 - If the average fusion ratio is low (e.g., ~1.5 wasm ops per dispatch), different threaded interpreters tend to converge toward the same dispatch ceiling (indirect branch + next pointer load), and performance differences narrow.
 - Large gains often come from reducing dispatch count (provider/consumer variantization, loop skeleton fusion) rather than shaving single instructions inside an already-minimal opfunc.
-- u2’s generality (notably in memory and runtime paths) can lengthen dependence chains and increase register pressure in memory-heavy or branch-heavy kernels; this is an accepted trade for broader functionality and JIT-warm-start positioning.
+- u2’s generality (notably in memory and runtime paths) can lengthen dependence chains and increase register pressure in memory-heavy or branch-heavy kernels; this is an accepted trade for broader diagnostic coverage.
 
 ### 9.1 AArch64 case study (2026-02-20…2026-02-23)
 
