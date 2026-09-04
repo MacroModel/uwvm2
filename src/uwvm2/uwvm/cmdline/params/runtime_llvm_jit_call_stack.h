@@ -44,8 +44,8 @@
 #pragma push_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND")
 #undef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_UNWIND
 #undef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND
-// Keep the visible usage in lock-step with the runtime native-unwind allow-list.  Untested ELF ISAs must not advertise checked or
-// unchecked native unwind modes, even if libunwind headers are available in the sysroot.
+// Keep the visible usage in lock-step with the runtime native-unwind allow-list. Untested ELF ISAs must not advertise
+// native unwind merely because an ordinary <unwind.h> backtrace interface is present.
 #if defined(__APPLE__) && !defined(_WIN32)
 # define UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND
 #elif defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) &&                                                                                     \
@@ -54,8 +54,8 @@
 #elif (defined(__linux__) || defined(__FreeBSD__)) && ((defined(__x86_64__) || defined(_M_X64) || defined(_M_AMD64)) && !defined(__ILP32__))
 # define UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND
 #endif
-#if (defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)) &&                                                              \
-    defined(UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND) && ((!defined(_WIN32) && (__has_include(<libunwind.h>) || __has_include(<unwind.h>))) ||                                                                  \
+#if (defined(UWVM_RUNTIME_LLVM_JIT)) &&                                                              \
+    defined(UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_ENABLE_NATIVE_UNWIND) && ((!defined(_WIN32) && __has_include(<unwind.h>)) ||                                                                                                  \
      (defined(_WIN64) && !(defined(__arm64ec__) || defined(_M_ARM64EC)) &&                                                                                  \
       (defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64) || defined(__aarch64__) || defined(_M_ARM64)) &&                                          \
       !defined(__CYGWIN__)))
@@ -64,7 +64,7 @@
 
 UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params
 {
-#if defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
+#if defined(UWVM_RUNTIME_LLVM_JIT)
     namespace details
     {
         inline constexpr ::uwvm2::utils::container::u8string_view runtime_llvm_jit_call_stack_alias{u8"-Rllvm-call-stack"};
@@ -84,9 +84,9 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::cmdline::params
 # endif
     inline constexpr ::uwvm2::utils::cmdline::parameter runtime_llvm_jit_call_stack{
         .name{u8"--runtime-llvm-jit-call-stack"},
-        .describe{u8"Select the runtime LLVM JIT call-stack tracking mode."},
+        .describe{u8"Select LLVM AOT generated-code call-stack tracking."},
 # ifdef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_UNWIND
-        .usage{u8"[auto|instruction|none|unwind|unwind-uncheck]"},
+        .usage{u8"[auto|instruction|none|unwind]"},
 # else
         .usage{u8"[auto|instruction|none]"},
 # endif

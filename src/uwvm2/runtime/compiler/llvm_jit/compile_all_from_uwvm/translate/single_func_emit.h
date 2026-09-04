@@ -634,23 +634,15 @@ inline constexpr void apply_llvm_jit_common_function_attrs(::llvm::Function& fun
 #endif
 }
 
-// Preserve unwind metadata for trap reporting and logical Wasm stack reconstruction.
+// Preserve native unwind metadata for auxiliary POSIX diagnostics and explicit Win64 SEH reconstruction.
 inline constexpr void apply_llvm_jit_unwind_call_stack_function_attrs(::llvm::Function& function) noexcept
 {
     // Emit asynchronous unwind tables, not only call-site unwind info.  Wasm traps can be reported from arbitrary
     // instruction PCs after bounds checks, helper calls, or target signals/SEH faults, so the runtime unwinder needs CFI
     // that remains valid between calls when reconstructing optimized JIT frames.  On Win64 this causes LLVM to emit
-    // .pdata/.xdata records; on DWARF targets it keeps enough CFI in .eh_frame for seeded or asynchronous stack walks.
+    // .pdata/.xdata records; on DWARF targets it keeps CFI in .eh_frame only for the auxiliary ordinary walk. POSIX CFI
+    // never replaces the instruction-emitted logical Wasm stack.
     function.setUWTableKind(::llvm::UWTableKind::Async);
-
-    // Keep a physical frame pointer in generated functions.  Trap bridges capture the current frame address explicitly,
-    // and a stable frame chain makes mixed JIT/runtime unwinding resilient after LLVM has inlined or optimized Wasm calls.
-    apply_llvm_jit_frame_pointer_function_attrs(function);
-
-    // Explicit unwind call-stack mode must report the Wasm call chain from native frames. Do not rely on DWARF inline
-    // reconstruction for correctness: optimized Mach-O JIT objects can expose only the outer concrete frame on Darwin/Rosetta.
-    function.addFnAttr(::llvm::Attribute::NoInline);
-    function.addFnAttr(::llvm::Attribute::OptimizeNone);
 }
 
 #if defined(__i386__) || defined(_M_IX86)

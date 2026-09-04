@@ -61,6 +61,8 @@
 # include <uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/section_memory_manager.h>
 #endif
 
+#include "uwvm_runtime_native_unwind.h"
+
 import fast_io;
 import uwvm2.parser.wasm.concepts;
 import uwvm2.parser.wasm.standard.wasm1.features;

@@ -97,8 +97,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::runtime::runtime_mode
         auto_policy,
         instruction,
         none,
-        unwind,
-        unwind_uncheck
+        unwind
     };
 
     enum class runtime_llvm_jit_cache_path_mode_t : unsigned
