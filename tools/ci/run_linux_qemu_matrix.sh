@@ -53,6 +53,8 @@ Matrix and resource controls:
                                 0, compilation stays on the calling thread).
                                 The tier-2 background readiness witness needs
                                 at least 2 workers and is SKIP below that cap.
+                                Readiness plus a trap does not prove T2 entry
+                                execution or T2 unwind coverage.
   --timeout <seconds>           Per probe/fixture/run timeout (default: 120).
   --max-rss-mib <MiB>           Sampled per-process-group soft RSS cap (default:
                                 4096; 0 disables). Use a container/cgroup memory
@@ -69,6 +71,9 @@ lazy/tiered variant. Missing source-pruned modes are recorded in metadata rather
 than treated as failures. Normal fixtures must exit zero. Trap fixtures must
 exit nonzero and report the exact Wasm trap kind. Metadata, results.tsv, and
 per-run logs are written below build/test by default.
+The tiered_full_ready_oob case checks publication/readiness and the trap only;
+its PASS explicitly retains t2_entry_execution=unverified. It uses instruction
+or auto resolved to instruction, since native unwind disables background T2.
 EOF
 }
 
@@ -1057,7 +1062,7 @@ has_expected_policy_declaration()
     esac
 }
 
-regular_case_executes_llvm()
+regular_case_requires_llvm_log()
 {
     local mode=$1
     local fixture=${2:-}
@@ -1107,6 +1112,8 @@ has_tiered_witness_log()
             return 0
             ;;
         tiered_full_ready_oob)
+            # These are compiler/publication events, not T2 entry execution.
+            # The same final trap and logical indices are possible in T0/T1.
             grep -aFq '[llvm-jit-lazy] tiered-full-request' "$compiler_log" &&
                 grep -aFq '[llvm-jit-lazy] tiered-full-ready' "$compiler_log"
             ;;
@@ -1282,17 +1289,20 @@ fi
 printf 'unwind_uncheck_auxiliary_status\t%s\n' "$UNWIND_UNCHECK_AUXILIARY_STATUS" >>"$METADATA_TSV"
 
 TIER2_WITNESS_POLICY=
-for preferred_policy in auto unwind instruction unwind-uncheck; do
+# Native unwind intentionally disables background T2 in the current runtime.
+# This witness is limited to publication/readiness under logical-stack policy;
+# it cannot supply T2 unwind coverage, even after a successful final trap.
+for preferred_policy in auto instruction; do
     for selected_policy in "${POLICIES[@]}"; do
         if [[ $selected_policy != "$preferred_policy" ]]; then continue; fi
         if ! policy_supported "$selected_policy"; then continue; fi
-        if [[ $selected_policy == auto && $AUTO_EFFECTIVE_POLICY == invalid ]]; then continue; fi
-        if [[ $selected_policy == unwind-uncheck && $UNWIND_UNCHECK_AUXILIARY_STATUS != verified ]]; then continue; fi
+        if [[ $selected_policy == auto && $AUTO_EFFECTIVE_POLICY != instruction ]]; then continue; fi
         TIER2_WITNESS_POLICY=$selected_policy
         break 2
     done
 done
 printf 'tier2_witness_policy\t%s\n' "${TIER2_WITNESS_POLICY:-unavailable}" >>"$METADATA_TSV"
+printf 'tier2_witness_scope\tpublication-readiness-and-trap\nt2_entry_execution\tunverified\nt2_unwind_coverage\tunverified\n' >>"$METADATA_TSV"
 
 run_matrix_case()
 {
@@ -1383,9 +1393,13 @@ run_matrix_case()
     elif [[ $RUN_LIMIT_REASON == rss-limit ]]; then
         outcome=FAIL
         detail=rss-limit
-    elif regular_case_executes_llvm "$mode" "$fixture" && ! has_expected_llvm_log "$mode" "$compiler_log" "$fixture"; then
+    elif regular_case_requires_llvm_log "$mode" "$fixture" && ! has_expected_llvm_log "$mode" "$compiler_log" "$fixture"; then
         outcome=FAIL
-        detail='required LLVM JIT execution marker is missing'
+        if [[ $fixture == tiered_full_ready_oob ]]; then
+            detail='required tier-2 request/readiness evidence is missing'
+        else
+            detail='required LLVM JIT compiler evidence is missing'
+        fi
     elif [[ $actual_policy == invalid || $actual_policy == unavailable || $actual_policy == inconsistent ]]; then
         outcome=FAIL
         detail="call-stack policy is unavailable: ${actual_policy}"
@@ -1411,7 +1425,7 @@ run_matrix_case()
             outcome=FAIL
             detail="trap kind mismatch: ${trap_kind:-missing}"
         else
-            if regular_case_executes_llvm "$mode" "$fixture" && [[ $actual_policy == none ]]; then
+            if regular_case_requires_llvm_log "$mode" "$fixture" && [[ $actual_policy == none ]]; then
                 case $mode in
                     aot|full|lazy)
                         expect_stack=0
@@ -1440,6 +1454,9 @@ run_matrix_case()
         fi
     fi
 
+    if [[ $fixture == tiered_full_ready_oob && $outcome == PASS ]]; then
+        detail+=';t2_publication=ready;t2_entry_execution=unverified;t2_unwind_coverage=unverified'
+    fi
     write_result "$id" "$mode" "$policy" "$actual_policy" "$fixture" "$fixture_class" "$expected" "$RUN_RC" "$outcome" "$detail" \
         "$RUN_PEAK_RSS_KIB" "$RUN_ELAPSED_MS" "$output_log" "$compiler_log"
     return 0
@@ -1513,6 +1530,12 @@ schedule_case()
 
 for mode in "${MODE_NAMES[@]+"${MODE_NAMES[@]}"}"; do
     if ! mode_supported "$mode"; then continue; fi
+    if [[ $mode == tiered && -z $TIER2_WITNESS_POLICY ]]; then
+        allocate_id
+        write_result "$ALLOCATED_ID" "$mode" - - tiered_full_ready_oob trap 'memory access out of bounds' - SKIP \
+            'no compatible instruction policy for tier-2 readiness; native unwind disables background T2;t2_entry_execution=unverified;t2_unwind_coverage=unverified' \
+            0 0 - -
+    fi
     for policy in "${POLICIES[@]}"; do
         if ! policy_applicable_to_mode "$mode" "$policy"; then continue; fi
         if ! policy_supported "$policy"; then continue; fi
