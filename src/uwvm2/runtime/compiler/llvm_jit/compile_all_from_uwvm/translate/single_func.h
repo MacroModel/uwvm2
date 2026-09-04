@@ -1509,7 +1509,7 @@ namespace details
         {
             return true;
         }
-        if(!is_runtime_wasm_function_type_inline_llvm_jit_supported(*function_type_ptr)) { return true; }
+        if(!is_runtime_wasm_function_type_llvm_typed_entry_abi_supported(*function_type_ptr)) { return true; }
 
         for(auto const& local_part: wasm_code_ptr->locals)
         {
@@ -1555,7 +1555,7 @@ namespace details
                     validation_module_traits_t::wasm_u32 func_index{};
                     if(!parse_wasm_leb128_immediate(code_curr, code_end, func_index)) [[unlikely]] { return true; }
                     auto const callee_type_ptr{resolve_runtime_callee_function_type(curr_module, func_index)};
-                    if(callee_type_ptr == nullptr || !is_runtime_wasm_function_type_inline_llvm_jit_supported(*callee_type_ptr)) { return true; }
+                    if(callee_type_ptr == nullptr || !is_runtime_wasm_function_type_llvm_typed_entry_abi_supported(*callee_type_ptr)) { return true; }
                     break;
                 }
                 case static_cast<::std::uint_least8_t>(wasm1_code::call_indirect):
@@ -1570,7 +1570,7 @@ namespace details
                     }
                     static_cast<void>(table_index);
                     auto const callee_type_ptr{resolve_runtime_type_section_function_type(curr_module, type_index)};
-                    if(callee_type_ptr == nullptr || !is_runtime_wasm_function_type_inline_llvm_jit_supported(*callee_type_ptr)) { return true; }
+                    if(callee_type_ptr == nullptr || !is_runtime_wasm_function_type_llvm_typed_entry_abi_supported(*callee_type_ptr)) { return true; }
                     break;
                 }
                 case static_cast<::std::uint_least8_t>(wasm1p1_code::select_t):

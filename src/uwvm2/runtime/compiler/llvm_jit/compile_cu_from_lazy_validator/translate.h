@@ -1058,7 +1058,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
             auto const raw_function_name{all_details::get_llvm_wasm_raw_function_name(curr_module, function_index_u32)};
             auto const& runtime_func{curr_module.local_defined_function_vec_storage.index_unchecked(local_function_index)};
             if(runtime_func.function_type_ptr == nullptr) [[unlikely]] { return false; }
-            auto const typed_entry_required{all_details::is_runtime_wasm_function_type_inline_llvm_jit_supported(*runtime_func.function_type_ptr)};
+            auto const typed_entry_required{all_details::is_runtime_wasm_function_type_llvm_typed_entry_abi_supported(*runtime_func.function_type_ptr)};
             auto const entry_address{typed_entry_required ? resolve_llvm_function_address(*engine, function_name) : 0u};
             auto const raw_entry_address{resolve_llvm_function_address(*engine, raw_function_name)};
             if(raw_entry_address == 0u || (typed_entry_required && entry_address == 0u)) [[unlikely]] { return false; }
@@ -1250,7 +1250,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::compiler::llvm_jit::compile_cu_from
                 auto const raw_function_name{all_details::get_llvm_wasm_raw_function_name(curr_module, function_index_u32)};
                 auto const& runtime_func{curr_module.local_defined_function_vec_storage.index_unchecked(local_function_index)};
                 if(runtime_func.function_type_ptr == nullptr) [[unlikely]] { return false; }
-                auto const typed_entry_required{all_details::is_runtime_wasm_function_type_inline_llvm_jit_supported(*runtime_func.function_type_ptr)};
+                auto const typed_entry_required{all_details::is_runtime_wasm_function_type_llvm_typed_entry_abi_supported(*runtime_func.function_type_ptr)};
                 auto const entry_address{typed_entry_required ? resolve_llvm_function_address(*engine, function_name) : 0u};
                 auto const raw_entry_address{resolve_llvm_function_address(*engine, raw_function_name)};
                 if(raw_entry_address == 0u || (typed_entry_required && entry_address == 0u)) [[unlikely]] { return false; }

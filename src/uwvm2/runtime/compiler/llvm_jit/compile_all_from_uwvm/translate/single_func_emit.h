@@ -1817,7 +1817,7 @@ struct runtime_direct_callee_resolution_t
 }
 
 [[nodiscard]] inline constexpr bool
-    is_runtime_wasm_function_type_inline_llvm_jit_supported(::uwvm2::uwvm::runtime::storage::wasm_binfmt1_final_function_type_t const& wasm_function_type) noexcept
+    is_runtime_wasm_function_type_llvm_typed_entry_abi_supported(::uwvm2::uwvm::runtime::storage::wasm_binfmt1_final_function_type_t const& wasm_function_type) noexcept
 {
     auto const parameter_begin{wasm_function_type.parameter.begin};
     auto const parameter_end{wasm_function_type.parameter.end};
@@ -2081,7 +2081,7 @@ struct runtime_direct_callee_resolution_t
     raw_builder.CreateRetVoid();
     if(!verify_llvm_jit_function(*raw_entry_function, verify_llvm_jit_ir)) [[unlikely]] { return false; }
 
-    if(!is_runtime_wasm_function_type_inline_llvm_jit_supported(*function_type_ptr)) { return true; }
+    if(!is_runtime_wasm_function_type_llvm_typed_entry_abi_supported(*function_type_ptr)) { return true; }
 
     auto typed_function_type{get_llvm_function_type_from_wasm_function_type(llvm_context, *function_type_ptr)};
     if(typed_function_type == nullptr) [[unlikely]] { return true; }
