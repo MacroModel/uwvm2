@@ -213,9 +213,9 @@ namespace uwvm2::runtime::compiler::llvm_jit::details
     template <typename Visit>
     inline constexpr void visit_runtime_llvm_jit_eh_frame_fdes(::std::uint8_t* addr, ::std::size_t size, Visit visit) noexcept
     {
-        // LLVM libunwind's dynamic registration entry points operate on individual FDE records rather than on the whole
-        // .eh_frame payload.  Walk the compact DWARF record stream defensively and skip CIE records, whose ID field is
-        // zero in the emitted section format used here.  Passing the whole section can make libunwind treat a CIE or the
+        // The compiler/platform unwinder's dynamic registration entry points operate on individual FDE records rather
+        // than on the whole .eh_frame payload. Walk the compact DWARF record stream defensively and skip CIE records, whose ID field is
+        // zero in the emitted section format used here.  Passing the whole section can make the unwinder treat a CIE or the
         // zero-length terminator as an FDE and reject the generated object.
         auto const end{addr + size};
         auto curr{addr};
@@ -317,8 +317,8 @@ namespace uwvm2::runtime::compiler::llvm_jit::details
             static_cast<void>(register_win64_seh_function_table(addr, load_addr, size));
 # elif UWVM2_RUNTIME_LLVM_JIT_SECTION_MEMORY_MANAGER_HAS_DWARF_EH_FRAME
             static_cast<void>(load_addr);
-            // LLVM libunwind accepts FDE pointers one at a time for JIT code.  Keep the original section range so the
-            // exact same FDE set can be deregistered before MCJIT releases the underlying memory.
+            // The compiler/platform unwinder accepts FDE pointers one at a time for JIT code. Keep the original section
+            // range so the exact same FDE set can be deregistered before MCJIT releases the underlying memory.
             visit_runtime_llvm_jit_eh_frame_fdes(addr, size, [](::std::uint8_t* fde) constexpr noexcept { __register_frame(fde); });
             eh_frame_records_.push_back(runtime_llvm_jit_eh_frame_record{addr, size});
 # else
@@ -392,8 +392,8 @@ namespace uwvm2::runtime::compiler::llvm_jit::details
 
             // COFF x64 encodes .pdata RVAs relative to RuntimeDyld's synthetic __ImageBase.  LLVM computes that base as
             // the lowest loaded section address; RtlAddFunctionTable must receive the same value or Windows unwinding
-            // will not be able to resolve JIT PCs back to their UNWIND_INFO, especially after inlining or code layout
-            // changes move the active PC away from the public entry symbol.
+            // will not be able to resolve JIT PCs back to their UNWIND_INFO when code-layout changes move the active PC
+            // away from the public entry symbol.
             auto const fallback_base{load_addr == 0u ? reinterpret_cast<::std::uintptr_t>(addr) : static_cast<::std::uintptr_t>(load_addr)};
             auto const image_base{get_win64_image_base(fallback_base)};
             auto const function_table{reinterpret_cast<::fast_io::win32::win_current_runtime_function*>(addr)};

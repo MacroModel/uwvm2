@@ -33,8 +33,9 @@
 #pragma push_macro("UWVM2_RUNTIME_LLVM_JIT_NATIVE_UNWIND_PLATFORM_SUPPORTED")
 #undef UWVM2_RUNTIME_LLVM_JIT_NATIVE_UNWIND_PLATFORM_SUPPORTED
 
-// Native unwind may replace instruction-emitted wasm frames only on platform/ISA pairs whose generated-code unwind path has been
-// validated. Keep this independent of LLVM enablement and unwind-header availability so the runtime and CLI can share one allow-list.
+// Native unwind diagnostics are available only on platform/ISA pairs whose generated-code walk has been exercised. This is an
+// availability allow-list, not permission to replace logical Wasm frames: only the explicit Win64 SEH caller context may do that.
+// Keep it independent of LLVM enablement and unwind-header availability so the runtime and CLI can share one allow-list.
 #if (defined(__APPLE__) && !defined(_WIN32)) ||                                                                                                              \
     UWVM2_RUNTIME_LLVM_JIT_WIN64_SEH_PLATFORM_SUPPORTED ||                                                                                                  \
     ((defined(__linux__) || defined(__FreeBSD__)) &&                                                                                                        \
