@@ -45,10 +45,10 @@
 #pragma push_macro("UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_UNWIND")
 #undef UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_UNWIND
 // Keep the visible usage in lock-step with the runtime native-unwind allow-list.  Untested ELF ISAs must not advertise checked or
-// unchecked native unwind modes, even if libunwind headers are available in the sysroot.
+// unchecked native unwind modes merely because an ordinary <unwind.h> backtrace interface is present.
 #if (defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)) &&                                                              \
     UWVM2_RUNTIME_LLVM_JIT_NATIVE_UNWIND_PLATFORM_SUPPORTED &&                                                                                               \
-    ((!defined(_WIN32) && (__has_include(<libunwind.h>) || __has_include(<unwind.h>))) || UWVM2_RUNTIME_LLVM_JIT_WIN64_SEH_PLATFORM_SUPPORTED)
+    ((!defined(_WIN32) && __has_include(<unwind.h>)) || UWVM2_RUNTIME_LLVM_JIT_WIN64_SEH_PLATFORM_SUPPORTED)
 # define UWVM2_UWVM_CMDLINE_RUNTIME_LLVM_JIT_CALL_STACK_HAS_UNWIND
 #endif
 
