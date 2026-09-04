@@ -156,6 +156,11 @@ namespace
         validation_error local_storage_error{};
         auto const validation_module{llvm_details::build_runtime_validation_module(*prepared.mod)};
         auto const local_function{llvm_details::get_runtime_local_func_storage(*prepared.mod, 0uz, local_storage_error)};
+        constexpr ::std::size_t call_indirect_opcode_offset{2uz};
+        UWVM2TEST_REQUIRE(static_cast<::std::size_t>(local_function.code_end - local_function.code_begin) >
+                          call_indirect_opcode_offset);
+        UWVM2TEST_REQUIRE(local_function.code_begin[call_indirect_opcode_offset] == ::std::byte{0x11u});
+        auto const* const call_indirect_opcode{local_function.code_begin + call_indirect_opcode_offset};
         auto const standard_error{validate_standard(validation_module, local_function, policy)};
 #ifndef UWVM_DISABLE_INT
         auto const int_error{validate_int(*prepared.mod, policy)};
@@ -168,6 +173,14 @@ namespace
 #endif
         UWVM2TEST_REQUIRE(llvm_result.error.err_code == expected);
         UWVM2TEST_REQUIRE(expected != error_code::ok || llvm_result.materialized);
+        if(expected != error_code::ok)
+        {
+            UWVM2TEST_REQUIRE(standard_error.err_curr == call_indirect_opcode);
+#ifndef UWVM_DISABLE_INT
+            UWVM2TEST_REQUIRE(int_error.err_curr == call_indirect_opcode);
+#endif
+            UWVM2TEST_REQUIRE(llvm_result.error.err_curr == call_indirect_opcode);
+        }
         if(expected == error_code::wasm2_feature_required)
         {
             constexpr auto feature{::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables};
@@ -200,6 +213,12 @@ int main()
                                  mvp_policy,
                                  u8"call_indirect_mvp_invalid_type_bad_reserved",
                                  error_code::invalid_table_index) == 0);
+
+    auto const wasm2_policy{make_policy(cli_mode::direct_wasm2)};
+    UWVM2TEST_REQUIRE(check_case(nonzero_table_module,
+                                 wasm2_policy,
+                                 u8"call_indirect_wasm2_table_out_of_bounds",
+                                 error_code::illegal_table_index) == 0);
 
     auto const wasm2_single_table_policy{make_policy(cli_mode::direct_wasm2, true)};
     UWVM2TEST_REQUIRE(
