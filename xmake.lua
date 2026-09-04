@@ -372,28 +372,9 @@ local uwvm_uses_llvm_jit = ((get_config("execution-jit") == "llvm") or (get_conf
 local uwvm_has_runtime_backend = uwvm_uses_uwvm_int or uwvm_uses_llvm_jit
 
 local function uwvm_add_frontend_module_files(is_public)
+	-- Keep the exported partition graph independent of backend macros. Each
+	-- partition's included header guards its backend-specific declarations.
 	add_files("src/uwvm2/uwvm/**.cppm", { public = is_public })
-
-	if not uwvm_uses_uwvm_int then
-		remove_files("src/uwvm2/uwvm/cmdline/params/runtime_int.cppm")
-		remove_files("src/uwvm2/uwvm/cmdline/params/runtime_uwvm_int_*.cppm")
-		remove_files("src/uwvm2/uwvm/cmdline/callback/runtime_int.cppm")
-		remove_files("src/uwvm2/uwvm/cmdline/callback/runtime_uwvm_int_*.cppm")
-	end
-
-	if not uwvm_uses_llvm_jit then
-		remove_files("src/uwvm2/uwvm/cmdline/params/runtime_aot.cppm")
-		remove_files("src/uwvm2/uwvm/cmdline/params/runtime_jit.cppm")
-		remove_files("src/uwvm2/uwvm/cmdline/params/runtime_llvm_jit_*.cppm")
-		remove_files("src/uwvm2/uwvm/cmdline/callback/runtime_aot.cppm")
-		remove_files("src/uwvm2/uwvm/cmdline/callback/runtime_jit.cppm")
-		remove_files("src/uwvm2/uwvm/cmdline/callback/runtime_llvm_jit_*.cppm")
-	end
-
-	if not uwvm_uses_uwvm_int or not uwvm_uses_llvm_jit then
-		remove_files("src/uwvm2/uwvm/cmdline/params/runtime_tiered*.cppm")
-		remove_files("src/uwvm2/uwvm/cmdline/callback/runtime_tiered*.cppm")
-	end
 end
 
 if uwvm_uses_llvm_jit and get_config("openssl-root") == "default" then

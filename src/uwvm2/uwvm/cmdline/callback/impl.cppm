@@ -22,8 +22,6 @@
 
 module;
 
-#include <uwvm2/uwvm/runtime/macro/push_macros.h>
-
 export module uwvm2.uwvm.cmdline.callback;
 // global
 export import :version;
@@ -53,26 +51,20 @@ export import :runtime_custom_compiler;
 export import :runtime_compiler_log;
 export import :runtime_compile_threads;
 export import :runtime_scheduling_policy;
-#if defined(UWVM_RUNTIME_LLVM_JIT)
+// Named-module imports do not make macros visible ([module.import]). Keep this
+// partition graph unconditional; backend #if guards belong in each partition's .h.
 export import :runtime_llvm_jit_policy;
 export import :runtime_llvm_jit_lazy_policy;
 export import :runtime_llvm_jit_full_policy;
 export import :runtime_llvm_jit_call_stack;
 export import :runtime_llvm_jit_cache_path;
-#endif
 export import :runtime_debug_int;
-#if defined(UWVM_RUNTIME_UWVM_INTERPRETER)
 export import :runtime_int;
-export import :runtime_uwvm_int_set_opcode_conbination_level;
-export import :runtime_uwvm_int_loop_unwind_max_size;
-#endif
-#if defined(UWVM_RUNTIME_LLVM_JIT)
 export import :runtime_jit;
 export import :runtime_aot;
-#endif
-#if defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
 export import :runtime_tiered;
-#endif
+export import :runtime_uwvm_int_set_opcode_conbination_level;
+export import :runtime_uwvm_int_loop_unwind_max_size;
 
 // wasi
 export import :wasi_disable_utf8_check;
