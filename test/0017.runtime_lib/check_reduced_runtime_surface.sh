@@ -140,6 +140,8 @@ rg -q '\*\*Default:\*\* `none`' "$repo_root/documents/xmake-options.md" ||
 
 # POSIX native unwind is only an auxiliary compiler <unwind.h> backtrace. Dedicated libunwind cursors,
 # signal-context seeding, and frame/raw-stack scanning must not return.
+bash "$repo_root/test/0017.runtime/check_win64_fault_context_bridge.sh"
+
 if rg -n 'get_signal_(frame_address|stack_pointer)|<libunwind\.h>|UNW_LOCAL_ONLY|unw_(getcontext|init_local2?|step|get_reg)|UNW_INIT_SIGNAL_FRAME|raw[_ -]stack|seeded[_ -]unwind|__builtin_frame_address|Intrinsic::frameaddress' \
     "$runtime_lib" "$signal_handler" "$llvm_translate"; then
     fail 'found seeded/signal/raw-stack POSIX unwind reconstruction'
