@@ -110,7 +110,10 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1p1::features
     /// @brief Select the legacy MVP encoding of `call_indirect`'s trailing immediate.
     /// @details WebAssembly Core 1.0 section 5.4.1 encodes `call_indirect` as
     ///          `0x11 typeidx 0x00`; that final token is a literal byte, not a
-    ///          `tableidx`.  The Reference Types/Multiple Tables grammar and
+    ///          `tableidx`.  Core 1.0 section 2.5.1's abstract `tableidx ::= u32`
+    ///          definition applies only where a grammar production actually
+    ///          references `tableidx`; MVP `call_indirect` does not.  The
+    ///          Reference Types/Multiple Tables grammar and
     ///          WebAssembly Core 2.0 section 5.4.1 instead encode a real
     ///          `tableidx ::= u32`.  Disabling multiple tables constrains that
     ///          decoded index to zero, but does not change its binary type.

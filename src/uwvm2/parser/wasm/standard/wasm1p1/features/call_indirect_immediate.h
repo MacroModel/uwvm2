@@ -18,15 +18,18 @@ UWVM_MODULE_EXPORT namespace uwvm2::parser::wasm::standard::wasm1p1::features
     /// Decode call_indirect's trailing immediate without applying table-count or feature-policy checks.
     ///
     /// Core 1.0 encodes one literal reserved 0x00 byte. Reference Types and Core 2.0 encode
-    /// `tableidx ::= u32`, including non-canonical trailing-zero ULEB128 spellings. The cursor and
+    /// `tableidx ::= u32`, including permitted non-minimal trailing-zero ULEB128 encodings. The cursor and
     /// output value are committed only after the complete immediate has been validated.
-    /// The opcode/type-index prefix in this diagram is assumed to have been validated by the caller;
-    /// this helper proves and commits only the trailing immediate. On success (including when
-    /// code_curr equals code_end):
+    /// The opcode/type-index prefix is assumed to have been syntactically decoded by the caller;
+    /// this helper proves and commits only the trailing immediate. At entry (the immediate may be section_end):
+    /// call_indirect type_index table_index ...
+    /// [          safe        ] unsafe (could be the section_end)
+    ///                          ^^ code_curr
+    /// On success (including when code_curr equals code_end):
     /// call_indirect type_index table_index ...
     /// [                safe              ] unsafe (could be the section_end)
     ///                                      ^^ code_curr
-    /// On failure, code_curr remains at its original trailing-immediate position, which may already equal code_end.
+    /// On failure, code_curr remains at the entry position shown above and table_index is unchanged.
     [[nodiscard]] inline constexpr bool parse_call_indirect_trailing_immediate(
         ::std::byte const*& code_curr,
         ::std::byte const* code_end,
