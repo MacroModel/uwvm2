@@ -48,18 +48,11 @@ struct llvm_jit_module_storage_t
     // True after finalization succeeds and the module/context pair is ready for optimization or execution.
     bool emitted{};
 
-    // LLVM context must outlive the module, DIBuilder, functions, and all LLVM types/values owned by the module.
+    // LLVM context must outlive the module, functions, and all LLVM types/values owned by the module.
     ::uwvm2::utils::container::delete_owned_ptr<::llvm::LLVMContext> llvm_context_holder{};
 
     // LLVM IR module for a full compile or a per-task fragment.
     ::uwvm2::utils::container::delete_owned_ptr<::llvm::Module> llvm_module{};
-
-    // Optional debug-info builder used for trap/unwind frame reconstruction.
-    ::uwvm2::utils::container::delete_owned_ptr<::llvm::DIBuilder> llvm_di_builder{};
-
-    // Debug metadata nodes are owned by `llvm_module`; these are borrowed convenience handles.
-    ::llvm::DIFile* llvm_di_file{};
-    ::llvm::DICompileUnit* llvm_di_compile_unit{};
 
     inline constexpr llvm_jit_module_storage_t() noexcept = default;
     inline constexpr llvm_jit_module_storage_t(llvm_jit_module_storage_t const&) noexcept = delete;
@@ -70,21 +63,15 @@ struct llvm_jit_module_storage_t
     {
         if(this == ::std::addressof(other)) [[unlikely]] { return *this; }
 
-        // Destroy dependent LLVM objects before replacing the context.  LLVM IR objects keep context-owned uniqued types
-        // and metadata, so resetting in dependency order avoids dangling ownership during move assignment.
+        // Destroy dependent LLVM objects before replacing the context. LLVM IR objects keep context-owned uniqued types,
+        // so resetting in dependency order avoids dangling ownership during move assignment.
         llvm_module.reset();
-        llvm_di_builder.reset();
         llvm_context_holder.reset();
 
         emitted = other.emitted;
         llvm_context_holder = ::std::move(other.llvm_context_holder);
         llvm_module = ::std::move(other.llvm_module);
-        llvm_di_builder = ::std::move(other.llvm_di_builder);
-        llvm_di_file = other.llvm_di_file;
-        llvm_di_compile_unit = other.llvm_di_compile_unit;
         other.emitted = false;
-        other.llvm_di_file = nullptr;
-        other.llvm_di_compile_unit = nullptr;
         return *this;
     }
 };
@@ -1894,9 +1881,6 @@ namespace details
     {
         module_storage.emitted = module_storage.llvm_context_holder != nullptr && module_storage.llvm_module != nullptr;
         if(!module_storage.emitted) { return true; }
-
-        // DIBuilder must be finalized before module verification so debug metadata is complete.
-        if(module_storage.llvm_di_builder != nullptr) { module_storage.llvm_di_builder->finalize(); }
 
         if(!verify_llvm_jit_module(*module_storage.llvm_module, verify_llvm_jit_ir)) [[unlikely]]
         {
