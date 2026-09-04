@@ -83,6 +83,9 @@ import uwvm2.validation.standard.wasm1p1;
 import uwvm2.validation.standard.wasm2;
 import uwvm2.uwvm.wasm.feature;
 import uwvm2.uwvm.runtime.storage;
+// The lazy validator invokes the shared SIMD visitor directly; importing the
+// eager LLVM translator does not make that visitor reachable here.
+import uwvm2.runtime.compiler.shared.wasm1p1_simd;
 import uwvm2.runtime.compiler.llvm_jit.compile_all_from_uwvm;
 import uwvm2.runtime.llvm_jit_cache;
 
