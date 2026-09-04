@@ -263,7 +263,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::llvm_jit_cache
 #endif
         }
 
-#if defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
+#if defined(UWVM_RUNTIME_LLVM_JIT)
         [[nodiscard]] inline constexpr ::uwvm2::utils::container::u8string_view
             llvm_jit_policy_name(::uwvm2::uwvm::runtime::runtime_mode::runtime_llvm_jit_policy_t policy) noexcept
         {
@@ -326,7 +326,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::llvm_jit_cache
 
     [[nodiscard]] inline constexpr ::uwvm2::utils::container::u8string configured_cache_directory() noexcept
     {
-#if defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
+#if defined(UWVM_RUNTIME_LLVM_JIT)
         using cache_path_mode_t = ::uwvm2::uwvm::runtime::runtime_mode::runtime_llvm_jit_cache_path_mode_t;
         // Runtime configuration wins over platform defaults so sandboxed embedders can pick an isolated directory.
         if(::uwvm2::uwvm::runtime::runtime_mode::global_runtime_llvm_jit_cache_path_mode == cache_path_mode_t::custom_path)
@@ -416,7 +416,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::llvm_jit_cache
 
     [[nodiscard]] inline constexpr ::uwvm2::utils::container::u8string default_codegen_policy_name() noexcept
     {
-#if defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
+#if defined(UWVM_RUNTIME_LLVM_JIT)
         auto out{details::make_cache_key(u8"codegen-policy")};
         // Optimization policy is hashed because different policies can emit different native code for the same module.
         details::append_cache_key_value(out, u8"backend", u8"llvm-jit");
@@ -469,14 +469,12 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::llvm_jit_cache
 #else
         details::append_cache_key_value(out, u8"git-dirty", u8"0");
 #endif
-#if defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
-        details::append_cache_key_value(out, u8"runtime-jit", u8"uwvm-int-llvm-jit-tiered");
-#elif defined(UWVM_RUNTIME_LLVM_JIT)
+#if defined(UWVM_RUNTIME_LLVM_JIT)
         details::append_cache_key_value(out, u8"runtime-jit", u8"llvm-jit");
 #else
         details::append_cache_key_value(out, u8"runtime-jit", u8"none");
 #endif
-#if defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
+#if defined(UWVM_RUNTIME_LLVM_JIT)
         // Keep cached native objects separated when runtime bridge symbol naming or bridge-call ABI details change.
         details::append_cache_key_value(out, u8"llvm-jit-bridge-symbol-abi", u8"semantic-discriminator-and-type-v1");
 #endif
@@ -489,7 +487,8 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::llvm_jit_cache
         ::fast_io::sha256_context sha{};
         details::seed_sha256_update_literal(sha, u8"uwvm2-llvm-jit-cache-ed25519-seed-v1");
 #if defined(__unix__) || defined(__APPLE__) || defined(__linux__) || defined(__linux)
-        // The user id prevents one local account from producing cache signatures accepted as another account.
+        // Bind the deterministic integrity identity to the target user id. This is context separation, not a secret:
+        // an attacker who can act as the same OS account is outside the cache-signature trust boundary.
         details::seed_sha256_update_literal(sha, u8"posix-user");
         details::seed_sha256_update_le(sha, static_cast<::std::uint_least64_t>(::getuid()));
 #elif defined(_WIN32) && !defined(__CYGWIN__) && !defined(__WINE__)
@@ -522,15 +521,16 @@ UWVM_MODULE_EXPORT namespace uwvm2::runtime::llvm_jit_cache
     [[nodiscard]] inline constexpr cache_policy default_cache_policy() noexcept
     {
         cache_policy policy{};
-#if defined(UWVM_RUNTIME_LLVM_JIT) || defined(UWVM_RUNTIME_UWVM_INTERPRETER_LLVM_JIT_TIERED)
-        // Policy mirrors runtime flags so the cache can be disabled or relaxed without changing call-site code.
+#if defined(UWVM_RUNTIME_LLVM_JIT)
+        // Native object caching may be disabled, but an enabled cache always requires the reduced runtime's
+        // deterministic context-integrity signature. This must not be presented as a same-user secret-key boundary.
         policy.enable = ::uwvm2::uwvm::runtime::runtime_mode::global_runtime_llvm_jit_cache_path_mode !=
                         ::uwvm2::uwvm::runtime::runtime_mode::runtime_llvm_jit_cache_path_mode_t::disabled;
-        policy.generate_signature = !::uwvm2::uwvm::runtime::runtime_mode::runtime_llvm_jit_cache_no_sign;
-        policy.verify_signature = !::uwvm2::uwvm::runtime::runtime_mode::runtime_llvm_jit_cache_no_verify;
+        policy.generate_signature = true;
+        policy.verify_signature = true;
 #endif
         // If signing support is missing, disabling the whole cache is safer than silently accepting unsigned native code.
-        if(policy.enable && (policy.generate_signature || policy.verify_signature) && !cache_ed25519_identity_signature_available) { policy.enable = false; }
+        if(policy.enable && !cache_ed25519_identity_signature_available) { policy.enable = false; }
         return policy;
     }
 
