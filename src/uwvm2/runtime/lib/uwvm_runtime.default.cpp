@@ -4227,7 +4227,7 @@ namespace uwvm2::runtime::lib
             auto const& runtime_func{rec->runtime_module->local_defined_function_vec_storage.index_unchecked(local_function_index)};
             if(runtime_func.function_type_ptr == nullptr) [[unlikely]] { return; }
             auto const typed_entry_supported{
-                ::uwvm2::runtime::compiler::llvm_jit::compile_all_from_uwvm::details::is_runtime_wasm_function_type_inline_llvm_jit_supported(
+                ::uwvm2::runtime::compiler::llvm_jit::compile_all_from_uwvm::details::is_runtime_wasm_function_type_llvm_typed_entry_abi_supported(
                     *runtime_func.function_type_ptr)};
 
             if(!::uwvm2::runtime::compiler::llvm_jit::compile_cu_from_lazy_validator::try_get_lazy_raw_entry_address(rec->llvm_jit_lazy_compiled,
@@ -11191,7 +11191,7 @@ namespace uwvm2::runtime::lib
                 auto const& runtime_func{runtime_module->local_defined_function_vec_storage.index_unchecked(local_index)};
                 auto const typed_entry_supported{
                     runtime_func.function_type_ptr != nullptr &&
-                    ::uwvm2::runtime::compiler::llvm_jit::compile_all_from_uwvm::details::is_runtime_wasm_function_type_inline_llvm_jit_supported(
+                    ::uwvm2::runtime::compiler::llvm_jit::compile_all_from_uwvm::details::is_runtime_wasm_function_type_llvm_typed_entry_abi_supported(
                         *runtime_func.function_type_ptr)};
                 ::std::uintptr_t function_address{};
                 if(typed_entry_supported)

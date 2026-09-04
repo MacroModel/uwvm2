@@ -820,7 +820,7 @@ inline constexpr ::llvm::CallInst* apply_llvm_jit_wasm_calling_conv(::llvm::Call
     }
 }
 
-[[nodiscard]] inline constexpr bool is_runtime_wasm_value_type_inline_llvm_jit_scalar(runtime_operand_stack_value_type value_type) noexcept
+[[nodiscard]] inline constexpr bool is_runtime_wasm_value_type_llvm_scalar(runtime_operand_stack_value_type value_type) noexcept
 {
     switch(get_runtime_wasm_value_type_encoding(value_type))
     {
@@ -839,10 +839,10 @@ inline constexpr ::llvm::CallInst* apply_llvm_jit_wasm_calling_conv(::llvm::Call
 }
 
 // Values accepted in internal LLVM locals/operand stacks.
-[[nodiscard]] inline constexpr bool is_runtime_wasm_value_type_inline_llvm_jit_storage_supported(
+[[nodiscard]] inline constexpr bool is_runtime_wasm_value_type_llvm_storage_supported(
     runtime_operand_stack_value_type value_type) noexcept
 {
-    if(is_runtime_wasm_value_type_inline_llvm_jit_scalar(value_type)) { return true; }
+    if(is_runtime_wasm_value_type_llvm_scalar(value_type)) { return true; }
 
     switch(get_runtime_wasm_value_type_encoding(value_type))
     {
@@ -857,9 +857,9 @@ inline constexpr ::llvm::CallInst* apply_llvm_jit_wasm_calling_conv(::llvm::Call
 
 // The private LLVM Wasm-to-Wasm ABI carries v128 and references as opaque integer storage. Host/import boundaries continue
 // to use the tightly packed raw buffer ABI, so no C++ aggregate or ownership ABI is exposed.
-[[nodiscard]] inline constexpr bool is_runtime_wasm_value_type_inline_llvm_jit_function_abi_supported(
+[[nodiscard]] inline constexpr bool is_runtime_wasm_value_type_llvm_typed_entry_abi_supported(
     runtime_operand_stack_value_type value_type) noexcept
-{ return is_runtime_wasm_value_type_inline_llvm_jit_storage_supported(value_type); }
+{ return is_runtime_wasm_value_type_llvm_storage_supported(value_type); }
 
 // Create the zero/null constant for a Wasm scalar type, used for local initialization and default reentry arguments.
 [[nodiscard]] inline constexpr ::llvm::Constant* get_llvm_zero_constant_from_wasm_value_type(::llvm::LLVMContext& llvm_context,
@@ -1883,7 +1883,8 @@ struct runtime_direct_callee_resolution_t
 }
 
 [[nodiscard]] inline constexpr bool
-    is_runtime_wasm_function_type_inline_llvm_jit_supported(::uwvm2::uwvm::runtime::storage::wasm_binfmt1_final_function_type_t const& wasm_function_type) noexcept
+    is_runtime_wasm_function_type_llvm_typed_entry_abi_supported(
+        ::uwvm2::uwvm::runtime::storage::wasm_binfmt1_final_function_type_t const& wasm_function_type) noexcept
 {
     auto const parameter_begin{wasm_function_type.parameter.begin};
     auto const parameter_end{wasm_function_type.parameter.end};
@@ -1898,7 +1899,7 @@ struct runtime_direct_callee_resolution_t
 
     for(::std::size_t parameter_index{}; parameter_index != parameter_count; ++parameter_index)
     {
-        if(!is_runtime_wasm_value_type_inline_llvm_jit_function_abi_supported(
+        if(!is_runtime_wasm_value_type_llvm_typed_entry_abi_supported(
                static_cast<runtime_operand_stack_value_type>(parameter_begin[parameter_index])))
         {
             return false;
@@ -1907,7 +1908,7 @@ struct runtime_direct_callee_resolution_t
 
     for(::std::size_t result_index{}; result_index != result_count; ++result_index)
     {
-        if(!is_runtime_wasm_value_type_inline_llvm_jit_function_abi_supported(
+        if(!is_runtime_wasm_value_type_llvm_typed_entry_abi_supported(
                static_cast<runtime_operand_stack_value_type>(result_begin[result_index])))
         {
             return false;
