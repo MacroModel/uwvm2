@@ -20,6 +20,7 @@ namespace
     using fs_para_t = ::uwvm2::parser::wasm::concepts::feature_parameter_t<wasm1, wasm1p1, wasm2>;
     using module_storage_t =
         ::uwvm2::parser::wasm::binfmt::ver1::wasm_binfmt_ver1_module_extensible_storage_t<wasm1, wasm1p1, wasm2>;
+    using validation_error = ::uwvm2::validation::error::code_validation_error_impl;
     using error_code = ::uwvm2::validation::error::code_validation_error_code;
     using cli_mode = ::uwvm2::parser::wasm::standard::wasm1p1::features::wasm_feature_cli_mode;
 
@@ -113,7 +114,7 @@ namespace
         return err;
     }
 
-    [[nodiscard]] error_code validate_wasm1(module_storage_t const& module)
+    [[nodiscard]] validation_error validate_wasm1(module_storage_t const& module)
     {
         auto const body{get_function_body(module)};
         ::uwvm2::validation::error::code_validation_error_impl err{};
@@ -129,7 +130,18 @@ namespace
         }
         catch(::fast_io::error const&)
         {}
-        return err.err_code;
+        return err;
+    }
+
+    [[nodiscard]] bool is_call_indirect_error_at_opcode(module_storage_t const& module,
+                                                         validation_error const& err,
+                                                         error_code const expected) noexcept
+    {
+        auto const body{get_function_body(module)};
+        if(static_cast<::std::size_t>(body.end - body.begin) <= 2uz) { return false; }
+        // Every fixture starts with `i32.const 0`; pin the diagnostic to the following call_indirect opcode itself.
+        auto const* const opcode{body.begin + 2uz};
+        return *opcode == ::std::byte{0x11u} && err.err_code == expected && err.err_curr == opcode;
     }
 }
 
@@ -144,19 +156,24 @@ int main()
     auto const invalid_type_overflowing{parse(invalid_type_overflowing_table_module, wasm1p1_policy)};
     if(validate(canonical, wasm1p1_policy).err_code != error_code::ok) { return 1; }
     if(validate(nonminimal, wasm1p1_policy).err_code != error_code::ok) { return 2; }
-    if(validate_wasm1(canonical) != error_code::ok) { return 3; }
-    if(validate_wasm1(nonminimal) != error_code::invalid_table_index) { return 4; }
+    if(validate_wasm1(canonical).err_code != error_code::ok) { return 3; }
+    if(!is_call_indirect_error_at_opcode(nonminimal, validate_wasm1(nonminimal), error_code::invalid_table_index)) { return 4; }
 
     auto mvp_policy{wasm1p1_policy};
     ::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(mvp_policy).cli_mode = cli_mode::direct_mvp;
-    if(validate(nonminimal, mvp_policy).err_code != error_code::invalid_table_index) { return 5; }
-    if(validate(invalid_type_nonzero, mvp_policy).err_code != error_code::invalid_table_index) { return 14; }
+    if(!is_call_indirect_error_at_opcode(nonminimal, validate(nonminimal, mvp_policy), error_code::invalid_table_index)) { return 5; }
+    if(!is_call_indirect_error_at_opcode(
+           invalid_type_nonzero, validate(invalid_type_nonzero, mvp_policy), error_code::invalid_table_index))
+    { return 14; }
 
     auto wasm2_policy{wasm1p1_policy};
     auto& wasm2_para{::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(wasm2_policy)};
     wasm2_para.cli_mode = cli_mode::direct_wasm2;
     if(validate(nonminimal, wasm2_policy).err_code != error_code::ok) { return 6; }
-    if(validate(invalid_type_overflowing, wasm2_policy).err_code != error_code::invalid_table_index) { return 15; }
+    if(!is_call_indirect_error_at_opcode(invalid_type_overflowing,
+                                         validate(invalid_type_overflowing, wasm2_policy),
+                                         error_code::invalid_table_index))
+    { return 15; }
 
     fs_para_t unspecified_policy{};
     if(validate_explicit_wasm2(nonminimal, unspecified_policy).err_code != error_code::ok) { return 7; }
@@ -169,12 +186,17 @@ int main()
        ::uwvm2::parser::wasm::base::wasm2_feature_kind::multiple_tables)
     { return 10; }
     if(disabled_error.err_selectable.wasm2_feature_required.value != 0x11u) { return 11; }
-    if(validate(invalid_type_nonzero, wasm2_policy).err_code != error_code::illegal_type_index) { return 16; }
+    if(!is_call_indirect_error_at_opcode(nonzero, disabled_error, error_code::wasm2_feature_required)) { return 17; }
+    if(!is_call_indirect_error_at_opcode(
+           invalid_type_nonzero, validate(invalid_type_nonzero, wasm2_policy), error_code::illegal_type_index))
+    { return 16; }
 
     unspecified_policy = wasm2_policy;
     ::uwvm2::parser::wasm::standard::wasm1p1::features::get_wasm1p1_parameter(unspecified_policy).cli_mode =
         cli_mode::unspecified;
     if(validate_explicit_wasm2(nonminimal, unspecified_policy).err_code != error_code::ok) { return 12; }
-    if(validate_explicit_wasm2(nonzero, unspecified_policy).err_code != error_code::wasm2_feature_required) { return 13; }
+    if(!is_call_indirect_error_at_opcode(
+           nonzero, validate_explicit_wasm2(nonzero, unspecified_policy), error_code::wasm2_feature_required))
+    { return 13; }
     return 0;
 }
