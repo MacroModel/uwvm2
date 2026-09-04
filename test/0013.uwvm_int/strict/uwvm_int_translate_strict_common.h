@@ -26,8 +26,10 @@
 # include <uwvm2/parser/wasm/base/impl.h>
 # include <uwvm2/parser/wasm/standard/wasm1/opcode/mvp.h>
 # include <uwvm2/parser/wasm/standard/wasm1p1/opcode/additions.h>
-# include <uwvm2/runtime/compiler/uwvm_int/compile_all_from_uwvm/translate.h>
-# include <uwvm2/runtime/compiler/uwvm_int/optable/storage.h>
+# if !defined(UWVM2TEST_STRICT_NO_INTERPRETER)
+#  include <uwvm2/runtime/compiler/uwvm_int/compile_all_from_uwvm/translate.h>
+#  include <uwvm2/runtime/compiler/uwvm_int/optable/storage.h>
+# endif
 # include <uwvm2/uwvm/io/impl.h>
 # include <uwvm2/uwvm/runtime/initializer/init.h>
 # include <uwvm2/uwvm/imported/wasi/wasip1/impl.h>
@@ -70,11 +72,12 @@ namespace uwvm2test::uwvm_int_strict
     using wasm_value_type = ::uwvm2::parser::wasm::standard::wasm1::type::value_type;
     using wasm_feature_parameter_t = ::uwvm2::uwvm::wasm::feature::wasm_binfmt_ver1_feature_parameter_storage_t;
 
-    namespace compiler = ::uwvm2::runtime::compiler::uwvm_int::compile_all_from_uwvm;
-    namespace optable = ::uwvm2::runtime::compiler::uwvm_int::optable;
-
     using runtime_module_t = ::uwvm2::uwvm::runtime::storage::wasm_module_storage_t;
     using runtime_local_func_t = ::uwvm2::uwvm::runtime::storage::local_defined_function_storage_t;
+
+#if !defined(UWVM2TEST_STRICT_NO_INTERPRETER)
+    namespace compiler = ::uwvm2::runtime::compiler::uwvm_int::compile_all_from_uwvm;
+    namespace optable = ::uwvm2::runtime::compiler::uwvm_int::optable;
 
     using compiled_module_t = optable::uwvm_interpreter_full_function_symbol_t;
     using compiled_local_func_t = optable::local_func_storage_t;
@@ -102,6 +105,7 @@ namespace uwvm2test::uwvm_int_strict
         optable::trap_integer_overflow_func = strict_trap_unexpected;
         optable::trap_table_out_of_bounds_func = strict_trap_unexpected;
     }
+#endif
 
     [[nodiscard]] constexpr ::std::uint8_t u8(wasm_op op) noexcept
     {
@@ -298,6 +302,7 @@ namespace uwvm2test::uwvm_int_strict
         }
     }
 
+#if !defined(UWVM2TEST_STRICT_NO_INTERPRETER)
     template <::std::size_t IntSlots, ::std::size_t FloatSlots, bool ShareV128 = false>
     [[nodiscard]] consteval optable::uwvm_interpreter_translate_option_t make_tailcall_hardfloat_abi_opt() noexcept
     {
@@ -420,6 +425,7 @@ namespace uwvm2test::uwvm_int_strict
             return {};
         }
     }
+#endif
 
     [[nodiscard]] inline bool abi_mode_enabled(char const* token) noexcept
     {
@@ -1242,6 +1248,7 @@ namespace uwvm2test::uwvm_int_strict
     }
 #endif
 
+#if !defined(UWVM2TEST_STRICT_NO_INTERPRETER)
     template <optable::uwvm_interpreter_translate_option_t CompileOption>
     struct interpreter_runner
     {
@@ -1360,6 +1367,7 @@ namespace uwvm2test::uwvm_int_strict
 #endif
         }
     };
+#endif
 
     [[nodiscard]] inline ::std::int32_t load_i32(byte_vec const& b, ::std::size_t off = 0uz) noexcept
     {
