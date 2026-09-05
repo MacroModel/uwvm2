@@ -22,6 +22,7 @@
 module;
 
 // std
+#include <concepts>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
