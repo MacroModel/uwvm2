@@ -489,6 +489,44 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::wasm::loader
                                                                                 reinterpret_cast<::std::byte const*>(utf8pos),
                                                                                 reinterpret_cast<::std::byte const*>(wd.module_name.cend())};
 
+#  ifdef UWVM2_USE_HUGE_FAST_IO_CPO_OUTPUT
+                // Original wide CPO call: may improve output throughput at higher compile-time and memory cost.
+                // Output the main information and memory indication
+                ::fast_io::io::perr(::uwvm2::uwvm::io::u8log_output,
+                                    // 1
+                                    ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL_AND_SET_WHITE),
+                                    u8"uwvm: ",
+                                    ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RED),
+                                    u8"[error] ",
+                                    ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                    u8"Parsing error in DL \"",
+                                    ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                    load_file_name,
+                                    ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                    u8"\".\n"
+                                    // 2
+                                    u8"uwvm: ",
+                                    ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RED),
+                                    u8"[error] ",
+                                    ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                    u8"(offset=",
+                                    ::fast_io::mnp::addrvw(utf8pos - wd.module_name.cbegin()),
+                                    u8") Module Name Is Invalid Character Sequence. Reason: \"",
+                                    ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                    ::uwvm2::utils::utf::get_utf_error_description<char8_t>(utf8err),
+                                    ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                    u8"\".\n"
+                                    // 3
+                                    u8"uwvm: ",
+                                    ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_LT_GREEN),
+                                    u8"[info]  ",
+                                    ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                    u8"Parser Memory Indication: ",
+                                    memory_printer,
+                                    ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL),
+                                    u8"\n\n");
+#  else
+                // Smaller CPO argument packs reduce compilation cost; one lock keeps the split record atomic.
                 // Keep this multi-part record atomic while bounding each perr variadic instantiation.
                 {
                     auto u8log_output_osr{::fast_io::operations::output_stream_ref(::uwvm2::uwvm::io::u8log_output)};
@@ -532,6 +570,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::wasm::loader
                                         ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL),
                                         u8"\n\n");
                 }
+#  endif
 # endif
 
                 return load_dl_rtl::parse_error;
@@ -764,6 +803,47 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::wasm::loader
                                                                                             reinterpret_cast<::std::byte const*>(utf8pos),
                                                                                             reinterpret_cast<::std::byte const*>(custom_name.cend())};
 
+#  ifdef UWVM2_USE_HUGE_FAST_IO_CPO_OUTPUT
+                            // Original wide CPO call: may improve output throughput at higher compile-time and memory cost.
+                            // Output the main information and memory indication
+                            ::fast_io::io::perr(::uwvm2::uwvm::io::u8log_output,
+                                                // 1
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL_AND_SET_WHITE),
+                                                u8"uwvm: ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                u8"[warn]  ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"Parsing error in DL \"",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                load_file_name,
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"\".",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_ORANGE),
+                                                u8" (dl)\n",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                // 2
+                                                u8"uwvm: ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                u8"[warn]  ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"(offset=",
+                                                ::fast_io::mnp::addrvw(utf8pos - custom_name.cbegin()),
+                                                u8") Custom Name Is Invalid Character Sequence. Reason: \"",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                ::uwvm2::utils::utf::get_utf_error_description<char8_t>(utf8err),
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"\".\n"
+                                                // 3
+                                                u8"uwvm: ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_LT_GREEN),
+                                                u8"[info]  ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"Parser Memory Indication: ",
+                                                memory_printer,
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL),
+                                                u8"\n");
+#  else
+                            // Smaller CPO argument packs reduce compilation cost; one lock keeps the split record atomic.
                             // Keep this multi-part record atomic while bounding each perr variadic instantiation.
                             {
                                 auto u8log_output_osr{::fast_io::operations::output_stream_ref(::uwvm2::uwvm::io::u8log_output)};
@@ -810,6 +890,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::wasm::loader
                                                     ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL),
                                                     u8"\n");
                             }
+#  endif
 
                             if(::uwvm2::uwvm::io::dl_warning_fatal) [[unlikely]]
                             {
@@ -888,6 +969,37 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::wasm::loader
 # ifndef UWVM_DISABLE_OUTPUT_WHEN_PARSE
                         if(::uwvm2::uwvm::io::show_dl_warning)
                         {
+#  ifdef UWVM2_USE_HUGE_FAST_IO_CPO_OUTPUT
+                            // Original wide CPO call: may improve output throughput at higher compile-time and memory cost.
+                            // Output the main information and memory indication
+                            ::fast_io::io::perr(::uwvm2::uwvm::io::u8log_output,
+                                                // 1
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL_AND_SET_WHITE),
+                                                u8"uwvm: ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                u8"[warn]  ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"Parsing error in DL \"",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                load_file_name,
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"\".",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_ORANGE),
+                                                u8" (dl)\n",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                // 2
+                                                u8"uwvm: ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                u8"[warn]  ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"Duplicate custom section handler: \"",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                custom_name,
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"\".\n",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL));
+#  else
+                            // Smaller CPO argument packs reduce compilation cost; one lock keeps the split record atomic.
                             // Keep this multi-part record atomic while bounding each perr variadic instantiation.
                             {
                                 auto u8log_output_osr{::fast_io::operations::output_stream_ref(::uwvm2::uwvm::io::u8log_output)};
@@ -923,6 +1035,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::wasm::loader
                                                     u8"\".\n",
                                                     ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL));
                             }
+#  endif
 
                             if(::uwvm2::uwvm::io::dl_warning_fatal) [[unlikely]]
                             {
@@ -1154,6 +1267,47 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::wasm::loader
                                                                                             reinterpret_cast<::std::byte const*>(utf8pos),
                                                                                             reinterpret_cast<::std::byte const*>(func_name.cend())};
 
+#  ifdef UWVM2_USE_HUGE_FAST_IO_CPO_OUTPUT
+                            // Original wide CPO call: may improve output throughput at higher compile-time and memory cost.
+                            // Output the main information and memory indication
+                            ::fast_io::io::perr(::uwvm2::uwvm::io::u8log_output,
+                                                // 1
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL_AND_SET_WHITE),
+                                                u8"uwvm: ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                u8"[warn]  ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"Parsing error in DL \"",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                load_file_name,
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"\".",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_ORANGE),
+                                                u8" (dl)\n",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                // 2
+                                                u8"uwvm: ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                u8"[warn]  ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"(offset=",
+                                                ::fast_io::mnp::addrvw(utf8pos - func_name.cbegin()),
+                                                u8") Function Name Is Invalid Character Sequence. Reason: \"",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                ::uwvm2::utils::utf::get_utf_error_description<char8_t>(utf8err),
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"\".\n"
+                                                // 3
+                                                u8"uwvm: ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_LT_GREEN),
+                                                u8"[info]  ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"Parser Memory Indication: ",
+                                                memory_printer,
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL),
+                                                u8"\n");
+#  else
+                            // Smaller CPO argument packs reduce compilation cost; one lock keeps the split record atomic.
                             // Keep this multi-part record atomic while bounding each perr variadic instantiation.
                             {
                                 auto u8log_output_osr{::fast_io::operations::output_stream_ref(::uwvm2::uwvm::io::u8log_output)};
@@ -1200,6 +1354,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::wasm::loader
                                                     ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL),
                                                     u8"\n");
                             }
+#  endif
 
                             if(::uwvm2::uwvm::io::dl_warning_fatal) [[unlikely]]
                             {
@@ -1228,6 +1383,34 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::wasm::loader
 # ifndef UWVM_DISABLE_OUTPUT_WHEN_PARSE
                         if(::uwvm2::uwvm::io::show_dl_warning)
                         {
+#  ifdef UWVM2_USE_HUGE_FAST_IO_CPO_OUTPUT
+                            // Original wide CPO call: may improve output throughput at higher compile-time and memory cost.
+                            ::fast_io::io::perr(::uwvm2::uwvm::io::u8log_output,
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL_AND_SET_WHITE),
+                                                u8"uwvm: ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                u8"[warn]  ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"Parsing error in DL \"",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                load_file_name,
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"\".",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_ORANGE),
+                                                u8" (dl)\n",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"uwvm: ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                u8"[warn]  ",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"Duplicate function: \"",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_YELLOW),
+                                                func_name,
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_WHITE),
+                                                u8"\".\n",
+                                                ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL));
+#  else
+                            // Smaller CPO argument packs reduce compilation cost; one lock keeps the split record atomic.
                             // Keep this multi-part record atomic while bounding each perr variadic instantiation.
                             {
                                 auto u8log_output_osr{::fast_io::operations::output_stream_ref(::uwvm2::uwvm::io::u8log_output)};
@@ -1263,6 +1446,7 @@ UWVM_MODULE_EXPORT namespace uwvm2::uwvm::wasm::loader
                                                     u8"\".\n",
                                                     ::fast_io::mnp::cond(::uwvm2::uwvm::utils::ansies::put_color, UWVM_COLOR_U8_RST_ALL));
                             }
+#  endif
 
                             if(::uwvm2::uwvm::io::dl_warning_fatal) [[unlikely]]
                             {
