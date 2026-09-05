@@ -2,7 +2,7 @@
 
 This directory contains the fast_io library payload imported from the local
 `fast_io_new` repository at commit
-`f2d37fbd99187d25adf68b9afbcc32fce391c92c` on 2026-09-05.
+`5a51c43e78ba700b87766b5c6a6f91746304a104` on 2026-09-05.
 
 The imported payload consists of `include/`, `share/`, `.clang-format`, and
 `license.txt`. Upstream build outputs, tests, benchmarks, Git metadata, and local
