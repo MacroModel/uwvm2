@@ -1,5 +1,16 @@
 ﻿#pragma once
 
+/*
+ * String-like destination protocols for IO materialization (CPO level).
+ *
+ * Concat and related operations use these concepts to construct, resize,
+ * append to, or write directly into an arbitrary string result. The basic
+ * `strlike` capability establishes result construction; stronger concepts
+ * advertise buffer access, exact resize/overwrite, SSO, initialization, and
+ * deferred-commit safety. These are destination capabilities, not format
+ * syntax and not printable source-object protocols.
+ */
+
 namespace fast_io
 {
 
@@ -61,6 +72,22 @@ concept range_constructible_strlike =
 	::std::integral<char_type> && ::fast_io::details::strlike_result_object<T> &&
 	requires(char_type const *first) {
 		{ strlike_construct_define(io_strlike_type<char_type, T>, first, first) } -> ::std::same_as<T>;
+	};
+
+/// @brief Proves that a scan target's ordinary token result may be range-constructed from one C-space-free fragment.
+/// @details The target provider promises that, from its initial state, scanning a nonempty complete fragment containing
+///          no C whitespace through EOF has exactly the same value and externally visible effects as constructing `T`
+///          from that full character range. This is deliberately separate from the source marker: neither side alone
+///          may bypass the context protocol, and unmarked/custom targets retain ordinary scanning.
+template <typename char_type, typename T>
+concept c_space_free_fragment_constructible_scan_target =
+	::std::integral<char_type> &&
+	::fast_io::range_constructible_strlike<char_type, ::std::remove_cvref_t<T>> &&
+	requires {
+		{
+			scan_c_space_free_fragment_constructible(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
+		} -> ::std::same_as<::std::true_type>;
 	};
 
 /// @brief Defines the construction/storage boundary for a string-like concat result.
@@ -231,15 +258,37 @@ concept buffered_print_preferred_strlike = strlike<char_type, T> && requires {
 	} -> ::std::same_as<::std::true_type>;
 };
 
+/// @brief Selects direct construction for one fixed decimal scalar on an audited fresh result.
+/// @details String-like syntax proves neither that incremental append is cheaper than stack staging plus range
+///          construction nor that a default result's adapter preserves the complete print protocol.  This exact-
+///          `true_type` destination marker is therefore both a cost and semantic opt-in.  For a fresh `T` and the
+///          admitted single scalar, the provider promises that running the complete associated-adapter dispatcher---
+///          including line, status, mutex, exception, and destructor-based commit behavior---is observationally
+///          equivalent to reserve materialization followed by range construction, while normally being cheaper.
+///          Concat separately proves the exact source shape, adapter callability, and adapter-before-result lifetime.
+///          The marker grants no access to spare capacity and does not apply to an existing destination object.
+/// @fn      strlike_concat_fresh_fixed_scalar_direct_preferred
+/// @return  std::true_type
+template <typename char_type, typename T>
+concept concat_fresh_fixed_scalar_direct_preferred_strlike =
+	strlike<char_type, T> && requires {
+		{
+			strlike_concat_fresh_fixed_scalar_direct_preferred(
+				io_strlike_type<char_type, T>)
+		} -> ::std::same_as<::std::true_type>;
+	};
+
 /// @brief Marks an underlying buffer-string protocol whose put-area cursor publications may be folded.
 /// @details Structural buffer conformance proves only that cursor and reserve expressions exist. It cannot prove that
 ///          the area stays put between raw writes, that `strlike_set_curr` has no effect beyond publishing the cursor,
 ///          or that output/status/locking customizations associated with `T` are observationally equivalent to direct
 ///          scatter copies. This explicit opt-in supplies those output-side facts to
 ///          `io_strlike_reference_wrapper`; the range strategy still requires independent source-side lifetime,
-///          cursor-independence, and direct-print-equivalence proofs. Keeping the marker on `T` is important because a
-///          class template argument contributes its namespace to ADL: a blanket wrapper marker would silently certify
-///          user-defined hooks which the wrapper itself cannot inspect or exclude.
+///          cursor-independence, and direct-print-equivalence proofs. The promise also covers exceptional destruction:
+///          if a strategy has written a suffix but has not yet published its logical cursor, destroying `T` must remain
+///          valid even when those raw writes replaced the previously published terminator. Keeping the marker on `T` is
+///          important because a class template argument contributes its namespace to ADL: a blanket wrapper marker
+///          would silently certify user-defined hooks which the wrapper itself cannot inspect or exclude.
 /// @fn      strlike_deferred_obuffer_commit_safe
 /// @return  std::true_type
 template <typename char_type, typename T>
@@ -296,6 +345,23 @@ concept runtime_deferred_obuffer_commit_safe_strlike =
 	runtime_buffer_strlike<char_type, T> && requires {
 		{
 			strlike_runtime_deferred_obuffer_commit_safe(io_strlike_type<char_type, T>)
+		} -> ::std::same_as<::std::true_type>;
+	};
+
+/// @brief Certifies a fresh result for one exact reserve followed by one runtime cursor publication.
+/// @details Runtime put-area shape and deferred-commit safety do not prove that a default result is logically empty or
+///          that writing its complete requested range is equivalent to fresh concat construction. This explicit marker
+///          supplies those destination semantics: default construction establishes `begin == curr`, reserving the exact
+///          final extent preserves that empty prefix and exposes a writable range of at least that extent, and one final
+///          runtime cursor publication makes exactly the written prefix observable. Source relocation, exception, and
+///          exact-writer proofs remain independent requirements of the consuming concat strategy.
+/// @fn      strlike_concat_fresh_runtime_exact_direct_safe
+/// @return  std::true_type
+template <typename char_type, typename T>
+concept concat_fresh_runtime_exact_direct_strlike =
+	runtime_deferred_obuffer_commit_safe_strlike<char_type, T> && requires {
+		{
+			strlike_concat_fresh_runtime_exact_direct_safe(io_strlike_type<char_type, T>)
 		} -> ::std::same_as<::std::true_type>;
 	};
 

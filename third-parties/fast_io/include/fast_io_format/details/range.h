@@ -1,5 +1,15 @@
 ﻿#pragma once
 
+/*
+ * Range-format syntax and lowering support (FMT level).
+ *
+ * Range-specific presentations, separators, delimiters, element rules, and
+ * nested specifications are parsed and represented here. Accepted ranges are
+ * lowered compositionally into typed semantic/printable objects, so elements
+ * reuse the same format-rule protocol and the final record reuses the ordinary
+ * IO print or concat pipeline.
+ */
+
 #include "builtin_diagnostics.h"
 #include "custom.h"
 #include "debug.h"
@@ -594,14 +604,22 @@ inline constexpr void emit_range_components(
 		output, ::std::forward<argument_types>(arguments)...);
 }
 
+/**
+ * Transparent bridge from range-element selection to the core print decay boundary.
+ *
+ * The selected customization may return an identity-bearing lvalue proxy or an
+ * xvalue into storage which remains alive for the synchronous emission.  Preserve
+ * that exact value category here; only the downstream print transport is allowed
+ * to choose between borrowing the proxy and materializing an ABI value.
+ */
 template <::fast_io::fmt::format_character char_type, auto specification,
 		  typename source_type, typename argument_pack_type>
-[[nodiscard]] inline constexpr auto make_brace_range_element(
+[[nodiscard]] inline constexpr decltype(auto) make_brace_range_element(
 	source_type &&source, argument_pack_type &arguments);
 
 template <::fast_io::fmt::format_character char_type, typename source_type,
 		  typename argument_pack_type>
-[[nodiscard]] inline constexpr auto make_default_brace_range_element(
+[[nodiscard]] inline constexpr decltype(auto) make_default_brace_range_element(
 	source_type &&source, argument_pack_type &arguments)
 {
 	using clean_type = ::std::remove_cvref_t<source_type>;
@@ -667,7 +685,7 @@ template <::fast_io::fmt::format_character char_type, typename source_type,
 
 template <::fast_io::fmt::format_character char_type, auto specification,
 		  typename source_type, typename argument_pack_type>
-[[nodiscard]] inline constexpr auto make_brace_range_element(
+[[nodiscard]] inline constexpr decltype(auto) make_brace_range_element(
 	source_type &&source, argument_pack_type &arguments)
 {
 	if constexpr (adl_brace_range_element<char_type, specification, source_type>)

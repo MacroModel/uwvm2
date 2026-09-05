@@ -1,5 +1,16 @@
 ﻿#pragma once
 
+/*
+ * Hosted default-device bridge used by the public IO facade (IO level).
+ *
+ * This file exposes `in()`, `out()`, and `err()` and the small continuations
+ * that route source-free print/scan calls to native standard streams. It is
+ * where a hosted scenario acquires a concrete default endpoint; explicit-stream
+ * operations bypass this choice. Once selected, the endpoint enters the same
+ * stream-reference, mutex, status, formatting/scanning, and primitive-transfer
+ * pipeline as every other device.
+ */
+
 #if __has_include(<stdio.h>)
 #include "c/impl.h"
 #endif
@@ -100,11 +111,11 @@ namespace details
 {
 
 /// @brief Sends default-output source expressions through the shared pre-normalization constant gate.
-/// @details `print_after_io_print_forward` is the compatibility boundary for callers which already own normalized
-///          values. The public default-output front door still has the original source expressions and must not erase
-///          compiler-constant evidence before core print has made its optional strategy decision. Materialization CPOs
-///          admitted here are pure by the stronger source marker; a C stdout mutex is still acquired by the historical
-///          dispatcher after that local value transformation, and an unlocked status-print owner disables the strategy.
+/// @details `print_after_io_print_forward` is the sole owner for values already normalized by its caller. The public
+///          default-output front door still has the original source expressions and must not erase compiler-constant
+///          evidence before core print has made its optional strategy decision. Materialization CPOs admitted here are
+///          pure by the stronger source marker; a C stdout mutex is still acquired by the historical dispatcher after
+///          that local value transformation, and an unlocked status-print owner disables the strategy.
 template <bool line, typename... Args>
 // Tested GCC 13-16 do not inline this bridge at -O3 even when the public facade is
 // inlined. Keeping it outlined loses __builtin_constant_p evidence and turns
@@ -121,6 +132,8 @@ inline constexpr void print_after_source_pre_normalization(Args &&...args)
 #else
 	auto output{out()};
 #endif
+	// The library-owned default sink is a stable native lvalue, not an eligible
+	// temporary transcoder owner, so normalization alone is the correct boundary.
 	decltype(auto) outref{::fast_io::operations::output_stream_ref(output)};
 	::fast_io::operations::decay::
 		print_freestanding_compiler_constant_pre_normalization<line>(
@@ -131,10 +144,14 @@ template <bool line, typename... Args>
 inline constexpr void print_after_io_print_forward(Args... args)
 {
 #if __has_include(<stdio.h>)
-	::fast_io::operations::decay::print_freestanding_decay<line>(c_stdout(), args...);
+	auto output{c_stdout()};
 #else
-	::fast_io::operations::decay::print_freestanding_decay<line>(out(), args...);
+	auto output{out()};
 #endif
+	// `args...` are the normalized values owned by this compatibility frame. Re-entering the by-value decay shim would
+	// copy the complete pack and reject a valid move-only proxy. Naming the equally owned sink and borrowing both sides
+	// is exactly the core print invariant: every object outlives this synchronous stable-reference dispatch.
+	::fast_io::operations::decay::print_freestanding_decay_impl<line>(output, args...);
 }
 
 template <bool line, typename... Args>
@@ -144,10 +161,13 @@ template <bool line, typename... Args>
 inline constexpr void perr_after_io_print_forward(Args... args)
 {
 #if defined(__AVR__)
-	::fast_io::operations::decay::print_freestanding_decay<line>(c_stderr(), args...);
+	auto output{c_stderr()};
 #else
-	::fast_io::operations::decay::print_freestanding_decay<line>(err(), args...);
+	auto output{err()};
 #endif
+	// This cold frame owns the normalized diagnostic pack. A second owning boundary has no lifetime role and would add
+	// one whole-pack copy, so the named native-error observer and its arguments enter the reference dispatcher directly.
+	::fast_io::operations::decay::print_freestanding_decay_impl<line>(output, args...);
 }
 
 /// @brief Sends native-error source expressions through the constant gate while retaining the cold unknown path.
@@ -162,6 +182,8 @@ inline constexpr void perr_after_source_pre_normalization(Args &&...args)
 #else
 	auto output{err()};
 #endif
+	// Native stderr is a stable library-owned lvalue; checked temporary finish is
+	// neither applicable nor desirable at this default-device continuation.
 	decltype(auto) outref{::fast_io::operations::output_stream_ref(output)};
 	::fast_io::operations::decay::
 		print_freestanding_compiler_constant_pre_normalization_cold<line>(
@@ -173,16 +195,20 @@ inline constexpr void perr_after_source_pre_normalization(Args &&...args)
 ///          subsequent public perr frame. Type-only strategy admission and the optimizer query both precede output
 ///          normalization. Therefore a false result has touched neither the output object nor a source-normalization
 ///          CPO, and the cold fallback remains the sole owner of those observable operations. Only a proven true arm
-///          obtains the output reference and emits through it exactly once.
+///          obtains the output reference and emits through it exactly once. The explicitly supplied template argument
+///          types retain the public call's lifetime categories even though panic deliberately presents named lvalues
+///          to this probe.
 template <bool line, typename T, typename... Args>
 inline constexpr bool panic_try_compiler_constant_pre_normalization(
-	T &&t, Args &&...args)
+	::std::remove_reference_t<T> &t,
+	::std::remove_reference_t<Args> &...args)
 {
 	constexpr bool device_and_type_ok{
 		::fast_io::operations::defines::print_freestanding_okay_for_line<
 			line, T, Args...>};
 	if constexpr (device_and_type_ok)
 	{
+		// Only a valid explicit-device form may inspect constant-emission support.
 		using output_type = ::std::remove_cvref_t<decltype(
 			::fast_io::operations::output_stream_ref(
 				::std::declval<::std::remove_reference_t<T> &>()))>;
@@ -192,20 +218,24 @@ inline constexpr bool panic_try_compiler_constant_pre_normalization(
 				print_compiler_constant_pre_normalization_cold_codegen_supported<
 					output_type, Args &...>())
 		{
+			// Enter the optimized arm only when this toolchain supports its codegen.
 			if constexpr (
 				::fast_io::operations::decay::
 					print_compiler_constant_pre_normalization_available<
 						line, output_type, Args &...>())
 			{
+				// Require an exact constant strategy for the complete argument pack.
 				if (::fast_io::operations::decay::
 						print_compiler_constant_pre_normalization_gate<char_type>(
 							args...))
 				{
-					decltype(auto) outref{
-						::fast_io::operations::output_stream_ref(t)};
+					// Finish an eligible temporary only after optimized emission succeeds.
+					::fast_io::operations::basic_output_operation_guard<T &&> guard{t};
+					decltype(auto) outref{guard.ref()};
 					::fast_io::operations::decay::
 						print_compiler_constant_pre_normalization_true_emit_after_lock<line>(
 							outref, args...);
+					guard.commit();
 					return true;
 				}
 			}
@@ -214,6 +244,7 @@ inline constexpr bool panic_try_compiler_constant_pre_normalization(
 	}
 	else
 	{
+		// A non-device first argument may be payload for hosted native stderr.
 #if ((__STDC_HOSTED__ == 1 && (!defined(_GLIBCXX_HOSTED) || _GLIBCXX_HOSTED == 1) && !defined(_LIBCPP_FREESTANDING) && \
 	  !defined(__AVR__)) ||                                                                                            \
 	 defined(FAST_IO_ENABLE_HOSTED_FEATURES))
@@ -226,6 +257,7 @@ inline constexpr bool panic_try_compiler_constant_pre_normalization(
 				char, T, Args...>};
 		if constexpr (!device_ok && type_ok)
 		{
+			// Retry constant classification against the default error-stream domain.
 #if defined(__AVR__)
 			using output_owner = decltype(c_stderr());
 #else
@@ -240,20 +272,24 @@ inline constexpr bool panic_try_compiler_constant_pre_normalization(
 					print_compiler_constant_pre_normalization_cold_codegen_supported<
 						output_type, T &, Args &...>())
 			{
+				// Query the default-error path only on supported cold codegen.
 				if constexpr (
 					::fast_io::operations::decay::
 						print_compiler_constant_pre_normalization_available<
 							line, output_type, T &, Args &...>())
 				{
+					// Require a complete constant strategy before observing stderr.
 					if (::fast_io::operations::decay::
 							print_compiler_constant_pre_normalization_gate<char_type>(
 								t, args...))
 					{
+						// Emit once after the constant gate proves this hot arm valid.
 #if defined(__AVR__)
 						auto output{c_stderr()};
 #else
 						auto output{err()};
 #endif
+						// Default stderr is a stable native lvalue and needs no temporary guard.
 						decltype(auto) outref{
 							::fast_io::operations::output_stream_ref(output)};
 						::fast_io::operations::decay::
@@ -276,10 +312,13 @@ template <bool line, typename... Args>
 inline constexpr void debug_print_after_io_print_forward(Args... args)
 {
 #if defined(__AVR__)
-	::fast_io::operations::decay::print_freestanding_decay<line>(c_stdout(), args...);
+	auto output{c_stdout()};
 #else
-	::fast_io::operations::decay::print_freestanding_decay<line>(out(), args...);
+	auto output{out()};
 #endif
+	// Debug normalization has already produced and transferred ownership of every proxy into this cold frame. Borrowing
+	// the named sink and pack preserves that ownership through the complete call without reopening a copy boundary.
+	::fast_io::operations::decay::print_freestanding_decay_impl<line>(output, args...);
 }
 
 /// @brief Attempts only a cold-level-proved compiler-constant arm for the native debug sink.

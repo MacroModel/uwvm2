@@ -1,5 +1,15 @@
 ﻿#pragma once
 
+/*
+ * Conditional semantic record node (`cond`) for the CPO/semantic level.
+ *
+ * This node retains two alternative IO object graphs and a run-time selector;
+ * exactly one branch contributes to the active print/concat record. Branches
+ * are alias-normalized and stored with the same ownership rules as pack
+ * elements. Capacity and strategy planning must inspect only the selected
+ * branch, while neither branch is allowed to perform IO during construction.
+ */
+
 #include "forward.h"
 
 namespace fast_io
@@ -91,9 +101,14 @@ inline constexpr ::fast_io::details::cond_alias_type<T> cond_store(T &&t)
 namespace manipulators
 {
 
+/// @brief Identifies a semantic node that selects one of two printable arms at run time.
+/// @details The tag is consumed by print/concat planning and has no printable representation itself.
 struct condition_manip_tag_t
 {};
 
+/// @brief Stores two normalized printable alternatives and the predicate selecting the first arm.
+/// @details Both arms are constructed when the manipulator is created; only the selected arm is formatted. The factory
+///          may reverse physical member order to reduce padding while inversely adjusting `pred`, preserving semantics.
 template <typename T1, typename T2>
 struct condition
 {
@@ -120,6 +135,9 @@ struct condition
 	alias_type2 t2;
 };
 
+/// @brief Selects exactly one of two printable alternatives at formatting time.
+/// @details `pred == true` emits `t1`, otherwise `t2`. Both arguments are normalized and stored immediately, so their
+///          construction side effects occur regardless of which arm is later emitted. No separator is added.
 template <typename T1, typename T2>
 	requires(::fast_io::details::cond_alias_storable<T1> &&
 			 ::fast_io::details::cond_alias_storable<T2>)
@@ -135,6 +153,21 @@ inline constexpr auto cond(bool pred, T1 &&t1, T2 &&t2) noexcept(::fast_io::deta
 				  ::std::same_as<t2aliastype, ::fast_io::io_null_t>)
 	{
 		return ::fast_io::io_null;
+	}
+	else if constexpr (
+		::std::same_as<t1aliastype, t2aliastype> &&
+		!::std::is_reference_v<t1aliastype> &&
+		::std::is_trivially_copyable_v<t1aliastype> &&
+		::std::is_nothrow_move_constructible_v<t1aliastype>)
+	{
+		// The two normalized arms have one representation and no observable destruction. Construct both first so alias
+		// evaluation keeps the semantic node's ordering/effect rule, then return only the selected value. This collapses
+		// the common homogeneous condition before print planning without changing either argument's normalization.
+		t1aliastype first{
+			::fast_io::details::cond_store(::std::forward<T1>(t1))};
+		t2aliastype second{
+			::fast_io::details::cond_store(::std::forward<T2>(t2))};
+		return pred ? ::std::move(first) : ::std::move(second);
 	}
 	else if constexpr (
 		sizeof(condition<t2aliastype, t1aliastype>) <
@@ -156,6 +189,9 @@ inline constexpr auto cond(bool pred, T1 &&t1, T2 &&t2) noexcept(::fast_io::deta
 	}
 }
 
+/// @brief Conditionally emits one printable value or nothing.
+/// @details `pred == true` emits `t1`; `false` selects `io_null`. The argument is still normalized and stored when the
+///          manipulator is created.
 template <typename T1>
 	requires ::fast_io::details::cond_alias_storable<T1>
 inline constexpr auto cond(bool pred, T1 &&t1) noexcept(::fast_io::details::cond_alias_nothrow_constructible<T1>)

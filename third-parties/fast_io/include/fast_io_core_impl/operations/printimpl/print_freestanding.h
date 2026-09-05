@@ -1,5 +1,35 @@
 ﻿#pragma once
 
+/*
+ * Freestanding print execution pipeline (IO operation core).
+ *
+ * Upstream callers are either a public IO scenario facade or a lower-level
+ * caller with an explicit output. The public
+ * `operations::print_freestanding` entry validates the complete source record,
+ * obtains `output_stream_ref`, and preserves the original source expressions
+ * long enough for the pre-normalization compiler-constant query. Each value is
+ * then transformed exactly once by `io_print_alias` and
+ * `io_print_forward<output_char_type>`.
+ *
+ * The normalized record is expanded as semantic IO structure (`pack`, `cond`,
+ * `io_null`, and `width`), given stable owned-or-borrowed storage, synchronized
+ * through the stream mutex protocol, and offered first to a whole-record
+ * `status_print_define` customization. The generic continuation otherwise
+ * selects among reserve, dynamic-reserve, scatter, reserve-scatter,
+ * context-print, buffered/direct, and staged strategies before reaching the
+ * primitive write/obuffer operations.
+ *
+ * Namespace names describe normalization state rather than a simple height
+ * hierarchy: `operations` contains the public generic operation,
+ * `operations::defines` validates public expressions,
+ * `operations::decay` operates on normalized observers and values, and
+ * `operations::decay::defines` probes raw capabilities. Helpers named
+ * `print_freestanding_*` are continuations of this one operation, not additional
+ * public CPO entry points. `__builtin_constant_p` handling in this file is an IO
+ * code-generation policy; it is deliberately evaluated before aliasing so
+ * caller-expression evidence is not erased.
+ */
+
 #include "scatter_copy.h"
 
 namespace fast_io
@@ -7,15 +37,33 @@ namespace fast_io
 
 namespace manipulators
 {
+/// @brief Forward declaration of the explicit one-character semantic carrier.
+/// @details The complete type is supplied by the pointer/scatter manipulator layer.
 template <typename T>
 struct chvw_t;
 
+/// @brief Forward declaration of a borrowed character scatter with exact type-level extent.
+/// @details The complete type owns no characters.
 template <::std::integral char_type, ::std::size_t extent>
 struct static_scatter_t;
 
+/// @brief Forward declaration of a bounded C-string scatter used by compiler-constant planning.
+/// @details The complete type carries a run-time length no greater than `extent`.
 template <::std::integral char_type, ::std::size_t extent>
 struct bounded_cstr_scatter_t;
 } // namespace manipulators
+
+namespace details
+{
+template <::std::integral char_type, ::fast_io::details::my_unsigned_integral T>
+#if __has_cpp_attribute(__gnu__::__always_inline__)
+[[__gnu__::__always_inline__]]
+#elif __has_cpp_attribute(msvc::forceinline)
+[[msvc::forceinline]]
+#endif
+inline constexpr char_type *print_fixed_decimal_integral_define(char_type *, T) noexcept;
+
+} // namespace details
 
 namespace operations::decay
 {
@@ -27,6 +75,7 @@ print_semantic_optional_scatter_width_coalescing_plan_available() noexcept;
 
 namespace details::decay
 {
+
 
 /** Preserves the readable extent carried by a bounded C-string after formatting has measured its run-time length. */
 template <typename T>
@@ -208,13 +257,13 @@ template <::std::size_t count, ::std::integral char_type, typename... Args>
 	requires(count <= sizeof...(Args))
 struct print_first_n_contains_static_fragment
 	: ::std::bool_constant<[]() consteval {
-		  ::std::size_t position{};
-		  return (false || ... ||
-				  (position++ < count &&
-				   ::fast_io::details::decay::
-					   print_compiler_constant_static_fragment_proxy_traits<
-						   ::std::remove_cvref_t<Args>>::value));
-	  }()>
+		::std::size_t position{};
+		return (false || ... ||
+				(position++ < count &&
+				 ::fast_io::details::decay::
+					 print_compiler_constant_static_fragment_proxy_traits<
+						 ::std::remove_cvref_t<Args>>::value));
+	}()>
 {};
 
 /// @brief    Describes the first contiguous print run that can be represented by scatters and reserve buffers.
@@ -1237,7 +1286,7 @@ inline constexpr void print_write_all_materialized(
 	}
 	else
 	{
-		::fast_io::operations::decay::write_all_decay(
+		::fast_io::operations::decay::write_all_decay_dispatch(
 			outstm, first, last);
 	}
 }
@@ -1907,12 +1956,12 @@ inline constexpr bool print_scatter_write_all_bytes_try_repack_small(
 					{
 						// A single repacked byte range can bypass scatter output entirely.
 						auto first{static_cast<::std::byte const *>(out_scatters->base)};
-						::fast_io::operations::decay::write_all_bytes_decay(outstm, first,
+						::fast_io::operations::decay::write_all_bytes_decay_dispatch(outstm, first,
 																			first + out_scatters->len);
 						return;
 					}
 				}
-				::fast_io::operations::decay::scatter_write_all_bytes_decay(outstm, out_scatters, repacked_count);
+				::fast_io::operations::decay::scatter_write_all_bytes_decay_dispatch(outstm, out_scatters, repacked_count);
 			};
 
 			constexpr ::std::size_t stack_scatter_count{
@@ -2153,11 +2202,11 @@ inline constexpr bool print_scatter_write_all_try_repack_small(
 					{
 						// A single repacked character range can bypass scatter output entirely.
 						auto [base, len] = *out_scatters;
-						::fast_io::operations::decay::write_all_decay(outstm, base, base + len);
+						::fast_io::operations::decay::write_all_decay_dispatch(outstm, base, base + len);
 						return;
 					}
 				}
-				::fast_io::operations::decay::scatter_write_all_decay(outstm, out_scatters, repacked_count);
+				::fast_io::operations::decay::scatter_write_all_decay_dispatch(outstm, out_scatters, repacked_count);
 			};
 
 			constexpr ::std::size_t stack_scatter_count{
@@ -2221,7 +2270,7 @@ inline constexpr void print_scatter_write_all_bytes_maybe_coalesce(outputstmtype
 			}
 			else
 			{
-				::fast_io::operations::decay::write_all_bytes_decay(
+				::fast_io::operations::decay::write_all_bytes_decay_dispatch(
 					outstm, first, first + len);
 			}
 		}
@@ -2256,7 +2305,7 @@ inline constexpr void print_scatter_write_all_bytes_maybe_coalesce(outputstmtype
 					{
 						return;
 					}
-					::fast_io::operations::decay::scatter_write_all_bytes_decay(outstm, scatters, n);
+					::fast_io::operations::decay::scatter_write_all_bytes_decay_dispatch(outstm, scatters, n);
 					return;
 				}
 				if (len != 0)
@@ -2277,7 +2326,7 @@ inline constexpr void print_scatter_write_all_bytes_maybe_coalesce(outputstmtype
 				}
 				else
 				{
-					::fast_io::operations::decay::write_all_bytes_decay(
+					::fast_io::operations::decay::write_all_bytes_decay_dispatch(
 						outstm, first, curr);
 				}
 			}
@@ -2299,7 +2348,7 @@ inline constexpr void print_scatter_write_all_bytes_maybe_coalesce(outputstmtype
 					{
 						return;
 					}
-					::fast_io::operations::decay::scatter_write_all_bytes_decay(outstm, scatters, n);
+					::fast_io::operations::decay::scatter_write_all_bytes_decay_dispatch(outstm, scatters, n);
 					return;
 				}
 				total_size += len;
@@ -2325,7 +2374,7 @@ inline constexpr void print_scatter_write_all_bytes_maybe_coalesce(outputstmtype
 				}
 				else
 				{
-					::fast_io::operations::decay::write_all_bytes_decay(
+					::fast_io::operations::decay::write_all_bytes_decay_dispatch(
 						outstm, buffer.ptr, curr);
 				}
 			}
@@ -2337,7 +2386,7 @@ inline constexpr void print_scatter_write_all_bytes_maybe_coalesce(outputstmtype
 	{
 		return;
 	}
-	::fast_io::operations::decay::scatter_write_all_bytes_decay(outstm, scatters, n);
+	::fast_io::operations::decay::scatter_write_all_bytes_decay_dispatch(outstm, scatters, n);
 }
 
 /// @brief    Writes character scatter descriptors, optionally coalescing small scatter runs first.
@@ -2378,7 +2427,7 @@ inline constexpr void print_scatter_write_all_maybe_coalesce(
 			}
 			else
 			{
-				::fast_io::operations::decay::write_all_decay(
+				::fast_io::operations::decay::write_all_decay_dispatch(
 					outstm, base, base + len);
 			}
 		}
@@ -2411,7 +2460,7 @@ inline constexpr void print_scatter_write_all_maybe_coalesce(
 					{
 						return;
 					}
-					::fast_io::operations::decay::scatter_write_all_decay(outstm, scatters, n);
+					::fast_io::operations::decay::scatter_write_all_decay_dispatch(outstm, scatters, n);
 					return;
 				}
 				if (len != 0)
@@ -2431,7 +2480,7 @@ inline constexpr void print_scatter_write_all_maybe_coalesce(
 				}
 				else
 				{
-					::fast_io::operations::decay::write_all_decay(
+					::fast_io::operations::decay::write_all_decay_dispatch(
 						outstm, buffer, curr);
 				}
 			}
@@ -2450,7 +2499,7 @@ inline constexpr void print_scatter_write_all_maybe_coalesce(
 					{
 						return;
 					}
-					::fast_io::operations::decay::scatter_write_all_decay(outstm, scatters, n);
+					::fast_io::operations::decay::scatter_write_all_decay_dispatch(outstm, scatters, n);
 					return;
 				}
 				total_size += len;
@@ -2475,7 +2524,7 @@ inline constexpr void print_scatter_write_all_maybe_coalesce(
 				}
 				else
 				{
-					::fast_io::operations::decay::write_all_decay(
+					::fast_io::operations::decay::write_all_decay_dispatch(
 						outstm, buffer.ptr, curr);
 				}
 			}
@@ -2487,7 +2536,7 @@ inline constexpr void print_scatter_write_all_maybe_coalesce(
 	{
 		return;
 	}
-	::fast_io::operations::decay::scatter_write_all_decay(outstm, scatters, n);
+	::fast_io::operations::decay::scatter_write_all_decay_dispatch(outstm, scatters, n);
 }
 
 /// @brief Keeps the general no-scatter fallback out of the small run-time-plan caller's stack frame.
@@ -2541,7 +2590,7 @@ inline constexpr void print_runtime_scatter_plan_write(
 		auto const [base, len] = *scatters;
 		if (len != 0u)
 		{
-			::fast_io::operations::decay::write_all_decay(outstm, base, base + len);
+			::fast_io::operations::decay::write_all_decay_dispatch(outstm, base, base + len);
 		}
 		return;
 	}
@@ -2580,7 +2629,7 @@ inline constexpr void print_runtime_scatter_plan_write(
 		}
 		if (curr != buffer)
 		{
-			::fast_io::operations::decay::write_all_decay(outstm, buffer, curr);
+			::fast_io::operations::decay::write_all_decay_dispatch(outstm, buffer, curr);
 		}
 		return;
 	}
@@ -2617,14 +2666,58 @@ template <typename outputstmtype, typename scatter_type>
 inline constexpr void print_scatter_write_all_preserving_static_fragments(
 	outputstmtype &outstm, scatter_type const *scatters, ::std::size_t n)
 {
+	// A single retained descriptor can preserve its source pointer while using the
+	// scalar write CPO.  For a short multi-descriptor run there is no single source
+	// pointer to preserve; use the destination's ordinary coalescing policy so
+	// direct sinks still get one write (and retain writev for thresholds of zero or
+	// oversized payloads).  This keeps the static-fragment identity guarantee for
+	// the only observable single-source case without forcing every small literal
+	// record through scatter_write_all.
+	if (n == 1u)
+	{
+		if constexpr (::std::same_as<scatter_type, ::fast_io::io_scatter_t>)
+		{
+			if constexpr (::fast_io::details::decay::print_has_preferred_direct_write_bytes_operations<outputstmtype>)
+			{
+				if (scatters[0].len != 0u)
+				{
+					auto const first{
+						static_cast<::std::byte const *>(scatters[0].base)};
+					::fast_io::details::decay::print_write_all_bytes_direct(
+						outstm, first, first + scatters[0].len);
+				}
+				return;
+			}
+		}
+		else if constexpr (::fast_io::details::decay::print_has_preferred_direct_write_operations<outputstmtype>)
+		{
+			if (scatters[0].len != 0u)
+			{
+				::fast_io::details::decay::print_write_all_direct(
+					outstm, scatters[0].base, scatters[0].base + scatters[0].len);
+			}
+			return;
+		}
+	}
+	if (n > 1u)
+	{
+		using char_type = typename outputstmtype::output_char_type;
+		constexpr ::std::size_t threshold{
+			::fast_io::details::decay::print_scatter_direct_full_output_coalesce_threshold<char_type, outputstmtype>()};
+		if constexpr (threshold != 0u)
+		{
+			::fast_io::details::decay::print_scatter_write_all_dispatch(outstm, scatters, n);
+			return;
+		}
+	}
 	if constexpr (::std::same_as<scatter_type, ::fast_io::io_scatter_t>)
 	{
-		::fast_io::operations::decay::scatter_write_all_bytes_decay(
+		::fast_io::operations::decay::scatter_write_all_bytes_decay_dispatch(
 			outstm, scatters, n);
 	}
 	else
 	{
-		::fast_io::operations::decay::scatter_write_all_decay(
+		::fast_io::operations::decay::scatter_write_all_decay_dispatch(
 			outstm, scatters, n);
 	}
 }
@@ -3118,7 +3211,8 @@ inline constexpr bool print_retained_buffered_reserve_scatters_lifetime_v =
 ///          by this implementation to be non-throwing preserves that boundary while still permitting stateful or
 ///          consuming producers: they are invoked once, from left to right, and are never replayed.
 template <::std::integral char_type, typename T>
-inline constexpr bool print_retained_buffered_reserve_scatters_nothrow_v = []() constexpr {
+inline consteval bool print_retained_buffered_reserve_scatters_nothrow() noexcept
+{
 	if constexpr (!::fast_io::details::decay::print_retained_buffered_reserve_scatters_capability_v<
 					  char_type, T>)
 	{
@@ -3128,16 +3222,33 @@ inline constexpr bool print_retained_buffered_reserve_scatters_nothrow_v = []() 
 	{
 		using value_type =
 			::fast_io::details::decay::print_runtime_scatter_plan_unwrapped_t<T &>;
-		return requires(T &arg, ::fast_io::basic_io_scatter_t<char_type> *scatters,
-						char_type *reserve) {
-			{
-				print_reserve_scatters_define(
-					::fast_io::io_reserve_type<char_type, value_type>, scatters, reserve,
-					::fast_io::details::decay::print_runtime_scatter_plan_unwrap(arg))
-			} noexcept -> ::std::same_as<::fast_io::basic_reserve_scatters_define_result<char_type>>;
-		};
+		// The capability concept above already proves that this exact named-lvalue CPO is well-formed and has the
+		// required result type. Querying its two effects directly avoids a Clang 17 constant-evaluation defect for a
+		// requires-expression returned from an immediately invoked variable-template lambda; no protocol constraint is
+		// weakened because the expression category below is identical to the materializer's `unwrap(t)` call.
+#if defined(__HERBCEPTIONS__)
+		if constexpr (throws((print_reserve_scatters_define(
+				::fast_io::io_reserve_type<char_type, value_type>,
+				::std::declval<::fast_io::basic_io_scatter_t<char_type> *>(),
+				::std::declval<char_type *>(),
+				::fast_io::details::decay::print_runtime_scatter_plan_unwrap(::std::declval<T &>())))))
+		{
+			// Formal safety obligation: a retained producer may be reordered only when its deterministic error channel
+			// is empty independently of the traditional C++ exception channel checked below.
+			return false;
+		}
+#endif
+		return noexcept(print_reserve_scatters_define(
+			::fast_io::io_reserve_type<char_type, value_type>,
+			::std::declval<::fast_io::basic_io_scatter_t<char_type> *>(),
+			::std::declval<char_type *>(),
+			::fast_io::details::decay::print_runtime_scatter_plan_unwrap(::std::declval<T &>())));
 	}
-}();
+}
+
+template <::std::integral char_type, typename T>
+inline constexpr bool print_retained_buffered_reserve_scatters_nothrow_v =
+	::fast_io::details::decay::print_retained_buffered_reserve_scatters_nothrow<char_type, T>();
 
 /// @brief Proves that one retained component has an exact, non-throwing byte-descriptor materializer.
 /// @details `noexcept` proves only that deferring this call cannot move an exception past earlier output. It does not
@@ -3146,27 +3257,44 @@ inline constexpr bool print_retained_buffered_reserve_scatters_nothrow_v = []() 
 ///          real `io_scatter_t` objects. Absence of that refinement deliberately returns false; the caller then builds
 ///          one typed aggregate and invokes the producer's original typed CPO without descriptor conversion.
 template <::std::integral char_type, typename T>
-inline constexpr bool print_retained_buffered_reserve_scatters_exact_byte_nothrow_v = []() constexpr {
+inline consteval bool print_retained_buffered_reserve_scatters_exact_byte_nothrow() noexcept
+{
 	using value_type =
 		::fast_io::details::decay::print_runtime_scatter_plan_unwrapped_t<T &>;
 	using value_expression =
 		::fast_io::details::decay::print_runtime_scatter_plan_unwrapped_expression_t<T &>;
 	if constexpr (::fast_io::reserve_scatters_bytes_printable<char_type, value_expression>)
 	{
-		return requires(value_expression value, ::fast_io::io_scatter_t *scatters,
-						char_type *reserve) {
-			{
-				print_reserve_scatters_bytes_define(
-					::fast_io::io_reserve_type<char_type, value_type>, scatters, reserve, value)
-			} noexcept -> ::std::same_as<
-				::fast_io::basic_reserve_scatters_bytes_define_result<char_type>>;
-		};
+		// Model the named `decltype(auto) value` in the materializer, including cv-qualification, without changing the
+		// phase-one owner into a reference. The capability proof makes the direct effect query substitution-safe and
+		// avoids the same Clang 17 requires-expression constant-evaluation defect as the typed path above.
+		using named_value_expression =
+			::std::add_lvalue_reference_t<::std::remove_reference_t<value_expression>>;
+#if defined(__HERBCEPTIONS__)
+		if constexpr (throws((print_reserve_scatters_bytes_define(
+				  ::fast_io::io_reserve_type<char_type, value_type>,
+				  ::std::declval<::fast_io::io_scatter_t *>(), ::std::declval<char_type *>(),
+				  ::std::declval<named_value_expression>()))))
+		{
+			// A deferred byte producer must also have an empty deterministic error channel; `noexcept` alone does not
+			// establish that Herbceptions obligation.
+			return false;
+		}
+#endif
+		return noexcept(print_reserve_scatters_bytes_define(
+			::fast_io::io_reserve_type<char_type, value_type>,
+			::std::declval<::fast_io::io_scatter_t *>(), ::std::declval<char_type *>(),
+			::std::declval<named_value_expression>()));
 	}
 	else
 	{
 		return false;
 	}
-}();
+}
+
+template <::std::integral char_type, typename T>
+inline constexpr bool print_retained_buffered_reserve_scatters_exact_byte_nothrow_v =
+	::fast_io::details::decay::print_retained_buffered_reserve_scatters_exact_byte_nothrow<char_type, T>();
 
 /// @brief Proves exact byte-plan availability and exception safety for the selected leading component count.
 /// @details Prefix length is a strategy result and can be shorter than the argument pack. Recursing on the explicit
@@ -3722,7 +3850,7 @@ inline constexpr void print_context_define_to_window(outputstmtype &outstm, cont
 				*resit = ::fast_io::char_literal_v<u8'\n', char_type>;
 				++resit;
 			}
-			::fast_io::operations::decay::write_all_decay(outstm, buffer, resit);
+			::fast_io::operations::decay::write_all_decay_dispatch(outstm, buffer, resit);
 			if (done)
 			{
 				// The final line-terminated context window has been written.
@@ -3732,7 +3860,7 @@ inline constexpr void print_context_define_to_window(outputstmtype &outstm, cont
 		else
 		{
 			// The non-line variant writes each produced context window without adding characters.
-			::fast_io::operations::decay::write_all_decay(outstm, buffer, resit);
+			::fast_io::operations::decay::write_all_decay_dispatch(outstm, buffer, resit);
 			if (done)
 			{
 				// The final context window has been written.
@@ -3806,9 +3934,9 @@ inline constexpr void obuffer_set_curr(
 
 template <::std::integral char_type, typename output_type>
 [[nodiscard]] inline constexpr ::std::true_type
-print_deferred_obuffer_commit_safe(
-	::fast_io::io_reserve_type_t<
-		char_type, print_single_pass_staging_ref<char_type, output_type>>) noexcept
+	print_deferred_obuffer_commit_safe(
+		::fast_io::io_reserve_type_t<
+			char_type, print_single_pass_staging_ref<char_type, output_type>>) noexcept
 {
 	// The adapter owns one stable caller-provided array. Cursor publication is a
 	// plain state update until an explicit overflow/final flush reaches the sink.
@@ -3828,7 +3956,7 @@ inline constexpr void print_single_pass_staging_flush(
 	}
 	char_type *const last{state.current};
 	state.external_write_active = true;
-	::fast_io::operations::decay::write_all_decay(
+	::fast_io::operations::decay::write_all_decay_dispatch(
 		*state.output, state.begin, last);
 	state.external_write_active = false;
 	state.current = state.begin;
@@ -3873,7 +4001,7 @@ inline constexpr void write_all_overflow_define(
 		if (state.current == state.begin && capacity <= remaining)
 		{
 			state.external_write_active = true;
-			::fast_io::operations::decay::write_all_decay(
+			::fast_io::operations::decay::write_all_decay_dispatch(
 				*state.output, first, last);
 			state.external_write_active = false;
 			return;
@@ -3904,20 +4032,22 @@ inline constexpr void print_single_pass_stage_and_write(
 {
 	char_type buffer[capacity];
 	::fast_io::details::decay::print_single_pass_staging_state<
-		char_type, output_type> state{__builtin_addressof(output), buffer, buffer,
-								 buffer + capacity, false};
+		char_type, output_type>
+		state{__builtin_addressof(output), buffer, buffer,
+			  buffer + capacity, false};
 	::fast_io::details::decay::print_single_pass_staging_ref<
-		char_type, output_type> staging{__builtin_addressof(state)};
+		char_type, output_type>
+		staging{__builtin_addressof(state)};
 #if (defined(_MSC_VER) && defined(_HAS_EXCEPTIONS) && _HAS_EXCEPTIONS != 0) || \
 	(!defined(_MSC_VER) && defined(__cpp_exceptions))
 	try
 	{
 #endif
 		print_define(::fast_io::io_reserve_type<char_type, value_type>,
-			staging, value);
+					 staging, value);
 		if constexpr (line)
 		{
-			::fast_io::operations::decay::char_put_decay(
+			::fast_io::operations::decay::char_put_decay_dispatch(
 				staging, ::fast_io::char_literal_v<u8'\n', char_type>);
 		}
 		::fast_io::details::decay::print_single_pass_staging_flush(state);
@@ -3942,6 +4072,54 @@ inline constexpr void print_single_pass_stage_and_write(
 #endif
 }
 
+/// @brief Returns the currently writable character count without subtracting a lazy null cursor pair.
+/// @details Audited outputs expose either an all-null lazy window or one ordered allocation. Their run-time address
+///          distance is therefore both defined for the null state and numerically identical to array subtraction for
+///          the live state. Constant evaluation retains language pointer subtraction after the non-null proof.
+template <::std::integral char_type, typename output_type>
+inline constexpr ::std::size_t print_obuffer_remaining_size(
+	char_type *current, char_type *end) noexcept
+{
+	if constexpr (::fast_io::obuffer_address_distance_safe<char_type, output_type>)
+	{
+		if (::std::is_constant_evaluated())
+		{
+			return current == nullptr ? 0u : static_cast<::std::size_t>(end - current);
+		}
+		auto const current_address{reinterpret_cast<::std::uintptr_t>(current)};
+		auto const end_address{reinterpret_cast<::std::uintptr_t>(end)};
+		return static_cast<::std::size_t>((end_address - current_address) / sizeof(char_type));
+	}
+	else
+	{
+		if (current == nullptr || end == nullptr)
+		{
+			return 0u;
+		}
+		auto const difference{end - current};
+		return difference < 0 ? 0u : static_cast<::std::size_t>(difference);
+	}
+}
+
+/// @brief Identifies the normalized carrier for an ordinary signed 64-bit scalar.
+template <typename value_type>
+inline consteval bool print_signed_64_scalar_carrier() noexcept
+{
+	if constexpr (requires {
+					  typename value_type::scalar_flags_type;
+					  typename value_type::value_type;
+				  })
+	{
+		return ::std::same_as<
+			::std::remove_cvref_t<typename value_type::value_type>,
+			::std::int64_t>;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 /// @brief Proves the exact grow-in-place protocol for one already-normalized source and output.
 /// @details Source and destination evidence remain deliberately separate. The source promises a cached exact size,
 ///          non-throwing checked emission, and independence from destination relocation. The output promises both an
@@ -3957,6 +4135,13 @@ inline constexpr bool print_cached_precise_growable_obuffer_available_v =
 		output_type> &&
 	::fast_io::deferred_obuffer_commit_safe<char_type, output_type> &&
 	requires(output_type &output, char_type *cursor) {
+#if defined(__HERBCEPTIONS__)
+		// Let C, E, and S be the exact cursor-read, end-read, and cursor-publication expressions used below.
+		// Deferred publication is admissible only when each operation proves `!throws(X) && noexcept(X)`.
+		requires(!throws((obuffer_curr(output))));
+		requires(!throws((obuffer_end(output))));
+		requires(!throws((obuffer_set_curr(output, cursor))));
+#endif
 		{ obuffer_curr(output) } noexcept -> ::std::same_as<char_type *>;
 		{ obuffer_end(output) } noexcept -> ::std::same_as<char_type *>;
 		{ obuffer_set_curr(output, cursor) } noexcept -> ::std::same_as<void>;
@@ -3973,8 +4158,8 @@ template <bool line, ::std::integral char_type, typename output_type,
 	requires ::fast_io::details::decay::
 		print_cached_precise_growable_obuffer_available_v<
 			char_type, output_type, value_type>
-inline constexpr void print_cached_precise_growable_obuffer(
-	output_type &output, value_type &value)
+	inline constexpr void print_cached_precise_growable_obuffer(
+		output_type &output, value_type &value)
 {
 	using source_type = ::std::remove_cvref_t<value_type>;
 	::std::size_t const payload_size{print_reserve_precise_size(
@@ -4015,8 +4200,8 @@ inline constexpr void print_cached_precise_growable_obuffer(
 		current = obuffer_curr(output);
 		put_end = obuffer_end(output);
 		available = current == nullptr || put_end == nullptr
-			? -1
-			: put_end - current;
+						? -1
+						: put_end - current;
 		if (available < 0 ||
 			total_size > static_cast<::std::size_t>(available)) [[unlikely]]
 		{
@@ -4039,6 +4224,33 @@ inline constexpr void print_cached_precise_growable_obuffer(
 	}
 	obuffer_set_curr(output, expected_end);
 }
+
+/// @brief    A destination whose put-area cursor can accept an exact reserve emission.
+/// @details  Keep this separate from the broad obuffer capability: adapters with a partial or refill-on-demand
+///           cursor protocol must retain the established materialize/write fallback.
+template <typename output>
+concept print_direct_obuffer_reserve_destination =
+	::fast_io::direct_obuffer_copy_safe<typename output::output_char_type, output> &&
+	requires(output &out, typename output::output_char_type *p) {
+		{ obuffer_curr(out) } -> ::std::same_as<typename output::output_char_type *>;
+		{ obuffer_end(out) } -> ::std::same_as<typename output::output_char_type *>;
+		obuffer_set_curr(out, p);
+	};
+
+/// @brief Identifies an ordinary reserve writer which may initialize scratch inside its complete reserve bound.
+/// @details Such a writer is memory-safe in an owning/refillable put area, but a fixed external view exposes the bytes
+///          after its published cursor to the caller. Source implementations specialize this internal trait only for
+///          audited library writers; it is not inferred from reserve printability itself.
+template <::std::integral char_type, typename T>
+struct print_fixed_external_overstore_traits
+{
+	inline static constexpr bool available{};
+};
+
+template <bool line, typename output, ::std::integral char_type,
+		  typename... Args>
+FAST_IO_GNU_ALWAYS_INLINE inline constexpr void
+print_fixed_static_reserve_run(output &, Args &...);
 
 /// @brief    Emits one already-forwarded printable control argument to an output stream.
 /// @details  The dispatcher selects the most specialized single-argument path available: scatter, static reserve,
@@ -4075,7 +4287,7 @@ inline constexpr void print_control_single(output &outstm, T &t)
 		{
 			auto const scatter{static_scatter_traits::define(t)};
 			auto const base{scatter.base};
-			::fast_io::operations::decay::write_all_decay(
+			::fast_io::operations::decay::write_all_decay_dispatch(
 				outstm, base, base + static_scatter_traits::size);
 		}
 	}
@@ -4151,8 +4363,28 @@ inline constexpr void print_control_single(output &outstm, T &t)
 		}
 		else
 		{
-			// The non-line variant writes the scatter range directly.
-			::fast_io::operations::decay::write_all_decay(outstm, scatter_res.base, scatter_res.base + scatter_res.len);
+			// A fixed-capacity memory view can commit the scatter directly into its put area. Other destinations retain
+			// the ordinary write CPO so growing buffers and refillable wrappers keep their established semantics.
+			if constexpr (print_direct_obuffer_reserve_destination<output>)
+			{
+				if (scatter_res.len == 0u)
+				{
+					return;
+				}
+				auto curr{obuffer_curr(outstm)};
+				auto end{obuffer_end(outstm)};
+				if (curr == nullptr || end == nullptr || curr > end ||
+					static_cast<::std::size_t>(end - curr) < scatter_res.len) [[unlikely]]
+				{
+					fast_terminate();
+				}
+				curr = ::fast_io::details::non_overlapped_copy_n(scatter_res.base, scatter_res.len, curr);
+				obuffer_set_curr(outstm, curr);
+			}
+			else
+			{
+				::fast_io::operations::decay::write_all_decay_dispatch(outstm, scatter_res.base, scatter_res.base + scatter_res.len);
+			}
 		}
 	}
 	else if constexpr (reserve_printable<char_type, value_type>)
@@ -4161,36 +4393,57 @@ inline constexpr void print_control_single(output &outstm, T &t)
 		constexpr ::std::size_t real_size{print_reserve_size(::fast_io::io_reserve_type<char_type, value_type>)};
 		constexpr ::std::size_t size{real_size + static_cast<::std::size_t>(line)};
 		static_assert(real_size < PTRDIFF_MAX);
-#if 0
-		if constexpr(contiguous_output_stream<output>)
-		{
-			auto bcurr{obuffer_curr(outstm)};
-			auto bend{obuffer_end(outstm)};
-			::std::size_t diff{static_cast<::std::size_t>(bend-bcurr)};
-			if(diff<size)[[unlikely]]
-				fast_terminate();
-			auto it{print_reserve_define(::fast_io::io_reserve_type<char_type,value_type>,bcurr,t)};
-			if constexpr(line)
-			{
-				*it=lfch;
-				++it;
+		constexpr bool prefer_static_reserve_staging{
+#if defined(__aarch64__) || defined(_M_ARM64)
+			::std::same_as<char_type, char> && real_size == 20u &&
+			::fast_io::details::decay::print_signed_64_scalar_carrier<value_type>() &&
+			requires(output &staging_output) {
+				print_static_reserve_staging_output_define(staging_output);
 			}
-			obuffer_set_curr(outstm,it);
+#else
+			false
+#endif
+		};
+		// Only a genuinely contiguous put-area may take this direct commit path.  Some
+		// wrappers expose the obuffer cursor protocol while using a zero-sized or
+		// refill-on-demand area; treating those as an always-fitting reserve would
+		// turn a normal short write into fast_terminate (UD2).
+		if constexpr (print_direct_obuffer_reserve_destination<output>)
+		{
+			// A reserve extent is a physical write bound, not necessarily the logical spelling. Mixed dispatch can reach
+			// this leaf even when the complete run was not statically reserve-printable, so reuse the fixed-view helper:
+			// it emits directly when the bound fits and otherwise stages the returned logical prefix before committing it.
+			::fast_io::details::decay::print_fixed_static_reserve_run<
+				line, output, char_type>(outstm, t);
 		}
 		else
-#endif
 		{
-			if constexpr (::fast_io::operations::decay::defines::has_obuffer_basic_operations<output> &&
-						  !asan_activated)
+			if constexpr (prefer_static_reserve_staging)
+			{
+				// The formatter keeps its fixed-address fast path, then the owning buffer
+				// absorbs the short result through its established write CPO.
+				char_type buffer[size];
+				char_type *iter{print_reserve_define(
+					::fast_io::io_reserve_type<char_type, value_type>, buffer, t)};
+				if constexpr (line)
+				{
+					*iter++ = lfch;
+				}
+				decltype(auto) staging_output{
+					print_static_reserve_staging_output_define(outstm)};
+				::fast_io::operations::decay::write_all_decay_dispatch(
+					staging_output, buffer, iter);
+			}
+			else if constexpr (::fast_io::operations::decay::defines::has_obuffer_basic_operations<output> &&
+							   !asan_activated)
 			{
 				// Buffered streams first try to emit the static reserve output into the current put area.
 				char_type *bcurr{obuffer_curr(outstm)};
 				char_type *bend{obuffer_end(outstm)};
-				::std::ptrdiff_t const diff{
-					bcurr == nullptr || bend == nullptr ? -1 : bend - bcurr};
 				// Equality is a valid exact fit: emission may commit the put cursor to `bend`.  The former strict
 				// comparison forced a flush or temporary allocation despite having precisely enough live storage.
-				bool fits{static_cast<::std::ptrdiff_t>(size) <= diff};
+				bool fits{size <= ::fast_io::details::decay::print_obuffer_remaining_size<
+									  char_type, output>(bcurr, bend)};
 				if constexpr (minimum_buffer_output_stream_require_size_impl<output, size>)
 				{
 					// Streams with a sufficient declared minimum buffer can flush once and then emit in place.
@@ -4200,10 +4453,8 @@ inline constexpr void print_control_single(output &outstm, T &t)
 						obuffer_minimum_size_flush_prepare_define(outstm);
 						bcurr = obuffer_curr(outstm);
 					}
-					if (bcurr == nullptr) [[unlikely]]
-					{
-						::fast_io::fast_terminate();
-					}
+					// The minimum-size CPO contract guarantees a live put area after a miss;
+					// rechecking null here adds a branch to every buffered scalar emission.
 					bcurr = print_reserve_define(::fast_io::io_reserve_type<char_type, value_type>, bcurr, t);
 					if constexpr (line)
 					{
@@ -4309,7 +4560,7 @@ inline constexpr void print_control_single(output &outstm, T &t)
 		print_define(::fast_io::io_reserve_type<char_type, value_type>, outstm, t);
 		if constexpr (line)
 		{
-			::fast_io::operations::decay::char_put_decay(outstm, lfch);
+			::fast_io::operations::decay::char_put_decay_dispatch(outstm, lfch);
 		}
 	}
 	else if constexpr (
@@ -4331,7 +4582,7 @@ inline constexpr void print_control_single(output &outstm, T &t)
 		print_define(::fast_io::io_reserve_type<char_type, value_type>, outstm, t);
 		if constexpr (line)
 		{
-			::fast_io::operations::decay::char_put_decay(outstm, lfch);
+			::fast_io::operations::decay::char_put_decay_dispatch(outstm, lfch);
 		}
 	}
 	else if constexpr (
@@ -4524,14 +4775,6 @@ inline constexpr void print_control_single(output &outstm, T &t)
 		// Reserve-scatters printable arguments are emitted through the scatter descriptor materialization path.
 		::fast_io::details::decay::print_control_single_reserve_scatters<line, output, char_type>(outstm, t);
 	}
-	else if constexpr (::fast_io::transcode_imaginary_printable<char_type, value_type>)
-	{
-		// Recognition must never degrade into a successful call that emits nothing. Keep this assertion dependent so
-		// unrelated printable instantiations remain valid while any accidental direct dispatch fails at compile time
-		// until a transcode emitter with defined ownership and error semantics is implemented.
-		static_assert(!::std::same_as<value_type, value_type>,
-					  "transcode-imaginary printing has no freestanding emitter");
-	}
 	else if constexpr (context_printable<char_type, value_type>)
 	{
 		// One owned state spans every producer window. The shared owner keeps small states allocation-free while moving
@@ -4572,8 +4815,9 @@ inline constexpr void print_control_single(output &outstm, T &t)
 							{
 								// A flushable put area gets one opportunity to expose a fresh producer window.  Merely having
 								// obuffer cursors does not imply this CPO; keeping the probe here prevents a valid fixed-memory
-								// sink from failing during template instantiation in a run-time-only exhausted-buffer branch.
-								::fast_io::operations::decay::output_stream_buffer_flush_decay(outstm);
+								// sink from failing during template instantiation in a run-time-only exhausted-buffer branch. The
+								// named observer must use policy dispatch so an inline put cursor is never flushed through a copy.
+								::fast_io::operations::decay::output_stream_buffer_flush_decay_dispatch(outstm);
 								bcurr = obuffer_curr(outstm);
 								bed = obuffer_end(outstm);
 							}
@@ -4641,7 +4885,7 @@ inline constexpr void print_control_single(output &outstm, T &t)
 							if constexpr (line)
 							{
 								// The line variant writes the trailing newline after the final context window.
-								::fast_io::operations::decay::char_put_decay(outstm, lfch);
+								::fast_io::operations::decay::char_put_decay_dispatch(outstm, lfch);
 							}
 							return;
 						}
@@ -4691,7 +4935,7 @@ inline constexpr void print_control_single(output &outstm, T &t)
 		if constexpr (line)
 		{
 			// The line variant appends the newline after the customization has emitted its output.
-			::fast_io::operations::decay::char_put_decay(outstm, lfch);
+			::fast_io::operations::decay::char_put_decay_dispatch(outstm, lfch);
 		}
 	}
 	else if constexpr (::std::same_as<::std::remove_cvref_t<value_type>, ::fast_io::io_null_t>)
@@ -4699,7 +4943,7 @@ inline constexpr void print_control_single(output &outstm, T &t)
 		// Null output contributes no payload, but the line variant still emits its trailing newline.
 		if constexpr (line)
 		{
-			::fast_io::operations::decay::char_put_decay(outstm, lfch);
+			::fast_io::operations::decay::char_put_decay_dispatch(outstm, lfch);
 		}
 	}
 	else
@@ -4708,6 +4952,160 @@ inline constexpr void print_control_single(output &outstm, T &t)
 		constexpr bool direct_to_output{
 			::fast_io::details::direct_printable_to<char_type, output, value_type>};
 		static_assert(direct_to_output, "type is not printable to this output stream");
+	}
+}
+
+/// @brief Default policy for keeping one ordinary dynamic-reserve control behind a compiler boundary.
+/// @details The primary template is deliberately false. A destination implementation may specialize this internal
+///          trait only for an exact adapter/compiler combination whose inliner has been measured to duplicate the
+///          complete cursor state machine. Source admission remains separate below, so an output cost workaround cannot
+///          change formatter precedence merely because an argument also exposes a dynamic-reserve fallback.
+template <typename output>
+struct print_control_single_out_of_line_traits
+{
+	inline static constexpr bool value{};
+};
+
+/// @brief Admits only the plain dynamic-reserve representation to the destination's out-of-line cost policy.
+/// @details Every stronger representation is rejected explicitly. The helper still calls `print_control_single` with
+///          the original named decay object and exact output reference, preserving CPO lookup, ABI parameter passing,
+///          cursor publication, exceptions, and the final-line rule; only the compiler's interprocedural placement may
+///          differ.
+template <typename output, typename T>
+inline constexpr bool print_control_single_out_of_line_eligible = []() constexpr {
+	using output_type = ::std::remove_cvref_t<output>;
+	using char_type = typename output_type::output_char_type;
+	using value_type = ::std::remove_cvref_t<T>;
+	return ::fast_io::details::decay::print_control_single_out_of_line_traits<
+			   output_type>::value &&
+		   ::fast_io::dynamic_reserve_printable<char_type, value_type> &&
+		   !::fast_io::reserve_printable<char_type, value_type> &&
+		   !::fast_io::precise_reserve_printable<char_type, value_type> &&
+		   !::fast_io::dynamic_reserve_with_possible_static_stack_size<
+			   char_type, value_type> &&
+		   !::fast_io::single_pass_bounded_materialization_source<
+			   char_type, value_type> &&
+		   !::fast_io::single_pass_staging_printable<char_type, value_type> &&
+		   !::fast_io::scatter_printable_for<char_type, value_type &> &&
+		   !::fast_io::reserve_scatters_printable<char_type, value_type> &&
+		   !::fast_io::dynamic_reserve_scatters_printable<char_type, value_type> &&
+		   !::fast_io::context_printable<char_type, value_type> &&
+		   !::fast_io::details::direct_printable_to<char_type, output_type, value_type>;
+}();
+
+/// @brief Preserves ordinary inlining while containing GCC's audited std::string provenance diagnostic.
+/// @details GCC 13--16 can retain the enclosing string object's 32-byte bound after inlining a valid dynamic writer
+///          into its private put area. The destination/source predicate above is the only caller of this wrapper, so the
+///          lexical suppression cannot affect other outputs or stronger formatter representations. Independent
+///          `-Warray-bounds` diagnostics and sanitizer instrumentation remain active for a writer which exceeds its own
+///          published bound. `always_inline` makes this a diagnostic boundary only, with no ABI or run-time call.
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstringop-overflow"
+#endif
+template <bool line, typename output, typename T>
+FAST_IO_GNU_ALWAYS_INLINE inline constexpr void
+print_control_single_diagnostic_boundary(output &outstm, T &t)
+{
+	::fast_io::details::decay::print_control_single<line>(outstm, t);
+}
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
+#pragma GCC diagnostic pop
+#endif
+
+/// @brief Emits four admitted controls behind one compiler boundary.
+/// @details Four controls amortize the call/return cost while bounding duplicated cursor code. The exact source
+///          references are retained, and only the last member receives `line`, so chunking is observationally identical
+///          to the ordinary left-to-right recursion. `noinline` changes placement only: the mature put-area dispatcher
+///          remains the body and no append materialization, extra size observation, ownership, or output CPO is added.
+template <bool line, typename output, typename T0, typename T1, typename T2, typename T3>
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
+[[gnu::noinline]]
+#endif
+inline constexpr void print_control_chunk_out_of_line(
+	output &outstm, T0 &t0, T1 &t1, T2 &t2, T3 &t3)
+{
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t0);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t1);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t2);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<line>(outstm, t3);
+}
+
+/// @brief Emits a final five-control chunk without returning the last control to the enclosing inliner.
+/// @details A non-multiple large run terminates in one complete no-inline state machine. This preserves the cursor
+///          provenance boundary through the final logical control instead of exposing a one-control tail to GCC.
+template <bool line, typename output, typename T0, typename T1, typename T2, typename T3, typename T4>
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
+[[gnu::noinline]]
+#endif
+inline constexpr void print_control_final_chunk_out_of_line(
+	output &outstm, T0 &t0, T1 &t1, T2 &t2, T3 &t3, T4 &t4)
+{
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t0);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t1);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t2);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t3);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<line>(outstm, t4);
+}
+
+/// @brief Emits a final six-control chunk under the same exact-output placement proof.
+template <bool line, typename output, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
+[[gnu::noinline]]
+#endif
+inline constexpr void print_control_final_chunk_out_of_line(
+	output &outstm, T0 &t0, T1 &t1, T2 &t2, T3 &t3, T4 &t4, T5 &t5)
+{
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t0);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t1);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t2);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t3);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t4);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<line>(outstm, t5);
+}
+
+/// @brief Emits a final seven-control chunk under the same exact-output placement proof.
+template <bool line, typename output, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5,
+		  typename T6>
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13
+[[gnu::noinline]]
+#endif
+inline constexpr void print_control_final_chunk_out_of_line(
+	output &outstm, T0 &t0, T1 &t1, T2 &t2, T3 &t3, T4 &t4, T5 &t5, T6 &t6)
+{
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t0);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t1);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t2);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t3);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t4);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<false>(outstm, t5);
+	::fast_io::details::decay::print_control_single_diagnostic_boundary<line>(outstm, t6);
+}
+
+/// @brief Partitions an admitted large run into shared four-control compiler chunks.
+/// @details The caller proves at least 32 controls. Recursion emits complete chunks and selects one exact five-, six-,
+///          or seven-control terminal helper when the cardinality is not divisible by four. Repeated type patterns
+///          consequently reuse the same bounded helper instead of generating one full state machine per leaf; smaller
+///          runs retain full inlining because their measured code budget is bounded.
+template <bool line, typename output, typename T0, typename T1, typename T2,
+		  typename T3, typename... Args>
+inline constexpr void print_controls_out_of_line_chunks(
+	output &outstm, T0 &t0, T1 &t1, T2 &t2, T3 &t3, Args &...args)
+{
+	if constexpr (sizeof...(Args) == 0u)
+	{
+		::fast_io::details::decay::print_control_chunk_out_of_line<line>(outstm, t0, t1, t2, t3);
+	}
+	else if constexpr (sizeof...(Args) <= 3u)
+	{
+		// Overload resolution selects the exact five-, six-, or seven-control terminal chunk.
+		::fast_io::details::decay::print_control_final_chunk_out_of_line<line>(outstm, t0, t1, t2, t3, args...);
+	}
+	else
+	{
+		::fast_io::details::decay::print_control_chunk_out_of_line<false>(outstm, t0, t1, t2, t3);
+		::fast_io::details::decay::print_controls_out_of_line_chunks<line>(
+			outstm, args...);
 	}
 }
 
@@ -4840,7 +5238,7 @@ inline constexpr void context_capture_flush(output &outstm, char_type *buffer, c
 	if (curr != buffer)
 	{
 		// Pending captured output is emitted as one contiguous range before the buffer is reused.
-		::fast_io::operations::decay::write_all_decay(outstm, buffer, curr);
+		::fast_io::operations::decay::write_all_decay_dispatch(outstm, buffer, curr);
 		curr = buffer;
 	}
 }
@@ -5060,7 +5458,7 @@ template <::std::size_t n, ::std::integral char_type, typename T, typename... Ar
 #if defined(__clang__) && 17 <= __clang_major__ && __clang_major__ < 23
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr char_type *print_n_reserve(char_type *ptr, T &t, Args &...args)
+	inline constexpr char_type *print_n_reserve(char_type *ptr, T &t, Args &...args)
 {
 	static_assert(n <= sizeof...(Args) + 1u);
 	if constexpr (n <= 96u)
@@ -5112,6 +5510,487 @@ inline constexpr char_type *print_n_reserve(char_type *ptr, T &t, Args &...args)
 			(emit_one.template operator()<index>(values), ...);
 			return ptr;
 		}(::std::make_index_sequence<sizeof...(Args) + 1u>{}, t, args...);
+	}
+}
+
+/// @brief Emits a fully static reserve run directly into a proven fixed put area.
+/// @details The ordinary buffered dispatcher intentionally keeps reserve recursion outline-friendly on GCC because it
+/// serves many owner/refill destinations. A fixed external view has a stronger destination proof: all extents are
+/// compile-time, no flush or growth CPO can run, and one capacity check covers the complete ordered run. Keeping this
+/// leaf separate prevents the inlining decision from leaking into buffered owners or dynamic reserve producers.
+template <::std::integral char_type, typename value_type>
+FAST_IO_GNU_ALWAYS_INLINE inline constexpr char_type *
+print_fixed_decimal_integer_emit(char_type *ptr, value_type value) noexcept
+{
+	using value_decay_type = ::std::remove_cvref_t<value_type>;
+	using unsigned_type = ::std::make_unsigned_t<value_decay_type>;
+	unsigned_type unsigned_value{static_cast<unsigned_type>(value)};
+	if constexpr (::std::is_signed_v<value_decay_type>)
+	{
+		if (value < 0)
+		{
+			*ptr++ = ::fast_io::char_literal_v<u8'-', char_type>;
+			unsigned_type zero{};
+			unsigned_value = static_cast<unsigned_type>(zero - unsigned_value);
+		}
+	}
+	return ::fast_io::details::print_fixed_decimal_integral_define<char_type>(ptr, unsigned_value);
+}
+
+template <typename T>
+struct print_fixed_hot_scalar_traits
+{
+	inline static constexpr bool available{};
+};
+
+/// @brief Classifies the exact owned default-decimal scalar admitted by fresh-result concat.
+/// @details The primary template is fail-closed because the older buffered hot-leaf classifier intentionally accepts
+///          output-equivalent reference and policy records.  Fresh-result construction has a narrower measured cost
+///          domain and therefore receives an independent specialization from the scalar implementation.
+template <typename T>
+struct print_concat_fresh_fixed_decimal_scalar_traits
+{
+	inline static constexpr bool available{};
+};
+
+/// @brief Propagates the fixed-external overstore audit through semantic transport nodes.
+/// @details A semantic width can keep a reserve leaf hidden after condition selection, while a pack or condition can
+///          introduce another forwarding boundary before the leaf is emitted.  Model those exact named-member
+///          forwarding rules and stop only at the source-specific physical-store trait above.  This remains an internal
+///          opt-in: arbitrary reserve writers are not classified from their reserve size alone.
+template <::std::integral char_type, typename T>
+struct print_fixed_external_semantic_overstore;
+
+template <::std::integral char_type, typename node_expression, ::std::size_t... index>
+inline consteval bool print_fixed_external_semantic_pack_overstore(
+	::std::index_sequence<index...>) noexcept
+{
+	return (false || ... ||
+			::fast_io::details::decay::print_fixed_external_semantic_overstore<
+				char_type,
+				::fast_io::details::decay::print_semantic_stable_forwarded_arg_t<
+					char_type,
+					decltype(::fast_io::containers::get<index>(
+						::std::declval<node_expression>().storage))>>::value);
+}
+
+template <::std::integral char_type, typename T>
+inline consteval bool print_fixed_external_semantic_node_overstore() noexcept
+{
+	using node_expression =
+		::fast_io::details::decay::print_semantic_node_expression_t<T>;
+	using node_type = ::std::remove_cvref_t<node_expression>;
+	if constexpr (::fast_io::details::print_pack<node_type>)
+	{
+		return ::fast_io::details::decay::print_fixed_external_semantic_pack_overstore<
+			char_type, node_expression>(::std::make_index_sequence<node_type::size>{});
+	}
+	else if constexpr (
+		::fast_io::details::decay::print_semantic_condition_v<node_type>)
+	{
+		using first_expression = decltype((::std::declval<node_expression>().t1));
+		using second_expression = decltype((::std::declval<node_expression>().t2));
+		return ::fast_io::details::decay::print_fixed_external_semantic_overstore<
+				   char_type,
+				   ::fast_io::details::decay::print_semantic_stable_input_forwarded_arg_t<
+					   char_type, first_expression>>::value ||
+			   ::fast_io::details::decay::print_fixed_external_semantic_overstore<
+				   char_type,
+				   ::fast_io::details::decay::print_semantic_stable_input_forwarded_arg_t<
+					   char_type, second_expression>>::value;
+	}
+	else if constexpr (
+		::fast_io::details::decay::print_semantic_width_v<node_type>)
+	{
+		using child_expression =
+			decltype((::std::declval<node_expression>().reference));
+		return ::fast_io::details::decay::print_fixed_external_semantic_overstore<
+			char_type,
+			::fast_io::details::decay::print_semantic_stable_input_forwarded_arg_t<
+				char_type, child_expression>>::value;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+template <::std::integral char_type, typename T>
+struct print_fixed_external_semantic_overstore_dispatch
+	: ::std::bool_constant<
+		  ::fast_io::details::decay::print_fixed_external_overstore_traits<
+			  char_type, ::std::remove_cvref_t<T>>::available>
+{};
+
+template <::std::integral char_type, typename T>
+	requires ::fast_io::details::decay::print_semantic_node<T>
+struct print_fixed_external_semantic_overstore_dispatch<char_type, T>
+	: ::std::bool_constant<
+		  ::fast_io::details::decay::print_fixed_external_semantic_node_overstore<
+			  char_type, T>()>
+{};
+
+template <::std::integral char_type, typename T>
+struct print_fixed_external_semantic_overstore
+	: ::fast_io::details::decay::print_fixed_external_semantic_overstore_dispatch<
+		  char_type, T>
+{};
+
+template <::std::integral char_type, typename value_type>
+FAST_IO_GNU_ALWAYS_INLINE inline constexpr char_type *
+print_fixed_static_reserve_emit_one(char_type *ptr, value_type &value)
+{
+	using decay_type = ::std::remove_cvref_t<value_type>;
+	if constexpr (::std::same_as<decay_type, ::fast_io::io_null_t>)
+	{
+		return ptr;
+	}
+	else if constexpr (print_fixed_hot_scalar_traits<decay_type>::available)
+	{
+		return print_fixed_decimal_integer_emit<char_type>(ptr, value.reference);
+	}
+	else if constexpr (sizeof(char_type) == 1u && ::fast_io::details::is_ascii<char_type> &&
+					   ::std::integral<decay_type> && !::std::same_as<decay_type, bool>)
+	{
+		// Raw fundamental values can occur in lower-level calls which bypass scalar normalization.
+		return print_fixed_decimal_integer_emit<char_type>(ptr, value);
+	}
+	else
+	{
+		return print_reserve_define(::fast_io::io_reserve_type<char_type, decay_type>, ptr, value);
+	}
+}
+
+template <::std::integral char_type, typename... Args>
+FAST_IO_GNU_ALWAYS_INLINE inline constexpr char_type *
+print_fixed_static_reserve_emit(char_type *ptr, Args &...args)
+{
+	((ptr = print_fixed_static_reserve_emit_one<char_type>(ptr, args)), ...);
+	return ptr;
+}
+
+/// @brief Selects the decimal scalar emitter for a proven reusable put area.
+/// @details The ordinary reserve CPO deliberately keeps its compiler-controlled
+/// inlining policy because it is also used by direct, decorated, and refillable
+/// destinations.  A basic buffered reference has a separate proof that one
+/// bounded non-throwing run may be formatted before publishing its cursor.  Use
+/// that proof as the destination-side cost gate so the formatter is force-inlined
+/// only for this measured hot shape (not for every reserve caller).
+template <typename output, ::std::integral char_type, typename value_type>
+inline consteval bool print_buffered_hot_decimal_scalar_available() noexcept
+{
+	return ::fast_io::operations::decay::defines::has_obuffer_basic_operations<output> &&
+		   ::fast_io::single_pass_bounded_obuffer_materialization_safe<char_type, output> &&
+		   (print_fixed_hot_scalar_traits<::std::remove_cvref_t<value_type>>::available ||
+			(sizeof(char_type) == 1u && ::fast_io::details::is_ascii<char_type> &&
+			 ::std::integral<::std::remove_cvref_t<value_type>> &&
+			 !::std::same_as<::std::remove_cvref_t<value_type>, bool>));
+}
+
+template <typename output, ::std::integral char_type, typename value_type>
+FAST_IO_GNU_ALWAYS_INLINE inline constexpr char_type *
+print_buffered_hot_decimal_scalar_emit(char_type *ptr, value_type &value) noexcept
+{
+	return print_fixed_static_reserve_emit_one<char_type>(ptr, value);
+}
+
+template <typename output, ::std::integral char_type, typename... value_types>
+inline consteval bool print_buffered_hot_decimal_scalar_run_available() noexcept
+{
+	return sizeof...(value_types) == 1u &&
+		   (print_buffered_hot_decimal_scalar_available<output, char_type, value_types>() && ...);
+}
+
+/// @brief Classifies a library-owned integral scalar manipulator at the public source boundary.
+/// @details The primary template is deliberately fail-closed because reserve printability alone cannot prove that
+///          alias/status normalization is library-owned or that reading the source has no external side effect.  The
+///          scalar implementation specializes this trait only for an owned fundamental integral payload and a valid
+///          integer flag record.  Admission still independently proves exact normalization closure, a non-throwing
+///          reserve writer, and a fixed destination below.
+template <typename source_type>
+struct print_fixed_public_integral_manip_source_traits
+{
+	inline static constexpr bool available{};
+};
+
+/// @brief Emits one decimal scalar directly through a proven buffered put area.
+/// @details This is a destination-specialized entry, intentionally separate from
+/// `print_control_single`: forcing the generic dispatcher to inline the large
+/// integer formatter makes that dispatcher itself miss the caller's inlining
+/// budget.  The isolated entry keeps the ordinary CPO graph unchanged while a
+/// basic buffered reference gets the old scalar loop's code shape.
+template <bool line, typename output, typename T>
+	requires(print_buffered_hot_decimal_scalar_available<
+			 output, typename output::output_char_type, T>())
+FAST_IO_GNU_ALWAYS_INLINE
+#if defined(__GNUC__) && !defined(__clang__) && __has_cpp_attribute(__gnu__::__flatten__)
+	[[gnu::flatten]]
+#endif
+	inline constexpr void print_control_single_buffered_hot(output &outstm, T &value) noexcept
+{
+	using char_type = typename output::output_char_type;
+	using value_type = ::std::remove_cvref_t<T>;
+	constexpr ::std::size_t payload_size{
+		print_reserve_size(::fast_io::io_reserve_type<char_type, value_type>)};
+	constexpr ::std::size_t total_size{payload_size + static_cast<::std::size_t>(line)};
+	static_assert(payload_size < PTRDIFF_MAX && total_size < PTRDIFF_MAX);
+	constexpr auto lfch{::fast_io::char_literal_v<u8'\n', char_type>};
+
+	char_type *curr{obuffer_curr(outstm)};
+	char_type *const end{obuffer_end(outstm)};
+	bool fits{total_size <= print_obuffer_remaining_size<char_type, output>(curr, end)};
+	if constexpr (minimum_buffer_output_stream_require_size_impl<output, total_size>)
+	{
+		if (!fits) [[unlikely]]
+		{
+			obuffer_minimum_size_flush_prepare_define(outstm);
+			curr = obuffer_curr(outstm);
+		}
+	}
+	else if (!fits) [[unlikely]]
+	{
+		char_type buffer[total_size == 0u ? 1u : total_size];
+		char_type *iter{print_buffered_hot_decimal_scalar_emit<output, char_type>(buffer, value)};
+		if (iter < buffer || buffer + payload_size < iter) [[unlikely]]
+		{
+			::fast_io::fast_terminate();
+		}
+		if constexpr (line)
+		{
+			*iter++ = lfch;
+		}
+		::fast_io::operations::decay::write_all_decay_dispatch(outstm, buffer, iter);
+		return;
+	}
+
+	curr = print_buffered_hot_decimal_scalar_emit<output, char_type>(curr, value);
+	if constexpr (line)
+	{
+		*curr++ = lfch;
+	}
+	obuffer_set_curr(outstm, curr);
+}
+
+template <::std::integral char_type, typename T>
+inline consteval ::std::size_t print_fixed_static_reserve_extent() noexcept
+{
+	using value_type = ::std::remove_cvref_t<T>;
+	if constexpr (::std::same_as<value_type, ::fast_io::io_null_t>)
+	{
+		return 0u;
+	}
+	else
+	{
+		return print_reserve_size(::fast_io::io_reserve_type<char_type, value_type>);
+	}
+}
+
+template <typename output, ::std::integral char_type, typename... Args>
+inline consteval bool print_fixed_static_reserve_run_available() noexcept
+{
+	return print_direct_obuffer_reserve_destination<output> &&
+		   (true && ... &&
+			(::std::same_as<::std::remove_cvref_t<Args>, ::fast_io::io_null_t> ||
+			 ::fast_io::reserve_printable<char_type, ::std::remove_cvref_t<Args>>));
+}
+
+/// @brief Restricts the public fixed-view shortcut to source expressions whose normalization is completely local.
+/// @details The ordinary dispatcher must inspect arbitrary alias/status/semantic CPOs.  This predicate is deliberately
+/// narrower: it admits only built-in integral scalars (excluding character and boolean values) and const character
+/// arrays (string literals).  Their alias/forward operations are the library-owned, non-observing normalization path;
+/// no user customization can be skipped by the public shortcut.  The normalized result is still checked against the
+/// reserve protocol so a future carrier change automatically falls back to the generic dispatcher.
+template <::std::integral char_type, typename source_type>
+inline consteval bool print_fixed_public_source_available() noexcept
+{
+	using source_reference = ::std::remove_reference_t<source_type>;
+	using source_value = ::std::remove_cvref_t<source_type>;
+	if constexpr (::std::is_volatile_v<source_reference>)
+	{
+		return false;
+	}
+	constexpr bool is_character =
+		::std::same_as<source_value, char> || ::std::same_as<source_value, signed char> ||
+		::std::same_as<source_value, unsigned char> || ::std::same_as<source_value, wchar_t> ||
+		::std::same_as<source_value, char8_t> || ::std::same_as<source_value, char16_t> ||
+		::std::same_as<source_value, char32_t>;
+	if constexpr (::std::is_array_v<source_reference>)
+	{
+		using element_type = ::std::remove_extent_t<source_reference>;
+		if constexpr (::std::is_const_v<element_type> &&
+					  ::std::same_as<::std::remove_cv_t<element_type>, char_type> &&
+					  (::std::extent_v<source_reference> != 0u))
+		{
+			using normalized_type = ::std::remove_cvref_t<decltype(::fast_io::io_print_forward<char_type>(
+				::fast_io::io_print_alias(::std::declval<source_reference &>())))>;
+			return ::fast_io::reserve_printable<char_type, normalized_type>;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else if constexpr (::std::integral<source_value> && !::std::same_as<source_value, bool> && !is_character)
+	{
+		using normalized_type = ::std::remove_cvref_t<decltype(::fast_io::io_print_forward<char_type>(
+			::fast_io::io_print_alias(::std::declval<source_reference &>())))>;
+		return ::fast_io::reserve_printable<char_type, normalized_type>;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+template <typename output, ::std::integral char_type, typename... Args>
+inline consteval bool print_fixed_public_run_available() noexcept
+{
+	if constexpr (!print_direct_obuffer_reserve_destination<output> || sizeof...(Args) == 0u)
+	{
+		return false;
+	}
+	else
+	{
+		return (print_fixed_public_source_available<char_type, Args>() && ...);
+	}
+}
+
+template <bool line, typename output, ::std::integral char_type, typename... normalized_types>
+FAST_IO_GNU_ALWAYS_INLINE inline constexpr void
+print_fixed_public_run_normalized(output &outstm, normalized_types &&...normalized_values)
+{
+	// Forwarding references preserve the temporary carriers through this synchronous call while their named
+	// expressions are ordinary lvalues for the reserve emitter. Keeping this helper force-inlined avoids a per-record
+	// lambda/function call on Clang's fixed-view path.
+	::fast_io::details::decay::print_fixed_static_reserve_run<line, output, char_type>(
+		outstm, normalized_values...);
+}
+
+/// @brief Emits a public fixed-view record after performing exactly the normal built-in source normalization.
+/// @details This is called only after `print_fixed_public_run_available` has proved every source is a scalar/literal
+/// shape.  It therefore bypasses the compiler-constant facade without bypassing alias semantics: each source is still
+/// passed through `io_print_alias` and `io_print_forward` exactly once before the static reserve run is committed.
+template <bool line, typename output, ::std::integral char_type, typename... Args>
+FAST_IO_GNU_ALWAYS_INLINE inline constexpr void
+print_fixed_public_run(output &outstm, Args &...args)
+{
+	// The normalized scalar carrier is a prvalue (the default integer status-forward CPO returns a scalar manipulator),
+	// while the static reserve emitter deliberately consumes named lvalues. The forwarding helper extends each
+	// temporary through the complete synchronous emission without allocating a tuple or introducing another boundary.
+	print_fixed_public_run_normalized<line, output, char_type>(
+		outstm, ::fast_io::io_print_forward<char_type>(::fast_io::io_print_alias(args))...);
+}
+
+template <::std::integral char_type, typename... Args>
+inline consteval ::std::size_t print_fixed_static_reserve_total() noexcept
+{
+	::std::size_t total{};
+	((total = total > SIZE_MAX - print_fixed_static_reserve_extent<char_type, Args>()
+				  ? SIZE_MAX
+				  : total + print_fixed_static_reserve_extent<char_type, Args>()),
+	 ...);
+	return total;
+}
+
+template <bool line, typename output, ::std::integral char_type, typename... Args>
+FAST_IO_GNU_ALWAYS_INLINE inline constexpr void
+print_fixed_static_reserve_run(output &outstm, Args &...args)
+{
+	constexpr ::std::size_t reserve_total{print_fixed_static_reserve_total<char_type, Args...>()};
+	constexpr ::std::size_t output_size{
+		reserve_total == SIZE_MAX || (line && reserve_total == SIZE_MAX - 1u)
+			? SIZE_MAX
+			: reserve_total + static_cast<::std::size_t>(line)};
+	static_assert(output_size != SIZE_MAX);
+	auto curr{obuffer_curr(outstm)};
+	auto const end{obuffer_end(outstm)};
+	if ((curr == nullptr) != (end == nullptr) ||
+		(curr != nullptr && curr > end)) [[unlikely]]
+	{
+		fast_terminate();
+	}
+	::std::size_t const available{
+		curr == nullptr ? 0u : static_cast<::std::size_t>(end - curr)};
+	constexpr bool requires_external_staging{
+		(false || ... ||
+		 print_fixed_external_overstore_traits<
+			 char_type, ::std::remove_cvref_t<Args>>::available)};
+	if constexpr (!requires_external_staging)
+	{
+		if (output_size <= available) [[likely]]
+		{
+			curr = print_fixed_static_reserve_emit<char_type>(curr, args...);
+			if constexpr (line)
+			{
+				*curr++ = ::fast_io::char_literal_v<u8'\n', char_type>;
+			}
+			obuffer_set_curr(outstm, curr);
+			return;
+		}
+	}
+
+	// A reserve bound is a physical-store bound, not necessarily the logical result size. The historical fixed-view
+	// path materialized on a bound miss and then wrote only [buffer,actual_end), which permits a true exact fit. Keep
+	// that behavior here, and also use it for an audited writer whose fast implementation may initialize scratch after
+	// its returned cursor. The destination cursor is published once, after the complete actual extent has been checked.
+	if constexpr (output_size == 0u)
+	{
+		return;
+	}
+	else if constexpr (
+		::fast_io::details::decay::print_stack_buffer_size_within_limit<
+			output_size, char_type>)
+	{
+		char_type buffer[output_size];
+		char_type *actual_end{
+			print_fixed_static_reserve_emit<char_type>(buffer, args...)};
+		if constexpr (line)
+		{
+			*actual_end++ = ::fast_io::char_literal_v<u8'\n', char_type>;
+		}
+		if (actual_end < buffer || buffer + output_size < actual_end) [[unlikely]]
+		{
+			fast_terminate();
+		}
+		::std::size_t const actual_size{
+			static_cast<::std::size_t>(actual_end - buffer)};
+		if (available < actual_size) [[unlikely]]
+		{
+			fast_terminate();
+		}
+		if (actual_size != 0u)
+		{
+			curr = ::fast_io::details::non_overlapped_copy_n(
+				buffer, actual_size, curr);
+		}
+		obuffer_set_curr(outstm, curr);
+	}
+	else
+	{
+		::fast_io::details::local_operator_new_array_ptr<char_type> buffer{
+			output_size};
+		char_type *actual_end{
+			print_fixed_static_reserve_emit<char_type>(buffer.ptr, args...)};
+		if constexpr (line)
+		{
+			*actual_end++ = ::fast_io::char_literal_v<u8'\n', char_type>;
+		}
+		if (actual_end < buffer.ptr || buffer.ptr + output_size < actual_end) [[unlikely]]
+		{
+			fast_terminate();
+		}
+		::std::size_t const actual_size{
+			static_cast<::std::size_t>(actual_end - buffer.ptr)};
+		if (available < actual_size) [[unlikely]]
+		{
+			fast_terminate();
+		}
+		if (actual_size != 0u)
+		{
+			curr = ::fast_io::details::non_overlapped_copy_n(
+				buffer.ptr, actual_size, curr);
+		}
+		obuffer_set_curr(outstm, curr);
 	}
 }
 
@@ -5518,9 +6397,22 @@ inline consteval bool print_buffered_mixed_put_area_leaf() noexcept
 		::fast_io::details::decay::print_buffered_passive_reserve_leaf<value_type>::value &&
 		::fast_io::reserve_printable<char_type, value_type>)
 	{
+#if defined(__HERBCEPTIONS__)
+		return requires(char_type *iter, T &value) {
+			// E is the named-lvalue reserve definition executed after the complete run passes preflight.
+			// The delayed cursor commit is valid iff E has neither deterministic nor unwind failure.
+			requires(!throws((print_reserve_define(
+				::fast_io::io_reserve_type<char_type, value_type>, iter, value))));
+			{
+				print_reserve_define(
+					::fast_io::io_reserve_type<char_type, value_type>, iter, value)
+			} noexcept -> ::std::same_as<char_type *>;
+		};
+#else
 		return noexcept(print_reserve_define(
 			::fast_io::io_reserve_type<char_type, value_type>,
 			::std::declval<char_type *>(), ::std::declval<T &>()));
+#endif
 	}
 	else
 	{
@@ -5626,7 +6518,7 @@ inline constexpr bool print_buffered_mixed_put_area_fit_one_large(
 			::fast_io::io_reserve_type<char_type, value_type>);
 	}
 	else if constexpr (::std::same_as<
-		value_type, ::fast_io::basic_io_scatter_t<char_type>>)
+						   value_type, ::fast_io::basic_io_scatter_t<char_type>>)
 	{
 		current_size = value.len;
 	}
@@ -5654,7 +6546,7 @@ inline constexpr char_type *print_buffered_mixed_put_area_emit_one_large(
 			::fast_io::io_reserve_type<char_type, value_type>, cursor, value);
 	}
 	else if constexpr (::std::same_as<
-		value_type, ::fast_io::basic_io_scatter_t<char_type>>)
+						   value_type, ::fast_io::basic_io_scatter_t<char_type>>)
 	{
 		if (value.len != 0u)
 		{
@@ -5719,7 +6611,14 @@ inline constexpr char_type *print_buffered_mixed_put_area_emit(
 /// @brief Proves the non-throwing cursor operations used by deferred put-area publication.
 template <typename outputstmtype, typename char_type>
 concept print_buffered_mixed_nothrow_put_area = ::std::integral<char_type> && requires(
-																				  outputstmtype &optstm, char_type *cursor) {
+																	  outputstmtype &optstm, char_type *cursor) {
+#if defined(__HERBCEPTIONS__)
+	// These are the exact named output expressions used by both mixed emitters. A deterministic error cannot be
+	// represented after raw bytes have been written but before the final cursor is published.
+	requires(!throws((obuffer_curr(optstm))));
+	requires(!throws((obuffer_end(optstm))));
+	requires(!throws((obuffer_set_curr(optstm, cursor))));
+#endif
 	{ obuffer_curr(optstm) } noexcept -> ::std::same_as<char_type *>;
 	{ obuffer_end(optstm) } noexcept -> ::std::same_as<char_type *>;
 	{ obuffer_set_curr(optstm, cursor) } noexcept -> ::std::same_as<void>;
@@ -5747,7 +6646,7 @@ inline constexpr bool print_buffered_mixed_put_area_try_large(
 	outputstmtype &optstm, Args &...args)
 {
 	static_assert(::fast_io::details::decay::print_buffered_mixed_nothrow_put_area<
-		outputstmtype, char_type>);
+				  outputstmtype, char_type>);
 	char_type *const initial{obuffer_curr(optstm)};
 	char_type *const end{obuffer_end(optstm)};
 	if (initial == nullptr || end == nullptr)
@@ -5762,13 +6661,15 @@ inline constexpr bool print_buffered_mixed_put_area_try_large(
 	::std::size_t remaining{
 		static_cast<::std::size_t>(difference) - static_cast<::std::size_t>(line)};
 	if (!(::fast_io::details::decay::print_buffered_mixed_put_area_fit_one_large<
-			  char_type>(remaining, args) && ...))
+			  char_type>(remaining, args) &&
+		  ...))
 	{
 		return false;
 	}
 	char_type *cursor{initial};
 	((cursor = ::fast_io::details::decay::print_buffered_mixed_put_area_emit_one_large<
-		  char_type, compact_copy>(cursor, args)), ...);
+		  char_type, compact_copy>(cursor, args)),
+	 ...);
 	if constexpr (line)
 	{
 		*cursor = ::fast_io::char_literal_v<u8'\n', char_type>;
@@ -6110,7 +7011,7 @@ inline constexpr bool print_controls_scatters_try_materialize(outputstmtype &opt
 							*ptr = ::fast_io::char_literal_v<u8'\n', char_type>;
 							++ptr;
 						}
-						::fast_io::operations::decay::write_all_decay(optstm, buffer, ptr);
+						::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, ptr);
 					}
 					else
 					{
@@ -6123,7 +7024,7 @@ inline constexpr bool print_controls_scatters_try_materialize(outputstmtype &opt
 							*ptr = ::fast_io::char_literal_v<u8'\n', char_type>;
 							++ptr;
 						}
-						::fast_io::operations::decay::write_all_decay(optstm, buffer.ptr, ptr);
+						::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer.ptr, ptr);
 					}
 					return true;
 				}
@@ -6673,6 +7574,42 @@ inline constexpr auto print_n_scatters_reserve(basic_io_scatter_t<scattertype> *
 	return pscatters;
 }
 
+/// @brief Reports whether a measured compiler/target pair benefits from the put-area vector copy leaf.
+/// @details This is solely a code-generation gate; semantic eligibility is proved at the call site.
+/// @tparam descriptor_count the compile-time number of descriptors in the retained scatter run
+template <::std::size_t descriptor_count>
+inline consteval bool
+print_direct_obuffer_scatter_vector_copy_codegen_supported() noexcept
+{
+	/*
+	Semantic proof.  Let C_i be the cursor before descriptor i.  The caller
+	establishes stable source storage and [C_i, C_i + len_i) as a valid,
+	non-overlapping destination interval.  put_area_scatter_copy_n copies exactly
+	len_i elements and returns C_i + len_i, so induction preserves both the byte
+	sequence and the cursor of non_overlapped_copy_n for every descriptor.  The
+	stream cursor is published only after the complete ordered run.  This
+	predicate therefore selects between equivalent leaves and cannot admit a new
+	protocol.
+
+	Cost proof.  Eight descriptors are the first measured point at which the
+	target-aware head/tail vector leaf amortizes its size ladder on x86-64 GCC 16,
+	x86-64 Clang 22, and Apple AArch64 Clang 23.  The two-descriptor Clang case was
+	neutral while instantiating additional text.  Positive compiler intervals are
+	future-open; unmeasured targets and earlier frontends preserve the existing
+	memcpy-shaped leaf.
+	*/
+#if defined(__x86_64__) &&                                           \
+	((defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 16) || \
+	 (defined(__clang__) && __clang_major__ >= 22))
+	return descriptor_count >= 8u;
+#elif defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__)) && \
+	defined(__clang__) && __clang_major__ >= 23
+	return descriptor_count >= 8u;
+#else
+	return false;
+#endif
+}
+
 /// @brief    Writes a scatter-only prefix using stack or heap descriptor storage.
 /// @tparam   needprintlf   true when the final descriptor should be a trailing newline
 /// @tparam   position      the number of argument positions included in the scatter prefix
@@ -6694,6 +7631,49 @@ inline constexpr void print_controls_scatters(outputstmtype &optstm, T &t, Args 
 	static_assert(static_cast<::std::size_t>(needprintlf) <= scatterscount);
 	constexpr ::std::size_t source_scatter_capacity{
 		scatterscount - static_cast<::std::size_t>(needprintlf)};
+	// A fixed-capacity one-byte memory view has no meaningful write CPO work to perform. Build the small descriptor
+	// array once and copy its ranges directly into the put area; this is the same sequence-preserving operation as the
+	// historical buffered path, without a size-measurement/materialization probe on every print call.
+	if constexpr (print_direct_obuffer_reserve_destination<outputstmtype> && sizeof(char_type) == 1u &&
+				  !preserve_static_fragments)
+	{
+		scatter_type scatters[scatterscount];
+		::fast_io::details::decay::print_n_scatters<position, char_type>(scatters, t, args...);
+		if constexpr (needprintlf)
+		{
+			scatters[scatterscount - 1u] = ::fast_io::details::decay::line_scatter_common<char_type>;
+		}
+		auto curr{obuffer_curr(optstm)};
+		auto const end{obuffer_end(optstm)};
+		for (::std::size_t i{}; i != scatterscount; ++i)
+		{
+			::std::size_t const len{scatters[i].len};
+			if (len == 0u)
+			{
+				continue;
+			}
+			if (curr == nullptr || end == nullptr || curr > end ||
+				static_cast<::std::size_t>(end - curr) < len) [[unlikely]]
+			{
+				fast_terminate();
+			}
+			if constexpr (::fast_io::details::decay::
+							  print_direct_obuffer_scatter_vector_copy_codegen_supported<
+								  scatterscount>())
+			{
+				// The descriptor contract proves the source extent; the immediately preceding check proves the destination extent.
+				curr = ::fast_io::details::decay::put_area_scatter_copy_n(
+					scatters[i].base, len, curr);
+			}
+			else
+			{
+				curr = ::fast_io::details::non_overlapped_copy_n(
+					scatters[i].base, len, curr);
+			}
+		}
+		obuffer_set_curr(optstm, curr);
+		return;
+	}
 	if (::fast_io::details::decay::print_controls_scatters_try_materialize<
 			needprintlf, position, source_scatter_capacity, char_type,
 			preserve_static_fragments>(optstm, t, args...))
@@ -6888,10 +7868,20 @@ template <bool needprintlf, ::std::size_t position, ::std::size_t stack_buffer_s
 		  ::std::integral char_type, bool retain_static_scatter = false,
 		  bool preserve_static_fragments = false, typename outputstmtype,
 		  typename scatter_type, typename T, typename... Args>
-// The stack/heap branch and template budgets fold identically across every
-// tested frontend without forcing this allocation-shaped writer into callers.
-inline constexpr void print_controls_dynamic_scatters_reserve_with_scatter(outputstmtype &optstm, scatter_type *scatters,
-																		   ::std::size_t totalsz, T &t, Args &...args)
+// The caller owns the descriptor array while this helper owns the character
+// buffer; their addresses form one synchronous materialization transaction.
+// Clang 17--22 otherwise retained an out-of-line helper for heterogeneous N=8+
+// runs.  Forced inlining reduced text on every measured Clang release and made
+// both Clang 22 N=8 controls win all eleven paired samples, so later Clang
+// versions inherit that future-open code-generation policy.  GNU frontends are
+// deliberately excluded: GCC 14--16 already inline naturally, while GCC 13
+// enlarged the N=8 line specialization by 9,522 text bytes.  Semantic
+// eligibility and the outer public-call boundary are unchanged.
+#if defined(__clang__) && __clang_major__ >= 17
+FAST_IO_GNU_ALWAYS_INLINE
+#endif
+	inline constexpr void print_controls_dynamic_scatters_reserve_with_scatter(outputstmtype &optstm, scatter_type *scatters,
+																			   ::std::size_t totalsz, T &t, Args &...args)
 {
 	if constexpr (has_static_stack_size &&
 				  ::fast_io::details::decay::print_stack_buffer_size_within_limit<stack_buffer_size, char_type>)
@@ -7166,6 +8156,29 @@ inline constexpr void print_controls_dynamic_scatters_reserve_fast_entry(
 /// @param    t             the current argument
 /// @param    args          the remaining arguments
 template <bool line, typename outputstmtype, ::std::size_t skippings = 0, typename T, typename... Args>
+/*
+GCC 16 classifies the type-changing continuation after an unretained scatter as
+an unlikely size-growth edge.  In a heterogeneous run that edge is instead the
+only ordered continuation and may be reached repeatedly; leaving each suffix
+out of line retains overlapping template clones and one call per boundary.
+
+The attribute changes only this internal layout decision.  For every
+instantiation, the function still emits the same maximal prefix and invokes the
+unique suffix specialization exactly once iff that prefix does not consume the
+record.  It neither changes the already-decayed `T&` objects nor adds a
+forwarding/reference layer.  Native P1 output is byte-identical and P2 has the
+same text size; large heterogeneous raw-output runs remove the redundant call
+chain.  GCC 11--15 did not reproduce the improvement, so they deliberately keep
+their ordinary inliner.  Size-optimized, AVX-disabled, non-x86, and non-GCC
+builds likewise retain the original policy.
+*/
+#if defined(__GNUC__) && !defined(__clang__) && !defined(__INTEL_COMPILER) &&       \
+	!defined(__CUDACC__) && defined(__OPTIMIZE__) && !defined(__OPTIMIZE_SIZE__) && \
+	__GNUC__ >= 16 && defined(__AVX__) &&                                           \
+	(defined(__x86_64__) || defined(_M_AMD64) || defined(_M_X64)) &&                \
+	!(defined(__arm64ec__) || defined(_M_ARM64EC))
+[[__gnu__::__always_inline__]]
+#endif
 inline constexpr void print_controls_impl(outputstmtype &optstm, T &t, Args &...args)
 {
 	using char_type = typename outputstmtype::output_char_type;
@@ -7320,7 +8333,7 @@ inline constexpr void print_controls_impl(outputstmtype &optstm, T &t, Args &...
 								*ptred = ::fast_io::char_literal_v<u8'\n', char_type>;
 								++ptred;
 							}
-							::fast_io::operations::decay::write_all_decay(optstm, buffer, ptred);
+							::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, ptred);
 						}
 						else
 						{
@@ -7336,7 +8349,7 @@ inline constexpr void print_controls_impl(outputstmtype &optstm, T &t, Args &...
 								*ptred = ::fast_io::char_literal_v<u8'\n', char_type>;
 								++ptred;
 							}
-							::fast_io::operations::decay::write_all_decay(optstm, buffer, ptred);
+							::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, ptred);
 						}
 					}
 					else
@@ -7352,7 +8365,7 @@ inline constexpr void print_controls_impl(outputstmtype &optstm, T &t, Args &...
 							*ptred = ::fast_io::char_literal_v<u8'\n', char_type>;
 							++ptred;
 						}
-						::fast_io::operations::decay::write_all_decay(optstm, buffer, ptred);
+						::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, ptred);
 					}
 				}
 				else if constexpr (res.hasreserve)
@@ -7364,7 +8377,7 @@ inline constexpr void print_controls_impl(outputstmtype &optstm, T &t, Args &...
 						if constexpr (needprintlf)
 						{
 							// The line variant emits the trailing newline as a single character output.
-							::fast_io::operations::decay::char_put_decay(optstm,
+							::fast_io::operations::decay::char_put_decay_dispatch(optstm,
 																		 ::fast_io::char_literal_v<u8'\n', char_type>);
 						}
 					}
@@ -7384,7 +8397,7 @@ inline constexpr void print_controls_impl(outputstmtype &optstm, T &t, Args &...
 								*ptred = ::fast_io::char_literal_v<u8'\n', char_type>;
 								++ptred;
 							}
-							::fast_io::operations::decay::write_all_decay(optstm, buffer, ptred);
+							::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, ptred);
 						}
 						else
 						{
@@ -7399,7 +8412,7 @@ inline constexpr void print_controls_impl(outputstmtype &optstm, T &t, Args &...
 								*ptred = ::fast_io::char_literal_v<u8'\n', char_type>;
 								++ptred;
 							}
-							::fast_io::operations::decay::write_all_decay(optstm, buffer, ptred);
+							::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, ptred);
 						}
 					}
 				}
@@ -7474,7 +8487,30 @@ inline constexpr void print_controls_buffer_impl(outputstmtype &optstm, T &t, Ar
 	else if constexpr (sizeof...(Args) == 0)
 	{
 		// A single remaining argument uses the one-control emitter with the caller's line policy.
-		print_control_single<line>(optstm, t);
+		using char_type = typename outputstmtype::output_char_type;
+		if constexpr (print_fixed_static_reserve_run_available<outputstmtype, char_type, T>())
+		{
+			// Semantic condition selection can reduce a record to one ordinary reserve leaf. Re-apply the fixed-view
+			// boundary here so an audited formatter which initializes scratch inside its reserve bound is staged before
+			// the returned logical prefix is committed to externally visible storage.
+			print_fixed_static_reserve_run<line, outputstmtype, char_type>(optstm, t);
+		}
+		else if constexpr (print_buffered_hot_decimal_scalar_available<
+							   outputstmtype, char_type, T>())
+		{
+			print_control_single_buffered_hot<line>(optstm, t);
+		}
+		else if constexpr (
+			::fast_io::details::decay::print_control_single_out_of_line_eligible<
+				outputstmtype, T>)
+		{
+			::fast_io::details::decay::print_control_single_diagnostic_boundary<line>(
+				optstm, t);
+		}
+		else
+		{
+			print_control_single<line>(optstm, t);
+		}
 	}
 	else
 	{
@@ -7482,6 +8518,33 @@ inline constexpr void print_controls_buffer_impl(outputstmtype &optstm, T &t, Ar
 		using char_type = typename outputstmtype::output_char_type;
 		static_assert(SIZE_MAX != sizeof...(Args));
 		constexpr ::std::size_t n{sizeof...(Args) + static_cast<::std::size_t>(1)};
+		if constexpr (print_fixed_static_reserve_run_available<outputstmtype, char_type, T, Args...>())
+		{
+			print_fixed_static_reserve_run<line, outputstmtype, char_type>(optstm, t, args...);
+			return;
+		}
+		else if constexpr (
+			(n == 32u || n >= 52u) &&
+			::fast_io::details::decay::print_control_single_out_of_line_eligible<
+				outputstmtype, T> &&
+			(::fast_io::details::decay::print_control_single_out_of_line_eligible<
+				 outputstmtype, Args> &&
+			 ...))
+		{
+			// GCC's isolated 32-control cliff benefits from chunks. Counts 33--51 retain inlining because their measured
+			// aggregate cost still benefits from local cursor propagation. From 52 onward the shared chunks bound compile
+			// resources, text size, and nonempty latency; this deliberately forgoes cross-leaf optimization of the rare
+			// all-empty pack rather than pre-observing size CPOs and changing their required evaluation order.
+			::fast_io::details::decay::print_controls_out_of_line_chunks<line>(optstm, t, args...);
+			return;
+		}
+		constexpr bool fixed_external_overstore_component_run{
+			print_direct_obuffer_reserve_destination<outputstmtype> &&
+			(::fast_io::details::decay::print_fixed_external_overstore_traits<
+				 char_type, ::std::remove_cvref_t<T>>::available ||
+			 (false || ... ||
+			  ::fast_io::details::decay::print_fixed_external_overstore_traits<
+				  char_type, ::std::remove_cvref_t<Args>>::available))};
 		constexpr auto mixed_result{
 			::fast_io::details::decay::find_continuous_scatters_n<char_type, T, Args...>()};
 		// A fixed view keeps its established retained-scatter dispatch here. Dedicated complete-run callers may still
@@ -7571,11 +8634,12 @@ inline constexpr void print_controls_buffer_impl(outputstmtype &optstm, T &t, Ar
 					constexpr ::std::size_t buffersize{rsvresult.neededspace + static_cast<::std::size_t>(needprintlf)};
 					char_type *bcurr{obuffer_curr(optstm)};
 					char_type *bend{obuffer_end(optstm)};
-					::std::ptrdiff_t const diff{
-						bcurr == nullptr || bend == nullptr ? -1 : bend - bcurr};
 					// A reserve prefix may end exactly at `bend`; no sentinel character is stored in the put area.
-					bool fits{static_cast<::std::ptrdiff_t>(buffersize) <= diff};
-					if constexpr (minimum_buffer_output_stream_require_size_impl<outputstmtype, buffersize>)
+					bool fits{!fixed_external_overstore_component_run &&
+							  buffersize <= ::fast_io::details::decay::print_obuffer_remaining_size<
+												char_type, outputstmtype>(bcurr, bend)};
+					if constexpr (!fixed_external_overstore_component_run &&
+								  minimum_buffer_output_stream_require_size_impl<outputstmtype, buffersize>)
 					{
 						// Streams with a sufficient minimum put area can prepare the buffer once before writing in place.
 						if (!fits) [[unlikely]]
@@ -7584,10 +8648,8 @@ inline constexpr void print_controls_buffer_impl(outputstmtype &optstm, T &t, Ar
 							obuffer_minimum_size_flush_prepare_define(optstm);
 							bcurr = obuffer_curr(optstm);
 						}
-						if (bcurr == nullptr) [[unlikely]]
-						{
-							::fast_io::fast_terminate();
-						}
+						// A successful minimum-buffer prepare is the capacity proof; avoid a
+						// redundant null guard in the hot grouped-reserve path.
 						bcurr = ::fast_io::details::decay::print_n_reserve<rsvresult.position, char_type>(
 							bcurr, t, args...);
 						if constexpr (needprintlf)
@@ -7631,7 +8693,7 @@ inline constexpr void print_controls_buffer_impl(outputstmtype &optstm, T &t, Ar
 									*ptr = ::fast_io::char_literal_v<u8'\n', char_type>;
 									++ptr;
 								}
-								::fast_io::operations::decay::write_all_decay(optstm, buffer, ptr);
+								::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, ptr);
 							}
 							else
 							{
@@ -7647,7 +8709,7 @@ inline constexpr void print_controls_buffer_impl(outputstmtype &optstm, T &t, Ar
 									*ptr = ::fast_io::char_literal_v<u8'\n', char_type>;
 									++ptr;
 								}
-								::fast_io::operations::decay::write_all_decay(optstm, buffer, ptr);
+								::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, ptr);
 							}
 						}
 					}
@@ -7661,7 +8723,18 @@ inline constexpr void print_controls_buffer_impl(outputstmtype &optstm, T &t, Ar
 				else
 				{
 					// No useful prefix was found, so emit the current argument and continue with the tail.
-					::fast_io::details::decay::print_control_single<line && sizeof...(args) == 0>(optstm, t);
+					if constexpr (
+						::fast_io::details::decay::print_control_single_out_of_line_eligible<
+							outputstmtype, T>)
+					{
+						::fast_io::details::decay::print_control_single_diagnostic_boundary<
+							line && sizeof...(args) == 0>(optstm, t);
+					}
+					else
+					{
+						::fast_io::details::decay::print_control_single<
+							line && sizeof...(args) == 0>(optstm, t);
+					}
 					if constexpr (sizeof...(args) != 0)
 					{
 						// The tail still owns the caller's final line policy.
@@ -7708,9 +8781,8 @@ template <typename T>
 inline constexpr bool print_semantic_top_level_condition_v =
 	::fast_io::details::decay::print_semantic_node<T> &&
 	::fast_io::details::decay::print_semantic_condition_v<
-		::std::remove_cvref_t<decltype(
-			::fast_io::details::decay::print_semantic_node_ref(
-				::std::declval<T>()))>>;
+		::std::remove_cvref_t<decltype(::fast_io::details::decay::print_semantic_node_ref(
+			::std::declval<T>()))>>;
 
 /// @brief Identifies a normalized argument which execution must route through semantic expansion.
 /// @details Ordinary semantic-node admission intentionally unwraps only one public parameter layer. Pack execution is
@@ -7752,6 +8824,90 @@ inline constexpr bool print_semantic_input_argument_v =
 	::fast_io::details::decay::print_semantic_execution_node_v<
 		::fast_io::details::decay::print_semantic_input_forward_t<char_type, T>>;
 
+/// @brief Proves one public source is already a closed library integral-scalar record.
+/// @details Let S be the cvref-stripped public source and N its ordinary `io_print_alias` followed by
+///          `io_print_forward` result.  Volatile access is rejected, the source trait proves that S owns a fundamental
+///          integral value with no user-associated namespace, and `same_as<S,N>` proves normalization neither replaces
+///          the operation type nor introduces a status-bearing proxy.  The final requirements prove the same static
+///          reserve extent and non-throwing writer consumed by the fixed-view emitter.  Thus the shortcut skips only
+///          dispatcher scaffolding; it does not skip or duplicate source normalization.
+template <::std::integral char_type, typename source_type>
+inline consteval bool
+print_fixed_public_integral_manip_source_available() noexcept
+{
+	using source_reference = ::std::remove_reference_t<source_type>;
+	using source_value = ::std::remove_cvref_t<source_type>;
+	if constexpr (
+		::std::is_volatile_v<source_reference> ||
+		!print_fixed_public_integral_manip_source_traits<source_value>::available)
+	{
+		return false;
+	}
+	else if constexpr (
+		::fast_io::details::decay::print_semantic_input_argument_v<
+			char_type, source_reference &>)
+	{
+		return false;
+	}
+	else if constexpr (requires(source_reference &source) {
+#if defined(__HERBCEPTIONS__)
+							   // The shortcut elides the generic normalization graph. Each expression it elides must have
+							   // neither deterministic failure nor a traditional unwind edge for this exact named public lvalue.
+							   requires(!throws((::fast_io::io_print_alias(source))));
+							   requires(!throws((::fast_io::io_print_forward<char_type>(
+								   ::fast_io::io_print_alias(source)))));
+#endif
+							   {
+							   ::fast_io::io_print_alias(source)
+						   } noexcept;
+						   {
+							   ::fast_io::io_print_forward<char_type>(
+								   ::fast_io::io_print_alias(source))
+						   } noexcept -> ::std::same_as<source_value>;
+					   })
+	{
+		return ::fast_io::reserve_printable<char_type, source_value> &&
+			requires(char_type * ptr, source_value & value)
+		{
+#if defined(__HERBCEPTIONS__)
+				requires(!throws((print_reserve_define(
+					::fast_io::io_reserve_type<char_type, source_value>, ptr, value))));
+#endif
+				{
+				print_reserve_define(
+					::fast_io::io_reserve_type<char_type, source_value>,
+					ptr, value)
+			} noexcept -> ::std::same_as<char_type *>;
+		};
+	}
+	else
+	{
+		return false;
+	}
+}
+
+/// @brief Admits a complete integral-manipulator run to the fixed external-buffer emitter.
+/// @details The destination marker proves stable externally owned storage with no hidden growth, flush, lock, or status
+///          operation.  Every source independently satisfies the closed-normalization proof above.  A single static
+///          capacity check may therefore replace the general CPO graph, after which reserve writers execute exactly once
+///          in left-to-right order and the destination publishes exactly the same final cursor.  Line mode contributes
+///          its one trailing newline inside that same checked extent.
+template <bool line, typename output, ::std::integral char_type,
+		  typename... Args>
+inline consteval bool
+print_fixed_public_integral_manip_run_available() noexcept
+{
+	return sizeof...(Args) != 0u && sizeof...(Args) <= 32u &&
+		   print_direct_obuffer_reserve_destination<output> &&
+		   !::fast_io::operations::decay::defines::
+			   has_output_or_io_stream_mutex_ref_define<output> &&
+		   !::fast_io::operations::decay::defines::has_status_print_define<
+			   line, output, ::std::remove_cvref_t<Args>...> &&
+		   (print_fixed_public_integral_manip_source_available<
+				char_type, Args>() &&
+			...);
+}
+
 /// @brief Derives semantic input forwarding's exception specification from the CPO branch it invokes.
 template <::std::integral char_type, typename T>
 inline constexpr bool print_semantic_input_forward_nothrow = []() constexpr {
@@ -7770,6 +8926,29 @@ inline constexpr bool print_semantic_input_forward_nothrow = []() constexpr {
 	}
 }();
 
+#if defined(__HERBCEPTIONS__)
+/// @brief Classifies semantic source normalization's deterministic error effect from its exact selected expression.
+/// @details A parameterless semantic alias deliberately bypasses status forwarding and enters only the ordinary
+///          value/reference transport. Every other alias enters character-aware forwarding. Querying the complete
+///          expression in each arm includes both alias evaluation and any required result materialization without
+///          conflating that ABI effect with the independent traditional-exception `noexcept` contract above.
+template <::std::integral char_type, typename T>
+inline constexpr bool print_semantic_input_forward_herbceptions_throws = []() constexpr {
+	if constexpr (::fast_io::details::decay::print_semantic_node_no_parameter_v<
+						  ::std::remove_cvref_t<
+							  decltype(::fast_io::io_print_alias(::std::declval<T>()))>>)
+	{
+		return throws((::fast_io::details::io_print_forward_transport(
+			::fast_io::io_print_alias(::std::declval<T>()))));
+	}
+	else
+	{
+		return throws((::fast_io::io_print_forward<char_type>(
+			::fast_io::io_print_alias(::std::declval<T>()))));
+	}
+}();
+#endif
+
 /// @brief    Applies the semantic input forwarding protocol to one argument.
 /// @tparam   char_type the print character type
 /// @tparam   T         the input argument type
@@ -7778,11 +8957,16 @@ inline constexpr bool print_semantic_input_forward_nothrow = []() constexpr {
 /// @note     Both aliasing and status forwarding are extension CPOs.  The conditional exception specification is
 ///           derived from the selected branch, so a throwing customization propagates rather than terminating.
 template <::std::integral char_type, typename T>
-inline constexpr decltype(auto) print_semantic_input_forward(T &&t) noexcept(::fast_io::details::decay::print_semantic_input_forward_nothrow<char_type, T>)
+inline constexpr decltype(auto) print_semantic_input_forward(T &&t)
+	FAST_IO_HERBCEPTIONS_THROWS_OR_NOEXCEPT(
+		(::fast_io::details::decay::print_semantic_input_forward_herbceptions_throws<char_type, T>),
+		::fast_io::details::decay::print_semantic_input_forward_nothrow<char_type, T>)
 {
+	// The exact alias-and-forward transaction determines one conditional deterministic effect. A false condition remains
+	// on the language-defined plain ABI; ordinary compilers retain the historical conditional-noexcept signature.
 	if constexpr (::fast_io::details::decay::print_semantic_node_no_parameter_v<
-					  ::std::remove_cvref_t<
-						  decltype(::fast_io::io_print_alias(::std::forward<T>(t)))>>)
+						  ::std::remove_cvref_t<
+							  decltype(::fast_io::io_print_alias(::std::forward<T>(t)))>>)
 	{
 		// Alias results that are already parameterless semantic nodes must not enter status forwarding again. They do,
 		// however, need the ordinary value-or-reference transport at this normalization boundary: copying a large
@@ -7807,9 +8991,8 @@ inline constexpr decltype(auto) print_semantic_input_forward(T &&t) noexcept(::f
 ///          `io_print_forward(io_print_alias(...))` is not equivalent when the alias result is already a semantic node.
 template <::std::integral char_type, typename T>
 using print_semantic_stable_input_forward_t = ::std::add_lvalue_reference_t<
-	::std::remove_reference_t<decltype(
-		::fast_io::details::decay::print_semantic_input_forward<char_type>(
-			::std::declval<T>()))>>;
+	::std::remove_reference_t<decltype(::fast_io::details::decay::print_semantic_input_forward<char_type>(
+		::std::declval<T>()))>>;
 
 /// @brief    Invokes a continuation with every element from a semantic pack.
 /// @tparam   T            the pack-like semantic node type
@@ -7896,9 +9079,8 @@ inline constexpr bool print_semantic_argument_provably_empty_impl(T &&t)
 	else if constexpr (
 		::fast_io::details::decay::print_semantic_pack_argument_v<T>)
 	{
-		using node_type = ::std::remove_cvref_t<decltype(
-			::fast_io::details::decay::print_semantic_node_ref(
-				::std::forward<T>(t)))>;
+		using node_type = ::std::remove_cvref_t<decltype(::fast_io::details::decay::print_semantic_node_ref(
+			::std::forward<T>(t)))>;
 		return ::fast_io::details::decay::print_semantic_pack_provably_empty_impl(
 			::std::forward<T>(t), ::std::make_index_sequence<node_type::size>{});
 	}
@@ -7958,7 +9140,11 @@ struct print_semantic_value_prefix_continuation
 	/// @param    tail_args the tail arguments
 	/// @return   decltype(auto) the downstream continuation result
 	template <typename... TailArgs>
-	inline constexpr decltype(auto) operator()(TailArgs &&...tail_args) const
+#if (defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
+	(defined(__clang__) && __clang_major__ >= 13)
+	FAST_IO_GNU_ALWAYS_INLINE
+#endif
+		inline constexpr decltype(auto) operator()(TailArgs &&...tail_args) const
 	{
 		return (*contptr)(::std::forward<T>(*valueptr), ::std::forward<TailArgs>(tail_args)...);
 	}
@@ -8262,7 +9448,11 @@ inline constexpr decltype(auto) print_semantic_select_condition_branch(continuat
 
 /// @brief    Completes condition selection for a normalized semantic run.
 template <::std::integral char_type, typename continuation>
-inline constexpr decltype(auto) print_semantic_select_conditions(continuation &&cont)
+#if (defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
+	(defined(__clang__) && __clang_major__ >= 13)
+FAST_IO_GNU_ALWAYS_INLINE
+#endif
+	inline constexpr decltype(auto) print_semantic_select_conditions(continuation &&cont)
 {
 	return ::std::forward<continuation>(cont)();
 }
@@ -8271,7 +9461,11 @@ inline constexpr decltype(auto) print_semantic_select_conditions(continuation &&
 /// @details  This removes inactive branch cost from the strategy model and prevents condition-pack boundaries from
 ///           fragmenting an otherwise coalescible run.
 template <::std::integral char_type, typename continuation, typename T, typename... Args>
-inline constexpr decltype(auto) print_semantic_select_conditions(continuation &&cont, T &&t, Args &&...args)
+#if (defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
+	(defined(__clang__) && __clang_major__ >= 13)
+FAST_IO_GNU_ALWAYS_INLINE
+#endif
+	inline constexpr decltype(auto) print_semantic_select_conditions(continuation &&cont, T &&t, Args &&...args)
 {
 	if constexpr (::fast_io::details::decay::print_semantic_top_level_condition_v<T>)
 	{
@@ -8392,15 +9586,12 @@ inline consteval bool print_semantic_optional_scatter_argument() noexcept
 	}
 	else
 	{
-		using node_result = decltype(
-			::fast_io::details::decay::print_semantic_node_ref(
-				::std::declval<T>()));
+		using node_result = decltype(::fast_io::details::decay::print_semantic_node_ref(
+			::std::declval<T>()));
 		using node_expression = ::std::add_lvalue_reference_t<
 			::std::remove_reference_t<node_result>>;
-		using first_expression = decltype(
-			(::std::declval<node_expression>().t1));
-		using second_expression = decltype(
-			(::std::declval<node_expression>().t2));
+		using first_expression = decltype((::std::declval<node_expression>().t1));
+		using second_expression = decltype((::std::declval<node_expression>().t2));
 		constexpr bool first_null{
 			::std::same_as<::std::remove_cvref_t<first_expression>,
 						   ::fast_io::io_null_t>};
@@ -8459,7 +9650,7 @@ print_semantic_optional_scatter_select(T &source)
 {
 	auto &&node{
 		::fast_io::details::decay::print_semantic_node_ref(source)};
-		auto select_branch = []<typename Branch>(Branch &branch) constexpr
+	auto select_branch = []<typename Branch>(Branch &branch) constexpr
 		-> ::fast_io::basic_io_scatter_t<char_type> {
 		using branch_type = ::std::remove_cvref_t<Branch>;
 		if constexpr (
@@ -8513,29 +9704,32 @@ print_semantic_optional_scatter_select(T &source)
 template <::std::integral char_type, typename T>
 	requires ::fast_io::details::decay::
 		print_semantic_optional_scatter_argument_v<char_type, T &>
-inline constexpr ::std::size_t print_reserve_size(
-	::fast_io::io_reserve_type_t<
-		char_type,
+	inline constexpr ::std::size_t print_reserve_size(
+		::fast_io::io_reserve_type_t<
+			char_type,
+			::fast_io::details::decay::
+				print_semantic_optional_scatter_component<char_type, T>>,
 		::fast_io::details::decay::
-			print_semantic_optional_scatter_component<char_type, T>>,
-	::fast_io::details::decay::
-		print_semantic_optional_scatter_component<char_type, T> value)
+			print_semantic_optional_scatter_component<char_type, T>
+				value)
 {
 	return ::fast_io::details::decay::
-		print_semantic_optional_scatter_select<char_type>(*value.source).len;
+		print_semantic_optional_scatter_select<char_type>(*value.source)
+			.len;
 }
 
 template <::std::integral char_type, typename T>
 	requires ::fast_io::details::decay::
 		print_semantic_optional_scatter_argument_v<char_type, T &>
-inline constexpr char_type *print_reserve_define(
-	::fast_io::io_reserve_type_t<
-		char_type,
+	inline constexpr char_type *print_reserve_define(
+		::fast_io::io_reserve_type_t<
+			char_type,
+			::fast_io::details::decay::
+				print_semantic_optional_scatter_component<char_type, T>>,
+		char_type *destination,
 		::fast_io::details::decay::
-			print_semantic_optional_scatter_component<char_type, T>>,
-	char_type *destination,
-	::fast_io::details::decay::
-		print_semantic_optional_scatter_component<char_type, T> value)
+			print_semantic_optional_scatter_component<char_type, T>
+				value)
 {
 	auto const scatter{
 		::fast_io::details::decay::
@@ -8551,14 +9745,14 @@ inline constexpr char_type *print_reserve_define(
 template <::std::integral char_type, typename T>
 	requires ::fast_io::details::decay::
 		print_semantic_optional_scatter_argument_v<char_type, T &>
-inline constexpr ::fast_io::reserve_scatters_size_result
-print_reserve_scatters_size(
-	::fast_io::io_reserve_type_t<
-		char_type,
-		::fast_io::details::decay::
-			print_semantic_optional_scatter_component<char_type, T>>,
-	::fast_io::details::decay::
-		print_semantic_optional_scatter_component<char_type, T>) noexcept
+	inline constexpr ::fast_io::reserve_scatters_size_result
+		print_reserve_scatters_size(
+			::fast_io::io_reserve_type_t<
+				char_type,
+				::fast_io::details::decay::
+					print_semantic_optional_scatter_component<char_type, T>>,
+			::fast_io::details::decay::
+				print_semantic_optional_scatter_component<char_type, T>) noexcept
 {
 	// Capacity is deliberately predicate-independent. Materialization evaluates the condition once and may consume
 	// zero of this one descriptor, avoiding a separate value-dependent sizing pass.
@@ -8568,16 +9762,17 @@ print_reserve_scatters_size(
 template <::std::integral char_type, typename T>
 	requires ::fast_io::details::decay::
 		print_semantic_optional_scatter_argument_v<char_type, T &>
-inline constexpr ::fast_io::basic_reserve_scatters_define_result<char_type>
-print_reserve_scatters_define(
-	::fast_io::io_reserve_type_t<
-		char_type,
+	inline constexpr ::fast_io::basic_reserve_scatters_define_result<char_type>
+	print_reserve_scatters_define(
+		::fast_io::io_reserve_type_t<
+			char_type,
+			::fast_io::details::decay::
+				print_semantic_optional_scatter_component<char_type, T>>,
+		::fast_io::basic_io_scatter_t<char_type> *scatters,
+		char_type *reserve,
 		::fast_io::details::decay::
-			print_semantic_optional_scatter_component<char_type, T>>,
-	::fast_io::basic_io_scatter_t<char_type> *scatters,
-	char_type *reserve,
-	::fast_io::details::decay::
-		print_semantic_optional_scatter_component<char_type, T> value)
+			print_semantic_optional_scatter_component<char_type, T>
+				value)
 {
 	auto const scatter{
 		::fast_io::details::decay::
@@ -8592,11 +9787,11 @@ print_reserve_scatters_define(
 template <::std::integral char_type, typename T>
 	requires ::fast_io::details::decay::
 		print_semantic_optional_scatter_argument_v<char_type, T &>
-inline constexpr ::std::true_type print_borrowed_reserve_scatters_source(
-	::fast_io::io_reserve_type_t<
-		char_type,
-		::fast_io::details::decay::
-			print_semantic_optional_scatter_component<char_type, T>>) noexcept
+	inline constexpr ::std::true_type print_borrowed_reserve_scatters_source(
+		::fast_io::io_reserve_type_t<
+			char_type,
+			::fast_io::details::decay::
+				print_semantic_optional_scatter_component<char_type, T>>) noexcept
 {
 	// Admission required the selected non-null descriptor to remain valid across every later component producer.
 	return {};
@@ -8633,32 +9828,35 @@ struct print_semantic_optional_contiguous_component
 };
 
 template <::std::integral char_type, typename T>
-		requires ::fast_io::details::decay::
-			print_semantic_optional_scatter_argument_v<char_type, T &>
-inline constexpr ::std::size_t print_reserve_size(
-	::fast_io::io_reserve_type_t<
-		char_type,
+	requires ::fast_io::details::decay::
+		print_semantic_optional_scatter_argument_v<char_type, T &>
+	inline constexpr ::std::size_t print_reserve_size(
+		::fast_io::io_reserve_type_t<
+			char_type,
+			::fast_io::details::decay::
+				print_semantic_optional_contiguous_component<char_type, T>>,
 		::fast_io::details::decay::
-			print_semantic_optional_contiguous_component<char_type, T>>,
-	::fast_io::details::decay::
-		print_semantic_optional_contiguous_component<char_type, T> value)
+			print_semantic_optional_contiguous_component<char_type, T>
+				value)
 {
 	return ::fast_io::details::decay::
 		print_semantic_optional_scatter_select<char_type>(
-			*value.source).len;
+			   *value.source)
+			.len;
 }
 
 template <::std::integral char_type, typename T>
-		requires ::fast_io::details::decay::
-			print_semantic_optional_scatter_argument_v<char_type, T &>
-inline constexpr char_type *print_reserve_define(
-	::fast_io::io_reserve_type_t<
-		char_type,
+	requires ::fast_io::details::decay::
+		print_semantic_optional_scatter_argument_v<char_type, T &>
+	inline constexpr char_type *print_reserve_define(
+		::fast_io::io_reserve_type_t<
+			char_type,
+			::fast_io::details::decay::
+				print_semantic_optional_contiguous_component<char_type, T>>,
+		char_type *destination,
 		::fast_io::details::decay::
-			print_semantic_optional_contiguous_component<char_type, T>>,
-	char_type *destination,
-	::fast_io::details::decay::
-		print_semantic_optional_contiguous_component<char_type, T> value)
+			print_semantic_optional_contiguous_component<char_type, T>
+				value)
 {
 	auto const scatter{
 		::fast_io::details::decay::
@@ -8688,15 +9886,12 @@ print_semantic_optional_contiguous_branch_max_size() noexcept
 		::fast_io::details::decay::
 			print_semantic_top_level_condition_v<Branch &>)
 	{
-		using node_result = decltype(
-			::fast_io::details::decay::print_semantic_node_ref(
-				::std::declval<Branch &>()));
+		using node_result = decltype(::fast_io::details::decay::print_semantic_node_ref(
+			::std::declval<Branch &>()));
 		using node_expression = ::std::add_lvalue_reference_t<
 			::std::remove_reference_t<node_result>>;
-		using first_expression = decltype(
-			(::std::declval<node_expression>().t1));
-		using second_expression = decltype(
-			(::std::declval<node_expression>().t2));
+		using first_expression = decltype((::std::declval<node_expression>().t1));
+		using second_expression = decltype((::std::declval<node_expression>().t2));
 		constexpr ::std::size_t first{
 			::fast_io::details::decay::
 				print_semantic_optional_contiguous_branch_max_size<
@@ -8741,15 +9936,12 @@ print_semantic_optional_contiguous_max_size() noexcept
 	static_assert(
 		::fast_io::details::decay::
 			print_semantic_optional_scatter_argument_v<char_type, T &>);
-	using node_result = decltype(
-		::fast_io::details::decay::print_semantic_node_ref(
-			::std::declval<T &>()));
+	using node_result = decltype(::fast_io::details::decay::print_semantic_node_ref(
+		::std::declval<T &>()));
 	using node_expression = ::std::add_lvalue_reference_t<
 		::std::remove_reference_t<node_result>>;
-	using first_expression = decltype(
-		(::std::declval<node_expression>().t1));
-	using second_expression = decltype(
-		(::std::declval<node_expression>().t2));
+	using first_expression = decltype((::std::declval<node_expression>().t1));
+	using second_expression = decltype((::std::declval<node_expression>().t2));
 	constexpr ::std::size_t first{
 		::fast_io::details::decay::
 			print_semantic_optional_contiguous_branch_max_size<
@@ -8769,13 +9961,13 @@ print_semantic_optional_contiguous_max_size() noexcept
 }
 
 template <::std::integral char_type, typename T>
-		requires(
-			::fast_io::details::decay::
-				print_semantic_optional_scatter_argument_v<
-					char_type, T &> &&
-			::fast_io::details::decay::
-					print_semantic_optional_contiguous_max_size<
-						char_type, T>() != SIZE_MAX)
+	requires(
+		::fast_io::details::decay::
+			print_semantic_optional_scatter_argument_v<
+				char_type, T &> &&
+		::fast_io::details::decay::
+				print_semantic_optional_contiguous_max_size<
+					char_type, T>() != SIZE_MAX)
 inline constexpr ::std::size_t print_reserve_static_stack_size(
 	::fast_io::io_reserve_type_t<
 		char_type,
@@ -8824,7 +10016,8 @@ inline constexpr ::std::size_t print_reserve_size(
 		::fast_io::details::decay::
 			print_semantic_optional_coalescing_component<char_type>>,
 	::fast_io::details::decay::
-		print_semantic_optional_coalescing_component<char_type> value) noexcept
+		print_semantic_optional_coalescing_component<char_type>
+			value) noexcept
 {
 	return value.scatter.len;
 }
@@ -8837,7 +10030,8 @@ inline constexpr char_type *print_reserve_define(
 			print_semantic_optional_coalescing_component<char_type>>,
 	char_type *destination,
 	::fast_io::details::decay::
-		print_semantic_optional_coalescing_component<char_type> value) noexcept
+		print_semantic_optional_coalescing_component<char_type>
+			value) noexcept
 {
 	if (value.scatter.len == 0u)
 	{
@@ -8854,7 +10048,8 @@ inline constexpr ::std::size_t print_reserve_precise_size(
 		::fast_io::details::decay::
 			print_semantic_optional_coalescing_component<char_type>>,
 	::fast_io::details::decay::
-		print_semantic_optional_coalescing_component<char_type> value) noexcept
+		print_semantic_optional_coalescing_component<char_type>
+			value) noexcept
 {
 	return value.scatter.len;
 }
@@ -8867,7 +10062,8 @@ inline constexpr char_type *print_reserve_precise_define(
 			print_semantic_optional_coalescing_component<char_type>>,
 	char_type *destination, ::std::size_t precise_size,
 	::fast_io::details::decay::
-		print_semantic_optional_coalescing_component<char_type> value) noexcept
+		print_semantic_optional_coalescing_component<char_type>
+			value) noexcept
 {
 	// The cached descriptor is the complete selected arm, so its recorded extent is the exact size established above.
 	if (precise_size == 0u)
@@ -8998,7 +10194,7 @@ template <bool line, ::std::integral char_type, typename outputstmtype,
 		  typename... Args>
 inline consteval bool print_semantic_optional_scatter_plan_available() noexcept
 {
-#if !FAST_IO_HAS_BUILTIN(__builtin_constant_p) || \
+#if !FAST_IO_HAS_BUILTIN(__builtin_constant_p) ||                   \
 	(defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
 	(defined(__clang__) && __clang_major__ >= 13)
 	constexpr ::std::size_t selection_count{
@@ -9028,8 +10224,8 @@ inline consteval bool print_semantic_optional_scatter_plan_available() noexcept
 			 (::fast_io::details::decay::
 				  print_has_direct_write_operations<outputstmtype> &&
 			  ::fast_io::details::decay::
-				  print_scatter_fallback_full_output_threshold<
-					  char_type, outputstmtype>() != 0u))};
+					  print_scatter_fallback_full_output_threshold<
+						  char_type, outputstmtype>() != 0u))};
 		if constexpr (
 			!::fast_io::semantic_optional_scatter_plan_stream<
 				char_type, outputstmtype> ||
@@ -9040,12 +10236,12 @@ inline consteval bool print_semantic_optional_scatter_plan_available() noexcept
 		else
 		{
 			return ((::fast_io::details::decay::
-					 print_semantic_optional_scatter_argument_v<
-						 char_type, Args &> ||
-				 ::fast_io::details::decay::
-					 print_semantic_optional_scatter_plain_argument_v<
-						 char_type, Args &>) &&
-				...);
+						 print_semantic_optional_scatter_argument_v<
+							 char_type, Args &> ||
+					 ::fast_io::details::decay::
+						 print_semantic_optional_scatter_plain_argument_v<
+							 char_type, Args &>) &&
+					...);
 		}
 	}
 #else
@@ -9085,18 +10281,18 @@ inline constexpr void print_semantic_optional_scatter_plan_emit(
 		// record selects the existing descriptor plan. Retain that same plan and its destination-specific writer.
 		::fast_io::details::decay::print_runtime_scatter_plan_fast_entry<
 			line>(
-				optstm,
-				::fast_io::details::decay::
-					print_semantic_optional_scatter_adapt<
-						char_type>(args)...);
+			optstm,
+			::fast_io::details::decay::
+				print_semantic_optional_scatter_adapt<
+					char_type>(args)...);
 	}
 	else
 	{
 		// With no selected condition scatter, dynamic contiguous views preserve omission while allowing mandatory plain
 		// leaves to make exactly the same reserve-versus-scatter decision as the ordinary generic control scanner.
 		[]<typename... AdaptedArgs>(
-			 outputstmtype &output,
-			 AdaptedArgs &&...adapted_args) constexpr {
+			outputstmtype &output,
+			AdaptedArgs &&...adapted_args) constexpr {
 			::fast_io::details::decay::print_controls_impl<
 				line, outputstmtype, 0u>(output, adapted_args...);
 		}(
@@ -9139,9 +10335,8 @@ inline consteval bool print_directly_to_effective_output() noexcept
 		if constexpr (
 			::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<normalized_output>)
 		{
-			using unlocked_result = decltype(
-				::fast_io::operations::decay::output_stream_unlocked_ref_decay(
-					::std::declval<normalized_output &>()));
+			using unlocked_result = decltype(::fast_io::operations::decay::output_stream_unlocked_ref_decay(
+				::std::declval<normalized_output &>()));
 			// Runtime binds the CPO result with `decltype(auto)` and then passes that named expression onward. Removing only
 			// the reference therefore models the next dispatcher template argument without inventing mutability.
 			using unlocked_output = ::std::remove_reference_t<unlocked_result>;
@@ -9272,9 +10467,8 @@ inline consteval bool print_semantic_condition_branch_output_okay() noexcept
 	}
 	else
 	{
-		using forwarded_result = decltype(
-			::fast_io::details::decay::print_semantic_input_forward<char_type>(
-				::std::declval<expression>()));
+		using forwarded_result = decltype(::fast_io::details::decay::print_semantic_input_forward<char_type>(
+			::std::declval<expression>()));
 		using forwarded_argument = ::std::remove_reference_t<forwarded_result>;
 		return ::fast_io::details::decay::
 			print_freestanding_output_param_okay_single<
@@ -9290,9 +10484,8 @@ inline consteval bool print_semantic_condition_branch_output_okay() noexcept
 template <typename output, ::std::integral char_type, typename expression>
 inline consteval bool print_semantic_output_expression_okay() noexcept
 {
-	using node_result = decltype(
-		::fast_io::details::decay::print_semantic_node_ref(
-			::std::declval<expression>()));
+	using node_result = decltype(::fast_io::details::decay::print_semantic_node_ref(
+		::std::declval<expression>()));
 	using node_expression = ::std::add_lvalue_reference_t<
 		::std::remove_reference_t<node_result>>;
 	using node_type = ::std::remove_cvref_t<node_result>;
@@ -9301,15 +10494,13 @@ inline consteval bool print_semantic_output_expression_okay() noexcept
 		return ::fast_io::details::decay::
 			print_semantic_pack_output_expression_okay_impl<
 				output, char_type, node_expression>(
-					::std::make_index_sequence<node_type::size>{});
+				::std::make_index_sequence<node_type::size>{});
 	}
 	else if constexpr (
 		::fast_io::details::decay::print_semantic_condition_v<node_type>)
 	{
-		using first_expression = decltype(
-			(::std::declval<node_expression>().t1));
-		using second_expression = decltype(
-			(::std::declval<node_expression>().t2));
+		using first_expression = decltype((::std::declval<node_expression>().t1));
+		using second_expression = decltype((::std::declval<node_expression>().t2));
 		return ::fast_io::details::decay::
 				   print_semantic_condition_branch_output_okay<
 					   output, char_type, first_expression>() &&
@@ -9333,11 +10524,9 @@ inline consteval bool print_semantic_output_expression_okay() noexcept
 				return true;
 			}
 		}()};
-		using child_expression = decltype(
-			(::std::declval<node_expression>().reference));
-		using forwarded_result = decltype(
-			::fast_io::details::decay::print_semantic_input_forward<char_type>(
-				::std::declval<child_expression>()));
+		using child_expression = decltype((::std::declval<node_expression>().reference));
+		using forwarded_result = decltype(::fast_io::details::decay::print_semantic_input_forward<char_type>(
+			::std::declval<child_expression>()));
 		using forwarded_argument = ::std::remove_reference_t<forwarded_result>;
 		return fill_character_matches &&
 			   ::fast_io::details::decay::
@@ -9440,9 +10629,8 @@ struct print_semantic_active_record_pack_prepend_impl<
 	expression, print_semantic_active_record_type_list<TailArgs...>,
 	::std::index_sequence<I...>>
 {
-	using node_result = decltype(
-		::fast_io::details::decay::print_semantic_node_ref(
-			::std::declval<expression>()));
+	using node_result = decltype(::fast_io::details::decay::print_semantic_node_ref(
+		::std::declval<expression>()));
 	using node_expression = ::std::add_lvalue_reference_t<
 		::std::remove_reference_t<node_result>>;
 	using type = print_semantic_active_record_type_list<
@@ -9458,9 +10646,8 @@ struct print_semantic_active_record_pack_prepend
 	: print_semantic_active_record_pack_prepend_impl<
 		  expression, tail_list,
 		  ::std::make_index_sequence<
-			  ::std::remove_cvref_t<decltype(
-				  ::fast_io::details::decay::print_semantic_node_ref(
-					  ::std::declval<expression>()))>::size>>
+			  ::std::remove_cvref_t<decltype(::fast_io::details::decay::print_semantic_node_ref(
+				  ::std::declval<expression>()))>::size>>
 {};
 
 template <bool line, typename output, typename active_list, typename remaining_list>
@@ -9487,7 +10674,7 @@ struct print_semantic_active_record_runs_okay_impl<
 		 ::fast_io::details::decay::print_semantic_execution_node_v<ActiveArgs>)};
 	inline static constexpr bool ordinary_fallback{
 		(!line || ::fast_io::details::decay::
-				  print_freestanding_line_output_okay<normalized_output>) &&
+					  print_freestanding_line_output_okay<normalized_output>) &&
 		(::fast_io::details::decay::print_freestanding_output_param_okay_single<
 			 normalized_output, char_type,
 			 ::std::remove_reference_t<ActiveArgs>>::value &&
@@ -9573,10 +10760,9 @@ struct print_semantic_active_record_runs_okay_impl<
 			}
 			else
 			{
-				using forwarded_result = decltype(
-					::fast_io::io_print_forward<char_type>(
-						::fast_io::io_print_alias(
-							::std::declval<expression>())));
+				using forwarded_result = decltype(::fast_io::io_print_forward<char_type>(
+					::fast_io::io_print_alias(
+						::std::declval<expression>())));
 				using forwarded_expression =
 					::fast_io::details::decay::
 						print_semantic_named_result_expression_t<
@@ -9636,10 +10822,9 @@ struct print_semantic_active_record_runs_okay_impl<
 			}
 			else
 			{
-				using forwarded_result = decltype(
-					::fast_io::details::decay::
-						print_semantic_input_forward<char_type>(
-							::std::declval<expression>()));
+				using forwarded_result = decltype(::fast_io::details::decay::
+													  print_semantic_input_forward<char_type>(
+														  ::std::declval<expression>()));
 				using forwarded_expression =
 					::fast_io::details::decay::
 						print_semantic_named_result_expression_t<
@@ -9674,15 +10859,12 @@ struct print_semantic_active_record_runs_okay_impl<
 				::fast_io::details::decay::
 					print_semantic_top_level_condition_v<expression>)
 			{
-				using node_result = decltype(
-					::fast_io::details::decay::print_semantic_node_ref(
-						::std::declval<expression>()));
+				using node_result = decltype(::fast_io::details::decay::print_semantic_node_ref(
+					::std::declval<expression>()));
 				using node_expression = ::std::add_lvalue_reference_t<
 					::std::remove_reference_t<node_result>>;
-				using first_expression = decltype(
-					(::std::declval<node_expression>().t1));
-				using second_expression = decltype(
-					(::std::declval<node_expression>().t2));
+				using first_expression = decltype((::std::declval<node_expression>().t1));
+				using second_expression = decltype((::std::declval<node_expression>().t2));
 				using first_list = print_semantic_active_record_type_list<
 					print_semantic_active_record_input<
 						print_semantic_active_record_stage::condition_branch,
@@ -9730,7 +10912,7 @@ inline consteval bool print_semantic_active_plain_record_okay(
 	using char_type = typename normalized_output::output_char_type;
 	constexpr bool ordinary_fallback{
 		(!line || ::fast_io::details::decay::
-				  print_freestanding_line_output_okay<normalized_output>) &&
+					  print_freestanding_line_output_okay<normalized_output>) &&
 		(::fast_io::details::decay::print_freestanding_output_param_okay_single<
 			 normalized_output, char_type,
 			 ::std::remove_reference_t<expressions>>::value &&
@@ -9751,9 +10933,8 @@ inline consteval bool print_semantic_active_node_record_okay() noexcept
 {
 	using normalized_output = ::std::remove_reference_t<output>;
 	using char_type = typename normalized_output::output_char_type;
-	using node_result = decltype(
-		::fast_io::details::decay::print_semantic_node_ref(
-			::std::declval<expression>()));
+	using node_result = decltype(::fast_io::details::decay::print_semantic_node_ref(
+		::std::declval<expression>()));
 	using node_expression = ::std::add_lvalue_reference_t<
 		::std::remove_reference_t<node_result>>;
 	using node_type = ::std::remove_cvref_t<node_result>;
@@ -9771,10 +10952,8 @@ inline consteval bool print_semantic_active_node_record_okay() noexcept
 	else if constexpr (
 		::fast_io::details::decay::print_semantic_condition_v<node_type>)
 	{
-		using first_expression = decltype(
-			(::std::declval<node_expression>().t1));
-		using second_expression = decltype(
-			(::std::declval<node_expression>().t2));
+		using first_expression = decltype((::std::declval<node_expression>().t1));
+		using second_expression = decltype((::std::declval<node_expression>().t2));
 		using first_list = print_semantic_active_record_type_list<
 			print_semantic_active_record_input<
 				print_semantic_active_record_stage::pack_member,
@@ -9899,7 +11078,6 @@ inline constexpr bool print_semantic_optional_scatter_barrier_argument_v =
 			!::fast_io::reserve_printable<char_type, source_type> &&
 			!::fast_io::dynamic_reserve_printable<char_type, source_type> &&
 			!::fast_io::reserve_scatters_printable<char_type, source_type> &&
-			!::fast_io::transcode_imaginary_printable<char_type, source_type> &&
 			!::fast_io::staged_printable<char_type, source_type> &&
 			!::fast_io::single_pass_staging_printable<char_type, source_type> &&
 			!::fast_io::compiler_constant_printable<char_type, source_type>};
@@ -9949,45 +11127,44 @@ inline constexpr bool print_semantic_optional_scatter_barrier_argument_v =
 template <typename output, ::std::integral char_type, typename T>
 inline constexpr bool
 	print_semantic_optional_scatter_width_barrier_argument_v =
-	[]() consteval {
-		if constexpr (
-			!::fast_io::details::decay::print_semantic_execution_node_v<T>)
-		{
-			return false;
-		}
-		else
-		{
-			using node_result = decltype(
-				::fast_io::details::decay::print_semantic_node_ref(
-					::std::declval<T &>()));
-			using node_type = ::std::remove_cvref_t<node_result>;
+		[]() consteval {
 			if constexpr (
-				!::fast_io::details::decay::print_semantic_width_v<node_type>)
+				!::fast_io::details::decay::print_semantic_execution_node_v<T>)
 			{
 				return false;
 			}
 			else
 			{
-				using forwarded_type =
-					::fast_io::details::decay::
-						print_semantic_forwarded_arg_t<char_type, T &>;
-				return ::fast_io::details::decay::
-						   print_semantic_output_expression_okay<
-							   output, char_type, T &>() &&
-					   !::fast_io::operations::decay::defines::
-						   has_obuffer_basic_operations<output> &&
-					   ::fast_io::details::decay::
-						   print_full_output_coalesce_threshold<
-							   char_type, output>() == 0u &&
-					   ::fast_io::details::decay::
-						   print_full_output_dynamic_coalesce_threshold<
-							   char_type, output>() == 0u &&
-					   !::fast_io::details::decay::
-						   print_semantic_static_bounded_size<
-							   char_type, forwarded_type>::available;
+				using node_result = decltype(::fast_io::details::decay::print_semantic_node_ref(
+					::std::declval<T &>()));
+				using node_type = ::std::remove_cvref_t<node_result>;
+				if constexpr (
+					!::fast_io::details::decay::print_semantic_width_v<node_type>)
+				{
+					return false;
+				}
+				else
+				{
+					using forwarded_type =
+						::fast_io::details::decay::
+							print_semantic_forwarded_arg_t<char_type, T &>;
+					return ::fast_io::details::decay::
+							   print_semantic_output_expression_okay<
+								   output, char_type, T &>() &&
+						   !::fast_io::operations::decay::defines::
+							   has_obuffer_basic_operations<output> &&
+						   ::fast_io::details::decay::
+								   print_full_output_coalesce_threshold<
+									   char_type, output>() == 0u &&
+						   ::fast_io::details::decay::
+								   print_full_output_dynamic_coalesce_threshold<
+									   char_type, output>() == 0u &&
+						   !::fast_io::details::decay::
+							   print_semantic_static_bounded_size<
+								   char_type, forwarded_type>::available;
+				}
 			}
-		}
-	}();
+		}();
 
 /// @brief Proves the narrower width shape whose complete-record coalescing can be replayed without active-type products.
 /// @details The width node itself must lack a type-static bound, while its child must be an immutable fixed scatter.
@@ -9998,53 +11175,51 @@ inline constexpr bool
 template <typename output, ::std::integral char_type, typename T>
 inline constexpr bool
 	print_semantic_optional_scatter_coalescing_width_argument_v =
-	[]() consteval {
-		if constexpr (
-			!::fast_io::details::decay::print_semantic_execution_node_v<T>)
-		{
-			return false;
-		}
-		else
-		{
-			using node_result = decltype(
-				::fast_io::details::decay::print_semantic_node_ref(
-					::std::declval<T &>()));
-			using node_expression = ::std::add_lvalue_reference_t<
-				::std::remove_reference_t<node_result>>;
-			using node_type = ::std::remove_cvref_t<node_result>;
+		[]() consteval {
 			if constexpr (
-				!::fast_io::details::decay::print_semantic_width_v<node_type>)
+				!::fast_io::details::decay::print_semantic_execution_node_v<T>)
 			{
 				return false;
 			}
 			else
 			{
-				using child_expression = decltype(
-					(::std::declval<node_expression>().reference));
-				using child_type = ::std::remove_cvref_t<
-					::fast_io::details::decay::
-						print_semantic_stable_input_forward_t<
-							char_type, child_expression>>;
-				using forwarded_type =
-					::fast_io::details::decay::
-						print_semantic_forwarded_arg_t<char_type, T &>;
-				return ::fast_io::details::decay::
-						   print_semantic_output_expression_okay<
-							   output, char_type, T &>() &&
-					   !::fast_io::operations::decay::defines::
-						   has_obuffer_basic_operations<output> &&
-					   (::std::same_as<
-							child_type,
-							::fast_io::manipulators::chvw_t<char_type>> ||
+				using node_result = decltype(::fast_io::details::decay::print_semantic_node_ref(
+					::std::declval<T &>()));
+				using node_expression = ::std::add_lvalue_reference_t<
+					::std::remove_reference_t<node_result>>;
+				using node_type = ::std::remove_cvref_t<node_result>;
+				if constexpr (
+					!::fast_io::details::decay::print_semantic_width_v<node_type>)
+				{
+					return false;
+				}
+				else
+				{
+					using child_expression = decltype((::std::declval<node_expression>().reference));
+					using child_type = ::std::remove_cvref_t<
 						::fast_io::details::decay::
-							print_static_scatter_traits<
-								char_type, child_type>::available) &&
-					   !::fast_io::details::decay::
-						   print_semantic_static_bounded_size<
-							   char_type, forwarded_type>::available;
+							print_semantic_stable_input_forward_t<
+								char_type, child_expression>>;
+					using forwarded_type =
+						::fast_io::details::decay::
+							print_semantic_forwarded_arg_t<char_type, T &>;
+					return ::fast_io::details::decay::
+							   print_semantic_output_expression_okay<
+								   output, char_type, T &>() &&
+						   !::fast_io::operations::decay::defines::
+							   has_obuffer_basic_operations<output> &&
+						   (::std::same_as<
+								child_type,
+								::fast_io::manipulators::chvw_t<char_type>> ||
+							::fast_io::details::decay::
+								print_static_scatter_traits<
+									char_type, child_type>::available) &&
+						   !::fast_io::details::decay::
+							   print_semantic_static_bounded_size<
+								   char_type, forwarded_type>::available;
+				}
 			}
-		}
-	}();
+		}();
 
 /// @brief Accepts only a closed condition whose every terminal descriptor has a finite immutable extent.
 template <::std::integral char_type, typename T>
@@ -10060,8 +11235,8 @@ print_semantic_optional_fixed_scatter_argument() noexcept
 	else
 	{
 		return ::fast_io::details::decay::
-			print_semantic_optional_contiguous_max_size<
-				char_type, T>() != SIZE_MAX;
+				   print_semantic_optional_contiguous_max_size<
+					   char_type, T>() != SIZE_MAX;
 	}
 }
 
@@ -10074,12 +11249,12 @@ inline constexpr bool print_semantic_optional_fixed_scatter_argument_v{
 template <typename output, ::std::integral char_type, typename T>
 inline constexpr bool
 	print_semantic_optional_scatter_boundary_argument_v =
-	::fast_io::details::decay::
-		print_semantic_optional_scatter_barrier_argument_v<
-			output, char_type, T> ||
-	::fast_io::details::decay::
-		print_semantic_optional_scatter_width_barrier_argument_v<
-			output, char_type, T>;
+		::fast_io::details::decay::
+			print_semantic_optional_scatter_barrier_argument_v<
+				output, char_type, T> ||
+		::fast_io::details::decay::
+			print_semantic_optional_scatter_width_barrier_argument_v<
+				output, char_type, T>;
 
 /// @brief Carries the proof result for one closed-scatter segment between proven dispatch boundaries.
 /// @details A segment with four or more optional leaves must satisfy the existing linear descriptor-plan proof. A
@@ -10213,7 +11388,7 @@ template <bool line, ::std::integral char_type, typename output,
 inline consteval bool
 print_semantic_optional_scatter_barrier_plan_available() noexcept
 {
-#if !FAST_IO_HAS_BUILTIN(__builtin_constant_p) || \
+#if !FAST_IO_HAS_BUILTIN(__builtin_constant_p) ||                   \
 	(defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
 	(defined(__clang__) && __clang_major__ >= 13)
 	constexpr ::std::size_t barrier_count{
@@ -10227,7 +11402,7 @@ print_semantic_optional_scatter_barrier_plan_available() noexcept
 			 ::fast_io::details::decay::
 				 print_semantic_optional_scatter_argument_v<
 					 char_type, Args &>) +
-			 ... + 0u)};
+		 ... + 0u)};
 	if constexpr (barrier_count == 0u || selection_count < 4u)
 	{
 		// A barrier and four optional selections are independent necessary conditions. A rejected source graph must not
@@ -10390,9 +11565,8 @@ inline consteval bool print_freestanding_output_run_okay() noexcept
 		if constexpr (
 			::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<normalized_output>)
 		{
-			using unlocked_result = decltype(
-				::fast_io::operations::decay::output_stream_unlocked_ref_decay(
-					::std::declval<normalized_output &>()));
+			using unlocked_result = decltype(::fast_io::operations::decay::output_stream_unlocked_ref_decay(
+				::std::declval<normalized_output &>()));
 			using unlocked_output = ::std::remove_reference_t<unlocked_result>;
 			return ::fast_io::details::decay::print_freestanding_output_run_okay<
 				line, unlocked_output, ::std::remove_reference_t<Args>...>();
@@ -10414,7 +11588,7 @@ inline consteval bool print_freestanding_output_run_okay() noexcept
 		using char_type = typename normalized_output::output_char_type;
 		constexpr bool ordinary_fallback{
 			(!line || ::fast_io::details::decay::
-					  print_freestanding_line_output_okay<normalized_output>) &&
+						  print_freestanding_line_output_okay<normalized_output>) &&
 			(::fast_io::details::decay::print_freestanding_output_param_okay_single<
 				 normalized_output, char_type,
 				 ::std::remove_reference_t<Args>>::value &&
@@ -10519,9 +11693,8 @@ inline consteval bool print_freestanding_effective_status_owner() noexcept
 			::fast_io::operations::decay::defines::
 				has_complete_output_stream_mutex_protocol<normalized_output>)
 		{
-			using unlocked_output = ::std::remove_reference_t<decltype(
-				::fast_io::operations::decay::output_stream_unlocked_ref_decay(
-					::std::declval<normalized_output &>()))>;
+			using unlocked_output = ::std::remove_reference_t<decltype(::fast_io::operations::decay::output_stream_unlocked_ref_decay(
+				::std::declval<normalized_output &>()))>;
 			return ::fast_io::details::decay::
 				print_freestanding_effective_status_owner<
 					line, unlocked_output, Args...>();
@@ -10559,9 +11732,8 @@ inline consteval bool print_freestanding_empty_run_observable() noexcept
 		if constexpr (
 			::fast_io::operations::decay::defines::has_complete_output_stream_mutex_protocol<normalized_output>)
 		{
-			using unlocked_output = ::std::remove_reference_t<decltype(
-				::fast_io::operations::decay::output_stream_unlocked_ref_decay(
-					::std::declval<normalized_output &>()))>;
+			using unlocked_output = ::std::remove_reference_t<decltype(::fast_io::operations::decay::output_stream_unlocked_ref_decay(
+				::std::declval<normalized_output &>()))>;
 			return ::fast_io::details::decay::
 				print_freestanding_empty_run_observable<unlocked_output>();
 		}
@@ -10697,7 +11869,7 @@ inline constexpr decltype(auto) print_freestanding_decay_no_pack(outputstmtype &
 		// reaching this branch proves line mode and emits its one required newline.
 		static_assert(line);
 		using char_type = typename outputstmtype::output_char_type;
-		return ::fast_io::operations::decay::char_put_decay(
+		return ::fast_io::operations::decay::char_put_decay_dispatch(
 			optstm, char_literal_v<u8'\n', char_type>);
 	}
 	else if constexpr (
@@ -10707,6 +11879,16 @@ inline constexpr decltype(auto) print_freestanding_decay_no_pack(outputstmtype &
 		// Normalized unbuffered runs containing a run-time scatter component bypass the compile-time descriptor
 		// scanner. This keeps its constexpr capacities valid while allowing this separate run-time plan to compose.
 		return ::fast_io::details::decay::print_runtime_scatter_plan_fast_entry<line>(optstm, args...);
+	}
+	else if constexpr (
+		::fast_io::details::decay::print_buffered_hot_decimal_scalar_run_available<
+			outputstmtype, typename outputstmtype::output_char_type, Args...>())
+	{
+		// Keep the measured basic-buffer scalar shape out of the large recursive
+		// buffered dispatcher.  The dedicated leaf has the same capacity/flush
+		// proof, but its force-inline boundary lets the caller's scalar loop retain
+		// the formatter body instead of paying one call per record.
+		return ::fast_io::details::decay::print_control_single_buffered_hot<line>(optstm, args...);
 	}
 	else if constexpr (::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype>)
 	{
@@ -10738,10 +11920,12 @@ inline constexpr void print_single_pass_stage_run_and_write(
 {
 	char_type buffer[capacity];
 	::fast_io::details::decay::print_single_pass_staging_state<
-		char_type, output_type> state{__builtin_addressof(output), buffer, buffer,
-								 buffer + capacity, false};
+		char_type, output_type>
+		state{__builtin_addressof(output), buffer, buffer,
+			  buffer + capacity, false};
 	::fast_io::details::decay::print_single_pass_staging_ref<
-		char_type, output_type> staging{__builtin_addressof(state)};
+		char_type, output_type>
+		staging{__builtin_addressof(state)};
 #if (defined(_MSC_VER) && defined(_HAS_EXCEPTIONS) && _HAS_EXCEPTIONS != 0) || \
 	(!defined(_MSC_VER) && defined(__cpp_exceptions))
 	try
@@ -10809,11 +11993,11 @@ inline constexpr void print_semantic_write_fill_large_contiguous(outputstmtype &
 		::fast_io::details::my_fill_n(buffer.ptr, desired_buffer_size, ch);
 		while (desired_buffer_size < n)
 		{
-			::fast_io::operations::decay::write_all_decay(
+			::fast_io::operations::decay::write_all_decay_dispatch(
 				optstm, buffer.ptr, buffer.ptr + desired_buffer_size);
 			n -= desired_buffer_size;
 		}
-		::fast_io::operations::decay::write_all_decay(optstm, buffer.ptr, buffer.ptr + n);
+		::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer.ptr, buffer.ptr + n);
 	}
 	else
 	{
@@ -10823,10 +12007,10 @@ inline constexpr void print_semantic_write_fill_large_contiguous(outputstmtype &
 		::fast_io::details::my_fill_n(buffer, buffer_size, ch);
 		while (buffer_size < n)
 		{
-			::fast_io::operations::decay::write_all_decay(optstm, buffer, buffer + buffer_size);
+			::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, buffer + buffer_size);
 			n -= buffer_size;
 		}
-		::fast_io::operations::decay::write_all_decay(optstm, buffer, buffer + n);
+		::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, buffer + n);
 	}
 }
 
@@ -10859,7 +12043,7 @@ inline constexpr void print_semantic_write_fill(outputstmtype &optstm, ::std::si
 			// branch before the scatter policy prevents a 256 -> 257 transition from instantiating a 4-KiB hot frame.
 			char_type buffer[inline_capacity];
 			::fast_io::details::my_fill_n(buffer, n, ch);
-			::fast_io::operations::decay::write_all_decay(optstm, buffer, buffer + n);
+			::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, buffer + n);
 			return;
 		}
 	}
@@ -10890,7 +12074,7 @@ inline constexpr void print_semantic_write_fill(outputstmtype &optstm, ::std::si
 			::fast_io::details::my_fill_n(buffer, block_size, ch);
 			if (n <= block_size)
 			{
-				::fast_io::operations::decay::write_all_decay(optstm, buffer, buffer + n);
+				::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, buffer + n);
 				return;
 			}
 			scatter_type scatters[scatter_count];
@@ -11740,14 +12924,14 @@ inline consteval bool print_semantic_staged_member_compatible() noexcept
 	if constexpr (::fast_io::staged_printable<char_type, T>)
 	{
 		return ::std::same_as<
-			::fast_io::details::staged_printable_state_t<char_type, representative_type>,
-			::fast_io::details::staged_printable_state_t<char_type, T>> &&
-			print_staged_width(::fast_io::io_reserve_type<char_type, representative_type>) ==
-				print_staged_width(::fast_io::io_reserve_type<char_type, T>) &&
-			print_staged_max_count(::fast_io::io_reserve_type<char_type, representative_type>) ==
-				print_staged_max_count(::fast_io::io_reserve_type<char_type, T>) &&
-			print_staged_fallback_inline(::fast_io::io_reserve_type<char_type, representative_type>) ==
-				print_staged_fallback_inline(::fast_io::io_reserve_type<char_type, T>);
+				   ::fast_io::details::staged_printable_state_t<char_type, representative_type>,
+				   ::fast_io::details::staged_printable_state_t<char_type, T>> &&
+			   print_staged_width(::fast_io::io_reserve_type<char_type, representative_type>) ==
+				   print_staged_width(::fast_io::io_reserve_type<char_type, T>) &&
+			   print_staged_max_count(::fast_io::io_reserve_type<char_type, representative_type>) ==
+				   print_staged_max_count(::fast_io::io_reserve_type<char_type, T>) &&
+			   print_staged_fallback_inline(::fast_io::io_reserve_type<char_type, representative_type>) ==
+				   print_staged_fallback_inline(::fast_io::io_reserve_type<char_type, T>);
 	}
 	else
 	{
@@ -11911,7 +13095,8 @@ inline constexpr void print_semantic_staged_prepare(
 	(::fast_io::operations::decay::print_semantic_staged_prepare_one<
 		 char_type,
 		 ::fast_io::operations::decay::print_semantic_staged_positions<
-			 char_type, ::std::remove_cvref_t<Args>...>.values[positions]>(prepared, args),
+			 char_type, ::std::remove_cvref_t<Args>...>
+			 .values[positions]>(prepared, args),
 	 ...);
 }
 
@@ -11971,7 +13156,8 @@ inline constexpr char_type *print_semantic_staged_emit(
 	((iter = ::fast_io::operations::decay::print_semantic_staged_emit_one<
 		  char_type, bounded,
 		  ::fast_io::operations::decay::print_semantic_staged_positions<
-			  char_type, ::std::remove_cvref_t<Args>...>.values[positions]>(
+			  char_type, ::std::remove_cvref_t<Args>...>
+			  .values[positions]>(
 		  iter, prepared, ::std::forward<Args>(args))),
 	 ...);
 	return iter;
@@ -12276,7 +13462,12 @@ template <::std::integral char_type, typename expression_type>
 inline consteval bool print_semantic_single_pass_bounded_internal_shift_nothrow() noexcept
 {
 	if constexpr (!requires {
-					  {
+#if defined(__HERBCEPTIONS__)
+						  requires(!throws((
+							  ::fast_io::details::decay::print_semantic_input_forward<char_type>(
+								  ::std::declval<expression_type>()))));
+#endif
+						  {
 						  ::fast_io::details::decay::print_semantic_input_forward<char_type>(
 							  ::std::declval<expression_type>())
 					  } noexcept;
@@ -12305,6 +13496,12 @@ inline consteval bool print_semantic_single_pass_bounded_internal_shift_nothrow(
 		else
 		{
 			return requires(stable_node_expression node) {
+#if defined(__HERBCEPTIONS__)
+				// Internal placement observes this exact named leaf after emission. A deterministic failure would
+				// strand already-written output even when the extension currently reports `noexcept(E)` as true.
+				requires(!throws((print_define_internal_shift(
+					::fast_io::io_reserve_type<char_type, node_type>, node))));
+#endif
 				{
 					print_define_internal_shift(
 						::fast_io::io_reserve_type<char_type, node_type>, node)
@@ -12322,7 +13519,12 @@ template <::std::integral char_type, typename expression_type>
 inline consteval bool print_semantic_single_pass_bounded_define_nothrow() noexcept
 {
 	if constexpr (!requires {
-					  {
+#if defined(__HERBCEPTIONS__)
+						  requires(!throws((
+							  ::fast_io::details::decay::print_semantic_input_forward<char_type>(
+								  ::std::declval<expression_type>()))));
+#endif
+						  {
 						  ::fast_io::details::decay::print_semantic_input_forward<char_type>(
 							  ::std::declval<expression_type>())
 					  } noexcept;
@@ -12385,6 +13587,12 @@ inline consteval bool print_semantic_single_pass_bounded_define_nothrow() noexce
 			 ::fast_io::dynamic_reserve_printable<char_type, node_type>))
 		{
 			return requires(char_type *iter, stable_node_expression node) {
+#if defined(__HERBCEPTIONS__)
+				// Let E be the named leaf define executed by the unchecked emitter. Strategy admission requires
+				// `!throws(E) && noexcept(E)`; the following compound requirement supplies the second conjunct.
+				requires(!throws((print_reserve_define(
+					::fast_io::io_reserve_type<char_type, node_type>, iter, node))));
+#endif
 				{
 					print_reserve_define(
 						::fast_io::io_reserve_type<char_type, node_type>,
@@ -12435,6 +13643,14 @@ concept print_semantic_single_pass_bounded_passive_companion =
 		char_type,
 		::fast_io::operations::decay::print_semantic_single_pass_bounded_node_t<T>> &&
 	requires(T &value, char_type *iter) {
+#if defined(__HERBCEPTIONS__)
+		requires(!throws((print_reserve_define(
+			::fast_io::io_reserve_type<
+				char_type,
+				::fast_io::operations::decay::print_semantic_single_pass_bounded_node_t<T>>,
+			iter,
+			::fast_io::details::decay::print_semantic_node_ref(value)))));
+#endif
 		{
 			print_reserve_define(
 				::fast_io::io_reserve_type<
@@ -12499,6 +13715,10 @@ print_semantic_extended_bounded_passive_companion_impl() noexcept
 				   (explicitly_passive &&
 					::fast_io::reserve_printable<char_type, node_type> &&
 					requires(node_expression node, char_type *iter) {
+#if defined(__HERBCEPTIONS__)
+						requires(!throws((print_reserve_define(
+							::fast_io::io_reserve_type<char_type, node_type>, iter, node))));
+#endif
 						{
 							print_reserve_define(
 								::fast_io::io_reserve_type<char_type, node_type>, iter, node)
@@ -12606,6 +13826,10 @@ inline consteval bool print_semantic_single_pass_bounded_put_area_run() noexcept
 	if constexpr (
 		!::fast_io::operations::decay::print_semantic_single_pass_bounded_run<
 			char_type, Args...>() ||
+		(::fast_io::direct_obuffer_copy_safe<char_type, outputstmtype> &&
+		 (false || ... ||
+		  ::fast_io::details::decay::print_fixed_external_semantic_overstore<
+			  char_type, Args>::value)) ||
 		!::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype> ||
 		!::fast_io::deferred_obuffer_commit_safe<char_type, outputstmtype> ||
 		!::fast_io::details::decay::print_buffered_mixed_nothrow_put_area<
@@ -12626,7 +13850,11 @@ template <::std::integral char_type, typename outputstmtype, typename... Args>
 inline consteval bool print_semantic_extended_bounded_put_area_run() noexcept
 {
 	if constexpr (!::fast_io::operations::decay::print_semantic_extended_bounded_run<
-					  char_type, Args...>())
+					  char_type, Args...>() ||
+				  (::fast_io::direct_obuffer_copy_safe<char_type, outputstmtype> &&
+				   (false || ... ||
+					::fast_io::details::decay::print_fixed_external_semantic_overstore<
+						char_type, Args>::value)))
 	{
 		return false;
 	}
@@ -12645,7 +13873,11 @@ template <::std::integral char_type, typename outputstmtype, typename... Args>
 inline consteval bool print_semantic_large_passive_bounded_put_area_run() noexcept
 {
 	if constexpr (!::fast_io::operations::decay::print_semantic_large_passive_bounded_run<
-					  char_type, Args...>())
+					  char_type, Args...>() ||
+				  (::fast_io::direct_obuffer_copy_safe<char_type, outputstmtype> &&
+				   (false || ... ||
+					::fast_io::details::decay::print_fixed_external_semantic_overstore<
+						char_type, Args>::value)))
 	{
 		return false;
 	}
@@ -12939,7 +14171,7 @@ inline constexpr bool print_semantic_try_large_passive_bounded_stack(
 	char_type *const actual_end{
 		::fast_io::operations::decay::print_semantic_emit_unchecked_run<
 			line, char_type, true>(buffer, args...)};
-	::fast_io::operations::decay::write_all_decay(optstm, buffer, actual_end);
+	::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, actual_end);
 	return true;
 }
 
@@ -13040,7 +14272,7 @@ inline constexpr void print_semantic_materialize_large_stack_and_write(outputstm
 			buffer, ::std::forward<Args>(args)...)};
 	if (iter != buffer)
 	{
-		::fast_io::operations::decay::write_all_decay(optstm, buffer, iter);
+		::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, iter);
 	}
 }
 
@@ -13063,13 +14295,66 @@ inline constexpr void print_semantic_materialize_stack_and_write(outputstmtype &
 				buffer, ::std::forward<Args>(args)...)};
 		if (iter != buffer)
 		{
-			::fast_io::operations::decay::write_all_decay(optstm, buffer, iter);
+			::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, iter);
 		}
 	}
 	else
 	{
 		::fast_io::operations::decay::print_semantic_materialize_large_stack_and_write<
 			line, char_type, bounded, buffer_size>(optstm, ::std::forward<Args>(args)...);
+	}
+}
+
+/// @brief Stages a bounded semantic run before committing it to caller-visible fixed storage.
+/// @details An audited reserve formatter may initialize scratch anywhere inside its advertised bound and return a
+///          shorter logical spelling.  That is safe in library-owned staging storage but not in an external view whose
+///          bytes after the published cursor remain observable.  The run-time bound selects a compact common stack
+///          frame or exact dynamic storage; only the returned prefix reaches the destination.  A bound larger than the
+///          remaining view is still permitted when the actual spelling fits, preserving fixed-view exact-fit behavior.
+template <bool line, ::std::integral char_type, typename outputstmtype,
+		  typename... Args>
+inline constexpr void print_semantic_materialize_fixed_external_bounded_and_write(
+	outputstmtype &optstm, ::std::size_t required, Args &&...args)
+{
+	if (required == 0u)
+	{
+		return;
+	}
+	constexpr ::std::size_t stack_capacity{
+		::fast_io::operations::decay::print_semantic_single_pass_bounded_stack_capacity<
+			char_type>()};
+	if (required <= stack_capacity)
+	{
+		char_type buffer[stack_capacity];
+		char_type *const actual_end{
+			::fast_io::operations::decay::print_semantic_emit_unchecked_run<
+				line, char_type, true>(buffer, ::std::forward<Args>(args)...)};
+		if (actual_end < buffer || buffer + required < actual_end) [[unlikely]]
+		{
+			::fast_io::fast_terminate();
+		}
+		if (actual_end != buffer)
+		{
+			::fast_io::operations::decay::write_all_decay_dispatch(
+				optstm, buffer, actual_end);
+		}
+	}
+	else
+	{
+		::fast_io::details::buffer_alloc_arr_ptr<char_type, false> buffer(required);
+		char_type *const first{buffer.get()};
+		char_type *const actual_end{
+			::fast_io::operations::decay::print_semantic_emit_unchecked_run<
+				line, char_type, true>(first, ::std::forward<Args>(args)...)};
+		if (actual_end < first || first + required < actual_end) [[unlikely]]
+		{
+			::fast_io::fast_terminate();
+		}
+		if (actual_end != first)
+		{
+			::fast_io::operations::decay::write_all_decay_dispatch(
+				optstm, first, actual_end);
+		}
 	}
 }
 
@@ -13102,7 +14387,7 @@ print_semantic_emit_single_pass_bounded_stack(outputstmtype &optstm,
 			line, char_type, true>(buffer, args...)};
 	if (iter != buffer)
 	{
-		::fast_io::operations::decay::write_all_decay(optstm, buffer, iter);
+		::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, iter);
 	}
 }
 
@@ -13163,10 +14448,10 @@ inline constexpr bool print_semantic_try_static_bounded_coalesce(outputstmtype &
 		if constexpr (::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype>)
 		{
 			// Buffered streams avoid a temporary frame when their current put area contains the entire reserve bound.
-				char_type *const curr{obuffer_curr(optstm)};
-				char_type *const end{obuffer_end(optstm)};
-				if (curr != nullptr && end != nullptr &&
-					static_cast<::std::size_t>(end - curr) >= static_bound)
+			char_type *const curr{obuffer_curr(optstm)};
+			char_type *const end{obuffer_end(optstm)};
+			if (curr != nullptr && end != nullptr &&
+				static_cast<::std::size_t>(end - curr) >= static_bound)
 			{
 				// The static capacity proof permits bounded leaf emission directly into the stream buffer.
 				char_type *const iter{
@@ -13227,10 +14512,10 @@ inline constexpr bool print_semantic_try_bounded_coalesce(outputstmtype &optstm,
 		if constexpr (::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype>)
 		{
 			// Buffered streams can use the existing put area when it can hold the upper bound.
-				char_type *const curr{obuffer_curr(optstm)};
-				char_type *const end{obuffer_end(optstm)};
-				if (curr != nullptr && end != nullptr &&
-					static_cast<::std::size_t>(end - curr) >= required)
+			char_type *const curr{obuffer_curr(optstm)};
+			char_type *const end{obuffer_end(optstm)};
+			if (curr != nullptr && end != nullptr &&
+				static_cast<::std::size_t>(end - curr) >= required)
 			{
 				// The put area was checked against the upper bound, so reserve-based bounded emission is safe in place.
 				if constexpr (
@@ -13297,7 +14582,7 @@ inline constexpr bool print_semantic_try_bounded_coalesce(outputstmtype &optstm,
 				char_type *const last{
 					::fast_io::operations::decay::print_semantic_emit_unchecked_run<line, char_type, true>(
 						first, ::std::forward<Args>(args)...)};
-				::fast_io::operations::decay::write_all_decay(optstm, first, last);
+				::fast_io::operations::decay::write_all_decay_dispatch(optstm, first, last);
 				return true;
 			}
 		}
@@ -13343,10 +14628,10 @@ inline constexpr bool print_semantic_try_precise_coalesce(outputstmtype &optstm,
 		if constexpr (::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype>)
 		{
 			// Buffered streams can coalesce directly into their current put area when enough space remains.
-				char_type *const curr{obuffer_curr(optstm)};
-				char_type *const end{obuffer_end(optstm)};
-				if (curr != nullptr && end != nullptr &&
-					static_cast<::std::size_t>(end - curr) >= required)
+			char_type *const curr{obuffer_curr(optstm)};
+			char_type *const end{obuffer_end(optstm)};
+			if (curr != nullptr && end != nullptr &&
+				static_cast<::std::size_t>(end - curr) >= required)
 			{
 				// The existing output buffer has enough room, so emit in place and advance the stream cursor once.
 				char_type *const iter{
@@ -13412,7 +14697,7 @@ inline constexpr bool print_semantic_try_precise_coalesce(outputstmtype &optstm,
 				char_type *const last{
 					::fast_io::operations::decay::print_semantic_emit_unchecked_run<line, char_type>(
 						first, ::std::forward<Args>(args)...)};
-				::fast_io::operations::decay::write_all_decay(optstm, first, last);
+				::fast_io::operations::decay::write_all_decay_dispatch(optstm, first, last);
 				return true;
 			}
 		}
@@ -13467,6 +14752,19 @@ inline consteval bool print_semantic_precise_coalesce_strategy_selected() noexce
 		return false;
 	}
 	else if constexpr (
+		contains_width &&
+		::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype> &&
+		(::fast_io::details::decay::print_semantic_bounded_size_ok<
+			 char_type,
+			 ::fast_io::details::decay::print_semantic_forwarded_arg_t<
+				 char_type, Args>>::value &&
+		 ...))
+	{
+		// A writable put area turns an inexpensive width bound into the capacity proof for one-pass child emission.
+		// Exact sizing would traverse a reserve-bounded scalar only to repeat its conversion during materialization.
+		return false;
+	}
+	else if constexpr (
 		semantic_leaf_count >=
 			::fast_io::details::decay::print_semantic_precise_materialization_leaf_threshold &&
 		run_static_bound != SIZE_MAX)
@@ -13504,7 +14802,7 @@ template <bool line, ::std::integral char_type, typename output,
 inline consteval bool
 print_semantic_optional_scatter_width_coalescing_plan_available() noexcept
 {
-#if !FAST_IO_HAS_BUILTIN(__builtin_constant_p) || \
+#if !FAST_IO_HAS_BUILTIN(__builtin_constant_p) ||                   \
 	(defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
 	(defined(__clang__) && __clang_major__ >= 13)
 	constexpr ::std::size_t selection_count{
@@ -13569,11 +14867,11 @@ print_semantic_optional_scatter_width_coalescing_plan_available() noexcept
 										char_type, Args> &>>...>;
 				constexpr bool has_whole_output_target{
 					::fast_io::details::decay::
-						print_full_output_coalesce_threshold<
-							char_type, output>() != 0u ||
+							print_full_output_coalesce_threshold<
+								char_type, output>() != 0u ||
 					::fast_io::details::decay::
-						print_full_output_dynamic_coalesce_threshold<
-							char_type, output>() != 0u};
+							print_full_output_dynamic_coalesce_threshold<
+								char_type, output>() != 0u};
 				return precise_adapted_record &&
 					   !adapted_staged_group::available &&
 					   has_whole_output_target &&
@@ -13667,10 +14965,10 @@ inline constexpr void print_semantic_emit_width_direct(outputstmtype &optstm, T 
 			// The line variant needs one additional output slot for the trailing newline.
 			required = ::fast_io::details::intrinsics::add_or_overflow_die(required, static_cast<::std::size_t>(1u));
 		}
-			char_type *const curr{obuffer_curr(optstm)};
-			char_type *const end{obuffer_end(optstm)};
-			if (curr != nullptr && end != nullptr &&
-				static_cast<::std::size_t>(end - curr) >= required)
+		char_type *const curr{obuffer_curr(optstm)};
+		char_type *const end{obuffer_end(optstm)};
+		if (curr != nullptr && end != nullptr &&
+			static_cast<::std::size_t>(end - curr) >= required)
 		{
 			// The stream put area can hold the complete field, so emit directly and commit once.
 			char_type *iter{curr};
@@ -13851,7 +15149,7 @@ inline constexpr void print_semantic_emit_width_direct(outputstmtype &optstm, T 
 				// The line variant terminates the stack-buffered field with a newline.
 				*iter++ = ::fast_io::char_literal_v<u8'\n', char_type>;
 			}
-			::fast_io::operations::decay::write_all_decay(optstm, buffer, iter);
+			::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, iter);
 			return;
 		}
 	}
@@ -13930,14 +15228,14 @@ inline constexpr void print_semantic_emit_width_direct(outputstmtype &optstm, T 
 					// An invalid insertion point has no safe prefix/suffix split. Apply the same right-placement
 					// fallback as every contiguous strategy so output semantics do not depend on buffer capacity.
 					::fast_io::operations::decay::print_semantic_write_fill(optstm, padding, fillch);
-					::fast_io::operations::decay::write_all_decay(optstm, first, last);
+					::fast_io::operations::decay::write_all_decay_dispatch(optstm, first, last);
 				}
 				else
 				{
 					// The stream receives the internal prefix, padding, and remaining child suffix in order.
-					::fast_io::operations::decay::write_all_decay(optstm, first, first + internal_len);
+					::fast_io::operations::decay::write_all_decay_dispatch(optstm, first, first + internal_len);
 					::fast_io::operations::decay::print_semantic_write_fill(optstm, padding, fillch);
-					::fast_io::operations::decay::write_all_decay(optstm, first + internal_len, last);
+					::fast_io::operations::decay::write_all_decay_dispatch(optstm, first + internal_len, last);
 				}
 			}
 		}
@@ -13951,7 +15249,7 @@ inline constexpr void print_semantic_emit_width_direct(outputstmtype &optstm, T 
 	if constexpr (line)
 	{
 		// The line variant appends the newline after the streaming fallback field.
-		::fast_io::operations::decay::char_put_decay(optstm, ::fast_io::char_literal_v<u8'\n', char_type>);
+		::fast_io::operations::decay::char_put_decay_dispatch(optstm, ::fast_io::char_literal_v<u8'\n', char_type>);
 	}
 }
 
@@ -14058,7 +15356,7 @@ inline constexpr void print_semantic_emit_width(outputstmtype &optstm, T &&t)
 	if (width <= len || placement_code == 0u)
 	{
 		// Buffered fallback width is already satisfied, so the child bytes are forwarded unchanged.
-		::fast_io::operations::decay::write_all_decay(optstm, first, last);
+		::fast_io::operations::decay::write_all_decay_dispatch(optstm, first, last);
 	}
 	else
 	{
@@ -14137,15 +15435,15 @@ inline constexpr void print_semantic_emit_width(outputstmtype &optstm, T &&t)
 				{
 					// Spare capacity keeps the newline in the same final write.
 					*field_last++ = ::fast_io::char_literal_v<u8'\n', char_type>;
-					::fast_io::operations::decay::write_all_decay(optstm, mutable_first, field_last);
+					::fast_io::operations::decay::write_all_decay_dispatch(optstm, mutable_first, field_last);
 					return;
 				}
 			}
-			::fast_io::operations::decay::write_all_decay(optstm, mutable_first, field_last);
+			::fast_io::operations::decay::write_all_decay_dispatch(optstm, mutable_first, field_last);
 			if constexpr (line)
 			{
 				// A completely full buffer writes its newline separately instead of growing solely for one character.
-				::fast_io::operations::decay::char_put_decay(
+				::fast_io::operations::decay::char_put_decay_dispatch(
 					optstm, ::fast_io::char_literal_v<u8'\n', char_type>);
 			}
 			return;
@@ -14153,7 +15451,7 @@ inline constexpr void print_semantic_emit_width(outputstmtype &optstm, T &&t)
 		if (placement_code == 1u)
 		{
 			// Buffered fallback left placement writes the child bytes followed by trailing padding.
-			::fast_io::operations::decay::write_all_decay(optstm, first, last);
+			::fast_io::operations::decay::write_all_decay_dispatch(optstm, first, last);
 			::fast_io::operations::decay::print_semantic_write_fill(optstm, padding, fillch);
 		}
 		else if (placement_code == 2u)
@@ -14162,7 +15460,7 @@ inline constexpr void print_semantic_emit_width(outputstmtype &optstm, T &&t)
 			::std::size_t const left_padding{padding >> 1u};
 			::std::size_t const right_padding{padding - left_padding};
 			::fast_io::operations::decay::print_semantic_write_fill(optstm, left_padding, fillch);
-			::fast_io::operations::decay::write_all_decay(optstm, first, last);
+			::fast_io::operations::decay::write_all_decay_dispatch(optstm, first, last);
 			::fast_io::operations::decay::print_semantic_write_fill(optstm, right_padding, fillch);
 		}
 		else if (placement_code == 4u)
@@ -14174,7 +15472,7 @@ inline constexpr void print_semantic_emit_width(outputstmtype &optstm, T &&t)
 			{
 				// Without an internal shift point, internal placement falls back to right placement.
 				::fast_io::operations::decay::print_semantic_write_fill(optstm, padding, fillch);
-				::fast_io::operations::decay::write_all_decay(optstm, first, last);
+				::fast_io::operations::decay::write_all_decay_dispatch(optstm, first, last);
 			}
 			else if (len < internal_len)
 			{
@@ -14182,27 +15480,27 @@ inline constexpr void print_semantic_emit_width(outputstmtype &optstm, T &&t)
 				// child is the right-placement fallback and keeps this streaming branch observably identical to every
 				// contiguous width strategy.
 				::fast_io::operations::decay::print_semantic_write_fill(optstm, padding, fillch);
-				::fast_io::operations::decay::write_all_decay(optstm, first, last);
+				::fast_io::operations::decay::write_all_decay_dispatch(optstm, first, last);
 			}
 			else
 			{
 				// The stream receives the buffered internal prefix, padding, and suffix in order.
-				::fast_io::operations::decay::write_all_decay(optstm, first, first + internal_len);
+				::fast_io::operations::decay::write_all_decay_dispatch(optstm, first, first + internal_len);
 				::fast_io::operations::decay::print_semantic_write_fill(optstm, padding, fillch);
-				::fast_io::operations::decay::write_all_decay(optstm, first + internal_len, last);
+				::fast_io::operations::decay::write_all_decay_dispatch(optstm, first + internal_len, last);
 			}
 		}
 		else
 		{
 			// Buffered fallback right placement writes leading padding before the child bytes.
 			::fast_io::operations::decay::print_semantic_write_fill(optstm, padding, fillch);
-			::fast_io::operations::decay::write_all_decay(optstm, first, last);
+			::fast_io::operations::decay::write_all_decay_dispatch(optstm, first, last);
 		}
 	}
 	if constexpr (line)
 	{
 		// The line variant appends a newline after the buffered fallback field.
-		::fast_io::operations::decay::char_put_decay(optstm, ::fast_io::char_literal_v<u8'\n', char_type>);
+		::fast_io::operations::decay::char_put_decay_dispatch(optstm, ::fast_io::char_literal_v<u8'\n', char_type>);
 	}
 }
 
@@ -14541,9 +15839,9 @@ template <bool line, typename outputstmtype, typename... Args>
 	(defined(__clang__) && __clang_major__ >= 13)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr bool
-print_semantic_try_compiler_constant_active_record(
-	outputstmtype &optstm, Args &...args);
+	[[nodiscard]] inline constexpr bool
+	print_semantic_try_compiler_constant_active_record(
+		outputstmtype &optstm, Args &...args);
 
 /// @brief Emits the rejected bounded run one already-filtered component at a time.
 /// @details This continuation is reached only after the compact one-pass capacity probe returned `SIZE_MAX`.  Calling
@@ -14629,7 +15927,7 @@ inline consteval bool print_plain_leaf_single_pass_staging_safe() noexcept
 	else if constexpr (::fast_io::reserve_printable<char_type, value_type>)
 	{
 		return print_reserve_size(
-			::fast_io::io_reserve_type<char_type, value_type>) <= capacity;
+				   ::fast_io::io_reserve_type<char_type, value_type>) <= capacity;
 	}
 	else
 	{
@@ -14692,9 +15990,9 @@ inline consteval bool print_plain_single_pass_staging_run() noexcept
 	::std::size_t fixed_sibling_extent{line ? 1u : 0u};
 	((fixed_sibling_extent =
 		  fixed_sibling_extent == SIZE_MAX || fixed_sibling_extent > capacity ||
-			  ::fast_io::operations::decay::
-				  print_plain_leaf_single_pass_staging_fixed_extent<
-					  char_type, Args>() > capacity - fixed_sibling_extent
+				  ::fast_io::operations::decay::
+						  print_plain_leaf_single_pass_staging_fixed_extent<
+							  char_type, Args>() > capacity - fixed_sibling_extent
 			  ? SIZE_MAX
 			  : fixed_sibling_extent +
 					::fast_io::operations::decay::
@@ -14711,8 +16009,7 @@ inline consteval bool print_plain_single_pass_staging_run() noexcept
 			   has_output_or_io_stream_mutex_ref_define<outputstmtype> &&
 		   !::fast_io::operations::decay::defines::has_status_print_define<
 			   line, outputstmtype, ::std::remove_cvref_t<Args>...> &&
-		   (false || ... || ::fast_io::single_pass_staging_printable<
-						  char_type, ::std::remove_cvref_t<Args>>) &&
+		   (false || ... || ::fast_io::single_pass_staging_printable<char_type, ::std::remove_cvref_t<Args>>) &&
 		   (::fast_io::operations::decay::
 				print_plain_leaf_single_pass_staging_safe<
 					char_type, capacity, Args>() &&
@@ -14740,7 +16037,11 @@ struct print_semantic_emit_flat_runtime_continuation
 	/// @tparam   FilteredArgs the filtered argument types
 	/// @param    filtered_args the filtered arguments
 	template <typename... FilteredArgs>
-	inline constexpr void operator()(FilteredArgs &&...filtered_args) const
+#if (defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
+	(defined(__clang__) && __clang_major__ >= 13)
+	FAST_IO_GNU_ALWAYS_INLINE
+#endif
+		inline constexpr void operator()(FilteredArgs &&...filtered_args) const
 	{
 		constexpr bool has_remaining_semantic_node{
 			(false || ... ||
@@ -14761,267 +16062,313 @@ struct print_semantic_emit_flat_runtime_continuation
 		}
 		else
 		{
-		if constexpr (
-			::fast_io::operations::decay::print_semantic_exact_two_passive_scatter_direct_write_v<
-				line, char_type, outputstmtype, FilteredArgs...>)
-		{
-			// A descriptor type alone does not prove a pointer domain for `{nullptr,0}`.  Retain the general dispatcher
-			// whenever either payload is empty: besides avoiding null arithmetic, that preserves whether an empty scalar
-			// customization is observed.  For two nonempty leaves the gate above proves exact ordered-call equivalence.
-			if ((true && ... && (filtered_args.len != 0u)))
+			constexpr bool fixed_external_overstore_run{
+				::fast_io::direct_obuffer_copy_safe<char_type, outputstmtype> &&
+				(false || ... ||
+				 ::fast_io::details::decay::print_fixed_external_semantic_overstore<
+					 char_type,
+					 ::fast_io::details::decay::print_semantic_forwarded_arg_t<
+						 char_type, FilteredArgs>>::value)};
+			constexpr bool fixed_external_overstore_bounded_run{
+				fixed_external_overstore_run &&
+				(true && ... &&
+				 ::fast_io::details::decay::print_semantic_bounded_size_ok<
+					 char_type,
+					 ::fast_io::details::decay::print_semantic_forwarded_arg_t<
+						 char_type, FilteredArgs>>::value)};
+			if constexpr (fixed_external_overstore_bounded_run)
 			{
-				(::fast_io::operations::decay::write_all_decay(
-					 optstm, filtered_args.base, filtered_args.base + filtered_args.len),
-				 ...);
-				if constexpr (line)
+				// Condition selection has already removed inactive top-level alternatives. A selected plain leaf, retained width,
+				// or nested pack can still contain an audited reserve writer which uses scratch beyond its logical cursor.
+				// Materialize that complete active semantic record before any direct put-area strategy is considered. Safe
+				// semantic integer/string runs never instantiate this branch, and an unrepresentable aggregate simply retains
+				// the checked component fallback below.
+				::std::size_t required{line ? 1u : 0u};
+				auto add_component = [&required](auto &component) constexpr {
+					if (required != SIZE_MAX)
+					{
+						required = ::fast_io::details::decay::
+							print_contiguous_char_extent_add_or_unavailable<char_type>(
+								required,
+								::fast_io::operations::decay::print_semantic_bounded_size<
+									char_type>(component));
+					}
+				};
+				// The filter continuation already owns stable forwarded lvalues. Measuring those exact expressions avoids a
+				// second public forwarding pass through a parameter transport, which can conservatively report an unavailable
+				// aggregate even though the unwrapped active node has a finite bound.
+				(add_component(filtered_args), ...);
+				if (required != SIZE_MAX) [[likely]]
 				{
-					// The ordinary descriptor fallback appends this same static range.  Reusing its base preserves both the
-					// scalar write boundary and pointer identity; `char_put` would be a different output customization.
-					auto const [base, len]{::fast_io::details::decay::line_scatter_common<char_type>};
-					::fast_io::operations::decay::write_all_decay(optstm, base, base + len);
+					::fast_io::operations::decay::
+						print_semantic_materialize_fixed_external_bounded_and_write<
+							line, char_type>(
+							optstm, required,
+							::std::forward<FilteredArgs>(filtered_args)...);
+					return;
 				}
-				return;
 			}
-		}
-		constexpr bool has_semantic_node{has_remaining_semantic_node};
-		constexpr bool has_runtime_scatter_component{
-			(false || ... ||
-			 (::fast_io::dynamic_reserve_scatters_printable<
-				  char_type,
-				  ::fast_io::details::decay::print_runtime_scatter_plan_unwrapped_t<FilteredArgs>> &&
-			  ::fast_io::details::decay::retained_reserve_scatters_printable_v<
-				  char_type,
-				  ::fast_io::details::decay::print_runtime_scatter_plan_unwrapped_t<FilteredArgs>>))};
-		using staged_group = ::fast_io::operations::decay::print_semantic_staged_group<
-			char_type, ::std::remove_cvref_t<FilteredArgs>...>;
-		constexpr bool retain_plain_leaves_for_coalescing{
-			sizeof...(FilteredArgs) != 0u &&
-			(::fast_io::semantic_plain_leaf_coalesce_preferred_stream<char_type, outputstmtype> ||
-			 staged_group::available)};
-		constexpr bool shared_single_pass_staging_run{
-			!has_semantic_node && !has_runtime_scatter_component &&
-			::fast_io::operations::decay::
-				print_plain_single_pass_staging_run<
-					line, char_type, outputstmtype, FilteredArgs...>()};
-		constexpr bool singleton_put_area_preferred_plain_leaf{
-			sizeof...(FilteredArgs) == 1u && !has_semantic_node &&
-			!retain_plain_leaves_for_coalescing &&
-			::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype> &&
-			(::fast_io::put_area_printable_preferred<
-				 char_type, ::std::remove_cvref_t<FilteredArgs>> &&
-			 ...)};
-		constexpr bool singleton_direct_streaming_preferred_plain_leaf{
-			sizeof...(FilteredArgs) == 1u && !has_semantic_node &&
-			!retain_plain_leaves_for_coalescing &&
-			(::fast_io::details::decay::print_one_pass_direct_streaming_available_v<
-				 char_type, outputstmtype, FilteredArgs> &&
-			 ...)};
-		if constexpr (singleton_put_area_preferred_plain_leaf)
-		{
-			// Pack expansion or condition selection can leave one ordinary range leaf. Semantic ancestry is not a cost
-			// property: after inactive branches have disappeared, this is the same object/put-area pair as a plain print.
-			// Re-entering semantic precise coalescing would traverse a run-time-scatter range twice and silently defeat its
-			// explicit one-pass put-area marker. A stream's more specific plain-leaf coalescing marker still takes precedence.
-			// The normalized wrapper forwards the source marker, and line ownership remains at this outer call, so the direct
-			// no-pack path is category-correct and semantically identical for plain, pack-selected, and condition-selected
-			// singleton leaves.
-			::fast_io::operations::decay::print_freestanding_decay_no_pack<line>(
-				optstm, ::std::forward<FilteredArgs>(filtered_args)...);
-		}
-		else if constexpr (shared_single_pass_staging_run)
-		{
-			// The active run is already flat and every source has passed the staged-observer proof.  One adapter instance
-			// must own the whole sequence; staging each direct leaf separately would retain one syscall per literal/range
-			// boundary and defeat the destination's whole-output threshold.
-			constexpr ::std::size_t capacity{
-				::fast_io::details::decay::print_full_output_coalesce_threshold<
-					char_type, outputstmtype>()};
-			::fast_io::operations::decay::print_single_pass_stage_run_and_write<
-				line, char_type, capacity>(optstm, filtered_args...);
-		}
-		else if constexpr (!has_semantic_node && !has_runtime_scatter_component &&
-						   !retain_plain_leaves_for_coalescing)
-		{
-			// Pack expansion and condition selection have produced only ordinary forwarded leaves. Re-entering the
-			// semantic sizing framework cannot discover any placement operation, but it would duplicate the mature
-			// scatter/reserve run scanner. The direct no-pack path preserves order and line ownership while restoring its
-			// compile-time descriptor aggregation; inactive branches have already been removed from this sequence. A
-			// run-time-scatter leaf is deliberately excluded: the strategy block below can either build its descriptor plan
-			// or coalesce it with adjacent prefixes for a stream that does not advertise scatter-plan fallback. Sending such
-			// a mixed run to the ordinary scanner split one logical record into several writes on direct-write-only sinks.
-			// An empty run deliberately remains here even for a marked stream: `println(pack())` is only a newline and has
-			// no multi-leaf replay cost for a coalescer to remove.
-			::fast_io::operations::decay::print_freestanding_decay_no_pack<line>(
-				optstm, ::std::forward<FilteredArgs>(filtered_args)...);
-		}
-		else
-		{
-			constexpr bool single_top_level_width{
-				sizeof...(FilteredArgs) == 1u &&
-				(::fast_io::operations::decay::print_semantic_top_level_width_v<FilteredArgs> && ...)};
-			constexpr bool width_has_runtime_scatter{
-				sizeof...(FilteredArgs) == 1u &&
-				(::fast_io::operations::decay::print_semantic_top_level_width_has_runtime_scatter<
-					 char_type, FilteredArgs>() &&
-				 ...)};
-			constexpr bool width_has_semantic_child{
-				sizeof...(FilteredArgs) == 1u &&
-				(::fast_io::operations::decay::print_semantic_top_level_width_has_semantic_child<
-					 char_type, FilteredArgs>() &&
-				 ...)};
-			constexpr bool width_owns_child_traversal{
-				width_has_runtime_scatter || width_has_semantic_child};
-			constexpr bool has_declared_whole_output_coalescing{
-				::fast_io::details::decay::print_full_output_coalesce_threshold<
-					char_type, outputstmtype>() != 0u ||
-				::fast_io::details::decay::print_full_output_dynamic_coalesce_threshold_for_run<
-					char_type, outputstmtype,
-					::fast_io::details::decay::print_semantic_forwarded_arg_t<
-						char_type, FilteredArgs>...>() != 0u};
-			constexpr bool use_direct_width_strategy{
-				single_top_level_width && width_owns_child_traversal &&
-				!has_declared_whole_output_coalescing &&
-				(::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype> ||
-				 ::fast_io::buffered_printable_preferred_stream<char_type, outputstmtype> ||
-				 ::fast_io::details::decay::print_has_direct_scatter_write_operations<outputstmtype> ||
-				 ::fast_io::details::decay::print_has_direct_write_operations<outputstmtype>)};
 			if constexpr (
-				::fast_io::details::decay::print_runtime_scatter_plan_fast_entry_available_v<
-					char_type, outputstmtype, FilteredArgs...>)
+				::fast_io::operations::decay::print_semantic_exact_two_passive_scatter_direct_write_v<
+					line, char_type, outputstmtype, FilteredArgs...>)
 			{
-				// Pack expansion, null filtering, and condition selection have already normalized this run. A run-time
-				// scatter plan therefore sees only the active semantic leaves and can avoid an otherwise redundant heap copy.
-				::fast_io::details::decay::print_runtime_scatter_plan_fast_entry<line>(
-					optstm, ::std::forward<FilteredArgs>(filtered_args)...);
+				// A descriptor type alone does not prove a pointer domain for `{nullptr,0}`.  Retain the general dispatcher
+				// whenever either payload is empty: besides avoiding null arithmetic, that preserves whether an empty scalar
+				// customization is observed.  For two nonempty leaves the gate above proves exact ordered-call equivalence.
+				if ((true && ... && (filtered_args.len != 0u)))
+				{
+					(::fast_io::operations::decay::write_all_decay_dispatch(
+						 optstm, filtered_args.base, filtered_args.base + filtered_args.len),
+					 ...);
+					if constexpr (line)
+					{
+						// The ordinary descriptor fallback appends this same static range.  Reusing its base preserves both the
+						// scalar write boundary and pointer identity; `char_put` would be a different output customization.
+						auto const [base, len]{::fast_io::details::decay::line_scatter_common<char_type>};
+						::fast_io::operations::decay::write_all_decay_dispatch(optstm, base, base + len);
+					}
+					return;
+				}
 			}
-			else if constexpr (singleton_direct_streaming_preferred_plain_leaf)
+			constexpr bool has_semantic_node{has_remaining_semantic_node};
+			constexpr bool has_runtime_scatter_component{
+				(false || ... ||
+				 (::fast_io::dynamic_reserve_scatters_printable<
+					  char_type,
+					  ::fast_io::details::decay::print_runtime_scatter_plan_unwrapped_t<FilteredArgs>> &&
+				  ::fast_io::details::decay::retained_reserve_scatters_printable_v<
+					  char_type,
+					  ::fast_io::details::decay::print_runtime_scatter_plan_unwrapped_t<FilteredArgs>>))};
+			using staged_group = ::fast_io::operations::decay::print_semantic_staged_group<
+				char_type, ::std::remove_cvref_t<FilteredArgs>...>;
+			constexpr bool retain_plain_leaves_for_coalescing{
+				sizeof...(FilteredArgs) != 0u &&
+				(::fast_io::semantic_plain_leaf_coalesce_preferred_stream<char_type, outputstmtype> ||
+				 staged_group::available)};
+			constexpr bool shared_single_pass_staging_run{
+				!has_semantic_node && !has_runtime_scatter_component &&
+				::fast_io::operations::decay::
+					print_plain_single_pass_staging_run<
+						line, char_type, outputstmtype, FilteredArgs...>()};
+			constexpr bool singleton_put_area_preferred_plain_leaf{
+				sizeof...(FilteredArgs) == 1u && !has_semantic_node &&
+				!retain_plain_leaves_for_coalescing &&
+				::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype> &&
+				(::fast_io::put_area_printable_preferred<
+					 char_type, ::std::remove_cvref_t<FilteredArgs>> &&
+				 ...)};
+			constexpr bool singleton_direct_streaming_preferred_plain_leaf{
+				sizeof...(FilteredArgs) == 1u && !has_semantic_node &&
+				!retain_plain_leaves_for_coalescing &&
+				(::fast_io::details::decay::print_one_pass_direct_streaming_available_v<
+					 char_type, outputstmtype, FilteredArgs> &&
+				 ...)};
+			if constexpr (singleton_put_area_preferred_plain_leaf)
 			{
-				// Pack expansion or condition selection can expose one ordinary range leaf. Native scatter admission was
-				// tested first; for a non-scatter destination, the paired positive cost markers now restore the leaf's
-				// one-pass representation without letting semantic ancestry force a precise temporary. Restricting the
-				// bypass to one active leaf avoids splitting an otherwise coalescible record into extra destination calls.
+				// Pack expansion or condition selection can leave one ordinary range leaf. Semantic ancestry is not a cost
+				// property: after inactive branches have disappeared, this is the same object/put-area pair as a plain print.
+				// Re-entering semantic precise coalescing would traverse a run-time-scatter range twice and silently defeat its
+				// explicit one-pass put-area marker. A stream's more specific plain-leaf coalescing marker still takes precedence.
+				// The normalized wrapper forwards the source marker, and line ownership remains at this outer call, so the direct
+				// no-pack path is category-correct and semantically identical for plain, pack-selected, and condition-selected
+				// singleton leaves.
 				::fast_io::operations::decay::print_freestanding_decay_no_pack<line>(
 					optstm, ::std::forward<FilteredArgs>(filtered_args)...);
 			}
-			else if constexpr (use_direct_width_strategy)
+			else if constexpr (shared_single_pass_staging_run)
 			{
-				// A single width node already owns the exact child-measurement and final emission strategy. Bypassing outer
-				// precise/bounded materialization avoids duplicate traversals and large mutually exclusive stack frames. The
-				// child-ownership predicate is required even for a stream with a writable put area. A plain statically
-				// bounded field can be emitted by the outer bounded coalescer in one traversal and one cursor commit; routing
-				// every such field through the direct-width dispatcher duplicates classification and loses that compact code
-				// shape.  A run-time-scatter or semantic child is different: the width node already owns its descriptor or
-				// selected-branch traversal, so outer materialization would repeat work.  Keeping capability admission and
-				// traversal ownership as independent proofs prevents an available obuffer from overriding the cheaper plain-
-				// leaf strategy. Every destination capability is subordinate to an explicit whole-output coalescing policy:
-				// for a wide composite field, that policy can turn child plus padding into one coalesced output dispatch, while
-				// direct width must
-				// stream several fill blocks if an advertised put area happens to be short at run time. The outer coalescer
-				// still tries that put area first, then consumes the declared stack/dynamic fallback, so no useful capacity is
-				// lost by honoring the policy here. Measured condition(pack) fields with seven to nine leaves were more than
-				// twice as slow before the child-ownership boundary was made explicit.
-				(::fast_io::operations::decay::print_semantic_emit_node<line, char_type>(
-					 optstm, ::std::forward<FilteredArgs>(filtered_args)),
-				 ...);
+				// The active run is already flat and every source has passed the staged-observer proof.  One adapter instance
+				// must own the whole sequence; staging each direct leaf separately would retain one syscall per literal/range
+				// boundary and defeat the destination's whole-output threshold.
+				constexpr ::std::size_t capacity{
+					::fast_io::details::decay::print_full_output_coalesce_threshold<
+						char_type, outputstmtype>()};
+				::fast_io::operations::decay::print_single_pass_stage_run_and_write<
+					line, char_type, capacity>(optstm, filtered_args...);
 			}
-			// Strategy selection is ordered by cost: a compile-time bound avoids measurement, a precise size avoids excess
-			// allocation, and a run-time bound handles the remaining coalescible compositions.
-			else if constexpr (
-				::fast_io::operations::decay::print_semantic_precise_coalesce_strategy_selected<
-					line, char_type, outputstmtype, FilteredArgs...>())
+			else if constexpr (!has_semantic_node && !has_runtime_scatter_component &&
+							   !retain_plain_leaves_for_coalescing)
 			{
-				if constexpr (
-					::fast_io::operations::decay::print_semantic_single_pass_bounded_put_area_run<
-						char_type, outputstmtype, FilteredArgs...>())
-				{
-					// Expensive exact-size sources with an audited cheap bound get the existing put area first.  A failed
-					// capacity probe has not emitted or observed an unmarked object and therefore rejoins the old order below.
-					if (::fast_io::operations::decay::print_semantic_try_single_pass_bounded_put_area<
-							line, char_type>(optstm, filtered_args...))
-					{
-						return;
-					}
-				}
-				if constexpr (
-					::fast_io::operations::decay::print_semantic_single_pass_bounded_stack_run<
-						char_type, outputstmtype, FilteredArgs...>())
-				{
-					// A stream-authorized compact frame is the non-buffered counterpart of the put-area probe above. It
-					// must precede exact sizing: dynamic fixed floating fields otherwise build precise decimal metadata only
-					// to discover that their already-audited reserve bound fits in a very small contiguous output.
-					if (::fast_io::operations::decay::print_semantic_try_single_pass_bounded_stack<
-							line, char_type>(optstm, filtered_args...))
-					{
-						return;
-					}
-				}
-				// Selected compact and unbounded compositions preserve the established three-stage coalescing shape.
-				// For an audited bounded source this point is reached only after its cheap finite-capacity probe rejected
-				// the run; keeping the continuation separate prevents the large-precision alternatives from owning the
-				// common caller's stack frame on GCC.
-				if constexpr (
-					::fast_io::operations::decay::
-						print_semantic_single_pass_bounded_stack_run<
-							char_type, outputstmtype, FilteredArgs...>())
-				{
-					::fast_io::operations::decay::
-						print_semantic_precise_coalesce_fallback<line, char_type>(
-							optstm,
-							::std::forward<FilteredArgs>(filtered_args)...);
-				}
-				else if (!::fast_io::operations::decay::
-							 print_semantic_try_static_bounded_coalesce<
-								 line, char_type>(
-								 optstm,
-								 ::std::forward<FilteredArgs>(filtered_args)...) &&
-						 !::fast_io::operations::decay::
-							 print_semantic_try_precise_coalesce<line, char_type>(
-								 optstm,
-								 ::std::forward<FilteredArgs>(filtered_args)...) &&
-						 !::fast_io::operations::decay::
-							 print_semantic_try_bounded_coalesce<line, char_type>(
-								 optstm,
-								 ::std::forward<FilteredArgs>(filtered_args)...))
-				{
-					::fast_io::operations::decay::print_semantic_emit_flat_fallback<line, char_type>(
-						optstm, ::std::forward<FilteredArgs>(filtered_args)...);
-				}
+				// Pack expansion and condition selection have produced only ordinary forwarded leaves. Re-entering the
+				// semantic sizing framework cannot discover any placement operation, but it would duplicate the mature
+				// scatter/reserve run scanner. The direct no-pack path preserves order and line ownership while restoring its
+				// compile-time descriptor aggregation; inactive branches have already been removed from this sequence. A
+				// run-time-scatter leaf is deliberately excluded: the strategy block below can either build its descriptor plan
+				// or coalesce it with adjacent prefixes for a stream that does not advertise scatter-plan fallback. Sending such
+				// a mixed run to the ordinary scanner split one logical record into several writes on direct-write-only sinks.
+				// An empty run deliberately remains here even for a marked stream: `println(pack())` is only a newline and has
+				// no multi-leaf replay cost for a coalescer to remove.
+				::fast_io::operations::decay::print_freestanding_decay_no_pack<line>(
+					optstm, ::std::forward<FilteredArgs>(filtered_args)...);
 			}
 			else
 			{
-				constexpr bool has_contiguous_target{
-					::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype> ||
-					(::fast_io::details::decay::print_full_output_coalesce_threshold<char_type, outputstmtype>() != 0u) ||
-					(::fast_io::details::decay::print_full_output_dynamic_coalesce_threshold_for_run<
-						 char_type, outputstmtype,
-						 ::fast_io::details::decay::print_semantic_forwarded_arg_t<char_type, FilteredArgs>...>() != 0u)};
-				if constexpr (has_contiguous_target)
+				constexpr bool single_top_level_width{
+					sizeof...(FilteredArgs) == 1u &&
+					(::fast_io::operations::decay::print_semantic_top_level_width_v<FilteredArgs> && ...)};
+				constexpr bool width_has_runtime_scatter{
+					sizeof...(FilteredArgs) == 1u &&
+					(::fast_io::operations::decay::print_semantic_top_level_width_has_runtime_scatter<
+						 char_type, FilteredArgs>() &&
+					 ...)};
+				constexpr bool width_has_semantic_child{
+					sizeof...(FilteredArgs) == 1u &&
+					(::fast_io::operations::decay::print_semantic_top_level_width_has_semantic_child<
+						 char_type, FilteredArgs>() &&
+					 ...)};
+				constexpr bool width_owns_child_traversal{
+					width_has_runtime_scatter || width_has_semantic_child};
+				constexpr bool has_declared_whole_output_coalescing{
+					::fast_io::details::decay::print_full_output_coalesce_threshold<
+						char_type, outputstmtype>() != 0u ||
+					::fast_io::details::decay::print_full_output_dynamic_coalesce_threshold_for_run<
+						char_type, outputstmtype,
+						::fast_io::details::decay::print_semantic_forwarded_arg_t<
+							char_type, FilteredArgs>...>() != 0u};
+				constexpr bool use_direct_width_strategy{
+					single_top_level_width && width_owns_child_traversal &&
+					!has_declared_whole_output_coalescing &&
+					(::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype> ||
+					 ::fast_io::buffered_printable_preferred_stream<char_type, outputstmtype> ||
+					 ::fast_io::details::decay::print_has_direct_scatter_write_operations<outputstmtype> ||
+					 ::fast_io::details::decay::print_has_direct_write_operations<outputstmtype>)};
+				if constexpr (
+					::fast_io::details::decay::print_runtime_scatter_plan_fast_entry_available_v<
+						char_type, outputstmtype, FilteredArgs...>)
 				{
-					// Long bounded packs with contiguous storage skip precise sizing but retain both bounded stages.
-					if (!::fast_io::operations::decay::print_semantic_try_static_bounded_coalesce<line, char_type>(
-							optstm, ::std::forward<FilteredArgs>(filtered_args)...) &&
-						!::fast_io::operations::decay::print_semantic_try_bounded_coalesce<line, char_type>(
-							optstm, ::std::forward<FilteredArgs>(filtered_args)...))
+					// Pack expansion, null filtering, and condition selection have already normalized this run. A run-time
+					// scatter plan therefore sees only the active semantic leaves and can avoid an otherwise redundant heap copy.
+					::fast_io::details::decay::print_runtime_scatter_plan_fast_entry<line>(
+						optstm, ::std::forward<FilteredArgs>(filtered_args)...);
+				}
+				else if constexpr (singleton_direct_streaming_preferred_plain_leaf)
+				{
+					// Pack expansion or condition selection can expose one ordinary range leaf. Native scatter admission was
+					// tested first; for a non-scatter destination, the paired positive cost markers now restore the leaf's
+					// one-pass representation without letting semantic ancestry force a precise temporary. Restricting the
+					// bypass to one active leaf avoids splitting an otherwise coalescible record into extra destination calls.
+					::fast_io::operations::decay::print_freestanding_decay_no_pack<line>(
+						optstm, ::std::forward<FilteredArgs>(filtered_args)...);
+				}
+				else if constexpr (use_direct_width_strategy)
+				{
+					// A single width node already owns the exact child-measurement and final emission strategy. Bypassing outer
+					// precise/bounded materialization avoids duplicate traversals and large mutually exclusive stack frames. The
+					// child-ownership predicate is required even for a stream with a writable put area. A plain statically
+					// bounded field can be emitted by the outer bounded coalescer in one traversal and one cursor commit; routing
+					// every such field through the direct-width dispatcher duplicates classification and loses that compact code
+					// shape.  A run-time-scatter or semantic child is different: the width node already owns its descriptor or
+					// selected-branch traversal, so outer materialization would repeat work.  Keeping capability admission and
+					// traversal ownership as independent proofs prevents an available obuffer from overriding the cheaper plain-
+					// leaf strategy. Every destination capability is subordinate to an explicit whole-output coalescing policy:
+					// for a wide composite field, that policy can turn child plus padding into one coalesced output dispatch, while
+					// direct width must
+					// stream several fill blocks if an advertised put area happens to be short at run time. The outer coalescer
+					// still tries that put area first, then consumes the declared stack/dynamic fallback, so no useful capacity is
+					// lost by honoring the policy here. Measured condition(pack) fields with seven to nine leaves were more than
+					// twice as slow before the child-ownership boundary was made explicit.
+					(::fast_io::operations::decay::print_semantic_emit_node<line, char_type>(
+						 optstm, ::std::forward<FilteredArgs>(filtered_args)),
+					 ...);
+				}
+				// Strategy selection is ordered by cost: a compile-time bound avoids measurement, a precise size avoids excess
+				// allocation, and a run-time bound handles the remaining coalescible compositions.
+				else if constexpr (
+					::fast_io::operations::decay::print_semantic_precise_coalesce_strategy_selected<
+						line, char_type, outputstmtype, FilteredArgs...>())
+				{
+					if constexpr (
+						::fast_io::operations::decay::print_semantic_single_pass_bounded_put_area_run<
+							char_type, outputstmtype, FilteredArgs...>())
 					{
-						// Failed bounded coalescing keeps semantics by flattening nodes around ordinary freestanding output.
+						// Expensive exact-size sources with an audited cheap bound get the existing put area first.  A failed
+						// capacity probe has not emitted or observed an unmarked object and therefore rejoins the old order below.
+						if (::fast_io::operations::decay::print_semantic_try_single_pass_bounded_put_area<
+								line, char_type>(optstm, filtered_args...))
+						{
+							return;
+						}
+					}
+					if constexpr (
+						::fast_io::operations::decay::print_semantic_single_pass_bounded_stack_run<
+							char_type, outputstmtype, FilteredArgs...>())
+					{
+						// A stream-authorized compact frame is the non-buffered counterpart of the put-area probe above. It
+						// must precede exact sizing: dynamic fixed floating fields otherwise build precise decimal metadata only
+						// to discover that their already-audited reserve bound fits in a very small contiguous output.
+						if (::fast_io::operations::decay::print_semantic_try_single_pass_bounded_stack<
+								line, char_type>(optstm, filtered_args...))
+						{
+							return;
+						}
+					}
+					// Selected compact and unbounded compositions preserve the established three-stage coalescing shape.
+					// For an audited bounded source this point is reached only after its cheap finite-capacity probe rejected
+					// the run; keeping the continuation separate prevents the large-precision alternatives from owning the
+					// common caller's stack frame on GCC.
+					if constexpr (
+						::fast_io::operations::decay::
+							print_semantic_single_pass_bounded_stack_run<
+								char_type, outputstmtype, FilteredArgs...>())
+					{
+						::fast_io::operations::decay::
+							print_semantic_precise_coalesce_fallback<line, char_type>(
+								optstm,
+								::std::forward<FilteredArgs>(filtered_args)...);
+					}
+					else if (!::fast_io::operations::decay::
+								 print_semantic_try_static_bounded_coalesce<
+									 line, char_type>(
+									 optstm,
+									 ::std::forward<FilteredArgs>(filtered_args)...) &&
+							 !::fast_io::operations::decay::
+								 print_semantic_try_precise_coalesce<line, char_type>(
+									 optstm,
+									 ::std::forward<FilteredArgs>(filtered_args)...) &&
+							 !::fast_io::operations::decay::
+								 print_semantic_try_bounded_coalesce<line, char_type>(
+									 optstm,
+									 ::std::forward<FilteredArgs>(filtered_args)...))
+					{
 						::fast_io::operations::decay::print_semantic_emit_flat_fallback<line, char_type>(
 							optstm, ::std::forward<FilteredArgs>(filtered_args)...);
 					}
 				}
 				else
 				{
-					// Without contiguous storage, both run-time sizing passes would be unable to change the output strategy.
-					if (!::fast_io::operations::decay::print_semantic_try_static_bounded_coalesce<line, char_type>(
-							optstm, ::std::forward<FilteredArgs>(filtered_args)...))
+					constexpr bool has_contiguous_target{
+						::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype> ||
+						(::fast_io::details::decay::print_full_output_coalesce_threshold<char_type, outputstmtype>() != 0u) ||
+						(::fast_io::details::decay::print_full_output_dynamic_coalesce_threshold_for_run<
+							 char_type, outputstmtype,
+							 ::fast_io::details::decay::print_semantic_forwarded_arg_t<char_type, FilteredArgs>...>() != 0u)};
+					if constexpr (has_contiguous_target)
 					{
-						// A failed static attempt falls directly to checked semantic emission without measuring an unusable bound.
-						::fast_io::operations::decay::print_semantic_emit_flat_fallback<line, char_type>(
-							optstm, ::std::forward<FilteredArgs>(filtered_args)...);
+						// Long bounded packs with contiguous storage skip precise sizing but retain both bounded stages.
+						if (!::fast_io::operations::decay::print_semantic_try_static_bounded_coalesce<line, char_type>(
+								optstm, ::std::forward<FilteredArgs>(filtered_args)...) &&
+							!::fast_io::operations::decay::print_semantic_try_bounded_coalesce<line, char_type>(
+								optstm, ::std::forward<FilteredArgs>(filtered_args)...))
+						{
+							// Failed bounded coalescing keeps semantics by flattening nodes around ordinary freestanding output.
+							::fast_io::operations::decay::print_semantic_emit_flat_fallback<line, char_type>(
+								optstm, ::std::forward<FilteredArgs>(filtered_args)...);
+						}
+					}
+					else
+					{
+						// Without contiguous storage, both run-time sizing passes would be unable to change the output strategy.
+						if (!::fast_io::operations::decay::print_semantic_try_static_bounded_coalesce<line, char_type>(
+								optstm, ::std::forward<FilteredArgs>(filtered_args)...))
+						{
+							// A failed static attempt falls directly to checked semantic emission without measuring an unusable bound.
+							::fast_io::operations::decay::print_semantic_emit_flat_fallback<line, char_type>(
+								optstm, ::std::forward<FilteredArgs>(filtered_args)...);
+						}
 					}
 				}
 			}
 		}
-	}
 	}
 };
 
@@ -15044,7 +16391,7 @@ struct print_semantic_optional_scatter_barrier_segment_continuation
 		{
 			if constexpr (line)
 			{
-				::fast_io::operations::decay::char_put_decay(
+				::fast_io::operations::decay::char_put_decay_dispatch(
 					optstm,
 					::fast_io::char_literal_v<u8'\n', char_type>);
 			}
@@ -15112,7 +16459,7 @@ print_semantic_optional_scatter_emit_barrier_segment_impl(
 	{
 		if constexpr (line)
 		{
-			::fast_io::operations::decay::char_put_decay(
+			::fast_io::operations::decay::char_put_decay_dispatch(
 				optstm,
 				::fast_io::char_literal_v<u8'\n', char_type>);
 		}
@@ -15143,15 +16490,15 @@ print_semantic_optional_scatter_emit_barrier_segment_impl(
 template <bool line, ::std::size_t begin, ::std::size_t end,
 		  typename outputstmtype, ::std::integral char_type,
 		  typename source_tuple>
-		requires(begin <= end)
+	requires(begin <= end)
 inline constexpr void print_semantic_optional_scatter_emit_barrier_segment(
 	outputstmtype &optstm, source_tuple &sources)
 {
 	::fast_io::operations::decay::
 		print_semantic_optional_scatter_emit_barrier_segment_impl<
 			line, begin, outputstmtype, char_type>(
-				optstm, sources,
-				::std::make_index_sequence<end - begin>{});
+			optstm, sources,
+			::std::make_index_sequence<end - begin>{});
 }
 
 /// @brief Finds the next strict fixed-child width after whole-record coalescing has declined without output.
@@ -15198,8 +16545,8 @@ print_semantic_optional_scatter_emit_coalescing_width_runtime_tail_impl(
 {
 	::fast_io::operations::decay::print_semantic_emit<
 		line, true, char_type>(
-			optstm,
-			*::fast_io::containers::get<begin + offset>(sources)...);
+		optstm,
+		*::fast_io::containers::get<begin + offset>(sources)...);
 }
 
 /// @brief Replays the ordinary flat fallback only after every complete-record coalescing attempt returned false.
@@ -15224,23 +16571,23 @@ print_semantic_optional_scatter_emit_coalescing_width_fallback_tail(
 		::fast_io::operations::decay::
 			print_semantic_optional_scatter_emit_barrier_segment<
 				line, begin, count, outputstmtype, char_type>(
-					optstm, sources);
+				optstm, sources);
 	}
 	else
 	{
 		::fast_io::operations::decay::
 			print_semantic_optional_scatter_emit_barrier_segment<
 				false, begin, width, outputstmtype, char_type>(
-					optstm, sources);
+				optstm, sources);
 		::fast_io::operations::decay::print_semantic_emit_node<
 			false, char_type>(
-				optstm,
-				*::fast_io::containers::get<width>(sources));
+			optstm,
+			*::fast_io::containers::get<width>(sources));
 		::fast_io::operations::decay::
 			print_semantic_optional_scatter_emit_coalescing_width_runtime_tail_impl<
 				line, width + 1u, outputstmtype, char_type>(
-					optstm, sources,
-					::std::make_index_sequence<count - width - 1u>{});
+				optstm, sources,
+				::std::make_index_sequence<count - width - 1u>{});
 	}
 }
 
@@ -15267,14 +16614,14 @@ inline constexpr void print_semantic_optional_scatter_emit_barrier_tail(
 		::fast_io::operations::decay::
 			print_semantic_optional_scatter_emit_barrier_segment<
 				line, begin, count, outputstmtype, char_type>(
-					optstm, sources);
+				optstm, sources);
 	}
 	else
 	{
 		::fast_io::operations::decay::
 			print_semantic_optional_scatter_emit_barrier_segment<
 				false, begin, barrier, outputstmtype, char_type>(
-					optstm, sources);
+				optstm, sources);
 		using barrier_pointer_type =
 			::std::tuple_element_t<barrier, tuple_type>;
 		using barrier_source_type =
@@ -15288,12 +16635,12 @@ inline constexpr void print_semantic_optional_scatter_emit_barrier_tail(
 			// the tail. Repeating both calls preserves even the final-width newline as a distinct tail operation.
 			::fast_io::operations::decay::print_semantic_emit_node<
 				false, char_type>(
-					optstm,
-					*::fast_io::containers::get<barrier>(sources));
+				optstm,
+				*::fast_io::containers::get<barrier>(sources));
 			::fast_io::operations::decay::
 				print_semantic_optional_scatter_emit_barrier_tail<
 					line, barrier + 1u, outputstmtype, char_type>(
-						optstm, sources);
+					optstm, sources);
 		}
 		else
 		{
@@ -15301,14 +16648,14 @@ inline constexpr void print_semantic_optional_scatter_emit_barrier_tail(
 				line && barrier + 1u == count};
 			::fast_io::details::decay::print_control_single<
 				barrier_owns_line>(
-					optstm,
-					*::fast_io::containers::get<barrier>(sources));
+				optstm,
+				*::fast_io::containers::get<barrier>(sources));
 			if constexpr (barrier + 1u != count)
 			{
 				::fast_io::operations::decay::
 					print_semantic_optional_scatter_emit_barrier_tail<
 						line, barrier + 1u, outputstmtype, char_type>(
-							optstm, sources);
+						optstm, sources);
 			}
 		}
 	}
@@ -15316,10 +16663,10 @@ inline constexpr void print_semantic_optional_scatter_emit_barrier_tail(
 
 template <bool line, ::std::integral char_type, typename outputstmtype,
 		  typename... Args>
-		requires(
-			::fast_io::details::decay::
-				print_semantic_optional_scatter_barrier_plan_available<
-					line, char_type, outputstmtype, Args...>())
+	requires(
+		::fast_io::details::decay::
+			print_semantic_optional_scatter_barrier_plan_available<
+				line, char_type, outputstmtype, Args...>())
 inline constexpr void print_semantic_optional_scatter_barrier_plan_emit(
 	outputstmtype &optstm, Args &...args)
 {
@@ -15339,10 +16686,10 @@ inline constexpr void print_semantic_optional_scatter_barrier_plan_emit(
 ///          the proven width-delimited flat fallback, which receives original sources rather than zero-size adapters.
 template <bool line, ::std::integral char_type, typename outputstmtype,
 		  typename... Args>
-		requires(
-			::fast_io::operations::decay::
-				print_semantic_optional_scatter_width_coalescing_plan_available<
-					line, char_type, outputstmtype, Args...>())
+	requires(
+		::fast_io::operations::decay::
+			print_semantic_optional_scatter_width_coalescing_plan_available<
+				line, char_type, outputstmtype, Args...>())
 inline constexpr void
 print_semantic_optional_scatter_width_coalescing_plan_emit(
 	outputstmtype &optstm, Args &...args)
@@ -15396,7 +16743,7 @@ struct print_semantic_emit_flat_continuation
 	(defined(__clang__) && __clang_major__ >= 13)
 	FAST_IO_GNU_ALWAYS_INLINE
 #endif
-	inline constexpr void operator()(FilteredArgs &&...filtered_args) const
+		inline constexpr void operator()(FilteredArgs &&...filtered_args) const
 	{
 		constexpr bool has_remaining_semantic_node{
 			(false || ... ||
@@ -15420,7 +16767,7 @@ struct print_semantic_emit_flat_continuation
 		::fast_io::operations::decay::
 			print_semantic_emit_flat_runtime_continuation<
 				line, char_type, outputstmtype>{optstm}(
-					::std::forward<FilteredArgs>(filtered_args)...);
+				::std::forward<FilteredArgs>(filtered_args)...);
 	}
 };
 
@@ -15527,11 +16874,11 @@ inline constexpr void print_semantic_emit(outputstmtype &optstm, Args &&...args)
 		 ... + 0u)};
 	static_assert(
 		diagnostic_top_level_condition_count <
-			static_cast<::std::size_t>(
-				FAST_IO_SEMANTIC_CONDITION_DIAGNOSTIC) ||
-		use_optional_scatter_source_plan ||
-		use_optional_scatter_width_coalescing_plan ||
-		use_optional_scatter_barrier_plan,
+				static_cast<::std::size_t>(
+					FAST_IO_SEMANTIC_CONDITION_DIAGNOSTIC) ||
+			use_optional_scatter_source_plan ||
+			use_optional_scatter_width_coalescing_plan ||
+			use_optional_scatter_barrier_plan,
 		"unclassified large semantic condition record");
 #endif
 	constexpr bool bypass_condition_selection = []() consteval {
@@ -15694,7 +17041,7 @@ inline constexpr decltype(auto) print_freestanding_decay_impl(outputstmtype &opt
 		// remaining zero-source record is line mode and owns exactly one newline.
 		static_assert(line);
 		using char_type = typename outputstmtype::output_char_type;
-		return ::fast_io::operations::decay::char_put_decay(
+		return ::fast_io::operations::decay::char_put_decay_dispatch(
 			optstm, char_literal_v<u8'\n', char_type>);
 	}
 	else if constexpr (
@@ -15738,10 +17085,10 @@ inline constexpr decltype(auto) print_freestanding_decay_impl(outputstmtype &opt
 				// every leaf's upper bound type-static. Keep this direct cursor comparison only when the complete static
 				// extent exists; otherwise the unchanged semantic continuation below performs its run-time sizing before
 				// staging.
-					char_type *const curr{obuffer_curr(optstm)};
-					char_type *const end{obuffer_end(optstm)};
-					if (curr != nullptr && end != nullptr &&
-						static_cast<::std::size_t>(end - curr) >= static_bound) [[likely]]
+				char_type *const curr{obuffer_curr(optstm)};
+				char_type *const end{obuffer_end(optstm)};
+				if (curr != nullptr && end != nullptr &&
+					static_cast<::std::size_t>(end - curr) >= static_bound) [[likely]]
 				{
 					char_type *const iter{
 						::fast_io::operations::decay::print_semantic_emit_unchecked_run<line, char_type, true>(
@@ -15757,7 +17104,13 @@ inline constexpr decltype(auto) print_freestanding_decay_impl(outputstmtype &opt
 	{
 		// Non-semantic non-empty runs choose between the fast reserve/scatter entry and the generic path.
 		using char_type = typename outputstmtype::output_char_type;
-		if constexpr (
+		if constexpr (::fast_io::details::decay::print_fixed_static_reserve_run_available<
+						  outputstmtype, char_type, Args...>())
+		{
+			::fast_io::details::decay::print_fixed_static_reserve_run<line, outputstmtype, char_type>(optstm, args...);
+			return;
+		}
+		else if constexpr (
 			::fast_io::details::decay::print_runtime_scatter_plan_fast_entry_available_v<
 				char_type, outputstmtype, Args &...>)
 		{
@@ -15897,7 +17250,8 @@ inline consteval bool print_compiler_constant_materialization_available() noexce
 		(false || ... ||
 		 ::fast_io::details::decay::print_semantic_execution_node_v<Args>) ||
 		!(::fast_io::compiler_constant_materialization_graph_proven_source_shape<
-			  char_type, Args> && ...) ||
+			  char_type, Args> &&
+		  ...) ||
 		!(::fast_io::compiler_constant_printable<char_type, Args> && ...))
 	{
 		return false;
@@ -16072,7 +17426,7 @@ print_freestanding_decay_compiler_constant_materialized(
 			::fast_io::operations::decay::
 				print_compiler_constant_materialization_define_chain<line, char_type>(
 					buffer, args...)};
-		::fast_io::operations::decay::write_all_decay(optstm, buffer, end);
+		::fast_io::operations::decay::write_all_decay_dispatch(optstm, buffer, end);
 		return true;
 	}
 }
@@ -16099,7 +17453,8 @@ print_freestanding_decay_compiler_constant_dispatch(
 						optstm,
 						print_compiler_constant_materialize_gate_proven(
 							::fast_io::io_reserve_type<char_type,
-								::std::remove_cvref_t<Args>>, args)...))
+													   ::std::remove_cvref_t<Args>>,
+							args)...))
 			{
 				return;
 			}
@@ -16124,6 +17479,103 @@ inline constexpr decltype(auto) print_freestanding_decay(outputstmtype optstm, A
 		optstm, args...);
 }
 
+/// @brief Recognizes one width around a plain type-bounded leaf for direct put-area materialization.
+/// @details The child bound is a type constant, so checking `max(width, child_bound)` does not inspect or format the
+///          child.  This is intentionally disjoint from the source-authored one-pass protocol below: dynamic or
+///          composite sources retain that stronger CPO and its complete-run planner.
+template <::std::integral char_type, typename outputstmtype, typename T>
+inline consteval bool print_semantic_single_width_put_area_run() noexcept
+{
+	if constexpr (
+		!::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype> ||
+		(::fast_io::direct_obuffer_copy_safe<char_type, outputstmtype> &&
+		 ::fast_io::details::decay::print_fixed_external_semantic_overstore<
+			 char_type, T>::value) ||
+		!::fast_io::single_pass_bounded_obuffer_materialization_safe<
+			char_type, outputstmtype> ||
+		!::fast_io::details::decay::print_buffered_mixed_nothrow_put_area<
+			outputstmtype, char_type> ||
+		!::fast_io::details::decay::print_semantic_execution_node_v<T>)
+	{
+		return false;
+	}
+	else
+	{
+		using node_expression = decltype(::fast_io::details::decay::print_semantic_node_ref(
+			::std::declval<T &>()));
+		using node_type = ::std::remove_cvref_t<node_expression>;
+		if constexpr (!::fast_io::details::decay::print_semantic_width_v<node_type>)
+		{
+			return false;
+		}
+		else
+		{
+			using child_expression = decltype((::std::declval<node_expression>().reference));
+			using child_type =
+				::fast_io::details::decay::print_semantic_stable_input_forward_t<
+					char_type, child_expression>;
+			return !::fast_io::details::decay::print_semantic_execution_node_v<child_type> &&
+				   ::fast_io::details::decay::print_semantic_static_bounded_size<
+					   char_type, child_type>::available;
+		}
+	}
+}
+
+/// @brief Emits one plain type-bounded width without entering complete semantic run planning.
+/// @details A successful capacity proof formats the child once into unpublished put-area storage and commits once.
+///          A miss has observed only destination cursors and the width scalar, so the established checked dispatcher
+///          remains the exact continuation and can refresh, allocate, or stream according to destination policy.
+template <bool line, typename outputstmtype, typename width_source_type>
+	requires(
+		requires { typename outputstmtype::output_char_type; } &&
+		::fast_io::operations::decay::print_semantic_single_width_put_area_run<
+			typename outputstmtype::output_char_type, outputstmtype,
+			width_source_type>() &&
+		!::fast_io::operations::decay::print_semantic_single_pass_bounded_put_area_run<
+			typename outputstmtype::output_char_type, outputstmtype,
+			width_source_type>() &&
+		!::fast_io::operations::decay::defines::has_output_or_io_stream_mutex_ref_define<
+			outputstmtype> &&
+		!::fast_io::operations::decay::defines::has_status_print_define<
+			line, outputstmtype, width_source_type>)
+inline constexpr void print_freestanding_decay_borrowed_output(
+	outputstmtype &optstm, width_source_type width_source)
+{
+	using char_type = typename outputstmtype::output_char_type;
+	auto &&node_ref{
+		::fast_io::details::decay::print_semantic_node_ref(width_source)};
+	using child_expression = decltype((node_ref.reference));
+	using child_type =
+		::fast_io::details::decay::print_semantic_stable_input_forward_t<
+			char_type, child_expression>;
+	constexpr ::std::size_t child_bound{
+		::fast_io::details::decay::print_semantic_static_bounded_size<
+			char_type, child_type>::size};
+	::std::size_t required{node_ref.width < child_bound ? child_bound : node_ref.width};
+	if constexpr (line)
+	{
+		required = ::fast_io::details::intrinsics::add_or_overflow_die(
+			required, static_cast<::std::size_t>(1u));
+	}
+	char_type *const current{obuffer_curr(optstm)};
+	char_type *const end{obuffer_end(optstm)};
+	if (current != nullptr && end != nullptr && current <= end &&
+		static_cast<::std::size_t>(end - current) >= required) [[likely]]
+	{
+		char_type *iter{
+			::fast_io::operations::decay::print_semantic_emit_unchecked_arg<
+				char_type, true>(current, width_source)};
+		if constexpr (line)
+		{
+			*iter++ = ::fast_io::char_literal_v<u8'\n', char_type>;
+		}
+		obuffer_set_curr(optstm, iter);
+		return;
+	}
+	::fast_io::operations::decay::print_freestanding_decay_impl<line>(
+		optstm, width_source);
+}
+
 /// @brief Gives a destination-neutral bounded semantic run one shared put-area attempt.
 /// @details The source concepts prove a non-fatal capacity bound and a non-throwing
 ///          reserve definition. Core can consequently classify the complete run,
@@ -16135,6 +17587,13 @@ template <bool line, typename outputstmtype, typename... bounded_source_types>
 		requires { typename outputstmtype::output_char_type; } &&
 		::fast_io::operations::decay::print_semantic_single_pass_bounded_put_area_run<
 			typename outputstmtype::output_char_type, outputstmtype,
+			bounded_source_types...>() &&
+		// A direct fixed view with a compile-time reserve proof is a strictly stronger
+		// execution policy: it needs neither the conservative capacity probe nor its
+		// generic continuation.  Making that implication explicit keeps the overload
+		// set disjoint when a leaf, such as exact_decimal, advertises both protocols.
+		!::fast_io::details::decay::print_fixed_static_reserve_run_available<
+			outputstmtype, typename outputstmtype::output_char_type,
 			bounded_source_types...>() &&
 		!::fast_io::operations::decay::defines::has_output_or_io_stream_mutex_ref_define<
 			outputstmtype> &&
@@ -16150,8 +17609,8 @@ inline constexpr void print_freestanding_decay_borrowed_output(
 		return;
 	}
 	if constexpr (requires {
-		print_single_pass_bounded_put_area_refresh(optstm);
-	})
+					  print_single_pass_bounded_put_area_refresh(optstm);
+				  })
 	{
 		char_type *const begin{obuffer_begin(optstm)};
 		char_type *const current{obuffer_curr(optstm)};
@@ -16332,6 +17791,12 @@ template <bool line, typename outputstmtype, typename... bounded_source_types>
 		::fast_io::operations::decay::print_semantic_single_pass_bounded_stack_run<
 			typename outputstmtype::output_char_type, outputstmtype,
 			bounded_source_types...>() &&
+		// Preserve the same formal priority as the put-area overload above.  This
+		// exclusion also covers destinations whose coalescing threshold and direct
+		// fixed-view contract are both visible to overload resolution.
+		!::fast_io::details::decay::print_fixed_static_reserve_run_available<
+			outputstmtype, typename outputstmtype::output_char_type,
+			bounded_source_types...>() &&
 		!::fast_io::operations::decay::defines::has_output_or_io_stream_mutex_ref_define<
 			outputstmtype> &&
 		!::fast_io::operations::decay::defines::has_status_print_define<
@@ -16362,6 +17827,21 @@ inline constexpr void print_freestanding_decay_borrowed_output(
 /// microbenchmark by only about 2--5 percent, but grew the GCC 15 default-linked integration image by about 19 KiB;
 /// ordinary placement was also faster for the ample-put-area case on both audited compilers. The rare local-frame arm
 /// must therefore remain available for outlining instead of imposing its formatter graph on every buffered caller.
+template <::std::integral char_type, typename formatted_scalar_type>
+inline constexpr bool print_fixed_prefix_scalar_define_nofail_v =
+	requires(formatted_scalar_type value, char_type *iter) {
+#if defined(__HERBCEPTIONS__)
+		// Formal admission is `!throws(E) && noexcept(E)` for the exact named by-value parameter E executed by both
+		// storage arms. The extension's current `noexcept(E)` answer alone is not a deterministic-error proof.
+		requires(!throws((print_reserve_define(
+			::fast_io::io_reserve_type<char_type, formatted_scalar_type>, iter, value))));
+#endif
+		{
+			print_reserve_define(
+				::fast_io::io_reserve_type<char_type, formatted_scalar_type>, iter, value)
+		} noexcept -> ::std::same_as<char_type *>;
+	};
+
 template <bool line, typename outputstmtype, ::std::integral char_type, ::std::size_t extent,
 		  typename formatted_scalar_type>
 	requires(
@@ -16375,6 +17855,16 @@ template <bool line, typename outputstmtype, ::std::integral char_type, ::std::s
 		::fast_io::dynamic_reserve_printable<char_type, formatted_scalar_type> &&
 		::fast_io::single_pass_bounded_materialization_source<
 			char_type, formatted_scalar_type> &&
+#if defined(__HERBCEPTIONS__)
+		::fast_io::operations::decay::print_fixed_prefix_scalar_define_nofail_v<
+			char_type, formatted_scalar_type> &&
+		requires {
+			{
+				print_single_pass_bounded_direct_put_area_safe(
+					::fast_io::io_reserve_type<char_type, formatted_scalar_type>)
+			} -> ::std::same_as<::std::true_type>;
+		}
+#else
 		requires(formatted_scalar_type value, char_type *iter) {
 			{
 				print_single_pass_bounded_direct_put_area_safe(
@@ -16385,7 +17875,9 @@ template <bool line, typename outputstmtype, ::std::integral char_type, ::std::s
 					::fast_io::io_reserve_type<char_type, formatted_scalar_type>,
 					iter, value)
 			} noexcept -> ::std::same_as<char_type *>;
-		})
+		}
+#endif
+)
 inline constexpr void print_freestanding_decay_borrowed_output(
 	outputstmtype &optstm,
 	::fast_io::manipulators::static_scatter_t<char_type, extent> static_prefix,
@@ -16466,13 +17958,31 @@ inline constexpr void print_freestanding_decay_borrowed_output(
 				obuffer_set_curr(optstm, next);
 				return;
 			}
-			::fast_io::operations::decay::write_all_decay(
+			::fast_io::operations::decay::write_all_decay_dispatch(
 				optstm, record_buffer, iter);
 			return;
 		}
 	}
 	::fast_io::operations::decay::print_freestanding_decay_impl<line>(
 		optstm, static_prefix, formatted_scalar);
+}
+
+/// Fixed external views can bypass the by-value generic borrowed boundary entirely.  The stronger destination marker
+/// and static reserve proof make this overload unambiguous for the common scalar/literal record while every owner,
+/// mutex, and dynamic source continues through the established overload set below.
+template <bool line, typename outputstmtype, typename... Args>
+	requires(
+		(sizeof...(Args) != 0u) &&
+		::fast_io::details::decay::print_fixed_static_reserve_run_available<
+			outputstmtype, typename outputstmtype::output_char_type, Args...>() &&
+		!(::fast_io::details::decay::print_semantic_execution_node_v<Args> || ...) &&
+		!::fast_io::operations::decay::defines::has_output_or_io_stream_mutex_ref_define<outputstmtype> &&
+		!::fast_io::operations::decay::defines::has_status_print_define<line, outputstmtype, Args...>)
+FAST_IO_GNU_ALWAYS_INLINE inline constexpr void print_freestanding_decay_borrowed_output(
+	outputstmtype &optstm, Args... args)
+{
+	using char_type = typename outputstmtype::output_char_type;
+	::fast_io::details::decay::print_fixed_static_reserve_run<line, outputstmtype, char_type>(optstm, args...);
 }
 
 // Declare the generic borrowed fallback after all destination-specialized overloads so the mutex adapter below can
@@ -16698,8 +18208,8 @@ template <bool line, typename outputstmtype, typename... Args>
 #if defined(__clang__) && __clang_major__ >= 23
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void print_passive_mixed_put_area_fast_entry(
-	outputstmtype &optstm, Args &&...args)
+	inline constexpr void print_passive_mixed_put_area_fast_entry(
+		outputstmtype &optstm, Args &&...args)
 {
 	using char_type = typename outputstmtype::output_char_type;
 	static_assert(
@@ -16982,9 +18492,8 @@ struct print_compiler_constant_pre_normalization_replacement_normalized<
 	using proxy_type =
 		::fast_io::details::compiler_constant_materialized_t<
 			char_type, ::std::remove_cvref_t<T>>;
-	using type = ::std::remove_cvref_t<decltype(
-		::fast_io::details::decay::print_semantic_input_forward<char_type>(
-			::std::declval<proxy_type &&>()))>;
+	using type = ::std::remove_cvref_t<decltype(::fast_io::details::decay::print_semantic_input_forward<char_type>(
+		::std::declval<proxy_type &&>()))>;
 };
 
 template <::std::integral char_type, bool semantic_run, typename T>
@@ -17093,7 +18602,7 @@ struct print_compiler_constant_pre_normalization_output_safe<
 				   !::fast_io::operations::decay::defines::has_status_print_define<
 					   line, outputstmtype, ReplacementArgs...> &&
 				   (!::fast_io::details::decay::
-						 print_output_retains_static_scatter<outputstmtype> ||
+						print_output_retains_static_scatter<outputstmtype> ||
 					!::fast_io::operations::decay::defines::has_status_print_define<
 						line, outputstmtype, PreservedFragmentArgs...>);
 		}
@@ -17173,24 +18682,24 @@ print_compiler_constant_pre_normalization_common_available() noexcept
 				::std::size_t proxy_bytes{};
 				::std::size_t reserve_size{};
 				((proxy_bytes = proxy_bytes == SIZE_MAX ||
-									::fast_io::operations::decay::
-										print_compiler_constant_pre_normalization_replacement<
-											char_type, Args>::proxy_bytes > maximum - proxy_bytes
-								? SIZE_MAX
-								: proxy_bytes +
-									  ::fast_io::operations::decay::
-										  print_compiler_constant_pre_normalization_replacement<
-											  char_type, Args>::proxy_bytes),
+										::fast_io::operations::decay::
+												print_compiler_constant_pre_normalization_replacement<
+													char_type, Args>::proxy_bytes > maximum - proxy_bytes
+									? SIZE_MAX
+									: proxy_bytes +
+										  ::fast_io::operations::decay::
+											  print_compiler_constant_pre_normalization_replacement<
+												  char_type, Args>::proxy_bytes),
 				 ...);
 				((reserve_size = reserve_size == SIZE_MAX ||
-									 ::fast_io::operations::decay::
-											 print_compiler_constant_pre_normalization_replacement<
-												 char_type, Args>::reserve_size > maximum / sizeof(char_type) - reserve_size
-								 ? SIZE_MAX
-								 : reserve_size +
-									   ::fast_io::operations::decay::
-										   print_compiler_constant_pre_normalization_replacement<
-											   char_type, Args>::reserve_size),
+										 ::fast_io::operations::decay::
+												 print_compiler_constant_pre_normalization_replacement<
+													 char_type, Args>::reserve_size > maximum / sizeof(char_type) - reserve_size
+									 ? SIZE_MAX
+									 : reserve_size +
+										   ::fast_io::operations::decay::
+											   print_compiler_constant_pre_normalization_replacement<
+												   char_type, Args>::reserve_size),
 				 ...);
 				if constexpr (require_reserve_budget)
 				{
@@ -17232,8 +18741,8 @@ template <::std::integral char_type, typename T>
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr bool
-print_compiler_constant_pre_normalization_eligible_one(T const &value) noexcept
+	[[nodiscard]] inline constexpr bool
+	print_compiler_constant_pre_normalization_eligible_one(T const &value) noexcept
 {
 	if constexpr (
 		::fast_io::operations::decay::
@@ -17253,8 +18762,8 @@ template <::std::integral char_type, typename... Args>
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr bool
-print_compiler_constant_pre_normalization_gate(Args const &...args) noexcept
+	[[nodiscard]] inline constexpr bool
+	print_compiler_constant_pre_normalization_gate(Args const &...args) noexcept
 {
 	return (true && ... &&
 			::fast_io::operations::decay::
@@ -17266,8 +18775,8 @@ template <::std::integral char_type, typename T>
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr decltype(auto)
-print_compiler_constant_pre_normalization_materialize_one(T &&value) noexcept
+	[[nodiscard]] inline constexpr decltype(auto)
+	print_compiler_constant_pre_normalization_materialize_one(T &&value) noexcept
 {
 	if constexpr (
 		::fast_io::operations::decay::
@@ -17333,8 +18842,8 @@ template <::std::integral char_type, typename T>
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr decltype(auto)
-print_compiler_constant_partial_fragment_normalize(T &value)
+	[[nodiscard]] inline constexpr decltype(auto)
+	print_compiler_constant_partial_fragment_normalize(T &value)
 {
 	if constexpr (
 		::fast_io::details::decay::
@@ -17356,10 +18865,10 @@ template <bool line, typename outputstmtype, typename source_tuple,
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_compiler_constant_partial_fragment_original(
-	outputstmtype &optstm, source_tuple &sources,
-	::std::index_sequence<index...>)
+	inline constexpr void
+	print_compiler_constant_partial_fragment_original(
+		outputstmtype &optstm, source_tuple &sources,
+		::std::index_sequence<index...>)
 {
 	::fast_io::operations::decay::print_freestanding_decay_unforwarded<line>(
 		optstm, ::fast_io::containers::get<index>(sources)...);
@@ -17383,9 +18892,9 @@ template <bool line, ::std::integral char_type, ::std::size_t source_index,
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_compiler_constant_partial_fragment_transform(
-	outputstmtype &optstm, source_tuple &sources, Built &...built)
+	inline constexpr void
+	print_compiler_constant_partial_fragment_transform(
+		outputstmtype &optstm, source_tuple &sources, Built &...built)
 {
 	constexpr ::std::size_t source_count{
 		::std::tuple_size<::std::remove_cvref_t<source_tuple>>::value};
@@ -17472,8 +18981,8 @@ template <bool preserve_static_fragments, ::std::integral char_type, typename T>
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr auto
-print_compiler_constant_pre_normalization_plain_true_forward(T &&value)
+	[[nodiscard]] inline constexpr auto
+	print_compiler_constant_pre_normalization_plain_true_forward(T &&value)
 {
 	if constexpr (
 		::fast_io::operations::decay::
@@ -17519,8 +19028,8 @@ template <bool preserve_static_fragments, ::std::integral char_type, typename T>
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr auto
-print_compiler_constant_pre_normalization_semantic_true_forward(T &&value)
+	[[nodiscard]] inline constexpr auto
+	print_compiler_constant_pre_normalization_semantic_true_forward(T &&value)
 {
 	if constexpr (
 		::fast_io::operations::decay::
@@ -17588,9 +19097,22 @@ struct print_compiler_constant_pre_normalization_fragment_source
 			::fast_io::scatter_direct_print_equivalent<char_type, source_type> &&
 			::fast_io::copy_stable_borrowed_print_source<char_type, source_type>)
 		{
+#if defined(__HERBCEPTIONS__)
+			return requires(source_type &value) {
+				// The fragment plan retains the descriptor returned for this named source lvalue. Its producer must
+				// satisfy the deterministic and traditional no-failure contracts independently.
+				requires(!throws((print_scatter_define(
+					::fast_io::io_reserve_type<char_type, source_type>, value))));
+				{
+					print_scatter_define(
+						::fast_io::io_reserve_type<char_type, source_type>, value)
+				} noexcept -> ::std::same_as<::fast_io::basic_io_scatter_t<char_type>>;
+			};
+#else
 			return noexcept(print_scatter_define(
 				::fast_io::io_reserve_type<char_type, source_type>,
 				::std::declval<source_type &>()));
+#endif
 		}
 		else
 		{
@@ -17924,8 +19446,8 @@ print_compiler_constant_exact_obuffer_codegen_supported() noexcept
 {
 #if defined(__GNUC__) && !defined(__clang__) && 11 <= __GNUC__ && __GNUC__ <= 14
 	return !(false || ... ||
-		::fast_io::compiler_constant_expanded_fragment_preferred_source<
-			char_type, Args>);
+			 ::fast_io::compiler_constant_expanded_fragment_preferred_source<
+				 char_type, Args>);
 #else
 	return true;
 #endif
@@ -17991,10 +19513,10 @@ template <::std::integral char_type, typename Arg>
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_compiler_constant_exact_obuffer_measure_one(
-	::std::size_t *component_sizes, ::std::size_t &total,
-	::std::size_t &component_index, Arg &arg)
+	inline constexpr void
+	print_compiler_constant_exact_obuffer_measure_one(
+		::std::size_t *component_sizes, ::std::size_t &total,
+		::std::size_t &component_index, Arg &arg)
 {
 	using arg_type = ::std::remove_cvref_t<Arg>;
 	::std::size_t const component_size{print_reserve_precise_size(
@@ -18015,10 +19537,10 @@ template <::std::integral char_type, typename Arg>
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_compiler_constant_exact_obuffer_emit_one(
-	::std::size_t const *component_sizes, ::std::size_t &component_index,
-	char_type *&current, Arg &arg)
+	inline constexpr void
+	print_compiler_constant_exact_obuffer_emit_one(
+		::std::size_t const *component_sizes, ::std::size_t &component_index,
+		char_type *&current, Arg &arg)
 {
 	using arg_type = ::std::remove_cvref_t<Arg>;
 	::std::size_t const component_size{component_sizes[component_index++]};
@@ -18057,10 +19579,10 @@ template <::std::size_t capacity, bool line, ::std::integral char_type,
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_compiler_constant_exact_obuffer_overflow_emit(
-	outputstmtype &optstm, ::std::size_t const *component_sizes,
-	Args &...args)
+	inline constexpr void
+	print_compiler_constant_exact_obuffer_overflow_emit(
+		outputstmtype &optstm, ::std::size_t const *component_sizes,
+		Args &...args)
 {
 	static_assert(capacity != 0u);
 	::fast_io::freestanding::array<char_type, capacity> buffer;
@@ -18080,7 +19602,7 @@ print_compiler_constant_exact_obuffer_overflow_emit(
 	{
 		*current++ = ::fast_io::char_literal_v<u8'\n', char_type>;
 	}
-	::fast_io::operations::decay::write_all_decay(
+	::fast_io::operations::decay::write_all_decay_dispatch(
 		optstm, buffer.data(), current);
 }
 
@@ -18097,9 +19619,9 @@ template <bool line, ::std::integral char_type, typename outputstmtype,
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr bool
-print_compiler_constant_exact_obuffer_flat_try(
-	outputstmtype &optstm, Args &...args)
+	inline constexpr bool
+	print_compiler_constant_exact_obuffer_flat_try(
+		outputstmtype &optstm, Args &...args)
 {
 	if constexpr (
 		sizeof...(Args) == 0u || sizeof...(Args) > 16u ||
@@ -18225,15 +19747,15 @@ struct print_compiler_constant_exact_obuffer_flat_continuation
 	outputstmtype &optstm;
 
 	template <typename... Args>
-	// This forwarding boundary is part of the measured exact chain: removing it
-	// grows GCC 16 text by 70.8 KiB and Clang 23 text by 39.7 KiB. The complete
-	// GCC 11--16 / Clang 17--23 matrix establishes the same 11/21 boundaries as
-	// the downstream exact helpers.
-	#if (defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
-		(defined(__clang__) && __clang_major__ >= 21)
+// This forwarding boundary is part of the measured exact chain: removing it
+// grows GCC 16 text by 70.8 KiB and Clang 23 text by 39.7 KiB. The complete
+// GCC 11--16 / Clang 17--23 matrix establishes the same 11/21 boundaries as
+// the downstream exact helpers.
+#if (defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
+	(defined(__clang__) && __clang_major__ >= 21)
 	FAST_IO_GNU_ALWAYS_INLINE
-	#endif
-	inline constexpr bool operator()(Args &&...args) const
+#endif
+		inline constexpr bool operator()(Args &&...args) const
 	{
 		return ::fast_io::operations::decay::
 			print_compiler_constant_exact_obuffer_flat_try<
@@ -18250,14 +19772,14 @@ template <bool line, typename outputstmtype, typename... Args>
 	requires(
 		::fast_io::operations::decay::
 			print_compiler_constant_pre_normalization_exact_obuffer_available<
-				line, outputstmtype, Args &&...>())
+				line, outputstmtype, Args && ...>())
 #if (defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr bool
-print_compiler_constant_pre_normalization_exact_obuffer_try(
-	outputstmtype &optstm, Args &&...args)
+	inline constexpr bool
+	print_compiler_constant_pre_normalization_exact_obuffer_try(
+		outputstmtype &optstm, Args &&...args)
 {
 	using char_type = typename outputstmtype::output_char_type;
 	constexpr bool semantic_run{(false || ... ||
@@ -18293,14 +19815,14 @@ template <bool line, typename outputstmtype, typename... Args>
 	requires(
 		::fast_io::operations::decay::
 			print_compiler_constant_pre_normalization_exact_obuffer_available<
-				line, outputstmtype, Args &&...>())
+				line, outputstmtype, Args && ...>())
 #if (defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr bool
-print_compiler_constant_pre_normalization_exact_obuffer_try_after_lock(
-	outputstmtype &optstm, Args &&...args)
+	inline constexpr bool
+	print_compiler_constant_pre_normalization_exact_obuffer_try_after_lock(
+		outputstmtype &optstm, Args &&...args)
 {
 	if constexpr (
 		::fast_io::operations::decay::defines::
@@ -18332,10 +19854,10 @@ template <::std::size_t capacity, bool line, ::std::integral char_type,
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_compiler_constant_exact_direct_flat_emit(
-	outputstmtype &optstm, ::std::size_t const *component_sizes,
-	Args &...args)
+	inline constexpr void
+	print_compiler_constant_exact_direct_flat_emit(
+		outputstmtype &optstm, ::std::size_t const *component_sizes,
+		Args &...args)
 {
 	static_assert(capacity != 0u);
 	::fast_io::freestanding::array<char_type, capacity> buffer;
@@ -18367,9 +19889,9 @@ template <bool line, ::std::integral char_type, typename outputstmtype,
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr bool
-print_compiler_constant_exact_direct_flat_try(
-	outputstmtype &optstm, Args &...args)
+	inline constexpr bool
+	print_compiler_constant_exact_direct_flat_try(
+		outputstmtype &optstm, Args &...args)
 {
 	if constexpr (
 		sizeof...(Args) == 0u || sizeof...(Args) > 16u ||
@@ -18893,7 +20415,7 @@ print_compiler_constant_prepared_single_static_fragments_try(
 		}
 		else
 		{
-			::fast_io::operations::decay::scatter_write_all_bytes_decay(
+			::fast_io::operations::decay::scatter_write_all_bytes_decay_dispatch(
 				optstm, byte_scatters, emitted);
 		}
 	}
@@ -18910,7 +20432,7 @@ print_compiler_constant_prepared_single_static_fragments_try(
 		}
 		else
 		{
-			::fast_io::operations::decay::scatter_write_all_decay(
+			::fast_io::operations::decay::scatter_write_all_decay_dispatch(
 				optstm, scatters, emitted);
 		}
 	}
@@ -19308,12 +20830,12 @@ print_compiler_constant_prepared_fragments_scatter_write(
 				::fast_io::details::intrinsics::mul_or_overflow_die(
 					scatters[index].len, sizeof(char_type))};
 		}
-		::fast_io::operations::decay::scatter_write_all_bytes_decay(
+		::fast_io::operations::decay::scatter_write_all_bytes_decay_dispatch(
 			optstm, byte_scatters, emitted);
 	}
 	else
 	{
-		::fast_io::operations::decay::scatter_write_all_decay(
+		::fast_io::operations::decay::scatter_write_all_decay_dispatch(
 			optstm, scatters, emitted);
 	}
 }
@@ -19370,29 +20892,25 @@ print_compiler_constant_prepared_fragments_emit(
 		 64u) /
 		sizeof(char_type)};
 	constexpr bool clang_bounded_precise_direct{
-		(false || ... || []<typename prepared_type>() consteval
-		 {
-			 if constexpr (requires {
-							   typename prepared_type::
-								   compiler_constant_prepared_precise_tag;
-							   typename prepared_type::
-								   compiler_constant_prepared_precise_proxy_type;
-						   })
-			 {
-				 using proxy_type = typename prepared_type::
-					 compiler_constant_prepared_precise_proxy_type;
-				 return ::fast_io::compiler_constant_precise_compact_preferred<
-					 char_type, proxy_type>;
-			 }
-			 else
-			 {
-				 return false;
-			 }
-		 }.template operator()<::std::remove_cvref_t<Prepared>>()) &&
-		maximum_total != 0u && maximum_total != SIZE_MAX &&
-		maximum_total <= clang_direct_capacity_limit &&
-		::fast_io::details::decay::print_stack_buffer_size_within_limit<
-			maximum_total, char_type>};
+		(false || ... || []<typename prepared_type>() consteval {
+			if constexpr (requires {
+							  typename prepared_type::
+								  compiler_constant_prepared_precise_tag;
+							  typename prepared_type::
+								  compiler_constant_prepared_precise_proxy_type;
+						  })
+			{
+				using proxy_type = typename prepared_type::
+					compiler_constant_prepared_precise_proxy_type;
+				return ::fast_io::compiler_constant_precise_compact_preferred<
+					char_type, proxy_type>;
+			}
+			else
+			{
+				return false;
+			}
+		}.template operator()<::std::remove_cvref_t<Prepared>>()) &&
+		maximum_total != 0u && maximum_total != SIZE_MAX && maximum_total <= clang_direct_capacity_limit && ::fast_io::details::decay::print_stack_buffer_size_within_limit<maximum_total, char_type>};
 	if constexpr (clang_bounded_precise_direct)
 	{
 		// Clang 21--23 retain the conservative precision reserve and its scatter
@@ -19733,7 +21251,11 @@ print_compiler_constant_pre_normalization_fragment_emit(
 		// instead of entering the multi-descriptor cold writev continuation.
 		if constexpr (
 			::fast_io::details::decay::
-				print_output_accepts_static_provider_scalar<outputstmtype>)
+				print_output_accepts_static_provider_scalar<outputstmtype> ||
+			(::fast_io::details::decay::
+				 print_output_retains_static_scatter<outputstmtype> &&
+			 ::fast_io::details::decay::
+				 print_has_preferred_direct_write_operations<outputstmtype>))
 		{
 			auto const [base, len]{scatters[0u]};
 			if (len != 0u)
@@ -19827,12 +21349,12 @@ print_compiler_constant_pre_normalization_fragment_emit(
 				::fast_io::details::intrinsics::mul_or_overflow_die(
 					scatters[index].len, sizeof(char_type))};
 		}
-		::fast_io::operations::decay::scatter_write_all_bytes_decay(
+		::fast_io::operations::decay::scatter_write_all_bytes_decay_dispatch(
 			optstm, byte_scatters, emitted);
 	}
 	else
 	{
-		::fast_io::operations::decay::scatter_write_all_decay(
+		::fast_io::operations::decay::scatter_write_all_decay_dispatch(
 			optstm, scatters, emitted);
 	}
 }
@@ -19850,9 +21372,22 @@ struct print_compiler_constant_pre_normalization_static_source
 				value_type>::value &&
 			::fast_io::reserve_printable<char_type, value_type>)
 		{
+#if defined(__HERBCEPTIONS__)
+			return requires(char_type *iter, value_type &value) {
+				// Static pre-normalization publishes only after this named passive leaf has emitted. Preserve the
+				// strategy invariant by proving both deterministic and unwind channels empty for that exact call.
+				requires(!throws((print_reserve_define(
+					::fast_io::io_reserve_type<char_type, value_type>, iter, value))));
+				{
+					print_reserve_define(
+						::fast_io::io_reserve_type<char_type, value_type>, iter, value)
+				} noexcept -> ::std::same_as<char_type *>;
+			};
+#else
 			return noexcept(print_reserve_define(
 				::fast_io::io_reserve_type<char_type, value_type>,
 				::std::declval<char_type *>(), ::std::declval<value_type &>()));
+#endif
 		}
 		else
 		{
@@ -19929,23 +21464,23 @@ template <::std::integral char_type, typename T>
 // to their final output bytes. GCC 13 alone erases every tested source shape
 // without assistance; GCC 15 still outlines the raw and bare-format shapes.
 // Clang 21--23 also need the leaf to avoid 4.9 KiB of text and one extra call.
-#if (defined(__GNUC__) && !defined(__clang__) && \
+#if (defined(__GNUC__) && !defined(__clang__) &&            \
 	 (__GNUC__ == 11 || __GNUC__ == 12 || __GNUC__ == 14 || \
-	  __GNUC__ >= 15)) || \
+	  __GNUC__ >= 15)) ||                                   \
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr char_type *
-print_compiler_constant_pre_normalization_static_emit_one(
-	char_type *iter, T &&value);
+	inline constexpr char_type *
+	print_compiler_constant_pre_normalization_static_emit_one(
+		char_type *iter, T &&value);
 
 template <::std::integral char_type, typename T, ::std::size_t... index>
 #if defined(__clang__) && __clang_major__ >= 21
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr char_type *
-print_compiler_constant_pre_normalization_static_emit_pack(
-	char_type *iter, T &&value, ::std::index_sequence<index...>)
+	inline constexpr char_type *
+	print_compiler_constant_pre_normalization_static_emit_pack(
+		char_type *iter, T &&value, ::std::index_sequence<index...>)
 {
 	auto &&pack_ref{::fast_io::details::decay::print_semantic_node_ref(
 		::std::forward<T>(value))};
@@ -19957,15 +21492,15 @@ print_compiler_constant_pre_normalization_static_emit_pack(
 }
 
 template <::std::integral char_type, typename T>
-#if (defined(__GNUC__) && !defined(__clang__) && \
+#if (defined(__GNUC__) && !defined(__clang__) &&            \
 	 (__GNUC__ == 11 || __GNUC__ == 12 || __GNUC__ == 14 || \
-	  __GNUC__ >= 15)) || \
+	  __GNUC__ >= 15)) ||                                   \
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr char_type *
-print_compiler_constant_pre_normalization_static_emit_one(
-	char_type *iter, T &&value)
+	inline constexpr char_type *
+	print_compiler_constant_pre_normalization_static_emit_one(
+		char_type *iter, T &&value)
 {
 	using value_type = ::std::remove_cvref_t<T>;
 	if constexpr (::fast_io::details::print_pack<value_type>)
@@ -20031,14 +21566,14 @@ template <bool line, typename outputstmtype, typename... Args>
 // unknown-value roots keep zero compiler-constant residue and their historical
 // frames/call graphs. Clang 21--23 retain the previously proved true-arm
 // placement. No formatter is placed in the query's false arm.
-#if (defined(__GNUC__) && !defined(__clang__) && \
+#if (defined(__GNUC__) && !defined(__clang__) &&              \
 	 (__GNUC__ == 11 || __GNUC__ == 12 || __GNUC__ >= 14)) || \
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_compiler_constant_pre_normalization_static_emit(
-	outputstmtype &optstm, Args &&...args)
+	inline constexpr void
+	print_compiler_constant_pre_normalization_static_emit(
+		outputstmtype &optstm, Args &&...args)
 {
 	using char_type = typename outputstmtype::output_char_type;
 	constexpr ::std::size_t reserve_size{
@@ -20074,7 +21609,7 @@ print_compiler_constant_pre_normalization_static_emit(
 	}
 	else
 	{
-		::fast_io::operations::decay::write_all_decay(
+		::fast_io::operations::decay::write_all_decay_dispatch(
 			optstm, buffer.data(), iter);
 	}
 }
@@ -20471,7 +22006,7 @@ struct print_static_provider_type_pack
 ///          recursion this optimization is intended to avoid. The scanner returns at most one-past this limit, so a
 ///          longer run is rejected without traversing the rest of a hundreds-of-fields program.
 inline constexpr ::std::size_t
-print_static_provider_prefix_normalization_max_components{16u};
+	print_static_provider_prefix_normalization_max_components{16u};
 
 template <::std::integral char_type, ::std::size_t remaining,
 		  typename T, typename... Args>
@@ -20489,8 +22024,8 @@ inline consteval ::std::size_t print_static_provider_prefix_count() noexcept
 		else
 		{
 			return 1u + ::fast_io::operations::decay::
-				print_static_provider_prefix_count<
-					char_type, remaining - 1u, Args...>();
+							print_static_provider_prefix_count<
+								char_type, remaining - 1u, Args...>();
 		}
 	}
 	else
@@ -20701,8 +22236,21 @@ print_static_provider_mixed_alias_scatter_component_query()
 		::fast_io::scatter_direct_print_equivalent<char_type, value_type> &&
 		::fast_io::copy_stable_borrowed_print_source<char_type, value_type>)
 	{
+#if defined(__HERBCEPTIONS__)
+		return requires(source_reference value) {
+			// The endpoint invokes the complete alias-and-forward expression on this named source lvalue; both
+			// failure systems must classify that same expression as empty before its descriptor is retained.
+			requires(!throws((::fast_io::io_print_forward<char_type>(
+				::fast_io::io_print_alias(value)))));
+			{
+				::fast_io::io_print_forward<char_type>(
+					::fast_io::io_print_alias(value))
+			} noexcept -> ::std::same_as<::fast_io::basic_io_scatter_t<char_type>>;
+		};
+#else
 		return noexcept(::fast_io::io_print_forward<char_type>(
 			::fast_io::io_print_alias(::std::declval<source_reference>())));
+#endif
 	}
 	else
 	{
@@ -20737,9 +22285,22 @@ print_static_provider_mixed_dynamic_component_query()
 		::fast_io::scatter_direct_print_equivalent<char_type, value_type> &&
 		::fast_io::copy_stable_borrowed_print_source<char_type, value_type>)
 	{
+#if defined(__HERBCEPTIONS__)
+		return requires(source_reference value) {
+			// This is the exact named-lvalue scatter projection selected in the emitter's direct branch.
+			// Descriptor retention requires `!throws(E) && noexcept(E)`, not either predicate alone.
+			requires(!throws((print_scatter_define(
+				::fast_io::io_reserve_type<char_type, value_type>, value))));
+			{
+				print_scatter_define(
+					::fast_io::io_reserve_type<char_type, value_type>, value)
+			} noexcept -> ::std::same_as<::fast_io::basic_io_scatter_t<char_type>>;
+		};
+#else
 		return noexcept(print_scatter_define(
 			::fast_io::io_reserve_type<char_type, value_type>,
 			::std::declval<source_reference>()));
+#endif
 	}
 	else if constexpr (
 		::fast_io::operations::decay::
@@ -20781,20 +22342,20 @@ print_static_provider_mixed_dynamic_scatter(T &value) noexcept
 		}
 		else
 		{
-				static_assert(::fast_io::operations::decay::
-								  print_static_provider_mixed_dynamic_component_v<
-									  char_type, source_reference>);
-				if constexpr (::fast_io::scatter_printable_for<
-								  char_type, source_reference>)
+			static_assert(::fast_io::operations::decay::
+							  print_static_provider_mixed_dynamic_component_v<
+								  char_type, source_reference>);
+			if constexpr (::fast_io::scatter_printable_for<
+							  char_type, source_reference>)
 			{
 				return print_scatter_define(
 					::fast_io::io_reserve_type<char_type, value_type>, value);
 			}
 			else
 			{
-					static_assert(::fast_io::operations::decay::
-									  print_static_provider_mixed_alias_scatter_component_v<
-										  char_type, source_reference>);
+				static_assert(::fast_io::operations::decay::
+								  print_static_provider_mixed_alias_scatter_component_v<
+									  char_type, source_reference>);
 				// Invoke both historical normalization CPOs exactly once. Their result is
 				// retained only until this synchronous mixed-plan write completes.
 				return ::fast_io::io_print_forward<char_type>(
@@ -21052,12 +22613,12 @@ inline constexpr void print_static_provider_mixed_run_emit(
 				::fast_io::details::intrinsics::mul_or_overflow_die(
 					scatters[index].len, sizeof(char_type))};
 		}
-		::fast_io::operations::decay::scatter_write_all_bytes_decay(
+		::fast_io::operations::decay::scatter_write_all_bytes_decay_dispatch(
 			optstm, byte_scatters, emitted);
 	}
 	else
 	{
-		::fast_io::operations::decay::scatter_write_all_decay(
+		::fast_io::operations::decay::scatter_write_all_decay_dispatch(
 			optstm, scatters, emitted);
 	}
 }
@@ -21155,13 +22716,13 @@ struct print_compiler_constant_pre_normalization_flat_continuation
 
 	template <typename... Args>
 		requires(sizeof...(Args) != 0u)
-	// GCC 11--16 reconstructs the pre-normalization graph when this closure is
-	// left ordinary inline (GCC 16 grows by 21.5 KiB in isolation). Clang 17--23
-	// gains nothing here, so only the future-open measured GCC range is forced.
-	#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11
+// GCC 11--16 reconstructs the pre-normalization graph when this closure is
+// left ordinary inline (GCC 16 grows by 21.5 KiB in isolation). Clang 17--23
+// gains nothing here, so only the future-open measured GCC range is forced.
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11
 	FAST_IO_GNU_ALWAYS_INLINE
-	#endif
-	inline constexpr void operator()(Args &&...args) const
+#endif
+		inline constexpr void operator()(Args &&...args) const
 	{
 		if constexpr (
 			::fast_io::operations::decay::
@@ -21231,9 +22792,9 @@ template <bool line, typename outputstmtype, typename... Args>
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_compiler_constant_pre_normalization_true_emit(
-	outputstmtype &optstm, Args &&...args)
+	inline constexpr void
+	print_compiler_constant_pre_normalization_true_emit(
+		outputstmtype &optstm, Args &&...args)
 {
 	using char_type = typename outputstmtype::output_char_type;
 	if constexpr (
@@ -21465,9 +23026,9 @@ print_compiler_constant_active_record_available() noexcept
 		::std::size_t proxy_bytes{};
 		((proxy_bytes =
 			  proxy_bytes == SIZE_MAX ||
-				  ::fast_io::operations::decay::
-					  print_compiler_constant_active_record_replacement<
-						  char_type, Args>::proxy_bytes > maximum - proxy_bytes
+					  ::fast_io::operations::decay::
+							  print_compiler_constant_active_record_replacement<
+								  char_type, Args>::proxy_bytes > maximum - proxy_bytes
 				  ? SIZE_MAX
 				  : proxy_bytes +
 						::fast_io::operations::decay::
@@ -21525,8 +23086,8 @@ template <::std::integral char_type, typename T>
 	(defined(__clang__) && __clang_major__ >= 13)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr decltype(auto)
-print_compiler_constant_active_record_materialize_one(T &value) noexcept
+	[[nodiscard]] inline constexpr decltype(auto)
+	print_compiler_constant_active_record_materialize_one(T &value) noexcept
 {
 	if constexpr (
 		::fast_io::operations::decay::
@@ -21607,7 +23168,7 @@ struct print_compiler_constant_active_record_exact_obuffer_continuation
 	(defined(__clang__) && __clang_major__ >= 13)
 	FAST_IO_GNU_ALWAYS_INLINE
 #endif
-	inline constexpr void operator()(MaterializedArgs &&...materialized_args) const
+		inline constexpr void operator()(MaterializedArgs &&...materialized_args) const
 	{
 		if (!::fast_io::operations::decay::
 				print_compiler_constant_exact_obuffer_flat_try<line, char_type>(
@@ -21628,9 +23189,9 @@ template <bool line, typename outputstmtype, typename... Args>
 	(defined(__clang__) && __clang_major__ >= 13)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr bool
-print_semantic_try_compiler_constant_active_record(
-	outputstmtype &optstm, Args &...args)
+	[[nodiscard]] inline constexpr bool
+	print_semantic_try_compiler_constant_active_record(
+		outputstmtype &optstm, Args &...args)
 {
 	using char_type = typename outputstmtype::output_char_type;
 	if constexpr (
@@ -21650,9 +23211,9 @@ print_semantic_try_compiler_constant_active_record(
 				::fast_io::operations::decay::
 					print_compiler_constant_active_record_exact_obuffer_continuation<
 						line, char_type, outputstmtype>{optstm}(
-							::fast_io::operations::decay::
-								print_compiler_constant_active_record_materialize_one<
-									char_type>(args)...);
+						::fast_io::operations::decay::
+							print_compiler_constant_active_record_materialize_one<
+								char_type>(args)...);
 				return true;
 			}
 			constexpr ::std::size_t static_run_size{
@@ -21696,9 +23257,9 @@ print_semantic_try_compiler_constant_active_record(
 			::fast_io::operations::decay::
 				print_compiler_constant_pre_normalization_flat_continuation<
 					line, char_type, outputstmtype>{optstm}(
-						::fast_io::operations::decay::
-							print_compiler_constant_active_record_materialize_one<
-								char_type>(args)...);
+					::fast_io::operations::decay::
+						print_compiler_constant_active_record_materialize_one<
+							char_type>(args)...);
 			return true;
 		}
 	}
@@ -21724,9 +23285,8 @@ print_compiler_constant_single_condition_active_record_available_one() noexcept
 	}
 	else
 	{
-		using normalized_result = decltype(
-			::fast_io::details::decay::print_semantic_input_forward<char_type>(
-				::std::declval<T>()));
+		using normalized_result = decltype(::fast_io::details::decay::print_semantic_input_forward<char_type>(
+			::std::declval<T>()));
 		using normalized_expression = ::std::add_lvalue_reference_t<
 			::std::remove_reference_t<normalized_result>>;
 		if constexpr (
@@ -21741,15 +23301,12 @@ print_compiler_constant_single_condition_active_record_available_one() noexcept
 		}
 		else
 		{
-			using node_reference = decltype(
-				::fast_io::details::decay::print_semantic_node_ref(
-					::std::declval<normalized_expression>()));
+			using node_reference = decltype(::fast_io::details::decay::print_semantic_node_ref(
+				::std::declval<normalized_expression>()));
 			using named_node_reference = ::std::add_lvalue_reference_t<
 				::std::remove_reference_t<node_reference>>;
-			using first_arm_reference = decltype(
-				(::std::declval<named_node_reference>().t1));
-			using second_arm_reference = decltype(
-				(::std::declval<named_node_reference>().t2));
+			using first_arm_reference = decltype((::std::declval<named_node_reference>().t1));
+			using second_arm_reference = decltype((::std::declval<named_node_reference>().t2));
 			using first_active =
 				::fast_io::details::decay::print_semantic_stable_input_forward_t<
 					char_type, first_arm_reference>;
@@ -21761,9 +23318,9 @@ print_compiler_constant_single_condition_active_record_available_one() noexcept
 				   !::fast_io::details::decay::
 					   print_semantic_execution_node_v<second_active> &&
 				   !::std::same_as<::std::remove_cvref_t<first_active>,
-								  ::fast_io::io_null_t> &&
+								   ::fast_io::io_null_t> &&
 				   !::std::same_as<::std::remove_cvref_t<second_active>,
-								  ::fast_io::io_null_t>;
+								   ::fast_io::io_null_t>;
 		}
 	}
 }
@@ -21798,8 +23355,8 @@ inline consteval bool
 print_compiler_constant_active_condition_leaf_codegen_supported() noexcept
 {
 	if constexpr (!::fast_io::operations::decay::
-					   print_compiler_constant_active_record_codegen_supported<
-						   char_type, T>())
+					  print_compiler_constant_active_record_codegen_supported<
+						  char_type, T>())
 	{
 		// A compiler which rejects the selected active record must choose the source-level runtime branch before that
 		// record's availability proof, replacement type, or optimizer query can be instantiated.
@@ -21828,9 +23385,9 @@ template <bool line, typename outputstmtype, typename Branch>
 	(defined(__clang__) && __clang_major__ >= 13)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_compiler_constant_single_condition_active_branch(
-	outputstmtype &optstm, Branch &&branch)
+	inline constexpr void
+	print_compiler_constant_single_condition_active_branch(
+		outputstmtype &optstm, Branch &&branch)
 {
 	using char_type = typename outputstmtype::output_char_type;
 	decltype(auto) active{
@@ -21874,9 +23431,9 @@ template <bool line, typename outputstmtype, typename T>
 	(defined(__clang__) && __clang_major__ >= 13)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_compiler_constant_single_condition_active_record(
-	outputstmtype &optstm, T &&source)
+	inline constexpr void
+	print_compiler_constant_single_condition_active_record(
+		outputstmtype &optstm, T &&source)
 {
 	using char_type = typename outputstmtype::output_char_type;
 	static_assert(
@@ -21891,10 +23448,8 @@ print_compiler_constant_single_condition_active_record(
 	using node_reference = decltype(node_ref);
 	using named_node_reference = ::std::add_lvalue_reference_t<
 		::std::remove_reference_t<node_reference>>;
-	using first_arm_reference = decltype(
-		(::std::declval<named_node_reference>().t1));
-	using second_arm_reference = decltype(
-		(::std::declval<named_node_reference>().t2));
+	using first_arm_reference = decltype((::std::declval<named_node_reference>().t1));
+	using second_arm_reference = decltype((::std::declval<named_node_reference>().t2));
 	using first_active =
 		::fast_io::details::decay::print_semantic_stable_input_forward_t<
 			char_type, first_arm_reference>;
@@ -21983,11 +23538,11 @@ print_compiler_constant_pre_normalization_true_emit_after_lock(
 }
 
 template <bool line, typename outputstmtype, typename... Args>
-		requires(
-			sizeof...(Args) != 0u &&
-			::fast_io::operations::decay::
-				print_pre_normalization_semantic_source_run_v<
-					outputstmtype, Args...>)
+	requires(
+		sizeof...(Args) != 0u &&
+		::fast_io::operations::decay::
+			print_pre_normalization_semantic_source_run_v<
+				outputstmtype, Args...>)
 inline constexpr void
 print_compiler_constant_pre_normalization_true_emit_after_lock(
 	outputstmtype &optstm, Args &&...args)
@@ -22002,21 +23557,21 @@ print_compiler_constant_pre_normalization_true_emit_after_lock(
 }
 
 template <bool line, typename outputstmtype, typename... Args>
-		requires(
-			sizeof...(Args) != 0u &&
-			!::fast_io::operations::decay::
-				print_pre_normalization_semantic_source_run_v<
-					outputstmtype, Args...> &&
-			!::fast_io::operations::decay::
-				print_pre_normalization_semantic_replacement_run_v<
-					outputstmtype, Args...>)
+	requires(
+		sizeof...(Args) != 0u &&
+		!::fast_io::operations::decay::
+			print_pre_normalization_semantic_source_run_v<
+				outputstmtype, Args...> &&
+		!::fast_io::operations::decay::
+			print_pre_normalization_semantic_replacement_run_v<
+				outputstmtype, Args...>)
 #if (defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_compiler_constant_pre_normalization_true_emit_after_lock(
-	outputstmtype &optstm, Args &&...args)
+	inline constexpr void
+	print_compiler_constant_pre_normalization_true_emit_after_lock(
+		outputstmtype &optstm, Args &&...args)
 {
 	if constexpr (
 		::fast_io::operations::decay::defines::
@@ -22056,6 +23611,61 @@ print_compiler_constant_pre_normalization_true_emit_after_lock(
 ///          complete mutex wrapper is classified through its unlocked destination because that is where physical output
 ///          occurs. On a rejected put-area/compiler pair, the overload set selects a structurally separate historical
 ///          continuation; the rejected function body therefore cannot instantiate a replacement or builtin query.
+/// @brief Admits the narrow Clang mixed-record materialization escape hatch.
+///
+/// Clang deliberately keeps the general multi-source compiler-constant gate
+/// query-free: replacing a run-time scalar beside a literal used to retain a
+/// large formatter graph on its fallback edge.  A byte sink which exposes only
+/// synchronous scatter-some output is a distinct strategy, however.  For a
+/// tiny bounded record we can materialize the complete spelling into the same
+/// caller-owned scratch range used by the established constant arm and issue
+/// one scalar write; no provider pointer is passed to the sink and no scatter
+/// CPO is needed.  Keep the admission tied to this exact capability/size shape
+/// so ordinary POSIX, buffered, status, and larger mixed records retain the
+/// conservative Clang gate.
+template <typename outputstmtype, typename... Args>
+inline consteval bool
+print_compiler_constant_clang_small_byte_fragment_run_available() noexcept
+{
+#if defined(__clang__) && 21 <= __clang_major__
+	using char_type = typename outputstmtype::output_char_type;
+	if constexpr (
+		sizeof...(Args) <= 1u ||
+		!::fast_io::details::decay::print_output_retains_static_scatter<outputstmtype> ||
+		!::fast_io::details::decay::print_has_preferred_direct_write_operations<outputstmtype> ||
+		::fast_io::operations::decay::defines::has_output_or_io_stream_mutex_ref_define<outputstmtype> ||
+		::fast_io::operations::decay::defines::has_obuffer_basic_operations<outputstmtype>)
+	{
+		return false;
+	}
+	else
+	{
+		constexpr bool byte_scatter_shape{
+			::fast_io::details::decay::print_uses_byte_scatter_representation<outputstmtype> &&
+			!::fast_io::operations::decay::defines::has_scatter_write_all_bytes_overflow_define<outputstmtype> &&
+			!::fast_io::operations::decay::defines::has_write_all_bytes_overflow_define<outputstmtype> &&
+			::fast_io::operations::decay::defines::has_scatter_write_some_bytes_overflow_define<outputstmtype>};
+		constexpr bool typed_scatter_shape{
+			!::fast_io::details::decay::print_uses_byte_scatter_representation<outputstmtype> &&
+			!::fast_io::operations::decay::defines::has_scatter_write_all_overflow_define<outputstmtype> &&
+			!::fast_io::operations::decay::defines::has_write_all_overflow_define<outputstmtype> &&
+			::fast_io::operations::decay::defines::has_scatter_write_some_overflow_define<outputstmtype>};
+		if constexpr (!(byte_scatter_shape || typed_scatter_shape))
+		{
+			return false;
+		}
+		constexpr ::std::size_t bound{
+			::fast_io::operations::decay::
+				print_compiler_constant_pre_normalization_static_run_size<
+					false, char_type, Args...>()};
+		return bound != SIZE_MAX && bound <= 16u;
+	}
+#else
+	(void)sizeof...(Args);
+	return false;
+#endif
+}
+
 template <typename outputstmtype, typename... Args>
 inline consteval bool
 print_compiler_constant_pre_normalization_codegen_supported() noexcept
@@ -22066,22 +23676,39 @@ print_compiler_constant_pre_normalization_codegen_supported() noexcept
 		sizeof...(Args) != 1u &&
 		::fast_io::operations::decay::
 			print_compiler_constant_pre_normalization_has_candidate_v<
-				char_type, Args...>)
+				char_type, Args...> &&
+		!::fast_io::operations::decay::
+			print_compiler_constant_clang_small_byte_fragment_run_available<
+				outputstmtype, Args...>())
 	{
 		// Clang 21--23 reduce a single raw scalar to immediate stores, but a mixed literal/scalar record retains the
-		// replacement formatter on its put-area miss edge. Rejecting the complete multi-source record here covers every
-		// hot facade which reaches this shared level while preserving passive static-provider records.
-		return false;
+		// replacement formatter on an ordinary put-area miss edge. A fixed external view has no refill/growth edge and
+		// additionally needs exact physical writes: the generic reserve formatter may legally touch its complete upper
+		// bound beyond the returned logical cursor. Admit only that stronger destination proof so the exact compiler-
+		// constant writer preserves the untouched suffix; buffered owners and direct devices retain the established
+		// query-free policy.
+		if constexpr (
+			::fast_io::operations::decay::defines::has_obuffer_basic_operations<
+				outputstmtype> &&
+			::fast_io::direct_obuffer_copy_safe<char_type, outputstmtype>)
+		{
+			return ::fast_io::operations::decay::
+				print_compiler_constant_exact_obuffer_codegen_supported<
+					char_type, Args...>();
+		}
+		else
+		{
+			return false;
+		}
 	}
 	else
 #endif
-	if constexpr (
-		::fast_io::operations::decay::defines::
-			has_complete_output_stream_mutex_protocol<outputstmtype>)
+		if constexpr (
+			::fast_io::operations::decay::defines::
+				has_complete_output_stream_mutex_protocol<outputstmtype>)
 	{
-		using unlocked_output = ::std::remove_reference_t<decltype(
-			::fast_io::operations::decay::output_stream_unlocked_ref_decay(
-				::std::declval<outputstmtype &>()))>;
+		using unlocked_output = ::std::remove_reference_t<decltype(::fast_io::operations::decay::output_stream_unlocked_ref_decay(
+			::std::declval<outputstmtype &>()))>;
 		return ::fast_io::operations::decay::
 			print_compiler_constant_pre_normalization_codegen_supported<
 				unlocked_output, Args...>();
@@ -22132,21 +23759,21 @@ print_freestanding_compiler_constant_pre_normalization(
 }
 
 template <bool line, typename outputstmtype, typename... Args>
-		requires(
-			sizeof...(Args) != 0u &&
-			::fast_io::operations::decay::
-				print_pre_normalization_semantic_source_run_v<
-					outputstmtype, Args...> &&
-			::fast_io::operations::decay::
-				print_compiler_constant_single_condition_active_record_available<
-					line, outputstmtype, Args...>())
+	requires(
+		sizeof...(Args) != 0u &&
+		::fast_io::operations::decay::
+			print_pre_normalization_semantic_source_run_v<
+				outputstmtype, Args...> &&
+		::fast_io::operations::decay::
+			print_compiler_constant_single_condition_active_record_available<
+				line, outputstmtype, Args...>())
 #if (defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
 	(defined(__clang__) && __clang_major__ >= 13)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_freestanding_compiler_constant_pre_normalization(
-	outputstmtype &optstm, Args &&...args)
+	inline constexpr void
+	print_freestanding_compiler_constant_pre_normalization(
+		outputstmtype &optstm, Args &&...args)
 {
 	// The availability proof establishes exactly one source.  The fold avoids a
 	// tuple or another by-value ownership boundary between that expression and
@@ -22158,14 +23785,14 @@ print_freestanding_compiler_constant_pre_normalization(
 }
 
 template <bool line, typename outputstmtype, typename... Args>
-		requires(
-			sizeof...(Args) != 0u &&
-			::fast_io::operations::decay::
-				print_pre_normalization_semantic_source_run_v<
-					outputstmtype, Args...> &&
-			!::fast_io::operations::decay::
-				print_compiler_constant_single_condition_active_record_available<
-					line, outputstmtype, Args...>())
+	requires(
+		sizeof...(Args) != 0u &&
+		::fast_io::operations::decay::
+			print_pre_normalization_semantic_source_run_v<
+				outputstmtype, Args...> &&
+		!::fast_io::operations::decay::
+			print_compiler_constant_single_condition_active_record_available<
+				line, outputstmtype, Args...>())
 inline constexpr void
 print_freestanding_compiler_constant_pre_normalization(
 	outputstmtype &optstm, Args &&...args)
@@ -22178,14 +23805,14 @@ print_freestanding_compiler_constant_pre_normalization(
 }
 
 template <bool line, typename outputstmtype, typename... Args>
-		requires(
-			sizeof...(Args) != 0u &&
-			!::fast_io::operations::decay::
-				print_pre_normalization_semantic_source_run_v<
-					outputstmtype, Args...> &&
-			!::fast_io::operations::decay::
-				print_compiler_constant_pre_normalization_codegen_supported<
-					outputstmtype, Args &&...>())
+	requires(
+		sizeof...(Args) != 0u &&
+		!::fast_io::operations::decay::
+			print_pre_normalization_semantic_source_run_v<
+				outputstmtype, Args...> &&
+		!::fast_io::operations::decay::
+			print_compiler_constant_pre_normalization_codegen_supported<
+				outputstmtype, Args && ...>())
 inline constexpr void
 print_freestanding_compiler_constant_pre_normalization(
 	outputstmtype &optstm, Args &&...args)
@@ -22197,21 +23824,21 @@ print_freestanding_compiler_constant_pre_normalization(
 }
 
 template <bool line, typename outputstmtype, typename... Args>
-		requires(
-			sizeof...(Args) != 0u &&
-			!::fast_io::operations::decay::
-				print_pre_normalization_semantic_source_run_v<
-					outputstmtype, Args...> &&
-			::fast_io::operations::decay::
-				print_compiler_constant_pre_normalization_codegen_supported<
-					outputstmtype, Args &&...>())
+	requires(
+		sizeof...(Args) != 0u &&
+		!::fast_io::operations::decay::
+			print_pre_normalization_semantic_source_run_v<
+				outputstmtype, Args...> &&
+		::fast_io::operations::decay::
+			print_compiler_constant_pre_normalization_codegen_supported<
+				outputstmtype, Args && ...>())
 #if (defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11) || \
 	(defined(__clang__) && __clang_major__ >= 21)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-inline constexpr void
-print_freestanding_compiler_constant_pre_normalization(
-	outputstmtype &optstm, Args &&...args)
+	inline constexpr void
+	print_freestanding_compiler_constant_pre_normalization(
+		outputstmtype &optstm, Args &&...args)
 {
 	using char_type = typename outputstmtype::output_char_type;
 	if constexpr (
@@ -22467,11 +24094,11 @@ print_freestanding_compiler_constant_pre_normalization_cold(
 }
 
 template <bool line, typename outputstmtype, typename... Args>
-		requires(
-			sizeof...(Args) != 0u &&
-			::fast_io::operations::decay::
-				print_pre_normalization_semantic_source_run_v<
-					outputstmtype, Args...>)
+	requires(
+		sizeof...(Args) != 0u &&
+		::fast_io::operations::decay::
+			print_pre_normalization_semantic_source_run_v<
+				outputstmtype, Args...>)
 inline constexpr void
 print_freestanding_compiler_constant_pre_normalization_cold(
 	outputstmtype &optstm, Args &&...args)
@@ -22485,14 +24112,14 @@ print_freestanding_compiler_constant_pre_normalization_cold(
 }
 
 template <bool line, typename outputstmtype, typename... Args>
-		requires(
-			sizeof...(Args) != 0u &&
-			!::fast_io::operations::decay::
-				print_pre_normalization_semantic_source_run_v<
-					outputstmtype, Args...> &&
-			!::fast_io::operations::decay::
-				print_compiler_constant_pre_normalization_cold_codegen_supported<
-					outputstmtype, Args &&...>())
+	requires(
+		sizeof...(Args) != 0u &&
+		!::fast_io::operations::decay::
+			print_pre_normalization_semantic_source_run_v<
+				outputstmtype, Args...> &&
+		!::fast_io::operations::decay::
+			print_compiler_constant_pre_normalization_cold_codegen_supported<
+				outputstmtype, Args && ...>())
 inline constexpr void
 print_freestanding_compiler_constant_pre_normalization_cold(
 	outputstmtype &optstm, Args &&...args)
@@ -22503,14 +24130,14 @@ print_freestanding_compiler_constant_pre_normalization_cold(
 }
 
 template <bool line, typename outputstmtype, typename... Args>
-		requires(
-			sizeof...(Args) != 0u &&
-			!::fast_io::operations::decay::
-				print_pre_normalization_semantic_source_run_v<
-					outputstmtype, Args...> &&
-			::fast_io::operations::decay::
-				print_compiler_constant_pre_normalization_cold_codegen_supported<
-					outputstmtype, Args &&...>())
+	requires(
+		sizeof...(Args) != 0u &&
+		!::fast_io::operations::decay::
+			print_pre_normalization_semantic_source_run_v<
+				outputstmtype, Args...> &&
+		::fast_io::operations::decay::
+			print_compiler_constant_pre_normalization_cold_codegen_supported<
+				outputstmtype, Args && ...>())
 inline constexpr void
 print_freestanding_compiler_constant_pre_normalization_cold(
 	outputstmtype &optstm, Args &&...args)
@@ -22695,9 +24322,8 @@ namespace defines
 {
 
 template <typename output>
-using print_freestanding_named_output_t = ::std::remove_reference_t<decltype(
-	::fast_io::operations::output_stream_ref(
-		::std::declval<::std::remove_reference_t<output> &>()))>;
+using print_freestanding_named_output_t = ::std::remove_reference_t<decltype(::fast_io::operations::output_stream_ref(
+	::std::declval<::std::remove_reference_t<output> &>()))>;
 
 /// @brief Lazily selects one source-normalization expression for a complete public print run.
 /// @details Runtime makes one run-level decision before it normalizes any source. If any named source becomes a
@@ -22721,9 +24347,8 @@ struct print_freestanding_named_source_arg<char_type, true, Arg>
 {
 	using source_expression =
 		::std::add_lvalue_reference_t<::std::remove_reference_t<Arg>>;
-	using type = decltype(
-		::fast_io::details::decay::print_semantic_input_forward<char_type>(
-			::std::declval<source_expression>()));
+	using type = decltype(::fast_io::details::decay::print_semantic_input_forward<char_type>(
+		::std::declval<source_expression>()));
 };
 
 /// @brief Carries the single normalized type sequence proved for all public print compatibility predicates.
@@ -22785,12 +24410,11 @@ concept print_freestanding_params_okay =
 template <typename output, typename... Args>
 concept print_freestanding_okay =
 	::std::integral<typename ::fast_io::operations::defines::
-		print_freestanding_named_output_t<output>::output_char_type> &&
+						print_freestanding_named_output_t<output>::output_char_type> &&
 	::fast_io::operations::defines::print_freestanding_named_normalized_run_t<
 		typename ::fast_io::operations::defines::
 			print_freestanding_named_output_t<output>::output_char_type,
-		Args...>::template output_okay<
-		::fast_io::operations::defines::print_freestanding_named_output_t<output>>;
+		Args...>::template output_okay<::fast_io::operations::defines::print_freestanding_named_output_t<output>>;
 
 /// @brief Validates the exact public print or println operation after its named-lvalue normalization.
 /// @details Function parameters are named lvalues at the actual call site even when the caller supplied an rvalue.
@@ -22800,15 +24424,63 @@ concept print_freestanding_okay =
 template <bool line, typename output, typename... Args>
 concept print_freestanding_okay_for_line =
 	::std::integral<typename ::fast_io::operations::defines::
-		print_freestanding_named_output_t<output>::output_char_type> &&
+						print_freestanding_named_output_t<output>::output_char_type> &&
 	::fast_io::operations::defines::print_freestanding_named_normalized_run_t<
 		typename ::fast_io::operations::defines::
 			print_freestanding_named_output_t<output>::output_char_type,
-		Args...>::template output_okay_for_line<
-		line,
-		::fast_io::operations::defines::print_freestanding_named_output_t<output>>;
+		Args...>::template output_okay_for_line<line,
+												::fast_io::operations::defines::print_freestanding_named_output_t<output>>;
+
+/// @brief Selects the measured public fixed-view integral-manipulator entry.
+/// @details This is a code-generation policy layered on the target-independent semantic proof.  On Apple AArch64,
+///          Clang 23 otherwise outlines the full pre-normalization continuation for a run which is already a closed
+///          library scalar record.  The cost proof is deliberately limited to `char`, an owned at-most-64-bit value,
+///          the exact plain non-decimal `base<B>` policy, and packs of at most 32 records; presentation variants remain
+///          on the general dispatcher.  Paired M4 medians reduced base-36 pack1 from 3.09 ns to 1.81 ns, pack9 from
+///          12.65 ns to 8.62 ns, and base-2 pack32 from 51.91 ns to 46.70 ns while also shrinking text.  Clang 23 is the
+///          first verified endpoint, so later Clang versions inherit the narrow policy; other targets retain the
+///          ordinary dispatcher until independently measured.
+template <bool line, typename output, typename... Args>
+inline consteval bool
+print_freestanding_fixed_integral_manip_entry_available() noexcept
+{
+#if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__)) && \
+	defined(__clang__) && 23 <= __clang_major__
+	using normalized_output =
+		::fast_io::operations::defines::print_freestanding_named_output_t<output>;
+	using char_type = typename normalized_output::output_char_type;
+	return ::std::same_as<char_type, char> &&
+		   ::fast_io::details::decay::
+			   print_fixed_public_integral_manip_run_available<
+				   line, normalized_output, char_type, Args...>();
+#else
+	return false;
+#endif
+}
 
 } // namespace defines
+
+/// @brief Emits a proved integral-manipulator run through the compact fixed-view public entry.
+/// @details Output normalization and the success-only operation guard remain identical to the general entry.  Source
+///          alias/forward normalization occurs exactly once inside `print_fixed_public_run`; the static reserve emitter
+///          retains ordered writes, physical-overstore staging, line-feed placement, capacity failure, and one final
+///          cursor publication.  The forced boundary applies only after the semantic and target cost proofs above.
+template <bool line, typename output, typename... Args>
+	requires(
+		::fast_io::operations::defines::
+			print_freestanding_fixed_integral_manip_entry_available<
+				line, output, Args...>())
+FAST_IO_GNU_ALWAYS_INLINE inline constexpr void
+print_freestanding(output &&outstm, Args &&...args)
+{
+	::fast_io::operations::basic_output_operation_guard<output &&> guard{outstm};
+	decltype(auto) outref = guard.ref();
+	using normalized_output = ::std::remove_cvref_t<decltype(outref)>;
+	using char_type = typename normalized_output::output_char_type;
+	::fast_io::details::decay::print_fixed_public_run<
+		line, normalized_output, char_type>(outref, args...);
+	guard.commit();
+}
 
 /// @brief    Public freestanding print entry point.
 /// @details  The wrapper obtains the stream reference, forwards semantic input arguments when present, and then
@@ -22823,14 +24495,22 @@ concept print_freestanding_okay_for_line =
 /// @param    outstm the output stream object
 /// @param    args   the arguments to emit
 template <bool line, typename output, typename... Args>
+	requires(!::fast_io::operations::defines::
+				 print_freestanding_fixed_integral_manip_entry_available<
+					 line, output, Args...>())
 inline constexpr void print_freestanding(output &&outstm, Args &&...args)
 {
-	decltype(auto) outref = ::fast_io::operations::output_stream_ref(outstm);
+	// Keep the normalized observer alive for the complete print and finish an
+	// explicitly opted-in temporary only after every argument has been emitted.
+	// Lvalue adapters remain open so multiple print calls share one engine state.
+	::fast_io::operations::basic_output_operation_guard<output &&> guard{outstm};
+	decltype(auto) outref = guard.ref();
 	// The source-normalization bridge is shared with nested formatters. Public entry owns output normalization; the
 	// bridge owns exactly one source normalization, so recursive printing cannot accidentally normalize either twice.
 	::fast_io::operations::decay::
 		print_freestanding_compiler_constant_pre_normalization<line>(
 			outref, ::std::forward<Args>(args)...);
+	guard.commit();
 }
 
 } // namespace operations
@@ -22881,6 +24561,7 @@ namespace manipulators
 {
 
 /// @brief Represents one compile-time literal slot in a compiled scatter plan.
+/// @details The literal is type-owned, excludes its terminating null from `size`, and needs no run-time patching.
 /// @tparam literal the structural string-literal value
 template <::fast_io::details::decay::basic_compiled_scatter_literal_storage literal>
 struct compiled_scatter_literal_t
@@ -22897,6 +24578,7 @@ struct compiled_scatter_literal_t
 };
 
 /// @brief Represents one runtime-patched slot in a compiled scatter plan.
+/// @details `index_value` selects the corresponding dynamic argument descriptor; the component owns no payload.
 /// @tparam index_value the zero-based runtime argument index used to fill the slot
 template <::std::size_t index_value>
 struct compiled_scatter_dynamic_t
@@ -22907,11 +24589,13 @@ struct compiled_scatter_dynamic_t
 };
 
 /// @brief Creates a compile-time literal component for make_scatter_plan.
+/// @details The variable template is stateless and stores the structural literal in its component type.
 /// @tparam literal the string literal to store in the plan blueprint
 template <::fast_io::details::decay::basic_compiled_scatter_literal_storage literal>
 inline constexpr compiled_scatter_literal_t<literal> scatter_literal{};
 
 /// @brief Creates a runtime component for make_scatter_plan.
+/// @details The variable template records only the zero-based dynamic argument index.
 /// @tparam index the zero-based runtime argument index used to patch this slot
 template <::std::size_t index>
 inline constexpr compiled_scatter_dynamic_t<index> scatter_dynamic{};
@@ -23991,7 +25675,7 @@ struct basic_compiled_scatter_plan
 							  ::std::forward<Args>(args)...);
 	}
 
-	/// @brief Emits the compiled plan directly to an output stream.
+	/// @brief Emits the compiled plan under one checked output-operation lifetime.
 	/// @tparam output the output stream type
 	/// @tparam Args   the runtime argument types
 	/// @param  outstm the destination stream
@@ -24004,18 +25688,23 @@ struct basic_compiled_scatter_plan
 				  (sizeof...(Args) != 0u && direct_sources_acceptable<Args...>)))
 	inline constexpr void print(output &&outstm, Args &&...args) const
 	{
-		decltype(auto) outref = ::fast_io::operations::output_stream_ref(outstm);
+		// Compiled scatter plans obey the same owner-lifetime rule as the ordinary
+		// print front door; plan selection must not bypass temporary finish.
+		::fast_io::operations::basic_output_operation_guard<output &&> guard{outstm};
+		decltype(auto) outref = guard.ref();
 		if constexpr (sizeof...(Args) == 0u)
 		{
-			// Fully static plans need no runtime normalization.
+			// Fully static plans need no runtime source normalization.
 			::fast_io::containers::tuple<> values;
 			print_output(outref, values);
 		}
 		else
 		{
+			// Dynamic plan positions normalize and bind the supplied runtime sources.
 			print_arguments(outref, ::std::make_index_sequence<sizeof...(Args)>{},
 							::std::forward<Args>(args)...);
 		}
+		guard.commit();
 	}
 
 	/// @brief Materializes descriptors and performs one high-level scatter-output dispatch through a stable output borrow.

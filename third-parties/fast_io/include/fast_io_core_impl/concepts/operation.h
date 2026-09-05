@@ -1,7 +1,70 @@
 ﻿#pragma once
 
+/*
+ * Value representation and semantic policy protocols (CPO level).
+ *
+ * This file is the open object side of fast_io. Its major families are:
+ *
+ * - scan leaves: precise-reserve, contiguous, terminal-padding, iterative, and
+ *   context scanners;
+ * - print leaves: static/dynamic/precise reserve, scatter and reserve-scatter,
+ *   context, direct-output, staged, and cached representations;
+ * - source normalization: `io_print_alias`/`io_scan_alias` followed by
+ *   character-domain forwarding;
+ * - semantic objects: `io_null`, `parameter`, and the protocol support consumed
+ *   by pack/condition/width nodes;
+ * - proof and cost markers: borrowing, repeatability, deferred commit,
+ *   compiler-constant safety, ABI transport, coalescing, and stream thresholds.
+ *
+ * These concepts are deliberately not one flat "printable" hierarchy. A leaf
+ * capability says how an object can be materialized; a safety/equivalence
+ * marker says when a strategy may reuse or defer that representation; a cost
+ * marker chooses among already-correct strategies. The C++ expressions prove
+ * shape only, while provider comments define lifetime, bounds, state, and
+ * observational obligations. IO-level print/scan/concat code composes the
+ * capabilities into a complete operation.
+ */
+
 namespace fast_io
 {
+
+/// @brief Reports the readable padding owned by a contiguous range.
+/// @details This is a run-time capability query, not a claim that every object of the provider type currently owns
+///          padding. For a particular range `r`, let `B = ranges::data(r)`, `E = ranges::end(r)`, and
+///          `N = ranges::size(r)`. For `N > 0`, `E == B + N`; for `N == 0`, `B == E` is sufficient and neither the
+///          provider nor consumer needs to perform arithmetic on a possibly null equal pair. If
+///          `P = contiguous_range_padding_size(r)`, the provider promises the following model:
+///
+///          * `P == 0` supplies no permission beyond `[B,E)`.
+///          * `P > 0` proves that `E` belongs to a storage range in which `E + P` is defined and `[E,E+P)` consists
+///            of live, contiguous, readable range-value objects owned by the same range lifetime. `P` is measured in
+///            range elements, not bytes.
+///          * `[B,E)` remains the complete semantic range. Padding does not change `size()`, `end()`, EOF, or the
+///            maximum cursor that a consumer may publish.
+///          * The query has no side effects and its result remains valid until an operation which may invalidate the
+///            range's data pointer, size, capacity, mapping, or ownership.
+///
+///          The padding values need not be initialized to a sentinel unless a stronger provider contract says so.
+///          Consequently a consumer may use them only for memory-safe speculative/vector loads whose semantic result
+///          is masked to `[B,E)`; changing bytes solely in `[E,E+P)` must not change parsing results or target effects.
+///
+///          Formally, compose this promise with `terminal_contiguous_padding_scannable` using the same `(B,E,P)`.
+///          Every scanner read is then in `[B,E+P)`, hence inside provider-owned live storage; every returned cursor is
+///          in `[B,E]`, hence outside the padding; and padding noninterference preserves the result of scanning the
+///          semantic sequence `[B,E)`. These three facts prove memory safety, unchanged logical EOF, and observational
+///          equivalence to a bounds-respecting scan. The C++ concept can check only the exact, non-throwing query
+///          expression; the range/storage/lifetime equations above are semantic obligations of its provider.
+/// @fn       contiguous_range_padding_size
+/// @param    T const&                                     the contiguous range
+/// @return   ::std::size_t                                readable padding in range elements; zero means none
+template <typename T>
+concept contiguous_range_with_padding = requires(::std::remove_cvref_t<T> const &range) {
+	{
+		contiguous_range_padding_size(range)
+	} noexcept -> ::std::same_as<::std::size_t>;
+	// Padding participates in speculative reads, so neither an unwind nor a deterministic error may escape its query.
+	requires FAST_IO_HERBCEPTIONS_NOTHROWS(contiguous_range_padding_size(range));
+};
 
 /// @brief    contiguous_scannable
 /// @details  That a type is contiguous scannable
@@ -23,6 +86,159 @@ concept contiguous_scannable = ::std::integral<char_type> && requires(char_type 
 		scan_contiguous_define(io_reserve_type<char_type, ::std::remove_cvref_t<T>>, begin, end, t)
 	} -> ::std::same_as<parse_result<char_type const *>>;
 };
+
+/// @brief Proves that an ordinary contiguous scanner always returns a cursor in its supplied closed range.
+/// @details The base contiguous protocol exposes an open ADL customization point, so a dispatcher cannot infer pointer
+///          provenance merely from the return type.  Without this marker it validates the returned address and element
+///          alignment before publishing a cursor.  A provider returning `true_type` promises that every result of
+///          `scan_contiguous_define(tag, first, last, target)`, for every parse code and target effect, is either `first`,
+///          `last`, or a pointer to a live `char_type` element between them in the same array.  That promise makes direct
+///          pointer commit valid and removes the generic integer-address validation from trusted leaf scanners.
+///
+///          This is a proof marker, not a preference or cost hint.  It does not cover context or padding CPOs, does not
+///          authorize reads outside `[first,last)`, and does not weaken any parse-code rule.  Third-party scanners remain
+///          checked unless they explicitly accept the complete semantic obligation.
+/// @fn       scan_contiguous_result_in_range
+/// @return   ::std::true_type
+template <typename char_type, typename T>
+concept contiguous_scanner_result_in_range =
+	contiguous_scannable<char_type, T> && requires {
+		{
+			scan_contiguous_result_in_range(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
+		} -> ::std::same_as<::std::true_type>;
+	};
+
+/// @brief Proves that one normalized printable fragment never emits a C whitespace character.
+/// @details This source-side marker allows an in-memory conversion to distinguish a complete lexical token from an
+///          arbitrary printable range. The promise covers every value of the advertised printable type and the exact
+///          character domain named by the tag. It does not imply a static size, replayability, or absence of other
+///          punctuation. Providers opt in by returning `true_type` from `print_fragment_c_space_free(tag)`.
+template <typename char_type, typename T>
+concept c_space_free_print_fragment =
+	::std::integral<char_type> && requires {
+		{
+			print_fragment_c_space_free(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
+		} -> ::std::same_as<::std::true_type>;
+	};
+
+/// @brief A terminal whole-range scanner with a separate padding-aware CPO.
+/// @details `scan_contiguous_padding_define(tag, first, last, padding, target)` receives two distinct boundaries.
+///          `last` is the true terminal position of the input, while `padding` is the number of additional readable
+///          `char_type` objects immediately following it. The distinct CPO name is intentional: adding a padding
+///          parameter to the ordinary `scan_contiguous_define` overload set can alter the ABI, inlining, and register
+///          allocation of scanners which never consume padding. A type opts into this protocol only by defining the
+///          separately recognized terminal-padding operation.
+///
+///          Formal contract. Let `p = padding` and `S = [first,last)`. When `first != last`, let
+///          `n = last - first`; when they are equal, let `n = 0` without requiring pointer subtraction. If `p == 0`,
+///          let the readable domain `A = S` without forming `last + 0`; if `p > 0`, let
+///          `A = [first,last+p)`. The caller proves that all nontrivial pointer operations above are within one live
+///          storage range, that `n+p` is representable in both `size_t` and `ptrdiff_t`, and that every `char_type`
+///          object in `A` is readable for the call. The scanner:
+///
+///          1. may read only addresses in `A` and may not write through or retain either input pointer;
+///          2. must treat only `S` as input, so its returned iterator is in the closed interval `[first,last]`;
+///          3. must not consume padding: success, failure, consumed iterator, target effects, and thrown exceptions are
+///             invariant under replacing the values in `[last,last+p)` while keeping `S` fixed;
+///          4. has ordinary terminal whole-range semantics at `last`; padding is never an extra refill and cannot turn
+///             an incomplete token at the real EOF into a longer token.
+///
+///          For verification, write `R` for the set of addresses read and `i` for the returned iterator. Premise (1)
+///          gives `R subseteq A`, while the provider of the matching range-padding query proves `A` readable, hence no
+///          read is out of bounds. Premise (2) gives `first <= i <= last`, so committing `i` preserves the real file
+///          cursor and cannot enter `[last,last+p)`. Premise (3) makes the observable result a function of `S` alone.
+///          Therefore exposing padding changes only the implementation's legal load width, never the abstract parse.
+///          These are semantic requirements; the concept can structurally prove only the exact call and result type.
+///
+///          The dispatcher invokes this CPO only for a terminal input. A scanner which also provides the ordinary
+///          contiguous CPO reaches this operation only when the available padding is positive; a padding-only scanner
+///          may receive zero so its historical five-argument protocol remains usable without inventing a four-argument
+///          fallback. Implementations must preserve ordinary terminal semantics when their specialized tail leaf is not
+///          applicable; eligibility failure may not modify the target.
+/// @fn       scan_contiguous_padding_define
+/// @param    ::fast_io::io_reserve_type_t<char_type, T>    tag-invoke
+/// @param    char_type const*                              beginning of the semantic input
+/// @param    char_type const*                              true one-past end of the semantic input
+/// @param    ::std::size_t                                 readable elements after the true end
+/// @param    T                                             the object to be scanned, can be any passing style
+/// @return   ::fast_io::parse_result<char_type const*>     next semantic cursor and parse status
+template <typename char_type, typename T>
+concept contiguous_padding_scannable_define =
+	::std::integral<char_type> &&
+	requires(char_type const *begin, char_type const *end, ::std::size_t padding, T &t) {
+		{
+			scan_contiguous_padding_define(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>, begin, end, padding, t)
+		} -> ::std::same_as<parse_result<char_type const *>>;
+	};
+
+namespace details
+{
+
+/*
+Recognize the historical padding position without accepting an unrelated
+five-argument overload merely because size_t converts to its mode type. The
+probe has the one intended conversion. Its hidden deleted bool peer makes a
+bool/int/etc. provider ambiguous, while an exact size_t provider wins by the
+better trailing standard-conversion sequence. This also admits an exact
+size_t overload when an unrelated mode overload coexists with it.
+*/
+template <::std::integral char_type, typename target_type>
+struct scan_contiguous_padding_size_probe
+{
+	inline constexpr operator ::std::size_t() const noexcept
+	{
+		return {};
+	}
+
+	friend parse_result<char_type const *> scan_contiguous_define(
+		io_reserve_type_t<char_type, ::std::remove_cvref_t<target_type>>,
+		char_type const *, char_type const *, bool, target_type &) = delete;
+};
+
+} // namespace details
+
+template <typename char_type, typename T>
+concept contiguous_padding_scannable_legacy =
+	::std::integral<char_type> &&
+	requires(char_type const *begin, char_type const *end, ::std::size_t padding,
+			 ::fast_io::details::scan_contiguous_padding_size_probe<
+				 char_type, ::std::remove_reference_t<T>> exact_padding,
+			 T &t) {
+		{
+			// Preserve the historical overload spelling.  It is recognized for
+			// source compatibility, while new providers should use the distinct
+			// padding CPO above so ordinary scanner lookup remains unchanged.
+			scan_contiguous_define(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>, begin, end, padding, t)
+		} -> ::std::same_as<parse_result<char_type const *>>;
+		{
+			// The second call is unevaluated and filters implicit size_t-to-mode
+			// conversions which would otherwise silently opt an unrelated overload in.
+			scan_contiguous_define(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>, begin, end,
+				exact_padding, t)
+		} -> ::std::same_as<parse_result<char_type const *>>;
+	};
+
+template <typename char_type, typename T>
+concept contiguous_padding_scannable_protocol =
+	contiguous_padding_scannable_define<char_type, T> ||
+	contiguous_padding_scannable_legacy<char_type, T>;
+
+template <typename char_type, typename T>
+concept terminal_contiguous_padding_scannable =
+	contiguous_padding_scannable_protocol<char_type, T>;
+
+/// A padding protocol can be declared independently of the ordinary
+/// contiguous scanner.  This recognition-only refinement is useful to
+/// capability tests and legacy providers; terminal dispatch may use this
+/// protocol even when no four-argument ordinary scanner is provided.
+template <typename char_type, typename T>
+concept contiguous_scannable_with_padding =
+	contiguous_padding_scannable_protocol<char_type, T>;
 
 namespace details
 {
@@ -153,6 +369,78 @@ concept context_scannable = ::std::integral<char_type> && requires(char_type con
 	};
 };
 
+/// @brief Proves that every ordinary context-scanner transition returns a cursor in its supplied closed range.
+/// @details Context scanning is an open ADL protocol just like contiguous scanning. Generic dispatch therefore checks
+///          the numeric address and element alignment of every returned iterator before publishing it. A provider may
+///          remove that repeated validation by returning `true_type` from this marker and accepting the complete proof
+///          obligation for every state, parse code, target effect, and input span passed to `scan_context_define`.
+///
+///          This marker covers only the ordinary stateful CPO. It does not prove the separate transactional current-
+///          chunk accelerator, the EOF transition, or a contiguous scanner. Third-party context scanners remain
+///          checked unless they explicitly advertise this contract.
+/// @fn       scan_context_result_in_range
+/// @return   ::std::true_type
+template <typename char_type, typename T>
+concept context_scanner_result_in_range =
+	context_scannable<char_type, T> && requires {
+		{
+			scan_context_result_in_range(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
+		} -> ::std::same_as<::std::true_type>;
+	};
+
+/// @brief Optional transactional fast path for a context scanner on one buffered input chunk.
+/// @details `scan_context_current_chunk_minimum_size(tag)` advertises the smallest buffer capacity for which dispatching
+///          this accelerator is useful. The dispatcher enables it only when the input has a compile-time minimum-window
+///          protocol at least that large; context-oriented small buffers retain their original code shape.
+///
+///          `scan_context_current_chunk_define(tag, first, last, target)` may complete a value only when the supplied
+///          chunk contains enough input to decide the result without relying on `last` as semantic EOF. A miss must
+///          return exactly `{first, parse_code::partial}` and must not modify `target`; the dispatcher then invokes the
+///          ordinary context state machine from the unchanged cursor. Any decisive result must return an iterator in
+///          `[first,last)`, because `last` is treated as a chunk boundary even for a terminal input. This separate CPO
+///          avoids the former unsafe optimization of invoking a terminal contiguous scanner speculatively and then
+///          attempting to repair its target effects when the token reached `last`.
+///
+///          The operation is an accelerator only. Context-only scanners and hybrid scanners that do not provide the
+///          transactional CPO retain the identical context dispatch and code shape. Structural recognition can prove
+///          only the call and result type; the no-effect-on-partial rule is a semantic requirement on the customization.
+template <typename char_type, typename T>
+concept current_chunk_context_scannable =
+	context_scannable<char_type, T> &&
+	requires {
+		typename ::std::integral_constant<::std::size_t,
+										  scan_context_current_chunk_minimum_size(
+											  io_reserve_type<char_type, ::std::remove_cvref_t<T>>)>;
+		{
+			scan_context_current_chunk_minimum_size(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
+		} -> ::std::same_as<::std::size_t>;
+		requires(scan_context_current_chunk_minimum_size(
+					 io_reserve_type<char_type, ::std::remove_cvref_t<T>>) != 0u);
+		requires(scan_context_current_chunk_minimum_size(
+					 io_reserve_type<char_type, ::std::remove_cvref_t<T>>) <
+				 static_cast<::std::size_t>(PTRDIFF_MAX));
+	} &&
+	requires(char_type const *begin, char_type const *end, T &t) {
+		{
+			scan_context_current_chunk_define(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>, begin, end, t)
+		} -> ::std::same_as<parse_result<char_type const *>>;
+	};
+
+/// @brief Allows a current-chunk accelerator to remove generic cursor validation from its hot path.
+/// @details The provider promises that every decisive result from `scan_context_current_chunk_define` belongs to the
+///          supplied half-open range. Partial misses remain governed by the stronger transactional contract above.
+template <typename char_type, typename T>
+concept current_chunk_context_scanner_result_in_range =
+	current_chunk_context_scannable<char_type, T> && requires {
+		{
+			scan_context_current_chunk_result_in_range(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
+		} -> ::std::same_as<::std::true_type>;
+	};
+
 /// @brief Opts a hybrid scanner into terminal contiguous dispatch.
 /// @details Merely providing both contiguous and context CPOs proves two syntactic capabilities, not that selecting
 ///          either one is observationally interchangeable. This marker is the scanner author's proof that, when the
@@ -166,6 +454,40 @@ concept terminal_contiguous_context_scannable =
 	contiguous_scannable<char_type, T> && context_scannable<char_type, T> && requires {
 		{
 			scan_context_terminal_contiguous_equivalent(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
+		} -> ::std::same_as<::std::true_type>;
+	};
+
+/// @brief Publishes a target-side cost preference for small complete-input staging in `to`.
+/// @details Terminal contiguous/context equivalence is the legality proof; this independent marker says only that, for
+///          a small complete character run, one contiguous scan is normally preferable to repeated context transitions.
+///          It grants no permission to materialize observable sources, allocate dynamic storage, or assume a target-
+///          derived input bound. The `to` relation planner combines this preference with source purity and boundedness.
+/// @fn       to_terminal_contiguous_staging_preferred
+/// @return   ::std::true_type
+template <typename char_type, typename T>
+concept to_terminal_contiguous_staging_preferred_target =
+	::std::integral<char_type> && requires {
+		{
+			to_terminal_contiguous_staging_preferred(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
+		} -> ::std::same_as<::std::true_type>;
+	};
+
+/// @brief Opts a hybrid scanner into terminal padded-contiguous dispatch.
+/// @details This promise is intentionally distinct from
+///          `scan_context_terminal_contiguous_equivalent`. A scanner may use
+///          its padded CPO only when the input itself exposes terminal padding,
+///          without changing the ordinary context/contiguous selection or code
+///          generation for unpadded inputs.
+/// @fn       scan_context_terminal_padding_equivalent
+/// @return   ::std::true_type
+template <typename char_type, typename T>
+concept terminal_padding_context_scannable =
+	terminal_contiguous_padding_scannable<char_type, T> &&
+	context_scannable<char_type, T> && requires {
+		{
+			scan_context_terminal_padding_equivalent(
 				io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
 		} -> ::std::same_as<::std::true_type>;
 	};
@@ -262,6 +584,9 @@ concept protocol = ::std::integral<char_type> && requires(
 			::fast_io::io_reserve_type<char_type, ::std::remove_cvref_t<T>>,
 			value, maximum_size)
 	} noexcept -> ::std::same_as<::std::size_t>;
+	// A failure would be indistinguishable from the SIZE_MAX sentinel consumed by both print and concat.
+	requires FAST_IO_HERBCEPTIONS_NOTHROWS(single_pass_bounded_materialization_size(
+		::fast_io::io_reserve_type<char_type, ::std::remove_cvref_t<T>>, value, maximum_size));
 };
 
 template <typename char_type, typename T>
@@ -287,6 +612,32 @@ template <typename char_type, typename T>
 concept single_pass_bounded_materialization_source =
 	::fast_io::details::single_pass_bounded_materialization_adl::protocol<
 		char_type, T>;
+
+/// @brief Allows `to` to format a normalized source even when the scanner may not consume its characters.
+/// @details The exact-true marker promises that fully formatting the unchanged object once and discarding the result is
+///          observationally equivalent to not formatting it: no visible side effect, state consumption, additional
+///          exception, or unstable spelling may result. This is deliberately stronger than borrowed/repeatable scatter
+///          provenance and deliberately independent of every size protocol. Unmarked user sources retain lazy suffix
+///          formatting even when their representation otherwise looks cheap or bounded.
+/// @fn       print_eager_materialization_safe
+/// @return   ::std::true_type
+template <typename char_type, typename T>
+concept eager_materialization_safe_printable =
+	::std::integral<char_type> && requires {
+		{
+			print_eager_materialization_safe(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
+		} -> ::std::same_as<::std::true_type>;
+	};
+
+template <::std::integral char_type, ::std::integral source_char_type>
+	requires(::std::same_as<char_type, ::std::remove_cv_t<source_char_type>>)
+inline constexpr ::std::true_type
+print_eager_materialization_safe(io_reserve_type_t<char_type, source_char_type>) noexcept
+{
+	// A same-domain character leaf is copied as one code unit and has no formatter state or failure path.
+	return {};
+}
 
 /// @brief Calls the size member of the selected destination-neutral source protocol.
 /// @details Protocol selection occurs once for the complete marker/size pair. This generic accessor is the only
@@ -343,11 +694,15 @@ concept compiler_constant_printable =
 			print_compiler_constant_materialization_eligible(
 				::fast_io::io_reserve_type<char_type, ::std::remove_cvref_t<T>>, value)
 		} noexcept -> ::std::same_as<bool>;
+		requires FAST_IO_HERBCEPTIONS_NOTHROWS(print_compiler_constant_materialization_eligible(
+			::fast_io::io_reserve_type<char_type, ::std::remove_cvref_t<T>>, value));
 		{
 			print_compiler_constant_materialize(
 				::fast_io::io_reserve_type<char_type, ::std::remove_cvref_t<T>>, value)
 		} noexcept -> ::std::same_as<
 			::fast_io::details::compiler_constant_materialized_t<char_type, T>>;
+		requires FAST_IO_HERBCEPTIONS_NOTHROWS(print_compiler_constant_materialize(
+			::fast_io::io_reserve_type<char_type, ::std::remove_cvref_t<T>>, value));
 	} && reserve_printable<char_type,
 							 ::fast_io::details::compiler_constant_materialized_t<char_type, T>> &&
 	::std::is_nothrow_destructible_v<
@@ -369,6 +724,12 @@ concept compiler_constant_printable =
 					::fast_io::details::compiler_constant_materialized_t<char_type, T>>,
 				iter, materialized)
 		} noexcept -> ::std::same_as<char_type *>;
+		// The speculative constant arm may be discarded; admitting either failure channel would change program effects.
+		requires FAST_IO_HERBCEPTIONS_NOTHROWS(print_reserve_define(
+			::fast_io::io_reserve_type<
+				char_type,
+				::fast_io::details::compiler_constant_materialized_t<char_type, T>>,
+			iter, materialized));
 	};
 
 /// @brief Default materializer for a compiler-constant eligibility gate which core has already observed as true.
@@ -574,6 +935,9 @@ concept compiler_constant_static_fragment_printable =
 				first, value)
 		} noexcept -> ::std::same_as<
 			::fast_io::basic_io_scatter_t<char_type> *>;
+		// Fragment discovery is a strategy proof and cannot publish a recoverable failure to its caller.
+		requires FAST_IO_HERBCEPTIONS_NOTHROWS(print_compiler_constant_static_fragments_define(
+			::fast_io::io_reserve_type<char_type, ::std::remove_cvref_t<T>>, first, value));
 	} &&
 	(print_compiler_constant_static_fragments_size(
 		 ::fast_io::io_reserve_type<char_type,
@@ -746,10 +1110,20 @@ inline consteval bool staged_printable_state_object_impl() noexcept
 	}
 	else
 	{
-		return ::std::default_initializable<value_type> &&
-			   ::std::is_nothrow_default_constructible_v<value_type> &&
-			   ::std::assignable_from<value_type &, value_type> &&
-			   ::std::is_nothrow_assignable_v<value_type &, value_type>;
+		constexpr bool traditional_nothrow{
+			::std::default_initializable<value_type> &&
+			::std::is_nothrow_default_constructible_v<value_type> &&
+			::std::assignable_from<value_type &, value_type> &&
+			::std::is_nothrow_assignable_v<value_type &, value_type>};
+#if defined(__HERBCEPTIONS__)
+		// The standard nothrow traits observe only unwinding. Staged array construction and assignment occur inside a
+		// no-failure region, so a deterministic constructor/assignment channel must independently be absent as well.
+		return traditional_nothrow &&
+			   !::std::is_herbceptions_throws_constructible_v<value_type> &&
+			   !::std::is_herbceptions_throws_assignable_v<value_type &, value_type>;
+#else
+		return traditional_nothrow;
+#endif
 	}
 }
 
@@ -809,22 +1183,30 @@ concept staged_printable =
 		{
 			print_staged_type(io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
 		} noexcept;
+		requires FAST_IO_HERBCEPTIONS_NOTHROWS(
+			print_staged_type(io_reserve_type<char_type, ::std::remove_cvref_t<T>>));
 		requires ::fast_io::details::staged_printable_state_object_impl<
 			::fast_io::details::staged_printable_state_t<char_type, T>>();
 		{
 			print_staged_width(io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
 		} noexcept -> ::std::same_as<::std::size_t>;
+		requires FAST_IO_HERBCEPTIONS_NOTHROWS(
+			print_staged_width(io_reserve_type<char_type, ::std::remove_cvref_t<T>>));
 		typename ::std::integral_constant<::std::size_t, print_staged_width(
 														 io_reserve_type<char_type, ::std::remove_cvref_t<T>>)>;
 		requires(print_staged_width(io_reserve_type<char_type, ::std::remove_cvref_t<T>>) != 0u);
 		{
 			print_staged_fallback_inline(io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
 		} noexcept -> ::std::same_as<bool>;
+		requires FAST_IO_HERBCEPTIONS_NOTHROWS(
+			print_staged_fallback_inline(io_reserve_type<char_type, ::std::remove_cvref_t<T>>));
 		typename ::std::integral_constant<bool, print_staged_fallback_inline(
 										 io_reserve_type<char_type, ::std::remove_cvref_t<T>>)>;
 		{
 			print_staged_max_count(io_reserve_type<char_type, ::std::remove_cvref_t<T>>)
 		} noexcept -> ::std::same_as<::std::size_t>;
+		requires FAST_IO_HERBCEPTIONS_NOTHROWS(
+			print_staged_max_count(io_reserve_type<char_type, ::std::remove_cvref_t<T>>));
 		typename ::std::integral_constant<::std::size_t, print_staged_max_count(
 											  io_reserve_type<char_type, ::std::remove_cvref_t<T>>)>;
 		requires(print_staged_max_count(io_reserve_type<char_type, ::std::remove_cvref_t<T>>) >=
@@ -833,12 +1215,19 @@ concept staged_printable =
 			{
 				print_staged_eligible(io_reserve_type<char_type, ::std::remove_cvref_t<T>>, t)
 			} noexcept -> ::std::same_as<bool>;
+			requires FAST_IO_HERBCEPTIONS_NOTHROWS(
+				print_staged_eligible(io_reserve_type<char_type, ::std::remove_cvref_t<T>>, t));
 			{
 				print_staged_prepare(io_reserve_type<char_type, ::std::remove_cvref_t<T>>, t)
 			} noexcept -> ::std::same_as<::fast_io::details::staged_printable_state_t<char_type, T>>;
+			requires FAST_IO_HERBCEPTIONS_NOTHROWS(
+				print_staged_prepare(io_reserve_type<char_type, ::std::remove_cvref_t<T>>, t));
 			{
 				print_staged_define(io_reserve_type<char_type, ::std::remove_cvref_t<T>>, ptr, t, state)
 			} noexcept -> ::std::same_as<char_type *>;
+			// Prepared state is emitted inside a no-failure scheduling region; inspect both exception mechanisms.
+			requires FAST_IO_HERBCEPTIONS_NOTHROWS(print_staged_define(
+				io_reserve_type<char_type, ::std::remove_cvref_t<T>>, ptr, t, state));
 		};
 	};
 
@@ -1225,11 +1614,11 @@ concept precise_reserve_printable =
 /// @brief Refines exact reserve formatting with a non-throwing, pointer-reporting emission expression.
 /// @details Exact size alone is not sufficient inside a C++23 overwrite callback: an exception escaping the callback
 ///          does not have the ordinary concat strategy's simple partially-constructed-result contract. This concept
-///          therefore tests the concrete named-lvalue expression used after phase-1 decay and requires the language
-///          `noexcept` operator to prove it. Requiring the exact `char_type*` result also lets the caller validate that
-///          the producer ended at its promised extent before the destination publishes that extent. Void-returning
-///          precise producers remain valid `precise_reserve_printable`s, but deliberately stay on the established
-///          strategy until a separate non-throwing endpoint proof exists for them.
+///          therefore tests the concrete named-lvalue expression used after phase-1 decay and requires both the
+///          traditional `noexcept` result and the absence of a Herbception channel. Requiring the exact `char_type*`
+///          result also lets the caller validate that the producer ended at its promised extent before the destination
+///          publishes that extent. Void-returning precise producers remain valid `precise_reserve_printable`s, but
+///          deliberately stay on the established strategy until a separate non-failing endpoint proof exists for them.
 template <typename char_type, typename T>
 concept nothrow_precise_reserve_printable =
 	::std::integral<char_type> && precise_reserve_printable<char_type, T> &&
@@ -1238,6 +1627,9 @@ concept nothrow_precise_reserve_printable =
 			print_reserve_precise_define(
 				io_reserve_type<char_type, ::std::remove_cvref_t<T>>, ptr, n, value)
 		} noexcept -> ::std::same_as<char_type *>;
+		// C++23 overwrite callbacks cannot carry either fast_io-supported failure channel across their ABI boundary.
+		requires FAST_IO_HERBCEPTIONS_NOTHROWS(print_reserve_precise_define(
+			io_reserve_type<char_type, ::std::remove_cvref_t<T>>, ptr, n, value));
 	};
 
 /// @brief Classifies a materialized compiler-constant proxy with one bounded integer conversion leaf.
@@ -1288,6 +1680,8 @@ concept compiler_constant_precise_compact_preferred =
 					::std::remove_cvref_t<T>>,
 				value)
 		} noexcept -> ::std::same_as<::std::size_t>;
+		requires FAST_IO_HERBCEPTIONS_NOTHROWS(print_reserve_precise_size(
+			::fast_io::io_reserve_type<char_type, ::std::remove_cvref_t<T>>, value));
 	};
 
 /// @brief Exposes a complete compiler-constant spelling when it is one provider-owned immutable fragment.
@@ -1307,6 +1701,9 @@ concept compiler_constant_single_static_fragment_printable =
 				value)
 		} noexcept -> ::std::same_as<
 			::fast_io::basic_io_scatter_t<char_type>>;
+		// The probe selects an immutable shortcut and must not hide a deterministic failure behind traditional noexcept.
+		requires FAST_IO_HERBCEPTIONS_NOTHROWS(print_compiler_constant_single_static_fragment(
+			::fast_io::io_reserve_type<char_type, ::std::remove_cvref_t<T>>, value));
 	};
 
 /// @brief Marks an exact-size producer for which preinitializing the destination is a material cost.
@@ -1603,6 +2000,9 @@ concept cached_precise_reserve_printable =
 			print_reserve_precise_size(
 				io_reserve_type<char_type, ::std::remove_cvref_t<T>>, value)
 		} noexcept -> ::std::same_as<::std::size_t>;
+		// Cached means repeatable and non-failing through both the unwind and Herbception channels.
+		requires FAST_IO_HERBCEPTIONS_NOTHROWS(print_reserve_precise_size(
+			io_reserve_type<char_type, ::std::remove_cvref_t<T>>, value));
 	};
 
 /// @brief Proves that growing an output destination cannot invalidate a precise producer's source representation.
@@ -1897,6 +2297,14 @@ print_borrowed_scatter_source(io_reserve_type_t<char_type, basic_io_scatter_t<ch
 	return {};
 }
 
+template <::std::integral char_type>
+inline constexpr ::std::true_type
+print_eager_materialization_safe(io_reserve_type_t<char_type, basic_io_scatter_t<char_type>>) noexcept
+{
+	// Observing an already-normalized descriptor has no formatter action beyond reading its stored pointer and length.
+	return {};
+}
+
 /// @brief Marks a scatter source whose observation is independent of every destination's published cursor state.
 /// @details Borrowed/repeatable provenance proves descriptor lifetime and stable bytes, but it deliberately does not
 ///          make a producer pure: a `noexcept` customization may still inspect an output object's cursor through shared
@@ -1969,6 +2377,18 @@ concept deferred_obuffer_commit_safe = ::std::integral<char_type> && requires {
 	} -> ::std::same_as<::std::true_type>;
 };
 
+/// @brief Proves that a destination permits raw ordered scatter copies into its current put area.
+/// @details This is stronger than deferred cursor publication: the destination must have stable externally-owned
+/// storage and no growth, flush, lock, or status side effect hidden behind the copy. Only fixed buffer views should
+/// advertise it.
+template <typename char_type, typename output>
+concept direct_obuffer_copy_safe = ::std::integral<char_type> && requires {
+	{
+		print_direct_obuffer_copy_safe(
+			io_reserve_type<char_type, ::std::remove_cvref_t<output>>)
+	} -> ::std::same_as<::std::true_type>;
+};
+
 /// @brief Marks a put area that may receive one completely preflighted non-throwing bounded run.
 /// @details This proof is narrower than general deferred cursor folding. The consumer must first prove the whole run
 ///          fits, perform no intervening output operation, and publish only the final cursor. A failed preflight may
@@ -1982,6 +2402,20 @@ concept single_pass_bounded_obuffer_materialization_safe =
 				io_reserve_type<char_type, ::std::remove_cvref_t<output>>)
 		} -> ::std::same_as<::std::true_type>;
 	});
+
+/// @brief Proves that a put area's cursor/end pair has a safe address-distance representation.
+/// @details The provider promises that each observed pair is either two null sentinels or two pointers into the same
+///          live character array with `current <= end`. At run time a dispatcher may consequently compute remaining
+///          capacity from their unsigned addresses; the null pair yields zero and the live pair yields the same element
+///          count as pointer subtraction, without performing undefined subtraction on lazy null sentinels. This marker
+///          does not authorize writes, cursor folding, or reuse across another output operation.
+template <typename char_type, typename output>
+concept obuffer_address_distance_safe = ::std::integral<char_type> && requires {
+	{
+		obuffer_address_distance_safe_define(
+			io_reserve_type<char_type, ::std::remove_cvref_t<output>>)
+	} -> ::std::same_as<::std::true_type>;
+};
 
 /// @brief Marks an output whose put area is safe for the compiler-constant materialization strategy.
 /// @details The general deferred-commit marker remains the default proof. An output may instead opt in only to this
@@ -2751,6 +3185,27 @@ template <typename value_type>
 using parameter_const_member_reference_t =
 	decltype((::std::declval<::fast_io::parameter<value_type> const &>().reference));
 
+#if defined(__HERBCEPTIONS__)
+/// @brief Classifies the deterministic effect of an exact-size query delegated through `parameter`.
+/// @details `member_reference` is the precise expression type of `wrapper.reference`; keeping it independent from the
+///          wrapper's storage type makes mutable and const adapters query the same overload that their bodies invoke.
+template <::std::integral char_type, typename value_type, typename member_reference>
+inline constexpr bool parameter_precise_size_herbceptions_may_fail = throws((
+	print_reserve_precise_size(
+		::fast_io::io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>,
+		::std::declval<member_reference>())));
+
+/// @brief Classifies the deterministic effect of precise emission delegated through `parameter`.
+/// @details The iterator and extent are named parameters in the public adapter, hence lvalues in the executed call.
+///          Modeling those categories here includes any provider-defined argument conversion in the ABI decision.
+template <::std::integral char_type, typename value_type, typename Iter, typename member_reference>
+inline constexpr bool parameter_precise_define_herbceptions_may_fail = throws((
+	print_reserve_precise_define(
+		::fast_io::io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>,
+		::std::declval<Iter &>(), ::std::declval<::std::size_t &>(),
+		::std::declval<member_reference>())));
+#endif
+
 } // namespace details
 
 /// @brief Declares the reference-owning `parameter` transport safe to copy at a scan dispatch boundary.
@@ -3027,11 +3482,16 @@ template <::std::integral char_type, typename value_type>
 	requires precise_reserve_printable<
 		char_type, ::fast_io::details::parameter_mutable_member_reference_t<value_type>>
 inline constexpr ::std::size_t print_reserve_precise_size(io_reserve_type_t<char_type, parameter<value_type>>,
-														  parameter<value_type> &para) noexcept(noexcept(
-	print_reserve_precise_size(
-		io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>,
-		para.reference)))
+														  parameter<value_type> &para)
+	FAST_IO_HERBCEPTIONS_THROWS_OR_NOEXCEPT(
+		(::fast_io::details::parameter_precise_size_herbceptions_may_fail<
+			char_type, value_type,
+			::fast_io::details::parameter_mutable_member_reference_t<value_type>>),
+		noexcept(print_reserve_precise_size(
+			io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>, para.reference)))
 {
+	// The wrapper has exactly the child's deterministic effect and traditional exception specification. The member is
+	// evaluated as the same named lvalue in both this declaration proof and the delegated call below.
 	return print_reserve_precise_size(io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>, para.reference);
 }
 
@@ -3040,13 +3500,16 @@ template <::std::integral char_type, typename value_type>
 	requires precise_reserve_printable<
 		char_type, ::fast_io::details::parameter_const_member_reference_t<value_type>>
 inline constexpr ::std::size_t print_reserve_precise_size(io_reserve_type_t<char_type, parameter<value_type>>,
-														  parameter<value_type> const &para) noexcept(noexcept(
-	print_reserve_precise_size(
-		io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>,
-		para.reference)))
+														  parameter<value_type> const &para)
+	FAST_IO_HERBCEPTIONS_THROWS_OR_NOEXCEPT(
+		(::fast_io::details::parameter_precise_size_herbceptions_may_fail<
+			char_type, value_type,
+			::fast_io::details::parameter_const_member_reference_t<value_type>>),
+		noexcept(print_reserve_precise_size(
+			io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>, para.reference)))
 {
-	// Exact sizing is permitted to update logically-const caches, but it must do so in the caller's object. Borrowing
-	// the const member supplies that identity proof and makes the later exact define phase observe the same cache.
+	// Exact sizing may update a logically-const cache, so the const member is borrowed from the caller's object. The
+	// declaration and body consequently preserve both object identity and the child's complete failure contract.
 	return print_reserve_precise_size(io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>, para.reference);
 }
 
@@ -3065,17 +3528,16 @@ template <::std::integral char_type, typename value_type, typename Iter>
 		char_type, ::fast_io::details::parameter_mutable_member_reference_t<value_type>>
 inline constexpr decltype(auto)
 print_reserve_precise_define(io_reserve_type_t<char_type, parameter<value_type>>, Iter begin, ::std::size_t n,
-								 parameter<value_type> &para)
-	noexcept(noexcept(print_reserve_precise_define(
-		io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>, begin, n, para.reference)))
+							 parameter<value_type> &para)
+	FAST_IO_HERBCEPTIONS_THROWS_OR_NOEXCEPT(
+		(::fast_io::details::parameter_precise_define_herbceptions_may_fail<
+			char_type, value_type, Iter,
+			::fast_io::details::parameter_mutable_member_reference_t<value_type>>),
+		noexcept(print_reserve_precise_define(
+			io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>, begin, n, para.reference)))
 {
-	// Preserve the wrapped customization's return type and value category. Some precise writers return the actual
-	// end pointer; discarding it in this transparent manipulator would break higher-level composition even though the
-	// characters themselves were emitted correctly. The conditional exception specification mirrors the full delegated
-	// call expression, including any conversion into an
-	// underlying by-value parameter. That last point is the parameter-transport proof required by an overwrite callback;
-	// inspecting only the callee's declared specification would miss a throwing copy performed before the callee is
-	// entered.
+	// Preserve the exact endpoint type and value category. The formal effect predicate mirrors the complete named-call
+	// expression, including any conversion into a provider-owned by-value parameter before the callee is entered.
 	return print_reserve_precise_define(io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>, begin, n,
 										para.reference);
 }
@@ -3086,14 +3548,16 @@ template <::std::integral char_type, typename value_type, typename Iter>
 		char_type, ::fast_io::details::parameter_const_member_reference_t<value_type>>
 inline constexpr decltype(auto)
 print_reserve_precise_define(io_reserve_type_t<char_type, parameter<value_type>>, Iter begin, ::std::size_t n,
-								 parameter<value_type> const &para)
-	noexcept(noexcept(print_reserve_precise_define(
-		io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>, begin, n, para.reference)))
+							 parameter<value_type> const &para)
+	FAST_IO_HERBCEPTIONS_THROWS_OR_NOEXCEPT(
+		(::fast_io::details::parameter_precise_define_herbceptions_may_fail<
+			char_type, value_type, Iter,
+			::fast_io::details::parameter_const_member_reference_t<value_type>>),
+		noexcept(print_reserve_precise_define(
+			io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>, begin, n, para.reference)))
 {
-	// Preserve both the formatter's identity and its precise writer's return type. A pointer result is an actual cursor,
-	// not metadata that the transparent wrapper may replace with `begin + n`; a void result retains its distinct exact-
-	// extent contract in the caller. The complete-expression exception proof mirrors the mutable adapter so const
-	// transport cannot silently discard a throwing conversion which its underlying formatter requires.
+	// Const transport changes neither the selected child overload nor its complete failure contract. Returning
+	// `decltype(auto)` also prevents the transparent wrapper from materializing an endpoint reference result.
 	return print_reserve_precise_define(io_reserve_type<char_type, ::std::remove_cvref_t<value_type>>, begin, n,
 										para.reference);
 }
@@ -3271,6 +3735,18 @@ print_borrowed_scatter_source(io_reserve_type_t<char_type, parameter<value_type>
 	// A reference specialization preserves the caller's source; an owning specialization keeps the source object inside
 	// the wrapper for the entire enclosing operation. Neither form creates separate character scratch, so it preserves
 	// (but cannot create) the underlying source's borrowed-lifetime and repeatability guarantee.
+	return {};
+}
+
+/// @brief Preserves an eager-materialization proof through normalized parameter transport.
+/// @details The wrapper changes ownership/category only. It forwards an existing proof for the exact member expression
+///          but never grants speculative formatting to an arbitrary lvalue merely because it was wrapped.
+template <::std::integral char_type, typename value_type>
+	requires eager_materialization_safe_printable<
+		char_type, ::fast_io::details::parameter_mutable_member_reference_t<value_type>>
+inline constexpr ::std::true_type
+print_eager_materialization_safe(io_reserve_type_t<char_type, parameter<value_type>>) noexcept
+{
 	return {};
 }
 

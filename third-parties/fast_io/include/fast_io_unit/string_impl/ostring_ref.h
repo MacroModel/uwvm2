@@ -33,9 +33,9 @@ template <::std::integral char_type, ::std::size_t... index>
 #if (defined(__GNUC__) && !defined(__clang__)) || defined(__clang__)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr bool compiler_constant_text_known_impl(
-	char_type const *data, ::std::size_t size,
-	::std::index_sequence<index...>) noexcept
+	[[nodiscard]] inline constexpr bool compiler_constant_text_known_impl(
+		char_type const *data, ::std::size_t size,
+		::std::index_sequence<index...>) noexcept
 {
 #if FAST_IO_HAS_BUILTIN(__builtin_constant_p)
 	return ((index >= size || __builtin_constant_p(data[index])) && ...);
@@ -51,8 +51,8 @@ template <::std::integral char_type>
 #if (defined(__GNUC__) && !defined(__clang__)) || defined(__clang__)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr bool compiler_constant_text_known(
-	char_type const *data, ::std::size_t size) noexcept
+	[[nodiscard]] inline constexpr bool compiler_constant_text_known(
+		char_type const *data, ::std::size_t size) noexcept
 {
 #if FAST_IO_HAS_BUILTIN(__builtin_constant_p)
 	if (!__builtin_constant_p(size) ||
@@ -82,9 +82,9 @@ template <::std::integral char_type>
 #if (defined(__GNUC__) && !defined(__clang__)) || defined(__clang__)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr compiler_constant_text_materialized<char_type>
-compiler_constant_text_materialize(
-	char_type const *data, ::std::size_t size) noexcept
+	[[nodiscard]] inline constexpr compiler_constant_text_materialized<char_type>
+	compiler_constant_text_materialize(
+		char_type const *data, ::std::size_t size) noexcept
 {
 	if (compiler_constant_text_materialized<char_type>::capacity < size)
 	{
@@ -121,6 +121,16 @@ inline constexpr char_type *print_reserve_define(
 		value.data, value.size, output);
 }
 
+template <::std::integral char_type>
+inline constexpr ::std::true_type print_eager_materialization_safe(
+	io_reserve_type_t<
+		char_type,
+		::fast_io::details::compiler_constant_text_materialized<char_type>>) noexcept
+{
+	// This internal proxy is an immutable pointer/length spelling emitted by a bounded non-throwing copy.
+	return {};
+}
+
 /// @brief Opts standard strings into retained-scatter composition when they are range lvalue elements.
 /// @details fast_io's standard-string alias is a direct `{data(), size()}` view, so the characters have exactly the
 ///          lifetime of the source string and advancing a stable range iterator cannot overwrite an earlier element's
@@ -135,6 +145,16 @@ inline constexpr ::std::true_type print_borrowed_scatter_source(
 	// A user-defined traits or allocator type contributes an associated namespace to ADL. That namespace may replace
 	// the ordinary alias/forwarding protocol with scratch-backed or stateful semantics, so structural contiguity alone
 	// cannot prove retained lifetime or repeatability. The standard specialization has no user-owned associated namespace.
+	return {};
+}
+
+template <::std::integral char_type, typename traits_type, typename allocator_type>
+	requires(::std::same_as<traits_type, ::std::char_traits<char_type>> &&
+			 ::std::same_as<allocator_type, ::std::allocator<char_type>>)
+inline constexpr ::std::true_type print_eager_materialization_safe(
+	io_reserve_type_t<char_type, ::std::basic_string<char_type, traits_type, allocator_type>>) noexcept
+{
+	// The default specialization aliases only its stable data pointer and size; no formatter hook is executed.
 	return {};
 }
 
@@ -185,13 +205,13 @@ template <::std::integral char_type, typename traits_type,
 #if (defined(__GNUC__) && !defined(__clang__)) || defined(__clang__)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr bool
-print_compiler_constant_materialization_eligible(
-	io_reserve_type_t<
-		char_type,
-		::std::basic_string<char_type, traits_type, allocator_type>>,
-	::std::basic_string<char_type, traits_type, allocator_type> const &
-		value) noexcept
+	[[nodiscard]] inline constexpr bool
+	print_compiler_constant_materialization_eligible(
+		io_reserve_type_t<
+			char_type,
+			::std::basic_string<char_type, traits_type, allocator_type>>,
+		::std::basic_string<char_type, traits_type, allocator_type> const &
+			value) noexcept
 {
 	return ::fast_io::details::compiler_constant_text_known(
 		value.data(), value.size());
@@ -204,12 +224,12 @@ template <::std::integral char_type, typename traits_type,
 #if (defined(__GNUC__) && !defined(__clang__)) || defined(__clang__)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr auto print_compiler_constant_materialize(
-	io_reserve_type_t<
-		char_type,
-		::std::basic_string<char_type, traits_type, allocator_type>>,
-	::std::basic_string<char_type, traits_type, allocator_type> const &
-		value) noexcept
+	[[nodiscard]] inline constexpr auto print_compiler_constant_materialize(
+		io_reserve_type_t<
+			char_type,
+			::std::basic_string<char_type, traits_type, allocator_type>>,
+		::std::basic_string<char_type, traits_type, allocator_type> const &
+			value) noexcept
 {
 	return ::fast_io::details::compiler_constant_text_materialize(
 		value.data(), value.size());
@@ -232,7 +252,7 @@ print_compiler_constant_pre_normalization_safe(
 /// @details Current IO consumers classify this borrowed spelling as passive before querying it; the marker preserves a
 ///          complete provider proof without authorizing a redundant automatic copy.
 template <::std::integral char_type, typename traits_type,
-	typename allocator_type>
+		  typename allocator_type>
 	requires(::std::same_as<traits_type, ::std::char_traits<char_type>> &&
 			 ::std::same_as<allocator_type, ::std::allocator<char_type>>)
 [[nodiscard]] inline constexpr ::std::true_type
@@ -286,6 +306,35 @@ inline constexpr ::std::true_type strlike_buffered_print_preferred(
 	return {};
 }
 
+#if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__)) && \
+	defined(__clang__) && 23 <= __clang_major__ &&                        \
+	defined(_LIBCPP_VERSION) && 230000 <= _LIBCPP_VERSION &&              \
+	defined(_LIBCPP_ABI_VERSION) && _LIBCPP_ABI_VERSION == 1 &&           \
+	defined(_LIBCPP_ABI_ALTERNATE_STRING_LAYOUT)
+/// @brief Prefers direct fresh-result concat for one default decimal scalar on the measured standard-string target.
+/// @details For the default traits and allocator, a newly constructed standard string has no externally observable
+///          prefix and its maintained output adapter grows reusable SSO or heap storage.  On Apple M4 with Clang 23 and
+///          libc++ 23's ABI-v1 alternate string layout, emitting one `char` scalar through that adapter avoids a
+///          separate stack record and range construction while preserving the same final character sequence and
+///          exception boundary.  The default adapter has no independent status, mutex, or externally visible commit
+///          side effect, so its complete dispatcher is observationally equivalent to constructing from the staged
+///          range.  Later Clang and libc++ versions inherit this narrowly ABI-locked policy; other standard libraries,
+///          libc++ layouts, character domains, targets, traits, and allocators remain unmarked until their costs and
+///          extensible hooks are independently audited.  Concat still proves the exact source shape, dispatcher
+///          callability, and adapter-before-result lifetime.
+template <::std::integral char_type, typename traits_type, typename allocator_type>
+	requires(::std::same_as<char_type, char> &&
+			 ::std::same_as<traits_type, ::std::char_traits<char_type>> &&
+			 ::std::same_as<allocator_type, ::std::allocator<char_type>>)
+inline constexpr ::std::true_type
+strlike_concat_fresh_fixed_scalar_direct_preferred(
+	io_strlike_type_t<char_type,
+					  ::std::basic_string<char_type, traits_type, allocator_type>>) noexcept
+{
+	return {};
+}
+#endif
+
 template <::std::integral char_type, typename traits_type, typename allocator_type>
 	requires(::std::same_as<traits_type, ::std::char_traits<char_type>> &&
 			 ::std::same_as<allocator_type, ::std::allocator<char_type>>)
@@ -310,6 +359,73 @@ inline constexpr ::std::true_type concat_single_pass_bounded_destination_preferr
 {
 	return {};
 }
+
+#if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__)) && \
+	defined(__clang__) && 23 <= __clang_major__ &&                        \
+	defined(_LIBCPP_VERSION) && 210000 <= _LIBCPP_VERSION &&              \
+	defined(_LIBCPP_ABI_VERSION) && _LIBCPP_ABI_VERSION == 1 &&           \
+	defined(_LIBCPP_ABI_ALTERNATE_STRING_LAYOUT)
+/// @brief Selects ordered concat staging for long neutral-protocol packs on the measured Apple standard string.
+/// @details Clang 23 with the libc++ ABI-v1 alternate layout expands repeated fresh-string append through allocation,
+///          overlap, SSO, and size-publication branches for every leaf. Seven leaves repay formatting once into concat's
+///          existing two-KiB inline buffer and invoking the default string's range constructor once. This marker is
+///          restricted to `char`, standard traits/allocator, Apple AArch64, and the audited libc++ layout: custom traits,
+///          allocators, targets, or string ABIs may have different hooks and costs. Concat independently rejects direct
+///          and context formatters and sends the normalized pack through the ordinary ordered dispatcher, so an unmarked
+///          scatter remains immediately consumed rather than becoming a retained descriptor.
+template <::std::integral char_type, typename traits_type, typename allocator_type>
+	requires(::std::same_as<char_type, char> &&
+			 ::std::same_as<traits_type, ::std::char_traits<char_type>> &&
+			 ::std::same_as<allocator_type, ::std::allocator<char_type>>)
+[[nodiscard]] inline constexpr ::std::size_t concat_ordered_staging_minimum_leaf_count(
+	io_strlike_type_t<char_type,
+					  ::std::basic_string<char_type, traits_type, allocator_type>>) noexcept
+{
+	return 7u;
+}
+
+/// @brief Extends ordered staging to retained heterogeneous neutral packs on the audited standard string.
+/// @details Repeated append/growth is substantially more expensive for these packs than one ordered pass through the
+///          inline staging area. The concat selector independently excludes a complete non-failing precise run when the
+///          same destination can reserve its exact runtime put area and publish one cursor; that stronger one-allocation
+///          construction has no staging cost to amortize. Keeping the exclusion in the consumer makes this destination
+///          CPO a profitability premise only and prevents it from manufacturing source exactness or failure guarantees.
+template <::std::integral char_type, typename traits_type, typename allocator_type>
+	requires(::std::same_as<char_type, char> &&
+			 ::std::same_as<traits_type, ::std::char_traits<char_type>> &&
+			 ::std::same_as<allocator_type, ::std::allocator<char_type>>)
+[[nodiscard]] inline constexpr ::std::true_type
+concat_ordered_staging_complete_neutral_preferred(
+	io_strlike_type_t<char_type,
+					  ::std::basic_string<char_type, traits_type, allocator_type>>) noexcept
+{
+	return {};
+}
+
+/// @brief Certifies one-way ordered-staging promotion into the audited standard-string put area.
+/// @details A default string owns storage disjoint from every concat source. Runtime reserve preserves its published
+///          prefix, and the maintained ABI adapter exposes and publishes the same character sequence that the standard
+///          range constructor would own. Promotion performs no source query and therefore may occur inside one range
+///          overflow without retaining its descriptor. This opt-in also adopts direct-output exception ordering:
+///          allocation failure at the promotion point may prevent later stateful producers from running, but no partial
+///          result is returned. While concat caches the maintained put-area cursors, no associated output hook observes
+///          the temporarily unpublished string size. If a later source throws after replacing the old terminator, the
+///          audited libc++ destructor reads only the string representation and allocation ownership; it neither scans
+///          nor requires that unpublished terminator, so unwinding remains valid. The enclosing Apple/Clang/libc++ ABI
+///          and default traits/allocator restrictions keep custom allocation, hooks, and cursor representations outside
+///          this proof.
+template <::std::integral char_type, typename traits_type, typename allocator_type>
+	requires(::std::same_as<char_type, char> &&
+			 ::std::same_as<traits_type, ::std::char_traits<char_type>> &&
+			 ::std::same_as<allocator_type, ::std::allocator<char_type>>)
+[[nodiscard]] inline constexpr ::std::true_type
+concat_ordered_staging_adaptive_promotion_safe(
+	io_strlike_type_t<char_type,
+					  ::std::basic_string<char_type, traits_type, allocator_type>>) noexcept
+{
+	return {};
+}
+#endif
 
 /// @brief Constructs a fresh default standard string from one borrowed descriptor and a trailing line feed.
 /// @details Returning a new object is the aliasing proof: its allocation cannot own the source descriptor, so one exact
@@ -345,6 +461,15 @@ inline constexpr ::std::true_type print_borrowed_scatter_source(
 	io_reserve_type_t<char_type, ::std::basic_string_view<char_type, traits_type>>) noexcept
 {
 	// Custom traits add an ADL namespace and may replace the view's otherwise trivial print protocol.
+	return {};
+}
+
+template <::std::integral char_type, typename traits_type>
+	requires ::std::same_as<traits_type, ::std::char_traits<char_type>>
+inline constexpr ::std::true_type print_eager_materialization_safe(
+	io_reserve_type_t<char_type, ::std::basic_string_view<char_type, traits_type>>) noexcept
+{
+	// The default view contributes only its stored pointer and length and has no formatter state or failure path.
 	return {};
 }
 
@@ -394,12 +519,12 @@ template <::std::integral char_type, typename traits_type>
 #if (defined(__GNUC__) && !defined(__clang__)) || defined(__clang__)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr bool
-print_compiler_constant_materialization_eligible(
-	io_reserve_type_t<
-		char_type,
-		::std::basic_string_view<char_type, traits_type>>,
-	::std::basic_string_view<char_type, traits_type> value) noexcept
+	[[nodiscard]] inline constexpr bool
+	print_compiler_constant_materialization_eligible(
+		io_reserve_type_t<
+			char_type,
+			::std::basic_string_view<char_type, traits_type>>,
+		::std::basic_string_view<char_type, traits_type> value) noexcept
 {
 	return ::fast_io::details::compiler_constant_text_known(
 		value.data(), value.size());
@@ -410,11 +535,11 @@ template <::std::integral char_type, typename traits_type>
 #if (defined(__GNUC__) && !defined(__clang__)) || defined(__clang__)
 FAST_IO_GNU_ALWAYS_INLINE
 #endif
-[[nodiscard]] inline constexpr auto print_compiler_constant_materialize(
-	io_reserve_type_t<
-		char_type,
-		::std::basic_string_view<char_type, traits_type>>,
-	::std::basic_string_view<char_type, traits_type> value) noexcept
+	[[nodiscard]] inline constexpr auto print_compiler_constant_materialize(
+		io_reserve_type_t<
+			char_type,
+			::std::basic_string_view<char_type, traits_type>>,
+		::std::basic_string_view<char_type, traits_type> value) noexcept
 {
 	return ::fast_io::details::compiler_constant_text_materialize(
 		value.data(), value.size());
@@ -512,7 +637,7 @@ template <::std::integral char_type, typename traits_type, typename allocator_ty
 			 ::std::same_as<allocator_type, ::std::allocator<char_type>>)
 inline constexpr ::std::true_type strlike_concat_borrowed_scatter_precise_resize_safe(
 	io_strlike_type_t<char_type,
-		::std::basic_string<char_type, traits_type, allocator_type>>) noexcept
+					  ::std::basic_string<char_type, traits_type, allocator_type>>) noexcept
 {
 	return {};
 }
@@ -646,7 +771,41 @@ template <::std::integral char_type, typename traits_type, typename allocator_ty
 			 ::fast_io::details::string_hack::standard_string_runtime_put_area_available)
 [[nodiscard]] inline constexpr ::std::true_type strlike_runtime_deferred_obuffer_commit_safe(
 	io_strlike_type_t<char_type,
-		::std::basic_string<char_type, traits_type, allocator_type>>) noexcept
+					  ::std::basic_string<char_type, traits_type, allocator_type>>) noexcept
+{
+	return {};
+}
+
+/// @brief Certifies direct exact construction in the audited default standard-string runtime put area.
+/// @details A default standard string is empty; `reserve(n)` preserves that empty logical value while the implementation-
+///          specific adapter exposes at least `n` writable spare characters. Publishing one cursor then establishes the
+///          complete result and its terminator without an intermediate value-initialization pass. Default traits and the
+///          default allocator exclude user-associated hooks and allocation models; the surrounding availability guard
+///          keeps this semantic promise locked to the standard-library layouts already audited by the string hack.
+template <::std::integral char_type, typename traits_type, typename allocator_type>
+	requires(::std::same_as<traits_type, ::std::char_traits<char_type>> &&
+			 ::std::same_as<allocator_type, ::std::allocator<char_type>> &&
+			 ::fast_io::details::string_hack::standard_string_runtime_put_area_available)
+[[nodiscard]] inline constexpr ::std::true_type strlike_concat_fresh_runtime_exact_direct_safe(
+	io_strlike_type_t<char_type,
+					  ::std::basic_string<char_type, traits_type, allocator_type>>) noexcept
+{
+	return {};
+}
+
+/// @brief Certifies bounded dynamic construction in the audited default standard-string run-time put area.
+/// @details `strlike_runtime_reserve` exposes writable spare capacity while the fresh result remains logically empty;
+///          one final `strlike_runtime_set_curr` publishes only the prefix returned by the component writers. Default
+///          traits and allocator exclude associated user hooks, and the implementation availability predicate excludes
+///          poisoned or unaudited layouts. This is a destination lifetime/cursor proof only; concat separately requires
+///          an explicit platform cost policy before choosing coalesced dynamic construction.
+template <::std::integral char_type, typename traits_type, typename allocator_type>
+	requires(::std::same_as<traits_type, ::std::char_traits<char_type>> &&
+			 ::std::same_as<allocator_type, ::std::allocator<char_type>> &&
+			 ::fast_io::details::string_hack::standard_string_runtime_put_area_available)
+[[nodiscard]] inline constexpr ::std::true_type strlike_concat_fresh_runtime_dynamic_direct_safe(
+	io_strlike_type_t<char_type,
+					  ::std::basic_string<char_type, traits_type, allocator_type>>) noexcept
 {
 	return {};
 }
@@ -667,6 +826,54 @@ strlike_push_back(io_strlike_type_t<char_type, ::std::basic_string<char_type, tr
 {
 	str.push_back(ch);
 }
+
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 11 && defined(__linux__) && \
+	defined(__x86_64__) && defined(__GLIBCXX__) && defined(_GLIBCXX_USE_CXX11_ABI) &&   \
+	_GLIBCXX_USE_CXX11_ABI
+/// @brief Prefers one coalesced destination for a pure dynamic-reserve concat on the audited libstdc++ ABI.
+/// @details GCC 11 through 16 expand the default string's incremental print state machine once per leaf. For two or
+///          more object-dependent reserve producers this repeatedly carries allocation, SSO, overlap, and cursor
+///          branches through the hot concat entry. Coalescing instead measures each stable dynamic bound once and emits
+///          one checked contiguous prefix: the audited run-time put area receives it directly when available, otherwise
+///          concat's internal buffer feeds one ordinary range construction.
+///          Default traits, allocator, C++11 ABI, Linux, and x86-64 are all part of the measured cost proof; no custom
+///          allocation or associated formatter semantics inherit it. Newer GCC releases retain the highest-tested
+///          strategy on the same ABI until a contrary code-generation result is established.
+template <::std::integral char_type, typename traits_type, typename allocator_type>
+	requires(::std::same_as<char_type, char> &&
+			 ::std::same_as<traits_type, ::std::char_traits<char_type>> &&
+			 ::std::same_as<allocator_type, ::std::allocator<char_type>>)
+[[nodiscard]] inline constexpr ::std::true_type concat_dynamic_reserve_coalescing_preferred(
+	io_strlike_type_t<char_type,
+					  ::std::basic_string<char_type, traits_type, allocator_type>>) noexcept
+{
+	return {};
+}
+#endif
+
+#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 13 && defined(__linux__) && \
+	defined(__x86_64__) && defined(__GLIBCXX__) && defined(_GLIBCXX_USE_CXX11_ABI) &&   \
+	_GLIBCXX_USE_CXX11_ABI
+namespace details::decay
+{
+
+/// @brief Shares GCC's plain dynamic-reserve put-area state machine for the exact default `std::string` adapter.
+/// @details GCC 13 through 16 on x86-64 Linux repeatedly inline this control into homogeneous concat tails, retaining
+///          an invalid enclosing-object bound for `-Wstringop-overflow` and multiplying cursor branches. One out-of-line
+///          chunks preserve direct writes into libstdc++'s C++11-ABI capacity, including large fragments; they add no
+///          reference to the decay layer and therefore cannot change register-versus-memory parameter passing.
+///          Later GCC releases inherit the highest tested policy only on the same target and ABI. Clang, other targets,
+///          non-char strings, custom traits/allocators, and non-default string ABIs retain their established placement.
+template <>
+struct print_control_single_out_of_line_traits<
+	::fast_io::io_strlike_reference_wrapper<char, ::std::string>>
+{
+	inline static constexpr bool value{true};
+};
+
+} // namespace details::decay
+#endif
+
 template <::std::integral char_type, typename traits_type, typename allocator_type>
 inline constexpr io_strlike_reference_wrapper<char_type, ::std::basic_string<char_type, traits_type, allocator_type>>
 io_strlike_ref(io_alias_t, ::std::basic_string<char_type, traits_type, allocator_type> &str) noexcept

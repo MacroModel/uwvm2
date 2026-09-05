@@ -83,10 +83,12 @@ inline constexpr ::std::size_t compiler_constant_floating_scalar_capacity{5006u}
 template <typename floating_type>
 inline constexpr bool compiler_constant_floating_type_supported =
 	#if FAST_IO_HAS_BUILTIN(__builtin_constant_p)
-	(::fast_io::details::print_floating_decimal_direct_supported<
+	(!::fast_io::details::fp_floating_point_is_ibm_double_double<
+		 ::std::remove_cv_t<floating_type>> &&
+	 (::fast_io::details::print_floating_decimal_direct_supported<
 		 ::std::remove_cv_t<floating_type>> ||
 	 ::fast_io::details::print_floating_decimal_exact_supported<
-		 ::std::remove_cv_t<floating_type>>)
+		 ::std::remove_cv_t<floating_type>>))
 	#else
 	false
 #endif
@@ -95,8 +97,10 @@ inline constexpr bool compiler_constant_floating_type_supported =
 template <typename floating_type>
 inline constexpr bool compiler_constant_floating_hex_type_supported =
 	#if FAST_IO_HAS_BUILTIN(__builtin_constant_p)
-	::fast_io::details::compiler_constant_hex_has_iec559_traits<
-		::std::remove_cv_t<floating_type>>
+	(!::fast_io::details::fp_floating_point_is_ibm_double_double<
+		 ::std::remove_cv_t<floating_type>> &&
+	 ::fast_io::details::compiler_constant_hex_has_iec559_traits<
+		 ::std::remove_cv_t<floating_type>>)
 #else
 	false
 #endif
@@ -118,6 +122,18 @@ template <::fast_io::manipulators::scalar_flags flags, typename floating_type>
 inline constexpr bool compiler_constant_floating_precision_supported{
 	::fast_io::details::print_floating_precision_supported<flags, floating_type> &&
 	::fast_io::details::print_floating_precision_valid<flags.precision> &&
+	/*
+	The precision proxy captures one IEC field by bit-casting the complete object
+	to `iec559_traits<T>::mantissa_type`.  IBM double-double exposes those traits
+	only as a synthetic exact-value carrier: its object is the ordered pair
+	(high,low).  Concatenating that pair would recover neither their exact sum nor
+	the component-dependent hexadecimal normalization.  Excluding IBM here (and
+	not in compiler_constant_hex_scalar_supported, whose integer-field helpers
+	are also used after the native IBM adapter) proves that constant-value and
+	dynamic precision calls both enter the same native-object path.
+	*/
+	!::fast_io::details::fp_floating_point_is_ibm_double_double<
+		::std::remove_cv_t<floating_type>> &&
 	flags.percentage == ::fast_io::manipulators::percentage_flag::none &&
 	flags.rounding !=
 		::fast_io::manipulators::floating_rounding::current_environment &&
@@ -908,7 +924,21 @@ compiler_constant_floating_uses_fixed(
 	else if constexpr (flags.floating ==
 		::fast_io::manipulators::floating_format::general)
 	{
-		return -5 < exponent && exponent < 7;
+		/*
+		The constant proxy stores the same canonical (M,e) carrier as runtime
+		Dragonbox.  If M has L digits, both paths therefore have the identical
+		scientific exponent X=e+L-1.  Applying -4<=X<6 here proves that constant
+		materialization cannot select a different notation merely because the
+		optimizer exposed M and e at compile time.
+		*/
+		auto const digits{static_cast<::std::int_least32_t>(
+			::fast_io::details::
+				compiler_constant_floating_decimal_digits(mantissa))};
+		auto const scientific_exponent{
+			static_cast<::std::int_least32_t>(
+				exponent + digits - 1)};
+		return -4 <= scientific_exponent &&
+			scientific_exponent < 6;
 	}
 	else
 	{
@@ -934,7 +964,9 @@ compiler_constant_floating_uses_fixed(
 			fixed_length = static_cast<::std::size_t>(-real_exponent) +
 				digits + 1u;
 		}
-		auto const scientific_length{digits == 1u ? digits + 3u : digits + 5u};
+		auto const scientific_length{
+			::fast_io::details::print_rsv_fp_scientific_length(
+				real_exponent, digits)};
 		return scientific_length >= fixed_length;
 	}
 }
@@ -1484,9 +1516,10 @@ compiler_constant_floating_to_decimal(
 		// Preserve the ordinary DA carrier exactly.  Trailing zero removal is
 		// performed by the small local loop in the materializer below instead
 		// of DA's run-time-tuned rtz helper, which need not inline in a literal
-		// fixed-format call even though every operand is optimizer-constant.
+		// fixed-format call even though every operand is optimizer-constant. This branch admits only binary32/binary64,
+		// whose raw exponent fields fit exactly in DA's signed exponent parameter.
 		return ::fast_io::details::da::to_decimal<floating_type>(
-			mantissa, exponent);
+			mantissa, static_cast<::std::int_least32_t>(exponent));
 	}
 	else
 	{
@@ -3895,7 +3928,36 @@ compiler_constant_floating_fragment_decimal_precision_carrier(
 	bool fixed{};
 	constexpr auto int32_max{
 		(::std::numeric_limits<::std::int_least32_t>::max)()};
-	if (virtual_padding <= static_cast<::std::size_t>(int32_max))
+	if constexpr (flags.floating ==
+		::fast_io::manipulators::floating_format::general)
+	{
+		auto const rounded_exponent{
+			exponent + static_cast<::std::int_least32_t>(size) - 1};
+		if constexpr (flags.precision ==
+			::fast_io::manipulators::floating_precision::
+				charconv_significant)
+		{
+			fixed = -4 <= rounded_exponent &&
+				(rounded_exponent < 0 ||
+				 static_cast<::std::size_t>(rounded_exponent) <
+					 significant);
+		}
+		else if constexpr (fractional && preserve)
+		{
+			if (virtual_padding <= static_cast<::std::size_t>(int32_max))
+			{
+				auto const virtual_exponent{
+					static_cast<::std::int_least64_t>(exponent) -
+					static_cast<::std::int_least64_t>(virtual_padding)};
+				fixed = -5 < virtual_exponent && virtual_exponent < 7;
+			}
+		}
+		else
+		{
+			fixed = -4 <= rounded_exponent && rounded_exponent < 6;
+		}
+	}
+	else if (virtual_padding <= static_cast<::std::size_t>(int32_max))
 	{
 		auto const virtual_exponent{
 			static_cast<::std::int_least64_t>(exponent) -
@@ -3929,8 +3991,8 @@ compiler_constant_floating_fragment_decimal_precision_carrier(
 				static_cast<::std::size_t>(-rounded_exponent) + 1u);
 		}
 		auto const scientific_length{
-			::fast_io::details::exact_precision_saturating_add(
-				virtual_size, virtual_size == 1u ? 3u : 5u)};
+			::fast_io::details::print_rsv_fp_scientific_length(
+				rounded_exponent, virtual_size)};
 		fixed = scientific_length >= fixed_length;
 	}
 	if (fixed)

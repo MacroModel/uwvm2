@@ -43,6 +43,10 @@ concept has_scalar_manip_detail_tag =
 namespace manipulators
 {
 
+/// @brief Selects where padding is placed relative to a formatted scalar.
+/// @details `left` pads after the value; `right` pads before it; `middle` splits padding around the value, placing an
+///          odd extra code unit on the right; `internal` inserts after the child-reported internal shift and otherwise
+///          falls back to right alignment. `none` leaves the value unpadded in the ordinary run-time width path.
 enum class scalar_placement : char8_t
 {
 	none,
@@ -52,6 +56,11 @@ enum class scalar_placement : char8_t
 	internal
 };
 
+/// @brief Selects the lexical family used to print or scan a floating-point value.
+/// @details `fixed` forbids an exponent on input and forces fixed notation on output; `scientific` requires an
+///          exponent on input and forces exponent notation on output; `decimal` accepts an optional exponent and,
+///          for shortest output, chooses the shorter complete fixed/scientific spelling (ties favor fixed);
+///          `general` uses the general-format exponent policy; `hexfloat` selects hexadecimal significand syntax.
 enum class floating_format : char8_t
 {
 	fixed,
@@ -61,6 +70,9 @@ enum class floating_format : char8_t
 	hexfloat
 };
 
+/// @brief Controls how a scanner handles a parenthesized NaN payload or type suffix.
+/// @details `none` disables payload consumption, `consume` accepts but discards it, and `preserve` transfers
+///          recognized information into the destination representation when that floating type supports it.
 enum class floating_nan_payload_scan : ::std::uint_fast8_t
 {
 	none,
@@ -68,14 +80,37 @@ enum class floating_nan_payload_scan : ::std::uint_fast8_t
 	preserve
 };
 
+/// @brief Defines what a floating precision count measures and whether insignificant zeroes are retained.
+/// @details Significant modes count total significant digits; fractional modes count digits after the radix point.
+///          The `charconv_*` values encode the specialized standard-charconv presentation rules and are intended for
+///          adapters rather than ordinary application-selected formatting.
 enum class floating_precision : ::std::uint_least8_t
 {
 	significant,
 	fractional,
 	significant_preserve_trailing_zero,
-	fractional_preserve_trailing_zero
+	fractional_preserve_trailing_zero,
+	/*
+	`std::to_chars(..., chars_format::general, P)` has the same P-significant
+	digit rounding grid as `significant`, but its presentation rule is distinct:
+	use fixed exactly when the rounded scientific exponent X satisfies
+	-4 <= X < max(P,1).  Keeping this internal policy in the precision tag lets
+	the shared integer conversion and cold exact fallback remain single-copy;
+	only their final fixed/scientific decision differs.
+	*/
+	charconv_significant,
+	/*
+	Hexadecimal to_chars with an explicit fractional precision follows the
+	printf-a carry layout.  Rounding 1.ffff at P=0 is spelled 2p+E, whereas the
+	shortest hexadecimal formatter normalizes the equal value to 1p+(E+1).
+	The numeric grid is otherwise identical to fractional-preserving mode.
+	*/
+	charconv_hex_fractional
 };
 
+/// @brief Selects the rounding direction used by precision formatting and text-to-floating conversion.
+/// @details Nearest modes define their tie direction explicitly; directed modes round every inexact result toward
+///          the named direction. `current_environment` consults the active floating-point environment where supported.
 enum class floating_rounding : ::std::uint_least8_t
 {
 	nearest_to_even,
@@ -91,6 +126,9 @@ enum class floating_rounding : ::std::uint_least8_t
 	current_environment
 };
 
+/// @brief Selects the locale time pattern used by locale-aware chrono manipulators.
+/// @details Each enumerator corresponds to one locale time field; `none` leaves pattern selection to the enclosing
+///          manipulator rather than requesting a locale-provided composite format.
 enum class lc_time_flag : ::std::uint_least8_t
 {
 	none,
@@ -104,6 +142,9 @@ enum class lc_time_flag : ::std::uint_least8_t
 	era_t_fmt
 };
 
+/// @brief Selects the derived ratio spelling carried by an integral scalar manipulator.
+/// @details `percent` formats the numerator relative to the denominator as a percentage, while `sexratio` uses the
+///          library's sex-ratio convention; `none` leaves the integer payload unscaled.
 enum class percentage_flag : ::std::uint_least8_t
 {
 	none,
@@ -111,6 +152,9 @@ enum class percentage_flag : ::std::uint_least8_t
 	sexratio
 };
 
+/// @brief Compile-time presentation policy for IP address and endpoint output.
+/// @details The flags control IPv6 shortening, hexadecimal case, brackets, full expansion, port emission, and whether
+///          IPv4-mapped IPv6 addresses may use their mapped spelling.
 struct ip_flags
 {
 	bool v6shorten{true};
@@ -121,9 +165,17 @@ struct ip_flags
 	bool ipv4_mapped_ipv6{true};
 };
 
+/// @brief Default endpoint-output policy: shortened bracketed IPv6 with ports and mapped-IPv6 support.
+/// @details IPv4 remains decimal; IPv6 is lowercase, may use `::` shortening, is bracketed when needed, and includes the
+///          endpoint port carried by the formatted object.
 inline constexpr ip_flags ip_default_flags{.showport = true};
+/// @brief Default address-only output policy, identical to `ip_default_flags` except that no port is emitted.
+/// @details It retains lowercase shortened IPv6, brackets, and mapped-IPv6 spelling but suppresses any port suffix.
 inline constexpr ip_flags ip_default_inaddr_flags{};
 
+/// @brief Type-level carrier for an IP value and its immutable output policy.
+/// @details The payload may be stored by value or reference according to the producing manipulator; formatting reads
+///          `flags` from the type, so constructing this carrier directly requires preserving the payload lifetime.
 template <ip_flags flags, typename T>
 struct ip_manip_t
 {
@@ -142,6 +194,9 @@ struct ip_manip_t
 	T reference;
 };
 
+/// @brief Compile-time grammar policy for scanning IP addresses and endpoints.
+/// @details The flags decide which IPv6 spellings are admitted, whether a port is mandatory, and whether mapped IPv6
+///          forms are accepted. They restrict accepted syntax and do not normalize the stored destination afterward.
 struct ip_scan_flags
 {
 	bool allowv6shorten{true};
@@ -152,10 +207,22 @@ struct ip_scan_flags
 	bool ipv4_mapped_ipv6{true};
 };
 
+/// @brief Default endpoint-input grammar, requiring a port while accepting ordinary IPv4/IPv6 variants.
+/// @details Shortened, uppercase, bracketed, and IPv4-mapped IPv6 forms are accepted; successful endpoint input must
+///          also provide a port according to the scanner's endpoint grammar.
 inline constexpr ip_scan_flags ip_scan_default_flags{.requireport = true};
+/// @brief Endpoint-input grammar that requires a port and rejects IPv4-mapped IPv6 spellings.
+/// @details All other ordinary IPv4 and IPv6 spelling allowances remain enabled, including shortened and uppercase
+///          IPv6 forms and bracket syntax.
 inline constexpr ip_scan_flags ip_scan_no_ipv4_mapped_ipv6{.requireport = true, .ipv4_mapped_ipv6 = false};
+/// @brief Default address-only input grammar; a port is not required.
+/// @details It accepts shortened, uppercase, bracketed, and IPv4-mapped IPv6 forms while leaving any endpoint port
+///          requirement disabled.
 inline constexpr ip_scan_flags ip_scan_default_inaddr_flags{};
 
+/// @brief Type-level carrier for an IP scan destination and its immutable grammar policy.
+/// @details Scanning writes through `reference`; callers must therefore keep the referenced destination alive for the
+///          complete scan operation. The flag object affects token acceptance, not post-parse presentation.
 template <ip_scan_flags flags, typename T>
 struct ip_scan_manip_t
 {
@@ -171,6 +238,10 @@ struct ip_scan_manip_t
 	T reference;
 };
 
+/// @brief Unified compile-time policy record used by scalar print and scan manipulators.
+/// @details Each field is interpreted only by the applicable scalar family and direction, as documented inline below.
+///          Prefer named factories such as `hex`, `fixed`, or `decimal_get`; direct construction is an expert escape
+///          hatch whose invalid flag combinations can be rejected by downstream concepts.
 struct scalar_flags
 {
 	// Scan and print: integer radix in the closed range [2, 36]. Floating
@@ -213,9 +284,9 @@ struct scalar_flags
 	// whether positive floating exponents are printed with an explicit '+'.
 	bool showpos_e{true};
 #endif
-	// Print only: request the comma variant of scalar formatting. For floating
-	// and timestamp-like output this changes the fractional separator, and for
-	// percentage-style output it selects the comma-aware spelling.
+	// Scan and print for floating scalars: select ',' instead of '.' as the
+	// fractional separator. Timestamp-like and percentage output also reuse
+	// this bit for their comma-aware spelling.
 	bool comma{};
 	// Scan and print, with manipulator-specific meaning: integer print uses it
 	// for full-width/zero-filled forms such as addresses; integer scan reuses
@@ -273,8 +344,9 @@ struct scalar_flags
 	floating_rounding rounding{};
 	// Scan and print for precision-bearing floating manipulators: significant
 	// precision means total significant digits; fractional precision means
-	// digits after the radix point. Hexfloat precision supports significant
-	// hexadecimal digits only.
+	// digits after the radix point. Hexfloat applies those same categories in
+	// hexadecimal digits; preservation variants decide whether trailing zeroes
+	// remain visible.
 	floating_precision precision{};
 	// Scan only: accept an optional leading '+' before integer, decimal-float,
 	// or hex-float input. The default is false to match from_chars-style
@@ -283,10 +355,22 @@ struct scalar_flags
 	bool allow_leading_plus{};
 };
 
+/// @brief Default policy for decimal integral formatting and scanning.
+/// @details It uses base ten with no prefix, ordinary sign handling, no full-width padding, and the default whitespace
+///          and token-acceptance rules encoded by `scalar_flags`.
 inline constexpr scalar_flags integral_default_scalar_flags{};
+/// @brief Default floating policy: shortest decimal output and decimal input with an optional exponent.
+/// @details Output chooses the shorter complete fixed/scientific round-trip spelling (ties favor fixed); input accepts
+///          the same decimal significand with an optional complete exponent under default scan policies.
 inline constexpr scalar_flags floating_point_default_scalar_flags{.floating = floating_format::decimal};
+/// @brief Default address policy: prefixed, full-width lowercase hexadecimal.
+/// @details The representation includes `0x`, pads the hexadecimal payload to its complete address width, and does not
+///          uppercase digits or the prefix.
 inline constexpr scalar_flags address_default_scalar_flags{.base = 16, .showbase = true, .full = true};
 
+/// @brief Generic scalar carrier whose complete print/scan policy is encoded in its type.
+/// @details `reference` is the actual payload and may itself be a reference. Public factories choose safe ownership;
+///          direct construction must preserve referenced lifetimes and supply a policy supported by the payload type.
 template <scalar_flags flags, typename T>
 struct scalar_manip_t
 {
@@ -304,6 +388,9 @@ struct scalar_manip_t
 	T reference;
 };
 
+/// @brief Declares fundamental scalar carriers transparent to optional-scatter semantic planning.
+/// @details This hidden customization does not change output. It proves that grouping adjacent semantic nodes cannot
+///          alter aliasing, status observation, or the bytes produced by the scalar reserve formatter.
 template <::std::integral char_type, scalar_flags flags, typename T>
 	requires(
 		::std::is_integral_v<T> || ::std::is_floating_point_v<T> ||
@@ -331,12 +418,18 @@ struct compiler_constant_scalar_manip_t
 	T reference;
 };
 
+/// @brief Owns the implementation representation of a possibly multiword member-function pointer.
+/// @details `methodvw` uses this hidden carrier to print ABI words as a full hexadecimal representation; the result is
+///          implementation-specific and is not an object or callable address.
 struct member_function_pointer_holder_t
 {
 	using manip_tag = manip_tag_t;
 	::fast_io::freestanding::array<::std::size_t, ::fast_io::details::method_ptr_hold_size> reference;
 };
 
+/// @brief Marks a destination for whole-object scanning rather than token-prefix scanning.
+/// @details The hidden carrier owns or references the destination according to `T`; the corresponding scanner must
+///          consume the complete requested representation before reporting success.
 template <typename T>
 struct whole_get_t
 {
@@ -346,6 +439,107 @@ struct whole_get_t
 };
 
 } // namespace manipulators
+
+namespace details::decay
+{
+
+/// @brief Matches every non-radix field of the ordinary plain integral scalar factory record.
+/// @details Keeping the complete field schema in one predicate prevents the independently measured decimal-concat and
+///          non-decimal fixed-view entries from drifting when `scalar_flags` evolves.  Each consumer supplies its own
+///          exact radix condition; every other active field must retain the factory default shown here.
+template <manipulators::scalar_flags flags>
+inline constexpr bool print_plain_integral_scalar_flags_exact_default_v{
+	!flags.alphabet && !flags.showbase && !flags.showpos && !flags.noskipws &&
+	!flags.uppercase_showbase && !flags.modern_octal && !flags.uppercase &&
+	!flags.uppercase_e && !flags.comma && !flags.full && !flags.json_float &&
+	flags.placement == manipulators::scalar_placement::none &&
+	flags.floating == manipulators::floating_format::fixed &&
+	flags.time_flag == manipulators::lc_time_flag::none && !flags.line &&
+	flags.percentage == manipulators::percentage_flag::none &&
+	flags.nan_show_sign && !flags.nan_show_type && flags.nan_parse_sign &&
+	flags.nan_payload_scan == manipulators::floating_nan_payload_scan::consume &&
+	flags.rounding == manipulators::floating_rounding::nearest_to_even &&
+	flags.precision == manipulators::floating_precision::significant &&
+	!flags.allow_leading_plus};
+
+/// The default scalar carrier is normalized before the print dispatcher sees it.  This proof keeps the fixed-view hot
+/// leaf limited to decimal, unpadded integral policy; alternate bases and width/sign manipulators retain the generic
+/// reserve CPO and therefore cannot inherit the specialized code-generation choice.
+template <manipulators::scalar_flags flags, typename T>
+struct print_fixed_hot_scalar_traits<manipulators::scalar_manip_t<flags, T>>
+{
+	using value_type = ::std::remove_cvref_t<T>;
+	inline static constexpr bool available{
+		::std::is_integral_v<value_type> && !::std::same_as<value_type, bool> && flags.base == 10u && !flags.alphabet &&
+		!flags.showbase && !flags.showpos && !flags.uppercase_showbase && !flags.modern_octal && !flags.uppercase &&
+		!flags.comma && !flags.full && flags.placement == manipulators::scalar_placement::none &&
+		flags.percentage == manipulators::percentage_flag::none};
+};
+
+/// @brief Proves the exact default-decimal owning scalar measured for direct fresh standard-string construction.
+/// @details This is intentionally independent of `print_fixed_hot_scalar_traits`: a reference carrier or a currently
+///          output-irrelevant policy bit may be valid for buffered emission but cannot inherit this narrower allocation
+///          strategy.  Staged rejection keeps incomplete reference payloads substitution-safe.
+template <manipulators::scalar_flags flags, typename T>
+struct print_concat_fresh_fixed_decimal_scalar_traits<
+	manipulators::scalar_manip_t<flags, T>>
+{
+	using value_type = ::std::remove_cvref_t<T>;
+	inline static constexpr bool available{[]() consteval {
+		if constexpr (!::std::same_as<T, value_type>)
+		{
+			return false;
+		}
+		else if constexpr (
+			!::fast_io::details::my_integral<value_type> ||
+			::std::same_as<value_type, bool>)
+		{
+			return false;
+		}
+		else
+		{
+			return sizeof(value_type) <= 8u && flags.base == 10u &&
+				   print_plain_integral_scalar_flags_exact_default_v<flags>;
+		}
+	}()};
+};
+
+/// @brief Proves that a public scalar manipulator owns one valid integral reserve record.
+/// @details The payload is an unqualified value of at most 64 bits, not a reference transport, so reading and copying it
+///          cannot reach user code or a volatile object.  The flag comparisons describe exactly the ordinary
+///          `mnp::base<B>` factory record for 2 <= B <= 36, B != 10; presentation variants such as prefix, uppercase,
+///          full width, punctuation, or derived ratios remain independent cost domains.  This trait is only the source
+///          half of the optimization; the public entry separately proves exact alias/forward closure and a fixed
+///          no-status destination.
+template <manipulators::scalar_flags flags, typename T>
+struct print_fixed_public_integral_manip_source_traits<
+	manipulators::scalar_manip_t<flags, T>>
+{
+	using value_type = ::std::remove_cvref_t<T>;
+	inline static constexpr bool available{[]() consteval {
+		// Stage the schema proof before any size query. A scalar carrier may legally transport a reference to an
+		// incomplete or function type; those sources must make this cost predicate false without instantiating
+		// `sizeof(value_type)` and turning an overload constraint into a hard diagnostic.
+		if constexpr (!::std::same_as<T, value_type>)
+		{
+			return false;
+		}
+		else if constexpr (
+			!::fast_io::details::my_integral<value_type> ||
+			::std::same_as<value_type, bool>)
+		{
+			return false;
+		}
+		else
+		{
+			return sizeof(value_type) <= 8u &&
+				   2u <= flags.base && flags.base <= 36u && flags.base != 10u &&
+				   print_plain_integral_scalar_flags_exact_default_v<flags>;
+		}
+	}()};
+};
+
+} // namespace details::decay
 
 namespace details
 {
@@ -412,17 +606,20 @@ inline constexpr ::fast_io::manipulators::scalar_flags floating_precision_roundi
 template <::fast_io::manipulators::floating_precision precision>
 inline constexpr bool floating_precision_is_significant{
 	precision == ::fast_io::manipulators::floating_precision::significant ||
-	precision == ::fast_io::manipulators::floating_precision::significant_preserve_trailing_zero};
+	precision == ::fast_io::manipulators::floating_precision::significant_preserve_trailing_zero ||
+	precision == ::fast_io::manipulators::floating_precision::charconv_significant};
 
 template <::fast_io::manipulators::floating_precision precision>
 inline constexpr bool floating_precision_is_fractional{
 	precision == ::fast_io::manipulators::floating_precision::fractional ||
-	precision == ::fast_io::manipulators::floating_precision::fractional_preserve_trailing_zero};
+	precision == ::fast_io::manipulators::floating_precision::fractional_preserve_trailing_zero ||
+	precision == ::fast_io::manipulators::floating_precision::charconv_hex_fractional};
 
 template <::fast_io::manipulators::floating_precision precision>
 inline constexpr bool floating_precision_preserves_trailing_zero{
 	precision == ::fast_io::manipulators::floating_precision::significant_preserve_trailing_zero ||
-	precision == ::fast_io::manipulators::floating_precision::fractional_preserve_trailing_zero};
+	precision == ::fast_io::manipulators::floating_precision::fractional_preserve_trailing_zero ||
+	precision == ::fast_io::manipulators::floating_precision::charconv_hex_fractional};
 
 inline constexpr ::fast_io::manipulators::scalar_flags
 set_json_float_flag(::fast_io::manipulators::scalar_flags flags, bool json_float) noexcept
@@ -643,6 +840,11 @@ inline constexpr bool long_double_alias_is_float80{
 	::std::numeric_limits<long double>::digits == 64 &&
 	::std::numeric_limits<long double>::max_exponent == 16384};
 
+inline constexpr bool long_double_alias_is_ibm_double_double{
+	sizeof(long double) == 2u * sizeof(double) &&
+	::std::numeric_limits<long double>::digits == 106 &&
+	::std::numeric_limits<long double>::max_exponent == 1024};
+
 #if defined(__SIZEOF_INT128__) && defined(__STDCPP_FLOAT128_T__)
 inline constexpr bool long_double_alias_is_float128{
 	sizeof(long double) == sizeof(_Float128) && ::std::numeric_limits<long double>::digits == 113 &&
@@ -684,9 +886,14 @@ struct long_double_alias_type_traits<false, false, true>
 template <>
 struct float_alias_type_traits<long double>
 {
-	using alias_type =
+	using ordinary_alias_type =
 		typename long_double_alias_type_traits<long_double_alias_is_double, long_double_alias_is_float80,
 											   long_double_alias_is_float128>::alias_type;
+	/* IBM double-double is a real 16-byte arithmetic domain.  Falling through
+	   the historical unknown-long-double default would narrow both components
+	   to binary64 before the floating unit can apply its explicit bridge. */
+	using alias_type = ::std::conditional_t<long_double_alias_is_ibm_double_double,
+		long double, ordinary_alias_type>;
 };
 
 #if (defined(__SIZEOF_FLOAT16__) || defined(__FLOAT16__)) && defined(__STDCPP_FLOAT16_T__)
@@ -816,6 +1023,10 @@ concept scalar_integrals = ::fast_io::details::non_character_integral<scalar_typ
 namespace manipulators
 {
 
+/// @brief Scalar carrier with a run-time precision count and a compile-time formatting policy.
+/// @details The meaning of `precision` is selected by `flags.precision`: significant modes count total significant
+///          digits and fractional modes count digits after the radix point. The carrier does not validate the count;
+///          the selected floating backend defines its supported range and overflow behavior.
 template <scalar_flags flags, typename T>
 struct scalar_manip_precision_t
 {
@@ -832,10 +1043,9 @@ struct scalar_manip_precision_t
 	::std::size_t precision;
 };
 
-/// Integer-owned run-time transport for the one Clang/x86 narrow-float ABI
-/// domain whose scalar-to-aggregate construction can perform a second
-/// bfloat16 conversion.  `floating_type` remains the semantic format domain;
-/// `representation` is the original two-byte object representation.
+/// @brief Integer-owned floating carrier for the Clang/x86 narrow-float ABI exception.
+/// @details Scalar-to-aggregate construction can otherwise perform a second bfloat16 conversion. `floating_type`
+///          remains the semantic format domain while `representation` preserves the original two-byte object bits.
 template <scalar_flags flags, typename floating_type>
 struct floating_scalar_field_manip_t
 {
@@ -846,6 +1056,9 @@ struct floating_scalar_field_manip_t
 	::std::uint_least16_t representation;
 };
 
+/// @brief Precision-bearing form of the integer-owned narrow-float carrier.
+/// @details It preserves the original bfloat16 representation and carries the same run-time precision semantics as
+///          `scalar_manip_precision_t`, avoiding a native floating reconstruction at the manipulator boundary.
 template <scalar_flags flags, typename floating_type>
 struct floating_scalar_field_manip_precision_t
 {
@@ -856,6 +1069,108 @@ struct floating_scalar_field_manip_precision_t
 	::std::uint_least16_t representation;
 	::std::size_t precision;
 };
+
+/// @brief Requests shortest decimal output constrained to a significant-digit interval.
+/// @details A shortest result already within `[minimum_precision, maximum_precision]` is preserved. Fewer digits are
+///          extended at the lower bound; excess digits are rounded at the upper bound. This is distinct from
+///          `exact_decimal`, which never truncates a finite value merely to satisfy a maximum.
+template <scalar_flags flags, typename floating_type>
+struct floating_scalar_precision_range_manip_t
+{
+	using value_type = floating_type;
+	using scalar_flags_type = scalar_flags;
+	using manip_tag = manip_tag_t;
+	floating_type reference;
+	::std::size_t minimum_precision;
+	::std::size_t maximum_precision;
+};
+
+/// @brief Integer-owned narrow-float form of `floating_scalar_precision_range_manip_t`.
+/// @details The interval has the same significant-digit semantics, while `representation` avoids a potentially
+///          lossy or exception-raising bfloat16 reconstruction on the affected ABI.
+template <scalar_flags flags, typename floating_type>
+struct floating_scalar_field_precision_range_manip_t
+{
+	using value_type = floating_type;
+	using scalar_flags_type = scalar_flags;
+	using manip_tag = manip_tag_t;
+	::std::uint_least16_t representation;
+	::std::size_t minimum_precision;
+	::std::size_t maximum_precision;
+};
+
+/// @brief Marks native precision-range carriers transparent to optional-scatter semantic grouping.
+/// @details This hidden customization changes no spelling; it asserts that grouping cannot change payload observation
+///          or the result of the reserve formatter.
+template <::std::integral char_type, scalar_flags flags, typename T>
+inline constexpr ::std::true_type
+	print_semantic_optional_scatter_status_transparent_leaf(
+		::fast_io::io_reserve_type_t<
+			char_type,
+			floating_scalar_precision_range_manip_t<flags, T>>) noexcept
+{
+	return {};
+}
+
+/// @brief Marks integer-owned precision-range carriers transparent to optional-scatter semantic grouping.
+/// @details The representation bits and both bounds are owned by the carrier, so optional-scatter planning cannot
+///          introduce an aliasing or status-dependent difference.
+template <::std::integral char_type, scalar_flags flags, typename T>
+inline constexpr ::std::true_type
+	print_semantic_optional_scatter_status_transparent_leaf(
+		::fast_io::io_reserve_type_t<
+			char_type,
+			floating_scalar_field_precision_range_manip_t<flags, T>>) noexcept
+{
+	return {};
+}
+
+/// @brief Requests an exact finite decimal expansion of a floating-point value.
+/// @details Exact decimal is a semantic formatting mode, not a rounding policy: no finite value is shortened or
+///          rounded. The carried flags control only presentation (notation, punctuation, sign, case, and JSON spelling).
+///          Output can therefore be very large for values whose exact base-10 expansion has many digits.
+template <scalar_flags flags, typename floating_type>
+struct exact_decimal_manip_t
+{
+	using value_type = floating_type;
+	using scalar_flags_type = scalar_flags;
+	using manip_tag = manip_tag_t;
+	floating_type reference;
+};
+
+/// @brief Integer-owned narrow-float form of the exact-decimal request.
+/// @details It preserves bfloat16 object bits on the Clang/x86 ABI where forming another native aggregate can silently
+///          retruncate the value; presentation semantics are otherwise identical to `exact_decimal_manip_t`.
+template <scalar_flags flags, typename floating_type>
+struct exact_decimal_field_manip_t
+{
+	using value_type = floating_type;
+	using scalar_flags_type = scalar_flags;
+	using manip_tag = manip_tag_t;
+	::std::uint_least16_t representation;
+};
+
+/// @brief Marks native exact-decimal carriers transparent to optional-scatter semantic grouping.
+/// @details The hidden proof affects planning only and never relaxes exactness or changes the emitted representation.
+template <::std::integral char_type, scalar_flags flags, typename T>
+inline constexpr ::std::true_type
+	print_semantic_optional_scatter_status_transparent_leaf(
+		::fast_io::io_reserve_type_t<
+			char_type, exact_decimal_manip_t<flags, T>>) noexcept
+{
+	return {};
+}
+
+/// @brief Marks integer-owned exact-decimal carriers transparent to optional-scatter semantic grouping.
+/// @details All observable state is owned by the carrier, so grouping cannot change the exact expansion selected.
+template <::std::integral char_type, scalar_flags flags, typename T>
+inline constexpr ::std::true_type
+	print_semantic_optional_scatter_status_transparent_leaf(
+		::fast_io::io_reserve_type_t<
+			char_type, exact_decimal_field_manip_t<flags, T>>) noexcept
+{
+	return {};
+}
 
 } // namespace manipulators
 
@@ -967,6 +1282,9 @@ make_floating_scalar_manip_precision(
 namespace manipulators
 {
 
+/// @brief Rebinds an ordinary scalar manipulator to the requested floating rounding policy.
+/// @details The payload and every other flag are preserved. For output the policy matters when a precision or exact
+///          representability boundary requires rounding; for input it controls decimal-to-binary conversion.
 template <floating_rounding rounding_policy, scalar_flags flags, typename T>
 inline constexpr auto rounding(scalar_manip_t<flags, T> value) noexcept
 {
@@ -974,6 +1292,9 @@ inline constexpr auto rounding(scalar_manip_t<flags, T> value) noexcept
 		value.reference};
 }
 
+/// @brief Rebinds a precision-bearing scalar manipulator to the requested rounding policy.
+/// @details The value and run-time precision are unchanged; only the tie/direction policy encoded in the result type
+///          changes.
 template <floating_rounding rounding_policy, scalar_flags flags, typename T>
 inline constexpr auto rounding(scalar_manip_precision_t<flags, T> value) noexcept
 {
@@ -981,6 +1302,9 @@ inline constexpr auto rounding(scalar_manip_precision_t<flags, T> value) noexcep
 		value.reference, value.precision};
 }
 
+/// @brief Rebinds an integer-owned narrow-float manipulator to the requested rounding policy.
+/// @details The preserved representation bits are not reconstructed or rounded by this adapter; rounding occurs only
+///          when the resulting manipulator is formatted or scanned.
 template <floating_rounding rounding_policy, scalar_flags flags, typename T>
 inline constexpr auto
 rounding(floating_scalar_field_manip_t<flags, T> value) noexcept
@@ -991,6 +1315,8 @@ rounding(floating_scalar_field_manip_t<flags, T> value) noexcept
 		T>{value.representation};
 }
 
+/// @brief Rebinds a precision-bearing integer-owned narrow-float manipulator to a rounding policy.
+/// @details Both the original representation and the precision count are preserved unchanged.
 template <floating_rounding rounding_policy, scalar_flags flags, typename T>
 inline constexpr auto
 rounding(floating_scalar_field_manip_precision_t<flags, T> value) noexcept
@@ -1001,6 +1327,34 @@ rounding(floating_scalar_field_manip_precision_t<flags, T> value) noexcept
 		T>{value.representation, value.precision};
 }
 
+/// @brief Rebinds a significant-digit interval manipulator to the requested rounding policy.
+/// @details The lower and upper precision bounds are preserved; the policy governs only rounding at the upper bound.
+template <floating_rounding rounding_policy, scalar_flags flags, typename T>
+inline constexpr auto
+rounding(floating_scalar_precision_range_manip_t<flags, T> value) noexcept
+{
+	return floating_scalar_precision_range_manip_t<
+		::fast_io::details::floating_rounding_mani_flags_cache<
+			flags, rounding_policy>,
+		T>{value.reference, value.minimum_precision, value.maximum_precision};
+}
+
+/// @brief Rebinds the integer-owned significant-digit interval carrier to a rounding policy.
+/// @details Representation bits and both precision bounds remain unchanged.
+template <floating_rounding rounding_policy, scalar_flags flags, typename T>
+inline constexpr auto
+rounding(floating_scalar_field_precision_range_manip_t<flags, T> value) noexcept
+{
+	return floating_scalar_field_precision_range_manip_t<
+		::fast_io::details::floating_rounding_mani_flags_cache<
+			flags, rounding_policy>,
+		T>{value.representation, value.minimum_precision,
+		   value.maximum_precision};
+}
+
+/// @brief Enables or disables JSON-oriented decimal floating presentation on an ordinary scalar carrier.
+/// @details When enabled, applicable fixed/default finite integral-valued results retain a fractional marker such as
+///          `1.0`; the function does not perform JSON validation and does not apply to hexadecimal floating syntax.
 template <bool enabled = true, scalar_flags flags, typename T>
 	requires(flags.base == 10 && flags.floating != floating_format::hexfloat)
 inline constexpr auto json_float(scalar_manip_t<flags, T> value) noexcept
@@ -1008,6 +1362,8 @@ inline constexpr auto json_float(scalar_manip_t<flags, T> value) noexcept
 	return scalar_manip_t<::fast_io::details::json_float_mani_flags_cache<flags, enabled>, T>{value.reference};
 }
 
+/// @brief Enables or disables JSON-oriented presentation on a precision-bearing scalar carrier.
+/// @details The precision count and rounding policy are preserved; only the JSON spelling flag changes.
 template <bool enabled = true, scalar_flags flags, typename T>
 	requires(flags.base == 10 && flags.floating != floating_format::hexfloat)
 inline constexpr auto json_float(scalar_manip_precision_t<flags, T> value) noexcept
@@ -1016,6 +1372,8 @@ inline constexpr auto json_float(scalar_manip_precision_t<flags, T> value) noexc
 		value.reference, value.precision};
 }
 
+/// @brief Enables or disables JSON-oriented presentation on an integer-owned narrow-float carrier.
+/// @details The object representation is preserved without reconstruction.
 template <bool enabled = true, scalar_flags flags, typename T>
 	requires(flags.base == 10 && flags.floating != floating_format::hexfloat)
 inline constexpr auto
@@ -1026,6 +1384,8 @@ json_float(floating_scalar_field_manip_t<flags, T> value) noexcept
 		value.representation};
 }
 
+/// @brief Enables or disables JSON-oriented presentation on a precision-bearing narrow-float carrier.
+/// @details Representation bits and the precision count are preserved unchanged.
 template <bool enabled = true, scalar_flags flags, typename T>
 	requires(flags.base == 10 && flags.floating != floating_format::hexfloat)
 inline constexpr auto
@@ -1036,6 +1396,136 @@ json_float(floating_scalar_field_manip_precision_t<flags, T> value) noexcept
 		value.representation, value.precision};
 }
 
+/// @brief Enables or disables JSON-oriented presentation on a significant-digit interval carrier.
+/// @details Both interval bounds remain unchanged; JSON policy affects only the final decimal spelling.
+template <bool enabled = true, scalar_flags flags, typename T>
+	requires(flags.base == 10 && flags.floating != floating_format::hexfloat)
+inline constexpr auto
+json_float(floating_scalar_precision_range_manip_t<flags, T> value) noexcept
+{
+	return floating_scalar_precision_range_manip_t<
+		::fast_io::details::json_float_mani_flags_cache<flags, enabled>, T>{
+		value.reference, value.minimum_precision, value.maximum_precision};
+}
+
+/// @brief Enables or disables JSON-oriented presentation on an integer-owned precision-range carrier.
+/// @details The stored representation and both bounds are preserved.
+template <bool enabled = true, scalar_flags flags, typename T>
+	requires(flags.base == 10 && flags.floating != floating_format::hexfloat)
+inline constexpr auto
+json_float(floating_scalar_field_precision_range_manip_t<flags, T> value) noexcept
+{
+	return floating_scalar_field_precision_range_manip_t<
+		::fast_io::details::json_float_mani_flags_cache<flags, enabled>, T>{
+		value.representation, value.minimum_precision,
+		value.maximum_precision};
+}
+
+/// @brief Constrains shortest decimal output from an existing scalar manipulator to a significant-digit interval.
+/// @details If the shortest representation is already within the inclusive interval it is unchanged; otherwise it is
+///          extended to the minimum or rounded to the maximum. Supplying `minimum_precision > maximum_precision` is
+///          outside the manipulator's semantic contract.
+template <scalar_flags flags, typename T>
+	requires(flags.base == 10 && flags.floating != floating_format::hexfloat &&
+			 ::fast_io::details::my_floating_point<T>)
+[[nodiscard]] inline constexpr auto precision_range(
+	scalar_manip_t<flags, T> value, ::std::size_t minimum_precision,
+	::std::size_t maximum_precision) noexcept
+{
+	return floating_scalar_precision_range_manip_t<flags, T>{
+		value.reference, minimum_precision, maximum_precision};
+}
+
+/// @brief Applies a significant-digit interval to an integer-owned narrow-float manipulator.
+/// @details Semantics match the ordinary overload while preserving the original narrow-float representation bits.
+template <scalar_flags flags, typename T>
+	requires(flags.base == 10 && flags.floating != floating_format::hexfloat &&
+			 ::fast_io::details::my_floating_point<T>)
+[[nodiscard]] inline constexpr auto precision_range(
+	floating_scalar_field_manip_t<flags, T> value,
+	::std::size_t minimum_precision,
+	::std::size_t maximum_precision) noexcept
+{
+	return floating_scalar_field_precision_range_manip_t<flags, T>{
+		value.representation, minimum_precision, maximum_precision};
+}
+
+/// @brief Formats a raw floating value using shortest decimal output constrained to a significant-digit interval.
+/// @details This convenience overload first applies the default decimal policy, then the same inclusive interval rules
+///          as the carrier overloads.
+template <typename T>
+	requires ::fast_io::details::my_floating_point<::std::remove_cvref_t<T>>
+[[nodiscard]] inline constexpr auto precision_range(
+	T &&value, ::std::size_t minimum_precision,
+	::std::size_t maximum_precision) noexcept
+{
+	return precision_range(::fast_io::details::make_floating_scalar_manip<
+							   floating_point_default_scalar_flags>(::std::forward<T>(value)),
+						   minimum_precision, maximum_precision);
+}
+
+/// @brief Converts an existing nearest-even decimal floating manipulator into exact-decimal mode.
+/// @details Every finite value is emitted exactly, potentially with a very long expansion. Existing notation, sign,
+///          punctuation, case, and JSON flags are retained; non-nearest rounding policies are intentionally rejected.
+template <scalar_flags flags, typename T>
+	requires(flags.base == 10 && flags.floating != floating_format::hexfloat &&
+			 flags.rounding == floating_rounding::nearest_to_even &&
+			 ::fast_io::details::my_floating_point<T>)
+[[nodiscard]] inline constexpr auto
+exact_decimal(scalar_manip_t<flags, T> value) noexcept
+{
+	return exact_decimal_manip_t<flags, T>{value.reference};
+}
+
+/// @brief Converts an integer-owned narrow-float manipulator into exact-decimal mode.
+/// @details The original representation bits are retained and expanded exactly under the existing presentation flags.
+template <scalar_flags flags, typename T>
+	requires(flags.base == 10 && flags.floating != floating_format::hexfloat &&
+			 flags.rounding == floating_rounding::nearest_to_even &&
+			 ::fast_io::details::my_floating_point<T>)
+[[nodiscard]] inline constexpr auto
+exact_decimal(floating_scalar_field_manip_t<flags, T> value) noexcept
+{
+	return exact_decimal_field_manip_t<flags, T>{value.representation};
+}
+
+/// @brief Formats a raw floating value as its exact finite decimal expansion.
+/// @details The default shortest-decimal presentation flags are used as the starting policy; unlike `decimal`, this
+///          adapter never shortens a finite value merely because it round-trips to the same binary value.
+template <typename T>
+	requires ::fast_io::details::my_floating_point<::std::remove_cvref_t<T>>
+[[nodiscard]] inline constexpr auto exact_decimal(T &&value) noexcept
+{
+	return exact_decimal(::fast_io::details::make_floating_scalar_manip<
+						 floating_point_default_scalar_flags>(::std::forward<T>(value)));
+}
+
+/// @brief Enables or disables JSON-oriented presentation on an exact-decimal carrier.
+/// @details Exactness is preserved. The adapter changes only orthogonal presentation policy and does not rebuild the
+///          native floating object.
+template <bool enabled = true, scalar_flags flags, typename T>
+[[nodiscard]] inline constexpr auto
+json_float(exact_decimal_manip_t<flags, T> value) noexcept
+{
+	return exact_decimal_manip_t<
+		::fast_io::details::json_float_mani_flags_cache<flags, enabled>, T>{
+		value.reference};
+}
+
+/// @brief Enables or disables JSON-oriented presentation on an integer-owned exact-decimal carrier.
+/// @details Exactness and the original narrow-float representation bits are preserved.
+template <bool enabled = true, scalar_flags flags, typename T>
+[[nodiscard]] inline constexpr auto
+json_float(exact_decimal_field_manip_t<flags, T> value) noexcept
+{
+	return exact_decimal_field_manip_t<
+		::fast_io::details::json_float_mani_flags_cache<flags, enabled>, T>{
+		value.representation};
+}
+
+/// @brief Scans an optional-exponent decimal floating token using an explicit rounding policy.
+/// @details The destination is updated through its lvalue reference. A leading `+` is accepted only when
+///          `allow_leading_plus` is true; exponent signs remain part of the decimal grammar independently.
 template <floating_rounding rounding_policy, bool allow_leading_plus = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<::std::remove_cvref_t<scalar_type>>)
 inline constexpr auto rounding_get(scalar_type &value) noexcept
@@ -1047,6 +1537,9 @@ inline constexpr auto rounding_get(scalar_type &value) noexcept
 						  scalar_type &>{value};
 }
 
+/// @brief Hidden carrier for compile-time placement with run-time field width and default fill.
+/// @details The result pads to at least `width` code units; values already wider are never truncated. The output
+///          character type determines the default fill character.
 template <scalar_placement flags, typename T>
 struct width_t
 {
@@ -1062,6 +1555,8 @@ struct width_t
 	::std::size_t width;
 };
 
+/// @brief Hidden carrier for compile-time placement, run-time field width, and an explicit fill character.
+/// @details Padding uses `ch`; the wrapped value is emitted in full even when its representation exceeds `width`.
 template <scalar_placement flags, typename T, ::std::integral ch_type>
 struct width_ch_t
 {
@@ -1079,6 +1574,9 @@ struct width_ch_t
 	char_type ch;
 };
 
+/// @brief Hidden carrier whose placement and minimum field width are both selected at run time.
+/// @details It uses the output character type's default fill and never truncates the wrapped value. In the ordinary
+///          run-time formatter, `none` or an unrecognized placement emits the child without padding.
 template <typename T>
 struct width_runtime_t
 {
@@ -1095,6 +1593,9 @@ struct width_runtime_t
 	::std::size_t width;
 };
 
+/// @brief Hidden carrier whose placement, minimum width, and fill character are selected at run time.
+/// @details Width remains a minimum, not a clipping limit. In the ordinary run-time formatter, `none` or an unrecognized
+///          placement emits the child without padding; `internal` without child shift support falls back to `right`.
 template <typename T, ::std::integral ch_type>
 struct width_runtime_ch_t
 {
@@ -1113,6 +1614,10 @@ struct width_runtime_ch_t
 	char_type ch;
 };
 
+/// @brief Formats a scalar integer in compile-time radix `bs` using lowercase alphabetic digits.
+/// @details `bs` must be 2..36 and `full` zero-fills to the type's full radix width. `shbase` emits `0b`, `0t`, legacy
+///          `0`/modern `0o`, or `0x` only for bases 2, 3, 8, and 16 respectively; it emits no prefix for other bases.
+///          `oct_c2y` selects modern octal only when `bs == 8`.
 template <::std::size_t bs, bool shbase = false, bool full = false, bool oct_c2y = false, typename scalar_type>
 	requires((2 <= bs && bs <= 36) && (::fast_io::details::scalar_integrals<scalar_type>))
 inline constexpr auto base(scalar_type t) noexcept
@@ -1121,6 +1626,9 @@ inline constexpr auto base(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<bs, false, shbase, full, false, false, oct_c2y>>(t);
 }
 
+/// @brief Formats the numeric value of a character code unit in radix `bs` using lowercase digits.
+/// @details This overload intentionally bypasses character rendering. Prefixes exist only for bases 2, 3, 8, and 16;
+///          full-width and modern-octal options otherwise match ordinary scalar integers.
 template <::std::size_t bs, bool shbase = false, bool full = false, bool oct_c2y = false, typename scalar_type>
 	requires((2 <= bs && bs <= 36) && (::fast_io::details::character_integral<scalar_type>))
 inline constexpr auto base(scalar_type t) noexcept
@@ -1129,6 +1637,9 @@ inline constexpr auto base(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<bs, false, shbase, full, false, false, oct_c2y>>(t);
 }
 
+/// @brief Formats a scalar integer in radix `bs` using uppercase alphabetic digits and prefixes.
+/// @details Full-width and modern-octal behavior matches `base`; alphabetic digits are uppercased. For bases 2, 3, 8,
+///          and 16 the requested prefixes become `0B`, `0T`, `0O` (modern only), and `0X`; other bases have no prefix.
 template <::std::size_t bs, bool shbase = false, bool full = false, bool oct_c2y = false, typename scalar_type>
 	requires((2 <= bs && bs <= 36) && (::fast_io::details::scalar_integrals<scalar_type>))
 inline constexpr auto baseupper(scalar_type t) noexcept
@@ -1137,6 +1648,9 @@ inline constexpr auto baseupper(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<bs, true, shbase, full, false, false, oct_c2y>>(t);
 }
 
+/// @brief Formats the numeric value of a character code unit in radix `bs` using uppercase alphabetic spelling.
+/// @details The code unit is treated as an integer, not emitted as text. Full width and modern octal match `baseupper`;
+///          a requested prefix is visible only for bases 2, 3, 8, and 16.
 template <::std::size_t bs, bool shbase = false, bool full = false, bool oct_c2y = false, typename scalar_type>
 	requires((2 <= bs && bs <= 36) && (::fast_io::details::character_integral<scalar_type>))
 inline constexpr auto baseupper(scalar_type t) noexcept
@@ -1145,6 +1659,8 @@ inline constexpr auto baseupper(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<bs, true, shbase, full, false, false, oct_c2y>>(t);
 }
 
+/// @brief Formats a scalar integer in lowercase hexadecimal.
+/// @details `shbase` requests `0x`; `full` zero-fills to the complete hexadecimal width of the aliased integer type.
 template <bool shbase = false, bool full = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto hex(scalar_type t) noexcept
@@ -1153,6 +1669,8 @@ inline constexpr auto hex(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<16, false, shbase, full>>(t);
 }
 
+/// @brief Formats the numeric value of a character code unit in lowercase hexadecimal.
+/// @details The code unit is not printed as a character; `shbase` and `full` retain their ordinary hexadecimal meaning.
 template <bool shbase = false, bool full = false, typename scalar_type>
 	requires(::fast_io::details::character_integral<scalar_type>)
 inline constexpr auto hex(scalar_type t) noexcept
@@ -1161,6 +1679,8 @@ inline constexpr auto hex(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<16, false, shbase, full>>(t);
 }
 
+/// @brief Formats a scalar integer in uppercase hexadecimal.
+/// @details Alphabetic digits and any requested prefix are uppercase; `full` requests zero-filled type width.
 template <bool shbase = false, bool full = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto hexupper(scalar_type t) noexcept
@@ -1169,6 +1689,8 @@ inline constexpr auto hexupper(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<16, true, shbase, full>>(t);
 }
 
+/// @brief Formats the numeric value of a character code unit in uppercase hexadecimal.
+/// @details This is numeric rendering rather than character output.
 template <bool shbase = false, bool full = false, typename scalar_type>
 	requires(::fast_io::details::character_integral<scalar_type>)
 inline constexpr auto hexupper(scalar_type t) noexcept
@@ -1177,6 +1699,8 @@ inline constexpr auto hexupper(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<16, true, shbase, full>>(t);
 }
 
+/// @brief Formats a scalar integer as lowercase hexadecimal with an unconditional `0x` prefix.
+/// @details `full` optionally zero-fills the digits to the complete width of the aliased integer type.
 template <bool full = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto hex0x(scalar_type t) noexcept
@@ -1185,6 +1709,8 @@ inline constexpr auto hex0x(scalar_type t) noexcept
 		t);
 }
 
+/// @brief Formats a character code unit numerically as lowercase hexadecimal with `0x`.
+/// @details The character's numeric value is rendered; `full` requests complete type-width zero filling.
 template <bool full = false, typename scalar_type>
 	requires(::fast_io::details::character_integral<scalar_type>)
 inline constexpr auto hex0x(scalar_type t) noexcept
@@ -1193,6 +1719,8 @@ inline constexpr auto hex0x(scalar_type t) noexcept
 		t);
 }
 
+/// @brief Formats a scalar integer as uppercase hexadecimal with an unconditional `0X` prefix.
+/// @details `full` optionally zero-fills to the complete hexadecimal type width.
 template <bool full = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto hex0xupper(scalar_type t) noexcept
@@ -1201,6 +1729,8 @@ inline constexpr auto hex0xupper(scalar_type t) noexcept
 		t);
 }
 
+/// @brief Formats a character code unit numerically as uppercase hexadecimal with `0X`.
+/// @details This overload never emits the code unit as text.
 template <bool full = false, typename scalar_type>
 	requires(::fast_io::details::character_integral<scalar_type>)
 inline constexpr auto hex0xupper(scalar_type t) noexcept
@@ -1209,6 +1739,9 @@ inline constexpr auto hex0xupper(scalar_type t) noexcept
 		t);
 }
 
+/// @brief Formats the unsigned bit pattern of an integer at full hexadecimal width.
+/// @details Signed inputs are converted to the corresponding unsigned type before formatting; `shbase` optionally
+///          adds `0x`, so negative values appear as their complete modulo representation rather than with a minus sign.
 template <bool shbase = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto uhexfull(scalar_type t) noexcept
@@ -1218,6 +1751,8 @@ inline constexpr auto uhexfull(scalar_type t) noexcept
 		static_cast<::fast_io::details::my_make_unsigned_t<::std::remove_cvref_t<scalar_type>>>(t));
 }
 
+/// @brief Formats an integral address value as prefixed, full-width hexadecimal.
+/// @details Signed inputs are first converted to their unsigned counterpart. `uppercase` selects `A-F` and `0X`.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto addrvw(scalar_type t) noexcept
@@ -1235,6 +1770,9 @@ inline constexpr auto addrvw(scalar_type t) noexcept
 	}
 }
 
+/// @brief Formats an object pointer or contiguous-iterator address as prefixed, full-width hexadecimal.
+/// @details The pointee/range is never dereferenced. The spelling is implementation-address output, not portable
+///          serialization; `uppercase` controls alphabetic digits and the prefix.
 template <bool uppercase = false, typename scalar_type>
 	requires((::std::is_pointer_v<scalar_type> || ::std::contiguous_iterator<scalar_type>) &&
 			 (!::std::is_function_v<::std::remove_cvref_t<scalar_type>>))
@@ -1245,6 +1783,9 @@ inline constexpr auto pointervw(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<16, uppercase, true, true, false>>(t);
 }
 
+/// @brief Formats a function entry pointer as prefixed, full-width hexadecimal.
+/// @details The function is not called. The numeric representation is implementation-defined and intended for
+///          diagnostics rather than portable persistence.
 template <bool uppercase = false, typename scalar_type>
 	requires(::std::is_function_v<scalar_type>)
 inline constexpr auto funcvw(scalar_type *t) noexcept
@@ -1254,6 +1795,9 @@ inline constexpr auto funcvw(scalar_type *t) noexcept
 		::fast_io::details::base_mani_flags_cache<16, uppercase, true, true, false>>(::std::bit_cast<::std::size_t>(t));
 }
 
+/// @brief Formats a pointer-to-data-member ABI representation as prefixed, full-width hexadecimal.
+/// @details A member pointer is not necessarily an object address; multiword encodings are printed as their stored ABI
+///          words. The result is implementation-specific and suitable only for diagnostics.
 template <bool uppercase = false, typename scalar_type>
 	requires(::std::is_member_object_pointer_v<scalar_type>)
 inline constexpr auto fieldptrvw(scalar_type t) noexcept
@@ -1281,6 +1825,9 @@ inline constexpr auto fieldptrvw(scalar_type t) noexcept
 	}
 }
 
+/// @brief Formats a pointer-to-member-function ABI representation as prefixed, full-width hexadecimal.
+/// @details Multiword encodings are preserved through an internal holder. The output is implementation-specific and is
+///          neither a callable address nor a portable serialized value.
 template <bool uppercase = false, typename scalar_type>
 	requires(::std::is_member_function_pointer_v<scalar_type> && (sizeof(scalar_type) % sizeof(::std::size_t) == 0))
 inline constexpr auto methodvw(scalar_type t) noexcept
@@ -1300,6 +1847,9 @@ inline constexpr auto methodvw(scalar_type t) noexcept
 	}
 }
 
+/// @brief Formats an operating-system-style handle according to its source category.
+/// @details Integral handles use ordinary decimal; pointer handles use prefixed full-width hexadecimal. No validity or
+///          ownership check is performed.
 template <bool uppercase = false, typename scalar_type>
 	requires((::std::is_pointer_v<scalar_type> && !::std::is_function_v<::std::remove_cvref_t<scalar_type>>) ||
 			 ::std::integral<scalar_type>)
@@ -1317,6 +1867,9 @@ inline constexpr auto handlevw(scalar_type t) noexcept
 	}
 }
 
+/// @brief Formats an integral device/file descriptor in the library's diagnostic full hexadecimal form.
+/// @details The result uses lowercase `0x`, full-width digits, and an explicit `+` for nonnegative descriptors (for
+///          example, a 32-bit value `4` becomes `+0x00000004`). It does not validate whether the descriptor is open.
 template <typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto dfvw(scalar_type t) noexcept
@@ -1325,6 +1878,8 @@ inline constexpr auto dfvw(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<16, false, true, true, true>>(t);
 }
 
+/// @brief Formats the unsigned bit pattern of an integer at full uppercase hexadecimal width.
+/// @details Signed inputs use their corresponding unsigned modulo representation; `shbase` optionally adds `0X`.
 template <bool shbase = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto uhexupperfull(scalar_type t) noexcept
@@ -1334,9 +1889,9 @@ inline constexpr auto uhexupperfull(scalar_type t) noexcept
 		static_cast<::fast_io::details::my_make_unsigned_t<::std::remove_cvref_t<scalar_type>>>(t));
 }
 
-// Character code units are deliberately separated from the default numeric
-// print path even though they satisfy ::std::integral. Use chvw for a character
-// view, and dec when the numeric value of a code unit is intended.
+/// @brief Formats a scalar integer in decimal.
+/// @details `shbase` has no visible decimal prefix, while `full` requests zero filling to the decimal reserve width.
+///          Character code units use the dedicated overload below; use `chvw` when character output is intended.
 template <bool shbase = false, bool full = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto dec(scalar_type t) noexcept
@@ -1345,6 +1900,8 @@ inline constexpr auto dec(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<10, false, shbase, full>>(t);
 }
 
+/// @brief Formats the numeric value of a character code unit in decimal.
+/// @details This overload deliberately treats the code unit as a number. Use `chvw` to emit the character itself.
 template <bool shbase = false, bool full = false, typename scalar_type>
 	requires(::fast_io::details::character_integral<scalar_type>)
 inline constexpr auto dec(scalar_type t) noexcept
@@ -1353,6 +1910,9 @@ inline constexpr auto dec(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<10, false, shbase, full>>(t);
 }
 
+/// @brief Formats a scalar integer in octal.
+/// @details `shbase` requests a prefix, `full` zero-fills to complete octal width, `oct_c2y` selects modern `0o`, and
+///          `uppercase_showbase` selects `0O` for that modern prefix.
 template <bool shbase = false, bool full = false, bool oct_c2y = false, bool uppercase_showbase = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto oct(scalar_type t) noexcept
@@ -1361,6 +1921,8 @@ inline constexpr auto oct(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<8, uppercase_showbase, shbase, full, false, false, oct_c2y>>(t);
 }
 
+/// @brief Formats the numeric value of a character code unit in octal.
+/// @details Prefix and full-width options match the scalar overload; the code unit is not emitted as text.
 template <bool shbase = false, bool full = false, bool oct_c2y = false, bool uppercase_showbase = false, typename scalar_type>
 	requires(::fast_io::details::character_integral<scalar_type>)
 inline constexpr auto oct(scalar_type t) noexcept
@@ -1369,6 +1931,8 @@ inline constexpr auto oct(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<8, uppercase_showbase, shbase, full, false, false, oct_c2y>>(t);
 }
 
+/// @brief Formats a scalar integer in octal with the legacy leading-zero prefix.
+/// @details `full` optionally zero-fills to the complete octal type width.
 template <bool full = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto oct0(scalar_type t) noexcept
@@ -1377,6 +1941,8 @@ inline constexpr auto oct0(scalar_type t) noexcept
 		t);
 }
 
+/// @brief Formats a character code unit numerically in octal with the legacy leading-zero prefix.
+/// @details The code unit is treated as an integer; `full` controls zero filling.
 template <bool full = false, typename scalar_type>
 	requires(::fast_io::details::character_integral<scalar_type>)
 inline constexpr auto oct0(scalar_type t) noexcept
@@ -1385,6 +1951,8 @@ inline constexpr auto oct0(scalar_type t) noexcept
 		t);
 }
 
+/// @brief Formats a scalar integer in octal with the modern `0o` prefix.
+/// @details `full` optionally zero-fills to the complete octal type width.
 template <bool full = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto oct0o(scalar_type t) noexcept
@@ -1393,6 +1961,8 @@ inline constexpr auto oct0o(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<8, false, true, full, false, false, true>>(t);
 }
 
+/// @brief Formats a character code unit numerically in octal with the modern `0o` prefix.
+/// @details The code unit is not emitted as a character.
 template <bool full = false, typename scalar_type>
 	requires(::fast_io::details::character_integral<scalar_type>)
 inline constexpr auto oct0o(scalar_type t) noexcept
@@ -1401,6 +1971,8 @@ inline constexpr auto oct0o(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<8, false, true, full, false, false, true>>(t);
 }
 
+/// @brief Formats a scalar integer in binary.
+/// @details `shbase` requests `0b`; `full` zero-fills to the complete bit width of the aliased integer type.
 template <bool shbase = false, bool full = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto bin(scalar_type t) noexcept
@@ -1409,6 +1981,8 @@ inline constexpr auto bin(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<2, false, shbase, full>>(t);
 }
 
+/// @brief Formats the numeric value of a character code unit in binary.
+/// @details The code unit is treated as an integer; prefix and full-width options match the scalar overload.
 template <bool shbase = false, bool full = false, typename scalar_type>
 	requires(::fast_io::details::character_integral<scalar_type>)
 inline constexpr auto bin(scalar_type t) noexcept
@@ -1417,6 +1991,8 @@ inline constexpr auto bin(scalar_type t) noexcept
 		::fast_io::details::base_mani_flags_cache<2, false, shbase, full>>(t);
 }
 
+/// @brief Formats a scalar integer in binary with an unconditional `0b` prefix.
+/// @details `full` optionally emits every bit position, including leading zeroes.
 template <bool full = false, typename scalar_type>
 	requires(::fast_io::details::scalar_integrals<scalar_type>)
 inline constexpr auto bin0b(scalar_type t) noexcept
@@ -1425,6 +2001,8 @@ inline constexpr auto bin0b(scalar_type t) noexcept
 		t);
 }
 
+/// @brief Formats a character code unit numerically in binary with an unconditional `0b` prefix.
+/// @details The code unit is not rendered as text.
 template <bool full = false, typename scalar_type>
 	requires(::fast_io::details::character_integral<scalar_type>)
 inline constexpr auto bin0b(scalar_type t) noexcept
@@ -1433,6 +2011,9 @@ inline constexpr auto bin0b(scalar_type t) noexcept
 		t);
 }
 
+/// @brief Applies an expert-supplied complete scalar policy to an integral or directly supported floating value.
+/// @details The flag object becomes part of the result type. Invalid or contradictory combinations are not normalized;
+///          downstream formatting/scanning concepts may reject them. Prefer named manipulators for ordinary use.
 template <scalar_flags flags, typename scalar_type>
 	requires(((2 <= flags.base && flags.base <= 36 && (::fast_io::details::scalar_integrals<scalar_type>)) ||
 			  (flags.base == 10 &&
@@ -1455,12 +2036,17 @@ inline constexpr auto scalar_generic(scalar_type t) noexcept
 	}
 }
 
+/// @brief Formats a Boolean as an alphabetic word instead of `0` or `1`.
+/// @details `upper == false` produces lowercase spelling and `upper == true` uppercase spelling.
 template <bool upper = false>
 inline constexpr scalar_manip_t<::fast_io::details::boolalpha_mani_flags_cache<upper>, bool> boolalpha(bool b) noexcept
 {
 	return {b};
 }
 
+/// @brief Formats a floating value in normalized hexadecimal notation without a `0x` prefix.
+/// @details The result uses a hexadecimal significand and binary `p` exponent. `uppercase` selects `A-F`, `P`, and
+///          uppercase special-value spellings. The shortest form round-trips to the original floating value.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<scalar_type> &&
 			 !::fast_io::details::floating_scalar_requires_integer_proxy<scalar_type>)
@@ -1470,6 +2056,8 @@ inline constexpr auto hexfloat(scalar_type t) noexcept
 		::fast_io::details::hexafloat_mani_flags_cache<uppercase, false>>(t);
 }
 
+/// @brief Formats a floating value in normalized hexadecimal notation with a `0x` prefix.
+/// @details Apart from the prefix, case and shortest-round-trip semantics match `hexfloat`.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<scalar_type> &&
 			 !::fast_io::details::floating_scalar_requires_integer_proxy<scalar_type>)
@@ -1479,6 +2067,9 @@ inline constexpr auto hexfloat0x(scalar_type t) noexcept
 		::fast_io::details::hexafloat_mani_flags_cache<uppercase, false, true>>(t);
 }
 
+/// @brief Formats a hexadecimal floating value using an explicit precision and rounding policy.
+/// @details `n` is interpreted by `precision_mode` (significant hexadecimal digits by default). The result has no
+///          `0x` prefix; `uppercase` controls digits, exponent marker, and special-value case.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
@@ -1492,6 +2083,9 @@ inline constexpr auto hexfloat(scalar_type t, ::std::size_t n) noexcept
 			::fast_io::details::hexafloat_mani_flags_cache<uppercase, false>, precision_mode, rounding_policy>>(t, n);
 }
 
+/// @brief Precision-first template spelling of precision-controlled hexadecimal floating output.
+/// @details This overload is semantically identical to `hexfloat<uppercase, precision_mode, rounding_policy>(t, n)`;
+///          it exists so callers can name the precision mode as the first template argument.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false,
@@ -1503,6 +2097,8 @@ inline constexpr auto hexfloat(scalar_type t, ::std::size_t n) noexcept
 	return hexfloat<uppercase, precision_mode, rounding_policy>(t, n);
 }
 
+/// @brief Formats a prefixed hexadecimal floating value using explicit precision and rounding.
+/// @details `n` follows `precision_mode`; the result includes `0x`/`0X` and a binary `p`/`P` exponent.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
@@ -1516,6 +2112,9 @@ inline constexpr auto hexfloat0x(scalar_type t, ::std::size_t n) noexcept
 			::fast_io::details::hexafloat_mani_flags_cache<uppercase, false, true>, precision_mode, rounding_policy>>(t, n);
 }
 
+/// @brief Precision-first template spelling of prefixed precision-controlled hexadecimal output.
+/// @details The produced representation is identical to the corresponding `hexfloat0x` overload with reordered
+///          template arguments.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false,
@@ -1527,6 +2126,9 @@ inline constexpr auto hexfloat0x(scalar_type t, ::std::size_t n) noexcept
 	return hexfloat0x<uppercase, precision_mode, rounding_policy>(t, n);
 }
 
+/// @brief Formats a shortest hexadecimal floating value using comma as the radix separator.
+/// @details The grammar is otherwise the unprefixed `hexfloat` grammar; a period is not emitted as the fractional
+///          separator.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<scalar_type> &&
 			 !::fast_io::details::floating_scalar_requires_integer_proxy<scalar_type>)
@@ -1536,6 +2138,8 @@ inline constexpr auto comma_hexfloat(scalar_type t) noexcept
 		::fast_io::details::hexafloat_mani_flags_cache<uppercase, true>>(t);
 }
 
+/// @brief Formats a shortest prefixed hexadecimal floating value using comma as the radix separator.
+/// @details The representation includes `0x`/`0X`; all other semantics match `comma_hexfloat`.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<scalar_type> &&
 			 !::fast_io::details::floating_scalar_requires_integer_proxy<scalar_type>)
@@ -1545,6 +2149,8 @@ inline constexpr auto comma_hexfloat0x(scalar_type t) noexcept
 		::fast_io::details::hexafloat_mani_flags_cache<uppercase, true, true>>(t);
 }
 
+/// @brief Formats an unprefixed comma-radix hexadecimal value with explicit precision and rounding.
+/// @details `n` follows `precision_mode`; `uppercase` affects alphabetic digits, exponent marker, and special values.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
@@ -1558,6 +2164,8 @@ inline constexpr auto comma_hexfloat(scalar_type t, ::std::size_t n) noexcept
 			::fast_io::details::hexafloat_mani_flags_cache<uppercase, true>, precision_mode, rounding_policy>>(t, n);
 }
 
+/// @brief Precision-first template spelling of `comma_hexfloat` with explicit precision.
+/// @details It only reorders template arguments and produces the same bytes as the primary overload.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false,
@@ -1569,6 +2177,8 @@ inline constexpr auto comma_hexfloat(scalar_type t, ::std::size_t n) noexcept
 	return comma_hexfloat<uppercase, precision_mode, rounding_policy>(t, n);
 }
 
+/// @brief Formats a prefixed comma-radix hexadecimal value with explicit precision and rounding.
+/// @details The output uses `0x`/`0X`, comma as the radix separator, and `p`/`P` for the binary exponent.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
@@ -1582,6 +2192,8 @@ inline constexpr auto comma_hexfloat0x(scalar_type t, ::std::size_t n) noexcept
 			::fast_io::details::hexafloat_mani_flags_cache<uppercase, true, true>, precision_mode, rounding_policy>>(t, n);
 }
 
+/// @brief Precision-first template spelling of precision-controlled `comma_hexfloat0x`.
+/// @details It is a forwarding convenience and does not alter formatting semantics.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false,
@@ -1593,6 +2205,9 @@ inline constexpr auto comma_hexfloat0x(scalar_type t, ::std::size_t n) noexcept
 	return comma_hexfloat0x<uppercase, precision_mode, rounding_policy>(t, n);
 }
 
+/// @brief Formats the shortest round-tripping decimal representation, choosing the shorter complete notation.
+/// @details Fixed and scientific spellings are compared after complete construction; ties favor fixed notation.
+///          `uppercase` controls the exponent marker and special-value case but not the notation decision.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<scalar_type> &&
 			 !::fast_io::details::floating_scalar_requires_integer_proxy<scalar_type>)
@@ -1603,6 +2218,9 @@ inline constexpr auto decimal(scalar_type t) noexcept
 			uppercase, false, manipulators::floating_format::decimal>>(t);
 }
 
+/// @brief Formats shortest decimal output with comma as the radix separator.
+/// @details Notation selection matches `decimal`: the shorter complete fixed/scientific spelling wins, with fixed on
+///          ties. Comma replaces period rather than being accepted in addition to it.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<scalar_type> &&
 			 !::fast_io::details::floating_scalar_requires_integer_proxy<scalar_type>)
@@ -1613,6 +2231,9 @@ inline constexpr auto comma_decimal(scalar_type t) noexcept
 			uppercase, true, manipulators::floating_format::decimal>>(t);
 }
 
+/// @brief Formats decimal output with an explicit precision count and rounding policy.
+/// @details `n` counts significant digits by default; another `precision_mode` may count fractional digits or preserve
+///          trailing zeroes. Decimal notation still follows the decimal format's complete-spelling selection policy.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
@@ -1627,6 +2248,8 @@ inline constexpr auto decimal(scalar_type t, ::std::size_t n) noexcept
 			precision_mode, rounding_policy>>(t, n);
 }
 
+/// @brief Precision-first template spelling of precision-controlled decimal output.
+/// @details It forwards to the primary `decimal` overload and changes only template-argument ordering.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false,
@@ -1638,6 +2261,8 @@ inline constexpr auto decimal(scalar_type t, ::std::size_t n) noexcept
 	return decimal<uppercase, precision_mode, rounding_policy>(t, n);
 }
 
+/// @brief Formats comma-radix decimal output with an explicit precision and rounding policy.
+/// @details Precision semantics match `decimal(t, n)`; only the radix separator is changed to comma.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
@@ -1652,6 +2277,8 @@ inline constexpr auto comma_decimal(scalar_type t, ::std::size_t n) noexcept
 			precision_mode, rounding_policy>>(t, n);
 }
 
+/// @brief Precision-first template spelling of precision-controlled comma-decimal output.
+/// @details It produces the same result as the primary `comma_decimal` overload.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false,
@@ -1663,6 +2290,9 @@ inline constexpr auto comma_decimal(scalar_type t, ::std::size_t n) noexcept
 	return comma_decimal<uppercase, precision_mode, rounding_policy>(t, n);
 }
 
+/// @brief Formats a shortest round-tripping value using the general fixed/scientific exponent policy.
+/// @details Unlike `decimal`, notation is not chosen by total string length: shortest general output uses fixed for
+///          scientific exponents in `[-4, 6)` and scientific notation outside that interval.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<scalar_type> &&
 			 !::fast_io::details::floating_scalar_requires_integer_proxy<scalar_type>)
@@ -1673,6 +2303,8 @@ inline constexpr auto general(scalar_type t) noexcept
 			uppercase, false, manipulators::floating_format::general>>(t);
 }
 
+/// @brief Formats shortest general output with comma as the radix separator.
+/// @details The general exponent threshold is unchanged; only the fractional separator differs.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<scalar_type> &&
 			 !::fast_io::details::floating_scalar_requires_integer_proxy<scalar_type>)
@@ -1683,6 +2315,9 @@ inline constexpr auto comma_general(scalar_type t) noexcept
 			uppercase, true, manipulators::floating_format::general>>(t);
 }
 
+/// @brief Formats general decimal output with explicit precision and rounding.
+/// @details `n` counts significant digits by default. The selected precision mode controls rounding/trailing zeroes,
+///          while general-format policy selects fixed or scientific presentation.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
@@ -1697,6 +2332,8 @@ inline constexpr auto general(scalar_type t, ::std::size_t n) noexcept
 			precision_mode, rounding_policy>>(t, n);
 }
 
+/// @brief Precision-first template spelling of precision-controlled general output.
+/// @details It forwards without changing the resulting representation.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false,
@@ -1708,6 +2345,8 @@ inline constexpr auto general(scalar_type t, ::std::size_t n) noexcept
 	return general<uppercase, precision_mode, rounding_policy>(t, n);
 }
 
+/// @brief Formats comma-radix general output with explicit precision and rounding.
+/// @details Precision and notation decisions match `general(t, n)`; comma replaces period as the radix separator.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
@@ -1722,6 +2361,8 @@ inline constexpr auto comma_general(scalar_type t, ::std::size_t n) noexcept
 			precision_mode, rounding_policy>>(t, n);
 }
 
+/// @brief Precision-first template spelling of precision-controlled comma-general output.
+/// @details It is semantically identical to the primary overload.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false,
@@ -1733,6 +2374,9 @@ inline constexpr auto comma_general(scalar_type t, ::std::size_t n) noexcept
 	return comma_general<uppercase, precision_mode, rounding_policy>(t, n);
 }
 
+/// @brief Formats a shortest round-tripping floating value using fixed notation only.
+/// @details No decimal exponent is emitted, even when the result is very long. `uppercase` affects special values but
+///          normally has no effect on finite fixed notation.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<scalar_type> &&
 			 !::fast_io::details::floating_scalar_requires_integer_proxy<scalar_type>)
@@ -1743,6 +2387,8 @@ inline constexpr auto fixed(scalar_type t) noexcept
 			uppercase, false, manipulators::floating_format::fixed>>(t);
 }
 
+/// @brief Formats shortest fixed notation using comma as the radix separator.
+/// @details No exponent is emitted; comma replaces period rather than supplementing it.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<scalar_type> &&
 			 !::fast_io::details::floating_scalar_requires_integer_proxy<scalar_type>)
@@ -1753,6 +2399,11 @@ inline constexpr auto comma_fixed(scalar_type t) noexcept
 			uppercase, true, manipulators::floating_format::fixed>>(t);
 }
 
+/// @brief Formats fixed notation with an explicit precision and rounding policy.
+/// @details `n` counts digits after the radix point by default and limits the rounding grid, but ordinary `fractional`
+///          mode trims insignificant trailing zeroes (`fixed(1.0, 2)` produces `1`). Select
+///          `fractional_preserve_trailing_zero` when exactly `n` displayed fractional digits are required. No exponent
+///          is emitted.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::fractional,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
@@ -1767,6 +2418,8 @@ inline constexpr auto fixed(scalar_type t, ::std::size_t n) noexcept
 			precision_mode, rounding_policy>>(t, n);
 }
 
+/// @brief Precision-first template spelling of precision-controlled fixed output.
+/// @details It forwards to the primary `fixed` overload without changing the representation.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false,
@@ -1778,6 +2431,8 @@ inline constexpr auto fixed(scalar_type t, ::std::size_t n) noexcept
 	return fixed<uppercase, precision_mode, rounding_policy>(t, n);
 }
 
+/// @brief Formats comma-radix fixed notation with explicit precision and rounding.
+/// @details Precision semantics match `fixed(t, n)`; the fractional separator is comma and no exponent is emitted.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::fractional,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
@@ -1792,6 +2447,8 @@ inline constexpr auto comma_fixed(scalar_type t, ::std::size_t n) noexcept
 			precision_mode, rounding_policy>>(t, n);
 }
 
+/// @brief Precision-first template spelling of precision-controlled comma-fixed output.
+/// @details It is semantically identical to the primary `comma_fixed` overload.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false,
@@ -1803,6 +2460,9 @@ inline constexpr auto comma_fixed(scalar_type t, ::std::size_t n) noexcept
 	return comma_fixed<uppercase, precision_mode, rounding_policy>(t, n);
 }
 
+/// @brief Formats a shortest round-tripping floating value using scientific notation only.
+/// @details The output always contains a decimal `e`/`E` exponent, including values that fixed notation could spell
+///          more compactly. `uppercase` controls the exponent marker and special-value case.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<scalar_type> &&
 			 !::fast_io::details::floating_scalar_requires_integer_proxy<scalar_type>)
@@ -1813,6 +2473,8 @@ inline constexpr auto scientific(scalar_type t) noexcept
 			uppercase, false, manipulators::floating_format::scientific>>(t);
 }
 
+/// @brief Formats shortest scientific notation using comma as the radix separator.
+/// @details A decimal exponent remains mandatory; comma replaces period in the significand.
 template <bool uppercase = false, typename scalar_type>
 	requires(::fast_io::details::my_floating_point<scalar_type> &&
 			 !::fast_io::details::floating_scalar_requires_integer_proxy<scalar_type>)
@@ -1823,6 +2485,9 @@ inline constexpr auto comma_scientific(scalar_type t) noexcept
 			uppercase, true, manipulators::floating_format::scientific>>(t);
 }
 
+/// @brief Formats scientific notation with explicit precision and rounding.
+/// @details `n` counts fractional digits by default. The output always contains an exponent and uses the selected
+///          rounding policy when the requested precision cannot represent the value exactly.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::fractional,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
@@ -1837,6 +2502,8 @@ inline constexpr auto scientific(scalar_type t, ::std::size_t n) noexcept
 			precision_mode, rounding_policy>>(t, n);
 }
 
+/// @brief Precision-first template spelling of precision-controlled scientific output.
+/// @details It forwards to the primary `scientific` overload without changing output semantics.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false,
@@ -1848,6 +2515,9 @@ inline constexpr auto scientific(scalar_type t, ::std::size_t n) noexcept
 	return scientific<uppercase, precision_mode, rounding_policy>(t, n);
 }
 
+/// @brief Formats comma-radix scientific notation with explicit precision and rounding.
+/// @details Precision semantics match `scientific(t, n)`; comma is used in the significand and an exponent is always
+///          emitted.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::fractional,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
@@ -1862,6 +2532,8 @@ inline constexpr auto comma_scientific(scalar_type t, ::std::size_t n) noexcept
 			precision_mode, rounding_policy>>(t, n);
 }
 
+/// @brief Precision-first template spelling of precision-controlled comma-scientific output.
+/// @details It produces the same representation as the primary overload.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false,
@@ -1882,6 +2554,8 @@ inline constexpr auto comma_scientific(scalar_type t, ::std::size_t n) noexcept
 // source-only overloads win over the generic by-value templates and capture
 // the original expression directly into the integer-owned transport. Native
 // AVX512BF16 and every other floating type keep the by-value ABI above.
+/// @brief Hidden ABI-preserving overload for shortest unprefixed hexadecimal bfloat16 output.
+/// @details It has the same result as public `hexfloat`; only integer-owned capture differs to prevent retruncation.
 template <bool uppercase = false>
 inline constexpr auto hexfloat(::fast_io::details::floating_scalar_integer_proxy_source auto &&value) noexcept
 {
@@ -1889,6 +2563,8 @@ inline constexpr auto hexfloat(::fast_io::details::floating_scalar_integer_proxy
 		::fast_io::details::hexafloat_mani_flags_cache<uppercase, false>>(value);
 }
 
+/// @brief Hidden ABI-preserving overload for precision-controlled prefixed hexadecimal bfloat16 output.
+/// @details Formatting, precision, and rounding match public `hexfloat0x`; the original representation is captured.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even>
@@ -1900,6 +2576,8 @@ inline constexpr auto hexfloat0x(::fast_io::details::floating_scalar_integer_pro
 			precision_mode, rounding_policy>>(value, precision);
 }
 
+/// @brief Hidden ABI-preserving overload for shortest decimal bfloat16 output.
+/// @details It retains decimal's shorter-complete-spelling policy while capturing the source bits before retruncation.
 template <bool uppercase = false>
 inline constexpr auto decimal(::fast_io::details::floating_scalar_integer_proxy_source auto &&value) noexcept
 {
@@ -1908,6 +2586,8 @@ inline constexpr auto decimal(::fast_io::details::floating_scalar_integer_proxy_
 			uppercase, false, floating_format::decimal>>(value);
 }
 
+/// @brief Hidden ABI-preserving overload for precision-controlled decimal bfloat16 output.
+/// @details Precision and rounding semantics match the public overload exactly.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even>
@@ -1920,6 +2600,8 @@ inline constexpr auto decimal(::fast_io::details::floating_scalar_integer_proxy_
 			precision_mode, rounding_policy>>(value, precision);
 }
 
+/// @brief Hidden ABI-preserving overload for precision-controlled comma-decimal bfloat16 output.
+/// @details Comma radix, precision, and rounding are unchanged; only transport is representation-preserving.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even>
@@ -1932,6 +2614,8 @@ inline constexpr auto comma_decimal(::fast_io::details::floating_scalar_integer_
 			precision_mode, rounding_policy>>(value, precision);
 }
 
+/// @brief Hidden ABI-preserving overload for shortest general bfloat16 output.
+/// @details It uses the public general notation policy without reconstructing a native aggregate.
 template <bool uppercase = false>
 inline constexpr auto general(::fast_io::details::floating_scalar_integer_proxy_source auto &&value) noexcept
 {
@@ -1940,6 +2624,8 @@ inline constexpr auto general(::fast_io::details::floating_scalar_integer_proxy_
 			uppercase, false, floating_format::general>>(value);
 }
 
+/// @brief Hidden ABI-preserving overload for precision-controlled general bfloat16 output.
+/// @details The resulting spelling is identical to the public overload for the same preserved source value.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even>
@@ -1952,6 +2638,8 @@ inline constexpr auto general(::fast_io::details::floating_scalar_integer_proxy_
 			precision_mode, rounding_policy>>(value, precision);
 }
 
+/// @brief Hidden ABI-preserving overload for shortest fixed bfloat16 output.
+/// @details It forces exponent-free notation exactly like public `fixed`.
 template <bool uppercase = false>
 inline constexpr auto fixed(::fast_io::details::floating_scalar_integer_proxy_source auto &&value) noexcept
 {
@@ -1960,6 +2648,8 @@ inline constexpr auto fixed(::fast_io::details::floating_scalar_integer_proxy_so
 			uppercase, false, floating_format::fixed>>(value);
 }
 
+/// @brief Hidden ABI-preserving overload for precision-controlled fixed bfloat16 output.
+/// @details Fractional precision remains the default and the original representation is preserved.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::fractional,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even>
@@ -1972,6 +2662,8 @@ inline constexpr auto fixed(::fast_io::details::floating_scalar_integer_proxy_so
 			precision_mode, rounding_policy>>(value, precision);
 }
 
+/// @brief Hidden ABI-preserving overload for shortest scientific bfloat16 output.
+/// @details It always emits an exponent under the same policy as public `scientific`.
 template <bool uppercase = false>
 inline constexpr auto scientific(::fast_io::details::floating_scalar_integer_proxy_source auto &&value) noexcept
 {
@@ -1980,6 +2672,8 @@ inline constexpr auto scientific(::fast_io::details::floating_scalar_integer_pro
 			uppercase, false, floating_format::scientific>>(value);
 }
 
+/// @brief Hidden ABI-preserving overload for precision-controlled scientific bfloat16 output.
+/// @details Fractional precision remains the default; only the source transport differs from the public overload.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::fractional,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even>
@@ -1992,6 +2686,8 @@ inline constexpr auto scientific(::fast_io::details::floating_scalar_integer_pro
 			precision_mode, rounding_policy>>(value, precision);
 }
 
+/// @brief Hidden ABI-preserving `scalar_generic` overload for representation-sensitive narrow floats.
+/// @details The exact caller-supplied flag object is retained; only source capture differs from the ordinary overload.
 template <scalar_flags flags>
 	requires(flags.base == 10)
 inline constexpr auto scalar_generic(
@@ -2005,6 +2701,8 @@ inline constexpr auto scalar_generic(
 		::std::forward<decltype(value)>(value));
 }
 
+/// @brief Hidden ABI-preserving overload for shortest prefixed hexadecimal output.
+/// @details It matches public `hexfloat0x` while capturing the original narrow-float representation.
 template <bool uppercase = false>
 inline constexpr auto hexfloat0x(
 	::fast_io::details::floating_scalar_integer_proxy_source auto &&value) noexcept
@@ -2014,6 +2712,8 @@ inline constexpr auto hexfloat0x(
 		::std::forward<decltype(value)>(value));
 }
 
+/// @brief Hidden ABI-preserving overload for precision-controlled unprefixed hexadecimal output.
+/// @details Precision and rounding semantics are identical to the ordinary `hexfloat` overload.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even>
@@ -2028,6 +2728,8 @@ inline constexpr auto hexfloat(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden precision-first forwarding overload for hexadecimal narrow-float output.
+/// @details It only reorders template arguments and preserves representation-owned transport.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false>
@@ -2039,6 +2741,8 @@ inline constexpr auto hexfloat(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden precision-first forwarding overload for prefixed hexadecimal narrow-float output.
+/// @details It forwards to the representation-preserving primary overload without changing the spelling.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false>
@@ -2050,6 +2754,8 @@ inline constexpr auto hexfloat0x(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden ABI-preserving overload for shortest comma-radix hexadecimal output.
+/// @details Formatting matches public `comma_hexfloat`; only narrow-float capture differs.
 template <bool uppercase = false>
 inline constexpr auto comma_hexfloat(
 	::fast_io::details::floating_scalar_integer_proxy_source auto &&value) noexcept
@@ -2059,6 +2765,8 @@ inline constexpr auto comma_hexfloat(
 		::std::forward<decltype(value)>(value));
 }
 
+/// @brief Hidden ABI-preserving overload for shortest prefixed comma-radix hexadecimal output.
+/// @details The original representation is retained and the public `comma_hexfloat0x` grammar is used.
 template <bool uppercase = false>
 inline constexpr auto comma_hexfloat0x(
 	::fast_io::details::floating_scalar_integer_proxy_source auto &&value) noexcept
@@ -2068,6 +2776,8 @@ inline constexpr auto comma_hexfloat0x(
 		::std::forward<decltype(value)>(value));
 }
 
+/// @brief Hidden ABI-preserving overload for precision-controlled comma-radix hexadecimal output.
+/// @details It preserves public precision, rounding, and case semantics.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even>
@@ -2082,6 +2792,8 @@ inline constexpr auto comma_hexfloat(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden precision-first forwarding overload for comma-radix hexadecimal output.
+/// @details It only reorders template arguments.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false>
@@ -2093,6 +2805,8 @@ inline constexpr auto comma_hexfloat(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden ABI-preserving overload for precision-controlled prefixed comma-hexadecimal output.
+/// @details Prefix, comma radix, precision, and rounding match the ordinary overload.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even>
@@ -2107,6 +2821,8 @@ inline constexpr auto comma_hexfloat0x(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden precision-first forwarding overload for prefixed comma-hexadecimal output.
+/// @details It preserves the representation-owned carrier and changes no output semantics.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false>
@@ -2118,6 +2834,8 @@ inline constexpr auto comma_hexfloat0x(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden ABI-preserving overload for shortest comma-decimal output.
+/// @details It uses decimal's shorter-complete-spelling policy and comma radix without native reconstruction.
 template <bool uppercase = false>
 inline constexpr auto comma_decimal(
 	::fast_io::details::floating_scalar_integer_proxy_source auto &&value) noexcept
@@ -2128,6 +2846,8 @@ inline constexpr auto comma_decimal(
 		::std::forward<decltype(value)>(value));
 }
 
+/// @brief Hidden precision-first forwarding overload for decimal narrow-float output.
+/// @details It is byte-equivalent to the representation-preserving primary decimal overload.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false>
@@ -2139,6 +2859,8 @@ inline constexpr auto decimal(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden precision-first forwarding overload for comma-decimal narrow-float output.
+/// @details It changes only template-argument order.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false>
@@ -2150,6 +2872,8 @@ inline constexpr auto comma_decimal(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden ABI-preserving overload for shortest comma-general output.
+/// @details It retains the general notation threshold and comma radix.
 template <bool uppercase = false>
 inline constexpr auto comma_general(
 	::fast_io::details::floating_scalar_integer_proxy_source auto &&value) noexcept
@@ -2160,6 +2884,8 @@ inline constexpr auto comma_general(
 		::std::forward<decltype(value)>(value));
 }
 
+/// @brief Hidden precision-first forwarding overload for general narrow-float output.
+/// @details It preserves the public precision and notation rules.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false>
@@ -2171,6 +2897,8 @@ inline constexpr auto general(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden ABI-preserving overload for precision-controlled comma-general output.
+/// @details The original bits are captured while general formatting semantics remain unchanged.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even>
@@ -2186,6 +2914,8 @@ inline constexpr auto comma_general(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden precision-first forwarding overload for comma-general output.
+/// @details It changes no formatting behavior.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false>
@@ -2197,6 +2927,8 @@ inline constexpr auto comma_general(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden ABI-preserving overload for shortest comma-fixed output.
+/// @details It forces exponent-free notation with comma radix while preserving the source representation.
 template <bool uppercase = false>
 inline constexpr auto comma_fixed(
 	::fast_io::details::floating_scalar_integer_proxy_source auto &&value) noexcept
@@ -2207,6 +2939,8 @@ inline constexpr auto comma_fixed(
 		::std::forward<decltype(value)>(value));
 }
 
+/// @brief Hidden precision-first forwarding overload for fixed narrow-float output.
+/// @details It preserves fixed notation, precision, and rounding semantics.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false>
@@ -2218,6 +2952,8 @@ inline constexpr auto fixed(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden ABI-preserving overload for precision-controlled comma-fixed output.
+/// @details Fractional precision remains the default and no exponent is emitted.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::fractional,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even>
@@ -2233,6 +2969,8 @@ inline constexpr auto comma_fixed(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden precision-first forwarding overload for comma-fixed output.
+/// @details It only reorders template arguments.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false>
@@ -2244,6 +2982,8 @@ inline constexpr auto comma_fixed(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden ABI-preserving overload for shortest comma-scientific output.
+/// @details It always emits an exponent and preserves the original narrow-float representation.
 template <bool uppercase = false>
 inline constexpr auto comma_scientific(
 	::fast_io::details::floating_scalar_integer_proxy_source auto &&value) noexcept
@@ -2254,6 +2994,8 @@ inline constexpr auto comma_scientific(
 		::std::forward<decltype(value)>(value));
 }
 
+/// @brief Hidden precision-first forwarding overload for scientific narrow-float output.
+/// @details It preserves mandatory-exponent notation and the selected rounding policy.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false>
@@ -2265,6 +3007,8 @@ inline constexpr auto scientific(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden ABI-preserving overload for precision-controlled comma-scientific output.
+/// @details Fractional precision remains the default and an exponent is always emitted.
 template <bool uppercase = false,
 		  floating_precision precision_mode = floating_precision::fractional,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even>
@@ -2280,6 +3024,8 @@ inline constexpr auto comma_scientific(
 		::std::forward<decltype(value)>(value), precision);
 }
 
+/// @brief Hidden precision-first forwarding overload for comma-scientific output.
+/// @details It changes template ordering only and leaves the spelling unchanged.
 template <floating_precision precision_mode,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool uppercase = false>
@@ -2292,6 +3038,10 @@ inline constexpr auto comma_scientific(
 }
 #endif
 
+/// @brief Scans a decimal floating token whose exponent is optional.
+/// @details Both fixed text such as `1.25` and scientific text such as `1.25e2` are accepted and fully consumed when
+///          valid. This is a grammar choice, not the inverse of one particular ftoa notation. A leading `+` is rejected
+///          unless `allow_leading_plus` is true; conversion uses `rounding_policy`.
 template <floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool allow_leading_plus = false,
 		  typename scalar_type>
@@ -2306,6 +3056,10 @@ inline constexpr auto decimal_get(scalar_type &value) noexcept
 						  scalar_type &>{value};
 }
 
+/// @brief Scans optional-exponent decimal input after applying an explicit decimal precision grid.
+/// @details `n` counts significant digits by default; `precision_mode` may instead select fractional digits and/or
+///          trailing-zero preservation. The complete lexical token is still consumed before the parsed decimal value
+///          is rounded according to `rounding_policy` and converted to the destination type.
 template <floating_precision precision_mode = floating_precision::significant,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool allow_leading_plus = false,
@@ -2321,6 +3075,47 @@ inline constexpr auto decimal_get(scalar_type &value, ::std::size_t n) noexcept
 									scalar_type &>{value, n};
 }
 
+/// @brief Scans optional-exponent decimal input using comma as the only radix separator.
+/// @details `1,25e2` is accepted as 125; a period terminates the token rather than acting as an alternative separator.
+///          Leading-plus and rounding behavior match `decimal_get`.
+template <floating_rounding rounding_policy = floating_rounding::nearest_to_even,
+		  bool allow_leading_plus = false,
+		  typename scalar_type>
+	requires(::fast_io::details::my_floating_point<::std::remove_cvref_t<scalar_type>>)
+inline constexpr auto comma_decimal_get(scalar_type &value) noexcept
+{
+	return scalar_manip_t<::fast_io::details::allow_leading_plus_mani_flags_cache<
+							  ::fast_io::details::floating_precision_rounding_mani_flags_cache<
+								  ::fast_io::details::dcmfloat_mani_flags_cache<
+									  false, true, manipulators::floating_format::decimal>,
+								  floating_precision::significant, rounding_policy>,
+							  allow_leading_plus>,
+					  scalar_type &>{value};
+}
+
+/// @brief Scans comma-radix optional-exponent decimal input with an explicit precision grid.
+/// @details `n`, `precision_mode`, rounding, and leading-plus semantics match the period-radix precision overload;
+///          comma is the sole fractional separator.
+template <floating_precision precision_mode = floating_precision::significant,
+		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
+		  bool allow_leading_plus = false,
+		  typename scalar_type>
+	requires(::fast_io::details::my_floating_point<::std::remove_cvref_t<scalar_type>>)
+inline constexpr auto comma_decimal_get(scalar_type &value, ::std::size_t n) noexcept
+{
+	return scalar_manip_precision_t<
+		::fast_io::details::allow_leading_plus_mani_flags_cache<
+			::fast_io::details::floating_precision_rounding_mani_flags_cache<
+				::fast_io::details::dcmfloat_mani_flags_cache<
+					false, true, manipulators::floating_format::decimal>,
+				precision_mode, rounding_policy>,
+			allow_leading_plus>,
+		scalar_type &>{value, n};
+}
+
+/// @brief Scans fixed decimal floating syntax and stops before any exponent marker.
+/// @details A token such as `1.25e2` yields `1.25` and leaves `e2` unconsumed; exponent notation is not accepted by this
+///          grammar. This can differ observably from `decimal_get` even when the significand alone is valid.
 template <floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool allow_leading_plus = false,
 		  typename scalar_type>
@@ -2335,6 +3130,9 @@ inline constexpr auto fixed_get(scalar_type &value) noexcept
 						  scalar_type &>{value};
 }
 
+/// @brief Scans fixed decimal syntax using an explicit precision grid.
+/// @details `n` counts fractional digits by default. An exponent remains outside the token and is never applied; the
+///          consumed fixed value is rounded using `rounding_policy` before assignment.
 template <floating_precision precision_mode = floating_precision::fractional,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool allow_leading_plus = false,
@@ -2350,6 +3148,45 @@ inline constexpr auto fixed_get(scalar_type &value, ::std::size_t n) noexcept
 									scalar_type &>{value, n};
 }
 
+/// @brief Scans comma-radix fixed decimal syntax and stops before an exponent marker.
+/// @details Comma is the only radix separator. For example `-12,5e2` produces `-12.5` and leaves `e2` unconsumed.
+template <floating_rounding rounding_policy = floating_rounding::nearest_to_even,
+		  bool allow_leading_plus = false,
+		  typename scalar_type>
+	requires(::fast_io::details::my_floating_point<::std::remove_cvref_t<scalar_type>>)
+inline constexpr auto comma_fixed_get(scalar_type &value) noexcept
+{
+	return scalar_manip_t<::fast_io::details::allow_leading_plus_mani_flags_cache<
+							  ::fast_io::details::floating_precision_rounding_mani_flags_cache<
+								  ::fast_io::details::dcmfloat_mani_flags_cache<
+									  false, true, manipulators::floating_format::fixed>,
+								  floating_precision::fractional, rounding_policy>,
+							  allow_leading_plus>,
+					  scalar_type &>{value};
+}
+
+/// @brief Scans comma-radix fixed syntax using an explicit precision grid.
+/// @details `n` counts fractional digits by default; exponent characters are not consumed or applied.
+template <floating_precision precision_mode = floating_precision::fractional,
+		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
+		  bool allow_leading_plus = false,
+		  typename scalar_type>
+	requires(::fast_io::details::my_floating_point<::std::remove_cvref_t<scalar_type>>)
+inline constexpr auto comma_fixed_get(scalar_type &value, ::std::size_t n) noexcept
+{
+	return scalar_manip_precision_t<
+		::fast_io::details::allow_leading_plus_mani_flags_cache<
+			::fast_io::details::floating_precision_rounding_mani_flags_cache<
+				::fast_io::details::dcmfloat_mani_flags_cache<
+					false, true, manipulators::floating_format::fixed>,
+				precision_mode, rounding_policy>,
+			allow_leading_plus>,
+		scalar_type &>{value, n};
+}
+
+/// @brief Scans scientific decimal syntax and requires a complete exponent.
+/// @details Inputs such as `1.25e2` are accepted, while `1.25`, `1.25e`, and `1.25e+` are invalid for this manipulator.
+///          When a token is valid, its numeric result matches `decimal_get` under the same rounding policy.
 template <floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool allow_leading_plus = false,
 		  typename scalar_type>
@@ -2364,6 +3201,9 @@ inline constexpr auto scientific_get(scalar_type &value) noexcept
 						  scalar_type &>{value};
 }
 
+/// @brief Scans mandatory-exponent scientific syntax using an explicit precision grid.
+/// @details `n` counts fractional significand digits by default. A complete exponent is still required, and the parsed
+///          decimal is rounded under `rounding_policy` before destination assignment.
 template <floating_precision precision_mode = floating_precision::fractional,
 		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
 		  bool allow_leading_plus = false,
@@ -2379,6 +3219,46 @@ inline constexpr auto scientific_get(scalar_type &value, ::std::size_t n) noexce
 									scalar_type &>{value, n};
 }
 
+/// @brief Scans comma-radix scientific syntax and requires a complete exponent.
+/// @details A form such as `1,25E+2` is valid; comma is the only radix separator and exponent presence is mandatory.
+template <floating_rounding rounding_policy = floating_rounding::nearest_to_even,
+		  bool allow_leading_plus = false,
+		  typename scalar_type>
+	requires(::fast_io::details::my_floating_point<::std::remove_cvref_t<scalar_type>>)
+inline constexpr auto comma_scientific_get(scalar_type &value) noexcept
+{
+	return scalar_manip_t<::fast_io::details::allow_leading_plus_mani_flags_cache<
+							  ::fast_io::details::floating_precision_rounding_mani_flags_cache<
+								  ::fast_io::details::dcmfloat_mani_flags_cache<
+									  false, true, manipulators::floating_format::scientific>,
+								  floating_precision::fractional, rounding_policy>,
+							  allow_leading_plus>,
+					  scalar_type &>{value};
+}
+
+/// @brief Scans comma-radix mandatory-exponent syntax with an explicit precision grid.
+/// @details `n` counts fractional significand digits by default; leading-plus and rounding policies are independently
+///          selectable, and a complete exponent remains required.
+template <floating_precision precision_mode = floating_precision::fractional,
+		  floating_rounding rounding_policy = floating_rounding::nearest_to_even,
+		  bool allow_leading_plus = false,
+		  typename scalar_type>
+	requires(::fast_io::details::my_floating_point<::std::remove_cvref_t<scalar_type>>)
+inline constexpr auto comma_scientific_get(scalar_type &value, ::std::size_t n) noexcept
+{
+	return scalar_manip_precision_t<
+		::fast_io::details::allow_leading_plus_mani_flags_cache<
+			::fast_io::details::floating_precision_rounding_mani_flags_cache<
+				::fast_io::details::dcmfloat_mani_flags_cache<
+					false, true, manipulators::floating_format::scientific>,
+				precision_mode, rounding_policy>,
+			allow_leading_plus>,
+		scalar_type &>{value, n};
+}
+
+/// @brief Copies a bit-field or integral expression into an ordinary, printable integer value.
+/// @details The explicit value materialization avoids retaining a reference to a bit-field, which C++ cannot bind to
+///          the normal manipulator carrier. Numeric value and signedness are otherwise preserved.
 template <::std::integral inttype>
 inline constexpr ::std::remove_cvref_t<inttype> bitfieldvw(inttype v) noexcept
 {
@@ -2521,6 +3401,9 @@ inline char_type *print_reserve_hexadecimal_16_ssse3(char_type *first, T value) 
 template <::std::size_t base, bool uppercase = false, ::std::integral char_type,
 		  typename result_type = char_type *, my_unsigned_integral T>
 	requires(base == 2u || base == 4u || base == 8u || base == 16u || base == 32u)
+#if defined(__aarch64__) || defined(_M_ARM64)
+FAST_IO_GNU_ALWAYS_INLINE
+#endif
 inline constexpr result_type print_reserve_power_of_two_main(char_type *first, T value) noexcept
 {
 	/*
@@ -2718,65 +3601,71 @@ inline constexpr result_type print_reserve_power_of_two_main(char_type *first, T
 	}
 	else if constexpr (base == 16u)
 	{
-		if (value < static_cast<T>(16777216u)) [[likely]]
+		constexpr ::std::size_t aarch64_type_bits{::std::numeric_limits<T>::digits};
+		bool within_table_range{true};
+		if constexpr (aarch64_type_bits > 40u)
 		{
-			if (value < static_cast<T>(256u))
+			/*
+			One outer range split serves both table tiers. Random full-width
+			integers now pay one rejected comparison before the common backward
+			writer instead of separately rejecting the 24- and 40-bit tiers.
+			Values admitted here retain the complete short table graph below.
+			*/
+			within_table_range = value < static_cast<T>(1099511627776u);
+		}
+		if (within_table_range)
+		{
+			if (value < static_cast<T>(16777216u))
 			{
-				if (value < static_cast<T>(16u))
+				if (value < static_cast<T>(256u))
 				{
-					*first = ::fast_io::details::charliteralofnumber<char_type, uppercase>(
-						static_cast<char8_t>(value));
-					return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 1u);
+					if (value < static_cast<T>(16u))
+					{
+						*first = ::fast_io::details::charliteralofnumber<char_type, uppercase>(
+							static_cast<char8_t>(value));
+						return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 1u);
+					}
+					constexpr auto const *table{power_of_two_digits_table<char_type, base, 2u, uppercase>.data()};
+					::std::size_t const index{static_cast<::std::size_t>(value) * 2u};
+					non_overlapped_copy_n(table + index, 2u, first);
+					return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 2u);
 				}
 				constexpr auto const *table{power_of_two_digits_table<char_type, base, 2u, uppercase>.data()};
-				::std::size_t const index{static_cast<::std::size_t>(value) * 2u};
-				non_overlapped_copy_n(table + index, 2u, first);
-				return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 2u);
-			}
-			constexpr auto const *table{power_of_two_digits_table<char_type, base, 2u, uppercase>.data()};
-			if (value < static_cast<T>(65536u))
-			{
-				T const high{static_cast<T>(value >> 8u)};
+				if (value < static_cast<T>(65536u))
+				{
+					T const high{static_cast<T>(value >> 8u)};
+					::std::size_t const low_index{static_cast<::std::size_t>(value & static_cast<T>(255u)) * 2u};
+					if (high < static_cast<T>(16u))
+					{
+						first[0] = ::fast_io::details::charliteralofnumber<char_type, uppercase>(
+							static_cast<char8_t>(high));
+						non_overlapped_copy_n(table + low_index, 2u, first + 1u);
+						return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 3u);
+					}
+					::std::size_t const high_index{static_cast<::std::size_t>(high) * 2u};
+					non_overlapped_copy_n(table + high_index, 2u, first);
+					non_overlapped_copy_n(table + low_index, 2u, first + 2u);
+					return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 4u);
+				}
+				T const high{static_cast<T>(value >> 16u)};
+				::std::size_t const middle_index{
+					static_cast<::std::size_t>((value >> 8u) & static_cast<T>(255u)) * 2u};
 				::std::size_t const low_index{static_cast<::std::size_t>(value & static_cast<T>(255u)) * 2u};
 				if (high < static_cast<T>(16u))
 				{
 					first[0] = ::fast_io::details::charliteralofnumber<char_type, uppercase>(
 						static_cast<char8_t>(high));
-					non_overlapped_copy_n(table + low_index, 2u, first + 1u);
-					return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 3u);
+					non_overlapped_copy_n(table + middle_index, 2u, first + 1u);
+					non_overlapped_copy_n(table + low_index, 2u, first + 3u);
+					return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 5u);
 				}
 				::std::size_t const high_index{static_cast<::std::size_t>(high) * 2u};
 				non_overlapped_copy_n(table + high_index, 2u, first);
-				non_overlapped_copy_n(table + low_index, 2u, first + 2u);
-				return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 4u);
+				non_overlapped_copy_n(table + middle_index, 2u, first + 2u);
+				non_overlapped_copy_n(table + low_index, 2u, first + 4u);
+				return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 6u);
 			}
-			T const high{static_cast<T>(value >> 16u)};
-			::std::size_t const middle_index{
-				static_cast<::std::size_t>((value >> 8u) & static_cast<T>(255u)) * 2u};
-			::std::size_t const low_index{static_cast<::std::size_t>(value & static_cast<T>(255u)) * 2u};
-			if (high < static_cast<T>(16u))
-			{
-				first[0] = ::fast_io::details::charliteralofnumber<char_type, uppercase>(
-					static_cast<char8_t>(high));
-				non_overlapped_copy_n(table + middle_index, 2u, first + 1u);
-				non_overlapped_copy_n(table + low_index, 2u, first + 3u);
-				return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 5u);
-			}
-			::std::size_t const high_index{static_cast<::std::size_t>(high) * 2u};
-			non_overlapped_copy_n(table + high_index, 2u, first);
-			non_overlapped_copy_n(table + middle_index, 2u, first + 2u);
-			non_overlapped_copy_n(table + low_index, 2u, first + 4u);
-			return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 6u);
-		}
-		constexpr ::std::size_t aarch64_type_bits{::std::numeric_limits<T>::digits};
-		if constexpr (aarch64_type_bits > 24u)
-		{
-			bool within_short_range{true};
-			if constexpr (aarch64_type_bits > 40u)
-			{
-				within_short_range = value < static_cast<T>(1099511627776u);
-			}
-			if (within_short_range)
+			if constexpr (aarch64_type_bits > 24u)
 			{
 				constexpr auto const *table{power_of_two_digits_table<char_type, base, 2u, uppercase>.data()};
 				::std::size_t const index0{
@@ -2827,6 +3716,30 @@ inline constexpr result_type print_reserve_power_of_two_main(char_type *first, T
 				non_overlapped_copy_n(table + index1, 2u, first + 4u);
 				non_overlapped_copy_n(table + index0, 2u, first + 6u);
 				return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 8u);
+			}
+		}
+		if constexpr (aarch64_type_bits > 60u)
+		{
+			/*
+			A value at least 2^60 has exactly sixteen hexadecimal digits. The
+			fixed representation lets the common full-width case skip countl_zero,
+			length arithmetic, and all residual-width branches while retaining the
+			same two-digit table used by the short tiers. Uniform uint64 input takes
+			this path for fifteen out of sixteen values; smaller values keep either
+			the table-specialized or generic variable-width formatter.
+			*/
+			if (value >= (static_cast<T>(1u) << 60u))
+			{
+				constexpr auto const *table{
+					power_of_two_digits_table<char_type, base, 2u, uppercase>.data()};
+				for (::std::size_t byte_index{}; byte_index != 8u; ++byte_index)
+				{
+					auto const shift{static_cast<unsigned>((7u - byte_index) * 8u)};
+					auto const byte{static_cast<::std::size_t>(
+						(value >> shift) & static_cast<T>(255u))};
+					non_overlapped_copy_n(table + byte * 2u, 2u, first + byte_index * 2u);
+				}
+				return ::fast_io::details::print_reserve_power_of_two_result<result_type>(first + 16u);
 			}
 		}
 	}
@@ -3216,6 +4129,30 @@ template <::std::size_t base, bool uppercase_showbase, bool oct_c2y, ::std::inte
 inline constexpr char_type *print_reserve_show_base_impl(char_type *iter)
 {
 	static_assert(2 <= base && base <= 36);
+	if constexpr (!::fast_io::details::is_ascii<char_type> &&
+		(::std::same_as<char_type, char> || ::std::same_as<char_type, wchar_t>) &&
+		(base == 2u || base == 3u || base == 16u || (base == 8u && oct_c2y)))
+	{
+		*iter = ::fast_io::char_literal_v<u8'0', char_type>;
+		++iter;
+		if constexpr (base == 2u)
+		{
+			*iter = ::fast_io::char_literal_v<(uppercase_showbase ? u8'B' : u8'b'), char_type>;
+		}
+		else if constexpr (base == 3u)
+		{
+			*iter = ::fast_io::char_literal_v<(uppercase_showbase ? u8'T' : u8't'), char_type>;
+		}
+		else if constexpr (base == 8u)
+		{
+			*iter = ::fast_io::char_literal_v<(uppercase_showbase ? u8'O' : u8'o'), char_type>;
+		}
+		else
+		{
+			*iter = ::fast_io::char_literal_v<(uppercase_showbase ? u8'X' : u8'x'), char_type>;
+		}
+		return iter + 1u;
+	}
 	if constexpr (base == 2)
 	{
 		if constexpr (uppercase_showbase)
@@ -3621,7 +4558,12 @@ inline constexpr char_type *print_reserve_integral_withfull_main_impl(char_type 
 				}
 				else
 				{
-					return ::fast_io::details::jeaiii::jeaiii_main(first, u);
+					// GCC 11 cannot apply the leading default non-type template arguments
+					// when the following constrained character type is deduced here.
+					// State the default policy/result arguments and character type explicitly;
+					// newer compilers produce the same specialization and code shape.
+					return ::fast_io::details::jeaiii::jeaiii_main<
+						false, false, char_type, char_type *, false>(first, u);
 				}
 			}
 			else
@@ -3727,6 +4669,24 @@ inline constexpr char_type *print_reserve_integral_define(char_type *first, int_
 			return print_reserve_integral_withfull_main_impl<full, base, uppercase>(first, u);
 		}
 	}
+}
+
+/// @brief Fixed-view decimal emitter with an isolated inlining contract.
+/// @details The ordinary integer reserve CPO remains cost-model controlled for owners, concat, and dynamic buffers.
+///          Only the stronger fixed external-view destination asks for this force-inlined leaf; keeping the wrapper
+///          separate prevents that code-generation choice from propagating through every integer formatting caller.
+template <::std::integral char_type, ::fast_io::details::my_unsigned_integral T>
+#if __has_cpp_attribute(__gnu__::__always_inline__)
+[[__gnu__::__always_inline__]]
+#if defined(__GNUC__) && !defined(__clang__) && __has_cpp_attribute(__gnu__::__flatten__)
+[[__gnu__::__flatten__]]
+#endif
+#elif __has_cpp_attribute(msvc::forceinline)
+[[msvc::forceinline]]
+#endif
+inline constexpr char_type *print_fixed_decimal_integral_define(char_type *first, T value) noexcept
+{
+	return print_reserve_integral_define<10u, false, false, false, false, false, false>(first, value);
 }
 
 /// Selects one explicitly converted execution character without assuming that
@@ -4508,10 +5468,46 @@ inline constexpr ::std::size_t print_reserve_size(io_reserve_type_t<char_type, T
 	{
 		return details::print_integer_reserved_size_cache<10, false, false, false, char8_t>;
 	}
+	else if constexpr (details::my_signed_integral<::std::remove_cvref_t<T>>)
+	{
+		/*
+		The unmanipulated decimal spelling never requests `full`, so its exact
+		static bound is one sign plus the decimal width of the signed maximum.
+		The minimum has the same decimal width on every binary integral type.
+		Do not borrow the wider scalar-manipulator cache here: that cache must
+		also cover `mnp::full`, whose unsigned-width spelling is deliberately one
+		character larger for int64_t. Besides saving stack, the exact twenty-byte
+		int64_t bound preserves natural alignment for the local reserve buffer.
+		*/
+		return ::fast_io::details::cal_max_int_size<
+				   ::std::remove_cvref_t<T>, 10u>() +
+			   1u;
+	}
 	else
 	{
-		return details::print_integer_reserved_size_cache<10, false, false, false, ::std::remove_cvref_t<T>>;
+		return ::fast_io::details::cal_max_int_size<
+			::std::remove_cvref_t<T>, 10u>();
 	}
+}
+
+/// @brief Supplies the one-byte decimal reserve protocol for an unmanipulated Boolean.
+/// @details `bool` is intentionally excluded from `non_character_integral`: unlike the other integral types its
+/// standard unsigned counterpart is incomplete (`std::make_unsigned<bool>` is ill-formed).  The public print fallback
+/// nevertheless accepts a raw Boolean, so it needs a direct reserve leaf instead of instantiating the generic integer
+/// width calculator.  Explicit `boolalpha`/scalar carriers continue through their existing policy-aware overloads.
+template <::std::integral char_type>
+inline constexpr ::std::size_t print_reserve_size(io_reserve_type_t<char_type, bool>) noexcept
+{
+	return 1u;
+}
+
+template <::std::integral char_type>
+inline constexpr char_type *print_reserve_define(
+	io_reserve_type_t<char_type, bool>, char_type *iter, bool value) noexcept
+{
+	*iter++ = value ? ::fast_io::char_literal_v<u8'1', char_type>
+				   : ::fast_io::char_literal_v<u8'0', char_type>;
+	return iter;
 }
 
 template <::std::integral char_type, typename T>
@@ -4574,6 +5570,20 @@ print_reserve_size(io_reserve_type_t<char_type, manipulators::scalar_manip_t<fla
 	{
 		return details::print_integer_reserved_size_cache<flags.base, flags.showbase, flags.showpos, flags.modern_octal, char8_t>;
 	}
+	else if constexpr (
+		::fast_io::details::my_signed_integral<::std::remove_cvref_t<T>> &&
+		flags.base == 10u && !flags.alphabet && !flags.showbase && !flags.showpos &&
+		!flags.uppercase_showbase && !flags.modern_octal && !flags.uppercase &&
+		!flags.comma && !flags.full &&
+		flags.placement == ::fast_io::manipulators::scalar_placement::none &&
+		flags.percentage == ::fast_io::manipulators::percentage_flag::none)
+	{
+		/* The default integer alias reaches this carrier. Unlike the shared
+		full-capable cache, this policy cannot request an unsigned-width spelling. */
+		return ::fast_io::details::cal_max_int_size<
+				   ::std::remove_cvref_t<T>, 10u>() +
+			   1u;
+	}
 	else
 	{
 		return details::print_integer_reserved_size_cache<flags.base, flags.showbase, flags.showpos, flags.modern_octal, T>;
@@ -4633,6 +5643,17 @@ print_reserve_define(io_reserve_type_t<char_type, ::fast_io::manipulators::scala
 		return details::print_reserve_integral_define<flags.base, flags.showbase, flags.uppercase_showbase,
 													  flags.showpos, flags.uppercase, flags.full, flags.modern_octal>(iter, t.reference);
 	}
+}
+
+/// Integer scalar manipulators own only passive formatting flags and a scalar value. Their reserve spelling is
+/// deterministic, non-throwing, and does not mutate or consume either object state or external state.
+template <::std::integral char_type, manipulators::scalar_flags flags, typename T>
+	requires(details::my_integral<T> || ::std::same_as<::std::remove_cv_t<T>, ::std::byte> ||
+			 ::std::same_as<::std::remove_cvref_t<T>, ::std::nullptr_t>)
+inline constexpr ::std::true_type print_eager_materialization_safe(
+	io_reserve_type_t<char_type, manipulators::scalar_manip_t<flags, T>>) noexcept
+{
+	return {};
 }
 
 /// @brief Exposes the type-static, non-throwing reserve contract of an integral scalar to semantic IO policy.
@@ -4861,6 +5882,17 @@ inline constexpr char_type *print_reserve_define(
 			flags.base, flags.showbase, flags.uppercase_showbase, flags.showpos,
 			flags.uppercase, flags.full, flags.modern_octal>(iter, value.reference);
 	}
+}
+
+template <::std::integral char_type, manipulators::scalar_flags flags, typename T>
+	requires((details::my_integral<T> || ::std::same_as<::std::remove_cv_t<T>, ::std::byte>) &&
+			 (!flags.alphabet || ::std::same_as<::std::remove_cv_t<T>, bool>) &&
+			 flags.percentage == ::fast_io::manipulators::percentage_flag::none)
+inline constexpr ::std::true_type print_eager_materialization_safe(
+	io_reserve_type_t<char_type,
+					  manipulators::compiler_constant_scalar_manip_t<flags, T>>) noexcept
+{
+	return {};
 }
 
 namespace details

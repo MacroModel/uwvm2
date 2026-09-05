@@ -7,16 +7,6 @@ using ::fast_io::pr_rsv_to_iterator_unchecked;
 
 using ::fast_io::io_alias_type_t;
 
-using ::fast_io::context_print_result;
-using ::fast_io::io_type_t;
-using ::fast_io::context_printable;
-using ::fast_io::dynamic_reserve_with_possible_static_stack_size;
-
-namespace details
-{
-using ::fast_io::details::dynamic_reserve_default_static_stack_size;
-}
-
 using ::fast_io::io_reserve_type_t;
 using ::fast_io::io_reserve_type;
 using ::fast_io::print_alias_define;

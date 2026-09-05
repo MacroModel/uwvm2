@@ -238,12 +238,27 @@ print_reserve_static_stack_size(io_reserve_type_t<char_type, sized_range_view_t<
 ///          object in the emitter lambda; its destructor must therefore be non-throwing. Reference results create no
 ///          such owned object.
 template <::std::integral char_type, ::std::input_iterator It>
-inline constexpr bool sized_range_view_nothrow_reserve_define_v = []() constexpr {
+[[nodiscard]] inline consteval bool
+sized_range_view_nothrow_reserve_define() noexcept
+{
 	using view_type = ::fast_io::sized_range_view_t<char_type, It>;
 	using forwarded_expression_type = typename view_type::forwarded_expression_type;
 	using forwarded_value_type = typename view_type::forwarded_value_type;
+	constexpr bool traditional_iterator_copies_nothrow{
+		::std::is_nothrow_constructible_v<It, It const &> &&
+		::std::is_nothrow_constructible_v<It, It &>};
+#if defined(__HERBCEPTIONS__)
+	// The caller copies a const view into the writer's by-value parameter, whereas `auto curr_ptr{t.begin}` copies the
+	// member from that named mutable parameter. Both exact constructions execute before the deferred cursor is published.
+	constexpr bool deterministic_iterator_copy_throws{
+		::std::is_herbceptions_throws_constructible_v<It, It const &> ||
+		::std::is_herbceptions_throws_constructible_v<It, It &>};
+#else
+	constexpr bool deterministic_iterator_copy_throws{};
+#endif
 	if constexpr (!::fast_io::sized_range_view_reserve_element_v<char_type, It> ||
-				  !::std::is_nothrow_copy_constructible_v<It> ||
+				  !traditional_iterator_copies_nothrow ||
+				  deterministic_iterator_copy_throws ||
 				  !::std::is_nothrow_destructible_v<It>)
 	{
 		return false;
@@ -294,7 +309,103 @@ inline constexpr bool sized_range_view_nothrow_reserve_define_v = []() constexpr
 			} noexcept -> ::std::same_as<::fast_io::basic_io_scatter_t<char_type>>;
 		};
 	}
-}();
+}
+
+template <::std::integral char_type, ::std::input_iterator It>
+inline constexpr bool sized_range_view_nothrow_reserve_define_v =
+	::fast_io::sized_range_view_nothrow_reserve_define<char_type, It>();
+
+/*
+Contiguous staged-range extension
+=================================
+
+A scalar range is the ordered byte fold
+
+    emit(x[0]); for i > 0: emit(separator); emit(x[i]).
+
+Some element formatters can prove and implement a stronger, source-aware batch
+schedule.  The extension point below deliberately passes the raw contiguous
+source, not one generic print proxy per lane: float_DA's gain depends on keeping
+classification, cached-power preparation, sign extraction, and ASCII emission
+inside one compiler-visible loop.  Reconstructing those operations through the
+generic staged CPO for every lane was measured to lose about 1 ns/value on M4.
+
+The extension's semantic contract is strict.  It may reorder only independent
+preparation; it must emit the same element spellings and separator positions as
+the scalar fold and return their logical end.  The reserve and put-area callers
+below separately prove enough physical storage for every scratch store.
+*/
+/*
+The zero-argument declaration is an ADL anchor only.  It is never viable for
+the five-argument customization expression.  Naming the extension at template
+definition time is required by GCC's two-phase lookup; the source-specific
+overload may then be declared later in the floating header and found through
+the fast_io tag's associated namespace at instantiation.
+*/
+void print_contiguous_staged_range_define();
+void print_contiguous_staged_range_width();
+
+template <::std::integral char_type, ::std::input_iterator It>
+[[nodiscard]] inline consteval bool
+sized_range_view_contiguous_staged() noexcept
+{
+	/*
+	Keep this capability query as an immediate function rather than an inline
+	variable-template initializer.  Clang 17 otherwise crashes while completing
+	the nested requires-expression (InstantiateVariableInitializer from an
+	ExprRequirement).  The function has the same compile-time Boolean value and
+	every use remains an atomic constraint, while avoiding that frontend path.
+	*/
+	using view_type = ::fast_io::sized_range_view_t<char_type, It>;
+	using value_type = typename view_type::forwarded_value_type;
+	if constexpr (
+		!::std::same_as<char_type, char> ||
+		!::fast_io::details::is_ascii<char_type> ||
+		!::std::is_pointer_v<It> ||
+		!::fast_io::reserve_printable<char_type, value_type>)
+	{
+		return false;
+	}
+	else
+	{
+		return requires(
+			char_type *destination, It source, ::std::size_t count,
+			::fast_io::basic_io_scatter_t<char_type> separator)
+		{
+			/*
+			The source-specific kernel owns its profitable scheduling width.
+			That width cannot be borrowed from an element's ordinary staged CPO:
+			a compiler may normalize the element tag to a representation-
+			equivalent extended spelling (for example GCC's `_Float64`) while
+			the raw range still stores `double`.  The batch CPO proves that pair;
+			an unrelated exact-type policy does not.
+			*/
+			{
+				print_contiguous_staged_range_width(
+					::fast_io::io_reserve_type<char_type, value_type>)
+			} noexcept -> ::std::same_as<::std::size_t>;
+			{
+				print_contiguous_staged_range_define(
+					::fast_io::io_reserve_type<char_type, value_type>,
+					destination, source, count, separator)
+			} noexcept -> ::std::same_as<char_type *>;
+		};
+	}
+}
+
+template <::std::integral char_type, ::std::input_iterator It>
+	requires(::fast_io::sized_range_view_contiguous_staged<char_type, It>())
+[[nodiscard]] FAST_IO_GNU_ALWAYS_INLINE inline constexpr char_type *
+sized_range_view_staged_define(
+	char_type *destination, sized_range_view_t<char_type, It> value) noexcept
+{
+	using value_type =
+		typename ::fast_io::sized_range_view_t<
+			char_type, It>::forwarded_value_type;
+	return print_contiguous_staged_range_define(
+		::fast_io::io_reserve_type<char_type, value_type>, destination,
+		value.begin, value.size, value.sep);
+}
 
 /// @brief Materializes a sized range into contiguous storage and returns the actual end.
 /// @details This is the define half of the ordinary reserve protocol. Each element is forwarded through the same
@@ -306,12 +417,34 @@ template <::std::integral char_type, ::std::input_iterator It>
 inline constexpr char_type *print_reserve_define(io_reserve_type_t<char_type, sized_range_view_t<char_type, It>>,
 											 char_type *__restrict ptr, sized_range_view_t<char_type, It> t)
 #if __cpp_lib_string_resize_and_overwrite >= 202110L
-	noexcept(::fast_io::sized_range_view_nothrow_reserve_define_v<char_type, It>)
+	noexcept(::fast_io::sized_range_view_nothrow_reserve_define<char_type, It>())
 #endif
 {
 	if (t.size == 0)
 	{
 		return ptr;
+	}
+	if constexpr (
+		::fast_io::sized_range_view_contiguous_staged<char_type, It>())
+	{
+		/*
+		The specialization preserves this function's reserve contract.  For
+		element i, the current cursor is no farther than the sum of the preceding
+		element reserve bounds plus their separators.  Hence the remaining
+		allocation contains at least the complete reserve bound of element i,
+		including any fixed-width SIMD scratch store.  Writing a separator at the
+		logical end merely overwrites scratch bytes and cannot exceed the global
+		range bound.
+		*/
+		if (!::std::is_constant_evaluated())
+		{
+			return ::fast_io::sized_range_view_staged_define(ptr, t);
+		}
+		/*
+		The architecture-specific batch leaf is a run-time scheduling
+		optimization.  Constant evaluation retains the scalar constexpr fold,
+		which computes the same carrier and character sequence.
+		*/
 	}
 	auto curr_ptr{t.begin};
 	auto emit_element = [&ptr](auto &&value) constexpr
@@ -396,24 +529,94 @@ print_reserve_precise_size(io_reserve_type_t<char_type, sized_range_view_t<char_
 }
 
 /// @brief Materializes a precisely measured sized range into contiguous storage.
-/// @details The byte sequence is identical to ordinary range materialization, so delegating avoids a second formatter
-///          implementation. The preceding precise-size proof guarantees that the supplied extent equals the end
-///          pointer returned by the delegated writer; the extent argument is therefore validation/context rather than
-///          a different emission algorithm.
+/// @details Exact aggregate length does not upgrade an ordinary element writer to
+///          an exact-store writer.  In particular, an ASCII floating formatter may
+///          issue a fixed-width SIMD scratch store past its logical result while
+///          remaining inside its ordinary reserve bound.  Summing logical element
+///          lengths removes that slack, so delegating this function to the ordinary
+///          range writer would not prove that the last such store remains inside the
+///          destination object.
+///
+///          The implementation therefore reproduces the range grammar while
+///          selecting each element's exact protocol.  A statically precise element
+///          has an ordinary writer whose reserve extent equals its logical extent.
+///          An object-precise element receives its own measured extent and exact
+///          writer.  A scatter copies exactly `len` code units.  Separators are
+///          copied only between adjacent elements.  These disjoint writes sum to
+///          the already proved aggregate `precise_size`, establishing both the
+///          returned endpoint and the absence of a physical store beyond it.
 template <::std::integral char_type, ::std::input_iterator It>
 	requires(::fast_io::sized_range_view_precise_element_v<char_type, It> &&
 			 (::fast_io::static_precise_reserve_printable<
 				  char_type, typename sized_range_view_t<char_type, It>::forwarded_value_type> ||
 			  ::std::forward_iterator<It>))
 inline constexpr char_type *
-print_reserve_precise_define(io_reserve_type_t<char_type, sized_range_view_t<char_type, It>> tag,
+print_reserve_precise_define(io_reserve_type_t<char_type, sized_range_view_t<char_type, It>>,
 							 char_type *__restrict ptr, [[maybe_unused]] ::std::size_t precise_size,
 							 sized_range_view_t<char_type, It> t)
-#if __cpp_lib_string_resize_and_overwrite >= 202110L
-	noexcept(noexcept(print_reserve_define(tag, ptr, t)))
-#endif
 {
-	return print_reserve_define(tag, ptr, t);
+	using view_type = ::fast_io::sized_range_view_t<char_type, It>;
+	using value_type = typename view_type::forwarded_value_type;
+	auto current{t.begin};
+	for (::std::size_t index{}; index != t.size; ++index, ++current)
+	{
+		if (index != 0u)
+		{
+			ptr = ::fast_io::details::decay::small_scatter_copy_n(
+				t.sep.base, t.sep.len, ptr);
+		}
+		decltype(auto) value{
+			::fast_io::io_print_forward<char_type>(
+				::fast_io::io_print_alias(*current))};
+		constexpr auto element_tag{
+			::fast_io::io_reserve_type<char_type, value_type>};
+		if constexpr (
+			::fast_io::static_precise_reserve_printable<char_type, value_type>)
+		{
+			/*
+			Here ordinary reserve size equals the advertised static exact size.
+			Consequently its writer has no permission to touch a code unit beyond
+			that exact element interval.
+			*/
+			ptr = print_reserve_define(
+				element_tag, ptr,
+				::std::forward<decltype(value)>(value));
+		}
+		else if constexpr (
+			::fast_io::precise_reserve_printable<char_type, value_type>)
+		{
+			auto const element_size{
+				print_reserve_precise_size(element_tag, value)};
+			using result_type = decltype(print_reserve_precise_define(
+				element_tag, ptr, element_size,
+				::std::forward<decltype(value)>(value)));
+			if constexpr (::std::same_as<result_type, char_type *>)
+			{
+				ptr = print_reserve_precise_define(
+					element_tag, ptr, element_size,
+					::std::forward<decltype(value)>(value));
+			}
+			else
+			{
+				static_assert(::std::same_as<result_type, void>);
+				print_reserve_precise_define(
+					element_tag, ptr, element_size,
+					::std::forward<decltype(value)>(value));
+				ptr += element_size;
+			}
+		}
+		else
+		{
+			static_assert(
+				::fast_io::sized_range_view_two_pass_scatter_element_v<
+					char_type, It>);
+			auto const scatter{print_scatter_define(
+				element_tag, value)};
+			ptr = ::fast_io::details::decay::small_scatter_copy_n(
+				scatter.base, scatter.len, ptr);
+		}
+	}
+	return ptr;
 }
 
 /// @brief Identifies the run-time scatter range as sensitive to destination preinitialization in ordinary concat.
@@ -537,7 +740,9 @@ inline constexpr void print_freestanding_decay_unforwarded(outputstmtype &optstm
 ///          intermediate cursor publication. The independent stream-side marker must prove that those publications are
 ///          foldable and that its own output-associated hooks do not alter direct-scatter semantics.
 template <::std::integral char_type, ::std::input_iterator It>
-inline constexpr bool sized_range_view_nothrow_direct_scatter_v = []() constexpr {
+[[nodiscard]] inline consteval bool
+sized_range_view_nothrow_direct_scatter() noexcept
+{
 	using view_type = ::fast_io::sized_range_view_t<char_type, It>;
 	using forwarded_expression_type = typename view_type::forwarded_expression_type;
 	using forwarded_value_type = typename view_type::forwarded_value_type;
@@ -570,7 +775,11 @@ inline constexpr bool sized_range_view_nothrow_direct_scatter_v = []() constexpr
 			} noexcept -> ::std::same_as<::fast_io::basic_io_scatter_t<char_type>>;
 		};
 	}
-}();
+}
+
+template <::std::integral char_type, ::std::input_iterator It>
+inline constexpr bool sized_range_view_nothrow_direct_scatter_v =
+	::fast_io::sized_range_view_nothrow_direct_scatter<char_type, It>();
 
 /// @brief Proves the exact, non-throwing put-area operations used by direct scatter streaming.
 /// @details The range header precedes the general output-operation concepts in the freestanding include graph, so this
@@ -603,9 +812,9 @@ concept sized_range_view_nothrow_put_area = ::std::integral<char_type> && requir
 ///          two GCC 15 cold-helper experiments changed fitting-loop register allocation and regressed 16--512 element
 ///          string sinks by 13--56 percent. Replacing the pair bridge with primitive writes is not a valid size remedy;
 ///          it can change status dispatch, lock scope, alias lifetime, and the prefix visible on an allocation failure.
-template <::std::integral char_type, ::std::input_iterator It, typename output>
-	requires(
-		::fast_io::sized_range_view_nothrow_direct_scatter_v<char_type, It> &&
+	template <::std::integral char_type, ::std::input_iterator It, typename output>
+		requires(
+			::fast_io::sized_range_view_nothrow_direct_scatter<char_type, It>() &&
 		::fast_io::sized_range_view_nothrow_put_area<output, char_type> &&
 		::fast_io::deferred_obuffer_commit_safe<char_type, output>)
 #if __has_cpp_attribute(__gnu__::__noinline__) && __has_cpp_attribute(__gnu__::__aligned__)
@@ -691,6 +900,152 @@ inline constexpr bool try_sized_range_view_put_area_direct_scatter(
 	return true;
 }
 
+/// @brief Streams a contiguous staged range through one already-large put area.
+/// @details A failed capacity proof performs no write and leaves the ordinary
+///          one-pass range path in control.  On success, the static per-element
+///          reserve bound R and separator length S give the complete physical
+///          bound
+///
+///              N*R + (N-1)*S.
+///
+///          The two overflow tests below prove that this integer exists in
+///          `size_t`; comparison with the actual put-area extent then proves
+///          that every fixed-width SIMD scratch store used by the batch leaf is
+///          inside the destination.  Since staged conversion/emission is
+///          non-throwing, publishing the final cursor once is observationally
+///          equivalent on outputs which explicitly permit deferred commit.
+template <::std::integral char_type, ::std::contiguous_iterator It,
+		  typename output>
+	requires(
+		::fast_io::sized_range_view_contiguous_staged<char_type, It>() &&
+		::fast_io::sized_range_view_nothrow_put_area<output, char_type> &&
+		::fast_io::deferred_obuffer_commit_safe<char_type, output>)
+[[nodiscard]] FAST_IO_GNU_ALWAYS_INLINE inline constexpr bool
+try_sized_range_view_put_area_staged(
+	output &out, sized_range_view_t<char_type, It> const &value) noexcept
+{
+	if (value.size == 0u)
+	{
+		return true;
+	}
+	using view_type = ::fast_io::sized_range_view_t<char_type, It>;
+	using value_type = typename view_type::forwarded_value_type;
+	constexpr auto element_tag{
+		::fast_io::io_reserve_type<char_type, value_type>};
+	constexpr ::std::size_t element_reserve{
+		print_reserve_size(element_tag)};
+	constexpr ::std::size_t maximum_size{
+		(::std::numeric_limits<::std::size_t>::max)()};
+	if (value.size > maximum_size / element_reserve)
+	{
+		/*
+		The proposed one-area optimization has no representable physical bound.
+		This says nothing about the stream's ability to grow and flush while
+		using the scalar path, so rejection must not terminate the operation.
+		*/
+		return false;
+	}
+	::std::size_t required{value.size * element_reserve};
+	if (value.sep.len != 0u)
+	{
+		auto const separator_count{value.size - 1u};
+		if (separator_count >
+			(maximum_size - required) / value.sep.len)
+		{
+			return false;
+		}
+		required += separator_count * value.sep.len;
+	}
+
+	char_type *const initial{obuffer_curr(out)};
+	char_type *const end{obuffer_end(out)};
+	if (initial == nullptr || end == nullptr)
+	{
+		return false;
+	}
+	auto const available_difference{end - initial};
+	if (available_difference < 0 ||
+		static_cast<::std::size_t>(available_difference) < required)
+	{
+		return false;
+	}
+	auto *const final{
+		::fast_io::sized_range_view_staged_define(initial, value)};
+	obuffer_set_curr(out, final);
+	return true;
+}
+
+/// @brief Emits a fixed-reserve sized range into one already-sufficient put area.
+/// @details The ordinary one-pass range formatter publishes the output cursor after every element pair. That is the
+///          right fallback when the destination must grow or flush, but it is unnecessary for an append destination
+///          whose current put area already contains the complete static reserve bound. In that case the range reserve
+///          protocol is itself a one-traversal writer, so using it here removes all intermediate CPO redispatch and
+///          cursor commits without reintroducing the discarded measurement pass which `print_put_area_preferred`
+///          deliberately avoids.
+///
+///          This is not inferred from the presence of cursor CPOs alone. The element formatter must have a static
+///          reserve bound, the complete range writer must be non-throwing, and the destination must explicitly permit
+///          deferred cursor publication. A failed overflow/capacity proof performs no writes and leaves the established
+///          streaming path in control.
+template <::std::integral char_type, ::std::input_iterator It, typename output>
+	requires(
+		::fast_io::reserve_printable<
+			char_type, typename ::fast_io::sized_range_view_t<char_type, It>::forwarded_value_type> &&
+		::fast_io::sized_range_view_nothrow_reserve_define<char_type, It>() &&
+		::fast_io::sized_range_view_nothrow_put_area<output, char_type> &&
+		::fast_io::deferred_obuffer_commit_safe<char_type, output>)
+[[nodiscard]] FAST_IO_GNU_ALWAYS_INLINE inline constexpr bool
+try_sized_range_view_put_area_reserved(
+	output &out, sized_range_view_t<char_type, It> const &value) noexcept
+{
+	if (value.size == 0u)
+	{
+		return true;
+	}
+	using view_type = ::fast_io::sized_range_view_t<char_type, It>;
+	using value_type = typename view_type::forwarded_value_type;
+	constexpr auto element_tag{
+		::fast_io::io_reserve_type<char_type, value_type>};
+	constexpr ::std::size_t element_reserve{
+		print_reserve_size(element_tag)};
+	constexpr ::std::size_t maximum_size{
+		(::std::numeric_limits<::std::size_t>::max)()};
+	if constexpr (element_reserve != 0u)
+	{
+		if (value.size > maximum_size / element_reserve)
+		{
+			return false;
+		}
+	}
+	::std::size_t required{value.size * element_reserve};
+	if (value.sep.len != 0u)
+	{
+		auto const separator_count{value.size - 1u};
+		if (separator_count > (maximum_size - required) / value.sep.len)
+		{
+			return false;
+		}
+		required += separator_count * value.sep.len;
+	}
+
+	char_type *const initial{obuffer_curr(out)};
+	char_type *const end{obuffer_end(out)};
+	if (initial == nullptr || end == nullptr)
+	{
+		return false;
+	}
+	auto const available_difference{end - initial};
+	if (available_difference < 0 ||
+		static_cast<::std::size_t>(available_difference) < required)
+	{
+		return false;
+	}
+	auto *const final{print_reserve_define(
+		::fast_io::io_reserve_type<char_type, view_type>, initial, value)};
+	obuffer_set_curr(out, final);
+	return true;
+}
+
 /// @brief Streams an unsized range in one pass.
 /// @details The first element is emitted separately, then every remaining element is preceded by the separator. This
 ///          construction proves that there is no leading or trailing separator and works for single-pass iterators.
@@ -725,7 +1080,54 @@ inline constexpr void print_define(io_reserve_type_t<char_type, sized_range_view
 		return;
 	}
 	if constexpr (
-		::fast_io::sized_range_view_nothrow_direct_scatter_v<char_type, It> &&
+		::fast_io::sized_range_view_contiguous_staged<char_type, It>() &&
+		::fast_io::sized_range_view_nothrow_put_area<output, char_type> &&
+		::fast_io::deferred_obuffer_commit_safe<char_type, output>)
+	{
+		/*
+		At least one complete measured group is required to amortize the put-area
+		proof.  Short ranges retain the scalar path and do not instantiate a
+		partial batch schedule at run time.
+		*/
+		using view_type =
+			::fast_io::sized_range_view_t<char_type, It>;
+		using value_type = typename view_type::forwarded_value_type;
+		constexpr auto element_tag{
+			::fast_io::io_reserve_type<char_type, value_type>};
+		constexpr ::std::size_t extent{
+			print_contiguous_staged_range_width(element_tag)};
+		/*
+		The customization's width is a scheduling theorem, not input data: it
+		must be a positive translation-time constant.  This assertion is placed
+		after the signature-only ADL probe deliberately.  GCC 11--14 incorrectly
+		try to constant-evaluate the zero-argument lookup anchor when the same
+		dependent call appears as an `integral_constant` argument inside a
+		requires-expression.  Once this function is instantiated, the complete
+		one-argument overload set is known, so `constexpr` proves evaluability
+		and the assertion proves positivity without weakening the CPO contract
+		or creating a run-time branch.
+		*/
+		static_assert(extent != 0u);
+		if (extent <= t.size &&
+			::fast_io::try_sized_range_view_put_area_staged(out, t))
+		{
+			return;
+		}
+	}
+	if constexpr (
+		::fast_io::reserve_printable<
+			char_type, typename ::fast_io::sized_range_view_t<char_type, It>::forwarded_value_type> &&
+		::fast_io::sized_range_view_nothrow_reserve_define<char_type, It>() &&
+		::fast_io::sized_range_view_nothrow_put_area<output, char_type> &&
+		::fast_io::deferred_obuffer_commit_safe<char_type, output>)
+	{
+		if (::fast_io::try_sized_range_view_put_area_reserved(out, t))
+		{
+			return;
+		}
+	}
+	if constexpr (
+		::fast_io::sized_range_view_nothrow_direct_scatter<char_type, It>() &&
 		::fast_io::sized_range_view_nothrow_put_area<output, char_type> &&
 		::fast_io::deferred_obuffer_commit_safe<char_type, output>)
 	{
@@ -930,11 +1332,10 @@ inline constexpr auto rgvw(rg &&r, char_type const (&sep)[n])
 		::std::forward<rg>(r), printed};
 }
 
-/// @brief Creates a range-printing view with a string-like separator.
-/// @details Separator aliasing is performed once and the resulting character type drives element forwarding. The
-///          sized-versus-sentinel proof is the same as for literal separators: object-dependent sizing is enabled only
-///          for multi-pass ranges, and a scatter element must also opt into borrowed/repeatable observation. All other
-///          cases retain direct streaming semantics.
+/// @brief Names the result type of applying the print-alias protocol to a string-like separator.
+/// @details The probe uses a mutable lvalue of the separator's underlying type because the eventual factory aliases its
+///          named parameter exactly once. This hidden alias preserves references returned by the alias CPO until later
+///          code explicitly removes transport cv/ref qualifiers.
 template <typename T>
 using range_separator_alias_result_t = decltype(print_alias_define(
 	::fast_io::io_alias, ::std::declval<::std::remove_reference_t<T> &>()));
@@ -959,10 +1360,16 @@ concept stable_range_separator =
 			::std::remove_cvref_t<T>>;
 	};
 
+/// @brief Extracts the separator code-unit type from a stable string-like separator alias.
+/// @details This hidden alias removes transport cv/ref qualifiers and is defined only for separators accepted by the
+///          preceding alias protocol.
 template <typename T>
 using range_separator_char_type_t = typename ::std::remove_cvref_t<
 	::fast_io::manipulators::range_separator_alias_result_t<T>>::value_type;
 
+/// @brief Creates a non-owning range view with a stable string-like separator.
+/// @details The borrowed range and separator source must both outlive formatting. Each range element is normalized and
+///          separators are inserted only between elements, never before the first or after the last.
 template <::std::ranges::range rg, ::fast_io::manipulators::stable_range_separator T>
 	requires(::std::ranges::borrowed_range<rg> &&
 			 ::fast_io::manipulators::range_element_print_forwardable<
@@ -979,6 +1386,9 @@ inline constexpr auto rgvw(rg &&r, T &&sep)
 		static_cast<::fast_io::basic_io_scatter_t<char_type>>(printed));
 }
 
+/// @brief Creates an owning range view for a non-borrowed rvalue range with a stable string-like separator.
+/// @details The range is moved into the result, while the separator remains a proved-stable borrowed scatter. Element
+///          ordering and between-elements-only separator insertion match the non-owning overload.
 template <::std::ranges::range rg, ::fast_io::manipulators::stable_range_separator T>
 	requires(!::std::ranges::borrowed_range<rg> &&
 			 !::std::is_lvalue_reference_v<rg> &&

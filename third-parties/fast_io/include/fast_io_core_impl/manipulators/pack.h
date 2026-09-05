@@ -1,5 +1,15 @@
 #pragma once
 
+/*
+ * Ordered semantic record node (`pack`) for the CPO/semantic level.
+ *
+ * A pack groups zero or more print objects so the IO planner can flatten them
+ * into one logical operation, preserving order and one mutex/status boundary.
+ * Construction applies print aliasing and selects lifetime-safe owned or
+ * borrowed storage for every child. The pack itself performs no formatting;
+ * active children are later interpreted by print or concat.
+ */
+
 #include "traits.h"
 
 namespace fast_io
@@ -82,9 +92,14 @@ inline constexpr ::fast_io::details::pack_alias_type<T> pack_store(T &&t) noexce
 namespace manipulators
 {
 
+/// @brief Identifies a semantic node whose stored children are emitted sequentially.
+/// @details This hidden tag lets print/concat planning distinguish pack expansion from an ordinary tuple payload.
 struct pack_manip_tag_t
 {};
 
+/// @brief Stores a heterogeneous sequence of normalized printable children.
+/// @details Children are emitted in source order without separators. Storage types may be values or stable references
+///          as selected by `pack`; direct construction must preserve those reference lifetimes.
 template <typename... Args>
 struct pack_t
 {
@@ -96,6 +111,9 @@ struct pack_t
 	storage_type storage;
 };
 
+/// @brief Combines zero or more printable arguments into one separator-free semantic sequence.
+/// @details Each argument is aliased exactly once and rvalue-derived aliases are materialized when necessary to avoid
+///          dangling references. An empty pack emits nothing; no delimiter, whitespace, or terminator is inserted.
 template <typename... Args>
 	requires(::fast_io::details::pack_alias_storable<Args> && ...)
 inline constexpr auto pack(Args &&...args) noexcept((::fast_io::details::pack_alias_nothrow_constructible<Args> && ...))
