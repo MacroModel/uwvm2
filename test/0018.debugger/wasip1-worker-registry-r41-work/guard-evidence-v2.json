@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "error": null,
+  "exit": 0,
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "boot_id": "b5e7a71f-8b40-4f39-8a41-fdce3f8fd2cb",
+  "owned_peak_aggregate_rss_upper_bytes": 22351872,
+  "cgroup_peak_bytes": 18590789632,
+  "processes": [
+    {
+      "pid": 178461,
+      "birth": 941158,
+      "ppid": 178460,
+      "uid": 1000,
+      "cgroup": "0::/user.slice/user-1000.slice/session-1160.scope\n",
+      "argv": [
+        "/usr/bin/python3",
+        "-u",
+        "-c",
+        "import os,sys,signal;os.sched_setaffinity(0,set(range(16,32)));os.kill(os.getpid(),signal.SIGSTOP);os.execvpe(sys.argv[1],sys.argv[1:],os.environ)",
+        "/usr/bin/python3",
+        "-u",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-worker-registry-20261008-r41/write_report_and_evidence-v2.py"
+      ],
+      "pidfd_retired": true
+    }
+  ],
+  "parent_events_unchanged": true,
+  "validation_kind": "bounded tmpfs source/log bound report and complete evidence archive readback",
+  "actual_native_runtime_execution": false,
+  "original_native_storage_policy_unchanged": true,
+  "original_persistent_native_suite_admission_still_refused": true,
+  "new_analysis_file_ceiling_bytes": 16777216,
+  "host_available_bytes": 29018378240,
+  "ram_peak_allocated_bytes": 0,
+  "ram_ceiling_bytes": 805306368,
+  "ram_disposable_products_retired": false,
+  "ram_final_inventory": [],
+  "guard_sha256": "3252fb6b759155e7e7c343c4100bc0e29e8852bbadcc3e3d30333f1a715bca78"
+}

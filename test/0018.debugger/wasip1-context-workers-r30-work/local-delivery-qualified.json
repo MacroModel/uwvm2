@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "repositories": [
+    "uwvm2",
+    "uwvm2-ros"
+  ],
+  "files": 19,
+  "delivery_archive_sha256": "213d517a5b5ad76aadc4f1db0fb91203d654cdf7788d97464f205bc1ba8605a3",
+  "native_runs": 48,
+  "counted_assertions": 14472,
+  "large_local_products_retired": 964915024
+}

@@ -1,0 +1,830 @@
+{
+  "schema": "uwvm-i386-native-debug-cfi-private-slot-foundation-v1",
+  "date": "2026-10-07",
+  "passed": true,
+  "scope": "Paired i386 CFI metadata / four-byte owned DATA / actual private kernel stack copy foundation and x86-64/AArch64 regressions. Zero live i386 Wasm finish or physical caller sessions.",
+  "delivery": {
+    "passed": true,
+    "proof": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current244/build-meta/QUALIFIED_FOUNDATION244.json",
+    "proof_sha256": "b5568dadec071192a14155bd2bfb80f123a6f1225570ac6711943c3c30732e81",
+    "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current244/build-meta/work/evidence244.tar.gz",
+    "archive_sha256": "34bef93130dced52042d44de6e701824439c1bd7f9a06d34971a1db967655533",
+    "bytes": 27029245,
+    "members": 8342,
+    "member_index_sha256": "72040167684b2dba4ebb49d7874970b47c16c70b82fa4cc661fcae7c9fb07eb8",
+    "source_root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/source-current239",
+    "source_manifest_sha256": "d2ec6090c4cb80289685ee72b15134c140c8f2aaec40853779f14fa33b986625",
+    "executions": 24,
+    "live_Wasm_sessions": 0,
+    "source_files": 8058,
+    "source_ids": {
+      "uwvm2": "c9f48b25e06f117da0de1554ca0a19b9eeaf3c98613da98816df9a4687b4fd56",
+      "uwvm2-ros": "7a23c1e8a7fc527607e561f1694777bde2a1d86b52360cc6cb301432a859dfe9"
+    }
+  },
+  "source": {
+    "root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/source-current239",
+    "files": 8058,
+    "manifest_sha256": "d2ec6090c4cb80289685ee72b15134c140c8f2aaec40853779f14fa33b986625",
+    "ids": {
+      "uwvm2": "c9f48b25e06f117da0de1554ca0a19b9eeaf3c98613da98816df9a4687b4fd56",
+      "uwvm2-ros": "7a23c1e8a7fc527607e561f1694777bde2a1d86b52360cc6cb301432a859dfe9"
+    },
+    "critical_hashes": {
+      "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h": "d5d1605dd48596dc3e179adae9c39266f7c33a7afdc26135c4b6fe83de254475",
+      "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h": "70cc6d968547596d261ba80e6e976671f48f5bba2d29bfe0aa8bd7e654dec2b2",
+      "uwvm2/test/0017.runtime/debug_native_cfi_i386.cc": "6a56048166c1ce41abbe45940349882439212aa3a6110a5c464cf959cb1724bb",
+      "uwvm2/test/0017.runtime/debug_native_registered_cfi_i386.cc": "3d6558a34ab25388fdcc37614a365d5386c7dff8df7e417afe7bfd0c73f4d5d9",
+      "uwvm2/test/0017.runtime/debug_native_stack_slot_width.cc": "41e8b5975b1f9399a94cb5456e36f5f2ccabddf06a610852e082a8c54fe7599a",
+      "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h": "d5d1605dd48596dc3e179adae9c39266f7c33a7afdc26135c4b6fe83de254475",
+      "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h": "70cc6d968547596d261ba80e6e976671f48f5bba2d29bfe0aa8bd7e654dec2b2",
+      "uwvm2-ros/test/0017.runtime/debug_native_cfi_i386.cc": "6a56048166c1ce41abbe45940349882439212aa3a6110a5c464cf959cb1724bb",
+      "uwvm2-ros/test/0017.runtime/debug_native_registered_cfi_i386.cc": "3d6558a34ab25388fdcc37614a365d5386c7dff8df7e417afe7bfd0c73f4d5d9",
+      "uwvm2-ros/test/0017.runtime/debug_native_stack_slot_width.cc": "41e8b5975b1f9399a94cb5456e36f5f2ccabddf06a610852e082a8c54fe7599a"
+    },
+    "whole_current_workspace_qualified": false
+  },
+  "environment": {
+    "boot": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+    "container": "d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03",
+    "pid": 11166,
+    "birth": 22661,
+    "running": true,
+    "cgroup": "/sys/fs/cgroup/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope",
+    "max": "68719476736",
+    "swap": "0",
+    "cpus": "0,2,4,6,16-31",
+    "events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "keeper_cmdline": "sleep infinity "
+  },
+  "selected_executions": 24,
+  "live_i386_Wasm_caller_sessions": 0,
+  "i386_finish_events": 0,
+  "tests": [
+    {
+      "batch": 239,
+      "repository": "uwvm2",
+      "fixture": "debug_native_cfi_i386",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current239/build-meta/work/uwvm2-debug_native_cfi_i386",
+      "sha256": "83c3009d0161a1bcf9dae41fe904ec6528bf37b751756b704db9438b81aec537",
+      "outputs": [
+        {
+          "optimization": null,
+          "text": "i386 CFI owned DATA: PASS; slot-width=4 adjacent-word-reads=0 live-caller-qualified=false native-finish-qualified=false\n"
+        }
+      ],
+      "elf": {
+        "class": 2,
+        "machine": 62
+      }
+    },
+    {
+      "batch": 239,
+      "repository": "uwvm2",
+      "fixture": "debug_native_registered_cfi_i386",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current239/build-meta/work/uwvm2-debug_native_registered_cfi_i386",
+      "sha256": "ae7ab580a9ffc2fdb2182ab59e62014ca7d3bb261a74d29b90f3a9e1d5246f6d",
+      "outputs": [
+        {
+          "optimization": "0",
+          "text": "actual i386 TailCC function=0 entry-cfa-register=4 entry-cfa-offset=4 return-cfa-register=4 return-cfa-offset=4\nactual i386 TailCC function=1 entry-cfa-register=4 entry-cfa-offset=4 return-cfa-register=4 return-cfa-offset=4\nactual i386 TailCC function=2 entry-cfa-register=4 entry-cfa-offset=4 return-cfa-register=4 return-cfa-offset=4\nactual i386 TailCC registered CFI: PASS optimization=0 full-rule-bytes=1338 cfa-only-bytes=5 unavailable-preserved-slots=15 actual-i386-execution=false live-caller-qualified=false native-finish-qualified=false\n"
+        },
+        {
+          "optimization": "3",
+          "text": "actual i386 TailCC function=0 entry-cfa-register=4 entry-cfa-offset=4 return-cfa-register=4 return-cfa-offset=4\nactual i386 TailCC function=1 entry-cfa-register=4 entry-cfa-offset=4 return-cfa-register=4 return-cfa-offset=4\nactual i386 TailCC function=2 entry-cfa-register=4 entry-cfa-offset=4 return-cfa-register=4 return-cfa-offset=4\nactual i386 TailCC registered CFI: PASS optimization=3 full-rule-bytes=875 cfa-only-bytes=5 unavailable-preserved-slots=15 actual-i386-execution=false live-caller-qualified=false native-finish-qualified=false\n"
+        }
+      ],
+      "elf": {
+        "class": 2,
+        "machine": 62
+      }
+    },
+    {
+      "batch": 239,
+      "repository": "uwvm2",
+      "fixture": "debug_native_registered_cfi",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current239/build-meta/work/uwvm2-debug_native_registered_cfi",
+      "sha256": "c77b855abb49ab88abc07ff6522097ce02e209c4c3ab39e70300c8f4251c706b",
+      "outputs": [
+        {
+          "optimization": "0",
+          "text": "actual registered CFI passed optimization=0 code-bytes=69 rule-transitions=11 unsupported-expression-bytes=7 owned-data-evaluator=true physical-caller-qualified=false native-finish-qualified=false\n"
+        },
+        {
+          "optimization": "3",
+          "text": "actual registered CFI passed optimization=3 code-bytes=60 rule-transitions=10 unsupported-expression-bytes=7 owned-data-evaluator=true physical-caller-qualified=false native-finish-qualified=false\n"
+        }
+      ],
+      "elf": {
+        "class": 2,
+        "machine": 62
+      }
+    },
+    {
+      "batch": 239,
+      "repository": "uwvm2-ros",
+      "fixture": "debug_native_cfi_i386",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current239/build-meta/work/uwvm2-ros-debug_native_cfi_i386",
+      "sha256": "83c3009d0161a1bcf9dae41fe904ec6528bf37b751756b704db9438b81aec537",
+      "outputs": [
+        {
+          "optimization": null,
+          "text": "i386 CFI owned DATA: PASS; slot-width=4 adjacent-word-reads=0 live-caller-qualified=false native-finish-qualified=false\n"
+        }
+      ],
+      "elf": {
+        "class": 2,
+        "machine": 62
+      }
+    },
+    {
+      "batch": 239,
+      "repository": "uwvm2-ros",
+      "fixture": "debug_native_registered_cfi_i386",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current239/build-meta/work/uwvm2-ros-debug_native_registered_cfi_i386",
+      "sha256": "ae7ab580a9ffc2fdb2182ab59e62014ca7d3bb261a74d29b90f3a9e1d5246f6d",
+      "outputs": [
+        {
+          "optimization": "0",
+          "text": "actual i386 TailCC function=0 entry-cfa-register=4 entry-cfa-offset=4 return-cfa-register=4 return-cfa-offset=4\nactual i386 TailCC function=1 entry-cfa-register=4 entry-cfa-offset=4 return-cfa-register=4 return-cfa-offset=4\nactual i386 TailCC function=2 entry-cfa-register=4 entry-cfa-offset=4 return-cfa-register=4 return-cfa-offset=4\nactual i386 TailCC registered CFI: PASS optimization=0 full-rule-bytes=1338 cfa-only-bytes=5 unavailable-preserved-slots=15 actual-i386-execution=false live-caller-qualified=false native-finish-qualified=false\n"
+        },
+        {
+          "optimization": "3",
+          "text": "actual i386 TailCC function=0 entry-cfa-register=4 entry-cfa-offset=4 return-cfa-register=4 return-cfa-offset=4\nactual i386 TailCC function=1 entry-cfa-register=4 entry-cfa-offset=4 return-cfa-register=4 return-cfa-offset=4\nactual i386 TailCC function=2 entry-cfa-register=4 entry-cfa-offset=4 return-cfa-register=4 return-cfa-offset=4\nactual i386 TailCC registered CFI: PASS optimization=3 full-rule-bytes=875 cfa-only-bytes=5 unavailable-preserved-slots=15 actual-i386-execution=false live-caller-qualified=false native-finish-qualified=false\n"
+        }
+      ],
+      "elf": {
+        "class": 2,
+        "machine": 62
+      }
+    },
+    {
+      "batch": 239,
+      "repository": "uwvm2-ros",
+      "fixture": "debug_native_registered_cfi",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current239/build-meta/work/uwvm2-ros-debug_native_registered_cfi",
+      "sha256": "c77b855abb49ab88abc07ff6522097ce02e209c4c3ab39e70300c8f4251c706b",
+      "outputs": [
+        {
+          "optimization": "0",
+          "text": "actual registered CFI passed optimization=0 code-bytes=69 rule-transitions=11 unsupported-expression-bytes=7 owned-data-evaluator=true physical-caller-qualified=false native-finish-qualified=false\n"
+        },
+        {
+          "optimization": "3",
+          "text": "actual registered CFI passed optimization=3 code-bytes=60 rule-transitions=10 unsupported-expression-bytes=7 owned-data-evaluator=true physical-caller-qualified=false native-finish-qualified=false\n"
+        }
+      ],
+      "elf": {
+        "class": 2,
+        "machine": 62
+      }
+    },
+    {
+      "batch": 240,
+      "repository": "uwvm2",
+      "architecture": "native",
+      "fixture": "debug_native_stack_slot_width",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current240/build-meta/work/uwvm2-native-debug_native_stack_slot_width",
+      "sha256": "a41dba7585c69e856af6a7cd03306de450bcf8145f611076625bf585ed76e2c4",
+      "output": "native private stack slot: PASS pointer-width=8 slot-address=0x7ffd69a414b0 adjacent-bytes-written=0 wrong-width-refused=true stale-owner-refused=true live-Wasm-caller-qualified=false\n",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      }
+    },
+    {
+      "batch": 240,
+      "repository": "uwvm2",
+      "architecture": "aarch64",
+      "fixture": "debug_native_stack_slot_width",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current240/build-meta/work/uwvm2-aarch64-debug_native_stack_slot_width",
+      "sha256": "d76c864f93638f1c24d053df545b5a7b37609651655049b611c60757c9566b5e",
+      "output": "native private stack slot: PASS pointer-width=8 slot-address=0x7679d1f3f630 adjacent-bytes-written=0 wrong-width-refused=true stale-owner-refused=true live-Wasm-caller-qualified=false\n",
+      "elf": {
+        "class": 2,
+        "machine": 183
+      }
+    },
+    {
+      "batch": 240,
+      "repository": "uwvm2-ros",
+      "architecture": "native",
+      "fixture": "debug_native_stack_slot_width",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current240/build-meta/work/uwvm2-ros-native-debug_native_stack_slot_width",
+      "sha256": "a41dba7585c69e856af6a7cd03306de450bcf8145f611076625bf585ed76e2c4",
+      "output": "native private stack slot: PASS pointer-width=8 slot-address=0x7ffdcefc3e90 adjacent-bytes-written=0 wrong-width-refused=true stale-owner-refused=true live-Wasm-caller-qualified=false\n",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      }
+    },
+    {
+      "batch": 240,
+      "repository": "uwvm2-ros",
+      "architecture": "aarch64",
+      "fixture": "debug_native_stack_slot_width",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current240/build-meta/work/uwvm2-ros-aarch64-debug_native_stack_slot_width",
+      "sha256": "d76c864f93638f1c24d053df545b5a7b37609651655049b611c60757c9566b5e",
+      "output": "native private stack slot: PASS pointer-width=8 slot-address=0x7d3f2fdbf630 adjacent-bytes-written=0 wrong-width-refused=true stale-owner-refused=true live-Wasm-caller-qualified=false\n",
+      "elf": {
+        "class": 2,
+        "machine": 183
+      }
+    },
+    {
+      "batch": 241,
+      "repository": "uwvm2",
+      "fixture": "debug_native_cfi_aarch64",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current241/build-meta/work/uwvm2-debug_native_cfi_aarch64",
+      "sha256": "627f2ef4f3da5fb06888c896d0909c43107cfea86d6e24de2b43a941d791c8ca",
+      "outputs": [
+        {
+          "optimization": null,
+          "output": "AArch64 CFI owned DATA: PASS; live Wasm caller/finish qualification is separate\n"
+        }
+      ],
+      "elf": {
+        "class": 2,
+        "machine": 183
+      }
+    },
+    {
+      "batch": 241,
+      "repository": "uwvm2",
+      "fixture": "debug_native_registered_cfi_aarch64",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current241/build-meta/work/uwvm2-debug_native_registered_cfi_aarch64",
+      "sha256": "a6c77955d4fa9bfc0392b8b5913f165dd73c2e23699768ff1810ec281c003ab8",
+      "outputs": [
+        {
+          "optimization": "0",
+          "output": "actual AArch64 TailCC function=0 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC function=1 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC function=2 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC function=3 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC registered CFI: PASS optimization=0 full-rule-bytes=816 cfa-only-bytes=84 signed-return-refused-bytes=16 actual-AArch64-execution=false live-caller-qualified=false native-finish-qualified=false\n"
+        },
+        {
+          "optimization": "3",
+          "output": "actual AArch64 TailCC function=0 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC function=1 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC function=2 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC function=3 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC registered CFI: PASS optimization=3 full-rule-bytes=296 cfa-only-bytes=76 signed-return-refused-bytes=16 actual-AArch64-execution=false live-caller-qualified=false native-finish-qualified=false\n"
+        }
+      ],
+      "elf": {
+        "class": 2,
+        "machine": 183
+      }
+    },
+    {
+      "batch": 241,
+      "repository": "uwvm2-ros",
+      "fixture": "debug_native_cfi_aarch64",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current241/build-meta/work/uwvm2-ros-debug_native_cfi_aarch64",
+      "sha256": "627f2ef4f3da5fb06888c896d0909c43107cfea86d6e24de2b43a941d791c8ca",
+      "outputs": [
+        {
+          "optimization": null,
+          "output": "AArch64 CFI owned DATA: PASS; live Wasm caller/finish qualification is separate\n"
+        }
+      ],
+      "elf": {
+        "class": 2,
+        "machine": 183
+      }
+    },
+    {
+      "batch": 241,
+      "repository": "uwvm2-ros",
+      "fixture": "debug_native_registered_cfi_aarch64",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current241/build-meta/work/uwvm2-ros-debug_native_registered_cfi_aarch64",
+      "sha256": "a6c77955d4fa9bfc0392b8b5913f165dd73c2e23699768ff1810ec281c003ab8",
+      "outputs": [
+        {
+          "optimization": "0",
+          "output": "actual AArch64 TailCC function=0 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC function=1 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC function=2 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC function=3 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC registered CFI: PASS optimization=0 full-rule-bytes=816 cfa-only-bytes=84 signed-return-refused-bytes=16 actual-AArch64-execution=false live-caller-qualified=false native-finish-qualified=false\n"
+        },
+        {
+          "optimization": "3",
+          "output": "actual AArch64 TailCC function=0 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC function=1 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC function=2 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC function=3 entry-cfa-register=31 entry-cfa-offset=0 return-cfa-register=31 return-cfa-offset=-448\nactual AArch64 TailCC registered CFI: PASS optimization=3 full-rule-bytes=296 cfa-only-bytes=76 signed-return-refused-bytes=16 actual-AArch64-execution=false live-caller-qualified=false native-finish-qualified=false\n"
+        }
+      ],
+      "elf": {
+        "class": 2,
+        "machine": 183
+      }
+    },
+    {
+      "batch": 242,
+      "repository": "uwvm2",
+      "architecture": "i386",
+      "fixture": "debug_native_stack_slot_width",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current242/build-meta/work/uwvm2-i386-debug_native_stack_slot_width",
+      "sha256": "7371f68d17a3c4b05e77904b31732da273dc596d110f882642cbb63c1fcf6381",
+      "output": "native private stack slot: PASS pointer-width=4 slot-address=0x40800960 adjacent-bytes-written=0 wrong-width-refused=true stale-owner-refused=true live-Wasm-caller-qualified=false\nnative private stack slot: PASS pointer-width=4 slot-address=0xc00ff310 adjacent-bytes-written=0 wrong-width-refused=true stale-owner-refused=true live-Wasm-caller-qualified=false\ni386 actual high pthread stack: PASS address-above-INT32_MAX=true\n",
+      "elf": {
+        "class": 1,
+        "machine": 3
+      }
+    },
+    {
+      "batch": 242,
+      "repository": "uwvm2",
+      "architecture": "i386",
+      "fixture": "debug_native_cfi_i386",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current242/build-meta/work/uwvm2-i386-debug_native_cfi_i386",
+      "sha256": "9db5a18176efacf0c59c08acc1627b4945db26a712829449fbdada2f985b82f4",
+      "output": "i386 CFI owned DATA: PASS; slot-width=4 adjacent-word-reads=0 live-caller-qualified=false native-finish-qualified=false\n",
+      "elf": {
+        "class": 1,
+        "machine": 3
+      }
+    },
+    {
+      "batch": 242,
+      "repository": "uwvm2-ros",
+      "architecture": "i386",
+      "fixture": "debug_native_stack_slot_width",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current242/build-meta/work/uwvm2-ros-i386-debug_native_stack_slot_width",
+      "sha256": "7371f68d17a3c4b05e77904b31732da273dc596d110f882642cbb63c1fcf6381",
+      "output": "native private stack slot: PASS pointer-width=4 slot-address=0x40800960 adjacent-bytes-written=0 wrong-width-refused=true stale-owner-refused=true live-Wasm-caller-qualified=false\nnative private stack slot: PASS pointer-width=4 slot-address=0xc00ff310 adjacent-bytes-written=0 wrong-width-refused=true stale-owner-refused=true live-Wasm-caller-qualified=false\ni386 actual high pthread stack: PASS address-above-INT32_MAX=true\n",
+      "elf": {
+        "class": 1,
+        "machine": 3
+      }
+    },
+    {
+      "batch": 242,
+      "repository": "uwvm2-ros",
+      "architecture": "i386",
+      "fixture": "debug_native_cfi_i386",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current242/build-meta/work/uwvm2-ros-i386-debug_native_cfi_i386",
+      "sha256": "9db5a18176efacf0c59c08acc1627b4945db26a712829449fbdada2f985b82f4",
+      "output": "i386 CFI owned DATA: PASS; slot-width=4 adjacent-word-reads=0 live-caller-qualified=false native-finish-qualified=false\n",
+      "elf": {
+        "class": 1,
+        "machine": 3
+      }
+    }
+  ],
+  "compiled_input_count": 3561,
+  "dynamic_dependencies": [
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu/usr/bin/qemu-i386",
+      "sha256": "4126823cef49eb4e5284c42fdf5c3b48468c55a9f597ff80ba48d2830e5ca36b",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu/usr/bin/qemu-aarch64",
+      "sha256": "e1dc1eb07f2c205a22ac489240578d14d396d767a35bb3734a5ef12f1848ed20",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu/libc++.so",
+      "sha256": "9a82146864488c9d491a6e60be5af3ca986a9af57f6057763c5c0a8dda85a66e",
+      "elf": null,
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu/libc++abi.so.1.0",
+      "sha256": "be95fc140da17097e8f865b32e62760b0398c007bc631253544bb9bd161b8dc8",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu/libc++abi.so.1.0",
+      "sha256": "be95fc140da17097e8f865b32e62760b0398c007bc631253544bb9bd161b8dc8",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu/libc++abi.so.1.0",
+      "sha256": "be95fc140da17097e8f865b32e62760b0398c007bc631253544bb9bd161b8dc8",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu/libc++.so.1.0",
+      "sha256": "865a84fd120255d0fb7ea9511e7f32af3f65254483e671e7450748332ad62ed0",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu/libc++.so.1.0",
+      "sha256": "865a84fd120255d0fb7ea9511e7f32af3f65254483e671e7450748332ad62ed0",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu/libunwind.so.1.0",
+      "sha256": "241acf655fc4c677866c5c6c749a27478baf3305ed7880bdd16ce124afff672c",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu/libunwind.so.1.0",
+      "sha256": "241acf655fc4c677866c5c6c749a27478baf3305ed7880bdd16ce124afff672c",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu/libunwind.so.1.0",
+      "sha256": "241acf655fc4c677866c5c6c749a27478baf3305ed7880bdd16ce124afff672c",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/usr/lib32/libc.so.6",
+      "sha256": "d3047bdff9a69283482153ed6ec93addae9d74cffdfc8ccc5aeb7a32021e6f9a",
+      "elf": {
+        "class": 1,
+        "machine": 3
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/usr/lib32/libstdc++.so.6.0.35",
+      "sha256": "a7770530fa06a7a67127f110e07473aa248be4838cd108443d2defcf32b30312",
+      "elf": {
+        "class": 1,
+        "machine": 3
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/usr/lib32/libgcc_s.so.1",
+      "sha256": "ceb985a4e90c1743ff6aff19ebb5db3a4ef7d27ac91e01eed80c1ccd7697927e",
+      "elf": {
+        "class": 1,
+        "machine": 3
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/usr/lib32/libm.so.6",
+      "sha256": "db48c271f246d31673b0c12de20290d967c1bb1eeebc155bee157ca35b4f3e9c",
+      "elf": {
+        "class": 1,
+        "machine": 3
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/usr/lib32/ld-linux.so.2",
+      "sha256": "5e2afa271c892e8106396e3a2b79de283f613fa7c856f0949c80738941cb9746",
+      "elf": {
+        "class": 1,
+        "machine": 3
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "sha256": "d763925433ff9b757390549e1b20c085f5e6de27ae700fe89194178d96a8a2b0",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.35",
+      "sha256": "5bb0d21308f123b6ad46c6f35b42cedfcb8d6d439a53aa3dae04d880aaffdde3",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+      "sha256": "9d339ecb409578d6a5d587e6c537a8f9589b8a13fefba30d167433a4b5758bee",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libm.so.6",
+      "sha256": "670fb59bd462ee2f833e2ed7c0a1814e0dcdbec0b8bfa048bec46e2e6fd66334",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+      "sha256": "223b94a42758f2434da331cc0aa62db1af5b456481762c5caceefa1a2d1eb8fb",
+      "elf": {
+        "class": 2,
+        "machine": 62
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current2/build-meta/work/deps/usr/aarch64-linux-gnu/lib/libc.so.6",
+      "sha256": "8f2c2a16a4ee3d5a6e37d1a793ad59f0dfd7dcd216063d230a23e58744dae7ea",
+      "elf": {
+        "class": 2,
+        "machine": 183
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current2/build-meta/work/deps/usr/aarch64-linux-gnu/lib/libstdc++.so.6.0.35",
+      "sha256": "00cc28547c511f1afa5087ad6f82bed093298a33467516b7e5c6f0f54fd6473c",
+      "elf": {
+        "class": 2,
+        "machine": 183
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current2/build-meta/work/deps/usr/aarch64-linux-gnu/lib/libgcc_s.so.1",
+      "sha256": "3f7526388ec6d3da02755007d97bc489df8c9145a329da800ddbfcae725ab30d",
+      "elf": {
+        "class": 2,
+        "machine": 183
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current2/build-meta/work/deps/usr/aarch64-linux-gnu/lib/libm.so.6",
+      "sha256": "2ddac3d7bb6329833a8dec36e17eef45137633b7a6d936583721756d2b62a799",
+      "elf": {
+        "class": 2,
+        "machine": 183
+      },
+      "kind": "runtime ELF or library linker script"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current2/build-meta/work/deps/usr/aarch64-linux-gnu/lib/ld-linux-aarch64.so.1",
+      "sha256": "de9354274cf75ec36e280d3a1a072c4c5736bfb77299b1dba8a10c9ea6efbd3b",
+      "elf": {
+        "class": 2,
+        "machine": 183
+      },
+      "kind": "runtime ELF or library linker script"
+    }
+  ],
+  "receipts": {
+    "239": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current239/build-meta/complete-evidence/receipt.json",
+      "sha256": "4bc4d116da52815cddf3ed5aeea77a40eeefb2d0973074757d0d6273dbe431ba",
+      "passed": true,
+      "all_owned_tasks_retired": true,
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "240": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current240/build-meta/complete-evidence/receipt.json",
+      "sha256": "9ccebc828e312da39fb589790d9dcb0a752930ab1b34d1d1359b9368ac6d18ee",
+      "passed": true,
+      "all_owned_tasks_retired": true,
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "241": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current241/build-meta/complete-evidence/receipt.json",
+      "sha256": "912fa643aae1cb29f52f040a92176c9abe10b9e9354a1b412aef1c6927fa00bc",
+      "passed": true,
+      "all_owned_tasks_retired": true,
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "242": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current242/build-meta/complete-evidence/receipt.json",
+      "sha256": "36651786eb694bad76f3d42b558163251db18f0523fc14b51c57dae18367dcb3",
+      "passed": true,
+      "all_owned_tasks_retired": true,
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "244": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current244/build-meta/complete-evidence/receipt.json",
+      "sha256": "2f07311c76c5044e436ef6ab72cd0fef590c04d276b372bd838ca94c88a24542",
+      "passed": true,
+      "all_owned_tasks_retired": true,
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    }
+  },
+  "resources": {
+    "239": {
+      "own_folder": 2315644928,
+      "shared_folder": 28604174336,
+      "group_memory": 16825004032
+    },
+    "240": {
+      "own_folder": 2318229504,
+      "shared_folder": 28606038016,
+      "group_memory": 17083777024
+    },
+    "241": {
+      "own_folder": 2363277312,
+      "shared_folder": 28704448512,
+      "group_memory": 15445090304
+    },
+    "242": {
+      "own_folder": 2409054208,
+      "shared_folder": 28707196928,
+      "group_memory": 15165767680
+    },
+    "244": {
+      "own_folder": 2440970240,
+      "shared_folder": 28480258048,
+      "group_memory": 21721112576
+    }
+  },
+  "failed_parents_preserved": [
+    {
+      "batch": 232,
+      "failed": true,
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current232/build-meta/complete-evidence/receipt.json",
+      "sha256": "96f655b56771b46768d804b663e798685a48b8debdbdf04d5c676290a23fa042"
+    },
+    {
+      "batch": 233,
+      "failed": true,
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current233/build-meta/complete-evidence/receipt.json",
+      "sha256": "1c3517c2496cc1f97abbf76e63cbdf79394b5d2288a1a2afd2fdf166e41563c6"
+    },
+    {
+      "batch": 235,
+      "failed": true,
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current235/build-meta/complete-evidence/receipt.json",
+      "sha256": "7505f5b7cc6e9147a7cbfec517790f62f9c34488d6fe9c19a378cb2bfebaaa3e"
+    },
+    {
+      "batch": 236,
+      "failed": true,
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current236/build-meta/complete-evidence/receipt.json",
+      "sha256": "88fad19267ce76d030dd2d5d3e3409f3ebc60a48d6c2e46bf12ff5839b699ec5"
+    },
+    {
+      "batch": 237,
+      "failed": true,
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current237/build-meta/complete-evidence/receipt.json",
+      "sha256": "76d855ea5bdc853531ba7be7a13b3748b2f14e3aa536df19cc0002c58e04aaa5"
+    },
+    {
+      "batch": 238,
+      "failed": true,
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current238/build-meta/complete-evidence/receipt.json",
+      "sha256": "08f1dfdafed84162730703119a709788260813cdf5a3a4464bd472b0a147e371"
+    },
+    {
+      "batch": 243,
+      "failed": true,
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current243/build-meta/complete-evidence/receipt.json",
+      "sha256": "a27a28369e832201df6e8fd8486d306a210a4bce218734fef39054bd921cb0dd"
+    }
+  ],
+  "remaining": "i386 live caller/return proof/backend integration and full32-bit LLVM product qualification; other ISA physical caller/finish gaps; full INT live debugger entry. Public gates were not widened.",
+  "qualification_notes": [
+    "Host-emitted genuine i386 LLVM metadata uses bounded32-bit RuntimeDyld labels; no i386 code executes in that metadata fixture.",
+    "i386 owned DATA links the genuine vendored32-bit ABIBreak.cpp component, not a full32-bit LLVM SDK. Separate TU dependencies are pinned in batch242.",
+    "Normal/high-address stack fixtures register their real test pthread stacks; they do not issue Wasm captures or debugger read/resume authority.",
+    "x86-64 generated LLVM IR execution and AArch64 metadata/private-reader regressions are separate from historical full Wasm qualification.",
+    "Failed batches remain failed; final selections use fresh successful239/240(native,A64)/241/242 executions."
+  ],
+  "implementation": {
+    "production": [
+      "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h",
+      "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h"
+    ],
+    "i386_DWARF": {
+      "address_size": 4,
+      "SP": 4,
+      "FP": 5,
+      "RA": 8,
+      "preserved": [
+        3,
+        5,
+        6,
+        7,
+        8
+      ],
+      "return_rule": "memory(CFA-4)"
+    },
+    "rejected": [
+      "wrong object ABI/endian/return column",
+      "32-bit target address or CFA overflow",
+      "unknown base register",
+      "unsupported return expression",
+      "missing, duplicate or overlapping slots",
+      "wrong read width/thread and retired registration",
+      "slot outside SP..CFA"
+    ],
+    "io": "FastIO native_file/system_call for exact private slot copying; FastIO diagnostics and parse_by_scan in metadata fixtures",
+    "public_i386_caller_or_finish_enabled": false
+  },
+  "test_counts": {
+    "selected_executions": 24,
+    "i386_host_registered_metadata_O0_O3": 4,
+    "i386_owned_DATA_host": 2,
+    "i386_owned_DATA_QEMU": 2,
+    "i386_private_stack_QEMU_sessions": 2,
+    "each_i386_stack_session": [
+      "main-stack read",
+      "actual pthread-stack read above INT32_MAX"
+    ],
+    "x86_64_generated_IR_registered_CFI_executions": 4,
+    "x86_64_private_stack": 2,
+    "AArch64_registered_CFI_O0_O3": 4,
+    "AArch64_owned_DATA": 2,
+    "AArch64_private_stack": 2,
+    "live_i386_Wasm_sessions": 0,
+    "native_i386_finish_events": 0
+  },
+  "i386_registered_metadata_results": {
+    "O0": {
+      "full_rule_bytes": 1338,
+      "CFA_only_bytes": 5,
+      "unavailable_preserved_slots_in_owned_DATA_bounds": 15
+    },
+    "O3": {
+      "full_rule_bytes": 875,
+      "CFA_only_bytes": 5,
+      "unavailable_preserved_slots_in_owned_DATA_bounds": 15
+    }
+  },
+  "artifact_reclamation": {
+    "passed": true,
+    "private_compiled_logical_bytes_reclaimed": 481767916,
+    "private_compiled_files_reclaimed": 36,
+    "record": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current245/build-meta/RECLAIM245.json",
+    "record_sha256": "96434e479f11c89ebaac4b59ee906fffb8abbd5e3ee2ee265564c58be4d2c236",
+    "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current245/build-meta/complete-evidence/receipt.json",
+    "receipt_sha256": "fc840817f29b63608c4348b03e9c63cd1b23649567dbe6644ae619e8cfa6c429",
+    "folder_allocated_bytes": 1815646208,
+    "disk_available_bytes": 68301103104,
+    "memory_events_after": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "all_owned_tasks_retired": true,
+    "no_foreign_processes_signalled": true
+  }
+}

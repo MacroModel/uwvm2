@@ -1,0 +1,10 @@
+{
+  "native_test_failed": false,
+  "native_guard_passed": true,
+  "orchestration_wait_expired": true,
+  "old_wait_seconds": 1200,
+  "new_wait_seconds": 3600,
+  "guard_deadline_seconds": 3600,
+  "completed_mutation_steps": 0,
+  "original_orchestrator_sha256": "4dbb1fc4308d609ea252fe1789afd175925db48ea493f46eb022d5f14dac7022"
+}

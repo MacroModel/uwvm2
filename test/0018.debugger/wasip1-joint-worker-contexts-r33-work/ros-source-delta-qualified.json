@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "base_manifest_sha256": "b22ea661b18400b72dd73a7c4a80f717a56449fd3575f95b8830641edd3dd15d",
+  "overlay_manifest_sha256": "15fa0a34d3bf1c27e6744969a79e2e04f69846882ab1137a4114f2f6f789ecde",
+  "delta_archive_sha256": "eda28afdc55c7923d2b8d14b64c7e1f9a69a5e4193cd688d2d158c17b74b0286",
+  "changed_files": {
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h": "7dee15276c8b7db51d5acbb3a1b0cf12d5c3eb78a91ec87a155edc62260e3fa1"
+  },
+  "reason": "ROS full-only runtime has the existing generated bridge scope depth getter; standard runtime has the generated Wasm entry depth getter",
+  "memory_upper_bytes": 161775616,
+  "limit_bytes": 2147483648
+}

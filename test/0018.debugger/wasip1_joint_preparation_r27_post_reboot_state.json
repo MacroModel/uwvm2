@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "time_utc": "2026-10-07T06:52:34Z",
+  "boot_id": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+  "qualification_sha256": "228f23b23a5ec3f5120753430d5e387cd9016366f7f187da4d094e3d2a65728e",
+  "final_metadata_guard": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-report-r27.json",
+    "sha256": "4941a800e87e1aa16cd45e5e04452bbe8b0936824ac37a2118f8ece3903bd680",
+    "passed": true,
+    "all_owned_pidfds_retired": true,
+    "foreign_processes_untouched": 4
+  },
+  "hot_storage": {
+    "files": 65312,
+    "logical_bytes": 6572444921,
+    "allocated_bytes": 6309785600,
+    "volume_total_bytes": 8501293056,
+    "volume_available_bytes": 2145755136,
+    "volume_available_inodes": 19380,
+    "host_available_bytes": 70073262080
+  },
+  "cold_storage": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-r27-owned-cold-evidence",
+    "readonly": true,
+    "bytes": 594224273,
+    "limit_bytes": 1073741824,
+    "qualification_sha256": "117ff0fad43971abbcef161c08d3443fd2f711a13b870bee5045a0016f8a092e"
+  },
+  "memory_max_bytes": 68719476736,
+  "swap_max_bytes": 0,
+  "current_shared_memory_bytes": 11592245248,
+  "qualified_native_runs": 32,
+  "counted_assertions": 6072,
+  "linux_complete_graph_regressions": 8,
+  "complete_world_restore": false
+}

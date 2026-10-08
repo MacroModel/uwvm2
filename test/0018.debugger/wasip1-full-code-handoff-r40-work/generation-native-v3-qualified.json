@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "fresh_native_cases": 4,
+  "frontend_checks": 2,
+  "genuine_generation_2_cases": 4,
+  "source_manifest_sha256": "e6e92461060eb69510bf7fbc4b92d93b8c2e170f3b01bee3c6ce4c5327ed0318",
+  "base_frontend_qualification_sha256": "2072fc782ea54cef2485032ca6446efc9a8a4aeb19a67b89ae315c75cfb1ec9e",
+  "source_equivalence_sha256": "1b2fb4819097898a9736c130cf6323676697ca48d9494f4ef6aae1ea43a723cb",
+  "results_sha256": "44771ffa540f1c81db2bf38bb122777da3a31809f345196db60e1a6b6a415c7f",
+  "controller_sha256": "ebf7a4ca63c36b1e13c2a3fa6c733a61d6da887bc5d470dff59ef2fdc2481bbb",
+  "world_publication": false,
+  "restored_worker_startup": false,
+  "guest_replay": false
+}

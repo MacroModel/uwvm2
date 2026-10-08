@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "native_runs": 24,
+  "source_manifest_sha256": "0e63f72c8798e578944446f68381ce35b452c3e51c0338fb19ea4ebad9b8d3b4",
+  "results_sha256": "0f4db6d9aecd8c5e736565e1f45ddacb466538e99ad67a91ed322c80f71adcb6",
+  "controller_sha256": "18c8558c195e46d0a5ee13273b7b4e64d15c3361daf0ad7debbc2c3bae70e593",
+  "fresh_native_runs": 24,
+  "reused_unchanged_native_runs": 0,
+  "all_native_products_in_tmpfs": true,
+  "llvm_only": true,
+  "full_world_publication": false
+}

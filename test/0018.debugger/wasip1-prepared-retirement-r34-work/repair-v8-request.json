@@ -1,0 +1,14 @@
+{
+  "parent_manifest_sha256": "c574e5da78b41c247590acc3a334590e53e4440d120e639c3c3761bd62b16814",
+  "overlay_manifest_sha256": "171e9f277d349278c53669b49d60d5727f73575fa9847d14dd40a5741924d73f",
+  "delta_sha256": "d1691a13b8eab8dc0580644abbbde06dddcbb41c9549e59ad1399c19d31c116b",
+  "new_paths": [],
+  "changed_paths": [
+    "uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc",
+    "uwvm2/test/0017.runtime/debug_checkpoint_native_cohort_retirement_runtime.cc",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_native_cohort_retirement_runtime.cc"
+  ],
+  "source_files": 8791,
+  "production_library_unchanged": true
+}

@@ -1,0 +1,260 @@
+{
+  "schema": "uwvm-frozen-cut-current-workspace-comparison-v1",
+  "frozen_source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/source-current393",
+  "tested_proof_sha256": "0c37e698c6c06be1ab205ec071dfda176551b2cbefaaa05b3083ffd2d9af09bc",
+  "rows": [
+    {
+      "path": "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h",
+      "tested_sha256": "97982ca6caf3dd0109d95008e083e68a7056eb21b01a5d696596ee065f193d1d",
+      "current_workspace_sha256": "97982ca6caf3dd0109d95008e083e68a7056eb21b01a5d696596ee065f193d1d",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h",
+      "tested_sha256": "e23410d138dcc9bbf7aea4340c4c53e7eafe0de54e23274e891268e846b444da",
+      "current_workspace_sha256": "e23410d138dcc9bbf7aea4340c4c53e7eafe0de54e23274e891268e846b444da",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+      "tested_sha256": "55e4bd3b799ef088befbd7987ef9489bf633dda9e160d182a6b6df98a35d1912",
+      "current_workspace_sha256": "55e4bd3b799ef088befbd7987ef9489bf633dda9e160d182a6b6df98a35d1912",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+      "tested_sha256": "db733919153761af440a82f55b7dce2a56d99d7b44b0b2c154025661793c2ae8",
+      "current_workspace_sha256": "db733919153761af440a82f55b7dce2a56d99d7b44b0b2c154025661793c2ae8",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/src/uwvm2/uwvm/debugger/native_step_linux.h",
+      "tested_sha256": "2db64cba143265037430c0da4c681929ed36438b276b383a4f57023ba7a1e0a3",
+      "current_workspace_sha256": "2db64cba143265037430c0da4c681929ed36438b276b383a4f57023ba7a1e0a3",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/src/uwvm2/uwvm/debugger/controller.h",
+      "tested_sha256": "5fec1723782902f10509b944bb3bf5dbff925bc0601420f133b00d3ab6fa3df6",
+      "current_workspace_sha256": "5fec1723782902f10509b944bb3bf5dbff925bc0601420f133b00d3ab6fa3df6",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/src/uwvm2/uwvm/debugger/native_disassembly.h",
+      "tested_sha256": "9b8430e75a80a19a4b93b6eb2e310464d284f42b35cc441739b1519c1a87a6ff",
+      "current_workspace_sha256": "9b8430e75a80a19a4b93b6eb2e310464d284f42b35cc441739b1519c1a87a6ff",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/src/uwvm2/uwvm/debugger/native_owned_instruction_semantics.h",
+      "tested_sha256": "a4fecdd95355d6f8fe5629dea9e641f0f0e27d1d617f07503c67d0d7a336cf3b",
+      "current_workspace_sha256": "a4fecdd95355d6f8fe5629dea9e641f0f0e27d1d617f07503c67d0d7a336cf3b",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h",
+      "tested_sha256": "f294255a8fef38f5cd812e8f29c58b71c57ff85bf9416664328827d326de00eb",
+      "current_workspace_sha256": "85c2d32d467d9b568237503eab54d4bc17a9153805e47f83ea888caad16b4c07",
+      "matches_tested_cut": false,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/xmake.lua",
+      "tested_sha256": "23727ded45896caed1f60e949d6291d522496dd2c9f5aea753195958b861c65f",
+      "current_workspace_sha256": "23727ded45896caed1f60e949d6291d522496dd2c9f5aea753195958b861c65f",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/test/0017.runtime/debug_native_finish_console.cc",
+      "tested_sha256": "1a2dc0aef9e6761346c830247c29ccaedf84a6f8bf845279fa9a7061e8e3bf3c",
+      "current_workspace_sha256": "1a2dc0aef9e6761346c830247c29ccaedf84a6f8bf845279fa9a7061e8e3bf3c",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/test/0017.runtime/debug_native_cfi_loongarch64.cc",
+      "tested_sha256": "7c687ffae5477a778c7e06ef06545b06ae16d8832000f2a9b6adf51890c61cb8",
+      "current_workspace_sha256": "7c687ffae5477a778c7e06ef06545b06ae16d8832000f2a9b6adf51890c61cb8",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/test/0017.runtime/debug_native_registered_cfi_loongarch64.cc",
+      "tested_sha256": "4a514fee89f4a8a7a8bd881812cbe32034b90c20752e050f2bf0c6cacd5fadd2",
+      "current_workspace_sha256": "4a514fee89f4a8a7a8bd881812cbe32034b90c20752e050f2bf0c6cacd5fadd2",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/test/0017.runtime/native_disassembly_loongarch64_window.cc",
+      "tested_sha256": "6bc5ec47dbceecd7b76227cc7d922cb94070bf211d201c7b4735126e3df1d441",
+      "current_workspace_sha256": "6bc5ec47dbceecd7b76227cc7d922cb94070bf211d201c7b4735126e3df1d441",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/documents/toolchain/patches/llvm23-loongarch-async-epilogue-cfi.patch",
+      "tested_sha256": "758ce61cf96f7d1220439376506322e40a5b9a1f44e954fb9a3f01f7b94126ec",
+      "current_workspace_sha256": "758ce61cf96f7d1220439376506322e40a5b9a1f44e954fb9a3f01f7b94126ec",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/mcjit_target_support.h",
+      "tested_sha256": "1f9072c54394afb856c5cf74fd4026a230eed7251ed3c96f3cef6d68a185d9d8",
+      "current_workspace_sha256": "1f9072c54394afb856c5cf74fd4026a230eed7251ed3c96f3cef6d68a185d9d8",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/src/uwvm2/uwvm/debugger/console.h",
+      "tested_sha256": "f57380665173147c9d833da1a79767b95d67c0d6daa0696adf6cb09d7825c9d9",
+      "current_workspace_sha256": "f57380665173147c9d833da1a79767b95d67c0d6daa0696adf6cb09d7825c9d9",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "tested_sha256": "a75f73a47758c03a4119adffe563e1b16be1b935f065332bf3342731d91a1f91",
+      "current_workspace_sha256": "c3ad32edb37c3bae1cc8eb26dd844dd5e05113864e6164c34e052d96dcae7d9d",
+      "matches_tested_cut": false,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h",
+      "tested_sha256": "97982ca6caf3dd0109d95008e083e68a7056eb21b01a5d696596ee065f193d1d",
+      "current_workspace_sha256": "97982ca6caf3dd0109d95008e083e68a7056eb21b01a5d696596ee065f193d1d",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h",
+      "tested_sha256": "e23410d138dcc9bbf7aea4340c4c53e7eafe0de54e23274e891268e846b444da",
+      "current_workspace_sha256": "e23410d138dcc9bbf7aea4340c4c53e7eafe0de54e23274e891268e846b444da",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+      "tested_sha256": "55e4bd3b799ef088befbd7987ef9489bf633dda9e160d182a6b6df98a35d1912",
+      "current_workspace_sha256": "55e4bd3b799ef088befbd7987ef9489bf633dda9e160d182a6b6df98a35d1912",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+      "tested_sha256": "db733919153761af440a82f55b7dce2a56d99d7b44b0b2c154025661793c2ae8",
+      "current_workspace_sha256": "db733919153761af440a82f55b7dce2a56d99d7b44b0b2c154025661793c2ae8",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/native_step_linux.h",
+      "tested_sha256": "2db64cba143265037430c0da4c681929ed36438b276b383a4f57023ba7a1e0a3",
+      "current_workspace_sha256": "2db64cba143265037430c0da4c681929ed36438b276b383a4f57023ba7a1e0a3",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/controller.h",
+      "tested_sha256": "5fec1723782902f10509b944bb3bf5dbff925bc0601420f133b00d3ab6fa3df6",
+      "current_workspace_sha256": "5fec1723782902f10509b944bb3bf5dbff925bc0601420f133b00d3ab6fa3df6",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/native_disassembly.h",
+      "tested_sha256": "9b8430e75a80a19a4b93b6eb2e310464d284f42b35cc441739b1519c1a87a6ff",
+      "current_workspace_sha256": "9b8430e75a80a19a4b93b6eb2e310464d284f42b35cc441739b1519c1a87a6ff",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/native_owned_instruction_semantics.h",
+      "tested_sha256": "a4fecdd95355d6f8fe5629dea9e641f0f0e27d1d617f07503c67d0d7a336cf3b",
+      "current_workspace_sha256": "a4fecdd95355d6f8fe5629dea9e641f0f0e27d1d617f07503c67d0d7a336cf3b",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h",
+      "tested_sha256": "36a0afcdc9b8006571f75caf925ae9b0aabb2dbc71ee25f63848579d4b057abb",
+      "current_workspace_sha256": "b7108c609ed5bbac5e9691c24704aad9310dc19ca24dc2768b14fe5403c28a8e",
+      "matches_tested_cut": false,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/xmake.lua",
+      "tested_sha256": "dab830f16cb8f24375057be879c108a026cffeb18923d02aae7fce65748ddb18",
+      "current_workspace_sha256": "dab830f16cb8f24375057be879c108a026cffeb18923d02aae7fce65748ddb18",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/test/0017.runtime/debug_native_finish_console.cc",
+      "tested_sha256": "1a2dc0aef9e6761346c830247c29ccaedf84a6f8bf845279fa9a7061e8e3bf3c",
+      "current_workspace_sha256": "1a2dc0aef9e6761346c830247c29ccaedf84a6f8bf845279fa9a7061e8e3bf3c",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/test/0017.runtime/debug_native_cfi_loongarch64.cc",
+      "tested_sha256": "7c687ffae5477a778c7e06ef06545b06ae16d8832000f2a9b6adf51890c61cb8",
+      "current_workspace_sha256": "7c687ffae5477a778c7e06ef06545b06ae16d8832000f2a9b6adf51890c61cb8",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/test/0017.runtime/debug_native_registered_cfi_loongarch64.cc",
+      "tested_sha256": "4a514fee89f4a8a7a8bd881812cbe32034b90c20752e050f2bf0c6cacd5fadd2",
+      "current_workspace_sha256": "4a514fee89f4a8a7a8bd881812cbe32034b90c20752e050f2bf0c6cacd5fadd2",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/test/0017.runtime/native_disassembly_loongarch64_window.cc",
+      "tested_sha256": "6bc5ec47dbceecd7b76227cc7d922cb94070bf211d201c7b4735126e3df1d441",
+      "current_workspace_sha256": "6bc5ec47dbceecd7b76227cc7d922cb94070bf211d201c7b4735126e3df1d441",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/documents/toolchain/patches/llvm23-loongarch-async-epilogue-cfi.patch",
+      "tested_sha256": "758ce61cf96f7d1220439376506322e40a5b9a1f44e954fb9a3f01f7b94126ec",
+      "current_workspace_sha256": "758ce61cf96f7d1220439376506322e40a5b9a1f44e954fb9a3f01f7b94126ec",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/mcjit_target_support.h",
+      "tested_sha256": "80cb2b8fbd87956c6c6be8626b032572cc6bf794f59278ae5953f8ead16cd8f5",
+      "current_workspace_sha256": "80cb2b8fbd87956c6c6be8626b032572cc6bf794f59278ae5953f8ead16cd8f5",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/console.h",
+      "tested_sha256": "f57380665173147c9d833da1a79767b95d67c0d6daa0696adf6cb09d7825c9d9",
+      "current_workspace_sha256": "f57380665173147c9d833da1a79767b95d67c0d6daa0696adf6cb09d7825c9d9",
+      "matches_tested_cut": true,
+      "comparison_only_not_runtime_qualification": true
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "tested_sha256": "b2a71e6fefaf3d19f39d86bcc62fb7cab68afbeb239e9f9fab0a5bfea1364767",
+      "current_workspace_sha256": "45b7a46efaf133ffccadd3062339d27bd5764111e392dc07af8648be9b487a96",
+      "matches_tested_cut": false,
+      "comparison_only_not_runtime_qualification": true
+    }
+  ],
+  "reason": "Concurrent workspace edits and subsequent documentation updates are preserved; this is a static comparison only."
+}

@@ -1,0 +1,6 @@
+{
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/local-r28-r33-large-metadata.tar.gz",
+  "archive_sha256": "6f2e325455bca909b0fe59378ab277dcad02c6dfa1b12949be3835c15fc749e7",
+  "qualified_receipt": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/local-legacy-metadata-custody-qualified.json",
+  "restore_member_prefix": "wasip1-dispatch-r29-work/"
+}

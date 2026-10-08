@@ -1,0 +1,62 @@
+{
+  "wasip1_private_dispatch_r29_test_report.md": {
+    "sha256": "75af8f8b8cb8d20dcb6d8a77ed9f1fdca9684e37caaad31af1a1cddafd114a52",
+    "bytes": 6325
+  },
+  "wasip1_private_dispatch_r29_test_report.json": {
+    "sha256": "32c0a145bdc9ba1844d3b19820b59c4558a43a11613d3fe06c56f779f52f6e75",
+    "bytes": 51487
+  },
+  "wasip1_private_dispatch_r29_source_manifest.json": {
+    "sha256": "194ff28bd7ea121fa338698e9cff6ba427c52fb7522e2fca9ae066ff1433b9be",
+    "bytes": 1232331
+  },
+  "wasip1_private_dispatch_r29_source_freeze.json": {
+    "sha256": "2de3c19d3a7c91b009c00f6136f78d8afa2fcfb671c783e8d8cd5fdf4390dc64",
+    "bytes": 729
+  },
+  "wasip1_private_dispatch_r29_workspace_scope.json": {
+    "sha256": "ae5227310593a28ed7c2c54c017d3c2d20d21481fdfb854ade472f7174cb5fc5",
+    "bytes": 5441
+  },
+  "wasip1_private_dispatch_r29_qualification_guard.json": {
+    "sha256": "f7bf1e745e3f02afd0fa780d8d9d76592428867e14c1914ad7e19819fc797ed2",
+    "bytes": 3952
+  },
+  "wasip1_private_dispatch_r29_post_reboot_state.json": {
+    "sha256": "ba8ab280c7c36bd6340ac53a4b3492399e8fd5ccce093fa585f3b0ec35b51cea",
+    "bytes": 1229
+  },
+  "wasip1_private_dispatch_r29_post_reboot_guard.json": {
+    "sha256": "571c3ffd786950eba23b86e7053cc48ea4c189c5a21e133f9f1e4e8c7fcb9be8",
+    "bytes": 4013
+  },
+  "wasip1_private_dispatch_r29_storage_policy.json": {
+    "sha256": "fc24a09a9b5f83e2722b72249e06de39e6cd495a7988cea9d88f1ca67f2f95fc",
+    "bytes": 1460
+  },
+  "wasip1_private_dispatch_r29_cold_storage_state.json": {
+    "sha256": "45516fa9199efc91d41cd480189209351aa1fd63740136c9cad8f91260ae90cb",
+    "bytes": 5672
+  },
+  "wasip1_private_dispatch_r29_active_environment.json": {
+    "sha256": "2e08deedeade0b88ecd60768cefe32935c47929a46d9e289f46a79e8db2441f0",
+    "bytes": 17884
+  },
+  "wasip1_private_dispatch_r29_native_macos_evidence.json": {
+    "sha256": "df7cc01ac46b11be91ed3e550986f4791ca7ce88b5bbeb41c25c5d917c1f848f",
+    "bytes": 21289
+  },
+  "wasip1_private_dispatch_r29_local_transport_retirement.json": {
+    "sha256": "be5f289d1107e276f62ab7ca8500696e869f5b1e7fa1f820c1ea4cefcee72bec",
+    "bytes": 2657
+  },
+  "wasip1_private_dispatch_r29_historical_storage.json": {
+    "sha256": "41831be5d3e0a88f0394d9e28528ab24c368e0762ea78afa32996a3a619ee7a8",
+    "bytes": 68011
+  },
+  "wasip1_private_dispatch_r29_fixture_observer_correction.json": {
+    "sha256": "4ca55103df3f735cfe96b0b1f8773ac1910f16c879d41ba1b9534567fc4038ad",
+    "bytes": 867
+  }
+}

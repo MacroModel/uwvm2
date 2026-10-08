@@ -1,0 +1,200 @@
+{
+  "report_sha256": "ae894a9bfd89b3b361039eeb2973c470632c19669eba38eed8d4865841d11498",
+  "results_sha256": "87401c61be6c971ff48020ac9c6e6e3e975802a4af178e628abde14f7a2f8452",
+  "results_bytes": 25849413,
+  "canonical_results_sha256": "5af1ae72484e8ef46116319c254ab12f9eeb1ce28fc9476db243faddf65e0a7b",
+  "archive_sha256": "60ccfb97284d3d8136254c673f3359d44dbfcc35754e7783ff7adafd717171e7",
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-root-alias-20261006-r7/test-inputs-evidence-1791222052238732774.tar.gz",
+  "owned_source_paths": 18,
+  "persistent_results_name": "final-results.json.gz",
+  "persistent_results_sha256": "6d626bc122733265f57d43be6daaf03ce6888691bc18f4e441daf206cbc8e47a",
+  "persistent_results_bytes": 7422130,
+  "results_restore": "gunzip -c final-results.json.gz > final-results.json; verify results_sha256 for the decoded raw file.",
+  "delivery_working_tree_drift": {
+    "sampled_at": "2026-10-05T17:48:33.449823+00:00",
+    "owned_18_paths_match_tested": true,
+    "other_existing_paths_changed": {
+      "uwvm2/src/uwvm2/runtime/checkpoint/materialization.h": {
+        "tested": "e4ed6320493159cdd5761fa6cb1163d305101e0502ff1d304671d68441081541",
+        "current": "c28cae9745ac857f19c2cdbb7bca098bdf490fe55c48d2ef1b16f5b1096f7a0d"
+      },
+      "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h": {
+        "tested": "07460378a6a89cbf9b0feb788b8e4853d47fa5e987088e84a9350ee7700ed1f6",
+        "current": "34fa94771e80cdb70e301d3f23459269ce412a634d90ddf531df71949861ac6c"
+      },
+      "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp": {
+        "tested": "efd6c7b110556a77524d709750d5f88626fa345748e5a251ff096e2ba2c6820e",
+        "current": "c2824f3cc1012c8c7d2bb3f5ee09b34a10ee6e49fa557f11318c435d1215472c"
+      },
+      "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+        "tested": "ca955eedddd76d65b8e24ad3db8424bb64626fd6974c5c789eb56851d028c066",
+        "current": "1a3fb183aa070d84f0b83955bc87f5a7ec5df30eca9c1c8b5a74d09556d3aba6"
+      },
+      "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h": {
+        "tested": "79d4072d878ce1e712d5ae5e4fa88b60b4c5c4ae0f36655f1c9e72ef0212e734",
+        "current": "3d992bc3a19ab57f082c66fd381e1e08c3288a282e4859d6cdc671af4ff4c71e"
+      },
+      "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h": {
+        "tested": "ba7c44ac4cfb2a82caf356c2358d4d91dea11b003f979d5dcd60c9527e0d7661",
+        "current": "3c6fcb36d715dd14b4ff220dd0571cf5d22dacf5356cd4480b7822583e0635a6"
+      },
+      "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_emit.h": {
+        "tested": "e67aab05f1d42a6c2c2072dc381a2a7939954cf018a6a60584c0e6b1991869e1",
+        "current": "e450b68924e29495f7fab79f8f6968d2b71c3ba43d02ececd8618dc7ec415b94"
+      },
+      "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_control_storage_emit.h": {
+        "tested": "d2a253c30e52fd0023202e9bca4b0afee37b3b2b982a251df7b0ae4288066fd1",
+        "current": "b9750b7ba031228583783ebed6b198af43edec9839a68f0b3ac4bb197e7f3bf4"
+      },
+      "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_snapshot_copy_emit.h": {
+        "tested": "4abfb10178e8ad28300e98737b46136a0caf606f34f7cfcb1062e4d1e2b9d227",
+        "current": "61ace18ca70c06c3b6ea2f893432422c1bced2dd69e36fa99bc3bd6961f422f0"
+      },
+      "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_packet_emit.h": {
+        "tested": "1f0e28a7bbfbedb36c262cce8364761ec870bac4b76d2a5ed5d3cbb0f43c151a",
+        "current": "9afb2e16d2dec6e93dc506496f20853d7ec7f101ccf9b3c120bc5aae300eeb2a"
+      },
+      "uwvm2/src/uwvm2/uwvm/debugger/readme.md": {
+        "tested": "f7572fcf488ca14022a767ae26fddabcf494e06265186c0bd92c6baf72e0ac8a",
+        "current": "b64516775778356ea05a42ebfb6a07f10e061fb50573b1f2e429c7b3d0ed3829"
+      },
+      "uwvm2/src/uwvm2/uwvm/debugger/native_owned_instruction_semantics.h": {
+        "tested": "d24b94a2626f6344b9f4ce9bb186f6ef812a29df4ca07ffda323386258b4d094",
+        "current": "78dc1f2c32b93a857468811efdb93f0d4df24cde96c552dda97a3c6f5bf7d86b"
+      },
+      "uwvm2-ros/src/uwvm2/runtime/checkpoint/materialization.h": {
+        "tested": "e4ed6320493159cdd5761fa6cb1163d305101e0502ff1d304671d68441081541",
+        "current": "c28cae9745ac857f19c2cdbb7bca098bdf490fe55c48d2ef1b16f5b1096f7a0d"
+      },
+      "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h": {
+        "tested": "07460378a6a89cbf9b0feb788b8e4853d47fa5e987088e84a9350ee7700ed1f6",
+        "current": "34fa94771e80cdb70e301d3f23459269ce412a634d90ddf531df71949861ac6c"
+      },
+      "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp": {
+        "tested": "f316b580f4c229101f9778e31edf4fc450636d3d6bcd819dd593b5b3efa42888",
+        "current": "bc4febdc00a227fe12b3930103ef209194ad2300102d26a8dc78c4238b00a1a0"
+      },
+      "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+        "tested": "52aec65943f411c2440d26fef195a5d1db76494322afdec883f1fe398fbb890a",
+        "current": "aaa64d4a8a2629b883fc20f6c71554e5abff85727cd6deec41b71ad5f36c5115"
+      },
+      "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h": {
+        "tested": "79d4072d878ce1e712d5ae5e4fa88b60b4c5c4ae0f36655f1c9e72ef0212e734",
+        "current": "3d992bc3a19ab57f082c66fd381e1e08c3288a282e4859d6cdc671af4ff4c71e"
+      },
+      "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h": {
+        "tested": "a8738d78a3a9bea48b7fe4e29d4b41d022066bce5f6c37aa8cecfda491592db4",
+        "current": "b67d0f6b5db3b6d35d03c124dcc936988fa1a927b755ded5f63df7d6c58644cd"
+      },
+      "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_emit.h": {
+        "tested": "e67aab05f1d42a6c2c2072dc381a2a7939954cf018a6a60584c0e6b1991869e1",
+        "current": "e450b68924e29495f7fab79f8f6968d2b71c3ba43d02ececd8618dc7ec415b94"
+      },
+      "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_control_storage_emit.h": {
+        "tested": "d2a253c30e52fd0023202e9bca4b0afee37b3b2b982a251df7b0ae4288066fd1",
+        "current": "b9750b7ba031228583783ebed6b198af43edec9839a68f0b3ac4bb197e7f3bf4"
+      },
+      "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_snapshot_copy_emit.h": {
+        "tested": "4abfb10178e8ad28300e98737b46136a0caf606f34f7cfcb1062e4d1e2b9d227",
+        "current": "61ace18ca70c06c3b6ea2f893432422c1bced2dd69e36fa99bc3bd6961f422f0"
+      },
+      "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_packet_emit.h": {
+        "tested": "1f0e28a7bbfbedb36c262cce8364761ec870bac4b76d2a5ed5d3cbb0f43c151a",
+        "current": "9afb2e16d2dec6e93dc506496f20853d7ec7f101ccf9b3c120bc5aae300eeb2a"
+      },
+      "uwvm2-ros/src/uwvm2/uwvm/debugger/readme.md": {
+        "tested": "f7572fcf488ca14022a767ae26fddabcf494e06265186c0bd92c6baf72e0ac8a",
+        "current": "b64516775778356ea05a42ebfb6a07f10e061fb50573b1f2e429c7b3d0ed3829"
+      },
+      "uwvm2-ros/src/uwvm2/uwvm/debugger/native_owned_instruction_semantics.h": {
+        "tested": "d24b94a2626f6344b9f4ce9bb186f6ef812a29df4ca07ffda323386258b4d094",
+        "current": "78dc1f2c32b93a857468811efdb93f0d4df24cde96c552dda97a3c6f5bf7d86b"
+      }
+    },
+    "qualification": "Only the frozen snapshot is qualified; peer changes after freezing were preserved and not requalified.",
+    "initial_drift_proof": "working-tree-drift.json"
+  },
+  "persistent_delivery_guard": {
+    "passed": true,
+    "error": null,
+    "actual_root_exit": 0,
+    "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+    "limits": {
+      "owned_rss_limit_bytes": 6442450944,
+      "memory.max": "68719476736",
+      "memory.swap.max": "0",
+      "cpuset": "0,2,4,6,16-31"
+    },
+    "owned_peak_aggregate_rss_upper_bytes": 42983424,
+    "parent_peak_memory_current_bytes": 62672412672,
+    "parent_events_unchanged": true,
+    "memory_events_before": "low 0\nhigh 0\nmax 162\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "memory_events_after": "low 0\nhigh 0\nmax 162\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "foreign_pids_observed_not_owned": [
+      344884,
+      425097,
+      431726,
+      446228,
+      495325,
+      502857,
+      511568,
+      514550,
+      515988,
+      519940,
+      527066,
+      527329,
+      527893,
+      527975,
+      528174,
+      528230,
+      528239,
+      528243
+    ],
+    "history": [
+      {
+        "pid": 528123,
+        "birth": 1543304,
+        "ppid": 528122,
+        "state": "R",
+        "cg": "0::/user.slice/user-1000.slice/session-2209.scope\n",
+        "uid": 1000,
+        "argv": [
+          "/usr/bin/python3",
+          "-u",
+          "-c",
+          "import os,sys,signal;os.sched_setaffinity(0,set(range(16,32)));os.kill(os.getpid(),signal.SIGSTOP);os.execvpe(sys.argv[1],sys.argv[1:],os.environ)",
+          "/usr/bin/python3",
+          "-u",
+          "/tmp/uwvm-wasip1-root-alias-20261006-r7/suite.py",
+          "persist-verify"
+        ]
+      },
+      {
+        "pid": 528227,
+        "birth": 1543330,
+        "ppid": 528123,
+        "state": "R",
+        "cg": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+        "uid": 1000,
+        "argv": [
+          "/usr/bin/python3",
+          "/tmp/uwvm-wasip1-root-alias-20261006-r7/verify_delivery.py"
+        ]
+      }
+    ],
+    "retirement": [
+      {
+        "pid": 528123,
+        "birth": 1543304,
+        "pidfd_retired": true
+      },
+      {
+        "pid": 528227,
+        "birth": 1543330,
+        "pidfd_retired": true
+      }
+    ],
+    "reaped": {},
+    "guard_sha256": "493788415d8afcf63fa8e8c25c7595c3b69b827cd6b8d4a4a510c3d66109de87"
+  }
+}

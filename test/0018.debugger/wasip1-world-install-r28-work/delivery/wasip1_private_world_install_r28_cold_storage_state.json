@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "receipt": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/historical-evidence-cold-rehome.json",
+  "receipt_sha256": "c5672b8361cd476732bb16abc056ed2ee402e24f3a73a3cc5fe33ea05993665c",
+  "limit_bytes": 2147483648,
+  "archives": {
+    "wasip1-atomic-export-20261007-r24-evidence.tar.gz": "020820c8544711434dcbf49a0b5cc9b0bec2db2928aed9b49443cda20ea97ef5",
+    "wasip1-live-integration-20261007-r25-evidence.tar.gz": "697a67be8f57995da77105a8f28133e72d27d0739e2b485dc0b394fde66f60fc",
+    "mac-local-r17-r23-history.tar.gz": "926d6301204f97289ceee02c8abb9d3b5f49f103834e13bd8fefb3e31c449737",
+    "r27-uwvm2-freebsd-qualified-products.tar.gz": "16f915040eb290dca710c4b94ad4aef8806406689aaf620eb0b120df2f921a49",
+    "r27-uwvm2-linux-integrated-qualified-products.tar.gz": "f9c9a0a0b429fc3a789287b7ee887f49672af207899a9d76d216b25ad6e05779",
+    "r27-uwvm2-linux-qualified-products.tar.gz": "1a9bf3bc0e21b8011e88777ce28b30c2c66bb3e9f21c4c2ee973f5f98a72508c",
+    "r27-uwvm2-macos-qualified-products.tar.gz": "b721df06ec6608f3bcd6e10bfe503395d70b7918947c300699f55dc18f1cf155",
+    "r27-uwvm2-ros-freebsd-qualified-products.tar.gz": "3d659c58b2081e76bf428fb8e484ef04087f72e6f96bb719444f2c5bea5c0031",
+    "r27-uwvm2-ros-linux-integrated-qualified-products.tar.gz": "b72c3cc97370d88c2d87f86d1eee6306d9940bd9cadb12bbc5c4618abf6d0a50",
+    "r27-uwvm2-ros-linux-qualified-products.tar.gz": "17abef3534cc9544d0866499edcbfbe0cf27ffd868b43471fa0019ecddb2060c",
+    "r27-uwvm2-ros-macos-qualified-products.tar.gz": "b9e4ead79364058c255b1079775994d3a377846d2d69441e30dfd5cc485cedfb",
+    "r27-uwvm2-ros-windows-qualified-products.tar.gz": "3c48ee326e86417a6d353172333b269fe2a37629fcd9d67bef862314f7482d24",
+    "r27-uwvm2-windows-qualified-products.tar.gz": "815eda0d4a5056d41137af5d8299cb854231bea9762586d8604ac94940b88a30",
+    "r28-uwvm2-linux-integrated-qualified-products.tar.gz": "dc75682beae23713dca76b2bddb00f79f061bb2cb43dcb7647172ce7c18b3ab4",
+    "r28-uwvm2-ros-linux-integrated-qualified-products.tar.gz": "a6a2ea2c81de37e2135a4707ca0bf7b7fcabfe5f3989815e7d5e243e4949f170",
+    "r28-uwvm2-windows-qualified-products.tar.gz": "f73576c69a831adba043def951a489bb2e3b3f315d35d83b29793ae70c103634",
+    "r28-uwvm2-ros-windows-qualified-products.tar.gz": "7f9628078cbee30bda55a9c1345cd90dec7d8947501b58b4e6bd3ddea399fbfa",
+    "r28-uwvm2-freebsd-qualified-products.tar.gz": "9eedaa7cc08b7adfaf1b8f4190ec615095f025ef078ca43ce0d4538c4670ff36",
+    "r28-uwvm2-ros-freebsd-qualified-products.tar.gz": "d2118fbf94938f603b512cb95376e5725810728eb692b088035363d63c881089",
+    "r28-uwvm2-macos-qualified-products.tar.gz": "0aebbc696152655e6f0435a08545f86107992b1505fe47fdf5df1025c006c523",
+    "r28-uwvm2-ros-macos-qualified-products.tar.gz": "bcac33d9ac670ee25cc29828d9e5aa03bb0ea8c0b0ca4a946db76c93deb7f2eb"
+  },
+  "additional_archive_proof": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/mac-local-old-history-cold-qualified.json",
+    "sha256": "66c3b9a098817c39d4b39225d49c93a89e883bfaf5b181ea0e13aa2637fcbeba"
+  },
+  "r28_native_products_relocation": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/r27-native-products-cold-rehome.json",
+    "sha256": "3d51e343afc026b2f0799f62689b2fae27492c2c4bb6cf75676369c492db2609"
+  },
+  "r28_product_relocations": [
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/uwvm2-linux-integrated-cold-relocation.json",
+      "sha256": "b3c4f3f2b16c8dc16363fda79a84a631fd6180bfef22d9a6375f14592d10380b"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/uwvm2-ros-linux-integrated-cold-relocation.json",
+      "sha256": "4e26269c6342aa3f73d5a6c3605c41d52e79593e4599f5b4bd9cc592f90c3141"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/uwvm2-windows-cold-relocation.json",
+      "sha256": "438ee58b8190f0f72878c9d82ef1f5b434775b06d4fd0cfb024a5d09edb7b830"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/uwvm2-ros-windows-cold-relocation.json",
+      "sha256": "507d668b6d8070a829e1bd8b41cc2761b5b7a71a3b3ad791ff0ccb5c49f2baa0"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/uwvm2-freebsd-cold-relocation.json",
+      "sha256": "1b71381e0f1d12e94d7b3fe70c7618794aff5903b8214e3bbbf3d63959370c31"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/uwvm2-ros-freebsd-cold-relocation.json",
+      "sha256": "9ba8faf49a22a110869e15065edd7b2dc9ad9c48ae7dc9356073c8b23eb6c361"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/uwvm2-macos-cold-relocation.json",
+      "sha256": "8b83df8b5d0b4734098506aace6d72a9c610eb6e22f440f07789607182f4932b"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/uwvm2-ros-macos-cold-relocation.json",
+      "sha256": "2d9a033d92c497534c6004ed82f51bbcb2e256668c0c8aaf3f72b65c1a0720b0"
+    }
+  ]
+}

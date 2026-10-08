@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "report_sha256": "72662577924fc2a84d1002cbab28b8407d8d6ace7d781e1a2eacc1a2f99491cc",
+  "results_sha256": "c76a025e27c25a0b27eb678adb400c122eca424e064c01438a38745d498d1f97",
+  "archive_sha256": "91df2e8b3919df7d0f46b4faf1bb9f0eb38e133a811a578cbb77a43efff76c8e",
+  "archive_bytes": 13337614,
+  "payloads_verified_on_linux_and_macos": 4753,
+  "post_fix_checks": 6912,
+  "owned_sources_match": true,
+  "remote_round": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-path-admission-20261006-r18",
+  "scope": "Path admission requests and real console parser; native portable codec/file helpers on four OS; Linux existing codec/command/rebinding/DAP mock regressions. No new full runtime/CLI/LLVM JIT or named module build."
+}

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "archive_sha256": "2c885df390390dd43fbc6cbac535d961cce848cde2589caa3bf352f96fab5a6e",
+  "archive_bytes": 12822200,
+  "cold": {
+    "local_path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/BE719-MIPS-MSA-source-and-evidence.tar.xz",
+    "local_bytes": 12822200,
+    "local_sha256": "2c885df390390dd43fbc6cbac535d961cce848cde2589caa3bf352f96fab5a6e",
+    "archive_sha256": "2c885df390390dd43fbc6cbac535d961cce848cde2589caa3bf352f96fab5a6e",
+    "independent_local_exact_byte_hash_verified": true
+  },
+  "scope": "Exact recoverable source, raw images, immutable source manifests, positive and failed producer records; audit retirement saved separately"
+}

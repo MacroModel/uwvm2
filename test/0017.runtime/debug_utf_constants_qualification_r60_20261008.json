@@ -1,0 +1,689 @@
+{
+  "passed": true,
+  "scope": "R60 bounded UTF direct constants, exact Clang 64-bit sign extension and genuine Rust floating direct constants; both source repositories. Numeric code-unit reads, not glyph/string/native-language parity.",
+  "products": {
+    "uwvm2": {
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a2-r60/out-uwvm2/product-a1/results.json",
+      "receipt_sha256": "39e043a6e6c3b6963a6c9eb17f0dd8542fcacb7113b74efe391a2c5726cb7e6c",
+      "source_id": "sha256:0b7d297789cb8ce7f707e2ce661d2fdc340e624ed916c3d8cd741ddddfa2f432",
+      "binary_path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a2-r60/out-uwvm2/product-a1/uwvm",
+      "binary_sha256": "070bdb22ef73db8c6fc3c9e52e2ebd765af9bcd72e1139662323c6c34d110510",
+      "binary_bytes": 179140984,
+      "fresh_TUs": 3,
+      "actual_ROS12_X86_provider_qualified": false
+    },
+    "uwvm2-ros": {
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a2-r60/out-uwvm2-ros/product-a1/results.json",
+      "receipt_sha256": "6fb6e5b4307937c1244c0de62fed2cc638def6431e0b55132cb8fcde58ded1e1",
+      "source_id": "sha256:b78f8fbd60da36a986ffe25fad2e362d01a81974f0a69979df9649edb14fce4f",
+      "binary_path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a2-r60/out-uwvm2-ros/product-a1/uwvm",
+      "binary_sha256": "529c663f8fe8c70d28fa8ff63b441f83ec1a7ec2d69da49246066ab7bd19a368",
+      "binary_bytes": 144678080,
+      "fresh_TUs": 3,
+      "actual_ROS12_X86_provider_qualified": true
+    }
+  },
+  "CLI": {
+    "uwvm2": {
+      "before": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a4-r60/out-uwvm2/results.json",
+        "sha256": "5bb74f022bd924712e73e46515edd1a56f28e10d9638861a160bda8c7017bc80",
+        "cases": 8,
+        "unchanged_compiler_original_bytes": true,
+        "UTF_reads": 0,
+        "UTF_unavailable": 16,
+        "floating_origins": 24,
+        "Rust_accelerator_tables_disabled": true,
+        "scope": "Actual C++/Rust Wasm32 O1 DWARF4/5 instruction/unwind; compiled with Rust llvm-args=-accel-tables=Disable."
+      },
+      "after": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-producer-a2-r60/out-uwvm2/results.json",
+        "sha256": "41f9c1a70d67f5c667282338f0e76cfb159c21ae04d07e8dd8b7ba92ffd79af5",
+        "cases": 8,
+        "unchanged_compiler_original_bytes": true,
+        "UTF_reads": 16,
+        "UTF_unavailable": 0,
+        "floating_origins": 24,
+        "Rust_accelerator_tables_disabled": true,
+        "scope": "Actual C++/Rust Wasm32 O1 DWARF4/5 instruction/unwind; compiled with Rust llvm-args=-accel-tables=Disable."
+      }
+    },
+    "uwvm2-ros": {
+      "before": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a4-r60/out-uwvm2-ros/results.json",
+        "sha256": "1ae74c67c1082c4f8f93027fe3abf2c17774762381089f27f96c3de2e391a570",
+        "cases": 8,
+        "unchanged_compiler_original_bytes": true,
+        "UTF_reads": 0,
+        "UTF_unavailable": 16,
+        "floating_origins": 24,
+        "Rust_accelerator_tables_disabled": true,
+        "scope": "Actual C++/Rust Wasm32 O1 DWARF4/5 instruction/unwind; compiled with Rust llvm-args=-accel-tables=Disable."
+      },
+      "after": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-producer-a2-r60/out-uwvm2-ros/results.json",
+        "sha256": "07006eeb7fde3c08895c1741ebc65278304fd874f92f8ffef63a467b89550f16",
+        "cases": 8,
+        "unchanged_compiler_original_bytes": true,
+        "UTF_reads": 16,
+        "UTF_unavailable": 0,
+        "floating_origins": 24,
+        "Rust_accelerator_tables_disabled": true,
+        "scope": "Actual C++/Rust Wasm32 O1 DWARF4/5 instruction/unwind; compiled with Rust llvm-args=-accel-tables=Disable."
+      }
+    }
+  },
+  "DAP": {
+    "uwvm2": {
+      "all": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-dap-a2-r60/out-uwvm2/all-a1/results.json",
+        "sha256": "61c51611d1964ca0b763a4682abe9920bacd0c26d6bc5a8cbcf2acacfe73b34f",
+        "sessions": 4,
+        "elapsed_seconds": 3.605203621002147,
+        "evaluations": 192,
+        "direct_constant_origins": 64,
+        "all_original_guest_broker_waits_zero": true,
+        "DAP_EOF_verified": true,
+        "readonly_pagination_Source_Watch_Hover_and_old_ref_rejection": true
+      },
+      "unwind": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-dap-a2-r60/out-uwvm2/unwind-a1/results.json",
+        "sha256": "c625115e3fc8ba1333241baac3e7fc372a4ed2d5bc625ce7a67d632f2b4c1b13",
+        "sessions": 4,
+        "elapsed_seconds": 3.580476123999688,
+        "evaluations": 192,
+        "direct_constant_origins": 64,
+        "all_original_guest_broker_waits_zero": true,
+        "DAP_EOF_verified": true,
+        "readonly_pagination_Source_Watch_Hover_and_old_ref_rejection": true
+      },
+      "soak": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-dap-a2-r60/out-uwvm2/soak-a1/results.json",
+        "sha256": "27874f881c482a082f65d73e3ed4d626d14134f391368151ca47aee5c4ba1920",
+        "sessions": 524,
+        "elapsed_seconds": 604.5848452479986,
+        "evaluations": 25152,
+        "direct_constant_origins": 8384,
+        "all_original_guest_broker_waits_zero": true,
+        "DAP_EOF_verified": true,
+        "readonly_pagination_Source_Watch_Hover_and_old_ref_rejection": true
+      }
+    },
+    "uwvm2-ros": {
+      "all": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-dap-a2-r60/out-uwvm2-ros/all-a1/results.json",
+        "sha256": "2d6c32bd94b6cf327e47728e363b44f15717f094bc29bb0b48e8730c2b21411b",
+        "sessions": 4,
+        "elapsed_seconds": 3.59076696500415,
+        "evaluations": 192,
+        "direct_constant_origins": 64,
+        "all_original_guest_broker_waits_zero": true,
+        "DAP_EOF_verified": true,
+        "readonly_pagination_Source_Watch_Hover_and_old_ref_rejection": true
+      },
+      "unwind": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-dap-a2-r60/out-uwvm2-ros/unwind-a1/results.json",
+        "sha256": "50b5c13f06b998e068324ac4d1009ea0958bd99752fa0bc906ab76b371c01b1b",
+        "sessions": 4,
+        "elapsed_seconds": 3.5993588529963745,
+        "evaluations": 192,
+        "direct_constant_origins": 64,
+        "all_original_guest_broker_waits_zero": true,
+        "DAP_EOF_verified": true,
+        "readonly_pagination_Source_Watch_Hover_and_old_ref_rejection": true
+      },
+      "soak": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-dap-a2-r60/out-uwvm2-ros/soak-a1/results.json",
+        "sha256": "fe9c25ef013044be7b72b93a361605781c1d5e9e445ced022c215cc9df287e63",
+        "sessions": 524,
+        "elapsed_seconds": 603.9507649680017,
+        "evaluations": 25152,
+        "direct_constant_origins": 8384,
+        "all_original_guest_broker_waits_zero": true,
+        "DAP_EOF_verified": true,
+        "readonly_pagination_Source_Watch_Hover_and_old_ref_rejection": true
+      }
+    }
+  },
+  "unit_tests_per_repository": {
+    "uwvm2": 493,
+    "uwvm2-ros": 493
+  },
+  "native_components": {
+    "uwvm2": {
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-components-a2-r60/out-uwvm2/results.json",
+      "sha256": "48b2125edcf250ab9da0907902a1bf55fb02a5c6b2942b2295fc7429dcc6e695",
+      "programs": 11,
+      "build_and_run_rows": 22,
+      "real_repository_specific_LLVM_provider": true
+    },
+    "uwvm2-ros": {
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-components-a2-r60/out-uwvm2-ros/results.json",
+      "sha256": "6c123cb41d665f13e75a2f96c73fd2734b781814e9be52281068707be7adbe90",
+      "programs": 11,
+      "build_and_run_rows": 22,
+      "real_repository_specific_LLVM_provider": true
+    }
+  },
+  "guards": [
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a2-r60/guard-build/receipts.json",
+      "sha256": "cfd410f7a7723b308639afa783767c7f6261afeeff3b040414aaeeab0f5bff6a",
+      "commands": 2,
+      "all_owned_descendants_retired": true,
+      "original_root_OS_waits_zero": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "label": "uwvm2build",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 244.55125392500486,
+          "aggregate_owned_rss_peak_bytes": 7391629312,
+          "minimum_observed_host_disk_free_bytes": 27679899648,
+          "maximum_observed_own_output_bytes": 385985577
+        },
+        {
+          "label": "uwvm2-rosbuild",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 207.37496478200774,
+          "aggregate_owned_rss_peak_bytes": 6088507392,
+          "minimum_observed_host_disk_free_bytes": 27345342464,
+          "maximum_observed_own_output_bytes": 693823707
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a4-r60/guard-before/receipts.json",
+      "sha256": "9af15b87acaaf6c2b8ff48911b2144f4019024cd9247ea6a31f75e93ab761432",
+      "commands": 2,
+      "all_owned_descendants_retired": true,
+      "original_root_OS_waits_zero": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "label": "uwvm2producer",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 4.579525567998644,
+          "aggregate_owned_rss_peak_bytes": 124100608,
+          "minimum_observed_host_disk_free_bytes": 28688867328,
+          "maximum_observed_own_output_bytes": 2740680
+        },
+        {
+          "label": "uwvm2-rosproducer",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 4.489252336003119,
+          "aggregate_owned_rss_peak_bytes": 135057408,
+          "minimum_observed_host_disk_free_bytes": 28686827520,
+          "maximum_observed_own_output_bytes": 5477614
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-producer-a2-r60/guard-producer-uwvm2/receipts.json",
+      "sha256": "1184bfd65d88d546bea617935c8520e3f77243a80ee846c9d83a3dcbb44f974c",
+      "commands": 1,
+      "all_owned_descendants_retired": true,
+      "original_root_OS_waits_zero": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "label": "uwvm2producer",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 4.880233738993411,
+          "aggregate_owned_rss_peak_bytes": 208027648,
+          "minimum_observed_host_disk_free_bytes": 27557494784,
+          "maximum_observed_own_output_bytes": 2764070
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-producer-a2-r60/guard-producer-ros/receipts.json",
+      "sha256": "6917e5e4d760ad0dd255ebc0d62a6a7f9c5f3db2ed5d5449a9812be1425e55d5",
+      "commands": 1,
+      "all_owned_descendants_retired": true,
+      "original_root_OS_waits_zero": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "label": "uwvm2-rosproducer",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 4.564670573992771,
+          "aggregate_owned_rss_peak_bytes": 104222720,
+          "minimum_observed_host_disk_free_bytes": 27330818048,
+          "maximum_observed_own_output_bytes": 5525390
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-components-a2-r60/guard-components-uwvm2/receipts.json",
+      "sha256": "6d67ca1f87dc6ca1617c236ab20ceb0f072d7fa859cdd9e2ccce43b0324572de",
+      "commands": 1,
+      "all_owned_descendants_retired": true,
+      "original_root_OS_waits_zero": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "label": "uwvm2components",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 109.2872418199986,
+          "aggregate_owned_rss_peak_bytes": 698105856,
+          "minimum_observed_host_disk_free_bytes": 27342401536,
+          "maximum_observed_own_output_bytes": 12211550
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-components-a2-r60/guard-components-ros/receipts.json",
+      "sha256": "d27d04e6593d6c3a763c6dec5757b4a4fca7189bf07419c7b0f4e2f3ae62962c",
+      "commands": 1,
+      "all_owned_descendants_retired": true,
+      "original_root_OS_waits_zero": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "label": "uwvm2roscomponents",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 110.27269597101258,
+          "aggregate_owned_rss_peak_bytes": 703504384,
+          "minimum_observed_host_disk_free_bytes": 27309498368,
+          "maximum_observed_own_output_bytes": 26698058
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-cross-a1-r60/guard-cross/receipts.json",
+      "sha256": "7b96269835ddc261b0bdd3c08b9a74f63fc3deb83349e552f53970dcd6499a21",
+      "commands": 1,
+      "all_owned_descendants_retired": true,
+      "original_root_OS_waits_zero": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "label": "qualifiedtypesmatrix",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 366.38458232600533,
+          "aggregate_owned_rss_peak_bytes": 582651904,
+          "minimum_observed_host_disk_free_bytes": 27882311680,
+          "maximum_observed_own_output_bytes": 26745311
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-dap-a2-r60/guard-dap-uwvm2/receipts.json",
+      "sha256": "1bda7873b0bca6bcb4204706fd7430d8ab31f291618e305a333c157a0750d4b5",
+      "commands": 4,
+      "all_owned_descendants_retired": true,
+      "original_root_OS_waits_zero": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "label": "uwvm2-unit",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 2.2049107729981188,
+          "aggregate_owned_rss_peak_bytes": 72073216,
+          "minimum_observed_host_disk_free_bytes": 27331989504,
+          "maximum_observed_own_output_bytes": 0
+        },
+        {
+          "label": "uwvm2-all",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 4.43109624000499,
+          "aggregate_owned_rss_peak_bytes": 165842944,
+          "minimum_observed_host_disk_free_bytes": 27330543616,
+          "maximum_observed_own_output_bytes": 148758
+        },
+        {
+          "label": "uwvm2-unwind",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 4.364550288999453,
+          "aggregate_owned_rss_peak_bytes": 167673856,
+          "minimum_observed_host_disk_free_bytes": 27329671168,
+          "maximum_observed_own_output_bytes": 297448
+        },
+        {
+          "label": "uwvm2-soak",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 605.4159212280065,
+          "aggregate_owned_rss_peak_bytes": 209010688,
+          "minimum_observed_host_disk_free_bytes": 27253436416,
+          "maximum_observed_own_output_bytes": 27947188
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-dap-a2-r60/guard-dap-ros/receipts.json",
+      "sha256": "2e3ae3c473d16589cfd7f8cabfd41c753c4241d90748e36c43b4b145be4db8bb",
+      "commands": 4,
+      "all_owned_descendants_retired": true,
+      "original_root_OS_waits_zero": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "label": "uwvm2-ros-unit",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 2.243307040000218,
+          "aggregate_owned_rss_peak_bytes": 52867072,
+          "minimum_observed_host_disk_free_bytes": 27324936192,
+          "maximum_observed_own_output_bytes": 700849
+        },
+        {
+          "label": "uwvm2-ros-all",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 4.389018672009115,
+          "aggregate_owned_rss_peak_bytes": 170729472,
+          "minimum_observed_host_disk_free_bytes": 27323953152,
+          "maximum_observed_own_output_bytes": 956602
+        },
+        {
+          "label": "uwvm2-ros-unwind",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 4.2904062180023175,
+          "aggregate_owned_rss_peak_bytes": 167837696,
+          "minimum_observed_host_disk_free_bytes": 27323146240,
+          "maximum_observed_own_output_bytes": 1212067
+        },
+        {
+          "label": "uwvm2-ros-soak",
+          "passed": true,
+          "returncode": 0,
+          "wall_seconds": 604.7743156450015,
+          "aggregate_owned_rss_peak_bytes": 210857984,
+          "minimum_observed_host_disk_free_bytes": 27253436416,
+          "maximum_observed_own_output_bytes": 35727760
+        }
+      ]
+    }
+  ],
+  "cross": {
+    "receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-cross-a1-r60/out-matrix/verification.json",
+    "sha256": "89fe1dee86eceec207bc1caf483a2ece972e50bd2a410c97062b711fa0786f57",
+    "public_receipt": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-cross-a1-r60/out-matrix/public/results.json",
+    "public_sha256": "5f360b6b49caee2086aa631dfae49257ac9b341d6a9b7280b4f0681442771979",
+    "actual_target_ELF_runs": 32,
+    "architecture_profiles": [
+      "aarch64",
+      "armel",
+      "armhf",
+      "i686",
+      "loongarch64",
+      "mips32",
+      "mips32el",
+      "mips64",
+      "mips64el",
+      "ppc32",
+      "ppc64",
+      "ppc64le",
+      "riscv64",
+      "s390x",
+      "sparc64",
+      "x86_64"
+    ],
+    "value_consumer_dependencies_equal_final_product": true,
+    "scope": "Finite constant-plan DATA only; full target LLVM decoder/VM/JIT/DAP remains unqualified."
+  },
+  "paired_final_delta": {
+    "src/uwvm2/uwvm/debugger/source_dwarf_constants.h": {
+      "sha256": "73b4622d0299b7e9d290d8f1567a97a325e5e36c607658f5a47d8f7c9d69b9c6"
+    },
+    "test/0017.runtime/debug_source_constants.cc": {
+      "sha256": "74680b60399c8c425973ccdfa2205d2e4e989824d89c732deb898fa239bbe31b"
+    }
+  },
+  "early_verified_cleanup": [
+    {
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/retained-utf-constants-preliminary-r60/receipt.json",
+      "sha256": "f1f453fabf440e168430d6d6d2f35a305d2537b7a1dee2dde219b11dd4456a6c",
+      "details": {
+        "passed": true,
+        "archive": "/home/macromodel/Documents/uwvm3-implementation/retained-utf-constants-preliminary-r60/preliminary-full.tar.xz",
+        "bytes": 103017180,
+        "sha256": "ef3570e906217672ee4dfb9e4a974138b9b97c978413081451398c4835780c23",
+        "members": 8888,
+        "all_members_stream_verified": true,
+        "originals_before_after_verified": true,
+        "deleted_only_verified_recoverable_own_objects_and_duplicate_upload": [
+          "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a1-r60/out-uwvm2/product-a1/runtime.o",
+          "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a1-r60/out-uwvm2/product-a1/main.o",
+          "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a1-r60/out-uwvm2/product-a1/host.o",
+          "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a1-r60/out-uwvm2-ros/product-a1/runtime.o",
+          "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a1-r60/out-uwvm2-ros/product-a1/main.o",
+          "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a1-r60/out-uwvm2-ros/product-a1/host.o",
+          "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a1-r60/current-local-source.tar"
+        ],
+        "freed_bytes": 478214216
+      }
+    },
+    {
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/retained-utf-constants-final-objects-r60/receipt.json",
+      "sha256": "06850fb00256f01cf0226398c668aedb3e48b536de997d356b772883a97a3a5b",
+      "details": {
+        "passed": true,
+        "archive": "/home/macromodel/Documents/uwvm3-implementation/retained-utf-constants-final-objects-r60/objects.tar.xz",
+        "sha256": "abbf659a179d2d0f78ed635ae6e487b2891da8db48af262d9139672dbc99edc6",
+        "bytes": 21322456,
+        "original_objects": {
+          "utf-constants-full-a2-r60/out-uwvm2/product-a1/runtime.o": {
+            "bytes": 145546584,
+            "sha256": "0c9dfb9504158a4b7599a84d50e6c283d9369a9d333bc2f904e1ce8311e8cb20"
+          },
+          "utf-constants-full-a2-r60/out-uwvm2/product-a1/main.o": {
+            "bytes": 48526488,
+            "sha256": "1a7ae88f3089db7b2c6ef0bd24e77d3ad200d88d65e2e288f65a7bdaa1377493"
+          },
+          "utf-constants-full-a2-r60/out-uwvm2/product-a1/host.o": {
+            "bytes": 6880552,
+            "sha256": "42f6fdd6d33e69e7a1f74793a4bd84322d5074f84c126568fbf33aa83a26e127"
+          },
+          "utf-constants-full-a2-r60/out-uwvm2-ros/product-a1/runtime.o": {
+            "bytes": 100293856,
+            "sha256": "43ae5023712482c5f8715ba756fb9d33188d25c90c06624a660fee778bd3d442"
+          },
+          "utf-constants-full-a2-r60/out-uwvm2-ros/product-a1/main.o": {
+            "bytes": 47863536,
+            "sha256": "a522abb2859edddd4cd70454abb05105203ae9163fcbe9eca5c739aee1209738"
+          },
+          "utf-constants-full-a2-r60/out-uwvm2-ros/product-a1/host.o": {
+            "bytes": 6878784,
+            "sha256": "50a7c9beb7dd5a09c681259f1b722ae9c966e0c342266567d24e9301d110f6dd"
+          }
+        },
+        "original_OS_waits_and_all_owned_retirement_verified": true,
+        "all_members_stream_verified": true,
+        "fsync": true,
+        "only_verified_recoverable_own_objects_deleted": true,
+        "freed_bytes": 355989800
+      }
+    }
+  ],
+  "unchanged_constraints": {
+    "fast_io_numeric_parse_and_print_reused": true,
+    "no_guest_memory_or_pointer_authority_for_constant": true,
+    "ASM_guest_context_only": true
+  },
+  "remaining": [
+    "Native glyph/rune/string rendering and Unicode literal expressions",
+    "Default Rust DWARF5 name-index producer verification (original failure retained); tested with accelerator tables disabled",
+    "Full eight-language native debugger feature parity",
+    "Actual new constant paths for C/Objective-C/standard Go/TinyGo/Zig/AssemblyScript",
+    "Unsupported UTF widths, generic overflow, negative signed UTF forms, strings and aggregate constants",
+    "Full target VM/JIT/DAP, uwvm-int full, and module BMI qualification"
+  ],
+  "archive": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/retained-utf-constants-r60-final/evidence.tar.xz",
+    "bytes": 406828340,
+    "sha256": "02455bd06970783b97f9d20430ad98dc1b3a5bd0659c48ffce591da17ae1a335",
+    "regular_members": 102401,
+    "regular_member_raw_bytes": 2209255130,
+    "all_members_streamed_and_originals_before_after_verified": true,
+    "fsync": true
+  },
+  "final_verified_cleanup": {
+    "files": [
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a1-r60/out-uwvm2/cpp-dwarf4-O1.o",
+        "bytes": 5166,
+        "sha256": "1e7488573dc4397a77e9374884c2376dfaf485ef01fe3731c6ef6bee02b2b147"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a1-r60/out-uwvm2/cpp-dwarf5-O1.o",
+        "bytes": 5320,
+        "sha256": "10f83c01f25f66cc8c4f15d1c4b7566d796ddbd5d4aa1e71a2709ea9dab4d7d3"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a2-r60/out-uwvm2/cpp-dwarf4-O1.o",
+        "bytes": 5166,
+        "sha256": "9250f1fde1517834e53f19a945a47279fa619cbe1822982be2a7c92c97d328b6"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a2-r60/out-uwvm2/cpp-dwarf5-O1.o",
+        "bytes": 5320,
+        "sha256": "078c41323eb41d7063c6d0e7f64468080bdebcf706efd97f8facefb920332d83"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a3-r60/out-uwvm2/cpp-dwarf4-O1.o",
+        "bytes": 5166,
+        "sha256": "bc02c96c780ff0f9579d53beb755a9c903b412867ed8420b4eac6c8b9f543ecb"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a3-r60/out-uwvm2/cpp-dwarf5-O1.o",
+        "bytes": 5320,
+        "sha256": "e3db1463d4a6efbf879f53f507f64072c5d04e9f6d1396e63f8fb2b19b77293b"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a4-r60/out-uwvm2/cpp-dwarf4-O1.o",
+        "bytes": 5166,
+        "sha256": "baeb422bddbabbe26ac9b0dfb4c9c7458605ee08abaccf59d16e2836ae4d0e39"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a4-r60/out-uwvm2/cpp-dwarf5-O1.o",
+        "bytes": 5320,
+        "sha256": "2c38de8e4d262d09a62ed6653fab4c462a03bf699113ca6d06ecb5ece55469b1"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a4-r60/out-uwvm2-ros/cpp-dwarf4-O1.o",
+        "bytes": 5174,
+        "sha256": "1294c86789a34ad80de182e293f6cfe003d6d80a57d11833c0839912657088cd"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-before-a4-r60/out-uwvm2-ros/cpp-dwarf5-O1.o",
+        "bytes": 5336,
+        "sha256": "d1e9f5f53b92611f34ab3708901abbd2a5371a4eea40bbbf4a71462e65cfd60a"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-producer-a1-r60/out-uwvm2/cpp-dwarf4-O1.o",
+        "bytes": 5170,
+        "sha256": "3043c6568dc3ea6fe2476f20f4f5e6de9a6df5306612591a7735414b987d394e"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-producer-a2-r60/out-uwvm2/cpp-dwarf4-O1.o",
+        "bytes": 5170,
+        "sha256": "2cf1129ec34107910eb5f4a3dbf47e829f8ee33739138c695ce633f21e889bcc"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-producer-a2-r60/out-uwvm2/cpp-dwarf5-O1.o",
+        "bytes": 5328,
+        "sha256": "4ba9f492907cadc4db9aa33c838308b7516727ab058a7ce03fca270d9787859d"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-producer-a2-r60/out-uwvm2-ros/cpp-dwarf4-O1.o",
+        "bytes": 5178,
+        "sha256": "9223a3752a556385b4b89570e877d64be57c3b2ad4cdc57212fa80b3237032e6"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-producer-a2-r60/out-uwvm2-ros/cpp-dwarf5-O1.o",
+        "bytes": 5344,
+        "sha256": "e846436df0b34f1df0bbc4c8c4928b9e13000b1ac1ec34ab4c2b5ade0d3583ff"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/retained-utf-constants-preliminary-r60/preliminary-full.tar.xz",
+        "bytes": 103017180,
+        "sha256": "ef3570e906217672ee4dfb9e4a974138b9b97c978413081451398c4835780c23"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/retained-utf-constants-final-objects-r60/objects.tar.xz",
+        "bytes": 21322456,
+        "sha256": "abbf659a179d2d0f78ed635ae6e487b2891da8db48af262d9139672dbc99edc6"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a1-r60/out-uwvm2/product-a1/uwvm",
+        "bytes": 179140920,
+        "sha256": "6532fe3bfab52991f73010dac5c7bdb64a9b657efdf47f7cbc92153ec1cceb67"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/utf-constants-full-a1-r60/out-uwvm2-ros/product-a1/uwvm",
+        "bytes": 144678016,
+        "sha256": "894eff1a64ffde328a4a2c03243c0db1ebd211a09aac83e1ccccd4f8629e35bb"
+      }
+    ],
+    "bytes": 448237216,
+    "all_deleted_files_recoverable_from_stream_verified_canonical_archive": true,
+    "final_VM_Wasm_ELF_source_protocol_and_external_SDK_libraries_preserved": true
+  },
+  "final_environment_observation": {
+    "host_free_bytes": 27490832384,
+    "cgroup_memory_current_bytes": 55098871808,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+  },
+  "local_integration": {
+    "paired_owned_hashes": {
+      "src/uwvm2/uwvm/debugger/source_dwarf_constants.h": "73b4622d0299b7e9d290d8f1567a97a325e5e36c607658f5a47d8f7c9d69b9c6",
+      "test/0017.runtime/debug_source_constants.cc": "74680b60399c8c425973ccdfa2205d2e4e989824d89c732deb898fa239bbe31b",
+      "test/0017.runtime/debug_source_dwarf_qualified_values.cc": "450d5f770d2df7d9ba17c4c22e7f15f33750e8a3130765630d63a6a1c0e489ed",
+      "test/0017.runtime/fixtures/debug_language_experience_cpp.cc": "a92a53bc0831eeaf394f4abf1867373b67c535e8bd6ebc6a2ea4d69d3630dc14",
+      "test/0017.runtime/fixtures/debug_language_experience_rust.rs": "0612e5b576c589d53cb8415bd8f12f3be63d1403d80acfef8a27d1ea63f5fb24",
+      "test/0018.debugger/run_dap_utf_constants.py": "4b30be3cf9216aa119e8d71040cba15f736693e5daee79a8416daebc9d501413"
+    },
+    "later_unqualified_src_observation": {
+      "uwvm2": {
+        "changed": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h",
+          "src/uwvm2/runtime/llvm_jit_cache/environment.h",
+          "src/uwvm2/runtime/compiler/llvm_jit/mcjit_target_support.h",
+          "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h",
+          "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+        ],
+        "new": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h"
+        ],
+        "removed": []
+      },
+      "uwvm2-ros": {
+        "changed": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h",
+          "src/uwvm2/runtime/llvm_jit_cache/environment.h",
+          "src/uwvm2/runtime/compiler/llvm_jit/mcjit_target_support.h",
+          "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h",
+          "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+        ],
+        "new": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h"
+        ],
+        "removed": []
+      }
+    },
+    "tested_public_constant_plan_overlay_sha256": "450d5f770d2df7d9ba17c4c22e7f15f33750e8a3130765630d63a6a1c0e489ed",
+    "scope": "Complete tested immutable product src cut. Public UTF constant-plan test copied byte exactly from separately pinned native/QEMU overlay. Later peer changes preserved and excluded."
+  }
+}

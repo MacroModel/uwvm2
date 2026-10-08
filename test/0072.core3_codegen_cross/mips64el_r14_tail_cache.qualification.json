@@ -1,0 +1,151 @@
+{
+  "schema": 1,
+  "passed": true,
+  "scope": "Frozen R14 genuine ROS12 Linux N64EL R2 paired VM products: thirteen two-million-tail fixtures cover direct/indirect/typed-reference, changing prototypes, stack/vector parameters, direct/indirect tuple results, fresh locals, mixed spilled FP/v128/i64 bits, and live GC references. Full O1/O2/O3 and main lazy debug/light/balanced; signed default/explicit caches with two authenticated new-process hits; bounded generated Wasm functions0/1 only, no native VM debugging.",
+  "source_identities": {
+    "uwvm2": "sha256:b9f1dbe5b7c6637eecd1e833ac2bf8575825523f52bed5dcb98ec13c9c90356f",
+    "uwvm2-ros": "sha256:519a83f4c70815855f241c68e04e3958d267245adcee94f9473f4e0142eacfd9"
+  },
+  "products": [
+    {
+      "repo": "uwvm2",
+      "product_sha256": "8c0446c7d7be7d7623f41e6db2426bbe5fac43fd9f83d728571c01e6daeb2f60",
+      "source_identities": {
+        "uwvm2": "sha256:b9f1dbe5b7c6637eecd1e833ac2bf8575825523f52bed5dcb98ec13c9c90356f",
+        "uwvm2-ros": "sha256:519a83f4c70815855f241c68e04e3958d267245adcee94f9473f4e0142eacfd9"
+      },
+      "cases": [
+        "tail-direct-2m",
+        "tail-indirect-2m",
+        "tail-typed-ref-2m",
+        "tail-different-prototype-2m",
+        "tail-stack-parameters-2m",
+        "tail-vector-parameters-2m",
+        "tail-tuple-direct-2m",
+        "tail-tuple-indirect-2m",
+        "tail-cold-fresh-locals-2m",
+        "tail-mixed-spills-direct-2m",
+        "tail-mixed-spills-indirect-2m",
+        "tail-live-gc-direct-2m",
+        "tail-live-gc-indirect-2m"
+      ],
+      "profiles": [
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3",
+        "llvm-lazy-debug",
+        "llvm-lazy-light",
+        "llvm-lazy-balanced"
+      ],
+      "signed_processes": 468,
+      "authenticated_warm_processes": 312,
+      "complete_tail_function_extents": 156,
+      "extents_with_other_helper_link_calls": 120,
+      "qualifications": {
+        "signed_cache": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-r1/cache/qualification.json",
+          "sha256": "72dd449ed7df4b86bdcfd4148a4e6ff7efcadf6ce4040cf2cc469065ca8166ba"
+        },
+        "bounded_assembly": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-r1/asm/summary.json",
+          "sha256": "c43793a9421c15e8b3b2a52cd441ceb303373af85409c01f7eeed5bea77b9a6a"
+        },
+        "signed_configuration": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-r1/cache-config.json",
+          "sha256": "fe8ef56f021f8dc0f4f5075448c78a56946af79f6006eceb9e320c103b8dfd14"
+        },
+        "assembly_configuration": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-r1/asm-config.json",
+          "sha256": "1734cbde8b0507cb271c13f85f6c90ce6c9280dcfaec39901f8305d03748ce8e"
+        }
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "product_sha256": "eae8368da6e8a5fbfd9ec33d698ef62d07f1bfa1e4eef61d82f07a603a1a7630",
+      "source_identities": {
+        "uwvm2": "sha256:b9f1dbe5b7c6637eecd1e833ac2bf8575825523f52bed5dcb98ec13c9c90356f",
+        "uwvm2-ros": "sha256:519a83f4c70815855f241c68e04e3958d267245adcee94f9473f4e0142eacfd9"
+      },
+      "cases": [
+        "tail-direct-2m",
+        "tail-indirect-2m",
+        "tail-typed-ref-2m",
+        "tail-different-prototype-2m",
+        "tail-stack-parameters-2m",
+        "tail-vector-parameters-2m",
+        "tail-tuple-direct-2m",
+        "tail-tuple-indirect-2m",
+        "tail-cold-fresh-locals-2m",
+        "tail-mixed-spills-direct-2m",
+        "tail-mixed-spills-indirect-2m",
+        "tail-live-gc-direct-2m",
+        "tail-live-gc-indirect-2m"
+      ],
+      "profiles": [
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3"
+      ],
+      "signed_processes": 234,
+      "authenticated_warm_processes": 156,
+      "complete_tail_function_extents": 78,
+      "extents_with_other_helper_link_calls": 42,
+      "qualifications": {
+        "signed_cache": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-ros-r1/cache/qualification.json",
+          "sha256": "172e4fccab0f3d329d50bef05d4cabacf18ed390dcca29f5399d90478b94978e"
+        },
+        "bounded_assembly": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-ros-r1/asm/summary.json",
+          "sha256": "b76f86a0c7855814c65ee0b46f808fb53947b8eea298096fa02e9db471843f7b"
+        },
+        "signed_configuration": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-ros-r1/cache-config.json",
+          "sha256": "5fea9638677db01d74dd496f1ec9fd29ae05252fd7d6308940e39f8c96123002"
+        },
+        "assembly_configuration": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-ros-r1/asm-config.json",
+          "sha256": "1de88f8706f6dd67abf3070db9a5e84e1694c63ece94b5f84a3f2c4ced8ba9dd"
+        }
+      }
+    }
+  ],
+  "counts": {
+    "signed_runtime_processes": 702,
+    "authenticated_warm_processes": 468,
+    "cold_processes": 234,
+    "complete_tail_function_extents": 234,
+    "actual_cgroup_commands": 4,
+    "cases": 13,
+    "extents_with_other_helper_link_calls": 162
+  },
+  "required_tail_transfers_linkless": true,
+  "entire_functions_call_free_claimed": false,
+  "actual_cgroup_receipts": [
+    {
+      "label": "uwvm2-tail-cache",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-r1-evidence/000-uwvm2-tail-cache/receipts.json",
+      "sha256": "c83ee70630a288b72f0ef1bcfc3f1a61a34fdc05525ce9b61f0fb5baefc4e372"
+    },
+    {
+      "label": "uwvm2-tail-asm",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-r1-evidence/001-uwvm2-tail-asm/receipts.json",
+      "sha256": "dc3f4bfffc4f252f59ea049343826263674a6bdab3dc9587f7c8d62b7bee3fc9"
+    },
+    {
+      "label": "uwvm2-ros-tail-cache",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-ros-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-ros-r1-evidence/000-uwvm2-ros-tail-cache/receipts.json",
+      "sha256": "c03c691ed9d3841fce2327025ed7f8caa7d35f592f95bc12653f69a15906ce5c"
+    },
+    {
+      "label": "uwvm2-ros-tail-asm",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-ros-r1/cgopt-mips64el-r14-tail-cache-asm-uwvm2-ros-r1-evidence/001-uwvm2-ros-tail-asm/receipts.json",
+      "sha256": "154d0adfafce1b2f2c96edbd9288a3b495065288b82ade757f07498853db7c4c"
+    }
+  ],
+  "all_current_working_tree_qualified": false,
+  "all_architecture_ABI_qualified": false,
+  "complete_Core3_requested_threads_qualified": false,
+  "hardware_throughput_qualified": false
+}

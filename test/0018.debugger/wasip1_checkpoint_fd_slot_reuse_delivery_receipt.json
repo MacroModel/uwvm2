@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "report_sha256": "5dcc3f55918e22443887e11bd26822debefe2303432503b84159cc3b6e5cef23",
+  "results_sha256": "d11598b45fbf65da3357da6d21613ccb800e70d8fe68ee2ebca16d82843bed7f",
+  "own_source_sha256": {
+    "uwvm2/src/uwvm2/imported/wasi/wasip1/fd_manager/fd_map.h": "42831c266a15c6c2b67b2b1c9f2f64daaa4fbee4fd3aa54f9594f522178f4aec",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h": "dd02e143185753ed74ce854e16922151142d8e7d48f33a95dd4c28f3befbb51a",
+    "uwvm2/test/0013.debugger/wasip1_fd_slot_reuse.cc": "998bb0d13fa8c2910535f2ded88a62aebad5190713f25fff1804141a1c3942aa",
+    "uwvm2/test/0017.runtime/debug_wasip1_portable_runtime.cc": "2cad380679d5b6e033632e775638d7168d920f7173d5c554c624aac327859ac7",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "82b959049fc2213e97210408ed84822bc3faaf4978703cba22167a842c358a13",
+    "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/fd_manager/fd_map.h": "42831c266a15c6c2b67b2b1c9f2f64daaa4fbee4fd3aa54f9594f522178f4aec",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h": "dd02e143185753ed74ce854e16922151142d8e7d48f33a95dd4c28f3befbb51a",
+    "uwvm2-ros/test/0013.debugger/wasip1_fd_slot_reuse.cc": "998bb0d13fa8c2910535f2ded88a62aebad5190713f25fff1804141a1c3942aa",
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_portable_runtime.cc": "2cad380679d5b6e033632e775638d7168d920f7173d5c554c624aac327859ac7",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "82b959049fc2213e97210408ed84822bc3faaf4978703cba22167a842c358a13"
+  },
+  "durable_evidence": {
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-fd-slot-reuse-20261006-r13/source-and-test-evidence.tar.gz",
+    "sha256": "cf1303ff80eb507ec440cce76b43c0532fec88aa5949c1cf442a1152b7a33d0a",
+    "bytes": 169134421,
+    "payloads": 17152,
+    "guard_archive_sha256": "0e262b9f385c8cb77da2f787313989ebfdadce9b7b550254bf34019b6e9bee2b",
+    "every_payload_verified": true
+  },
+  "positive_checks": 1017344,
+  "negative_control_checks": 592
+}

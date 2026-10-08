@@ -1,0 +1,408 @@
+{
+  "schema": "uwvm-cross-simd-float-unary-qualification-v1",
+  "passed": true,
+  "scope": "Ten supplemental f32x4/f64x2 abs/neg/ceil/floor/trunc witnesses on explicitly frozen products; each product preserves its own compiled source cut and actual dependency pins. Not complete SIMD/Core3/requested threads/all macros/all ISA/current working tree or hardware efficiency.",
+  "operations": [
+    "abs",
+    "neg",
+    "ceil",
+    "floor",
+    "trunc"
+  ],
+  "lane_types": [
+    "f32x4",
+    "f64x2"
+  ],
+  "fixtures": 10,
+  "lane_checks_per_runtime_profile": 720,
+  "oracle": "Integer/rational IEEE oracle: exact abs/neg NaN sign/payload, signed zeros and finite bits, permitted arithmetic NaNs for rounding",
+  "specification": "https://webassembly.github.io/spec/core/exec/numerics.html",
+  "fixtures_manifest": {
+    "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/fixtures/fixtures.json",
+    "sha256": "3a5e2b4472eaba88a0764c303fd9e41c03263eecd91cb99709741e69b0c75a56",
+    "bytes": 13334
+  },
+  "actual_generator_and_validator_qualification": {
+    "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/fixtures/qualification.json",
+    "sha256": "b8ba9945fd2d52d027496526095d190623b9bc91f8aca4c330a987242fb94e84",
+    "bytes": 9207
+  },
+  "stages": {
+    "three_architecture_six_completed_commands": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/cgopt-cross-simd-float-unary-r1-status.json",
+      "sha256": "073037c3f55001101207e54a8ffaa9e0cf74b69a2e4b1c1a9ae7811153c90bde",
+      "bytes": 1975
+    },
+    "LoongArch_exact_QEMU_admission_rerun": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-loong-r2/cgopt-cross-simd-float-unary-loong-r2-status.json",
+      "sha256": "782ae51e5f0953a037199c205c1a9d29b301ab2f6800202b4b04c43926a3435e",
+      "bytes": 170
+    },
+    "MIPS64EL_R13_supplement": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/cgopt-mips64el-r13-simd-unary-r1-status.json",
+      "sha256": "c04779f20cebf4ecc7dce5ffa0ab04eeb9a960e6f2a8d2a74ac85d2cec205adb",
+      "bytes": 165
+    }
+  },
+  "products": [
+    {
+      "arch": "x86_64",
+      "repo": "uwvm2",
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/x86_64-uwvm2/qualification.json",
+        "sha256": "e002db8a85ec5956a1bbad05e529729f94a0bc70f5085793df7354358eab1990",
+        "bytes": 1025493
+      },
+      "runtime_processes": 90,
+      "lane_checks": 6480,
+      "runtime_profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3",
+        "llvm-lazy-balanced",
+        "llvm-lazy-debug",
+        "llvm-lazy-light"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+      },
+      "product_sha256": "02de99c104f42b97de246cfae9130f0558cac4e42442103682e2a7cb9ca6659a",
+      "actual_dependency_count": 3726,
+      "source_scope": "Previously qualified frozen product and original CG admission; this does not qualify the current R13 VM"
+    },
+    {
+      "arch": "x86_64",
+      "repo": "uwvm2-ros",
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/x86_64-uwvm2-ros/qualification.json",
+        "sha256": "3fa344e40c7b1cbea7d6b4bad1f8efb0e9b6f13ae8bc9cea013276bf46aa1d25",
+        "bytes": 865582
+      },
+      "runtime_processes": 40,
+      "lane_checks": 2880,
+      "runtime_profiles": [
+        "int-full-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+      },
+      "product_sha256": "e1462e925922f1c65eeed08df0daaef5a424eb4c9b2f0571210f2581a7f6d1ec",
+      "actual_dependency_count": 3472,
+      "source_scope": "Previously qualified frozen product and original CG admission; this does not qualify the current R13 VM"
+    },
+    {
+      "arch": "aarch64",
+      "repo": "uwvm2",
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/aarch64-uwvm2/qualification.json",
+        "sha256": "6e184a9a1b16fecd16575d3cc709e56da743c7c85b3858d6fb27f25ef3bbae24",
+        "bytes": 1036180
+      },
+      "runtime_processes": 90,
+      "lane_checks": 6480,
+      "runtime_profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3",
+        "llvm-lazy-balanced",
+        "llvm-lazy-debug",
+        "llvm-lazy-light"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+      },
+      "product_sha256": "0c2d20ad3be6c5ed56cb39f6c511d8eae8df49c41477b72da7c24d68bcff2dcf",
+      "actual_dependency_count": 3057,
+      "source_scope": "Previously qualified frozen product and original CG admission; this does not qualify the current R13 VM"
+    },
+    {
+      "arch": "aarch64",
+      "repo": "uwvm2-ros",
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/aarch64-uwvm2-ros/qualification.json",
+        "sha256": "3f1f35121ddb3a0037f8be2bcaa9bf6ff32fff0f59ab8d75afb0f1b7efaae5da",
+        "bytes": 838119
+      },
+      "runtime_processes": 40,
+      "lane_checks": 2880,
+      "runtime_profiles": [
+        "int-full-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+      },
+      "product_sha256": "6332d3c5512cfd6e8c1618a6d7219c978e1b6802284b80130fde75cab288d5f9",
+      "actual_dependency_count": 2802,
+      "source_scope": "Previously qualified frozen product and original CG admission; this does not qualify the current R13 VM"
+    },
+    {
+      "arch": "riscv64",
+      "repo": "uwvm2",
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/riscv64-uwvm2/qualification.json",
+        "sha256": "21368adf345a986318b027aca6a604926bb82a1622e9b53fa2ce38161131e1c0",
+        "bytes": 1019704
+      },
+      "runtime_processes": 90,
+      "lane_checks": 6480,
+      "runtime_profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3",
+        "llvm-lazy-balanced",
+        "llvm-lazy-debug",
+        "llvm-lazy-light"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+      },
+      "product_sha256": "d190fc0cab00d3f6d7cff32853540fc0c8228f24ee0e5ad6b5756e563615fcde",
+      "actual_dependency_count": 3047,
+      "source_scope": "Previously qualified frozen product and original CG admission; this does not qualify the current R13 VM"
+    },
+    {
+      "arch": "riscv64",
+      "repo": "uwvm2-ros",
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/riscv64-uwvm2-ros/qualification.json",
+        "sha256": "b7078f855f4579c99b99845a74ce453730317d2f5fce00ae95e362791b0b4ddd",
+        "bytes": 821898
+      },
+      "runtime_processes": 40,
+      "lane_checks": 2880,
+      "runtime_profiles": [
+        "int-full-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+      },
+      "product_sha256": "c9a11a2aa3aee288f85ecb76aeb31020ca189b1fc6f4a14233c08a6416ebfed8",
+      "actual_dependency_count": 2792,
+      "source_scope": "Previously qualified frozen product and original CG admission; this does not qualify the current R13 VM"
+    },
+    {
+      "arch": "loongarch64",
+      "repo": "uwvm2",
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-loong-r2/loongarch64-uwvm2/qualification.json",
+        "sha256": "88d1fc33a34f45ed39c1f7dc92bdf15d4b0ed545b96944b55c55f064eb15b905",
+        "bytes": 948061
+      },
+      "runtime_processes": 90,
+      "lane_checks": 6480,
+      "runtime_profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3",
+        "llvm-lazy-balanced",
+        "llvm-lazy-debug",
+        "llvm-lazy-light"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      },
+      "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+      "actual_dependency_count": 2776,
+      "source_scope": "Previously qualified frozen product and original CG admission; this does not qualify the current R13 VM"
+    },
+    {
+      "arch": "loongarch64",
+      "repo": "uwvm2-ros",
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-loong-r2/loongarch64-uwvm2-ros/qualification.json",
+        "sha256": "3d76adac530a1e31678447ef47e14e66a5d8a77a4e8a17a95f9a9b512f76b877",
+        "bytes": 800937
+      },
+      "runtime_processes": 40,
+      "lane_checks": 2880,
+      "runtime_profiles": [
+        "int-full-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      },
+      "product_sha256": "dbfeecb0ff1ad294bd20d3d5999d88bf504c9cf7516ee6e33e22ed1656a86f9b",
+      "actual_dependency_count": 2741,
+      "source_scope": "Previously qualified frozen product and original CG admission; this does not qualify the current R13 VM"
+    },
+    {
+      "arch": "mips64el",
+      "repo": "uwvm2",
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/uwvm2/semantics/qualification.json",
+        "sha256": "9e90f9f15a0b50820f79da38544292f9e8fbf8e4a511dcfd50897ae637c33671",
+        "bytes": 950918
+      },
+      "runtime_processes": 90,
+      "lane_checks": 6480,
+      "runtime_profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3",
+        "llvm-lazy-balanced",
+        "llvm-lazy-debug",
+        "llvm-lazy-light"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:d68895f7c34545ab78b7ef53470e9cb6062a97c027904897105d00e536156746",
+        "uwvm2-ros": "sha256:a5298a08a9a22327fc8cc474ff67ad1f303994ecf67bba40b2679bd5e194b90b"
+      },
+      "product_sha256": "6a6354aa953a9cdabbbe957450f145f79dfc685291390b87c51b644452e43c62",
+      "actual_dependency_count": 2759,
+      "source_scope": "R13 genuine SDK12"
+    },
+    {
+      "arch": "mips64el",
+      "repo": "uwvm2-ros",
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/uwvm2-ros/semantics/qualification.json",
+        "sha256": "2c20c363357e2b9e0a5fd639e6a73394f0a2b61bfa88e197979ae8d11df4ea21",
+        "bytes": 813608
+      },
+      "runtime_processes": 40,
+      "lane_checks": 2880,
+      "runtime_profiles": [
+        "int-full-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:d68895f7c34545ab78b7ef53470e9cb6062a97c027904897105d00e536156746",
+        "uwvm2-ros": "sha256:a5298a08a9a22327fc8cc474ff67ad1f303994ecf67bba40b2679bd5e194b90b"
+      },
+      "product_sha256": "a0bfd890169f115e2263de3d7ecbb24f04a0d00e7b311b1b7dc3526b4cfa058f",
+      "actual_dependency_count": 2724,
+      "source_scope": "R13 genuine SDK12"
+    }
+  ],
+  "all_current_working_tree_qualified": false,
+  "complete_SIMD_qualified": false,
+  "complete_Core3_requested_threads_qualified": false,
+  "all_architectures_ABIs_qualified": false,
+  "twelve_exact_interpreter_variants_qualified": false,
+  "assembly_efficiency_qualified": false,
+  "hardware_throughput_qualified": false,
+  "counts": {
+    "runtime_processes": 650,
+    "lane_checks": 46800,
+    "runtime_profiles": 65,
+    "products": 10,
+    "architecture_profiles": 5,
+    "successful_cgroup_commands": 11,
+    "four_architecture_new_processes": 520,
+    "already_reported_MIPS64EL_R13_processes": 130
+  },
+  "successful_cgroup_command_receipts": [
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/cgopt-cross-simd-float-unary-r1-evidence/000-x86_64-uwvm2/receipts.json",
+      "sha256": "85a1652fb45a4538ffc3a24bb282d6986dc0ea4261482432ba9080313be82f4f",
+      "bytes": 42566
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/cgopt-cross-simd-float-unary-r1-evidence/001-x86_64-uwvm2-ros/receipts.json",
+      "sha256": "02ffca4a73fd311ee140f7e72df4b8f1ee8deac72b17cbbe6f13fdba7482c320",
+      "bytes": 27548
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/cgopt-cross-simd-float-unary-r1-evidence/002-aarch64-uwvm2/receipts.json",
+      "sha256": "3b068b27d95b313d108a80d2e104f069d345b43b3347043049d685c940330e1a",
+      "bytes": 411246
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/cgopt-cross-simd-float-unary-r1-evidence/003-aarch64-uwvm2-ros/receipts.json",
+      "sha256": "ac63fbb4732ccf1ed96e82bd88e6a228c6e11fee7c274bc28114f5b470d8d20a",
+      "bytes": 185883
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/cgopt-cross-simd-float-unary-r1-evidence/004-riscv64-uwvm2/receipts.json",
+      "sha256": "a474df2f6fc37e1edfa1bd27e1caf7e66288327ccf7501e8609f6ac32da51367",
+      "bytes": 409661
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/cgopt-cross-simd-float-unary-r1-evidence/005-riscv64-uwvm2-ros/receipts.json",
+      "sha256": "0dca5ce82db71982191f386a8f25c7e58509653df4e23d0499f9603cde980aca",
+      "bytes": 185692
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-loong-r2/cgopt-cross-simd-float-unary-loong-r2-evidence/000-loongarch64-uwvm2/receipts.json",
+      "sha256": "c7cd844732e0500f2507ad5758cf0fecd07fe88deeaf7ba320d52935d65987cd",
+      "bytes": 455342
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-loong-r2/cgopt-cross-simd-float-unary-loong-r2-evidence/001-loongarch64-uwvm2-ros/receipts.json",
+      "sha256": "406c093267f6df5b62648ea2138a1cdf7cca3ed10e82d525b8774c65d210e3c2",
+      "bytes": 206441
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/cgopt-mips64el-r13-simd-unary-r1-evidence/000-simd-unary-parse-validate/receipts.json",
+      "sha256": "7e3d770c265dc71c55396aacca4cb9ece86c8346a3a83df1206db05150f45fc1",
+      "bytes": 8894
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/cgopt-mips64el-r13-simd-unary-r1-evidence/001-uwvm2-simd-unary-special-bits/receipts.json",
+      "sha256": "e52b9552974cbf9aad6abce6c8fa600640a22e2cf864f779f41ff4abafc08840",
+      "bytes": 414166
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/cgopt-mips64el-r13-simd-unary-r1-evidence/002-uwvm2-ros-simd-unary-special-bits/receipts.json",
+      "sha256": "32b8471890d95817874b575aebf4b6be7440592f270b5dcb2c119d944ee3f506",
+      "bytes": 187440
+    }
+  ],
+  "excluded_admission_failure": {
+    "failed_status": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-r1/cgopt-cross-simd-float-unary-r1-status.json",
+      "sha256": "073037c3f55001101207e54a8ffaa9e0cf74b69a2e4b1c1a9ae7811153c90bde",
+      "bytes": 1975
+    },
+    "reason": "Original batch omitted the previously qualified private LoongArch QEMU from its exact allowlist; original failed command has no semantic credit. Six already completed commands are individually retained. LoongArch uses a fresh two-command batch with exact executable path and SHA.",
+    "repair": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-loong-r2/prior-admission-failure.json",
+      "sha256": "46befe6cf1fb4c12fbcd0450ac62aa85961e43d34e4f72fbcaca58933953037a",
+      "bytes": 830
+    }
+  },
+  "remaining_qualification": [
+    "Actual T2 entry and cached objects for these ten supplemental unary fixtures.",
+    "Bounded executed-object assembly and hardware efficiency for these new fixtures.",
+    "All twelve exact interpreter macro builds; separately running MIPS matrix plus staged 480-process supplement.",
+    "Remaining supported Linux ISA/ABI profiles, complete Core3 and requested thread concurrency coverage.",
+    "Complete current live working tree."
+  ]
+}

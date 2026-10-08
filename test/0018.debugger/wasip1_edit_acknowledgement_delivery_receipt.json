@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-edit-ack-20261006-r21/evidence.tar.gz",
+  "archive_bytes": 10715269,
+  "archive_sha256": "9645414dbf53da36eca00d3bb6b0241500831dc6b3b864d54db0dbf7f3f81b01",
+  "payload_files": 4793,
+  "archive_payloads_read_back": true,
+  "report_sha256": "e95a10414f40bd9394bce1674c3f6b0f631a51293f73d356470839c5046f8b2b",
+  "results_sha256": "6b6cfe5d09057c246e2af894fee814b9d6fa4d6efcaed56f8a0e30e901c6a0d0",
+  "checks": 5584,
+  "scope": "WASIp1 DAP edit acknowledgement validation. Real native C++ formatter on Linux, macOS, Windows and FreeBSD; guest packets parsed by the updated Python adapter with a transport double. Python protocol tests run in Linux cgroup for Windows/FreeBSD packets, and natively on macOS. No complete CLI, LLVM JIT, live Wasm/WASIp1 checkpoint or actual guest FD mutation integration test.",
+  "archive_streamed_without_local_duplicate": true,
+  "local_archive_payloads_read_back": true,
+  "local_payload_count": 4793,
+  "report_guard_sha256": "b920c4d47eb8f9f8e39cf73b12901568e03e6516d271dc7080fee62480726a16",
+  "report_guard_all_owned_pidfds_retired": true,
+  "own_live_files_match_tested_snapshot": true,
+  "source_hashes": {
+    "uwvm2/tools/debug/dap_adapter.py": "040f01eda7f264f6fce14af92ddb41c8c265b6d1ba719983e6be8b6e2b85ae5c",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "0fb2fcdce19f31a56cef6cb417c0773343d28511515f178acd74a89bf777593e",
+    "uwvm2/test/0013.debugger/wasip1_edit_acknowledgement.cc": "671bb00080aefc39540784c35e8af2e023da81ef79ef3066b03c522d1dee669d",
+    "uwvm2/test/0018.debugger/test_dap_wasip1_edit_acknowledgement.py": "ac479a7e1f461acc2c0e1e4759590275ba4493086b86944bf97b61b58aeea681",
+    "uwvm2-ros/tools/debug/dap_adapter.py": "040f01eda7f264f6fce14af92ddb41c8c265b6d1ba719983e6be8b6e2b85ae5c",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "0fb2fcdce19f31a56cef6cb417c0773343d28511515f178acd74a89bf777593e",
+    "uwvm2-ros/test/0013.debugger/wasip1_edit_acknowledgement.cc": "671bb00080aefc39540784c35e8af2e023da81ef79ef3066b03c522d1dee669d",
+    "uwvm2-ros/test/0018.debugger/test_dap_wasip1_edit_acknowledgement.py": "ac479a7e1f461acc2c0e1e4759590275ba4493086b86944bf97b61b58aeea681"
+  },
+  "destinations": {
+    "uwvm2": {
+      "wasip1_edit_acknowledgement_test_report.md": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_edit_acknowledgement_test_report.md",
+      "wasip1_edit_acknowledgement_test_results.json": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_edit_acknowledgement_test_results.json",
+      "wasip1_edit_acknowledgement_delivery_receipt.json": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_edit_acknowledgement_delivery_receipt.json"
+    },
+    "uwvm2-ros": {
+      "wasip1_edit_acknowledgement_test_report.md": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_edit_acknowledgement_test_report.md",
+      "wasip1_edit_acknowledgement_test_results.json": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_edit_acknowledgement_test_results.json",
+      "wasip1_edit_acknowledgement_delivery_receipt.json": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_edit_acknowledgement_delivery_receipt.json"
+    }
+  },
+  "activated_environment": {
+    "passed": true,
+    "latest_round": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-edit-ack-20261006-r21",
+    "volume_used_bytes": 4014489600,
+    "volume_available_bytes": 4470026240,
+    "image_allocated_bytes": 4655587328,
+    "image_hard_capacity_bytes": 8589934592,
+    "active_environment_sha256": "9017c4d1ab907b6421cf9352ca71f096532454a8b4f0eb4fcacafe6b2061f0e2",
+    "all_private_overlays_retired": true
+  }
+}

@@ -1,0 +1,363 @@
+{
+  "qualification": {
+    "passed": true,
+    "scope": "Distinct narrow numeric conditional expressions; native C17/C23/C++ compiler comparison and stopped-value/type DATA interfaces, scalar/Zig/DAP regression components. No fresh full -Rdbg CLI or real producer session is qualified by this record.",
+    "source_cuts": {
+      "uwvm2": "sha256:2367c6cb853f701535cee8240a34acb385c06c2d3bd3bd669d7fa9e4c012483c",
+      "uwvm2-ros": "sha256:87c42c8c8af038a168a0658ea3cc637fe282bffb6d88b6d9e6cf73f7c6326bd7"
+    },
+    "implementation_hashes": {
+      "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "0df3b21476a7a1535000f93c03ccd3c9467470c4c7f3bd1c7c765767e187f2b8",
+      "test/0017.runtime/debug_source_conditional_distinct.cc": "340b6971e1520abdfa069bb5af04c4d32afd0533bcb61c6e90b31bf46d75df9f",
+      "test/0017.runtime/debug_source_conditional_distinct_c.c": "8eb92f2ef2576b6381cf172e71d7c19221d2daac835741e03c5b671816604197",
+      "test/0017.runtime/run_debug_linux_qemu_components.py": "21e0aa5769096d29fdfaf2f19ed7a4b3ff049f7bd973302f38f0add8fb3e9d70",
+      "test/0018.debugger/dap_source_expression_cases.json": "5483302f7a8d29d40b54197ad796e3ec5c04744daf8044b482a42a8f3d24c5a6"
+    },
+    "rows": [
+      {
+        "repository": "uwvm2",
+        "profile": "native",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/conditional-distinct-a1/out-uwvm2/conditional-native-a3/results.json",
+        "record_sha256": "4dafbc671d5e41cb7d5a26ab4934588b2ac80572153cc373b7472163446512ed",
+        "native_phases": 24,
+        "distinct_fixture_checks": 12070,
+        "old_refusals": 4,
+        "C_native_type_pairs": 40,
+        "C_runtime_value_checks": 720,
+        "DAP_frame_tests": 33,
+        "DAP_corpus": {
+          "positive": 263,
+          "negative": 223
+        },
+        "spacing_cases": 1046,
+        "spacing_CXX_ABI_rows": 2092
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "ppc64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/conditional-distinct-a1/out-uwvm2/conditional-cross-a1-ppc64/results.json",
+        "record_sha256": "dd55e738612a99c8ac277dbed7198bcfaea63c7fb3819ccd287be31dee12dae0",
+        "QEMU_components": 8,
+        "distinct_fixture_checks": 12070,
+        "spacing_cases": 1046,
+        "spacing_CXX_ABI_rows": 2092,
+        "target_outputs_equal_native": true
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "x86_64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/conditional-distinct-a1/out-uwvm2/conditional-cross-a1-x86_64/results.json",
+        "record_sha256": "c07498626dae09fb2817fc28c19fadb807d2efc8aaef5663733b3ca8c9fa24c9",
+        "QEMU_components": 8,
+        "distinct_fixture_checks": 12070,
+        "spacing_cases": 1046,
+        "spacing_CXX_ABI_rows": 2092,
+        "target_outputs_equal_native": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "native",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/conditional-distinct-a1/out-uwvm2-ros/conditional-native-a3/results.json",
+        "record_sha256": "e7c4b5aecf3b314a5a637b5ff75e41d45cea26876f6dceef4a6ee724bf55b32e",
+        "native_phases": 24,
+        "distinct_fixture_checks": 12070,
+        "old_refusals": 4,
+        "C_native_type_pairs": 40,
+        "C_runtime_value_checks": 720,
+        "DAP_frame_tests": 33,
+        "DAP_corpus": {
+          "positive": 263,
+          "negative": 223
+        },
+        "spacing_cases": 1046,
+        "spacing_CXX_ABI_rows": 2092
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "ppc64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/conditional-distinct-a1/out-uwvm2-ros/conditional-cross-a1-ppc64/results.json",
+        "record_sha256": "18ff39c188984bbd31299d4e10faed1bbc9ede627c1db2090308eb9ba6138d3b",
+        "QEMU_components": 8,
+        "distinct_fixture_checks": 12070,
+        "spacing_cases": 1046,
+        "spacing_CXX_ABI_rows": 2092,
+        "target_outputs_equal_native": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "x86_64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/conditional-distinct-a1/out-uwvm2-ros/conditional-cross-a1-x86_64/results.json",
+        "record_sha256": "bb29c124ca57b9758165a71ec04bb6644117609a3e1ed821f00785ee643828ca",
+        "QEMU_components": 8,
+        "distinct_fixture_checks": 12070,
+        "spacing_cases": 1046,
+        "spacing_CXX_ABI_rows": 2092,
+        "target_outputs_equal_native": true
+      }
+    ],
+    "counts": {
+      "successful_jobs": 6,
+      "native_phases": 48,
+      "QEMU_components": 32,
+      "distinct_fixture_checks": 72420,
+      "distinct_type_pairs_per_component": 20,
+      "cast_matrix_expressions_per_component": 2000,
+      "declared_numeric_expressions_per_component": 2000,
+      "C_native_type_pairs": 80,
+      "C_runtime_value_checks": 1440,
+      "old_refusals_reproduced": 8,
+      "DAP_frame_tests": 66,
+      "DAP_positive": 263,
+      "DAP_negative": 223,
+      "new_DAP_positive": 8,
+      "spacing_cases": 6276,
+      "spacing_CXX_Wasm32_Wasm64_rows": 12552,
+      "scalar_property_checks": 1020000,
+      "input_hash_checks": 71852
+    },
+    "guards": [
+      {
+        "label": "uwvm2-conditional-native",
+        "passed": true,
+        "wall_seconds": 123.73990687899982,
+        "aggregate_owned_rss_peak_bytes": 730079232,
+        "maximum_observed_own_output_bytes": 21683927,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 18634,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-conditional-native",
+        "passed": true,
+        "wall_seconds": 122.63296409600002,
+        "aggregate_owned_rss_peak_bytes": 728850432,
+        "maximum_observed_own_output_bytes": 32554038,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 21842,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ppc64-conditional-cross",
+        "passed": true,
+        "wall_seconds": 115.79034348000005,
+        "aggregate_owned_rss_peak_bytes": 782905344,
+        "maximum_observed_own_output_bytes": 38821407,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 23926,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-ppc64-conditional-cross",
+        "passed": true,
+        "wall_seconds": 116.20805816400002,
+        "aggregate_owned_rss_peak_bytes": 783306752,
+        "maximum_observed_own_output_bytes": 45119986,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 25468,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-x8664-conditional-cross",
+        "passed": true,
+        "wall_seconds": 114.49700985999993,
+        "aggregate_owned_rss_peak_bytes": 786006016,
+        "maximum_observed_own_output_bytes": 50051953,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 26745,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-x8664-conditional-cross",
+        "passed": true,
+        "wall_seconds": 115.25592966099998,
+        "aggregate_owned_rss_peak_bytes": 785965056,
+        "maximum_observed_own_output_bytes": 55005722,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 28268,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      }
+    ],
+    "resources": {
+      "boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8",
+      "keeper_pid": 9769,
+      "keeper_birth": 16929,
+      "cgroup_bytes": 68719476736,
+      "swap_bytes": 0,
+      "owned_RSS_budget_bytes": 1073741824,
+      "owned_RSS_peak_bytes": 786006016,
+      "guard_seconds": 708.1242121399998,
+      "all_attempt_seconds": 832.0611471399999,
+      "own_output_budget_bytes": 67108864,
+      "maximum_observed_own_output_bytes": 55005722,
+      "hard_image_bytes": 17179869184,
+      "allocated_image_bytes_before_archive": 1983975424,
+      "arena_free_bytes": 14982275072,
+      "filesystem_id": "12191019222208619510",
+      "no_OOM_events": true
+    },
+    "retained_failed_attempts": [
+      {
+        "stage": "a1",
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/conditional-distinct-a1/guard-qualification-a1/receipts.json",
+        "sha256": "1269c06eeb683987e275401641f940fe64de690324a56baa7d82123c06da5921",
+        "error": "RuntimeError: Build command failed: 1",
+        "seconds": 0.571752972000013
+      },
+      {
+        "stage": "a2",
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/conditional-distinct-a1/guard-qualification-a2/receipts.json",
+        "sha256": "c19e5691372f7d046c13d08508c98f4098f656e44ce30b0cf04d61fb41e3dce9",
+        "error": "RuntimeError: Build command failed: 1",
+        "seconds": 123.36518202800005
+      }
+    ],
+    "protocol_fixture_compatibility": "The production/DAP immutable cut remains unchanged. The parallel task updated the frame mock to support the already present bounded locals pagination command. Its byte-pinned fixture is retained separately at protocol-fixed-a1, with the exact original adapter/corpus. The old fixture failure is retained and not counted as PASS.",
+    "references": {
+      "C23_conditional": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf",
+      "CXX_conditional": "https://eel.is/c++draft/expr.cond",
+      "CXX_integer_promotion": "https://eel.is/c++draft/conv.prom"
+    },
+    "remaining": "Same narrow/bool native result categories require genuine language and exact type identity. Enum/pointer/class/overload/glvalue results, complete native language semantics, fresh full-product sessions and other unrecovered cross providers remain unqualified.",
+    "inputs_after_unchanged": true,
+    "all_native_debugger_capabilities_implemented": false
+  },
+  "archive": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/conditional-distinct-a1/conditional-distinct-evidence-a1.tar.xz",
+    "bytes": 31676736,
+    "sha256": "9cccad09b4f6153d76752369bbe06333e09137d0d45bc0a8cb527f1226bdfe05",
+    "regular_members": 7159,
+    "all_member_hashes_verified_linux": true,
+    "linux_archive_fsync_completed": true,
+    "inputs_after_unchanged": true,
+    "prior_provider_archive_hash_reverified": true,
+    "image_allocated_bytes_after_archive": 2001489920,
+    "arena_free_bytes": 14941630464,
+    "filesystem_id": "12191019222208619510"
+  },
+  "local_copy": {
+    "passed": true,
+    "archive": "/Users/liyinan/.codex/artifacts/uwvm2-conditional-distinct-evidence-20261007-a1/conditional-distinct-evidence-a1.tar.xz",
+    "bytes": 31676736,
+    "sha256": "9cccad09b4f6153d76752369bbe06333e09137d0d45bc0a8cb527f1226bdfe05",
+    "regular_members": 7159,
+    "all_regular_member_hashes_verified_local": true,
+    "all_regular_member_hashes_verified_linux": true,
+    "fsync_completed": true,
+    "local_free_bytes_after": 2134626304
+  }
+}

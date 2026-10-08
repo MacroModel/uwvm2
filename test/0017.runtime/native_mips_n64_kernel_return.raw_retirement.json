@@ -1,0 +1,59 @@
+{
+  "schema": "uwvm-owned-n64-completed-raw-retirement-v1",
+  "date": "2026-10-08",
+  "scope": "Only exact completed/zero-child-failed owned608..615 tmpfs trees after full byte-exact local recovery verification and retired PIDFD receipts; no compiler/QEMU/Wasm execution",
+  "qualification": true,
+  "local_recovery_archives": [
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/native-mips64el-release-lto-evidence612.tar.xz",
+      "sha256": "5e3b3e44d7a0f04558fe13ea7dc286ceedc9dece9a5f6cece9c56a470f163542"
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/native-mips-n64-kernel-return-evidence615.tar.xz",
+      "sha256": "804fcab3f440ec2d561c886f331b2a86e1757733b994093135b8303c6746693b"
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/retention-metadata-and-archives616.tar.xz",
+      "sha256": "a79d4a80a5c0ddbb8c6426618d3a61e3159ee419cd9c032426af1fd11de954fc"
+    }
+  ],
+  "remote_archive_verification": [
+    {
+      "record": "/dev/shm/uwvm-asm-6313e263-current612/build-meta/qualification.json",
+      "sha256": "edde3c8a93914cf02a095e7baf0777190688096e9bef7697d91bebc9822b2218",
+      "archive": "/dev/shm/uwvm-asm-6313e263-current612/build-meta/work/native-mips64el-release-lto-evidence612.tar.xz",
+      "archive_sha256": "5e3b3e44d7a0f04558fe13ea7dc286ceedc9dece9a5f6cece9c56a470f163542"
+    },
+    {
+      "record": "/dev/shm/uwvm-asm-6313e263-current615/build-meta/qualification.json",
+      "sha256": "20370787c80cbc32225ca9a2df760302aba224da517380f76031b8de48dad255",
+      "archive": "/dev/shm/uwvm-asm-6313e263-current615/build-meta/work/native-mips-n64-kernel-return-evidence615.tar.xz",
+      "archive_sha256": "804fcab3f440ec2d561c886f331b2a86e1757733b994093135b8303c6746693b"
+    },
+    {
+      "record": "/dev/shm/uwvm-asm-6313e263-current616/build-meta/qualification.json",
+      "sha256": "b44cd70a95022aad991da759cb2b4a73d71ddbf23367751f0038207c6f5c767f",
+      "archive": "/dev/shm/uwvm-asm-6313e263-current616/build-meta/work/retention-metadata-and-archives616.tar.xz",
+      "archive_sha256": "a79d4a80a5c0ddbb8c6426618d3a61e3159ee419cd9c032426af1fd11de954fc"
+    }
+  ],
+  "all_retired_files_byte_exact_against_recovery_maps": true,
+  "retired_files": 209,
+  "retired_logical_bytes": 18155543,
+  "retired_allocated_bytes": 18661376,
+  "retired_roots": [
+    "/dev/shm/uwvm-asm-6313e263-current608",
+    "/dev/shm/uwvm-asm-6313e263-current609",
+    "/dev/shm/uwvm-asm-6313e263-current610",
+    "/dev/shm/uwvm-asm-6313e263-current611",
+    "/dev/shm/uwvm-asm-6313e263-current612",
+    "/dev/shm/uwvm-asm-6313e263-current613",
+    "/dev/shm/uwvm-asm-6313e263-current614",
+    "/dev/shm/uwvm-asm-6313e263-current615"
+  ],
+  "sdk64_live_workspace_retired": false,
+  "foreign_processes_signalled": false,
+  "foreign_files_changed_or_deleted": false,
+  "old_failed607_persistent_record_preserved": true,
+  "all_selected_roots_absent": true
+}

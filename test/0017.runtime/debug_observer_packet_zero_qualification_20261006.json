@@ -1,0 +1,985 @@
+{
+  "schema_version": 1,
+  "status": "implemented_and_component_verified_full_product_deferred_by_shared_resources",
+  "created_utc": "2026-10-05T19:13:01.031819+00:00",
+  "production_change": {
+    "path": "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_packet_emit.h",
+    "before_sha256": "9afb2e16d2dec6e93dc506496f20853d7ec7f101ccf9b3c120bc5aae300eeb2a",
+    "after_sha256": "7f95bc86bfcbadfe9551290600934eeafd769d8b278c6904deec2e272ef35646",
+    "both_repositories_same_header": true,
+    "description": "Observer shared copier writes every local slot, padding and flag. Parent clears only live operand/control suffix. Legacy/resumable packet complete clear retained. No production IO, ownership/provenance/ASM permission or default optimization policy changed."
+  },
+  "source_ids": {
+    "uwvm2": "sha256:b60923e445dc5d21647cf36e5c79bdccf8a88123c3648f5cdfabaa924e498d93",
+    "uwvm2-ros": "sha256:10b4db2d10378c9206f24faf4159fc4764d908f6e2812ccd4fe42164a7c2a435"
+  },
+  "single_production_file_baseline_source_ids": {
+    "uwvm2": "sha256:2ae458a3a8bc890681d0cc30fb2a985f7534bb9722a11b09f759e901638b3fd2",
+    "uwvm2-ros": "sha256:eb01d6049ada14b8c7c2234006c8ed637718872d8ebb18a421009c79c2db5ab4"
+  },
+  "tests": {
+    "uwvm2-native": {
+      "record": "/tmp/uwvm2-observer-zero-20261006-a1/out-uwvm2/observer-packet-a3/results.json",
+      "record_sha256": "a09ab9f9cfb1202dadcc4fba12e88bb0844211a6f6449060f913a99e52f4ff69",
+      "passed": true,
+      "source_id": "sha256:b60923e445dc5d21647cf36e5c79bdccf8a88123c3648f5cdfabaa924e498d93",
+      "all_inputs_after_unchanged": true,
+      "binary_sha256": "af757014f0e45c214c833b748507f2ef0cc9567d85e059fb153bcc6ce1a886a9",
+      "row_count": 3,
+      "passed_rows": 3,
+      "scope": "actual production private copier component DATA, LLVM verifier and native MCJIT; no full product or target ASM authority",
+      "fresh_full_product_qualified": false
+    },
+    "uwvm2-ros-native": {
+      "record": "/tmp/uwvm2-observer-zero-20261006-a1/out-uwvm2-ros/observer-packet-a3/results.json",
+      "record_sha256": "21e50ead322e3f1ef2036e5669019fec0f75a5e9bb16d6774910b9a3ddac18b0",
+      "passed": true,
+      "source_id": "sha256:10b4db2d10378c9206f24faf4159fc4764d908f6e2812ccd4fe42164a7c2a435",
+      "all_inputs_after_unchanged": true,
+      "binary_sha256": "8f88b50c31d0f367fb63bf784f68d0901c28cedfec6bbe94ac6c2a7d472f2d06",
+      "row_count": 3,
+      "passed_rows": 3,
+      "scope": "actual production private copier component DATA, LLVM verifier and native MCJIT; no full product or target ASM authority",
+      "fresh_full_product_qualified": false
+    },
+    "uwvm2-cross": {
+      "record": "/tmp/uwvm2-observer-zero-20261006-a1/out-uwvm2/observer-packet-cross-a2/results.json",
+      "record_sha256": "d1761c34aa17edebe0e1b297df8ffad7886583c33812ffcce2d0c06cfa342deb",
+      "passed": true,
+      "source_id": "sha256:b60923e445dc5d21647cf36e5c79bdccf8a88123c3648f5cdfabaa924e498d93",
+      "all_inputs_after_unchanged": true,
+      "binary_sha256": null,
+      "row_count": 16,
+      "passed_rows": 16,
+      "scope": "actual production private copier, LLVM-generated 32/64 pointer layouts and verified target ELFs executed natively/QEMU; finite bytes/flags component DATA",
+      "fresh_full_product_qualified": false
+    },
+    "uwvm2-ros-cross": {
+      "record": "/tmp/uwvm2-observer-zero-20261006-a1/out-uwvm2-ros/observer-packet-cross-a2/results.json",
+      "record_sha256": "05ec9aeca0cc7c4f45782b06cf47a670d5bd5f5378d71d168229275d98faf140",
+      "passed": true,
+      "source_id": "sha256:10b4db2d10378c9206f24faf4159fc4764d908f6e2812ccd4fe42164a7c2a435",
+      "all_inputs_after_unchanged": true,
+      "binary_sha256": null,
+      "row_count": 16,
+      "passed_rows": 16,
+      "scope": "actual production private copier, LLVM-generated 32/64 pointer layouts and verified target ELFs executed natively/QEMU; finite bytes/flags component DATA",
+      "fresh_full_product_qualified": false
+    },
+    "uwvm2-ros-legacy-native": {
+      "record": "/tmp/uwvm2-observer-zero-20261006-a1/out-uwvm2-ros/legacy-packet-a2/results.json",
+      "record_sha256": "5b0818bdbfb5d4921e05b185858fbca67f229e5f204ca44338e9637533493b67",
+      "passed": true,
+      "source_id": "sha256:10b4db2d10378c9206f24faf4159fc4764d908f6e2812ccd4fe42164a7c2a435",
+      "all_inputs_after_unchanged": true,
+      "binary_sha256": "d991e7951a6d1a62718f08414b25deb8a974a2b9579b3282f9dff27f7ca24298",
+      "row_count": 3,
+      "passed_rows": 3,
+      "scope": "actual production private copier component DATA, LLVM verifier and native MCJIT; no full product or target ASM authority",
+      "fresh_full_product_qualified": false
+    },
+    "uwvm2-ros-single-file-baseline": {
+      "record": "/tmp/uwvm2-observer-zero-baseline-20261006-a1/out-uwvm2-ros/observer-packet-a3/results.json",
+      "record_sha256": "3bcb9b0b48945f327ade0b76166294d27e474ec7b1058c8e9fd89c341e56da5e",
+      "passed": true,
+      "source_id": "sha256:eb01d6049ada14b8c7c2234006c8ed637718872d8ebb18a421009c79c2db5ab4",
+      "all_inputs_after_unchanged": true,
+      "binary_sha256": "9baf3054ea3e7ba57abcb46bc56b566bdbf8a73787d80da59b42cce7a02fbbf9",
+      "row_count": 3,
+      "passed_rows": 3,
+      "scope": "actual production private copier component DATA, LLVM verifier and native MCJIT; no full product or target ASM authority",
+      "fresh_full_product_qualified": false
+    },
+    "uwvm2-initial-fixture-baseline": {
+      "record": "/tmp/uwvm2-observer-zero-baseline-20261006-a1/out-uwvm2/observer-packet-a1/results.json",
+      "record_sha256": "61a56feaebee4686eb9b4d18872909bb5543ff72646cfd58ef6310eb6f874b22",
+      "passed": true,
+      "source_id": "sha256:2ae458a3a8bc890681d0cc30fb2a985f7534bb9722a11b09f759e901638b3fd2",
+      "all_inputs_after_unchanged": true,
+      "binary_sha256": "4f3e52f35b70ce7606fae7ca9dd5977e310f1a9922f212ec6c652286fa9a157d",
+      "row_count": 3,
+      "passed_rows": 3,
+      "scope": "actual production private copier component DATA, LLVM verifier and native MCJIT; no full product or target ASM authority",
+      "fresh_full_product_qualified": false
+    }
+  },
+  "observer_fixture": {
+    "path": "test/0017.runtime/debug_checkpoint_observer_packet_ir.cc",
+    "tested_private_fixture": "/tmp/uwvm2-observer-zero-20261006-a1/observer-packet-freestanding.cc",
+    "sha256": "2b512f60b7a191b5fa67337bf1fc387fc4171c310a8ba537cfc29acc65815246",
+    "scope": "Actual compiler private component DATA, LLVM verifier, native MCJIT or genuine LLVM 32/64 LE/BE IR lowering and ELF execution. Not full target C++ emitter ABI or full VM/JIT/source/activation/ASM qualification.",
+    "coverage": [
+      "four real captures",
+      "i32/i64/f32/f64/v128 and raw physical reference carrier",
+      "signaling NaN payload bits",
+      "poisoned storage locals-only",
+      "live operand and saved control parameters",
+      "wide to narrow packet padding reuse",
+      "absent/uninitialized nondefaultable reference",
+      "invalid flag 2 with null candidate address",
+      "real local store and immediate fresh capture",
+      "guard sentinels"
+    ],
+    "reference_scope": "Reference carrier bytes only, not tagged VM reference admission; executable_restore=false",
+    "cross_profile_count_per_repository": 16,
+    "cross_total_passed": 32,
+    "cross_profiles": [
+      "x86_64",
+      "aarch64",
+      "i686",
+      "riscv64",
+      "ppc64",
+      "ppc64le",
+      "ppc32",
+      "mips64",
+      "mips64el",
+      "mips32",
+      "mips32el",
+      "sparc64",
+      "loongarch64",
+      "s390x",
+      "armhf",
+      "armel"
+    ],
+    "initial_fixture_failure": "MIPS freestanding link lacked memset from fixture poisoning. Fixed fixture to use poison global initial data and integer all-ones padding store; no production backend or CRT helper change."
+  },
+  "legacy_fixture": {
+    "path": "test/0014.llvm_jit/llvm_jit_checkpoint_dynamic_packet_ir.cc",
+    "tested_private_fixture": "/tmp/uwvm2-observer-zero-20261006-a1/legacy-test-repaired.cc",
+    "sha256": "d723858d24f03f3999cec91b926efaab9c17a9a582b589dcb707b3df0d836578",
+    "description": "Select actual native TargetMachine and set real module DataLayout before any packet emission. Keep emitter nondefault matching native pointer layout preflight; reuse the same target at MCJIT creation.",
+    "uwvm2_ros": "PASS",
+    "uwvm2": "Pressure stop; later disk guard refused retry before launch",
+    "initial_failure": "Old fixture had default DataLayout and correctly failed packet owner preflight; not a new production bug caused by suffix clearing."
+  },
+  "static_ir_readback": {
+    "scope": "Administrative read-only inspection of actual IR previously emitted and executed under original cgroup. These counts are static IR stores, not end-to-end performance measurement or a newly executed Python/VM test. Separate guarded automated comparison was NOT LAUNCHED due disk floor.",
+    "rows": [
+      {
+        "label": "candidate-uwvm2",
+        "ir_path": "/tmp/uwvm2-observer-zero-20261006-a1/out-uwvm2/observer-packet-a3/actual-snapshot.ll",
+        "ir_sha256": "7e0e0ff0cf79c8c9e61c77011458f5c8a1d051238c9d441eb000b54981f75fcf",
+        "main_aggregate_zero_store_widths": [
+          48,
+          16
+        ],
+        "main_aggregate_zero_store_bytes": 64
+      },
+      {
+        "label": "candidate-uwvm2-ros",
+        "ir_path": "/tmp/uwvm2-observer-zero-20261006-a1/out-uwvm2-ros/observer-packet-a3/actual-snapshot.ll",
+        "ir_sha256": "7e0e0ff0cf79c8c9e61c77011458f5c8a1d051238c9d441eb000b54981f75fcf",
+        "main_aggregate_zero_store_widths": [
+          48,
+          16
+        ],
+        "main_aggregate_zero_store_bytes": 64
+      },
+      {
+        "label": "baseline-uwvm2-ros",
+        "ir_path": "/tmp/uwvm2-observer-zero-baseline-20261006-a1/out-uwvm2-ros/observer-packet-a3/actual-snapshot.ll",
+        "ir_sha256": "a5ebd3144c55fcd3807a180186972944ec07b1c1cb9286fff16a37f2af7f831d",
+        "main_aggregate_zero_store_widths": [
+          112,
+          7,
+          160,
+          7,
+          128,
+          7,
+          112,
+          7
+        ],
+        "main_aggregate_zero_store_bytes": 540
+      }
+    ],
+    "same_fixture_before_after_repository": "uwvm2-ros",
+    "same_fixture_sha256": "2b512f60b7a191b5fa67337bf1fc387fc4171c310a8ba537cfc29acc65815246",
+    "old_parent_aggregate_zero_store_bytes": 540,
+    "new_parent_aggregate_zero_store_bytes": 64,
+    "parent_store_byte_reduction_percent": 88.14814814814815,
+    "helper_clears_remain_required_and_excluded_from_metric": true,
+    "vm_cold_start_speedup_measured": false
+  },
+  "full_product": {
+    "uwvm2": "New compile started; controlled disk-floor stop after 4.36 seconds. No fresh complete product qualified.",
+    "uwvm2-ros": "NOT LAUNCHED after ordinary product disk-floor stop",
+    "fresh_vm_regressions": "NOT LAUNCHED",
+    "standard_go_cold_start": "NOT RETESTED with this candidate; prior default optimized and explicit debug policy 180-second failures remain unresolved. Genuine standard Go Wasip1 guests lack DWARF.",
+    "long_duration_vm_regression": "Prior 1839.18-second PASS belongs only to earlier b426/79d3 source cuts; no new-candidate soak PASS"
+  },
+  "unchanged_capability_inventory": {
+    "scope": "Historical audited language inventory; not a new exhaustive current-source audit. This store-elimination change adds no user debugger feature.",
+    "implemented": 14,
+    "partial": 38,
+    "missing": 34,
+    "separate_level": 1,
+    "prohibited_by_scope": 1,
+    "total": 88,
+    "remaining": [
+      "standard Go JIT cold-start",
+      "AssemblyScript typed values absent from source-map metadata",
+      "full executable checkpoint restore",
+      "complete native language debugger parity",
+      "complete cross-architecture VM/JIT/ASM qualification"
+    ]
+  },
+  "cgroup": {
+    "ssh_host": "linux",
+    "container": "uwvm3-implementation",
+    "path": "/sys/fs/cgroup/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope",
+    "memory_max": 68719476736,
+    "swap_max": 0,
+    "cpuset": "0,2,4,6,16-31",
+    "test_affinity": "16-31",
+    "boot_id": "fe09fe71-9493-4b3c-9295-694bcadeee5f",
+    "init_pid": 9593,
+    "init_birth": 18401,
+    "all_actual_compilation_VM_MCJIT_QEMU_tests_confined": true,
+    "original_identity_PIDFD_RSS_pressure_disk_file_log_guards_retained": true,
+    "no_foreign_signals": true,
+    "qualification_memory_events": {
+      "max": 162,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "resource_observation_only": {
+      "memory_current": 61516636160,
+      "temporary_filesystem_available_bytes": 6766632960
+    },
+    "disk_required_actual_free_bytes": 9288400896
+  },
+  "attempts": [
+    {
+      "receipts": "/tmp/uwvm2-observer-zero-20261006-a1/control-cross-a1/receipts.json",
+      "sha256": "1ba41ad29420f59f822d7288081939178d6ae7d7b3752f83a9add5d2830d4700",
+      "rows": [
+        {
+          "label": "uwvm2-observer-cross-a1",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "wall_seconds": 3.2895247799970093,
+          "aggregate_owned_rss_peak_bytes": 115019776,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 586859,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "cleanup_discovery_error": null
+        }
+      ]
+    },
+    {
+      "receipts": "/tmp/uwvm2-observer-zero-20261006-a1/control-cross-a2/receipts.json",
+      "sha256": "f83d0122c5d16d91b0d05a97b38f472b4f34e4f1f563f1b3ac8e563bb9d9a748",
+      "rows": [
+        {
+          "label": "uwvm2-observer-cross-a2",
+          "passed": true,
+          "returncode": 0,
+          "error": null,
+          "wall_seconds": 6.1978958180006885,
+          "aggregate_owned_rss_peak_bytes": 131403776,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 605929,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "cleanup_discovery_error": null
+        },
+        {
+          "label": "uwvm2-ros-observer-cross-a2",
+          "passed": true,
+          "returncode": 0,
+          "error": null,
+          "wall_seconds": 5.551093631002004,
+          "aggregate_owned_rss_peak_bytes": 115126272,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 607542,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "cleanup_discovery_error": null
+        }
+      ]
+    },
+    {
+      "receipts": "/tmp/uwvm2-observer-zero-20261006-a1/control-ir-comparison-a1/receipts.json",
+      "sha256": "1497d4e5f12d9ff43a0a31d1fac9b12388bd54e9a32d6503fc1931db481ba5ab",
+      "rows": [
+        {
+          "label": "observer-zero-ir-comparison-a1",
+          "passed": false,
+          "returncode": null,
+          "error": "AssertionError: ('Original disk floor plus ROS known ALL3 and 8MiB growth reserve crossed', 7773802496, 9288400896)",
+          "wall_seconds": 0.030669507999846246,
+          "aggregate_owned_rss_peak_bytes": 0,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": null,
+          "cleanup_discovery_error": null
+        }
+      ]
+    },
+    {
+      "receipts": "/tmp/uwvm2-observer-zero-20261006-a1/control-legacy-a2/receipts.json",
+      "sha256": "f27db7012f6edd1599d69a5385cbd5c040d2ffec99ee18189ecf498892ed426d",
+      "rows": [
+        {
+          "label": "uwvm2-legacy-packet-a2",
+          "passed": false,
+          "returncode": null,
+          "error": "AssertionError: ('Shared cgroup less than 1GiB from maximum; stop only this owned build', 67655446528)",
+          "wall_seconds": 34.62385511100001,
+          "aggregate_owned_rss_peak_bytes": 2094977024,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 576280,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": -9
+          },
+          "cleanup_discovery_error": null
+        },
+        {
+          "label": "uwvm2-ros-legacy-packet-a2",
+          "passed": true,
+          "returncode": 0,
+          "error": null,
+          "wall_seconds": 44.899126991997036,
+          "aggregate_owned_rss_peak_bytes": 2608488448,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 576703,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "cleanup_discovery_error": null
+        }
+      ]
+    },
+    {
+      "receipts": "/tmp/uwvm2-observer-zero-20261006-a1/control-legacy-a3/receipts.json",
+      "sha256": "e6e1da000f18fda5f32e517823bcfdb740863422bc9984a940b67dbae94720b5",
+      "rows": [
+        {
+          "label": "uwvm2-legacy-packet-a3",
+          "passed": false,
+          "returncode": null,
+          "error": "AssertionError: ('Original disk floor plus ROS known ALL3 and 8MiB growth reserve crossed', 8492785664, 9288400896)",
+          "wall_seconds": 0.027937729999393923,
+          "aggregate_owned_rss_peak_bytes": 0,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": null,
+          "cleanup_discovery_error": null
+        }
+      ]
+    },
+    {
+      "receipts": "/tmp/uwvm2-observer-zero-20261006-a1/control-legacy-a4/receipts.json",
+      "sha256": "17cc5633337868dbeb5ccea08a50105302633fca5cdedd8aad2bddb46d2ca627",
+      "rows": [
+        {
+          "label": "uwvm2-legacy-packet-a3",
+          "passed": false,
+          "returncode": null,
+          "error": "AssertionError: ('Original disk floor plus ROS known ALL3 and 8MiB growth reserve crossed', 9077338112, 9288400896)",
+          "wall_seconds": 0.02792217299793265,
+          "aggregate_owned_rss_peak_bytes": 0,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": null,
+          "cleanup_discovery_error": null
+        }
+      ]
+    },
+    {
+      "receipts": "/tmp/uwvm2-observer-zero-20261006-a1/control-preserved-units-a1/receipts.json",
+      "sha256": "be1088499b1fbd56351ee46710fdc6e512ab11a012849fd7310f98da045fe714",
+      "rows": [
+        {
+          "label": "uwvm2-observer-retry-a2",
+          "passed": true,
+          "returncode": 0,
+          "error": null,
+          "wall_seconds": 45.82123816800231,
+          "aggregate_owned_rss_peak_bytes": 2651947008,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 569179,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "cleanup_discovery_error": null
+        },
+        {
+          "label": "uwvm2-legacy-packet-a1",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "wall_seconds": 46.013799721000396,
+          "aggregate_owned_rss_peak_bytes": 2627395584,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 570424,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "cleanup_discovery_error": null
+        }
+      ]
+    },
+    {
+      "receipts": "/tmp/uwvm2-observer-zero-20261006-a1/control-products-a1/receipts.json",
+      "sha256": "84d372fd7de7ba2d1ae8f69ecb3e328979b692457aafb2e9be00d8165fcdec13",
+      "rows": [
+        {
+          "label": "uwvm2-product-a1",
+          "passed": false,
+          "returncode": null,
+          "error": "AssertionError: ('Original disk floor plus ROS known ALL3 and 8MiB growth reserve crossed', 9286238208, 9288400896)",
+          "wall_seconds": 4.3582147240013,
+          "aggregate_owned_rss_peak_bytes": 210731008,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 634538,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": -9
+          },
+          "cleanup_discovery_error": null
+        }
+      ]
+    },
+    {
+      "receipts": "/tmp/uwvm2-observer-zero-20261006-a1/control-units-a1/receipts.json",
+      "sha256": "adae3b7897d3dfb280d932f56df3eed637b7c0182ef5f89b55d3ef40805a7b91",
+      "rows": [
+        {
+          "label": "uwvm2-observer-packet-a1",
+          "passed": false,
+          "returncode": null,
+          "error": "AssertionError: ('Shared cgroup less than 1GiB from maximum; stop only this owned build', 67648724992)",
+          "wall_seconds": 36.37814917200012,
+          "aggregate_owned_rss_peak_bytes": 2187583488,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 559808,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": -9
+          },
+          "cleanup_discovery_error": null
+        },
+        {
+          "label": "uwvm2-ros-observer-packet-a1",
+          "passed": true,
+          "returncode": 0,
+          "error": null,
+          "wall_seconds": 46.00277163899955,
+          "aggregate_owned_rss_peak_bytes": 2641551360,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 561864,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "cleanup_discovery_error": null
+        }
+      ]
+    },
+    {
+      "receipts": "/tmp/uwvm2-observer-zero-20261006-a1/control-units-a3/receipts.json",
+      "sha256": "60837a934e0d04a9fe58b6ad78618c5c8137c137496cd859abf56fd412a721ca",
+      "rows": [
+        {
+          "label": "uwvm2-observer-packet-a3",
+          "passed": true,
+          "returncode": 0,
+          "error": null,
+          "wall_seconds": 48.1386283139982,
+          "aggregate_owned_rss_peak_bytes": 2650853376,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 595015,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "cleanup_discovery_error": null
+        },
+        {
+          "label": "uwvm2-ros-observer-packet-a3",
+          "passed": true,
+          "returncode": 0,
+          "error": null,
+          "wall_seconds": 46.988151370002015,
+          "aggregate_owned_rss_peak_bytes": 2637623296,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 596340,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "cleanup_discovery_error": null
+        }
+      ]
+    },
+    {
+      "receipts": "/tmp/uwvm2-observer-zero-baseline-20261006-a1/control-units-a1/receipts.json",
+      "sha256": "f118c3b17c253dc0cea31348576427a21e6ad38b0b77a2ddbd12735cbbd76e7d",
+      "rows": [
+        {
+          "label": "uwvm2-observer-baseline-a1",
+          "passed": true,
+          "returncode": 0,
+          "error": null,
+          "wall_seconds": 47.30455682200045,
+          "aggregate_owned_rss_peak_bytes": 2649423872,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 584363,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "cleanup_discovery_error": null
+        },
+        {
+          "label": "uwvm2-ros-observer-baseline-a1",
+          "passed": false,
+          "returncode": null,
+          "error": "AssertionError: ('Shared cgroup less than 1GiB from maximum; stop only this owned build', 67652558848)",
+          "wall_seconds": 36.11181206800029,
+          "aggregate_owned_rss_peak_bytes": 2190729216,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 585266,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": -9
+          },
+          "cleanup_discovery_error": null
+        }
+      ]
+    },
+    {
+      "receipts": "/tmp/uwvm2-observer-zero-baseline-20261006-a1/control-units-a3/receipts.json",
+      "sha256": "ef55eb7568763097102a953edd8d64cb7d53abb7cbfc33675220ae009c081539",
+      "rows": [
+        {
+          "label": "uwvm2-observer-baseline-a3",
+          "passed": false,
+          "returncode": null,
+          "error": "AssertionError: ('Shared cgroup less than 1GiB from maximum; stop only this owned build', 67662188544)",
+          "wall_seconds": 15.405873558000167,
+          "aggregate_owned_rss_peak_bytes": 760197120,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 605659,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": -9
+          },
+          "cleanup_discovery_error": null
+        },
+        {
+          "label": "uwvm2-ros-observer-baseline-a3",
+          "passed": true,
+          "returncode": 0,
+          "error": null,
+          "wall_seconds": 46.93032167899946,
+          "aggregate_owned_rss_peak_bytes": 2634809344,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "Popen_root_pidfd_retirement": {
+            "pid": 607541,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "cleanup_discovery_error": null
+        }
+      ]
+    }
+  ],
+  "cleanup_receipts": [
+    {
+      "receipt": "/tmp/uwvm2-observer-zero-20261006-a1/obsolete-own-compiled-cleanup-receipt-a1.json",
+      "sha256": "8b387f055d11333ee765c64d648cbb076c2feaf9fd163b0e7b7a06b016fc8595"
+    },
+    {
+      "receipt": "/tmp/uwvm2-observer-zero-20261006-a1/obsolete-own-component-cleanup-receipt-a2.json",
+      "sha256": "09a16ed7d1ab00ae9ecf3d02ee9343fe128bdbda80f7a9ab0b45e6c4d76465bd"
+    },
+    {
+      "receipt": "/tmp/uwvm2-observer-zero-20261006-a1/historical-product-retirement-a1.json",
+      "sha256": "aecba54078752081ed4d64b5120b1fdb539c46b209cb1dfa3b7620d675fd8718"
+    },
+    {
+      "receipt": "/tmp/uwvm2-observer-zero-20261006-a1/verified-sizeof-archive-migration-a1.json",
+      "sha256": "31e33ee967bfda3c1e5ab74d452fd27afcd747d74bcfdee950323126dbd99ca0"
+    }
+  ],
+  "cleanup_scope": "Only own temporary obsolete objects, superseded component binaries and four historical full product ELFs retired after exact verified local backups. Historical full products remain recoverable inside exact evidence archives. Some remote duplicate archives migrated to verified local copies. Source/guest/toolchain/SDK retained; other agents untouched. Earlier raw path statements superseded by these migration receipts.",
+  "old_evidence_locations": {
+    "snapshot_copy_evidence": "/tmp/uwvm2-observer-zero-20261006/snapshot-copy-evidence-a1.tar.gz",
+    "snapshot_copy_sha256": "4ca8e306be39bc60152050bc3189fa02102eacc810606e0ea7e9fbea126447a4",
+    "sizeof_evidence": "/tmp/uwvm2-language-sizeof-20261005/completion-evidence-a1.tar.gz",
+    "sizeof_sha256": "004d5a64e8803db7a359ef422427b1ffe1566f69dd04770074e3066007397916",
+    "obsolete_compiled_backup": "/tmp/uwvm2-observer-zero-20261006/obsolete-own-compiled-backup-a1.tar.gz",
+    "obsolete_component_backup": "/tmp/uwvm2-observer-zero-20261006/obsolete-own-component-backup-a2.tar.gz"
+  },
+  "next_steps": [
+    "Retry genuine fresh complete ordinary/ROS products when original resource guards admit them",
+    "Retry repaired ordinary legacy fixture and exact same latest ordinary single-file baseline",
+    "Run real VM observation, ASM Wasm-only boundaries, language/DAP/run-to regressions against newly qualified products",
+    "Measure actual standard Go cold-start without changing default policy",
+    "Continue missing language capabilities and full target VM parity"
+  ],
+  "local_production_and_private_fixture_readback": {
+    "uwvm2": {
+      "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_packet_emit.h": {
+        "local_sha256": "7f95bc86bfcbadfe9551290600934eeafd769d8b278c6904deec2e272ef35646",
+        "frozen_manifest_sha256": "7f95bc86bfcbadfe9551290600934eeafd769d8b278c6904deec2e272ef35646"
+      },
+      "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_snapshot_copy_emit.h": {
+        "local_sha256": "7ba1e7596165a50e9a78c88939acf19f97c2fc1f3bf025fd2dfba69c7626df63",
+        "frozen_manifest_sha256": "61ace18ca70c06c3b6ea2f893432422c1bced2dd69e36fa99bc3bd6961f422f0"
+      },
+      "test/0017.runtime/debug_checkpoint_observer_packet_ir.cc": {
+        "local_sha256": "2b512f60b7a191b5fa67337bf1fc387fc4171c310a8ba537cfc29acc65815246",
+        "frozen_manifest_sha256": null
+      },
+      "test/0014.llvm_jit/llvm_jit_checkpoint_dynamic_packet_ir.cc": {
+        "local_sha256": "d723858d24f03f3999cec91b926efaab9c17a9a582b589dcb707b3df0d836578",
+        "frozen_manifest_sha256": null
+      }
+    },
+    "uwvm2-ros": {
+      "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_packet_emit.h": {
+        "local_sha256": "7f95bc86bfcbadfe9551290600934eeafd769d8b278c6904deec2e272ef35646",
+        "frozen_manifest_sha256": "7f95bc86bfcbadfe9551290600934eeafd769d8b278c6904deec2e272ef35646"
+      },
+      "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_snapshot_copy_emit.h": {
+        "local_sha256": "7ba1e7596165a50e9a78c88939acf19f97c2fc1f3bf025fd2dfba69c7626df63",
+        "frozen_manifest_sha256": "61ace18ca70c06c3b6ea2f893432422c1bced2dd69e36fa99bc3bd6961f422f0"
+      },
+      "test/0017.runtime/debug_checkpoint_observer_packet_ir.cc": {
+        "local_sha256": "2b512f60b7a191b5fa67337bf1fc387fc4171c310a8ba537cfc29acc65815246",
+        "frozen_manifest_sha256": null
+      },
+      "test/0014.llvm_jit/llvm_jit_checkpoint_dynamic_packet_ir.cc": {
+        "local_sha256": "d723858d24f03f3999cec91b926efaab9c17a9a582b589dcb707b3df0d836578",
+        "frozen_manifest_sha256": null
+      }
+    }
+  },
+  "local_readback_scope": "Initial production header readback matched frozen candidate. Final readback found later parallel packet memset and copier chunking changes, kept untouched and not qualified by this record. Latest private test variants remain independently pinned and tested.",
+  "raw_evidence": {
+    "local_archive": "/tmp/uwvm2-observer-zero-20261006/observer-packet-evidence-a1.tar.gz",
+    "remote_archive": "/tmp/uwvm2-observer-zero-20261006-a1/observer-packet-evidence-a1.tar.gz",
+    "local_verification": "/tmp/uwvm2-observer-zero-20261006/observer-packet-evidence-verification-a1.json",
+    "scope": "Both exact frozen candidate source directories, latest private test sources, scripts, manifests, actual IR/bitcode/native and target artifacts, baseline changed header and manifests plus success/failure/guard receipts. SDK/toolchain originals remain pinned by hashes and are not duplicated. Baseline reconstruction uses exact candidate files except the archived before header."
+  },
+  "raw_evidence_verification": {
+    "archive_sha256": "8b215cff0e6b4c097099679875fee089629a2878668d0309722b2aa62d474ec8",
+    "archive_bytes": 189722071,
+    "members": 9118,
+    "local_and_remote_all_members_byte_verified": true,
+    "local_verification_file": "/tmp/uwvm2-observer-zero-20261006/local-observer-evidence-verification-a1.json",
+    "scope": "Archive contains the pre-backup report; final archive digest is in this external companion record."
+  },
+  "final_parallel_edit_observation": {
+    "observed_utc": "2026-10-05T19:20:06.401871+00:00",
+    "sha256": {
+      "uwvm2": {
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_packet_emit.h": "4a48286bfae311bb12d6c85c7031fba756dcba9f12c2fdebcaaba81844e8ec60",
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_snapshot_copy_emit.h": "02029d05e7d64e5fd0e59d917c566cb0e3d033a3b99dc7a2951d5648b0e89e09"
+      },
+      "uwvm2-ros": {
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_packet_emit.h": "4a48286bfae311bb12d6c85c7031fba756dcba9f12c2fdebcaaba81844e8ec60",
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_snapshot_copy_emit.h": "02029d05e7d64e5fd0e59d917c566cb0e3d033a3b99dc7a2951d5648b0e89e09"
+      }
+    },
+    "scope": "Later parallel edits preserved. Packet suffix aggregate zero store changed to LLVM memset; shared copier chunking also changed. The locals-prefix/flags redundant-clear removal remains present. Neither later edit is qualified by this archived frozen-candidate PASS."
+  }
+}

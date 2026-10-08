@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "vm_was_not_started": true,
+  "test_admission_bytes": 6442450944,
+  "observed_allocated_bytes": 6617608192,
+  "owned_running_stop_bytes": 7516192768,
+  "action": "Move two already qualified own R29 Linux archives to existing checked 1 GiB local cold region; preserve 6 GiB test admission"
+}

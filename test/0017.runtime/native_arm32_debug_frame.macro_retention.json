@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "incremental_cold_archive": {
+    "local_path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/BE739-ARM32-merged-linux-elf-source-and-evidence.tar.xz",
+    "local_bytes": 689372,
+    "local_sha256": "4de1db7172182616334498038666830a2f263114490c606bca658e24c8b6e2bc",
+    "archive_sha256": "4de1db7172182616334498038666830a2f263114490c606bca658e24c8b6e2bc",
+    "independent_local_exact_byte_hash_verified": true
+  },
+  "online_archive_sha256": "4de1db7172182616334498038666830a2f263114490c606bca658e24c8b6e2bc"
+}

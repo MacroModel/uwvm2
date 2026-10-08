@@ -1,0 +1,335 @@
+{
+  "scope": "Completed source574 ordinary and596 ROS raw objects/dependencies/private-slot images retired only after genuine56 independent audit and all owned PIDFD retirement; exact archives preserved; SDK libs and peer files untouched",
+  "runtime_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current575/build-meta/qualification.json",
+  "runtime_qualification_sha256": "3ddf4bb77425db2311de5c440d318e84007cf11826c455049a0987aa5fa55229",
+  "archive_maps": [
+    {
+      "workspace": "/dev/shm/uwvm-asm-6313e263-current574",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/retained/source574-completed-partial-products589.tar.xz",
+      "archive_sha256": "78d44d3e07c0dc878fcf0c305cae773c4d2b4bcd254b7fc64c7bb906d0cf614b",
+      "members": {
+        "uwvm2-actual-Wasm-modern": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-actual-Wasm-modern",
+          "sha256": "6b3f8165b236c37e3ccebaf5cce385a7748a3b61b702f46ebf5cc13e2875c925",
+          "bytes": 80472736,
+          "mode": 509,
+          "mtime_ns": 1791415431585388972
+        },
+        "uwvm2-actual-Wasm-modern.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-actual-Wasm-modern.d",
+          "sha256": "8d883a280040caee7f4a07e90fa0490ac346b0573b101fd90424509fbd013d72",
+          "bytes": 365579,
+          "mode": 436,
+          "mtime_ns": 1791415428501333245
+        },
+        "uwvm2-actual-Wasm-finish-console.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-actual-Wasm-finish-console.d",
+          "sha256": "b25b32e8957272a535b8ea3b1c5babb841959c435b2c2e4e1a737796927aff3f",
+          "bytes": 365569,
+          "mode": 436,
+          "mtime_ns": 1791415303501065202
+        },
+        "uwvm2-actual-Wasm-physical-caller.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-actual-Wasm-physical-caller.d",
+          "sha256": "402b6f4bf9bdfd55bd0aeb0b91105f657e8bab4dcb85589602610d0436549abd",
+          "bytes": 351784,
+          "mode": 436,
+          "mtime_ns": 1791415185045214768
+        },
+        "uwvm2-actual-Wasm-recursive-NI.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-actual-Wasm-recursive-NI.d",
+          "sha256": "d37b9a31fccf0299826f1b8076eb4410450cd33ddd688c621f8949468c6bb671",
+          "bytes": 365565,
+          "mode": 436,
+          "mtime_ns": 1791415079203937306
+        },
+        "uwvm2-host.o": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-host.o",
+          "sha256": "2e47af210613f0a62f3f93e86d41232fc7010f04bbd29bd866f54ae957b8f0b7",
+          "bytes": 8968952,
+          "mode": 436,
+          "mtime_ns": 1791415002974512010
+        },
+        "uwvm2-host.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-host.d",
+          "sha256": "7e0a59b585fee723f91bc5eb7683334908c616960ed111b1cdca339808bb1634",
+          "bytes": 297132,
+          "mode": 436,
+          "mtime_ns": 1791415002981512142
+        },
+        "uwvm2-runtime.o": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-runtime.o",
+          "sha256": "259a5112c365c50f5cda760b25648e3cc86447257b65a2fb6f8032b361cdf72b",
+          "bytes": 77369128,
+          "mode": 436,
+          "mtime_ns": 1791414973318953746
+        },
+        "uwvm2-runtime.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-runtime.d",
+          "sha256": "4580e619cda60f3c860f2b32e06918fd5a1abcb52baa8d3fa190eacb016a6532",
+          "bytes": 460400,
+          "mode": 436,
+          "mtime_ns": 1791414973372954764
+        },
+        "uwvm2-private-stack-slot": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-private-stack-slot",
+          "sha256": "356c5ecb27b017af6cd52ce22e8dfc358f4f3688182c956a78a0acc6b1cbb730",
+          "bytes": 189520,
+          "mode": 509,
+          "mtime_ns": 1791414888968352740
+        },
+        "uwvm2-private-stack-slot.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-private-stack-slot.d",
+          "sha256": "bb1e8102266a9c40079271936604e659e1672d55dccbb1132c32553de0059818",
+          "bytes": 156502,
+          "mode": 436,
+          "mtime_ns": 1791414888912547539
+        }
+      }
+    },
+    {
+      "workspace": "/dev/shm/uwvm-asm-6313e263-current596",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_sha256": "84dafc6fbb62722b5fb45e00da720aa3ee8576e4766bc7a523fddb5748880f85",
+      "members": {
+        "uwvm2-ros-actual-Rdbg-CLI.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-actual-Rdbg-CLI.d",
+          "sha256": "e8b568d77aaf168969fd5d8d77ce3aa57fba7edb2bc875582c024a3564afadc9"
+        },
+        "uwvm2-ros-actual-Wasm-native.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-actual-Wasm-native.d",
+          "sha256": "36fc9a548f5da5e92efdeae5d6175f17965dc5975e1b922d1821e6fbca6a87cd"
+        },
+        "uwvm2-ros-actual-Wasm-modern.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-actual-Wasm-modern.d",
+          "sha256": "6b8862b7ed80c964d8eca8812881aa38b47ce3f5397c5af8b5ecc2762d9a8e34"
+        },
+        "uwvm2-ros-actual-Wasm-finish-console.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-actual-Wasm-finish-console.d",
+          "sha256": "77fea8c121c7cb18bee78fcb9e2b8da49f7c3a43164d9daf381dd7cdc01687d8"
+        },
+        "uwvm2-ros-actual-Wasm-physical-caller.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-actual-Wasm-physical-caller.d",
+          "sha256": "3ffc4984ce4ac91f4b202770c226bfb9d767cdb1c6684f791befbfef06b0e46a"
+        },
+        "uwvm2-ros-actual-Wasm-recursive-NI.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-actual-Wasm-recursive-NI.d",
+          "sha256": "643078f4354543a92569dd14d27c32348e78045867d4b331c169c99016564841"
+        },
+        "uwvm2-ros-host.o": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-host.o",
+          "sha256": "7d24e76b58235c3cd6dfd26139a6c498026f886fcdbd2e6c3ca98c38ff7ef6a9"
+        },
+        "uwvm2-ros-host.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-host.d",
+          "sha256": "8f258b50b661dcbd2b26489740c53ff3b5af51a00facb9b4d1f796d4ebccefbf"
+        },
+        "uwvm2-ros-runtime.o": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-runtime.o",
+          "sha256": "64152158b183ba5a962aa9fd509f113ef2c01e549c46daf8537b5135c2f32ea2"
+        },
+        "uwvm2-ros-runtime.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-runtime.d",
+          "sha256": "0e202fac24634944360312edd7e9859e84ca17af2229d10c9bbbd8da4a841f03"
+        },
+        "uwvm2-ros-private-stack-slot": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-private-stack-slot",
+          "sha256": "fe7afe21a7c8cb73567c5f96a8ea8fcb5f50baa96436152bc8973e75964c3a13"
+        },
+        "uwvm2-ros-private-stack-slot.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-private-stack-slot.d",
+          "sha256": "380dbc0505c7de3c5f535adc06970f3b67759d7767856de6fa8cbe78bf487fe9"
+        },
+        "uwvm2-actual-Rdbg-CLI.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-actual-Rdbg-CLI.d",
+          "sha256": "5604d2ebbdf239c7fcd15e678059e5ba73aacdfae7422e05cd68fc43adcb6593"
+        },
+        "uwvm2-actual-Wasm-native.d": {
+          "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-actual-Wasm-native.d",
+          "sha256": "09498c3183197cb3ef16a768b8f4bcfc5e366e45273887ac9dacae2855cdd833"
+        }
+      }
+    }
+  ],
+  "retired_raw_files": [
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-actual-Wasm-modern.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/retained/source574-completed-partial-products589.tar.xz",
+      "archive_member": "uwvm2-actual-Wasm-modern.d",
+      "sha256": "8d883a280040caee7f4a07e90fa0490ac346b0573b101fd90424509fbd013d72",
+      "bytes": 365579
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-actual-Wasm-finish-console.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/retained/source574-completed-partial-products589.tar.xz",
+      "archive_member": "uwvm2-actual-Wasm-finish-console.d",
+      "sha256": "b25b32e8957272a535b8ea3b1c5babb841959c435b2c2e4e1a737796927aff3f",
+      "bytes": 365569
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-actual-Wasm-physical-caller.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/retained/source574-completed-partial-products589.tar.xz",
+      "archive_member": "uwvm2-actual-Wasm-physical-caller.d",
+      "sha256": "402b6f4bf9bdfd55bd0aeb0b91105f657e8bab4dcb85589602610d0436549abd",
+      "bytes": 351784
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-actual-Wasm-recursive-NI.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/retained/source574-completed-partial-products589.tar.xz",
+      "archive_member": "uwvm2-actual-Wasm-recursive-NI.d",
+      "sha256": "d37b9a31fccf0299826f1b8076eb4410450cd33ddd688c621f8949468c6bb671",
+      "bytes": 365565
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-host.o",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/retained/source574-completed-partial-products589.tar.xz",
+      "archive_member": "uwvm2-host.o",
+      "sha256": "2e47af210613f0a62f3f93e86d41232fc7010f04bbd29bd866f54ae957b8f0b7",
+      "bytes": 8968952
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-host.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/retained/source574-completed-partial-products589.tar.xz",
+      "archive_member": "uwvm2-host.d",
+      "sha256": "7e0a59b585fee723f91bc5eb7683334908c616960ed111b1cdca339808bb1634",
+      "bytes": 297132
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-runtime.o",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/retained/source574-completed-partial-products589.tar.xz",
+      "archive_member": "uwvm2-runtime.o",
+      "sha256": "259a5112c365c50f5cda760b25648e3cc86447257b65a2fb6f8032b361cdf72b",
+      "bytes": 77369128
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-runtime.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/retained/source574-completed-partial-products589.tar.xz",
+      "archive_member": "uwvm2-runtime.d",
+      "sha256": "4580e619cda60f3c860f2b32e06918fd5a1abcb52baa8d3fa190eacb016a6532",
+      "bytes": 460400
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-private-stack-slot",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/retained/source574-completed-partial-products589.tar.xz",
+      "archive_member": "uwvm2-private-stack-slot",
+      "sha256": "356c5ecb27b017af6cd52ce22e8dfc358f4f3688182c956a78a0acc6b1cbb730",
+      "bytes": 189520
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-private-stack-slot.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/retained/source574-completed-partial-products589.tar.xz",
+      "archive_member": "uwvm2-private-stack-slot.d",
+      "sha256": "bb1e8102266a9c40079271936604e659e1672d55dccbb1132c32553de0059818",
+      "bytes": 156502
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-actual-Rdbg-CLI.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-ros-actual-Rdbg-CLI.d",
+      "sha256": "e8b568d77aaf168969fd5d8d77ce3aa57fba7edb2bc875582c024a3564afadc9",
+      "bytes": 400391
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-actual-Wasm-native.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-ros-actual-Wasm-native.d",
+      "sha256": "36fc9a548f5da5e92efdeae5d6175f17965dc5975e1b922d1821e6fbca6a87cd",
+      "bytes": 369284
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-actual-Wasm-modern.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-ros-actual-Wasm-modern.d",
+      "sha256": "6b8862b7ed80c964d8eca8812881aa38b47ce3f5397c5af8b5ecc2762d9a8e34",
+      "bytes": 369303
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-actual-Wasm-finish-console.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-ros-actual-Wasm-finish-console.d",
+      "sha256": "77fea8c121c7cb18bee78fcb9e2b8da49f7c3a43164d9daf381dd7cdc01687d8",
+      "bytes": 369293
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-actual-Wasm-physical-caller.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-ros-actual-Wasm-physical-caller.d",
+      "sha256": "3ffc4984ce4ac91f4b202770c226bfb9d767cdb1c6684f791befbfef06b0e46a",
+      "bytes": 355364
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-actual-Wasm-recursive-NI.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-ros-actual-Wasm-recursive-NI.d",
+      "sha256": "643078f4354543a92569dd14d27c32348e78045867d4b331c169c99016564841",
+      "bytes": 369289
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-host.o",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-ros-host.o",
+      "sha256": "7d24e76b58235c3cd6dfd26139a6c498026f886fcdbd2e6c3ca98c38ff7ef6a9",
+      "bytes": 8966536
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-host.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-ros-host.d",
+      "sha256": "8f258b50b661dcbd2b26489740c53ff3b5af51a00facb9b4d1f796d4ebccefbf",
+      "bytes": 301684
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-runtime.o",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-ros-runtime.o",
+      "sha256": "64152158b183ba5a962aa9fd509f113ef2c01e549c46daf8537b5135c2f32ea2",
+      "bytes": 75316208
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-runtime.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-ros-runtime.d",
+      "sha256": "0e202fac24634944360312edd7e9859e84ca17af2229d10c9bbbd8da4a841f03",
+      "bytes": 459095
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-private-stack-slot",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-ros-private-stack-slot",
+      "sha256": "fe7afe21a7c8cb73567c5f96a8ea8fcb5f50baa96436152bc8973e75964c3a13",
+      "bytes": 188496
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-ros-private-stack-slot.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-ros-private-stack-slot.d",
+      "sha256": "380dbc0505c7de3c5f535adc06970f3b67759d7767856de6fa8cbe78bf487fe9",
+      "bytes": 158054
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-actual-Rdbg-CLI.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-actual-Rdbg-CLI.d",
+      "sha256": "5604d2ebbdf239c7fcd15e678059e5ba73aacdfae7422e05cd68fc43adcb6593",
+      "bytes": 396877
+    },
+    {
+      "original": "/dev/shm/uwvm-asm-6313e263-current596/uwvm2-actual-Wasm-native.d",
+      "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current596/build-meta/work/completed-build-objects.tar.xz",
+      "archive_member": "uwvm2-actual-Wasm-native.d",
+      "sha256": "09498c3183197cb3ef16a768b8f4bcfc5e366e45273887ac9dacae2855cdd833",
+      "bytes": 365560
+    }
+  ],
+  "already_retired_before_this_cleanup": [
+    "/dev/shm/uwvm-asm-6313e263-current574/uwvm2-actual-Wasm-modern"
+  ],
+  "unknown_files_left_intact": [],
+  "raw_logical_bytes_retired": 177275565,
+  "raw_allocated_bytes_retired": 177307648,
+  "all_archive_member_bytes_reverified_before_raw_unlink": true,
+  "actual_new_VM_sessions": 0,
+  "all_own_PIDs_retired_required": true,
+  "genuine64_SDK_libraries_kept_live": true,
+  "historical_audit_requires_exact_path_restore": true
+}

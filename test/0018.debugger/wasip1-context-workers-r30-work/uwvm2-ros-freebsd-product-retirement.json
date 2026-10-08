@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "all_payloads_read_back": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-ros-freebsd-qualified-products.tar.gz",
+  "archive_bytes": 79369474,
+  "archive_sha256": "43c4122f8285982fe9fc2db6c82fb728d2126df376f223e9270ede5cff5a2f04",
+  "payloads": {
+    "aliases.wasm": "ab1da939b0029bbc718d0af9e81fc88d5a7a5271a46b3c25f92e85e3dfe8a7ca",
+    "host-api.d": "e9da3f2ad6b0e6022a4eff73ba020cc933fa1eb8fe53453cbe298416e7fa0e06",
+    "environment-group.d": "c827063bd25775889a4cb8cfdc4cda96b0e591c4abdb433f31f4f6e9e5e903ee",
+    "runtime.d": "b4ca8ecc881953db2b0086860b561e2a0133815c4c5bac5322203b34448ebea0",
+    "runtime-compile.log": "125e762d19a32a3abd142825c2eb767fe5f345be4250391e76bce58de7a1c298",
+    "group-main-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "checkpoint.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+    "fixture-build.log": "f7164b7482eebe4815a05bed3fab962f7723114457e3a67b9309f8ce72f0ffe9",
+    "checkpoint-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "host-api.o": "b7172a918db7f26878cf285bf0a5f4bf4f6ed843e9a3677a5a425c383ddfbec2",
+    "runtime.o": "f417d883aa68076dffc05c34089a357f24480f60054add03fac743b0c01e3f6d",
+    "group-provider-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "environment-group-qualified.json": "dbbfeca1a34f5af95b6cdc8619a9c1cb6e3c43be6bf3e6e9174a0e42c7a19825",
+    "group-main-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "group-provider-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "aliases-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "checkpoint-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qualified.json": "7dfc7edb518784422d41e72d9a6c036aa111df55194bd826454e46e6624327b0",
+    "fixture.exe": "055ee24ac88eceaf816adcbf37afb7d5c8c08c80df424e8b5a6441ac661efe89",
+    "environment-group.exe": "e7f4edcff7ff5c9dedd4a3823d212d43ed756accbdbdc4ce22975113cd0abeed",
+    "results.json": "f0e74808d3a74ab93dc6b6c441aa50700639be6b4d7f3255b522350441c0cd45",
+    "environment-group-build.log": "03d3b1caf817e8dc8209f9e2b792de970769a80db87590cdc006e1aabc38887d",
+    "aliases-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "host-api-compile.log": "d5705e5f0e990454e816909f71386efeef8872bd7e7760d063d203ae6369da3a",
+    "runtime-qualified.json": "49e76706f6edd86393507b25cb3b5822931d73150212b525483f7497da92b715",
+    "group-provider.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+    "group-main.wasm": "ee9f33ae640a967785531c581e4baf7f639979669969307c0abefd0c224d1e3a",
+    "fixture.d": "390f73b543671d2e9064acc5444191cf8475933a6476af5cd6a3b22b9ee2ce08",
+    "host-api-qualified.json": "ac31ea8f4aac992dd1c62d6dde30570e7f21c6226424d1907461e69b03e7b595",
+    "sdk-cache-retirement.json": "e082507459064c1143df1bd1b1db61bb6e1467495abb0cdeff345f049519afcf"
+  },
+  "retired_raw": [
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2-ros/host-api.o",
+      "bytes": 6891768,
+      "sha256": "b7172a918db7f26878cf285bf0a5f4bf4f6ed843e9a3677a5a425c383ddfbec2",
+      "archive_member": "host-api.o"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2-ros/runtime.o",
+      "bytes": 99987760,
+      "sha256": "f417d883aa68076dffc05c34089a357f24480f60054add03fac743b0c01e3f6d",
+      "archive_member": "runtime.o"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2-ros/fixture.exe",
+      "bytes": 145512720,
+      "sha256": "055ee24ac88eceaf816adcbf37afb7d5c8c08c80df424e8b5a6441ac661efe89",
+      "archive_member": "fixture.exe"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2-ros/environment-group.exe",
+      "bytes": 145807656,
+      "sha256": "e7f4edcff7ff5c9dedd4a3823d212d43ed756accbdbdc4ce22975113cd0abeed",
+      "archive_member": "environment-group.exe"
+    }
+  ]
+}

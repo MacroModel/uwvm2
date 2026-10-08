@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "all_payloads_read_back": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-macos-qualified-products.tar.gz",
+  "archive_bytes": 91395890,
+  "archive_sha256": "2250f7bcb1f10cc670e1af40748d4926bab0784071bba8b48a7ad87884901373",
+  "payloads": {
+    "aliases.wasm": "ab1da939b0029bbc718d0af9e81fc88d5a7a5271a46b3c25f92e85e3dfe8a7ca",
+    "native-execution.json": "9d2d0b02ca0926d98f113c48b7df31da5a070d488876eae99f8fda820fcede52",
+    "host-api.d": "89520a4b3458149f804efcd21f6ac0e00c3f07aeac63ac78511b9d795d95bbd2",
+    "environment-group.d": "736f77ac6c9934a7a35a6fe25e40c4187c9b04a43c550ad524e5c7dfd5a10716",
+    "receipt.json": "72e40c9251b2c785ea9523251ad914af0295e2f6de212c44098b530e9f167209",
+    "nofork-probe.log": "06f08929938554e862d37fc43cbf78ef4692f32f849c69b49b9260d8ea6d8ef5",
+    "runtime.d": "c174cf6aa8eb06a045fdb7adff79a82df8757b6802de1254ebe25c1ea589612f",
+    "runtime-compile.log": "06d46713c1124d0923707dbb682ee9ac51ee0ed5f12c100a34ee4131b911babc",
+    "group-main-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "aliases-unwind.log": "6eb5bff63311e4f0966209b47864896d50629d122284e1831c68d088c17faee9",
+    "checkpoint.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+    "macos_monitor.py": "e3f40b6c12239ba136e550671df54f58999e496a9d7287f1fc639db8080d1000",
+    "fixture-build.log": "a53f647a518c75b5d76cdb465ec7648159599822d0b6bff233d46cd8c0a69ff0",
+    "aliases-instruction.log": "dae8cf4eb9372d48ccf11e3fc2c7dfdd089899ab8db97aecd914881fcb8bf4ca",
+    "environment-group-unwind.log": "33e94c126b5d9171e383fc1f21410624a8f2859e14b05ceb45dcdc90b06b2c27",
+    "checkpoint-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "macos_native.py": "6844aa6a4fd2138a1937bc5e85effa5396e125867c4264b882a691e74b6fb80d",
+    "checkpoint-unwind.log": "f86ef62fee9dd502cddada19dc8fbd57b9a765741879cc522ced108c92c08903",
+    "host-api.o": "1ec372377ba3100f4e0125f45757a4b7402cb43368691f8399418f37125c8dd3",
+    "runtime.o": "219fa6eb79cc71594effe97e1b416a6bcbd0c8df68b8af163c5df3a52b467c66",
+    "environment-group-instruction.log": "93562d6a0f27e861dfc6a96bc49f68c578f73d0f0480f11ba535dee4029282df",
+    "mach_exc_server.o": "f82d2557e66dafc83eb3cfce4caf09473d7dd551a4c171e593177e0a0e50514e",
+    "group-provider-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "spec.json": "edf7c2b0d3d29912df7df0856f1cc380ae1a8b90bf3dc91e927384d611d9e5e3",
+    "environment-group-qualified.json": "639ff1f4754e77e6c422fe09a6625c001d2549b1ee024c3d2518ba6209a3affd",
+    "group-main-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "checkpoint-instruction.log": "53aa104e4cb99cc40b630a4c4cb3f76a2b147386eddff56b91e6da34310f1c24",
+    "nofork-probe.json": "ac99ab82f48d6c0d7bca5b967375453c3f2c4f7a86eadab4314c7ff7f7d374cf",
+    "group-provider-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "aliases-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "checkpoint-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qualified.json": "d1055d7a1a9c59a2750279109220e3276f1cf6e8dcf57c8e58cef2c348bf22b9",
+    "fixture.exe": "b37d197ff814dba34573d3c12dcbb65f442a2bcac0718345f53e0f3dfb09ff28",
+    "environment-group.exe": "257cb24bd1290e199cb6f16cfec81d59007deeeafec21192f06700daeb4af3ec",
+    "results.json": "c5606570f8fe0b07eff0167790efac95eda493f1a5d9adf270167b91f2aaa377",
+    "environment-group-build.log": "921993f7f2495fdeb921df56bb8792d5c353283254e68065d5cbc5492d7bf053",
+    "aliases-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "host-api-compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime-qualified.json": "6faf07d0fe231beb9521d4ce586355c4d2a782825b5c5d6d71db5ab10a658bc5",
+    "group-provider.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+    "group-main.wasm": "ee9f33ae640a967785531c581e4baf7f639979669969307c0abefd0c224d1e3a",
+    "fixture.d": "fdb4957e63c102f588e70b31d9656e73ccc2fea22dff6baf07c2ce4c5f18a5f5",
+    "host-api-qualified.json": "15020fda07b3ae668465be5d1b047e1989597baf9943092ef60e391ad307db11",
+    "native-evidence-import-qualified.json": "85c20dee70b1ebb28fedc08fdcd5767e99ebd7e595d9d6edb90a23289a0a78a9",
+    "sdk-cache-retirement.json": "f955f12b6382f58dd03354528190519df2a65972fa79c2eda9b4e1497a2c193a",
+    "environment-group-unwind/group.uwpg": "fdac20101f62af1b932d02607eeb5dafcb31cbdf3f7ec11bc40a8ed7499d95e2",
+    "environment-group-unwind/group-provider.uwp": "ae5d4b3a4f96aa932e1402861a4a10fe18e570e58b6bbe5aa11ba648e21262d8",
+    "environment-group-unwind/group-main.uwp": "e21cafdffcecd573a55bc920ca7ce204ba44aac047115c3c276c337079f521c3",
+    "environment-group-instruction/group.uwpg": "fdac20101f62af1b932d02607eeb5dafcb31cbdf3f7ec11bc40a8ed7499d95e2",
+    "environment-group-instruction/group-provider.uwp": "ae5d4b3a4f96aa932e1402861a4a10fe18e570e58b6bbe5aa11ba648e21262d8",
+    "environment-group-instruction/group-main.uwp": "e21cafdffcecd573a55bc920ca7ce204ba44aac047115c3c276c337079f521c3"
+  },
+  "retired_raw": [
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/host-api.o",
+      "bytes": 5038288,
+      "sha256": "1ec372377ba3100f4e0125f45757a4b7402cb43368691f8399418f37125c8dd3",
+      "archive_member": "host-api.o"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/runtime.o",
+      "bytes": 135545656,
+      "sha256": "219fa6eb79cc71594effe97e1b416a6bcbd0c8df68b8af163c5df3a52b467c66",
+      "archive_member": "runtime.o"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/mach_exc_server.o",
+      "bytes": 3328,
+      "sha256": "f82d2557e66dafc83eb3cfce4caf09473d7dd551a4c171e593177e0a0e50514e",
+      "archive_member": "mach_exc_server.o"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/fixture.exe",
+      "bytes": 281257840,
+      "sha256": "b37d197ff814dba34573d3c12dcbb65f442a2bcac0718345f53e0f3dfb09ff28",
+      "archive_member": "fixture.exe"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/environment-group.exe",
+      "bytes": 281700064,
+      "sha256": "257cb24bd1290e199cb6f16cfec81d59007deeeafec21192f06700daeb4af3ec",
+      "archive_member": "environment-group.exe"
+    }
+  ]
+}

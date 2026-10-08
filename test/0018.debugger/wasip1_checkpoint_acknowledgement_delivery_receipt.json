@@ -1,0 +1,117 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-checkpoint-ack-20261006-r19/evidence.tar.gz",
+  "archive_bytes": 10107616,
+  "archive_sha256": "452cde400765209701c8e9e139941357141865501450a50fa17fcf2a2f98b287",
+  "payload_files": 4759,
+  "archive_payloads_read_back": true,
+  "report_sha256": "ed28e586e76a8a732c0d0e38e57b10045737655b17ceee2dece4c2b1888ea445",
+  "results_sha256": "f07a7311a6439940adbb3951052d4f58f424796c64d9c8ae42035ad7cee779c8",
+  "checks": 7096,
+  "scope": "Detached native formatter and DAP reply contract only; the broker is a transport double, not a live VM/checkpoint/CLI integration test. Windows and FreeBSD run native C++ fixtures in real KVM guests, with DAP packet replay in Linux; macOS runs both native fixture and DAP locally.",
+  "local_archive_payloads_read_back": true,
+  "archive_manifest_verified_files": 4759,
+  "tested_working_tree_sources_match": true,
+  "report_collection_guard": {
+    "passed": true,
+    "error": null,
+    "actual_root_exit": 0,
+    "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+    "limits": {
+      "owned_rss_limit_bytes": 2147483648,
+      "memory.max": "68719476736",
+      "memory.swap.max": "0",
+      "cpuset": "0,2,4,6,16-31"
+    },
+    "owned_peak_aggregate_rss_upper_bytes": 48513024,
+    "parent_peak_memory_current_bytes": 16173588480,
+    "parent_events_unchanged": true,
+    "memory_events_before": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "memory_events_after": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "foreign_pids_observed_not_owned": [
+      147920,
+      148256,
+      148274
+    ],
+    "history": [
+      {
+        "pid": 148170,
+        "birth": 622926,
+        "ppid": 148169,
+        "state": "R",
+        "cg": "0::/user.slice/user-1000.slice/session-939.scope\n",
+        "uid": 1000,
+        "argv": [
+          "/usr/bin/python3",
+          "-u",
+          "-c",
+          "import os,sys,signal;os.sched_setaffinity(0,set(range(16,32)));os.kill(os.getpid(),signal.SIGSTOP);os.execvpe(sys.argv[1],sys.argv[1:],os.environ)",
+          "/usr/bin/python3",
+          "-u",
+          "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/suite.py",
+          "components",
+          "checkpoint-ack-r19",
+          "report"
+        ]
+      }
+    ],
+    "retirement": [
+      {
+        "pid": 148170,
+        "birth": 622926,
+        "pidfd_retired": true
+      }
+    ],
+    "reaped": {},
+    "guard_sha256": "17152370529697516b5bba4705b0345aeb9f37ce492e105a45bfaf4de45bbb2e",
+    "boot_id": "7458ba8f-e0eb-4fff-be38-97fc93aab47a",
+    "anchor_pid": 45005,
+    "anchor_birth": 74453,
+    "storage_policy": {
+      "owned_directory": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17",
+      "directory_admission_bytes": 6442450944,
+      "directory_stop_bytes": 7516192768,
+      "directory_logical_stop_bytes": 17179869184,
+      "temporary_stop_bytes": 2147483648,
+      "filesystem_free_reserve_bytes": 34359738368,
+      "file_size_hard_limit_bytes": 1073741824,
+      "shared_cgroup_admission_bytes": 57982058496,
+      "shared_cgroup_stop_bytes": 64424509440,
+      "own_components_rss_stop_bytes": 2147483648,
+      "host_memory_admission_reserve_bytes": 8589934592,
+      "host_memory_running_reserve_bytes": 4294967296,
+      "tmpdir": "owned_directory/tmp",
+      "monitor_interval_seconds": 1,
+      "concurrency": "one suite under task-owned flock",
+      "limit_kind": "8 GiB private ext4 loop image provides a hard filesystem capacity; sampled guards keep additional reserves; RLIMIT_FSIZE enforces each file limit. Thin image allocation grows only with actual use.",
+      "cleanup": "Only explicitly owned disposable artifacts; retain inputs, dependency hashes, logs and reports. VM overlays one at a time, retired on completion after receipt validation. No full history extraction or private toolchain duplication.",
+      "volume_capacity_bytes": 8589934592,
+      "volume_free_reserve_bytes": 536870912,
+      "volume_image_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17.ext4"
+    },
+    "initial_storage": {
+      "directory": {
+        "logical_bytes": 3849756191,
+        "allocated_bytes": 3896930304,
+        "files": 20829
+      },
+      "temporary": {
+        "logical_bytes": 0,
+        "allocated_bytes": 0,
+        "files": 0
+      },
+      "filesystem_available_bytes": 122925424640,
+      "owned_volume_available_bytes": 4661346304,
+      "host_memory_available_bytes": 87308800000
+    },
+    "storage_peak_allocated_bytes": 3912257536,
+    "minimum_filesystem_available_bytes": 122916642816,
+    "final_storage": {
+      "logical_bytes": 3865035180,
+      "allocated_bytes": 3912257536,
+      "files": 20849
+    }
+  },
+  "report_collection_guard_sha256": "553b9df8eff2e1b56db3ceb1e08fd915698c2175c56afbd16716736769444e8f",
+  "local_archive": "/tmp/uwvm-wasip1-checkpoint-ack-20261006-r19/evidence.tar.gz"
+}

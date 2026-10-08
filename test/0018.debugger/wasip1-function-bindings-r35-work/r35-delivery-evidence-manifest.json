@@ -1,0 +1,322 @@
+{
+  "archive": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-function-bindings-r35-work/r35-delivery-evidence.tar.gz",
+  "archive_sha256": "2ba56b0fc4dd6acd5c8e1f4d2ab1c780f96ef580871196d30f953b19cabef396",
+  "archive_bytes": 688225,
+  "members": {
+    "wasip1-function-bindings-r35-work/analysis-compile-qualified-v6.json": {
+      "sha256": "e9ec45397c6f1b535932ff10bae1c1d57d9b6f587f7ec4de4c34d535a2042996",
+      "bytes": 41866,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/analysis_compile_matrix.py": {
+      "sha256": "918e0c2db3f757d1348305d2063ce6893ff989c0fdda15b95dc59905ea2005a2",
+      "bytes": 5204,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "sha256": "66560ee8c9815c12ef00c6418c94bb73e54b2b1df35ead550074f78a4ef0a82b",
+      "bytes": 89205,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": {
+      "sha256": "4ce03877bdf0c4ee928bee92d87b5749d246e774d2dde330b08956fbd49a4908",
+      "bytes": 10345,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": {
+      "sha256": "090b8304ed9ab8cc2cca9ccae2c383be4d1d68b47151574d7a5f2ad454018a6d",
+      "bytes": 88180,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before/uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": {
+      "sha256": "bb3f2929b51289938ae49323e3edd021cdc96116d14c2aef7789003184774b6e",
+      "bytes": 48986,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before/uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": {
+      "sha256": "b8f565e0c85f2266b8a828453e498b67244350d0ccd76c8e83f79fe2c35b461c",
+      "bytes": 32288,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before/uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": {
+      "sha256": "cf2fa16ce35c5c195c7edea78db9ffac17e9e26233da8b2dc3f8ee86d5873905",
+      "bytes": 14691,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "sha256": "66560ee8c9815c12ef00c6418c94bb73e54b2b1df35ead550074f78a4ef0a82b",
+      "bytes": 89205,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": {
+      "sha256": "4ce03877bdf0c4ee928bee92d87b5749d246e774d2dde330b08956fbd49a4908",
+      "bytes": 10345,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": {
+      "sha256": "090b8304ed9ab8cc2cca9ccae2c383be4d1d68b47151574d7a5f2ad454018a6d",
+      "bytes": 88180,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before/uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": {
+      "sha256": "bb3f2929b51289938ae49323e3edd021cdc96116d14c2aef7789003184774b6e",
+      "bytes": 48986,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before/uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": {
+      "sha256": "b8f565e0c85f2266b8a828453e498b67244350d0ccd76c8e83f79fe2c35b461c",
+      "bytes": 32288,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before/uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": {
+      "sha256": "cf2fa16ce35c5c195c7edea78db9ffac17e9e26233da8b2dc3f8ee86d5873905",
+      "bytes": 14691,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/before-edit-sha256.json": {
+      "sha256": "d86f6fa3badb77135c7f59cf7c614f61eabd47e9b76662b2edaa52468f0135b3",
+      "bytes": 1663,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/cached-compile-row-regression.json": {
+      "sha256": "ae235c1795e7b0feb3aa6cc47d6adc6b1583140ef9770066d4971699ea15eacb",
+      "bytes": 859,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/cross-controller-change.json": {
+      "sha256": "23b42227805ab7f310d4dc7bf6202ff7c10be8d30204fb45e0d6d3b61ebc401f",
+      "bytes": 488,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/cross.py": {
+      "sha256": "7ec270f3c9b42617f57417b717183d59447b05802ea2cd2ac49d0b72a434210b",
+      "bytes": 9795,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/first-macos-syntax-limit-refusal.json": {
+      "sha256": "88a00c2df7d34c4bc45ccb01757628692f58d36473afbd696bb4906e8d7cb8e5",
+      "bytes": 343,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/guard-analysis-compile-v6.json": {
+      "sha256": "7f8b53d42abd17b22ae46168a406e1c2501d4ba58014899dc51097a9f93bd713",
+      "bytes": 36395,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/guard-metadata-analysis-v2.json": {
+      "sha256": "874e9e75f8cc96e35b491b4d9c456fc6a886abc8b7381272783ed24e8270a1e2",
+      "bytes": 2440,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/guard-syntax-v5.json": {
+      "sha256": "acd6137502b05c7920845a6382adf9c79254af8c6adc0271df77d2139fce6d09",
+      "bytes": 16826,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/guard_analysis_compile.py": {
+      "sha256": "c768ab85e469953c3782cb422f04e1179c039fdaed173d0c2b24a397b5753209",
+      "bytes": 6660,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/guard_metadata_analysis.py": {
+      "sha256": "dfaf800ba3bc96834c38da19031ee05b9281c5c274bc75f66c0d406c8be36d95",
+      "bytes": 6655,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/guard_metadata_analysis.py.before-v2": {
+      "sha256": "6a5165368feb3e442f01adfb680a5a2e8639ef9fe95e3a12a1adc0a562f5c656",
+      "bytes": 6655,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/guard_syntax.py": {
+      "sha256": "964373734108b8109c04242592de1e4582254fc620c9268901eba1ccd718f9cc",
+      "bytes": 6637,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/guard_syntax.py.before-final-overlay-v5": {
+      "sha256": "53404179586aad576503354de709690da0abf367bcd55b3c8d0a636a0afef591",
+      "bytes": 6637,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/guard_syntax.py.before-library-path-v2": {
+      "sha256": "f753099002b420be710d576140078e224dd2572cbd342effefdfd8d2b0f24217",
+      "bytes": 6637,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/guard_syntax.py.before-llvm-only-v4": {
+      "sha256": "b13336a2248e6d50fb6c5fa9a2e32c568a1ffea7188cdb7b41e46acfc2c6e35e",
+      "bytes": 6637,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/guard_syntax.py.before-v3": {
+      "sha256": "877fd7f4c9022b38d83552bf815216029a0ac47e514aa43cb9e54af18f62f44f",
+      "bytes": 6637,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/historical-compile-command-correction.json": {
+      "sha256": "2fa043f89ac9079b260662712a9a33ee1927b5d2b246e87bb4654c8c6269dbdb",
+      "bytes": 24979,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/llvm-only-v2-syntax-nofork-probe.log": {
+      "sha256": "06f08929938554e862d37fc43cbf78ef4692f32f849c69b49b9260d8ea6d8ef5",
+      "bytes": 175,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/llvm-only-v2-uwvm2-runtime-syntax.log": {
+      "sha256": "a9403b35177a38ef2f70fe0ed9dac2081f27e1a3df4ef6e25f0d4341d8600c15",
+      "bytes": 2117,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/llvm-only-v3-syntax-nofork-probe.log": {
+      "sha256": "06f08929938554e862d37fc43cbf78ef4692f32f849c69b49b9260d8ea6d8ef5",
+      "bytes": 175,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/llvm-only-v3-uwvm2-runtime-syntax.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/macos-llvm-only-syntax-rows.json": {
+      "sha256": "eb548c24c18adc25627db89790bf0193208bca72af5a22b6a36b18a7c64e04d9",
+      "bytes": 731,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/macos-llvm-only-v3-syntax-rows.json": {
+      "sha256": "71f9944e2692c12ebf79da6d52bef7c87593379fedc6cc15afd5cc470cd3b280",
+      "bytes": 729,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/macos-syntax-rows.json": {
+      "sha256": "5f5f70ec269a210e77cfaaae51d68f3d422126dfcf902aa9ee949002aa8eb3fb",
+      "bytes": 717,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/metadata_analysis.py": {
+      "sha256": "525ac1c787a01327bb4b90a059ef301f242cffedb55a956fe9b08556d18f6e9f",
+      "bytes": 4178,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/owned-source-changes.patch": {
+      "sha256": "0938eb39c993cd6e9267f119ea728948f519b2a305e2b34c17860d4a82a44ab5",
+      "bytes": 48602,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/r35-storage-final.json": {
+      "sha256": "2b3515932771b886bb62ee90e8974f2b7a7bc566dbe32ec26750ae67bd800b64",
+      "bytes": 591,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax-nofork-probe.log": {
+      "sha256": "06f08929938554e862d37fc43cbf78ef4692f32f849c69b49b9260d8ea6d8ef5",
+      "bytes": 175,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax-overlay-v1.json": {
+      "sha256": "4a46e39ffb32cc20e0f00d673d1afd3ca449be2c2d069a8056f52b1d227da82f",
+      "bytes": 1717,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax-overlay-v1.tar.gz": {
+      "sha256": "824f7c7829dbcdb7580c6878e2db489bc3d8d85e8d57ca39b65e75dadbf359c9",
+      "bytes": 102896,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax-overlay-v2.json": {
+      "sha256": "99d335de58ce607ecba321a0b6bc4c3da5a946d4f8d5c68de322e80a46996abd",
+      "bytes": 1717,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax-overlay-v2.tar.gz": {
+      "sha256": "f37e2f6e9a81fc3134db3573511702c9a9d7247293ef437850754768862c9c44",
+      "bytes": 104034,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax-overlay-v3.json": {
+      "sha256": "698f46170cdff3edb4037d67c737de6f8aec4bfea6e0bd2772a1158ddaf23baa",
+      "bytes": 1969,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax-overlay-v3.tar.gz": {
+      "sha256": "3be00ad555477f7bb420093ca86a2c42908797f6025d209d413740f451d187c1",
+      "bytes": 138313,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax_check_macos.py": {
+      "sha256": "4228780a58de13eabe135cebfe7cb5e07a3a050a008cae6fe0d71edb0e27146d",
+      "bytes": 6204,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax_check_macos_before_disable_int_v3.py": {
+      "sha256": "e7440aaec025ea440d8dd626173fea25255924091a395ab636bb9e4a043b22f8",
+      "bytes": 6177,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax_check_macos_before_llvm_only.py": {
+      "sha256": "ba1aed026e7a773234e196fc3856f1753235bb91604aa9ed5017eb4d2ef62254",
+      "bytes": 6117,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax_job.py": {
+      "sha256": "2c0cd058276109021ba0a6e627b4ee0d904e0da17b7f481daa8a87a78d75f99a",
+      "bytes": 4599,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax_job.py.before-final-overlay-v5": {
+      "sha256": "9ad79ad173d77076f659ecb4f05f0aec2a11e734d0b23c668182b37b5352d554",
+      "bytes": 4599,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax_job.py.before-library-path-v2": {
+      "sha256": "69911b3e6a38b5681da37dcef05db57d2d31475f5151749584d39d3233f45c35",
+      "bytes": 4244,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax_job.py.before-llvm-only-v4": {
+      "sha256": "b80f47383d90f31c8ad5d9fd19bb32dac72bf89707cb4bdc46c2d13f77416289",
+      "bytes": 4493,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/syntax_job.py.before-v3": {
+      "sha256": "5d750a53cf68a1dece146eca7ccadcd3b73a881ea7dd57a86e629d8771b4de69",
+      "bytes": 4494,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/test_cross_cached_compile_row.py": {
+      "sha256": "0174c6b2baf6a829b1bb90df34dbd49ff82b8f273853e05b4c6496a69eb1fdbf",
+      "bytes": 3860,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/test_cross_cached_compile_row.py.before-remote-path-v2": {
+      "sha256": "66e6b4ed7fe30cd6520491a082af6f8387ddbb1137ce7faab83c9e58566c4056",
+      "bytes": 3740,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/uwvm2-runtime-syntax.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/uwvm2-syntax-source-before.json": {
+      "sha256": "9b8122fe2fbaa005f1fc3f623f1369d50a2a1798e94f8e785f9a06039aa708cd",
+      "bytes": 562644,
+      "mode": 420
+    },
+    "wasip1-function-bindings-r35-work/write_report.py": {
+      "sha256": "45c88cdeca4b67131009150ae1aa8d29031558d4c9b3e24c720f3bb3f11595e3",
+      "bytes": 7470,
+      "mode": 420
+    },
+    "wasip1_function_bindings_r35_test_report.json": {
+      "sha256": "41fb11d41d8b7f4d996a5ba7a947b8b0a0d3b8f42ec2760eb09671b3d67925d8",
+      "bytes": 115782,
+      "mode": 420
+    },
+    "wasip1_function_bindings_r35_test_report.md": {
+      "sha256": "0b4dd79b79db50e05c7f358b75fba1c1745784846c962a7169309f19cc56dfa8",
+      "bytes": 3456,
+      "mode": 420
+    }
+  }
+}

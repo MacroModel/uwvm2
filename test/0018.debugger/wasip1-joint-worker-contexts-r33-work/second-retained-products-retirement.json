@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r32/foreign-probe3-recoverable.tar.zst",
+  "archive_sha256": "0fb9bc7fa5bccd2c8bf1aa5bdd92bda2ef30b7b96e34dda5672ef3fa94f5375d",
+  "all_payloads_read_back": true,
+  "payload_sha256": "ab539a7adc2e5142ad46364c6815e5fcb9948627a5cdd445b2d3b618729cc013",
+  "retired_bytes": 319435104,
+  "diagnostic_only": true,
+  "successful_diagnostics_unchanged": true,
+  "previous_objects_recovery": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r32/first-failed-products-recoverable.tar.zst",
+  "previous_objects_recovery_sha256": "60951f4b1f198957c1e27d5976a79888cf37882cd7c3de761b72757989c612b1"
+}

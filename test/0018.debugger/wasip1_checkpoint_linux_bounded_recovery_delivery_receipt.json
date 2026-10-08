@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "report_sha256": "566d61035c118eb541f2c2197b25765e2ba4e718c92e28015c1ee038ae8ef245",
+  "results_sha256": "d868dcee0059dff4229e884c7f58ee35c681e53942b1c16dda41930e63305817",
+  "archive_sha256": "e51076f1d5d1d0e9973a12669b695c22d68a8c0cd6b1e2b91a30e7a16cbf0744",
+  "archive_bytes": 15383302,
+  "payloads_verified_on_linux_and_macos": 2352,
+  "source_own_12_files_still_match_r16": true,
+  "scope": "Linux bounded environment recovery, 328 component checks, actual KVM VM creation and hard file-limit rejection; no new full four-OS checkpoint round",
+  "local_paths": [
+    "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_linux_bounded_recovery_test_report.md",
+    "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_linux_bounded_recovery_test_results.json",
+    "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_linux_bounded_recovery_test_report.md",
+    "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_linux_bounded_recovery_test_results.json"
+  ],
+  "remote_active_directory": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17",
+  "quota_bytes": 8589934592
+}

@@ -1,0 +1,170 @@
+{
+  "passed": true,
+  "retired_source_files": 16456,
+  "retired_raw_images": 56,
+  "current_physical_source_preserved": "/dev/shm/uwvm-asm-6313e263-current717/build-meta/work/source",
+  "source_cold_proof": {
+    "BE715-current-paired-source.tar.xz": {
+      "local_path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/BE715-current-paired-source.tar.xz",
+      "local_bytes": 11943152,
+      "local_sha256": "dcf987e1d0185df629a4a35ff43b6d004d23a859709eb4528c2b25491d6f64e0",
+      "independent_local_exact_byte_hash_verified": true
+    },
+    "BE716-current-MSA-overlay.tar.xz": {
+      "local_path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/BE716-current-MSA-overlay.tar.xz",
+      "local_bytes": 13600,
+      "local_sha256": "ef9d2589e3f25a09b72a668c6f2fe429096f43e4f275381963f76e511564d4ef",
+      "independent_local_exact_byte_hash_verified": true
+    }
+  },
+  "evidence_cold": {
+    "local_path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/BE719-MIPS-MSA-source-and-evidence.tar.xz",
+    "local_bytes": 12822200,
+    "local_sha256": "2c885df390390dd43fbc6cbac535d961cce848cde2589caa3bf352f96fab5a6e",
+    "archive_sha256": "2c885df390390dd43fbc6cbac535d961cce848cde2589caa3bf352f96fab5a6e",
+    "independent_local_exact_byte_hash_verified": true
+  },
+  "full_retirement_map": {
+    "cold_path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/msa720-retirement.json.xz",
+    "cold_bytes": 669832,
+    "cold_sha256": "4c9ced4c3444d9685054afe804a81b8bfce0632c019c40f9fca95838529b044b",
+    "uncompressed_json_sha256": "82aeb9c23e5a26345e4e873e2b79f206a5c6b90e82a715035d449d54f41e7b7d",
+    "uncompressed_json_bytes": 15121629,
+    "exact_uncompressed_bytes_preserved": true
+  },
+  "supervisor_receipt": {
+    "schema": "uwvm-shared-original-cgroup-owned-pidfd-v1",
+    "argv": [
+      "python3",
+      "/dev/shm/uwvm-asm-6313e263-current720/build-meta/landlock.py",
+      "/dev/shm/uwvm-asm-6313e263-current720",
+      "python3",
+      "/dev/shm/uwvm-asm-6313e263-current720/build-meta/driver.py"
+    ],
+    "source_root": "/dev/shm/uwvm-asm-6313e263-current717/build-meta/work/source",
+    "source_manifest_sha256": "7e49d5d45ec7a88a97d0e3632d60f6fd31a52e91595c667d78c1db24f090381c",
+    "supervisor_sha256": "cc35378e3d64d0c2fb5eb4a85411a0fbe8499b3ec4ffe57a317f6f0d39d28fc4",
+    "commands_sha256": "7996799b3a92c15e868042f547ab78eba35b82c6a0c7ac3a535518bcc18a8c88",
+    "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+    "memory_max": 68719476736,
+    "swap_max": 0,
+    "all_test_outputs_in_tmpfs": true,
+    "original_exclusive_disk_floor_qualified": false,
+    "owned_rss_budget": 6442450944,
+    "rss_peak": 59777024,
+    "resource_peak": {
+      "own_folder": 1179824128,
+      "shared_folder": 46672842752,
+      "group_memory": 22471024640
+    },
+    "resource_policy_sha256": "58ec25908401b73e1b229e5f3fd8aaec759aeb6ff2f45ef0e37ee8df435b25c7",
+    "elapsed": 24.5538161999998,
+    "foreign_roster_before": [
+      10079,
+      17231,
+      30873,
+      35533,
+      35942,
+      37041,
+      37470,
+      38347,
+      38485,
+      38486,
+      38487,
+      39921,
+      40039,
+      40650,
+      40652,
+      40656,
+      40658,
+      40659,
+      40662
+    ],
+    "foreign_roster_after": [
+      10079,
+      17231,
+      30873,
+      35533,
+      35942,
+      37041,
+      37470,
+      38347,
+      38485,
+      38486,
+      38487,
+      39921,
+      40039,
+      41020
+    ],
+    "admissions": [
+      {
+        "pid": 40664,
+        "birth": 200973,
+        "ppid": 40245,
+        "state": "R",
+        "uid": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "rss": 1052672,
+        "cgroup": "0::/user.slice/user-1000.slice/session-253.scope\n",
+        "affinity": [
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ]
+      }
+    ],
+    "executable_history": [
+      {
+        "pid": 40664,
+        "birth": 200973,
+        "exe": "/usr/bin/python3.14",
+        "sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700"
+      }
+    ],
+    "retirement": [
+      {
+        "pid": 40664,
+        "birth": 200973,
+        "pidfd_readable": true
+      }
+    ],
+    "memory_events_before": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "memory_events_after": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "returncode": 0,
+    "error": null,
+    "passed": true,
+    "log_sha256": "d8ada1ae874440a5c87417292e85f4fb34cb009ad0e42c9881312f9403111eb8"
+  },
+  "scope": "Owned source715/716 and exact archived raw image retirement; source717 kept for further implementation. Actual scratch write roots are declared in immutable Landlock source; no persistent writes."
+}

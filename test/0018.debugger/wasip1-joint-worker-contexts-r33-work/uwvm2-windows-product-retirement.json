@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "all_payloads_read_back": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r33/uwvm2-windows-qualified-products.tar.zst",
+  "archive_bytes": 39226684,
+  "archive_sha256": "b796dbe038253bc528dca7f6eea9b8601ae2facd5b322f78aa24c34edcbf536c",
+  "payloads": {
+    "aliases.wasm": "ab1da939b0029bbc718d0af9e81fc88d5a7a5271a46b3c25f92e85e3dfe8a7ca",
+    "host-api.d": "868975ec590dc143a70a817d8c4cc0fb3fbb59a98ae6c3db91c45f5c622435a6",
+    "environment-group.d": "3fa65eb7ac0e40a46daa96c82e1701d776ee3be25bc3f65a133eb8526535be82",
+    "link-object-cache-retirement.json": "afb7877267c9244ece29b66f75128aa9b6c7dbacdbf5af83df16439f1783add7",
+    "runtime.d": "39bf6cb554242b4d09aea55b85665728f973fd0ee18da8aa855b4cb58bf23403",
+    "runtime-compile.log": "1b90dc506e5039088c9b88d33a8ee9ed99f0e6883689f98c944e9262af27847b",
+    "group-main-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "checkpoint.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+    "fixture-build.log": "c366554dc3e3d08337b37d9c986c20350dc1489b744e3f9c761d1a6fb41aa759",
+    "checkpoint-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "worker-chain-provider-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "group-provider-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "environment-group-qualified.json": "b6eade17e61b26c4acc72316b33efd23623d30d44266b07866f46f8bb39b541e",
+    "group-main-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "worker-chain-main-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "worker-chain-provider-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "group-provider-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "aliases-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "worker-chain-provider.wasm": "bd1e6a7b61742442fcda2ee4a338a36394863eaddb8cf07e1380f3dadc74b5d9",
+    "checkpoint-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qualified.json": "fd1dddacbff48c32d897a20ec4cd977f24b2f7cd525871ccd2ad32d5d999b40d",
+    "fixture.exe": "45b9441d0d9a5fc612d9b8fa5e1096e35996f9e0c73e1d9ebbc5fcc0616e638a",
+    "environment-group.exe": "6e0045bec0328206b5df650bf383b4eeec2f274dd6a01f8cf888db559ed0aed8",
+    "results.json": "52c8c224792df0070932c10eac237ea7b321ff90814b6d0c9f8cb42fe7d2367c",
+    "environment-group-build.log": "234fcafb2a2d781d4eae80bfbbedc32dde3334d80696491d7f2f48014450ad99",
+    "worker-chain-main.wasm": "f8d1dd5a6e4a0da29303de0ffa7bd066115511595ab1e18f679bae160d823074",
+    "aliases-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "host-api-compile.log": "7b51b5e7a1d5d20a5239017477ea513ac83c85d14de880872940014d608c1ba9",
+    "runtime-qualified.json": "4412a0e6189a724a52a161f2de3a00527fd9edf052955b5fc4f26cd5768a29d7",
+    "worker-chain-main-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "group-provider.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+    "group-main.wasm": "ee9f33ae640a967785531c581e4baf7f639979669969307c0abefd0c224d1e3a",
+    "fixture.d": "57404db2c1e4acc82854c49b5ce58cccf865b24867d1d80f2699754bbff2d5cc",
+    "host-api-qualified.json": "2f247b5e535cc84e715dd8c168ff187e634def3f662d03bdc4167f4f824ae90e",
+    "sdk-cache-retirement.json": "f474e0500fbfde179c9a7feb51efa839d77a3c7fa523d0309f003227d4e903bd",
+    "runtime.o": "e027e7c3bf7d433bb81e1ac9f48ed5854fcd8bf0af1595f2f78a067b4ba42782",
+    "host-api.o": "34bbaa4696aad6056c0ac60bbe7f922bbdcdcaed206dca2130e483a2a1fbcfb4"
+  },
+  "retired_raw": [
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r33/products/windows/uwvm2/fixture.exe",
+      "bytes": 176662016,
+      "sha256": "45b9441d0d9a5fc612d9b8fa5e1096e35996f9e0c73e1d9ebbc5fcc0616e638a",
+      "archive_member": "fixture.exe"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r33/products/windows/uwvm2/environment-group.exe",
+      "bytes": 176963072,
+      "sha256": "6e0045bec0328206b5df650bf383b4eeec2f274dd6a01f8cf888db559ed0aed8",
+      "archive_member": "environment-group.exe"
+    }
+  ],
+  "encoder": {
+    "path": "/usr/bin/zstd",
+    "sha256": "d7477b5cedfdb8dbfa0a0b166b8f417e8624954ba4ae0ddb5baddf9ac66fddea",
+    "window_limit_bytes": 536870912
+  },
+  "archive_format": "tar.zst-long-window-bounded"
+}

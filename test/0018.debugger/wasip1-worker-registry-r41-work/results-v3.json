@@ -1,0 +1,60 @@
+{
+  "rows": [
+    {
+      "repo": "uwvm2",
+      "stage": "linux-registry-frontend",
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "-DUWVM_DISABLE_INT",
+        "-fdelayed-template-parsing",
+        "-I/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-worker-registry-20261008-r41/source-v2/uwvm2/src",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "-fexceptions",
+        "-fno-rtti",
+        "-fasynchronous-unwind-tables",
+        "-Wno-undefined-inline",
+        "-Wno-deprecated-declarations",
+        "-Werror=switch",
+        "-pthread",
+        "-DUWVM=2",
+        "-DUWVM_USE_LLVM_JIT",
+        "-DUWVM_RUNTIME_LLVM_JIT_CACHE_USE_OPENSSL_ED25519",
+        "-DUWVM_EXPERIMENTAL_NATIVE_OWNER_TABLE_V2=1",
+        "-DUWVM2_ENABLE_DEBUG_NATIVE_CONTINUATION_LINUX_PRODUCT=1",
+        "-fconstexpr-steps=64000000",
+        "-DUWVM_USE_THREAD_LOCAL",
+        "-DUWVM_VERSION_X=2",
+        "-DUWVM_VERSION_Y=0",
+        "-DUWVM_VERSION_Z=4",
+        "-DUWVM_VERSION_S=0",
+        "-Xclang",
+        "-clear-ast-before-backend",
+        "-I/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-r35/products/sdk/build/include",
+        "-I/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-r35/source/llvm-source/llvm/include",
+        "-I/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src",
+        "-I/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/third-parties/fast_io/include",
+        "-I/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/third-parties/bizwen/include",
+        "-I/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/third-parties/boost_unordered/include",
+        "-fsyntax-only",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-worker-registry-20261008-r41/source-v2/uwvm2/test/0017.runtime/debug_checkpoint_worker_registry_reuse_runtime.cc"
+      ],
+      "exit": 1,
+      "passed": false,
+      "log_sha256": "101922c709be205525fe250928715aa36706d5b9db28abd4194beac84fd7c479",
+      "seconds": 28.30952229200011,
+      "actual_native_runtime_execution": false,
+      "compiler_frontend_only": true,
+      "expected_pre_fix_regression": false
+    }
+  ],
+  "dependencies": {
+    "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b"
+  },
+  "products": {},
+  "fixtures": {},
+  "source_manifest_sha256": "fdf5759120ff51b9112ad4a471d5e78a768c0a47a97ea7739034ee170d83267e",
+  "controller_sha256": "c3e2af0f6a2228ac7a7a9c5079f71e02b7b6adc7f08ac6a593e3c5265f2cee17"
+}

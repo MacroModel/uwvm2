@@ -1,0 +1,1378 @@
+{
+  "date": "2026-10-05",
+  "phase": "finite source DAP scalar/frame/formatter follow-up",
+  "complete_native_language_debugger": false,
+  "all_requested_work_complete": false,
+  "languages": [
+    "C",
+    "C++",
+    "Objective-C",
+    "Rust",
+    "Go/gc",
+    "TinyGo",
+    "Zig",
+    "AssemblyScript"
+  ],
+  "source_cuts": {
+    "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+    "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+  },
+  "scope": "frozen R15 sources plus separately pinned Python runners; owned DATA and real C++ formatter/ELFs, no new live -Rdbg source stop or full VM/native parity qualification",
+  "changes": [
+    "bounded read-only source evaluate syntax through DAP watch/hover/variables",
+    "unambiguous print-frame and ptype-frame command selectors, completion and help",
+    "recognition of actual source-value formatter envelope with stop identity and complete trailer",
+    "rejection of contiguous increment/decrement tokens in the scalar parser",
+    "nonzero collector exit on a failed component"
+  ],
+  "verification": {
+    "cross_arch_profile_count": 16,
+    "cross_arch_repo_combinations": 32,
+    "cross_arch_components": [
+      {
+        "profile": "aarch64",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 183,
+          "bits": 64,
+          "byte_order": "little",
+          "bytes": 190936,
+          "sha256": "bc1a1b668123260d88e816b195ac15ed8a2a8d3cb46fd2521ad26bf30f6daa73",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-aarch64-a2/results.json",
+        "result_file_sha256": "190c4f873e434079d35a9b7eed6690df7baca40fbdc221fe6e978a053a35c732",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a2/receipts.json",
+          "label": "bridge-aarch64-a2"
+        }
+      },
+      {
+        "profile": "aarch64",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 183,
+          "bits": 64,
+          "byte_order": "little",
+          "bytes": 190936,
+          "sha256": "bc1a1b668123260d88e816b195ac15ed8a2a8d3cb46fd2521ad26bf30f6daa73",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-aarch64-a2/results.json",
+        "result_file_sha256": "190c4f873e434079d35a9b7eed6690df7baca40fbdc221fe6e978a053a35c732",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a2/receipts.json",
+          "label": "bridge-aarch64-a2"
+        }
+      },
+      {
+        "profile": "ppc64",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 21,
+          "bits": 64,
+          "byte_order": "big",
+          "bytes": 224016,
+          "sha256": "74f7f7d0fb2bee1ab5d106e3c0c84cae17b33b99400ac201e790058c8edbbaba",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-ppc64-a2/results.json",
+        "result_file_sha256": "26c27a499a3ef42e806ce6825457e57706929cc53134d8820815536447d6a8b8",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a2/receipts.json",
+          "label": "bridge-ppc64-a2"
+        }
+      },
+      {
+        "profile": "ppc64",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 21,
+          "bits": 64,
+          "byte_order": "big",
+          "bytes": 224016,
+          "sha256": "74f7f7d0fb2bee1ab5d106e3c0c84cae17b33b99400ac201e790058c8edbbaba",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-ppc64-a2/results.json",
+        "result_file_sha256": "26c27a499a3ef42e806ce6825457e57706929cc53134d8820815536447d6a8b8",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a2/receipts.json",
+          "label": "bridge-ppc64-a2"
+        }
+      },
+      {
+        "profile": "ppc64le",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 21,
+          "bits": 64,
+          "byte_order": "little",
+          "bytes": 211248,
+          "sha256": "a6afc8a1cc485adb65829197ad3aeaa6fd10464a32dd7038d8720402c82f0813",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-ppc64le-a2/results.json",
+        "result_file_sha256": "210fa736f74f054c3938cb88a1b7e8deae9cf57916862c3719ddb05ada23f252",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a2/receipts.json",
+          "label": "bridge-ppc64le-a2"
+        }
+      },
+      {
+        "profile": "ppc64le",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 21,
+          "bits": 64,
+          "byte_order": "little",
+          "bytes": 211248,
+          "sha256": "a6afc8a1cc485adb65829197ad3aeaa6fd10464a32dd7038d8720402c82f0813",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-ppc64le-a2/results.json",
+        "result_file_sha256": "210fa736f74f054c3938cb88a1b7e8deae9cf57916862c3719ddb05ada23f252",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a2/receipts.json",
+          "label": "bridge-ppc64le-a2"
+        }
+      },
+      {
+        "profile": "ppc32",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 20,
+          "bits": 32,
+          "byte_order": "big",
+          "bytes": 285588,
+          "sha256": "0154381f43aaf159ae3f7387c74515ed138bc00dd58cc9899614a78d0f9d8ebf",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-ppc32-a2/results.json",
+        "result_file_sha256": "6014b2b2aba65ca9f55bd35884d0f1dbe0ccf97b3f8e6e816c38ecfbf3c6930f",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a2/receipts.json",
+          "label": "bridge-ppc32-a2"
+        }
+      },
+      {
+        "profile": "ppc32",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 20,
+          "bits": 32,
+          "byte_order": "big",
+          "bytes": 285588,
+          "sha256": "0154381f43aaf159ae3f7387c74515ed138bc00dd58cc9899614a78d0f9d8ebf",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-ppc32-a2/results.json",
+        "result_file_sha256": "6014b2b2aba65ca9f55bd35884d0f1dbe0ccf97b3f8e6e816c38ecfbf3c6930f",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a2/receipts.json",
+          "label": "bridge-ppc32-a2"
+        }
+      },
+      {
+        "profile": "mips32",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 8,
+          "bits": 32,
+          "byte_order": "big",
+          "bytes": 295004,
+          "sha256": "e6ddd16424321561a61d711929d5fc1c2fec9515b56d236b448d6d6c7f02bb88",
+          "GNU_STACK_flags": [
+            7
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-mips32-a2/results.json",
+        "result_file_sha256": "98486dab7cb74d9f42ebf36e07024d481e97e1157ddfcb7bacc345693924e200",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a2/receipts.json",
+          "label": "bridge-mips32-a2"
+        }
+      },
+      {
+        "profile": "mips32",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 8,
+          "bits": 32,
+          "byte_order": "big",
+          "bytes": 295004,
+          "sha256": "e6ddd16424321561a61d711929d5fc1c2fec9515b56d236b448d6d6c7f02bb88",
+          "GNU_STACK_flags": [
+            7
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-mips32-a2/results.json",
+        "result_file_sha256": "98486dab7cb74d9f42ebf36e07024d481e97e1157ddfcb7bacc345693924e200",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a2/receipts.json",
+          "label": "bridge-mips32-a2"
+        }
+      },
+      {
+        "profile": "x86_64",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 62,
+          "bits": 64,
+          "byte_order": "little",
+          "bytes": 206360,
+          "sha256": "ed9273594fea88a79c8bc26454cf97104c1bb9951978118bdf3b2cab1f0cca70",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-x64-a1/results.json",
+        "result_file_sha256": "dd71193e2d73839d0706d674bb9df0fd9cb3e036ee7af81011cf34134bf84bf9",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-x64-a1"
+        }
+      },
+      {
+        "profile": "x86_64",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 62,
+          "bits": 64,
+          "byte_order": "little",
+          "bytes": 206360,
+          "sha256": "ed9273594fea88a79c8bc26454cf97104c1bb9951978118bdf3b2cab1f0cca70",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-x64-a1/results.json",
+        "result_file_sha256": "dd71193e2d73839d0706d674bb9df0fd9cb3e036ee7af81011cf34134bf84bf9",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-x64-a1"
+        }
+      },
+      {
+        "profile": "i686",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 3,
+          "bits": 32,
+          "byte_order": "little",
+          "bytes": 252884,
+          "sha256": "3967eee1a3de5a9c52736c6c0d19eed9ee15d8e8923e1cd396ef0e4facb320ad",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-i686-a1/results.json",
+        "result_file_sha256": "6cf4a996d1873492b378aba803262e519b89888bb1b79c0de784b208d0c56195",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-i686-a1"
+        }
+      },
+      {
+        "profile": "i686",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 3,
+          "bits": 32,
+          "byte_order": "little",
+          "bytes": 252884,
+          "sha256": "3967eee1a3de5a9c52736c6c0d19eed9ee15d8e8923e1cd396ef0e4facb320ad",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-i686-a1/results.json",
+        "result_file_sha256": "6cf4a996d1873492b378aba803262e519b89888bb1b79c0de784b208d0c56195",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-i686-a1"
+        }
+      },
+      {
+        "profile": "riscv64",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 243,
+          "bits": 64,
+          "byte_order": "little",
+          "bytes": 178112,
+          "sha256": "8db9ea25e85ca9c8ad12ad02328987fdc46d13db5ed982f6fdd9437b992f20bd",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-riscv64-a1/results.json",
+        "result_file_sha256": "b73fc94ec93cfa8757770221977e579c3672f5f2d3c69cfe717ea8bd220aee13",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-riscv64-a1"
+        }
+      },
+      {
+        "profile": "riscv64",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 243,
+          "bits": 64,
+          "byte_order": "little",
+          "bytes": 178112,
+          "sha256": "8db9ea25e85ca9c8ad12ad02328987fdc46d13db5ed982f6fdd9437b992f20bd",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-riscv64-a1/results.json",
+        "result_file_sha256": "b73fc94ec93cfa8757770221977e579c3672f5f2d3c69cfe717ea8bd220aee13",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-riscv64-a1"
+        }
+      },
+      {
+        "profile": "mips64",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 8,
+          "bits": 64,
+          "byte_order": "big",
+          "bytes": 272408,
+          "sha256": "42d7569391ae60fc58d957cf8b52af8b192efe6522814c69660e4960cabe5bf6",
+          "GNU_STACK_flags": [
+            7
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-mips64-a1/results.json",
+        "result_file_sha256": "8c714b406339180830954537eb504276ad55d7f94c5f28609810c80d3214369c",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-mips64-a1"
+        }
+      },
+      {
+        "profile": "mips64",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 8,
+          "bits": 64,
+          "byte_order": "big",
+          "bytes": 272408,
+          "sha256": "42d7569391ae60fc58d957cf8b52af8b192efe6522814c69660e4960cabe5bf6",
+          "GNU_STACK_flags": [
+            7
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-mips64-a1/results.json",
+        "result_file_sha256": "8c714b406339180830954537eb504276ad55d7f94c5f28609810c80d3214369c",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-mips64-a1"
+        }
+      },
+      {
+        "profile": "mips64el",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 8,
+          "bits": 64,
+          "byte_order": "little",
+          "bytes": 268968,
+          "sha256": "cc4a6a879d607aebd931f183c5156c3af5e27b78ceb528cbcd2eb431ad19d6f1",
+          "GNU_STACK_flags": [
+            7
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-mips64el-a1/results.json",
+        "result_file_sha256": "8639b8f8bd5fcb08fe2ec09ae8ed13a9a4138fb61bb7cbd8e8f8b09f74be8f8f",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-mips64el-a1"
+        }
+      },
+      {
+        "profile": "mips64el",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 8,
+          "bits": 64,
+          "byte_order": "little",
+          "bytes": 268968,
+          "sha256": "cc4a6a879d607aebd931f183c5156c3af5e27b78ceb528cbcd2eb431ad19d6f1",
+          "GNU_STACK_flags": [
+            7
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-mips64el-a1/results.json",
+        "result_file_sha256": "8639b8f8bd5fcb08fe2ec09ae8ed13a9a4138fb61bb7cbd8e8f8b09f74be8f8f",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-mips64el-a1"
+        }
+      },
+      {
+        "profile": "mips32el",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 8,
+          "bits": 32,
+          "byte_order": "little",
+          "bytes": 294780,
+          "sha256": "2a2df6e6d2c5e1f76dedcf9192e38607ab9ab495c081890971e681ed71e76402",
+          "GNU_STACK_flags": [
+            7
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-mips32el-a1/results.json",
+        "result_file_sha256": "a28ac4a9417b214667be81f890a09bc7da307d0ac6e2bfdb7824003faf244801",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-mips32el-a1"
+        }
+      },
+      {
+        "profile": "mips32el",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 8,
+          "bits": 32,
+          "byte_order": "little",
+          "bytes": 294780,
+          "sha256": "2a2df6e6d2c5e1f76dedcf9192e38607ab9ab495c081890971e681ed71e76402",
+          "GNU_STACK_flags": [
+            7
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-mips32el-a1/results.json",
+        "result_file_sha256": "a28ac4a9417b214667be81f890a09bc7da307d0ac6e2bfdb7824003faf244801",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-mips32el-a1"
+        }
+      },
+      {
+        "profile": "sparc64",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 43,
+          "bits": 64,
+          "byte_order": "big",
+          "bytes": 1077512,
+          "sha256": "ba9d81c8031c5cb3c8949f4eef5e1976aaead84a8c5823844842ad8b44585f2d",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-sparc64-a1/results.json",
+        "result_file_sha256": "d61e45a1e840c7a549dfb17336d9cda184c928bdc5f3554e8cd8b1e8f3b21cd7",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-sparc64-a1"
+        }
+      },
+      {
+        "profile": "sparc64",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 43,
+          "bits": 64,
+          "byte_order": "big",
+          "bytes": 1077512,
+          "sha256": "ba9d81c8031c5cb3c8949f4eef5e1976aaead84a8c5823844842ad8b44585f2d",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-sparc64-a1/results.json",
+        "result_file_sha256": "d61e45a1e840c7a549dfb17336d9cda184c928bdc5f3554e8cd8b1e8f3b21cd7",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-sparc64-a1"
+        }
+      },
+      {
+        "profile": "loongarch64",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 258,
+          "bits": 64,
+          "byte_order": "little",
+          "bytes": 200832,
+          "sha256": "86ec6ac200c11a002622b4d61fcccbed03b30509b8ce2aed655aa7536dd2243e",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-loongarch64-a1/results.json",
+        "result_file_sha256": "881ef3269018fb7eda7f737d574c90a14cc27e117e772da5c805cd8701d8784c",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-loongarch64-a1"
+        }
+      },
+      {
+        "profile": "loongarch64",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 258,
+          "bits": 64,
+          "byte_order": "little",
+          "bytes": 200832,
+          "sha256": "86ec6ac200c11a002622b4d61fcccbed03b30509b8ce2aed655aa7536dd2243e",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-loongarch64-a1/results.json",
+        "result_file_sha256": "881ef3269018fb7eda7f737d574c90a14cc27e117e772da5c805cd8701d8784c",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-loongarch64-a1"
+        }
+      },
+      {
+        "profile": "s390x",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 22,
+          "bits": 64,
+          "byte_order": "big",
+          "bytes": 188152,
+          "sha256": "b56a206294053367a585da7cc1fe050a26681dd2afdf04a9d926558ca2415256",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-s390x-a1/results.json",
+        "result_file_sha256": "51ffb480694c97b72f1f2c7f0337ca904fabb5b6b5ff17a7b1a149566a5d267c",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-s390x-a1"
+        }
+      },
+      {
+        "profile": "s390x",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 22,
+          "bits": 64,
+          "byte_order": "big",
+          "bytes": 188152,
+          "sha256": "b56a206294053367a585da7cc1fe050a26681dd2afdf04a9d926558ca2415256",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-s390x-a1/results.json",
+        "result_file_sha256": "51ffb480694c97b72f1f2c7f0337ca904fabb5b6b5ff17a7b1a149566a5d267c",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-s390x-a1"
+        }
+      },
+      {
+        "profile": "armhf",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 40,
+          "bits": 32,
+          "byte_order": "little",
+          "bytes": 215936,
+          "sha256": "6f4da52ed285934535a00e7e66be365aa4e61baf7d25718cd3132e7323ef3bb3",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-armhf-a1/results.json",
+        "result_file_sha256": "31acbd07af268e487719c958486b0aece88f111b17c10e8cad9f03570e28fb46",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-armhf-a1"
+        }
+      },
+      {
+        "profile": "armhf",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 40,
+          "bits": 32,
+          "byte_order": "little",
+          "bytes": 215936,
+          "sha256": "6f4da52ed285934535a00e7e66be365aa4e61baf7d25718cd3132e7323ef3bb3",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-armhf-a1/results.json",
+        "result_file_sha256": "31acbd07af268e487719c958486b0aece88f111b17c10e8cad9f03570e28fb46",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-armhf-a1"
+        }
+      },
+      {
+        "profile": "armel",
+        "repository": "uwvm2",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 40,
+          "bits": 32,
+          "byte_order": "little",
+          "bytes": 229728,
+          "sha256": "462cd8b184fcb94343095bc7a6fe66831fa46b8b8dc649b67fc39d38dc6a157b",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-armel-a1/results.json",
+        "result_file_sha256": "a7746fad1afa6d733641a3019f18d64e4db5f11434404ce4abcf4e506d3df8b7",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-armel-a1"
+        }
+      },
+      {
+        "profile": "armel",
+        "repository": "uwvm2-ros",
+        "source_cuts": {
+          "uwvm2": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+          "uwvm2-ros": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1"
+        },
+        "ELF": {
+          "machine": 40,
+          "bits": 32,
+          "byte_order": "little",
+          "bytes": 229728,
+          "sha256": "462cd8b184fcb94343095bc7a6fe66831fa46b8b8dc649b67fc39d38dc6a157b",
+          "GNU_STACK_flags": [
+            6
+          ]
+        },
+        "scalar_checks": {
+          "controller_syntax": 137,
+          "value_rows": 122,
+          "expected_refusals": 15,
+          "zero_resolver_rows": 81
+        },
+        "stdout_sha256": "e54645096fa357f597b4666f374c531a497cf588c5b03772477f4e25a53ec49b",
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/bridge-armel-a1/results.json",
+        "result_file_sha256": "a7746fad1afa6d733641a3019f18d64e4db5f11434404ce4abcf4e506d3df8b7",
+        "root": {
+          "receipt": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/control-components-a1/receipts.json",
+          "label": "bridge-armel-a1"
+        }
+      }
+    ],
+    "cross_arch_outputs_identical": true,
+    "scalar_cases_per_combination": 137,
+    "scalar_value_rows_per_combination": 122,
+    "scalar_expected_refusals_per_combination": 15,
+    "zero_resolver_rows_per_combination": 81,
+    "DAP": {
+      "uwvm2": {
+        "test_count": 225,
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/uwvm2-dap-a1/results.json",
+        "sha256": "b2d55faeeb89b83d7fe8a040ed536e1e52b001f65b551d536a8eefcf176b7d08"
+      },
+      "uwvm2-ros": {
+        "test_count": 225,
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/uwvm2-ros-dap-a1/results.json",
+        "sha256": "457bd16b98a54a6f962a127f598d222a6a2a1ce50d1eaee2a604b89515f70ec1"
+      }
+    },
+    "actual_CPP_formatter": {
+      "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/formatter-x64-a2/results.json",
+      "sha256": "9aeca71509b5ae811f9b0784c0b7f951022e57ed2c54cceac2703909df439bd8",
+      "packets": 10,
+      "rejected_mutations": 48,
+      "QEMU_native_stdout_identical": true
+    },
+    "noeh_ubsan": {
+      "uwvm2/noeh": {
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/uwvm2-ros-noeh-a1/results.json",
+        "sha256": "acf6746755c5115bd3e28d3e054a6822061f57bf1ffde622d6071135dea68e40",
+        "build_commands": 2,
+        "runtime_cases": 2
+      },
+      "uwvm2/ubsan": {
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/uwvm2-ubsan-a1/results.json",
+        "sha256": "2c7e04c6d16f01ed488a36e433ac8002517a0b71558bf9385ae225ecc308ce81",
+        "build_commands": 2,
+        "runtime_cases": 2
+      },
+      "uwvm2-ros/noeh": {
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/uwvm2-ros-noeh-a1/results.json",
+        "sha256": "acf6746755c5115bd3e28d3e054a6822061f57bf1ffde622d6071135dea68e40",
+        "build_commands": 2,
+        "runtime_cases": 2
+      },
+      "uwvm2-ros/ubsan": {
+        "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/uwvm2-ros-ubsan-a2/results.json",
+        "sha256": "ed5d81ef2e907a673cd2d55ec60343ead6e888cb82f678f5104d943e2221688b",
+        "build_commands": 2,
+        "runtime_cases": 2
+      }
+    },
+    "negative_controls": {
+      "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/negative-controls-a1/results.json",
+      "sha256": "479987a0edf2326a75bef9c8f12dc6426f424ed9f2c3db4318146d1e38b3189c",
+      "rows": [
+        {
+          "repository": "uwvm2",
+          "current_accepts_actual_CPP_packets": 5,
+          "old_rejects_valid_packets": [
+            "scalar",
+            "object",
+            "pointer-display"
+          ],
+          "passed": true
+        },
+        {
+          "repository": "uwvm2-ros",
+          "current_accepts_actual_CPP_packets": 5,
+          "old_rejects_valid_packets": [
+            "scalar",
+            "object",
+            "pointer-display"
+          ],
+          "passed": true
+        },
+        {
+          "passed": true,
+          "negative_case_source": "old R13 parser + explicit test-only failure probe",
+          "old_parser_defect_reproduced": true,
+          "actual_target_exit": 7,
+          "collector_exit": 1,
+          "collector_false_pass_prevented": true,
+          "record": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/negative-controls-a1/collector-negative/results.json"
+        }
+      ]
+    },
+    "generated_scalar_properties": {
+      "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/scalar-properties-a1/results.json",
+      "sha256": "ef1ee7c2a7daabd5d69adaa583cd8b8b628a1bccbbb0fd9a5668fa693aed6d65",
+      "seed": 20261005,
+      "cases_per_repository": 10000,
+      "unique_expressions": 9020,
+      "DAP_syntax_checks": 20000,
+      "actual_CPP_QEMU_and_native_value_checks": 40000,
+      "fully_parenthesized_common_signed_32bit_grammar": true,
+      "native_language_semantics_qualified": false
+    },
+    "ROS_actual_SDK_guard": {
+      "result_file": "/tmp/uwvm2-language-fix-20261004/debug-complete-r15/out-uwvm2/uwvm2-ros-sdk-guard-a1/results.json",
+      "sha256": "8c031523601fa39fdb023917b22c89cb80cb8cf8f973503b3481f61e3b890cf1",
+      "actual_generated_version_line": [
+        "#define LLVM_VERSION_STRING \"23.1.1-uwvm-ros.10\""
+      ],
+      "required_version": "23.1.1-uwvm-ros.11",
+      "full_SDK_qualified": false
+    }
+  },
+  "all_compilers_runtimes_and_tests_in_SSH_linux_original_cgroup": true,
+  "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+  "bounds": {
+    "memory_max_bytes": 68719476736,
+    "swap_max_bytes": 0,
+    "cpuset": "0,2,4,6,16-31",
+    "shared_pressure_abort_bytes": 67645734912,
+    "owned_RSS_budget_bytes": 17179869184,
+    "build_file_limit_bytes": 536870912,
+    "log_limit_bytes": 33554432,
+    "required_disk_free_bytes": 9288400896
+  },
+  "all_created_owned_roots_and_descendants_retired": true,
+  "positive_root_OOM_counters_unchanged": true,
+  "shared_memory_events_at_seal": {
+    "low": 0,
+    "high": 0,
+    "max": 774378,
+    "oom": 63,
+    "oom_kill": 15,
+    "oom_group_kill": 0
+  },
+  "shared_OOM_counters_not_attributed_to_this_task": true,
+  "attempts": {
+    "count": 86,
+    "normal_completed": 65,
+    "failed_attempts_preserved": true,
+    "record": "/tmp/uwvm2-dap-scalar-20261005/final-r15/summary.json"
+  },
+  "full_product": {
+    "ordinary_latest_binary_built": false,
+    "ROS_latest_binary_built": false,
+    "ordinary_compile": "fresh R14 and R15 actual main compile aborted at original shared-pressure threshold; R14 retry lacked 6GiB admission for120s",
+    "ROS_SDK": "actual .ros.10 rejected by required .ros.11 guard; no spoofed version",
+    "raw_record": {
+      "a1": "actual fresh main compile aborted at original shared-pressure threshold; no current linked binary",
+      "R14-a2": "6GiB admission unavailable for120 seconds; no compiler launched",
+      "R15-a1": "current main actually compiled, then stopped at unchanged shared-pressure threshold; no current linked binary"
+    }
+  },
+  "ASM_scope": "only authenticated actual Wasm-generated code/activation; no VM/host code, stack or raw address permission introduced",
+  "current_local_paired_hashes": {
+    "src/uwvm2/uwvm/debugger/command.h": {
+      "uwvm2": "122df466fca95b6349bf13ed041ce3a362aa5e0f1fa854fdad751b2a5225c093",
+      "uwvm2-ros": "122df466fca95b6349bf13ed041ce3a362aa5e0f1fa854fdad751b2a5225c093"
+    },
+    "src/uwvm2/uwvm/debugger/console.h": {
+      "uwvm2": "fa400af08e9f085641c415d248cd28461c2c23efae676cc1b56552eca860fde1",
+      "uwvm2-ros": "fa400af08e9f085641c415d248cd28461c2c23efae676cc1b56552eca860fde1"
+    },
+    "src/uwvm2/uwvm/debugger/console_completion.h": {
+      "uwvm2": "45bb332a609a752b67f6323923ca5268871e6d57242102cbfeb0d67cf640304a",
+      "uwvm2-ros": "45bb332a609a752b67f6323923ca5268871e6d57242102cbfeb0d67cf640304a"
+    },
+    "src/uwvm2/uwvm/debugger/console_line_editor.h": {
+      "uwvm2": "4809100c7e2fb5faffba4e22c546223433690afa0dbb68ac43b46aee2bd4bf81",
+      "uwvm2-ros": "4809100c7e2fb5faffba4e22c546223433690afa0dbb68ac43b46aee2bd4bf81"
+    },
+    "src/uwvm2/uwvm/debugger/source_scalar_expression.h": {
+      "uwvm2": "332aa08e1f64e7e56eb7b48235e8d73e6d93a27844d757908fc624496f463b25",
+      "uwvm2-ros": "332aa08e1f64e7e56eb7b48235e8d73e6d93a27844d757908fc624496f463b25"
+    },
+    "tools/debug/dap_adapter.py": {
+      "uwvm2": "94122ee9d8ce32edc7f5f657b51640db6e72a8dc2c89d3d107c233693c59d0dc",
+      "uwvm2-ros": "94122ee9d8ce32edc7f5f657b51640db6e72a8dc2c89d3d107c233693c59d0dc"
+    },
+    "test/0017.runtime/debug_source_dap_expression.cc": {
+      "uwvm2": "8298a01b8266c87958595bf7489315fe063a8435ed6ac9e786253fe9a414a10c",
+      "uwvm2-ros": "8298a01b8266c87958595bf7489315fe063a8435ed6ac9e786253fe9a414a10c"
+    },
+    "test/0017.runtime/debug_source_dap_reply.cc": {
+      "uwvm2": "4c8f4f7c4c1a0060f1483aab95dc6bbe065ac09207213a4afcdf0c735ce5b24e",
+      "uwvm2-ros": "4c8f4f7c4c1a0060f1483aab95dc6bbe065ac09207213a4afcdf0c735ce5b24e"
+    },
+    "test/0018.debugger/dap_source_expression_cases.json": {
+      "uwvm2": "7c6256cfb4ed153e353c2010ee421cb12cd0296d7f5528226e934eac8e432b6e",
+      "uwvm2-ros": "7c6256cfb4ed153e353c2010ee421cb12cd0296d7f5528226e934eac8e432b6e"
+    },
+    "test/0018.debugger/test_dap_source_frames.py": {
+      "uwvm2": "6670bc1929d95095494d885ded1bbebedc3a100c58e51c8810159b10a66137da",
+      "uwvm2-ros": "6670bc1929d95095494d885ded1bbebedc3a100c58e51c8810159b10a66137da"
+    },
+    "test/0017.runtime/run_debug_linux_qemu_components.py": {
+      "uwvm2": "90813c1ce324f7ffcc7d2cdf89c394d08e264fe27fa6020e8ebce2096c12f1c4",
+      "uwvm2-ros": "90813c1ce324f7ffcc7d2cdf89c394d08e264fe27fa6020e8ebce2096c12f1c4"
+    },
+    "tools/debug/README.dap.md": {
+      "uwvm2": "e4a676018473b024694e02e3ffe436f4488ab07745330fc9a6708ac83245db32",
+      "uwvm2-ros": "e4a676018473b024694e02e3ffe436f4488ab07745330fc9a6708ac83245db32"
+    },
+    "test/0017.runtime/README.debug-source-language-expressions.md": {
+      "uwvm2": "7893607d740459743ce8de43f81e83bd1e9630cf6e5ce0e2b7b07264bf4f2ac0",
+      "uwvm2-ros": "7893607d740459743ce8de43f81e83bd1e9630cf6e5ce0e2b7b07264bf4f2ac0"
+    },
+    "test/0017.runtime/run_debug_dap_scalar_properties.py": {
+      "uwvm2": "7ce58c9b776e2e473e5bcc10b22d6c34acc0d4dc491389bc25ec20c4e45d45fc",
+      "uwvm2-ros": "7ce58c9b776e2e473e5bcc10b22d6c34acc0d4dc491389bc25ec20c4e45d45fc"
+    }
+  },
+  "later_concurrent_production_drift": {
+    "uwvm2": {
+      "source_id": "sha256:16fa45a281f66090c25573af23942a59ff751f3f8f705c5e57ca4cacc1ce09e4",
+      "drift": [
+        {
+          "path": "src/uwvm2/uwvm/debugger/source_dwarf_index.h",
+          "frozen_sha256": "73227af8c8439caaa54710f5428e1b6c592c8ea3c6d179ae7b5b32a99955f0a0",
+          "current_sha256": "e7aa98e153638e3e7637c751dc5b3f17f8cf8a73e085d80a5e0dfe80309109b3"
+        },
+        {
+          "path": "src/uwvm2/uwvm/debugger/source_dwarf_types.h",
+          "frozen_sha256": "4f490d9cf366b71ff15dfa350597e295a7bcfa3eb9235f3cda589bb0ab5e6344",
+          "current_sha256": "b9d75aac50e7a7718b6cb3ac63af900fe6ffee7fe12b2807e15471e4b3acca85"
+        },
+        {
+          "path": "src/uwvm2/uwvm/debugger/source_type_declarators.h",
+          "frozen_sha256": "3852dac52d3ce295136962d38c271eb9a3726aa81be79e73facee64bcaa959b7",
+          "current_sha256": "b21776e47961f8a53d3cfce06084607acd3273b0a695b95b7e38a2d687294c86"
+        }
+      ]
+    },
+    "uwvm2-ros": {
+      "source_id": "sha256:ee949375752ffcf85e695faae17b4eca9db30181d457a78023efbe3abc2f21d1",
+      "drift": [
+        {
+          "path": "src/uwvm2/uwvm/debugger/source_dwarf_index.h",
+          "frozen_sha256": "73227af8c8439caaa54710f5428e1b6c592c8ea3c6d179ae7b5b32a99955f0a0",
+          "current_sha256": "e7aa98e153638e3e7637c751dc5b3f17f8cf8a73e085d80a5e0dfe80309109b3"
+        },
+        {
+          "path": "src/uwvm2/uwvm/debugger/source_dwarf_types.h",
+          "frozen_sha256": "4f490d9cf366b71ff15dfa350597e295a7bcfa3eb9235f3cda589bb0ab5e6344",
+          "current_sha256": "b9d75aac50e7a7718b6cb3ac63af900fe6ffee7fe12b2807e15471e4b3acca85"
+        },
+        {
+          "path": "src/uwvm2/uwvm/debugger/source_type_declarators.h",
+          "frozen_sha256": "3852dac52d3ce295136962d38c271eb9a3726aa81be79e73facee64bcaa959b7",
+          "current_sha256": "b21776e47961f8a53d3cfce06084607acd3273b0a695b95b7e38a2d687294c86"
+        }
+      ]
+    }
+  },
+  "later_concurrent_drift_preserved_and_not_requalified": true,
+  "native_semantics_limitations": [
+    "finite shared C-style numeric syntax does not implement every native language expression dialect",
+    "Go conversion syntax and &^ do not imply Go-specific precedence, untyped constants or arbitrary-width shift semantics",
+    "ptype-frame retains existing selector type queries, without general scalar expression type inference",
+    "The137 finite syntax cases and generated arithmetic properties do not qualify actual producer/runtime stops.",
+    "full live language watchpoints, reverse execution, dynamic types/containers and Go goroutines remain missing or partial",
+    "full Wasm3/WASIp1 runtime snapshots, external I/O rollback and positive native ASM stepping were not newly qualified"
+  ],
+  "references": {
+    "Go_expression_operators": "https://go.dev/ref/spec#Operator_precedence"
+  },
+  "evidence": {
+    "local_archive": "/tmp/uwvm2-dap-scalar-20261005/final-r15/evidence.tar.gz",
+    "archive_sha256": "fe270f60f61d1e07496d23bd00788a39cd986de9e10ca73c00863937ef5216d6",
+    "archive_bytes": 22896675,
+    "archive_files": 778,
+    "all_archive_inputs_verified_locally": true,
+    "seal_supervisor_receipts": "/tmp/uwvm2-dap-scalar-20261005/final-r15/seal-supervisor-receipts.json",
+    "local_verification": "/tmp/uwvm2-dap-scalar-20261005/final-r15/local-archive-verification.json"
+  },
+  "capability_counts": {
+    "implemented": 14,
+    "partial": 36,
+    "missing": 36,
+    "separate_level": 1,
+    "prohibited_by_scope": 1
+  },
+  "missing_feature_ids_by_repository": {
+    "uwvm2": [
+      "tracepoint",
+      "return_display",
+      "source_until",
+      "watch_expr",
+      "reverse_step",
+      "pretty_printer",
+      "value_history",
+      "conditional_expr",
+      "address_of",
+      "pointer_arithmetic",
+      "function_call",
+      "source_assignment",
+      "comma_increment",
+      "go_len_cap",
+      "cpp_dynamic",
+      "cpp_overload",
+      "cpp_stl",
+      "cpp_catch",
+      "rust_traits",
+      "rust_collection",
+      "go_map_chan",
+      "go_goroutines",
+      "go_runtime",
+      "objc_dynamic",
+      "objc_foundation",
+      "split_dwarf",
+      "zig_error_union",
+      "zig_slice_sentinel",
+      "zig_comptime_namespace",
+      "zig_runtime_control",
+      "assemblyscript_typed_locals",
+      "assemblyscript_classes",
+      "assemblyscript_collections",
+      "assemblyscript_gc",
+      "assemblyscript_expressions",
+      "assemblyscript_script_replace"
+    ],
+    "uwvm2-ros": [
+      "tracepoint",
+      "return_display",
+      "source_until",
+      "watch_expr",
+      "reverse_step",
+      "pretty_printer",
+      "value_history",
+      "conditional_expr",
+      "address_of",
+      "pointer_arithmetic",
+      "function_call",
+      "source_assignment",
+      "comma_increment",
+      "go_len_cap",
+      "cpp_dynamic",
+      "cpp_overload",
+      "cpp_stl",
+      "cpp_catch",
+      "rust_traits",
+      "rust_collection",
+      "go_map_chan",
+      "go_goroutines",
+      "go_runtime",
+      "objc_dynamic",
+      "objc_foundation",
+      "split_dwarf",
+      "zig_error_union",
+      "zig_slice_sentinel",
+      "zig_comptime_namespace",
+      "zig_runtime_control",
+      "assemblyscript_typed_locals",
+      "assemblyscript_classes",
+      "assemblyscript_collections",
+      "assemblyscript_gc",
+      "assemblyscript_expressions",
+      "assemblyscript_script_replace"
+    ]
+  }
+}

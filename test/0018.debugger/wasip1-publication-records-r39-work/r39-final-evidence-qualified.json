@@ -1,0 +1,644 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/cold-relocated-r39/publication-records-r39-evidence.tar.gz",
+  "archive_sha256": "0b41eee42e05f372bdbcd6b5c16e7ef48e3f12f65337f650495d14bfbd0713f6",
+  "archive_bytes": 764581,
+  "member_count": 156,
+  "members": {
+    "cold-custody/cold-custody-qualified.json": {
+      "size": 41072,
+      "sha256": "78c7878507a9fb89433b8b9cbb4293a925941153b1cddcf8f53f0dad74b72d9a"
+    },
+    "cold-custody/custody-intent.json": {
+      "size": 1810,
+      "sha256": "07f8331b57dee56ab066e8e155d22711866205d84cf8294250947dd05752bcae"
+    },
+    "round/analysis-compile-qualified-v2.json": {
+      "size": 62439,
+      "sha256": "f689a10cc63eb91f6ff10e5f646ab6e2ba4b5732511a47735ca9cc7c4fa2bb7a"
+    },
+    "round/analysis-compile-results-v1.json": {
+      "size": 41078,
+      "sha256": "598ade25eab1c269d1184cc41fb8f704b176e057f4290bf40a74a423feb9abb1"
+    },
+    "round/analysis-compile-results-v2.json": {
+      "size": 52148,
+      "sha256": "f863f645b9b4229b27506f1b980bc76f5509076ad66b80404cef267064f2debb"
+    },
+    "round/analysis_compile_matrix-v1.py": {
+      "size": 6708,
+      "sha256": "f98c466f93b7c609575e2c53f899916612861bf9f350edddf3468edd53d8ea5b"
+    },
+    "round/analysis_compile_matrix-v2.py": {
+      "size": 6708,
+      "sha256": "9c6d9fce73d027da36479e38afb7fb9572ed80c647c89e1752aa1fc7856b51cd"
+    },
+    "round/before-source-r39-qualified.json": {
+      "size": 3824,
+      "sha256": "c2aa925782721b33b83781218e6a383b7cc403d1de6c0206c3cd756523784e09"
+    },
+    "round/before-source-r39.tar.gz": {
+      "size": 190693,
+      "sha256": "196472e48356ba1992bfcd4842f29bebb471f6c35f08e577b222350d8e0cc419"
+    },
+    "round/before.json": {
+      "size": 2547,
+      "sha256": "108d6b7ac8786da34727b6bc6fb334cd4065968237548d57a5d333a7bcc4baf3"
+    },
+    "round/build_verify_final_evidence.py": {
+      "size": 4350,
+      "sha256": "94ebc955bf531c271812e2fa43dd830c7ee11105751ded69a8cd12e22f8f1e76"
+    },
+    "round/cold-relocation-intent.json": {
+      "size": 1810,
+      "sha256": "07f8331b57dee56ab066e8e155d22711866205d84cf8294250947dd05752bcae"
+    },
+    "round/cold-relocation-receipt.json": {
+      "size": 2121,
+      "sha256": "263899f482348fd8624b62da5464276a07f515761ca9a1a6510a0351b5f6cc1e"
+    },
+    "round/guard-analysis-compile-v1.json": {
+      "size": 37232,
+      "sha256": "b7ce6985d16b01637ae8319f8b1b5e1a190eab59dacc46b404806ff65f8822da"
+    },
+    "round/guard-analysis-compile-v2.json": {
+      "size": 47883,
+      "sha256": "4f88f91a2b2ae6eb1398f36bfc2605e011c197e10422a6567764e7274531cae5"
+    },
+    "round/guard-cold-custody.json": {
+      "size": 4626,
+      "sha256": "0b5d25ac2778d76733d087fb4b184f15edd54ca76a925b13380c49fb789334e0"
+    },
+    "round/guard-ram-native-v2.json": {
+      "size": 240485,
+      "sha256": "28e525b4512f0cc7a71077311ecb1d0a36c11451cde6645ee5935a2b9cd5a9dc"
+    },
+    "round/guard_analysis_compile-v1.py": {
+      "size": 6663,
+      "sha256": "998cab0fa164b75cc8d4d9c4d94a313cbfe6ff7350aa26ec1b524563010a2160"
+    },
+    "round/guard_analysis_compile-v2.py": {
+      "size": 6663,
+      "sha256": "6bbfc6dc811d613ec36f444b4d431bce946f401b7c6b2fad2854e3ac195f7e7a"
+    },
+    "round/guard_cold_custody.py": {
+      "size": 6727,
+      "sha256": "034e713c128fca34c794fff14c2484715125208c8423dd6edb34e5c317d14e1b"
+    },
+    "round/guard_final_evidence.py": {
+      "size": 6873,
+      "sha256": "d23cf054865d17f33a4f7320064d55d3c6b133cb64624b320397fbf0cf15a711"
+    },
+    "round/guard_ram_native-v1.py": {
+      "size": 8664,
+      "sha256": "586aa0def491474fa909084dc0b16108b274a7780f941873f1f6313aa9d434f2"
+    },
+    "round/guard_ram_native-v2.py": {
+      "size": 8664,
+      "sha256": "f578e8f7c128c0ed1d5bb5a9267ea5283d6c9ea708e77a28343e240ac58d88d3"
+    },
+    "round/owned-source-changes.patch": {
+      "size": 69096,
+      "sha256": "3d7171a509f250dc623ee4ce98215f641f2f29831fc563e8729fb0d988992f54"
+    },
+    "round/ram-native-v2-qualified.json": {
+      "size": 477,
+      "sha256": "4672ffe38db7f506e54350164ede67a2b0e20d3718ba5d2b83d24abed09853ca"
+    },
+    "round/ram-native-v2-results.json": {
+      "size": 155575,
+      "sha256": "0f4db6d9aecd8c5e736565e1f45ddacb466538e99ad67a91ed322c80f71adcb6"
+    },
+    "round/ram-native-v2-storage.json": {
+      "size": 169,
+      "sha256": "799f64a4e3dd6ae3426758dc439d292956d37e3006abe8a7284ca60bc28841dd"
+    },
+    "round/ram_native_regression-v1.py": {
+      "size": 7054,
+      "sha256": "e9b3bd0cab669cde1079d3967ffdd31bcffb71cbd013307cebd0b79316069fbd"
+    },
+    "round/ram_native_regression-v2.py": {
+      "size": 7054,
+      "sha256": "18c8558c195e46d0a5ee13273b7b4e64d15c3361daf0ad7debbc2c3bae70e593"
+    },
+    "round/syntax-overlay-v1.json": {
+      "size": 5635,
+      "sha256": "cac164ea414eb407c6fbae025b80f5202e9a5264306c3615af44675c49099001"
+    },
+    "round/syntax-overlay-v1.tar.gz": {
+      "size": 241265,
+      "sha256": "0afa7e2dedb411e94015af974ecf3d5ee82d2d81e5b0f4d6dc8649ad1f429349"
+    },
+    "round/syntax-overlay-v2.json": {
+      "size": 5635,
+      "sha256": "0e63f72c8798e578944446f68381ce35b452c3e51c0338fb19ea4ebad9b8d3b4"
+    },
+    "round/syntax-overlay-v2.tar.gz": {
+      "size": 241484,
+      "sha256": "cbe0b4400ce641210f9cdf8bb56bb85e96eb08376ec3e844068c75ebd41a5454"
+    },
+    "round/uwvm2-core-build-ram-native-v2.log": {
+      "size": 2666,
+      "sha256": "5310dbe2d2e1645e882c9702968b3ac907c395d1e6d78ad2d5187d68ba71358f"
+    },
+    "round/uwvm2-core-indirect-instruction-ram-native-v2.log": {
+      "size": 641,
+      "sha256": "afa71b483c0e260225d67b9d6874a1ab030645cdbf87e5925b60a7531d3fd80c"
+    },
+    "round/uwvm2-core-indirect-unwind-ram-native-v2.log": {
+      "size": 636,
+      "sha256": "680e38fe8e66a6f49e8ae5656b126d88bb98671c566ba22d39a259e706b29040"
+    },
+    "round/uwvm2-core-normal-instruction-ram-native-v2.log": {
+      "size": 641,
+      "sha256": "afa71b483c0e260225d67b9d6874a1ab030645cdbf87e5925b60a7531d3fd80c"
+    },
+    "round/uwvm2-core-normal-unwind-ram-native-v2.log": {
+      "size": 636,
+      "sha256": "680e38fe8e66a6f49e8ae5656b126d88bb98671c566ba22d39a259e706b29040"
+    },
+    "round/uwvm2-debug_checkpoint_complete_instance-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_complete_instance-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_complete_preload_main-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_complete_preload_main-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_complete_preload_provider-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_complete_preload_provider-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_indirect_retirement_cohort-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_indirect_retirement_cohort-assemble-v1.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_indirect_retirement_cohort-assemble-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_indirect_retirement_cohort-v1.wasm": {
+      "size": 1018,
+      "sha256": "6d6bad55cde4c1930bf3db6e4b886ed764a7befb5625709628a49a0b50296664"
+    },
+    "round/uwvm2-debug_checkpoint_indirect_retirement_cohort-v2.wasm": {
+      "size": 1018,
+      "sha256": "6d6bad55cde4c1930bf3db6e4b886ed764a7befb5625709628a49a0b50296664"
+    },
+    "round/uwvm2-debug_checkpoint_indirect_retirement_cohort-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_indirect_retirement_cohort-validate-v1.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_indirect_retirement_cohort-validate-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_retirement_cohort-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_checkpoint_retirement_cohort-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_wasip1_checkpoint-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_wasip1_checkpoint-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_wasip1_indirect_prepared_retirement-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_wasip1_indirect_prepared_retirement-assemble-v1.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_wasip1_indirect_prepared_retirement-assemble-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_wasip1_indirect_prepared_retirement-v1.wasm": {
+      "size": 823,
+      "sha256": "c66c3919fface88a493566ca9ddec3c514d8489b27bbc5daf1b53b7b94f90426"
+    },
+    "round/uwvm2-debug_wasip1_indirect_prepared_retirement-v2.wasm": {
+      "size": 823,
+      "sha256": "c66c3919fface88a493566ca9ddec3c514d8489b27bbc5daf1b53b7b94f90426"
+    },
+    "round/uwvm2-debug_wasip1_indirect_prepared_retirement-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_wasip1_indirect_prepared_retirement-validate-v1.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-debug_wasip1_indirect_prepared_retirement-validate-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-freebsd-runtime-v1.log": {
+      "size": 4340,
+      "sha256": "6a9c2e72c6e612ec96cdd16c5996d42bf2193d98dac8bdf732331247e8cc25b1"
+    },
+    "round/uwvm2-freebsd-runtime-v2.log": {
+      "size": 4340,
+      "sha256": "42099a07a0a9d760aa54f7b32c3b7e85c96d9cf6598f0336fc9434668359fd93"
+    },
+    "round/uwvm2-host-api-compile-ram-native-v2.log": {
+      "size": 109,
+      "sha256": "0cf731748a3ccc5687b5794d42fa19cb32c7e51dd6efb3d8dc6c1a9385ffe9f0"
+    },
+    "round/uwvm2-instance-build-ram-native-v2.log": {
+      "size": 2664,
+      "sha256": "38787d469e474a3b76bf49e5f871456aa10ff770905a563346d53ae7aa7194b3"
+    },
+    "round/uwvm2-instance-normal-instruction-ram-native-v2.log": {
+      "size": 1736,
+      "sha256": "e0a41eaab5e4d90b19fcb19fd1d4c66ff32bce5c3d40ec99eb03f7b1ebe5f40d"
+    },
+    "round/uwvm2-instance-normal-unwind-ram-native-v2.log": {
+      "size": 1731,
+      "sha256": "ee291b84c1bbbd5da3e0f82a70af1df8ad1b10e27b54f4faad7c3d4662ffa109"
+    },
+    "round/uwvm2-linux-core-v1.log": {
+      "size": 2666,
+      "sha256": "ba1c589efc7055be0c7a84390123d81de3ed0e95e0987be0ee4abaa0654682f7"
+    },
+    "round/uwvm2-linux-core-v2.log": {
+      "size": 2666,
+      "sha256": "5310dbe2d2e1645e882c9702968b3ac907c395d1e6d78ad2d5187d68ba71358f"
+    },
+    "round/uwvm2-linux-instance-v1.log": {
+      "size": 2664,
+      "sha256": "5ec04694b0e1a9fa78fb146e323619745a5de094f94a6863f37e3a133aa21311"
+    },
+    "round/uwvm2-linux-instance-v2.log": {
+      "size": 2664,
+      "sha256": "38787d469e474a3b76bf49e5f871456aa10ff770905a563346d53ae7aa7194b3"
+    },
+    "round/uwvm2-linux-preload-v1.log": {
+      "size": 2663,
+      "sha256": "6ac9e0ce4672c22d15903cc95daf1bc1973c53d6c1fb1e3767cf01786ab64580"
+    },
+    "round/uwvm2-linux-preload-v2.log": {
+      "size": 2663,
+      "sha256": "61deb15bfbbf6b307f2e2ac36889a3ba0f8a573902148dd188b8f179138d8a46"
+    },
+    "round/uwvm2-linux-runtime-v1.log": {
+      "size": 4236,
+      "sha256": "40b0d141aa813627a24fa336d3d324bd164e1c467369f6f964b554daea6ccaaf"
+    },
+    "round/uwvm2-linux-runtime-v2.log": {
+      "size": 4236,
+      "sha256": "fce22abe7becd0ad00f69e2efd4b07b2170d4e44d3f5dce8c8c64940209e82c1"
+    },
+    "round/uwvm2-linux-wasip1-v1.log": {
+      "size": 2662,
+      "sha256": "7d57be59e1961e31a67a5871e5ee1439a52449e58399b1af985f400459f21da9"
+    },
+    "round/uwvm2-linux-wasip1-v2.log": {
+      "size": 2662,
+      "sha256": "2dd2d05232eb3d15d8364780e1da3c773956f25ec6ede718f457aefd3aa484ac"
+    },
+    "round/uwvm2-macos-runtime-v1.log": {
+      "size": 4236,
+      "sha256": "40b0d141aa813627a24fa336d3d324bd164e1c467369f6f964b554daea6ccaaf"
+    },
+    "round/uwvm2-macos-runtime-v2.log": {
+      "size": 4236,
+      "sha256": "fce22abe7becd0ad00f69e2efd4b07b2170d4e44d3f5dce8c8c64940209e82c1"
+    },
+    "round/uwvm2-preload-build-ram-native-v2.log": {
+      "size": 2663,
+      "sha256": "61deb15bfbbf6b307f2e2ac36889a3ba0f8a573902148dd188b8f179138d8a46"
+    },
+    "round/uwvm2-preload-normal-instruction-ram-native-v2.log": {
+      "size": 1801,
+      "sha256": "01ef2d7a6c26d37220828abfe52309fb0ff61d5f32b685ed8589dfd44b3b9cc2"
+    },
+    "round/uwvm2-preload-normal-unwind-ram-native-v2.log": {
+      "size": 1796,
+      "sha256": "612f3e69fa5242cd4424a12aefd53cf0753db13a220b129a94fc1c6acaf8b146"
+    },
+    "round/uwvm2-ros-core-build-ram-native-v2.log": {
+      "size": 2698,
+      "sha256": "3443ad345f7fd7deeb2a10902f668c056dcb2c77f6dbfa9819b4309a9978317b"
+    },
+    "round/uwvm2-ros-core-indirect-instruction-ram-native-v2.log": {
+      "size": 641,
+      "sha256": "afa71b483c0e260225d67b9d6874a1ab030645cdbf87e5925b60a7531d3fd80c"
+    },
+    "round/uwvm2-ros-core-indirect-unwind-ram-native-v2.log": {
+      "size": 636,
+      "sha256": "680e38fe8e66a6f49e8ae5656b126d88bb98671c566ba22d39a259e706b29040"
+    },
+    "round/uwvm2-ros-core-normal-instruction-ram-native-v2.log": {
+      "size": 641,
+      "sha256": "afa71b483c0e260225d67b9d6874a1ab030645cdbf87e5925b60a7531d3fd80c"
+    },
+    "round/uwvm2-ros-core-normal-unwind-ram-native-v2.log": {
+      "size": 636,
+      "sha256": "680e38fe8e66a6f49e8ae5656b126d88bb98671c566ba22d39a259e706b29040"
+    },
+    "round/uwvm2-ros-debug_checkpoint_complete_instance-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_complete_instance-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_complete_preload_main-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_complete_preload_main-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_complete_preload_provider-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_complete_preload_provider-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-assemble-v1.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-assemble-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-v1.wasm": {
+      "size": 1018,
+      "sha256": "6d6bad55cde4c1930bf3db6e4b886ed764a7befb5625709628a49a0b50296664"
+    },
+    "round/uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-v2.wasm": {
+      "size": 1018,
+      "sha256": "6d6bad55cde4c1930bf3db6e4b886ed764a7befb5625709628a49a0b50296664"
+    },
+    "round/uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-validate-v1.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-validate-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_retirement_cohort-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_checkpoint_retirement_cohort-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_wasip1_checkpoint-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_wasip1_checkpoint-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_wasip1_indirect_prepared_retirement-assemble-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_wasip1_indirect_prepared_retirement-assemble-v1.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_wasip1_indirect_prepared_retirement-assemble-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_wasip1_indirect_prepared_retirement-v1.wasm": {
+      "size": 823,
+      "sha256": "c66c3919fface88a493566ca9ddec3c514d8489b27bbc5daf1b53b7b94f90426"
+    },
+    "round/uwvm2-ros-debug_wasip1_indirect_prepared_retirement-v2.wasm": {
+      "size": 823,
+      "sha256": "c66c3919fface88a493566ca9ddec3c514d8489b27bbc5daf1b53b7b94f90426"
+    },
+    "round/uwvm2-ros-debug_wasip1_indirect_prepared_retirement-validate-ram-native-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_wasip1_indirect_prepared_retirement-validate-v1.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-debug_wasip1_indirect_prepared_retirement-validate-v2.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "round/uwvm2-ros-freebsd-runtime-v2.log": {
+      "size": 3030,
+      "sha256": "f64ebe4a9146c4e4e2738aeea38573d12ba9a1baa0374d1124d62c62ae5e8354"
+    },
+    "round/uwvm2-ros-host-api-compile-ram-native-v2.log": {
+      "size": 109,
+      "sha256": "0cf731748a3ccc5687b5794d42fa19cb32c7e51dd6efb3d8dc6c1a9385ffe9f0"
+    },
+    "round/uwvm2-ros-instance-build-ram-native-v2.log": {
+      "size": 2696,
+      "sha256": "746449124ebcda95a3ce07322806aacdba5eff87272db73d5c5bf65a4501956a"
+    },
+    "round/uwvm2-ros-instance-normal-instruction-ram-native-v2.log": {
+      "size": 1736,
+      "sha256": "4dcea919b34eb89fcb2d42212c2bcb99e907db6a98f86bf6146bfafc72686bc2"
+    },
+    "round/uwvm2-ros-instance-normal-unwind-ram-native-v2.log": {
+      "size": 1731,
+      "sha256": "d5b0437076bfcc0fa348365d0ddee928db1cbe9dff318be884d9f6c7931fcf9e"
+    },
+    "round/uwvm2-ros-linux-core-v1.log": {
+      "size": 2698,
+      "sha256": "4ffd90c7c47c0058b800295b0cbb2319d8adf5bb6ff63da3434b1e8662184bc5"
+    },
+    "round/uwvm2-ros-linux-core-v2.log": {
+      "size": 2698,
+      "sha256": "3443ad345f7fd7deeb2a10902f668c056dcb2c77f6dbfa9819b4309a9978317b"
+    },
+    "round/uwvm2-ros-linux-instance-v1.log": {
+      "size": 2696,
+      "sha256": "9ca584b378e1f2096cabbbefcd4b2076160cbe99fed4f92d7311c63ca63d2633"
+    },
+    "round/uwvm2-ros-linux-instance-v2.log": {
+      "size": 2696,
+      "sha256": "746449124ebcda95a3ce07322806aacdba5eff87272db73d5c5bf65a4501956a"
+    },
+    "round/uwvm2-ros-linux-preload-v1.log": {
+      "size": 2695,
+      "sha256": "494da5cf4508bbc3ee8e9c9884fae9ea798e251e1b4e99ae887f479137b721d0"
+    },
+    "round/uwvm2-ros-linux-preload-v2.log": {
+      "size": 2695,
+      "sha256": "1b157d68cab4945c6abeed87f60737a01f3cc7c112a00d9e87c7eede1f664574"
+    },
+    "round/uwvm2-ros-linux-runtime-v1.log": {
+      "size": 3946,
+      "sha256": "c5fd9789852172282b638444a71fc3736fe82a27d12a97eeca50f741649cd788"
+    },
+    "round/uwvm2-ros-linux-runtime-v2.log": {
+      "size": 2926,
+      "sha256": "29ae2d81ab2dd4b8a845129dd9f3092a11b903678ffc75d6044889fe61fef708"
+    },
+    "round/uwvm2-ros-linux-wasip1-v1.log": {
+      "size": 2694,
+      "sha256": "be02df1eeca897baf32e2a2561f23025fcaa57b3793d6f9f19603f89a39fa06b"
+    },
+    "round/uwvm2-ros-linux-wasip1-v2.log": {
+      "size": 2694,
+      "sha256": "f798ffce9e8d4eb790cb66b65ed208e8f3f882785df4f499289855443a9cf4e5"
+    },
+    "round/uwvm2-ros-macos-runtime-v2.log": {
+      "size": 2926,
+      "sha256": "29ae2d81ab2dd4b8a845129dd9f3092a11b903678ffc75d6044889fe61fef708"
+    },
+    "round/uwvm2-ros-preload-build-ram-native-v2.log": {
+      "size": 2695,
+      "sha256": "1b157d68cab4945c6abeed87f60737a01f3cc7c112a00d9e87c7eede1f664574"
+    },
+    "round/uwvm2-ros-preload-normal-instruction-ram-native-v2.log": {
+      "size": 1801,
+      "sha256": "1fdadb7e5ffef26fd98f63ef928c86a868d62f92d5514d3fd37961566465e64d"
+    },
+    "round/uwvm2-ros-preload-normal-unwind-ram-native-v2.log": {
+      "size": 1796,
+      "sha256": "c01669d33d32bee3e8cfbc6517949301084480205d6059d32396c7702dcd6fa6"
+    },
+    "round/uwvm2-ros-runtime-compile-ram-native-v2.log": {
+      "size": 2926,
+      "sha256": "29ae2d81ab2dd4b8a845129dd9f3092a11b903678ffc75d6044889fe61fef708"
+    },
+    "round/uwvm2-ros-wasip1-build-ram-native-v2.log": {
+      "size": 2694,
+      "sha256": "f798ffce9e8d4eb790cb66b65ed208e8f3f882785df4f499289855443a9cf4e5"
+    },
+    "round/uwvm2-ros-wasip1-indirect-instruction-ram-native-v2.log": {
+      "size": 280,
+      "sha256": "dd070d83ba9b95814b63700d9749b6f1797040b01e768eef0c6f70bceaee32d1"
+    },
+    "round/uwvm2-ros-wasip1-indirect-unwind-ram-native-v2.log": {
+      "size": 275,
+      "sha256": "4a37bea375e8d7e98b347ee8a1a19bbbf7c0d05f6f588403a9dc91d6a95c5c26"
+    },
+    "round/uwvm2-ros-wasip1-normal-instruction-ram-native-v2.log": {
+      "size": 280,
+      "sha256": "4dfb2463832990aeab54cefbefaa66584a36ee73fe35126ff56d75aa10511961"
+    },
+    "round/uwvm2-ros-wasip1-normal-unwind-ram-native-v2.log": {
+      "size": 275,
+      "sha256": "43c7af94453ec4603ef661a6ef93e3bd5852f84f795de6ee5b0a75aad960caf5"
+    },
+    "round/uwvm2-ros-windows-runtime-v2.log": {
+      "size": 3240,
+      "sha256": "2e4d51ca559523e7de2bb46e95055a5fcb2ea27c4cccfb15a1b58e6d976e7c60"
+    },
+    "round/uwvm2-runtime-compile-ram-native-v2.log": {
+      "size": 4236,
+      "sha256": "fce22abe7becd0ad00f69e2efd4b07b2170d4e44d3f5dce8c8c64940209e82c1"
+    },
+    "round/uwvm2-wasip1-build-ram-native-v2.log": {
+      "size": 2662,
+      "sha256": "2dd2d05232eb3d15d8364780e1da3c773956f25ec6ede718f457aefd3aa484ac"
+    },
+    "round/uwvm2-wasip1-indirect-instruction-ram-native-v2.log": {
+      "size": 280,
+      "sha256": "dd070d83ba9b95814b63700d9749b6f1797040b01e768eef0c6f70bceaee32d1"
+    },
+    "round/uwvm2-wasip1-indirect-unwind-ram-native-v2.log": {
+      "size": 275,
+      "sha256": "4a37bea375e8d7e98b347ee8a1a19bbbf7c0d05f6f588403a9dc91d6a95c5c26"
+    },
+    "round/uwvm2-wasip1-normal-instruction-ram-native-v2.log": {
+      "size": 280,
+      "sha256": "4dfb2463832990aeab54cefbefaa66584a36ee73fe35126ff56d75aa10511961"
+    },
+    "round/uwvm2-wasip1-normal-unwind-ram-native-v2.log": {
+      "size": 275,
+      "sha256": "43c7af94453ec4603ef661a6ef93e3bd5852f84f795de6ee5b0a75aad960caf5"
+    },
+    "round/uwvm2-windows-runtime-v1.log": {
+      "size": 4550,
+      "sha256": "356a9729e107f2e8bb8c584817b2dcd235a1e1fa0f9ca55785710975ccf69536"
+    },
+    "round/uwvm2-windows-runtime-v2.log": {
+      "size": 4550,
+      "sha256": "86d7fd75ac28dec1702c482a873cfc8e8b06c94109ade46bc05b09fc001af041"
+    },
+    "round/verify_cold_custody.py": {
+      "size": 2532,
+      "sha256": "1bde5eeb12a8710d4f136191b8846e37b2ce31fd9ad4fac22d9cde2937525c7b"
+    },
+    "round/wasip1_publication_records_r39_test_report.json": {
+      "size": 1980,
+      "sha256": "5fc6b07363bdb3cc0bc86da5c567c08501e2f10dcfbc098350c50faa3b69feef"
+    },
+    "round/wasip1_publication_records_r39_test_report.md": {
+      "size": 3647,
+      "sha256": "b864a0e6e80a2dd505089cb1e6715d4cb8f155d983866f8d4718db2e1a7e25d9"
+    },
+    "round/wasm-fixture-validation-v1.json": {
+      "size": 7698,
+      "sha256": "ea470b25707692800724473fa9d4270d01cbae35a1f6d9548a85ff6658f0096d"
+    },
+    "round/wasm-fixture-validation-v2.json": {
+      "size": 7699,
+      "sha256": "952fd425d1aaf069f8b99fb62ca1eed3a61afcdc4b32851adb5482ccb1045823"
+    },
+    "round/write_report.py": {
+      "size": 6595,
+      "sha256": "2bd744b424ce92f545838004b629a911561dcc556e6c8e51d3db554523a0d89c"
+    }
+  },
+  "full_members_read_back": true,
+  "source_manifest_sha256": "0e63f72c8798e578944446f68381ce35b452c3e51c0338fb19ea4ebad9b8d3b4",
+  "linux_native_cases": 24,
+  "fresh_native_cases": 24,
+  "reused_unchanged_native_cases": 0,
+  "before_source_members": 19,
+  "frontend_checks": 16,
+  "world_publication": false,
+  "restored_worker_startup": false,
+  "guest_replay": false,
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+}

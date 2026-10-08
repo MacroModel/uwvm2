@@ -1,0 +1,1432 @@
+{
+  "schema": 1,
+  "passed": true,
+  "status": "native-component-qualified",
+  "target": "Linux MIPS64EL N64 R2 / QEMU MIPS64R2-generic",
+  "llvm_core_version": "23.1.1-uwvm-ros.11 genuine core SDK with full rebuilt patched MIPS backend",
+  "ABI": "static N64EL R2 callee-pop TailCC",
+  "backend_translation_units": 60,
+  "backend_archives": 5,
+  "tablegen_outputs": 16,
+  "patch_sha256": "6c77f7a00f9be4f1c5fd93c8f52af523fa3d1e6027decbc20de9ee068309eaa7",
+  "positive_native_runs": 39,
+  "expected_compiler_rejections": 3,
+  "positive_unwind_runs": 39,
+  "expected_unwind_fixture_compiler_rejections": 3,
+  "complete_assembly_function_extents": 78,
+  "native_declared_tail_edges": 162000000,
+  "cgroup_receipts": [
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/cgopt-mips64el-tail-backend-native-r3-evidence/000-native-tailcc/receipts.json",
+      "sha256": "06f37e71bb34b88f22c34a11e6773445a8b4288385260675e996a9598969100c",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "no_foreign_process_signals": true
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/cgopt-mips64el-tail-backend-r5-evidence/000-backend-build/receipts.json",
+      "sha256": "d348d95eac1c88e4a0d33a5db04e1e6a4622fd80d26676dba9ab7b2e0d51ebfa",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "no_foreign_process_signals": true
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/cgopt-mips64el-tail-unwind-native-r1-evidence/000-native-tailcc/receipts.json",
+      "sha256": "324139e123eef810633e2e3d8ce3a6b3193a2f9ff98d3641bb3b61a88a63902c",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "no_foreign_process_signals": true
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/cgopt-mips64el-tail-unwind-r1-evidence/000-compile/receipts.json",
+      "sha256": "f8f838b950723e7133a64b564eae1a5d15ae2b466505b7bfdf9a4760b43ddee4",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "no_foreign_process_signals": true
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/cgopt-mips64el-tail-unwind-r1-evidence/001-link/receipts.json",
+      "sha256": "efce2a8bbc20cc3609710207db058b474fbb7e9ac3bfa673e4743bcc00b70092",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "no_foreign_process_signals": true
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-asm-r1/cgopt-mips64el-tail-backend-asm-r1-evidence/000-executed-native-asm/receipts.json",
+      "sha256": "3035bc263502a8ec30e26e61ab70f9c030f9e522ae0b61f838c8715f67322eb3",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "no_foreign_process_signals": true
+    }
+  ],
+  "evidence": {
+    "backend_build": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/build-result.json",
+      "sha256": "562fcffe627802dd5022d222e30a19f7c24378969eae887f51a44a259b9ff5d4"
+    },
+    "native": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/result.json",
+      "sha256": "65ebd8d37bcc6003cc49e13b17a8185ca4266a43f63206dcd38f87c7112e179a"
+    },
+    "unwind": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/result.json",
+      "sha256": "89bbd8f4cb5af1e6f4a0d586206afc550ddb022a722cfc9baba8f6376f145f0f"
+    },
+    "assembly": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-asm-r1/qualification.json",
+      "sha256": "a0cb074b4a025e770d046dc75ebf84f318f2f9843a54b3bf6cc4299410e1996e"
+    }
+  },
+  "native_runs": [
+    {
+      "fixture": {
+        "name": "rotate-spilled-24",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/rotate-spilled-24.ll",
+        "sha256": "1212c5f8679efa71a5c2c1897010a55bf58ad53b00b9994dcaab62af39b19aba",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "35d4a1a9b9572da9c6993c7cd5eb96111238ffffd0f930bd1a9154f7ce9e81f9",
+      "log_sha256": "a4693f581b86b2eef9ddffd0793192fe3d910f9fbe032964bb92da5e35767d2c"
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-direct",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/grow-shrink-direct.ll",
+        "sha256": "cbe194897c2e9b18f8bf9b69633f577daeb94b9d579d2d8968162b9676702ead",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "2681d2045c19d61bcf52f11444e2aef917b09d13c60fb00210c1583103b44ed4",
+      "log_sha256": "a4693f581b86b2eef9ddffd0793192fe3d910f9fbe032964bb92da5e35767d2c"
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-indirect",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/grow-shrink-indirect.ll",
+        "sha256": "17bc7bcbf7e5a8c1c66ce8ab6031bc0c9a43e375d74f83af7b748c7844f7c7dd",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "d30373585be18b869636fd56e6fc9aec23a9bd95cd9aa0dd15411769204bfbca",
+      "log_sha256": "a4693f581b86b2eef9ddffd0793192fe3d910f9fbe032964bb92da5e35767d2c"
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-direct",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/mixed-spills-31-results-direct.ll",
+        "sha256": "119152b751bc7468b56e1faf80a9423ca82d631d32086de1558c365d35d5f731",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "6c31c7ad9c2497b87bc505285fa410d4eed686d8453661ff50be0e0124fe72b9",
+      "log_sha256": "a4693f581b86b2eef9ddffd0793192fe3d910f9fbe032964bb92da5e35767d2c"
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-indirect",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/mixed-spills-31-results-indirect.ll",
+        "sha256": "d83f3d6f96e32f7d914ae3c3f066de8750950ac21b4ebff6955045616493fa85",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "e858e21230f66995785eb5cf4fd99c8371c38d90d932bae52121c7b7499eba56",
+      "log_sha256": "a4693f581b86b2eef9ddffd0793192fe3d910f9fbe032964bb92da5e35767d2c"
+    },
+    {
+      "fixture": {
+        "name": "ordinary-tailcc-stack-calls",
+        "tail_edges": 8000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/ordinary-tailcc-stack-calls.ll",
+        "sha256": "aa5a584f44703715fa72b34d3110b9f428a5416edefd145aac99ac5645578150",
+        "stack_span_limit_bytes": 4096,
+        "ordinary_tailcc_calls": 2
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "1cf776625d663392908ff9b861ad56c5aa6136a08725087ded4d867168870bce",
+      "log_sha256": "a4693f581b86b2eef9ddffd0793192fe3d910f9fbe032964bb92da5e35767d2c"
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/rotate-spilled-24.ll",
+        "sha256": "1212c5f8679efa71a5c2c1897010a55bf58ad53b00b9994dcaab62af39b19aba",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "35d4a1a9b9572da9c6993c7cd5eb96111238ffffd0f930bd1a9154f7ce9e81f9",
+      "log_sha256": "00fe6d1371ffc03af30bc36a75a9d7231b16c1c37cbd35fe23fcdcff935927e9"
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-direct",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/grow-shrink-direct.ll",
+        "sha256": "cbe194897c2e9b18f8bf9b69633f577daeb94b9d579d2d8968162b9676702ead",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "2681d2045c19d61bcf52f11444e2aef917b09d13c60fb00210c1583103b44ed4",
+      "log_sha256": "00fe6d1371ffc03af30bc36a75a9d7231b16c1c37cbd35fe23fcdcff935927e9"
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-indirect",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/grow-shrink-indirect.ll",
+        "sha256": "17bc7bcbf7e5a8c1c66ce8ab6031bc0c9a43e375d74f83af7b748c7844f7c7dd",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "d30373585be18b869636fd56e6fc9aec23a9bd95cd9aa0dd15411769204bfbca",
+      "log_sha256": "00fe6d1371ffc03af30bc36a75a9d7231b16c1c37cbd35fe23fcdcff935927e9"
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-direct",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/mixed-spills-31-results-direct.ll",
+        "sha256": "119152b751bc7468b56e1faf80a9423ca82d631d32086de1558c365d35d5f731",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "6c31c7ad9c2497b87bc505285fa410d4eed686d8453661ff50be0e0124fe72b9",
+      "log_sha256": "00fe6d1371ffc03af30bc36a75a9d7231b16c1c37cbd35fe23fcdcff935927e9"
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-indirect",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/mixed-spills-31-results-indirect.ll",
+        "sha256": "d83f3d6f96e32f7d914ae3c3f066de8750950ac21b4ebff6955045616493fa85",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "e858e21230f66995785eb5cf4fd99c8371c38d90d932bae52121c7b7499eba56",
+      "log_sha256": "00fe6d1371ffc03af30bc36a75a9d7231b16c1c37cbd35fe23fcdcff935927e9"
+    },
+    {
+      "fixture": {
+        "name": "ordinary-tailcc-stack-calls",
+        "tail_edges": 8000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/ordinary-tailcc-stack-calls.ll",
+        "sha256": "aa5a584f44703715fa72b34d3110b9f428a5416edefd145aac99ac5645578150",
+        "stack_span_limit_bytes": 4096,
+        "ordinary_tailcc_calls": 2
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "1cf776625d663392908ff9b861ad56c5aa6136a08725087ded4d867168870bce",
+      "log_sha256": "00fe6d1371ffc03af30bc36a75a9d7231b16c1c37cbd35fe23fcdcff935927e9"
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/rotate-spilled-24.ll",
+        "sha256": "1212c5f8679efa71a5c2c1897010a55bf58ad53b00b9994dcaab62af39b19aba",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "5e5fa27d84ba0aa21b4eea24e2e3186f0244cb05c2bd6eece3b8fbff81516ed8",
+      "log_sha256": "81361a6faf68fff3aef62f9f52a65b34b507b9df1eb05fdbc607bb3d6bcfef04"
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-direct",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/grow-shrink-direct.ll",
+        "sha256": "cbe194897c2e9b18f8bf9b69633f577daeb94b9d579d2d8968162b9676702ead",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "c8e70f30170f6b98c48336a91b4a02a639ec0c21cacbf924482e41c9c7df2003",
+      "log_sha256": "81361a6faf68fff3aef62f9f52a65b34b507b9df1eb05fdbc607bb3d6bcfef04"
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-indirect",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/grow-shrink-indirect.ll",
+        "sha256": "17bc7bcbf7e5a8c1c66ce8ab6031bc0c9a43e375d74f83af7b748c7844f7c7dd",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "d71ace69b19f47c697b6e46bf102f4ea729c3439900fc200815b93bdf79203a7",
+      "log_sha256": "81361a6faf68fff3aef62f9f52a65b34b507b9df1eb05fdbc607bb3d6bcfef04"
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-direct",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/mixed-spills-31-results-direct.ll",
+        "sha256": "119152b751bc7468b56e1faf80a9423ca82d631d32086de1558c365d35d5f731",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "22a6149b903d16c972b0e863545a618ccd3eb221e72575a978211c24cb2b9d1e",
+      "log_sha256": "81361a6faf68fff3aef62f9f52a65b34b507b9df1eb05fdbc607bb3d6bcfef04"
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-indirect",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/mixed-spills-31-results-indirect.ll",
+        "sha256": "d83f3d6f96e32f7d914ae3c3f066de8750950ac21b4ebff6955045616493fa85",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "e96d50eec0e98b1a1011ef781cbf1deaa6fc7f9288f1d4b82bbde0780d9ae06b",
+      "log_sha256": "81361a6faf68fff3aef62f9f52a65b34b507b9df1eb05fdbc607bb3d6bcfef04"
+    },
+    {
+      "fixture": {
+        "name": "ordinary-tailcc-stack-calls",
+        "tail_edges": 8000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/ordinary-tailcc-stack-calls.ll",
+        "sha256": "aa5a584f44703715fa72b34d3110b9f428a5416edefd145aac99ac5645578150",
+        "stack_span_limit_bytes": 4096,
+        "ordinary_tailcc_calls": 2
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "caa97eb1293766ba59a36067b41c4afbc1b5a174e52b7a17db47cb725fe5d81b",
+      "log_sha256": "81361a6faf68fff3aef62f9f52a65b34b507b9df1eb05fdbc607bb3d6bcfef04"
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/rotate-spilled-24.ll",
+        "sha256": "1212c5f8679efa71a5c2c1897010a55bf58ad53b00b9994dcaab62af39b19aba",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O1",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "35d4a1a9b9572da9c6993c7cd5eb96111238ffffd0f930bd1a9154f7ce9e81f9",
+      "log_sha256": "59ac25d3469c3e5f86deced4976c42cb182577044b7f12e9f9e4221b83f976c7"
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-direct",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/grow-shrink-direct.ll",
+        "sha256": "cbe194897c2e9b18f8bf9b69633f577daeb94b9d579d2d8968162b9676702ead",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O1",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "2681d2045c19d61bcf52f11444e2aef917b09d13c60fb00210c1583103b44ed4",
+      "log_sha256": "59ac25d3469c3e5f86deced4976c42cb182577044b7f12e9f9e4221b83f976c7"
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-indirect",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/grow-shrink-indirect.ll",
+        "sha256": "17bc7bcbf7e5a8c1c66ce8ab6031bc0c9a43e375d74f83af7b748c7844f7c7dd",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O1",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "d30373585be18b869636fd56e6fc9aec23a9bd95cd9aa0dd15411769204bfbca",
+      "log_sha256": "59ac25d3469c3e5f86deced4976c42cb182577044b7f12e9f9e4221b83f976c7"
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-direct",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/mixed-spills-31-results-direct.ll",
+        "sha256": "119152b751bc7468b56e1faf80a9423ca82d631d32086de1558c365d35d5f731",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O1",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "6c31c7ad9c2497b87bc505285fa410d4eed686d8453661ff50be0e0124fe72b9",
+      "log_sha256": "59ac25d3469c3e5f86deced4976c42cb182577044b7f12e9f9e4221b83f976c7"
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-indirect",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/mixed-spills-31-results-indirect.ll",
+        "sha256": "d83f3d6f96e32f7d914ae3c3f066de8750950ac21b4ebff6955045616493fa85",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O1",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "e858e21230f66995785eb5cf4fd99c8371c38d90d932bae52121c7b7499eba56",
+      "log_sha256": "59ac25d3469c3e5f86deced4976c42cb182577044b7f12e9f9e4221b83f976c7"
+    },
+    {
+      "fixture": {
+        "name": "ordinary-tailcc-stack-calls",
+        "tail_edges": 8000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/ordinary-tailcc-stack-calls.ll",
+        "sha256": "aa5a584f44703715fa72b34d3110b9f428a5416edefd145aac99ac5645578150",
+        "stack_span_limit_bytes": 4096,
+        "ordinary_tailcc_calls": 2
+      },
+      "codegen": "O1",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "1cf776625d663392908ff9b861ad56c5aa6136a08725087ded4d867168870bce",
+      "log_sha256": "59ac25d3469c3e5f86deced4976c42cb182577044b7f12e9f9e4221b83f976c7"
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/rotate-spilled-24.ll",
+        "sha256": "1212c5f8679efa71a5c2c1897010a55bf58ad53b00b9994dcaab62af39b19aba",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O2",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "35d4a1a9b9572da9c6993c7cd5eb96111238ffffd0f930bd1a9154f7ce9e81f9",
+      "log_sha256": "095e40e6ab84557811bdf23557318f7f7739dfc5a210f401637241b3197a7491"
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-direct",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/grow-shrink-direct.ll",
+        "sha256": "cbe194897c2e9b18f8bf9b69633f577daeb94b9d579d2d8968162b9676702ead",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O2",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "2681d2045c19d61bcf52f11444e2aef917b09d13c60fb00210c1583103b44ed4",
+      "log_sha256": "095e40e6ab84557811bdf23557318f7f7739dfc5a210f401637241b3197a7491"
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-indirect",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/grow-shrink-indirect.ll",
+        "sha256": "17bc7bcbf7e5a8c1c66ce8ab6031bc0c9a43e375d74f83af7b748c7844f7c7dd",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O2",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "d30373585be18b869636fd56e6fc9aec23a9bd95cd9aa0dd15411769204bfbca",
+      "log_sha256": "095e40e6ab84557811bdf23557318f7f7739dfc5a210f401637241b3197a7491"
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-direct",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/mixed-spills-31-results-direct.ll",
+        "sha256": "119152b751bc7468b56e1faf80a9423ca82d631d32086de1558c365d35d5f731",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O2",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "6c31c7ad9c2497b87bc505285fa410d4eed686d8453661ff50be0e0124fe72b9",
+      "log_sha256": "095e40e6ab84557811bdf23557318f7f7739dfc5a210f401637241b3197a7491"
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-indirect",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/mixed-spills-31-results-indirect.ll",
+        "sha256": "d83f3d6f96e32f7d914ae3c3f066de8750950ac21b4ebff6955045616493fa85",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O2",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "e858e21230f66995785eb5cf4fd99c8371c38d90d932bae52121c7b7499eba56",
+      "log_sha256": "095e40e6ab84557811bdf23557318f7f7739dfc5a210f401637241b3197a7491"
+    },
+    {
+      "fixture": {
+        "name": "ordinary-tailcc-stack-calls",
+        "tail_edges": 8000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/ordinary-tailcc-stack-calls.ll",
+        "sha256": "aa5a584f44703715fa72b34d3110b9f428a5416edefd145aac99ac5645578150",
+        "stack_span_limit_bytes": 4096,
+        "ordinary_tailcc_calls": 2
+      },
+      "codegen": "O2",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "1cf776625d663392908ff9b861ad56c5aa6136a08725087ded4d867168870bce",
+      "log_sha256": "095e40e6ab84557811bdf23557318f7f7739dfc5a210f401637241b3197a7491"
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/rotate-spilled-24.ll",
+        "sha256": "1212c5f8679efa71a5c2c1897010a55bf58ad53b00b9994dcaab62af39b19aba",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O3",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "5e5fa27d84ba0aa21b4eea24e2e3186f0244cb05c2bd6eece3b8fbff81516ed8",
+      "log_sha256": "9ddc49e8aacaa9517dbb535a16532a75b789b2c2090e147a57c311ba660b24d1"
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-direct",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/grow-shrink-direct.ll",
+        "sha256": "cbe194897c2e9b18f8bf9b69633f577daeb94b9d579d2d8968162b9676702ead",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O3",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "c8e70f30170f6b98c48336a91b4a02a639ec0c21cacbf924482e41c9c7df2003",
+      "log_sha256": "9ddc49e8aacaa9517dbb535a16532a75b789b2c2090e147a57c311ba660b24d1"
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-indirect",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/grow-shrink-indirect.ll",
+        "sha256": "17bc7bcbf7e5a8c1c66ce8ab6031bc0c9a43e375d74f83af7b748c7844f7c7dd",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O3",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "d71ace69b19f47c697b6e46bf102f4ea729c3439900fc200815b93bdf79203a7",
+      "log_sha256": "9ddc49e8aacaa9517dbb535a16532a75b789b2c2090e147a57c311ba660b24d1"
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-direct",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/mixed-spills-31-results-direct.ll",
+        "sha256": "119152b751bc7468b56e1faf80a9423ca82d631d32086de1558c365d35d5f731",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O3",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "22a6149b903d16c972b0e863545a618ccd3eb221e72575a978211c24cb2b9d1e",
+      "log_sha256": "9ddc49e8aacaa9517dbb535a16532a75b789b2c2090e147a57c311ba660b24d1"
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-indirect",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/mixed-spills-31-results-indirect.ll",
+        "sha256": "d83f3d6f96e32f7d914ae3c3f066de8750950ac21b4ebff6955045616493fa85",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O3",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "e96d50eec0e98b1a1011ef781cbf1deaa6fc7f9288f1d4b82bbde0780d9ae06b",
+      "log_sha256": "9ddc49e8aacaa9517dbb535a16532a75b789b2c2090e147a57c311ba660b24d1"
+    },
+    {
+      "fixture": {
+        "name": "ordinary-tailcc-stack-calls",
+        "tail_edges": 8000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/ordinary-tailcc-stack-calls.ll",
+        "sha256": "aa5a584f44703715fa72b34d3110b9f428a5416edefd145aac99ac5645578150",
+        "stack_span_limit_bytes": 4096,
+        "ordinary_tailcc_calls": 2
+      },
+      "codegen": "O3",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "caa97eb1293766ba59a36067b41c4afbc1b5a174e52b7a17db47cb725fe5d81b",
+      "log_sha256": "9ddc49e8aacaa9517dbb535a16532a75b789b2c2090e147a57c311ba660b24d1"
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24-c-compatible",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/rotate-spilled-24-c-compatible.ll",
+        "sha256": "d869029600d42f9680703c0f164b20ce78e2b3e96dd47f8ac49988e0ea7a6e5a",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "43cd2231c6073dd3a00f4c01359e53d851d4f80eb5f96b0cdb2e5ab7d04483e5",
+      "log_sha256": "a4693f581b86b2eef9ddffd0793192fe3d910f9fbe032964bb92da5e35767d2c"
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24-c-compatible",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/rotate-spilled-24-c-compatible.ll",
+        "sha256": "d869029600d42f9680703c0f164b20ce78e2b3e96dd47f8ac49988e0ea7a6e5a",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "43cd2231c6073dd3a00f4c01359e53d851d4f80eb5f96b0cdb2e5ab7d04483e5",
+      "log_sha256": "00fe6d1371ffc03af30bc36a75a9d7231b16c1c37cbd35fe23fcdcff935927e9"
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24-c-compatible",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-backend-r5/native/fixtures/rotate-spilled-24-c-compatible.ll",
+        "sha256": "d869029600d42f9680703c0f164b20ce78e2b3e96dd47f8ac49988e0ea7a6e5a",
+        "stack_span_limit_bytes": 4096
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "990d9230e87a151195206a97f38891da02f99b06a613ae0d1fcc37c3733ea85f",
+      "log_sha256": "81361a6faf68fff3aef62f9f52a65b34b507b9df1eb05fdbc607bb3d6bcfef04"
+    }
+  ],
+  "unwind_runs": [
+    {
+      "fixture": {
+        "name": "rotate-spilled-24",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/rotate-spilled-24.ll",
+        "sha256": "2e200b8cd5c00601b3036fafa30cffcba4ff2a5b3391f1a0b4bfe5600592d959",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "7b7fbebb34c78b6a84b79e016eb2c3fa1b19251c8f4b5752c9ba500158b0f220",
+      "log_sha256": "cf6ce879a5ff2d171af87e76a88428d17a461fcb02e752b3d91a8cee395bfa4c",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-direct",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/grow-shrink-direct.ll",
+        "sha256": "52816349db6c744b6aa3f680119fcd120d03922b215c88303a9b2b4d5cfebda9",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "05c52712fd9cfc6960a6b984d9b4e1d7731040ab8a56318ff9e7b13447906038",
+      "log_sha256": "cf6ce879a5ff2d171af87e76a88428d17a461fcb02e752b3d91a8cee395bfa4c",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-indirect",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/grow-shrink-indirect.ll",
+        "sha256": "35b4332227ea1ac34847318890e6cbf8492128bb30f77027d2916d074bfb61ec",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "9d5f6863ccfa29a7ff2d4cdc4d082bc0b7ac29662f00f1da5840cef46f6ddfcc",
+      "log_sha256": "cf6ce879a5ff2d171af87e76a88428d17a461fcb02e752b3d91a8cee395bfa4c",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-direct",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/mixed-spills-31-results-direct.ll",
+        "sha256": "c11c6ecfb6a4b65850bb640479d608e923f095882c9e98882eeb1e5bebe447d1",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "0866b49bb03fe5aa31df325f9e16bf57cf9f73b6d3c013ca744b291efc2b3db7",
+      "log_sha256": "cf6ce879a5ff2d171af87e76a88428d17a461fcb02e752b3d91a8cee395bfa4c",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-indirect",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/mixed-spills-31-results-indirect.ll",
+        "sha256": "6d8524db1b001c53ade8aba31b5dc33b541b7daaa3322e0b86b0e6c0a6cc6a36",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "3f740068069ace10a92719ccaf3b46b14aa7dbeac1a3e1eb20aa741d4d289c22",
+      "log_sha256": "cf6ce879a5ff2d171af87e76a88428d17a461fcb02e752b3d91a8cee395bfa4c",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "ordinary-tailcc-stack-calls",
+        "tail_edges": 8000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/ordinary-tailcc-stack-calls.ll",
+        "sha256": "a62d15692a08004fb60a5f3f3ad94b8da29f28a4d74dc3037ef498820d58e19f",
+        "stack_span_limit_bytes": 4096,
+        "ordinary_tailcc_calls": 2,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "cec062c4cc7fc77e1e177bb8f0aacf669ec7bf48c2bc0c5d575350deecae3c20",
+      "log_sha256": "82d3e7892c487a52b38409e4f0140bf76ad06ca1087c648a517d57a3c3e33b7c",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/rotate-spilled-24.ll",
+        "sha256": "2e200b8cd5c00601b3036fafa30cffcba4ff2a5b3391f1a0b4bfe5600592d959",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "7b7fbebb34c78b6a84b79e016eb2c3fa1b19251c8f4b5752c9ba500158b0f220",
+      "log_sha256": "4598ddd8c257000f2612091e48fbdfb544091b147d04a86d708cc316d0f93af6",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-direct",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/grow-shrink-direct.ll",
+        "sha256": "52816349db6c744b6aa3f680119fcd120d03922b215c88303a9b2b4d5cfebda9",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "05c52712fd9cfc6960a6b984d9b4e1d7731040ab8a56318ff9e7b13447906038",
+      "log_sha256": "4598ddd8c257000f2612091e48fbdfb544091b147d04a86d708cc316d0f93af6",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-indirect",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/grow-shrink-indirect.ll",
+        "sha256": "35b4332227ea1ac34847318890e6cbf8492128bb30f77027d2916d074bfb61ec",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "9d5f6863ccfa29a7ff2d4cdc4d082bc0b7ac29662f00f1da5840cef46f6ddfcc",
+      "log_sha256": "4598ddd8c257000f2612091e48fbdfb544091b147d04a86d708cc316d0f93af6",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-direct",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/mixed-spills-31-results-direct.ll",
+        "sha256": "c11c6ecfb6a4b65850bb640479d608e923f095882c9e98882eeb1e5bebe447d1",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "0866b49bb03fe5aa31df325f9e16bf57cf9f73b6d3c013ca744b291efc2b3db7",
+      "log_sha256": "4598ddd8c257000f2612091e48fbdfb544091b147d04a86d708cc316d0f93af6",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-indirect",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/mixed-spills-31-results-indirect.ll",
+        "sha256": "6d8524db1b001c53ade8aba31b5dc33b541b7daaa3322e0b86b0e6c0a6cc6a36",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "3f740068069ace10a92719ccaf3b46b14aa7dbeac1a3e1eb20aa741d4d289c22",
+      "log_sha256": "4598ddd8c257000f2612091e48fbdfb544091b147d04a86d708cc316d0f93af6",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "ordinary-tailcc-stack-calls",
+        "tail_edges": 8000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/ordinary-tailcc-stack-calls.ll",
+        "sha256": "a62d15692a08004fb60a5f3f3ad94b8da29f28a4d74dc3037ef498820d58e19f",
+        "stack_span_limit_bytes": 4096,
+        "ordinary_tailcc_calls": 2,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "cec062c4cc7fc77e1e177bb8f0aacf669ec7bf48c2bc0c5d575350deecae3c20",
+      "log_sha256": "64cf2ec6c145204bdc8d98d045e7d9358c4b2fbf4543ba6e7ea72d4020071089",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/rotate-spilled-24.ll",
+        "sha256": "2e200b8cd5c00601b3036fafa30cffcba4ff2a5b3391f1a0b4bfe5600592d959",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "ac1a10fc276e98c8752be93f24750482f4e6ccc5b7b23aa71dae77822bbba666",
+      "log_sha256": "7cccd7e06b996ecfc78843aba66d04bed1835168ad82057352dc7e82bc638a13",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-direct",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/grow-shrink-direct.ll",
+        "sha256": "52816349db6c744b6aa3f680119fcd120d03922b215c88303a9b2b4d5cfebda9",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "a7dc1cc9a83344e74258d0d626a4f86e92794b8c7b11375c5cb56ee38e117e0d",
+      "log_sha256": "7cccd7e06b996ecfc78843aba66d04bed1835168ad82057352dc7e82bc638a13",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-indirect",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/grow-shrink-indirect.ll",
+        "sha256": "35b4332227ea1ac34847318890e6cbf8492128bb30f77027d2916d074bfb61ec",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "2b07642dbab5906892658ae7e16fa7be3d8578210e7d1bbfbbfb979c0560787d",
+      "log_sha256": "7cccd7e06b996ecfc78843aba66d04bed1835168ad82057352dc7e82bc638a13",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-direct",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/mixed-spills-31-results-direct.ll",
+        "sha256": "c11c6ecfb6a4b65850bb640479d608e923f095882c9e98882eeb1e5bebe447d1",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "80dade691ca65d1107c808888f8d0f4e958414fd57eb9578b75696cb2f1d2cc3",
+      "log_sha256": "7cccd7e06b996ecfc78843aba66d04bed1835168ad82057352dc7e82bc638a13",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-indirect",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/mixed-spills-31-results-indirect.ll",
+        "sha256": "6d8524db1b001c53ade8aba31b5dc33b541b7daaa3322e0b86b0e6c0a6cc6a36",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "839b4470ee48962bfac08aebcb79b018cd20323609bc9aeb1370eaa2c4f23a16",
+      "log_sha256": "7cccd7e06b996ecfc78843aba66d04bed1835168ad82057352dc7e82bc638a13",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "ordinary-tailcc-stack-calls",
+        "tail_edges": 8000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/ordinary-tailcc-stack-calls.ll",
+        "sha256": "a62d15692a08004fb60a5f3f3ad94b8da29f28a4d74dc3037ef498820d58e19f",
+        "stack_span_limit_bytes": 4096,
+        "ordinary_tailcc_calls": 2,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "6848b8a0a5955d9413b614e49a3ea3b9f82e3e030a970bb6b6007bcbbf6fb948",
+      "log_sha256": "ecb098540834148a62975d625929e8e6c9a81ce7e707e35c620c50409fe2c6de",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/rotate-spilled-24.ll",
+        "sha256": "2e200b8cd5c00601b3036fafa30cffcba4ff2a5b3391f1a0b4bfe5600592d959",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "7b7fbebb34c78b6a84b79e016eb2c3fa1b19251c8f4b5752c9ba500158b0f220",
+      "log_sha256": "73f51df739eb46685bc098ce4e86c2049d9862f1866accab631458748aa428bc",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-direct",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/grow-shrink-direct.ll",
+        "sha256": "52816349db6c744b6aa3f680119fcd120d03922b215c88303a9b2b4d5cfebda9",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "05c52712fd9cfc6960a6b984d9b4e1d7731040ab8a56318ff9e7b13447906038",
+      "log_sha256": "73f51df739eb46685bc098ce4e86c2049d9862f1866accab631458748aa428bc",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-indirect",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/grow-shrink-indirect.ll",
+        "sha256": "35b4332227ea1ac34847318890e6cbf8492128bb30f77027d2916d074bfb61ec",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "9d5f6863ccfa29a7ff2d4cdc4d082bc0b7ac29662f00f1da5840cef46f6ddfcc",
+      "log_sha256": "73f51df739eb46685bc098ce4e86c2049d9862f1866accab631458748aa428bc",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-direct",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/mixed-spills-31-results-direct.ll",
+        "sha256": "c11c6ecfb6a4b65850bb640479d608e923f095882c9e98882eeb1e5bebe447d1",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "0866b49bb03fe5aa31df325f9e16bf57cf9f73b6d3c013ca744b291efc2b3db7",
+      "log_sha256": "73f51df739eb46685bc098ce4e86c2049d9862f1866accab631458748aa428bc",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-indirect",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/mixed-spills-31-results-indirect.ll",
+        "sha256": "6d8524db1b001c53ade8aba31b5dc33b541b7daaa3322e0b86b0e6c0a6cc6a36",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "3f740068069ace10a92719ccaf3b46b14aa7dbeac1a3e1eb20aa741d4d289c22",
+      "log_sha256": "73f51df739eb46685bc098ce4e86c2049d9862f1866accab631458748aa428bc",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "ordinary-tailcc-stack-calls",
+        "tail_edges": 8000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/ordinary-tailcc-stack-calls.ll",
+        "sha256": "a62d15692a08004fb60a5f3f3ad94b8da29f28a4d74dc3037ef498820d58e19f",
+        "stack_span_limit_bytes": 4096,
+        "ordinary_tailcc_calls": 2,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "cec062c4cc7fc77e1e177bb8f0aacf669ec7bf48c2bc0c5d575350deecae3c20",
+      "log_sha256": "4a44719c5d4d3e00de1d436a6f2e10a4dc4134a280ed8162f7e67e16d1d0992b",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/rotate-spilled-24.ll",
+        "sha256": "2e200b8cd5c00601b3036fafa30cffcba4ff2a5b3391f1a0b4bfe5600592d959",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "7b7fbebb34c78b6a84b79e016eb2c3fa1b19251c8f4b5752c9ba500158b0f220",
+      "log_sha256": "06e3329046d5ad7fcbb884b5c2386c6053f115c67d775a9c46ad5994066eecc4",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-direct",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/grow-shrink-direct.ll",
+        "sha256": "52816349db6c744b6aa3f680119fcd120d03922b215c88303a9b2b4d5cfebda9",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "05c52712fd9cfc6960a6b984d9b4e1d7731040ab8a56318ff9e7b13447906038",
+      "log_sha256": "06e3329046d5ad7fcbb884b5c2386c6053f115c67d775a9c46ad5994066eecc4",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-indirect",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/grow-shrink-indirect.ll",
+        "sha256": "35b4332227ea1ac34847318890e6cbf8492128bb30f77027d2916d074bfb61ec",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "9d5f6863ccfa29a7ff2d4cdc4d082bc0b7ac29662f00f1da5840cef46f6ddfcc",
+      "log_sha256": "06e3329046d5ad7fcbb884b5c2386c6053f115c67d775a9c46ad5994066eecc4",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-direct",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/mixed-spills-31-results-direct.ll",
+        "sha256": "c11c6ecfb6a4b65850bb640479d608e923f095882c9e98882eeb1e5bebe447d1",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "0866b49bb03fe5aa31df325f9e16bf57cf9f73b6d3c013ca744b291efc2b3db7",
+      "log_sha256": "06e3329046d5ad7fcbb884b5c2386c6053f115c67d775a9c46ad5994066eecc4",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-indirect",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/mixed-spills-31-results-indirect.ll",
+        "sha256": "6d8524db1b001c53ade8aba31b5dc33b541b7daaa3322e0b86b0e6c0a6cc6a36",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "3f740068069ace10a92719ccaf3b46b14aa7dbeac1a3e1eb20aa741d4d289c22",
+      "log_sha256": "06e3329046d5ad7fcbb884b5c2386c6053f115c67d775a9c46ad5994066eecc4",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "ordinary-tailcc-stack-calls",
+        "tail_edges": 8000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/ordinary-tailcc-stack-calls.ll",
+        "sha256": "a62d15692a08004fb60a5f3f3ad94b8da29f28a4d74dc3037ef498820d58e19f",
+        "stack_span_limit_bytes": 4096,
+        "ordinary_tailcc_calls": 2,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "cec062c4cc7fc77e1e177bb8f0aacf669ec7bf48c2bc0c5d575350deecae3c20",
+      "log_sha256": "1d99d8ecede659e2af4ec76ca9e5ef02396d8c5302843c92afe7fd07fec24770",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/rotate-spilled-24.ll",
+        "sha256": "2e200b8cd5c00601b3036fafa30cffcba4ff2a5b3391f1a0b4bfe5600592d959",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "ac1a10fc276e98c8752be93f24750482f4e6ccc5b7b23aa71dae77822bbba666",
+      "log_sha256": "0218d70544f02923b63cd898a5d0a0fa4e81b95a438e1650e1b3feaad70f6100",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-direct",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/grow-shrink-direct.ll",
+        "sha256": "52816349db6c744b6aa3f680119fcd120d03922b215c88303a9b2b4d5cfebda9",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "a7dc1cc9a83344e74258d0d626a4f86e92794b8c7b11375c5cb56ee38e117e0d",
+      "log_sha256": "0218d70544f02923b63cd898a5d0a0fa4e81b95a438e1650e1b3feaad70f6100",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "grow-shrink-indirect",
+        "tail_edges": 4000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/grow-shrink-indirect.ll",
+        "sha256": "35b4332227ea1ac34847318890e6cbf8492128bb30f77027d2916d074bfb61ec",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "2b07642dbab5906892658ae7e16fa7be3d8578210e7d1bbfbbfb979c0560787d",
+      "log_sha256": "0218d70544f02923b63cd898a5d0a0fa4e81b95a438e1650e1b3feaad70f6100",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-direct",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/mixed-spills-31-results-direct.ll",
+        "sha256": "c11c6ecfb6a4b65850bb640479d608e923f095882c9e98882eeb1e5bebe447d1",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "80dade691ca65d1107c808888f8d0f4e958414fd57eb9578b75696cb2f1d2cc3",
+      "log_sha256": "0218d70544f02923b63cd898a5d0a0fa4e81b95a438e1650e1b3feaad70f6100",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "mixed-spills-31-results-indirect",
+        "tail_edges": 4000000,
+        "checked_parameter_bits": 240,
+        "checked_result_fields": 31,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/mixed-spills-31-results-indirect.ll",
+        "sha256": "6d8524db1b001c53ade8aba31b5dc33b541b7daaa3322e0b86b0e6c0a6cc6a36",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "839b4470ee48962bfac08aebcb79b018cd20323609bc9aeb1370eaa2c4f23a16",
+      "log_sha256": "0218d70544f02923b63cd898a5d0a0fa4e81b95a438e1650e1b3feaad70f6100",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "ordinary-tailcc-stack-calls",
+        "tail_edges": 8000000,
+        "checked_fields": 23,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/ordinary-tailcc-stack-calls.ll",
+        "sha256": "a62d15692a08004fb60a5f3f3ad94b8da29f28a4d74dc3037ef498820d58e19f",
+        "stack_span_limit_bytes": 4096,
+        "ordinary_tailcc_calls": 2,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "tail-calls",
+      "ownership": "dso-local",
+      "object_sha256": "6848b8a0a5955d9413b614e49a3ea3b9f82e3e030a970bb6b6007bcbbf6fb948",
+      "log_sha256": "4c926efb009de1b4ae79c3d1e47a5ed385301156c4a183217589f9e167fc0eed",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24-c-compatible",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/rotate-spilled-24-c-compatible.ll",
+        "sha256": "bca06a20346f3634e2a0a15374d2bb7b73acdea56fe8892c919cf3c48dc93ee3",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O1",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "735cf751fcc171b719a051685bae112573c917c1ba1deaa857dbb9a4591d99d7",
+      "log_sha256": "cf6ce879a5ff2d171af87e76a88428d17a461fcb02e752b3d91a8cee395bfa4c",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24-c-compatible",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/rotate-spilled-24-c-compatible.ll",
+        "sha256": "bca06a20346f3634e2a0a15374d2bb7b73acdea56fe8892c919cf3c48dc93ee3",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O2",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "735cf751fcc171b719a051685bae112573c917c1ba1deaa857dbb9a4591d99d7",
+      "log_sha256": "4598ddd8c257000f2612091e48fbdfb544091b147d04a86d708cc316d0f93af6",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    },
+    {
+      "fixture": {
+        "name": "rotate-spilled-24-c-compatible",
+        "tail_edges": 2000000,
+        "checked_fields": 24,
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tail-unwind-r1/native/fixtures/rotate-spilled-24-c-compatible.ll",
+        "sha256": "bca06a20346f3634e2a0a15374d2bb7b73acdea56fe8892c919cf3c48dc93ee3",
+        "stack_span_limit_bytes": 4096,
+        "real_jit_unwind_probe": true
+      },
+      "codegen": "O3",
+      "policy": "default",
+      "ownership": "dso-local",
+      "object_sha256": "44a1b5199532d0dda5507bc8de7be2b47db982e82f898d484fdbb661a7254f38",
+      "log_sha256": "7cccd7e06b996ecfc78843aba66d04bed1835168ad82057352dc7e82bc638a13",
+      "actual_JIT_frames": 2,
+      "strictly_increasing_CFA": true
+    }
+  ],
+  "scope": {
+    "floating_point_and_SIMD_parameter_bits_preserved": true,
+    "direct_and_indirect_tail_transfer": true,
+    "incoming_argument_area_grow_and_shrink": true,
+    "ordinary_tailcc_stack_calls": true,
+    "actual_executed_objects_inspected": true,
+    "Wasm_frontend_execution_qualified": false,
+    "ROS12_SDK_qualified": false,
+    "signed_cache_qualified": false,
+    "all_Core3_qualified": false,
+    "other_MIPS_ABI_qualified": false,
+    "hardware_speed_qualified": false
+  }
+}

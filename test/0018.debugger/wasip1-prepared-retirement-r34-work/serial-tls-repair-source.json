@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "fixtures": [
+    {
+      "path": "uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc",
+      "before_sha256": "65894dbe9281f45c5aab3bcd29abeace940dbda74e4cfc73a196236718ac482e",
+      "after_sha256": "b8f565e0c85f2266b8a828453e498b67244350d0ccd76c8e83f79fe2c35b461c"
+    },
+    {
+      "path": "uwvm2/test/0017.runtime/debug_checkpoint_native_cohort_retirement_runtime.cc",
+      "before_sha256": "9cce277f762695ba29e1eca4da87aeedeef8c5b51b543c8a18a47ea8aef0236d",
+      "after_sha256": "5d9732d51e2154ef7c2ed997a08ba82e12a46a03ceb32c5465c45c46d26afbd9"
+    },
+    {
+      "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc",
+      "before_sha256": "65894dbe9281f45c5aab3bcd29abeace940dbda74e4cfc73a196236718ac482e",
+      "after_sha256": "b8f565e0c85f2266b8a828453e498b67244350d0ccd76c8e83f79fe2c35b461c"
+    },
+    {
+      "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_native_cohort_retirement_runtime.cc",
+      "before_sha256": "9cce277f762695ba29e1eca4da87aeedeef8c5b51b543c8a18a47ea8aef0236d",
+      "after_sha256": "5d9732d51e2154ef7c2ed997a08ba82e12a46a03ceb32c5465c45c46d26afbd9"
+    }
+  ],
+  "production_source_unchanged": true,
+  "original_twenty_second_deadlines_unchanged": true,
+  "both_tls_destructors_and_actual_joins_required": true,
+  "additional_partial_tls_exit_must_keep_admission_closed": true
+}

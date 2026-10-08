@@ -1,0 +1,171 @@
+[
+  {
+    "label": "archive-linux-integrated-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r34.py",
+      "joint-archive-r34",
+      "linux-integrated",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 181.37798104099784
+  },
+  {
+    "label": "linux-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-linux-r34.py",
+      "joint-linux-r34",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 471.97714287500276
+  },
+  {
+    "label": "archive-linux-integrated-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r34.py",
+      "joint-archive-r34",
+      "linux-integrated",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 162.1893073329993
+  },
+  {
+    "label": "cross-windows-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r34.py",
+      "joint-cross-r34",
+      "windows",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 322.1954837500016
+  },
+  {
+    "label": "object-cache-retire-windows-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-object-cache-retire-r34.py",
+      "joint-object-cache-retire-r34",
+      "windows",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 64.6670652909961
+  },
+  {
+    "label": "vm-windows-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r34.py",
+      "joint-vm-r34",
+      "windows",
+      "uwvm2"
+    ],
+    "exit": 1,
+    "seconds": 2.536048583999218
+  },
+  {
+    "label": "executable-cache-retire-windows-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-executable-cache-retire-r34.py",
+      "joint-executable-cache-retire-r34",
+      "windows",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 147.6458152080013
+  },
+  {
+    "label": "vm-windows-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r34.py",
+      "joint-vm-r34",
+      "windows",
+      "uwvm2"
+    ],
+    "exit": 1,
+    "seconds": 233.76902558399888
+  },
+  {
+    "label": "vm-windows-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r34.py",
+      "joint-vm-r34",
+      "windows",
+      "uwvm2"
+    ],
+    "exit": 1,
+    "seconds": 357.02299716599373
+  },
+  {
+    "label": "vm-windows-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r34.py",
+      "joint-vm-r34",
+      "windows",
+      "uwvm2"
+    ],
+    "exit": 1,
+    "seconds": 603.7792555000051
+  }
+]

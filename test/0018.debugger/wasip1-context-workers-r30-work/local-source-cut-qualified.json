@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "files": 8771,
+  "manifest_sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848",
+  "source_archive_sha256": "bcbfba7bfe80b841676d35c9dbbd294ac00497faab9ccad1432ac6cddf54a1e9",
+  "all_payloads_read_back": true,
+  "remote_directory": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30",
+  "changed_from_r29": 220
+}

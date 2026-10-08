@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/cold-relocated-r38/source-initializer-r38-evidence.tar.gz",
+  "archive_sha256": "0926003c02be33c787eff2a7ba4055cb134350a5e5b745aa3f64295849b48d48",
+  "member_count": 418,
+  "complete_members_read_back": true,
+  "local_archive_qualification_sha256": "71a53fa70835d5c4cb68b9e38676ab8b74a2a3bcac75647cf475744472279239",
+  "source_manifest_sha256": "66df07eb515611f63a0449020de6725c371fabbfe93409a098223b59b3395852",
+  "linux_native_cases": 24,
+  "fresh_native_cases": 14,
+  "reused_unchanged_native_cases": 10,
+  "full_world_restoration": false,
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+}

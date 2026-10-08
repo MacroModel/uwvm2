@@ -1,0 +1,1069 @@
+{
+  "schema": "uwvm-native-finish-aarch64-qualification-v1",
+  "scope": "Linux little-endian LP64 AArch64, exact QEMU prefix, both full LLVM products, instruction/unwind policies; Wasm owners only",
+  "tested_source_identities": {
+    "uwvm2": "sha256:ef43d25fac91b618c7d34010e34dfd4cc63b978b1ffc272c7a2ffae04cc32111",
+    "uwvm2-ros": "sha256:2b452d969aa9f793e3d61d2942c49936b1b4c40c96784c12160b046fe7c0c62b"
+  },
+  "source_root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/source-current182",
+  "source_manifest_sha256": "7ee0e325e4223df7a65e7aeb7d24f96dfbff99b0e90e9ea6fa4c34fdf333c80f",
+  "source_file_count": 8050,
+  "actual_dependency_inputs": 3777,
+  "verified_inputs": 4921,
+  "real_VM_sessions": 52,
+  "real_non_CLI_VM_sessions": 48,
+  "real_CLI_sessions": 4,
+  "real_finish_fixture_sessions": 20,
+  "real_physical_return_hops": 28,
+  "deep_recursion": 70,
+  "deep_finish": [
+    {
+      "label": "uwvm2-debug_native_finish_console-debug_native_finish_console_deep_stack_arguments-instruction-recursive-running",
+      "wrong_SP_hits": 69,
+      "real_successor_hits": 69
+    },
+    {
+      "label": "uwvm2-debug_native_finish_console-debug_native_finish_console_deep_stack_arguments-unwind-recursive-running",
+      "wrong_SP_hits": 69,
+      "real_successor_hits": 69
+    },
+    {
+      "label": "uwvm2-ros-debug_native_finish_console-debug_native_finish_console_deep_stack_arguments-instruction-recursive-running",
+      "wrong_SP_hits": 69,
+      "real_successor_hits": 69
+    },
+    {
+      "label": "uwvm2-ros-debug_native_finish_console-debug_native_finish_console_deep_stack_arguments-unwind-recursive-running",
+      "wrong_SP_hits": 69,
+      "real_successor_hits": 69
+    }
+  ],
+  "CFI_target_metadata_executions": 6,
+  "A64_MC_window_DATA_executions": 2,
+  "full_interpreter": false,
+  "full_LLVM_JIT": true,
+  "ROS_basic_modes_added": false,
+  "public_native_stack_bytes": 0,
+  "qemu_prefix": [
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu/usr/bin/qemu-aarch64",
+    "-U",
+    "LD_LIBRARY_PATH",
+    "-E",
+    "LD_LIBRARY_PATH=/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current2/build-meta/work/deps/usr/aarch64-linux-gnu/lib:/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current2/build-meta/work/deps/usr/lib/aarch64-linux-gnu:/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current2/build-meta/work/deps/usr/lib/gcc-cross/aarch64-linux-gnu/15",
+    "-L",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current2/build-meta/work/deps/usr/aarch64-linux-gnu"
+  ],
+  "limits": [
+    "Exact Linux GNU little-endian LP64 AArch64 QEMU prefix; real ARM hardware and alternate guest_base not qualified",
+    "Signed PAuth LR rows decline; SVE/SME/public frame registers/native stack reads are not granted",
+    "Full INT, all other ISAs, all Wasm Core3 combinations, language debugging and checkpoints are separate scopes"
+  ],
+  "qualified_linux_root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263",
+  "full_proof": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current221/build-meta/QUALIFIED221.json",
+  "full_proof_sha256": "d151f0b4cfba821e1abc17b4c34ce6a72f054e5964b00f8f0251aed76e259190",
+  "sdk_build_sha256": "a0f5cad495b1cda02be19b43445abe30935d32aaa4c185c7eacc2574440f4505",
+  "sdk_version": {
+    "version": "23.1.1-uwvm-ros.11",
+    "host_target": "aarch64-linux-gnu"
+  },
+  "sdk_ELF_machine": 183,
+  "sdk_ELF_members": 1663,
+  "sdk_vendor_source_pins": 12874,
+  "physical_caller_sessions": [
+    {
+      "label": "uwvm2-debug_native_physical_caller_runtime-debug_native_physical_caller_runtime-instruction-shallow",
+      "counters": {
+        "physical": "34",
+        "recursive": "19",
+        "host-refused": "2",
+        "stale-refused": "36",
+        "boundary-refused": "0",
+        "replacement-callers": "4",
+        "multiple": "23",
+        "complete": "34",
+        "bounded": "0",
+        "maximum-depth": "4",
+        "result": "14",
+        "return-proofs": "34",
+        "return-refused": "2",
+        "return-alias-refused": "102",
+        "return-stale-refused": "36",
+        "return-advanced-refused": "34",
+        "return-fresh-after-step": "34",
+        "resume-committed": "34",
+        "resume-retained": "34",
+        "resume-rollback": "34",
+        "resume-refused": "281",
+        "resume-reentry-refused": "102",
+        "public-native-stack-bytes": "0"
+      }
+    },
+    {
+      "label": "uwvm2-debug_native_physical_caller_runtime-debug_native_physical_caller_runtime-unwind-shallow",
+      "counters": {
+        "physical": "34",
+        "recursive": "19",
+        "host-refused": "2",
+        "stale-refused": "36",
+        "boundary-refused": "0",
+        "replacement-callers": "4",
+        "multiple": "23",
+        "complete": "34",
+        "bounded": "0",
+        "maximum-depth": "4",
+        "result": "14",
+        "return-proofs": "34",
+        "return-refused": "2",
+        "return-alias-refused": "102",
+        "return-stale-refused": "36",
+        "return-advanced-refused": "34",
+        "return-fresh-after-step": "34",
+        "resume-committed": "34",
+        "resume-retained": "34",
+        "resume-rollback": "34",
+        "resume-refused": "281",
+        "resume-reentry-refused": "102",
+        "public-native-stack-bytes": "0"
+      }
+    },
+    {
+      "label": "uwvm2-debug_native_physical_caller_runtime-debug_native_physical_caller_large_runtime-instruction-deep",
+      "counters": {
+        "physical": "442",
+        "recursive": "427",
+        "host-refused": "3",
+        "stale-refused": "445",
+        "boundary-refused": "0",
+        "replacement-callers": "4",
+        "multiple": "431",
+        "complete": "383",
+        "bounded": "59",
+        "maximum-depth": "32",
+        "result": "48",
+        "return-proofs": "442",
+        "return-refused": "3",
+        "return-alias-refused": "1326",
+        "return-stale-refused": "445",
+        "return-advanced-refused": "442",
+        "return-fresh-after-step": "442",
+        "resume-committed": "442",
+        "resume-retained": "442",
+        "resume-rollback": "442",
+        "resume-refused": "3549",
+        "resume-reentry-refused": "1326",
+        "public-native-stack-bytes": "0"
+      }
+    },
+    {
+      "label": "uwvm2-debug_native_physical_caller_runtime-debug_native_physical_caller_large_runtime-unwind-deep",
+      "counters": {
+        "physical": "385",
+        "recursive": "370",
+        "host-refused": "2",
+        "stale-refused": "387",
+        "boundary-refused": "0",
+        "replacement-callers": "4",
+        "multiple": "374",
+        "complete": "326",
+        "bounded": "59",
+        "maximum-depth": "32",
+        "result": "48",
+        "return-proofs": "385",
+        "return-refused": "2",
+        "return-alias-refused": "1155",
+        "return-stale-refused": "387",
+        "return-advanced-refused": "385",
+        "return-fresh-after-step": "385",
+        "resume-committed": "385",
+        "resume-retained": "385",
+        "resume-rollback": "385",
+        "resume-refused": "3089",
+        "resume-reentry-refused": "1155",
+        "public-native-stack-bytes": "0"
+      }
+    },
+    {
+      "label": "uwvm2-ros-debug_native_physical_caller_runtime-debug_native_physical_caller_runtime-instruction-shallow",
+      "counters": {
+        "physical": "34",
+        "recursive": "19",
+        "host-refused": "2",
+        "stale-refused": "36",
+        "boundary-refused": "0",
+        "replacement-callers": "4",
+        "multiple": "23",
+        "complete": "34",
+        "bounded": "0",
+        "maximum-depth": "4",
+        "result": "14",
+        "return-proofs": "34",
+        "return-refused": "2",
+        "return-alias-refused": "102",
+        "return-stale-refused": "36",
+        "return-advanced-refused": "34",
+        "return-fresh-after-step": "34",
+        "resume-committed": "34",
+        "resume-retained": "34",
+        "resume-rollback": "34",
+        "resume-refused": "281",
+        "resume-reentry-refused": "102",
+        "public-native-stack-bytes": "0"
+      }
+    },
+    {
+      "label": "uwvm2-ros-debug_native_physical_caller_runtime-debug_native_physical_caller_runtime-unwind-shallow",
+      "counters": {
+        "physical": "34",
+        "recursive": "19",
+        "host-refused": "2",
+        "stale-refused": "36",
+        "boundary-refused": "0",
+        "replacement-callers": "4",
+        "multiple": "23",
+        "complete": "34",
+        "bounded": "0",
+        "maximum-depth": "4",
+        "result": "14",
+        "return-proofs": "34",
+        "return-refused": "2",
+        "return-alias-refused": "102",
+        "return-stale-refused": "36",
+        "return-advanced-refused": "34",
+        "return-fresh-after-step": "34",
+        "resume-committed": "34",
+        "resume-retained": "34",
+        "resume-rollback": "34",
+        "resume-refused": "281",
+        "resume-reentry-refused": "102",
+        "public-native-stack-bytes": "0"
+      }
+    },
+    {
+      "label": "uwvm2-ros-debug_native_physical_caller_runtime-debug_native_physical_caller_large_runtime-instruction-deep",
+      "counters": {
+        "physical": "442",
+        "recursive": "427",
+        "host-refused": "2",
+        "stale-refused": "444",
+        "boundary-refused": "0",
+        "replacement-callers": "4",
+        "multiple": "431",
+        "complete": "383",
+        "bounded": "59",
+        "maximum-depth": "32",
+        "result": "48",
+        "return-proofs": "442",
+        "return-refused": "2",
+        "return-alias-refused": "1326",
+        "return-stale-refused": "444",
+        "return-advanced-refused": "442",
+        "return-fresh-after-step": "442",
+        "resume-committed": "442",
+        "resume-retained": "442",
+        "resume-rollback": "442",
+        "resume-refused": "3545",
+        "resume-reentry-refused": "1326",
+        "public-native-stack-bytes": "0"
+      }
+    },
+    {
+      "label": "uwvm2-ros-debug_native_physical_caller_runtime-debug_native_physical_caller_large_runtime-unwind-deep",
+      "counters": {
+        "physical": "442",
+        "recursive": "427",
+        "host-refused": "2",
+        "stale-refused": "444",
+        "boundary-refused": "0",
+        "replacement-callers": "4",
+        "multiple": "431",
+        "complete": "383",
+        "bounded": "59",
+        "maximum-depth": "32",
+        "result": "48",
+        "return-proofs": "442",
+        "return-refused": "2",
+        "return-alias-refused": "1326",
+        "return-stale-refused": "444",
+        "return-advanced-refused": "442",
+        "return-fresh-after-step": "442",
+        "resume-committed": "442",
+        "resume-retained": "442",
+        "resume-rollback": "442",
+        "resume-refused": "3545",
+        "resume-reentry-refused": "1326",
+        "public-native-stack-bytes": "0"
+      }
+    }
+  ],
+  "runtime_qualification_scope": "Actual Wasm full LLVM execution. Six CFI metadata runs and two MC DATA runs are separate counts. Physical-caller contained instruction wakes are not finish events.",
+  "completed_command_scope_revalidation": {
+    "failed_parent_batches": [
+      191,
+      209
+    ],
+    "independent_validation_batch": 217,
+    "ordinary_VM_sessions": 16,
+    "ROS_VM_sessions": 16,
+    "all_source_dependency_ELF_log_executable_history_original_cgroup_and_PIDFD_checks_passed": true,
+    "parent191_failure": "Obsolete default --help alias assertion; --help all checked freshly",
+    "parent209_failure": "Python summary Path/string concatenation after actual runtime and help/version scopes passed",
+    "default_help_is_only_a_recorded_process_observation": true
+  },
+  "receipts": {
+    "191": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current191/build-meta/complete-evidence/receipt.json",
+      "sha256": "2d0a4d31a44a689f27d165233dbfd769a59838bdb6923e83f5e6647beb03d058",
+      "passed": false,
+      "rss_peak_bytes": 3904782336,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "resource_peak": {
+        "own_folder": 2121388032,
+        "shared_folder": 29014503424,
+        "group_memory": 51436027904
+      },
+      "qualified_boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8"
+    },
+    "209": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current209/build-meta/complete-evidence/receipt.json",
+      "sha256": "70da184694cc2292fc6e8216113804c96881f1ce5b1d69364615e82ae7a96544",
+      "passed": false,
+      "rss_peak_bytes": 4318027776,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "resource_peak": {
+        "own_folder": 2520260608,
+        "shared_folder": 29784059904,
+        "group_memory": 44472147968
+      },
+      "qualified_boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8"
+    },
+    "217": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current217/build-meta/complete-evidence/receipt.json",
+      "sha256": "ef1a9f272d1dfa47fe5eb77fb1b2cdf3a89651d643685b08d58b2394706eeb63",
+      "passed": true,
+      "rss_peak_bytes": 27652096,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "resource_peak": {
+        "own_folder": 2558058496,
+        "shared_folder": 29793746944,
+        "group_memory": 40809320448
+      },
+      "qualified_boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8"
+    },
+    "218": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current218/build-meta/complete-evidence/receipt.json",
+      "sha256": "edcbb215261e0c94d4aad05f816f889c1046652245392f22d10247e61da399c3",
+      "passed": true,
+      "rss_peak_bytes": 3290574848,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "resource_peak": {
+        "own_folder": 2707775488,
+        "shared_folder": 29943492608,
+        "group_memory": 44923502592
+      },
+      "qualified_boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8"
+    },
+    "219": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current219/build-meta/complete-evidence/receipt.json",
+      "sha256": "06252c143929cb9dccdaed76c05ffa058174b75af1580475a125f702e407def4",
+      "passed": true,
+      "rss_peak_bytes": 187506688,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "resource_peak": {
+        "own_folder": 2560065536,
+        "shared_folder": 29795741696,
+        "group_memory": 41006379008
+      },
+      "qualified_boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8"
+    },
+    "220": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current220/build-meta/complete-evidence/receipt.json",
+      "sha256": "042015d3ada5b27a0eb95e46fe1c8c21a17f0dd991c3faae4a086ca804ca6f26",
+      "passed": true,
+      "rss_peak_bytes": 3328831488,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "resource_peak": {
+        "own_folder": 2855157760,
+        "shared_folder": 30091145216,
+        "group_memory": 49234849792
+      },
+      "qualified_boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8"
+    },
+    "221": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current221/build-meta/complete-evidence/receipt.json",
+      "sha256": "b17636bbd80a86ff2fb7286330b3b56e8d8d75a78b30766af46b7d3a1a520e29",
+      "passed": true,
+      "rss_peak_bytes": 26906624,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "resource_peak": {
+        "own_folder": 2855170048,
+        "shared_folder": 30092718080,
+        "group_memory": 49253515264
+      },
+      "qualified_boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8"
+    },
+    "223": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current223/build-meta/complete-evidence/receipt.json",
+      "sha256": "6bd1d42d889992253c208a5ed89ee8d8d12d331572576c0f34c3e96a671d4eab",
+      "passed": true,
+      "rss_peak_bytes": 36651008,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "resource_peak": {
+        "own_folder": 2907951104,
+        "shared_folder": 30143942656,
+        "group_memory": 40573771776
+      },
+      "qualified_boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8"
+    },
+    "224": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current224/build-meta/complete-evidence/receipt.json",
+      "sha256": "a5beeec47b3a11770c03e5774f9e14fb8d33ebefa7cfd152224694983d327cbe",
+      "passed": false,
+      "rss_peak_bytes": 36683776,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "resource_peak": {
+        "own_folder": 2907963392,
+        "shared_folder": 30143979520,
+        "group_memory": 40603697152
+      },
+      "qualified_boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8"
+    },
+    "225": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current225/build-meta/complete-evidence/receipt.json",
+      "sha256": "8da0ea5c41a87c45f787f2c77955ec0e229a46afdcc7486216f8648215a08992",
+      "passed": true,
+      "rss_peak_bytes": 57155584,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "resource_peak": {
+        "own_folder": 2909171712,
+        "shared_folder": 30165487616,
+        "group_memory": 40633737216
+      },
+      "qualified_boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8"
+    }
+  },
+  "memory_max_bytes": 68719476736,
+  "memory_swap_max_bytes": 0,
+  "compiler_parallelism": 1,
+  "owned_RSS_budget_bytes": 6442450944,
+  "owned_folder_high_water_bytes": 4294967296,
+  "shared_folder_high_water_bytes": 32212254720,
+  "earlier_failures_preserved": {
+    "126": {
+      "passed": false,
+      "receipt_sha256": "78b50a04209a6c7b6ae9ed4d7a35250bd5b029577696fb89fa71ce13c6e2e1dd",
+      "owner_retired": true
+    },
+    "128": {
+      "passed": false,
+      "receipt_sha256": "3711af7f03fe174e05b7f02b3f416d56a548c4f291ce8c525634bc8f771ddf97",
+      "owner_retired": true
+    },
+    "132": {
+      "passed": false,
+      "receipt_sha256": "583bded5fab88d45c58183c409a6800280e8a51b3ee45220b93e1e7b21b22ca7",
+      "owner_retired": true
+    },
+    "133": {
+      "passed": false,
+      "receipt_sha256": "010c92d272289149d9fa0d3896b5eaa5c79384bc74d484555c1997213b111503",
+      "owner_retired": true
+    },
+    "136": {
+      "passed": false,
+      "receipt_sha256": "436e2144e312c5705bebc2280812babe77e40e171ceab70bc0025734ead02fac",
+      "owner_retired": true
+    },
+    "137": {
+      "passed": false,
+      "receipt_sha256": "99192c81f315d922b88f23034d1d027e7e5822ec272a516e4c1f0821bca78ffa",
+      "owner_retired": true
+    },
+    "138": {
+      "passed": false,
+      "receipt_sha256": "d8c5d87d9822fc2aad515ba0a8abedd1d3422c8b016f20f4cfbc25c7a4b88689",
+      "owner_retired": true
+    },
+    "139": {
+      "passed": false,
+      "receipt_sha256": "22c3026ab5b0c0744438dded8eebdc59a0e558936d7a147dbef7afa3c0b736cd",
+      "owner_retired": true
+    },
+    "140": {
+      "passed": false,
+      "receipt_sha256": "a36fc333bd4184fbb06a1d89cd4d505b508ef12eff5321c09683b7ad703837ea",
+      "owner_retired": true
+    },
+    "141": {
+      "passed": false,
+      "receipt_sha256": "6b9156fbbe44e0a10927016556c57cf12eea62ba1aa427f30dd7e891ce569cdd",
+      "owner_retired": true
+    },
+    "143": {
+      "passed": false,
+      "receipt_sha256": "f4bd20adc6acfbc8d0830ec34e7b424272bbbdd23bf4c1eb71d153f71885b844",
+      "owner_retired": true
+    },
+    "144": {
+      "passed": false,
+      "receipt_sha256": "c6dbe429c7c111a7c9515386a01aaa2258750ef562366c3e91477ccdac95af08",
+      "owner_retired": true
+    },
+    "145": {
+      "passed": false,
+      "receipt_sha256": "748ca522e0964592a5991f3e8c60c1744f2e5abafa6e8b6a8a79feaf7788ae18",
+      "owner_retired": true
+    },
+    "146": {
+      "passed": false,
+      "receipt_sha256": "2f3038722327af99e92dfe007cd77d02116755ff0fd8d0afc23991127e88f981",
+      "owner_retired": true
+    },
+    "148": {
+      "passed": false,
+      "receipt_sha256": "d553a84238e2c253ef1995a3cde24d0d2cfe6e8d75630bc287c0956d0b52dcda",
+      "owner_retired": true
+    },
+    "149": {
+      "passed": false,
+      "receipt_sha256": "d449d95aa91402157a0c905f892ec9c200abb521cca0deb33ecccf5ed854a36e",
+      "owner_retired": true
+    },
+    "150": {
+      "passed": false,
+      "receipt_sha256": "e96c71334df29924c174c089ab51c697e1e0b4546f6210d7f4e00a1c54ff6db7",
+      "owner_retired": true
+    },
+    "151": {
+      "passed": false,
+      "receipt_sha256": "efa9bd9462c327ebbdc6e261bfb96f5230892ccadfd8d958cd47c847bb511d01",
+      "owner_retired": true
+    },
+    "152": {
+      "passed": false,
+      "receipt_sha256": "0ae4ce875e60beccbe70dd40f667065f024496db8d33ac97bc3809e204dad098",
+      "owner_retired": true
+    },
+    "153": {
+      "passed": false,
+      "receipt_sha256": "d0fa92c791e243dcfb35bccbebb96f1cadee6aea53b05f6354eff069ef5b4579",
+      "owner_retired": true
+    },
+    "154": {
+      "passed": false,
+      "receipt_sha256": "62c621c0b54187981f401505545194839a84ea20e33a257a35a67322ff8b3118",
+      "owner_retired": true
+    },
+    "155": {
+      "passed": false,
+      "receipt_sha256": "0c948e9a3d38362df0cdb827e43ac1a5a7b2a5940a60518f0ed0d18ade7886c0",
+      "owner_retired": true
+    },
+    "156": {
+      "passed": false,
+      "receipt_sha256": "31f9760f379e8617a74f1ebcb56ee987d6549908eeaebf116762ebf698b44908",
+      "owner_retired": true
+    },
+    "157": {
+      "passed": false,
+      "receipt_sha256": "ab776f141d5a84154e77251a21b5a1ff940b9d90d75ffe17f902e0577db91f21",
+      "owner_retired": true
+    },
+    "158": {
+      "passed": false,
+      "receipt_sha256": "748ac960f0f80c633c7c1801433497e1a9227a456e250ddb669738464328b2ee",
+      "owner_retired": true
+    },
+    "159": {
+      "passed": false,
+      "receipt_sha256": "21ed547b49d4f767074f9017a1e3d09f00c65c11cf4117954cdff1595f3bd0e6",
+      "owner_retired": true
+    },
+    "160": {
+      "passed": false,
+      "receipt_sha256": "c9175da751b301c4be91d5c561d4b27339f0bbba91b6a82c5cb09d076aefceff",
+      "owner_retired": true
+    },
+    "161": {
+      "passed": false,
+      "receipt_sha256": "88cc7a244864af6f18ab50d2b0fd49e8d57790b435d9069f518eeeacff21131e",
+      "owner_retired": true
+    },
+    "162": {
+      "passed": false,
+      "receipt_sha256": "490dcf6b5a1fe1d5fca6d81b17d514f48ec6169c8487e240e50d1b8bebee3e1b",
+      "owner_retired": true
+    },
+    "164": {
+      "passed": false,
+      "receipt_sha256": "a4d612e43ff416c72b42c2de2687e3e3c7ef4cadd80ac99400fc2e7ea6fa45c4",
+      "owner_retired": true
+    },
+    "165": {
+      "passed": false,
+      "receipt_sha256": "98feced9384f46e490452bc719fa81f99ec2f13ce09ddf4deeb7e990379a0b08",
+      "owner_retired": true
+    },
+    "166": {
+      "passed": false,
+      "receipt_sha256": "1f902e3949ea15229a715f0597a32b87b70aff8127ea5b56d3d8db11d1353b9e",
+      "owner_retired": true
+    },
+    "167": {
+      "passed": false,
+      "receipt_sha256": "49c200e7200726e7bba4cd5f52f11d55f768425b78ab1676cf03ae1c5d40e321",
+      "owner_retired": true
+    },
+    "168": {
+      "passed": false,
+      "receipt_sha256": "a9657b1bb33163214255c013a39d48b7814038928e7d9a467bfd15f4cbae9e3e",
+      "owner_retired": true
+    },
+    "172": {
+      "passed": false,
+      "receipt_sha256": "6dfd60a57e776d61263e4b7c31dfeb4cb26951475a08259c034d7122a2a9189d",
+      "owner_retired": true
+    },
+    "173": {
+      "passed": false,
+      "receipt_sha256": "59ca28a8733a52dff16831ae90948a4c4f135574cc54826dbe5bc377cd28da00",
+      "owner_retired": true
+    },
+    "174": {
+      "passed": false,
+      "receipt_sha256": "4cdbadc6fdb4a369df749f3b6d060c5e26acc79dc2109c8bed2e4c9a8fd0750b",
+      "owner_retired": true
+    },
+    "175": {
+      "passed": false,
+      "receipt_sha256": "da8c77aa8eaed8846210159989b19008fc39a1c66b3fe65bda36661fc1a19e1d",
+      "owner_retired": true
+    },
+    "176": {
+      "passed": false,
+      "receipt_sha256": "4853f1a73685fb6dc49e3fbfebbf2838e0663545bcbd6091b35be32e4f7a1fd1",
+      "owner_retired": true
+    },
+    "182": {
+      "passed": false,
+      "receipt_sha256": "87da3b9212ad66fd7ac77759809331e7a3ec403af4fc994e508f03dc2f9f3989",
+      "owner_retired": true
+    },
+    "183": {
+      "passed": false,
+      "receipt_sha256": "524f412bb7996fab9a1e28efd109c98bcff4e6aa56680397b0a325d2c8519f4c",
+      "owner_retired": true
+    },
+    "184": {
+      "passed": false,
+      "receipt_sha256": "d82cb2ababacf08ebfc80a99bd84e8f014de73791e52f571425a657bbb9d8979",
+      "owner_retired": true
+    },
+    "185": {
+      "passed": false,
+      "receipt_sha256": "40bcb2cb04178614a4cb6a9ce66eadedeb4c59bc94b2b9b98340b3dbd868bb0f",
+      "owner_retired": true
+    },
+    "186": {
+      "passed": false,
+      "receipt_sha256": "585f8fa0a0442d87ecd6175335300caebef1e95600d0573b4c78a71b2a1a86e7",
+      "owner_retired": true
+    },
+    "191": {
+      "passed": false,
+      "receipt_sha256": "2d0a4d31a44a689f27d165233dbfd769a59838bdb6923e83f5e6647beb03d058",
+      "owner_retired": true
+    },
+    "192": {
+      "passed": false,
+      "receipt_sha256": "f3cb95b78180cfb46c5452da2db9cc6973a2880c6275591bcb85701b8c1c0a8c",
+      "owner_retired": true
+    },
+    "193": {
+      "passed": false,
+      "receipt_sha256": "8ffdbb5d91529406e57f2cbd90cc639e299cd0231c9fc65ef497d0414771513e",
+      "owner_retired": true
+    },
+    "194": {
+      "passed": false,
+      "receipt_sha256": "2bb0602fe3416915e34d197fc3589981df30cfa0adf228ca372938f0e1fba230",
+      "owner_retired": true
+    },
+    "195": {
+      "passed": false,
+      "receipt_sha256": "b9f21975e18af13a620e0dfc713c77a6cc5202f6f29b881cbccfb3fe51511c68",
+      "owner_retired": true
+    },
+    "201": {
+      "passed": false,
+      "receipt_sha256": "e12572666064e72661c4ba4f58c78e2299a30c678ae67d34c2c32e823d339e1f",
+      "owner_retired": true
+    },
+    "202": {
+      "passed": false,
+      "receipt_sha256": "24dd28a154fdc7a0a17b19f91b2451fb07e136331b8f94fbf9b0b0fb7aff2d20",
+      "owner_retired": true
+    },
+    "203": {
+      "passed": false,
+      "receipt_sha256": "814e937886cc39494022e26a27f46d3bb7483aa86263071d95808926f63e3dc3",
+      "owner_retired": true
+    },
+    "204": {
+      "passed": false,
+      "receipt_sha256": "09f735c17690d575e0b9cb9b3184badbff53d02e7c132011f0b6aba4f91bf9e1",
+      "owner_retired": true
+    },
+    "209": {
+      "passed": false,
+      "receipt_sha256": "70da184694cc2292fc6e8216113804c96881f1ce5b1d69364615e82ae7a96544",
+      "owner_retired": true
+    },
+    "210": {
+      "passed": false,
+      "receipt_sha256": "3f281f5d65f7753be3c5e8acae623aa373a9025214ee54fe42dba17b4f34420c",
+      "owner_retired": true
+    },
+    "211": {
+      "passed": false,
+      "receipt_sha256": "86eb013bee77300cc6820d6af94abca75db5a9850c570fa7d2ea8ef2ee1f4030",
+      "owner_retired": true
+    },
+    "212": {
+      "passed": false,
+      "receipt_sha256": "cc197087ba959fbee1d859aacc013b9adc453e9f3f85ea408739b26e298dbb3e",
+      "owner_retired": true
+    },
+    "213": {
+      "passed": false,
+      "receipt_sha256": "95ba05f6a3d6de82ab67afba345b6e2390bf3adb084fb6d2cbda092329dbbb02",
+      "owner_retired": true
+    }
+  },
+  "diagnostic131_and181_are_runtime_qualification": false,
+  "evidence_archive": {
+    "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current223/build-meta/work/evidence223.tar.gz",
+    "sha256": "fb122e5c54d6bb702998b10bc2fceb9de3ac3047d3c2e88635505f7c69f6032f",
+    "bytes": 49788546,
+    "members": 9064,
+    "source_manifest_sha256": "7ee0e325e4223df7a65e7aeb7d24f96dfbff99b0e90e9ea6fa4c34fdf333c80f",
+    "full_proof_sha256": "d151f0b4cfba821e1abc17b4c34ce6a72f054e5964b00f8f0251aed76e259190",
+    "member_index": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current223/build-meta/archive-members.json",
+    "member_index_sha256": "8a0c44b6e7f1c1e48a9c13da9ffff05416b7957a5fd5eac0db6506f045d2d7df",
+    "scope": "source cut182, actual dependencies/recipes/SDK metadata, completed191/209 command scopes plus positive217-221; parents191/209 stay failed and prior failures; compiled ELF images are represented by verified hashes, no SDK libraries or system packages in archive",
+    "passed": true
+  },
+  "reclamation": {
+    "logical_path_bytes_reclaimed": 1329459792,
+    "unique_inode_logical_bytes": 1084105424,
+    "own_folder_after": 1825366016,
+    "shared_folder_after": 29081681920,
+    "complete_system_mapping_census": false,
+    "no_foreign_processes_signalled": true,
+    "retained": "all sources, genuine SDK113 archive/header closure, sysroot2, all recipes, actual dependency files, logs, receipts, and verified evidence archive; compiled consumers must be rebuilt for new execution",
+    "record": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current225/build-meta/completed-consumer-reclamation.json",
+    "record_sha256": "16af3b474d9f49e32bb2b26cb603647ffa946107d66ba831e0f4ebfda9d09c3a",
+    "retired_private_compiled_files": 30,
+    "unreadable_same_uid_proc_maps_count": 6,
+    "failed_cleanup224_preserved": true,
+    "hardlink_authority": "Exact SHA and device/inode equal to archived qualified217 object; own originating batches retired. No foreign signals."
+  },
+  "tested_changed_file_hashes": {
+    "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h": "0cbd9f386a6af5e9853626687a269f3ac225c60bf884a6fc98c12018542d611a",
+    "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h": "d082b5ee91eb68a4c6f60234a64d7ff5c15ad2ecbcdf5f5efd8ed0dd526cca23",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h": "b89866220b2ec97211e86f5f29653fdf446e711a7acea1bc1ee70356af5e9fb5",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h": "904eecbd87d0d3675eb4b386d1e9156c717b32b781be3b2520ed554472377e3d",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h": "a22acf0c7c90dac8380aac6b17a2ad4296240f92b4ac503d2356ddff9d1db717",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/controller.h": "beee8223088857a3232ea1942505c45b9f6f1f285023a15c7925720c9618c910",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/native_disassembly.h": "ef53b8206db2fc08d7c537c5e46689bb52ffd74e0ec72d5f1a2da2a768969d2b",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/native_disassembly_window.h": "03512e06d9cfbfa3d97690bab085c1c4d24c2d157c80bf90143e0853ec8d245d",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/native_step_linux.h": "ce9ccfd772ff6f7f826987037dcfe1431366a901d432cf7d82573e880698aa66",
+    "uwvm2-ros/test/0017.runtime/debug_native_cfi_aarch64.cc": "6a054217caefa82fd01d5828cad5cec877ff1178b3c4d1cae95db58fe55c8633",
+    "uwvm2-ros/test/0017.runtime/debug_native_finish_console.cc": "2c89d3e0850481f93eeac15c69d0a4eb650aa3bcfb38606f6b9dccf9799901c0",
+    "uwvm2-ros/test/0017.runtime/debug_native_linux_runtime.cc": "f471d8ab53f90aafc962c13eb075515f7c0188c797fdec2ca8ae39cdcc4a24e0",
+    "uwvm2-ros/test/0017.runtime/debug_native_physical_caller_runtime.cc": "e4dee6b07af2efa3cfb8709de0575c868ffe4c1e4716cc65e32cd35cc50e69ef",
+    "uwvm2-ros/test/0017.runtime/debug_native_registered_cfi_aarch64.cc": "c913e81a2e7bfb400dbadb4815d228505f7e375f9fa8b9a60880e44a124988e6",
+    "uwvm2-ros/test/0017.runtime/native_disassembly_aarch64_window.cc": "f2c04049d8b5df11c6c3bec66f3f3e17a107bc3716e87a64ba6fb967e11c7630",
+    "uwvm2-ros/test/0017.runtime/run_debug_native_cross_linux_cli.py": "0a6a1f9164827cfba4d746dc27e5e94421682aa51c3da4f49f934bc10d95dab3",
+    "uwvm2-ros/xmake.lua": "dba71090a2e396d18cb58b8f9d4461e0aea16654c737f45cf98bddb7816212e9",
+    "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h": "0cbd9f386a6af5e9853626687a269f3ac225c60bf884a6fc98c12018542d611a",
+    "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h": "226b7762a5a451c36e474edc449586ef2eebd60702f298d8b2356764b3e70647",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h": "b89866220b2ec97211e86f5f29653fdf446e711a7acea1bc1ee70356af5e9fb5",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h": "904eecbd87d0d3675eb4b386d1e9156c717b32b781be3b2520ed554472377e3d",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h": "a22acf0c7c90dac8380aac6b17a2ad4296240f92b4ac503d2356ddff9d1db717",
+    "uwvm2/src/uwvm2/uwvm/debugger/controller.h": "beee8223088857a3232ea1942505c45b9f6f1f285023a15c7925720c9618c910",
+    "uwvm2/src/uwvm2/uwvm/debugger/native_disassembly.h": "ef53b8206db2fc08d7c537c5e46689bb52ffd74e0ec72d5f1a2da2a768969d2b",
+    "uwvm2/src/uwvm2/uwvm/debugger/native_disassembly_window.h": "03512e06d9cfbfa3d97690bab085c1c4d24c2d157c80bf90143e0853ec8d245d",
+    "uwvm2/src/uwvm2/uwvm/debugger/native_step_linux.h": "ce9ccfd772ff6f7f826987037dcfe1431366a901d432cf7d82573e880698aa66",
+    "uwvm2/test/0017.runtime/debug_native_cfi_aarch64.cc": "6a054217caefa82fd01d5828cad5cec877ff1178b3c4d1cae95db58fe55c8633",
+    "uwvm2/test/0017.runtime/debug_native_finish_console.cc": "2c89d3e0850481f93eeac15c69d0a4eb650aa3bcfb38606f6b9dccf9799901c0",
+    "uwvm2/test/0017.runtime/debug_native_linux_runtime.cc": "f471d8ab53f90aafc962c13eb075515f7c0188c797fdec2ca8ae39cdcc4a24e0",
+    "uwvm2/test/0017.runtime/debug_native_physical_caller_runtime.cc": "e4dee6b07af2efa3cfb8709de0575c868ffe4c1e4716cc65e32cd35cc50e69ef",
+    "uwvm2/test/0017.runtime/debug_native_registered_cfi_aarch64.cc": "c913e81a2e7bfb400dbadb4815d228505f7e375f9fa8b9a60880e44a124988e6",
+    "uwvm2/test/0017.runtime/native_disassembly_aarch64_window.cc": "f2c04049d8b5df11c6c3bec66f3f3e17a107bc3716e87a64ba6fb967e11c7630",
+    "uwvm2/test/0017.runtime/run_debug_native_cross_linux_cli.py": "0a6a1f9164827cfba4d746dc27e5e94421682aa51c3da4f49f934bc10d95dab3",
+    "uwvm2/xmake.lua": "7064e98c8dd3e70afe1d94626b3ee7e59b17edaf961e3d3c20e5482767287dd7"
+  },
+  "current_concurrent_deltas": [
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_gc_emit.h",
+      "frozen_sha256": "1b5198feafe8cc3dc2a99464e9b32b61f9e4116be167e11a8e1280a7b27776a8",
+      "current_sha256": "3e4244073b94f98b35cbb97eb1c176ba9fc56bbf2d5a40467f00cdb876f5ef42"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/llvm_jit_cache/environment.h",
+      "frozen_sha256": "b57fb44b123b8cae33831b1ef99a57323bd2e2d865e8c9d9093ff15b30339049",
+      "current_sha256": "b138b8dd41843ed4f781c4d9ed544e0ad270e0f14fa8541670e7a76d7d9d215e"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/uwvm/debugger/source_dwarf_index.h",
+      "frozen_sha256": "97a057bfc31370b8cc70adcdcff8e597ad263ff8fbd014f9672fa45041d5e645",
+      "current_sha256": "9ea1dbaf78db0ce5b418ca6da21b25121cfcc933bd7ead3e35bd3ac59ccca031"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/uwvm/debugger/source_language_expression.h",
+      "frozen_sha256": "be3b9ae31b1afb91032afc33f6d8268a3440086d2a3d33b3b333cc1a2b930523",
+      "current_sha256": "642f66eda6594e15173b7797ed98b63d7b9630e7347e9a6d2c3fc8168b5db09a"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_gc_emit.h",
+      "frozen_sha256": "1b5198feafe8cc3dc2a99464e9b32b61f9e4116be167e11a8e1280a7b27776a8",
+      "current_sha256": "3e4244073b94f98b35cbb97eb1c176ba9fc56bbf2d5a40467f00cdb876f5ef42"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/llvm_jit_cache/environment.h",
+      "frozen_sha256": "4765471865953315c95731d735a1e8ccb5502b43cf7917405280ba3b741be32f",
+      "current_sha256": "6c6765be74d94f0c1ead2a749e13e42f355cba17cc40e16aef013267cb3caa0d"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/uwvm/debugger/source_dwarf_index.h",
+      "frozen_sha256": "97a057bfc31370b8cc70adcdcff8e597ad263ff8fbd014f9672fa45041d5e645",
+      "current_sha256": "9ea1dbaf78db0ce5b418ca6da21b25121cfcc933bd7ead3e35bd3ac59ccca031"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/uwvm/debugger/source_language_expression.h",
+      "frozen_sha256": "be3b9ae31b1afb91032afc33f6d8268a3440086d2a3d33b3b333cc1a2b930523",
+      "current_sha256": "642f66eda6594e15173b7797ed98b63d7b9630e7347e9a6d2c3fc8168b5db09a"
+    }
+  ],
+  "current_concurrent_delta_scope": "Eight paired experimental GC bridge/cache key and Go language-expression/DWARF files changed after source182. They were not requalified by these execution receipts. ASM changed files match source182. No whole working-tree qualification.",
+  "passed": true,
+  "postreboot_backend_validation": {
+    "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current226/build-meta/complete-evidence/receipt.json",
+    "receipt_sha256": "73c63625fe4c214fde053dbc8190b57eedfabf3ec02a378d9924c14a938cee7b",
+    "metadata": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current226/build-meta/POSTREBOOT226.json",
+    "metadata_sha256": "f40856abcc552d22caab93e5e7d87e5cf4418c07ccd49f417ea96cc93824ce66",
+    "source_manifest_sha256": "7ee0e325e4223df7a65e7aeb7d24f96dfbff99b0e90e9ea6fa4c34fdf333c80f",
+    "qualified_boot": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+    "keeper_pid": 11166,
+    "keeper_birth": 22661,
+    "cgroup": "/sys/fs/cgroup/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope",
+    "memory_max_bytes": 68719476736,
+    "swap_max_bytes": 0,
+    "scope": "Actual AArch64 backend software traps and captured register bits in both repositories after reboot. Fixture issues test-only ownership for its code page; no full Wasm issuer qualification or new52-session count.",
+    "actual_backend_executions": 2,
+    "full_Wasm_sessions_added": 0,
+    "all_owned_PIDFD_retired": true,
+    "memory_events_before": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "memory_events_after": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "passed": true
+  },
+  "remaining_implementation_scope": {
+    "physical_CFI_callers_and_finish_asm": {
+      "implemented_architectures": [
+        "Linux x86_64",
+        "Linux RV64",
+        "Linux AArch64 LE LP64"
+      ],
+      "not_implemented_architectures": [
+        "Linux i686",
+        "Linux PowerPC/PowerPC64",
+        "Linux MIPS64",
+        "Linux LoongArch64",
+        "Linux SPARC64",
+        "Linux ARM",
+        "Linux s390x"
+      ],
+      "source_basis": [
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+        "src/uwvm2/uwvm/debugger/controller.h"
+      ],
+      "scope": "This concerns physical caller CFI/finish; it is separate from existing SI/GPR software stepping backends."
+    },
+    "full_execution_qualification": "This AArch64 record qualifies full LLVM only, with exact frozen source and recorded QEMU prefix. Full INT and other targets require separate records."
+  }
+}

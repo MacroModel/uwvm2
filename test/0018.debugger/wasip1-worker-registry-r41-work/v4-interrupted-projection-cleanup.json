@@ -1,0 +1,2206 @@
+[
+  {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-worker-registry-20261008-r41/source-v4",
+    "identity": [
+      1822,
+      33530,
+      1000
+    ],
+    "files": [
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/fixtures",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/fixtures"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_active_code_handoff_generation_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/debug_checkpoint_active_code_handoff_generation_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_worker_registry_reuse_runtime.cc",
+        "sha256": "773d6c3ec7c07282227f4cadcd1f4212ee8f8522be457d96e0384fbea78bb8ce"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_private_code_handoff_generation_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/debug_checkpoint_private_code_handoff_generation_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_resource_inputs.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_resource_inputs.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_effect_hooks.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_effect_hooks.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_thread_capture.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_thread_capture.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_indirect_bindings.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_indirect_bindings.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_call_indirect_table_views.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_call_indirect_table_views.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_stub_runtime.default.cpp",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_stub_runtime.default.cpp"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_binding.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_binding.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checked_size.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checked_size.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_operand_workspace.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_operand_workspace.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_gc_state_borrow.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_gc_state_borrow.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_posix_abi.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_posix_abi.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_debug_permission.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_debug_permission.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_reader.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_reader.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_impl.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/README.checkpoint-host-gate.md",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/README.checkpoint-host-gate.md"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_function_bindings.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_function_bindings.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_uncaught.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_uncaught.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_memory_transaction.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_memory_transaction.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/pending_numeric_memory_bind.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/pending_numeric_memory_bind.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_frames.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_frames.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_decl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_decl.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.module.cpp",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.module.cpp"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.cppm",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.cppm"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h",
+        "sha256": "20620f536b4d1bc7123e9d4981c152fd0f9d612a62f17bdd3fbe0a579e7d5ed3"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_references.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_references.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+        "sha256": "49cda58c81c9e8e6a309c6ea816deaab80858717f67f6473a5ef5212a5214bf8"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_impl.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_execution_entry.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_execution_entry.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_activation_cleanup.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_activation_cleanup.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_stub_runtime.module.cpp",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_stub_runtime.module.cpp"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_roots.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_roots.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_dynamic_materialization.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_dynamic_materialization.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_environment.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_execution_entry.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_execution_entry.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/native_activation.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/native_activation.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_object.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_object.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_materialization_identity.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_materialization_identity.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_exception_host.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_exception_host.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/source_exception_cold_publication.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/source_exception_cold_publication.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/pending_numeric_fused_bind.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/pending_numeric_fused_bind.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_ppc64_elfv1_loaded_function_range.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_ppc64_elfv1_loaded_function_range.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_state_signature.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_state_signature.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_resources.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_resources.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_restore.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_restore.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_function_address.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_function_address.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h",
+        "sha256": "b49dcb5ac07da0a9c25377f3ac1be6b3d035c2fca7199bcdeae4b5c5e83e36cc"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_call_continuation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_call_continuation_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_decl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_decl.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_hooks.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_hooks.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_win64_unwind_probe.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_win64_unwind_probe.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind_execution_gate.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind_execution_gate.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_loaded_function_ranges.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_loaded_function_ranges.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_numeric_bridge.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_numeric_bridge.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_aux_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_aux_environment.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_full_code_handoff.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_full_code_handoff.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_local_imported_provider_callbacks.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_local_imported_provider_callbacks.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/source_exception_guest_bridge.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/source_exception_guest_bridge.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_caller_frame.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_caller_frame.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_arm_mapping.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_arm_mapping.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/native_dwarf_register_location.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/native_dwarf_register_location.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_guest_exception_diagnostics.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_guest_exception_diagnostics.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown_impl.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_posix_unwind_probe.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_posix_unwind_probe.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_object_graph.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_object_graph.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_imported_function_lookup.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_imported_function_lookup.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_llvm_expanded_lane_unroll_policy.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_llvm_expanded_lane_unroll_policy.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generation.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generation.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_format.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_format.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_stack_guard.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_stack_guard.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_borrow.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_borrow.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_target_metadata.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_target_metadata.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_native_control.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_native_control.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/fixtures",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/fixtures"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_checkpoint_active_code_handoff_generation_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/debug_checkpoint_active_code_handoff_generation_runtime.cc"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_checkpoint_worker_registry_reuse_runtime.cc",
+        "sha256": "773d6c3ec7c07282227f4cadcd1f4212ee8f8522be457d96e0384fbea78bb8ce"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_checkpoint_private_code_handoff_generation_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/debug_checkpoint_private_code_handoff_generation_runtime.cc"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_resource_inputs.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_resource_inputs.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_effect_hooks.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_effect_hooks.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_thread_capture.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_thread_capture.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_indirect_bindings.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_indirect_bindings.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_call_indirect_table_views.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_call_indirect_table_views.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_stub_runtime.default.cpp",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_stub_runtime.default.cpp"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_binding.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_binding.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checked_size.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checked_size.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_operand_workspace.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_operand_workspace.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_gc_state_borrow.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_gc_state_borrow.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_posix_abi.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_posix_abi.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_debug_permission.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_debug_permission.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_reader.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_reader.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_impl.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_tiered_publication.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_tiered_publication.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/README.checkpoint-host-gate.md",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/README.checkpoint-host-gate.md"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_function_bindings.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_function_bindings.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_uncaught.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_uncaught.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_memory_transaction.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_memory_transaction.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_tiered_entry_sampling.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_tiered_entry_sampling.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/pending_numeric_memory_bind.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/pending_numeric_memory_bind.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_frames.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_frames.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_decl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_decl.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.module.cpp",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.module.cpp"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.cppm",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.cppm"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h",
+        "sha256": "e031afaa7e11c57fa03ed233d0eb84c666e098f0dda12faf02603ecc49a5d25a"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_references.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_references.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+        "sha256": "0b4c68ffbf9d759f0a9237fa81db726ea5269da6ccded796f50344e250351f3e"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_impl.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_llvm_lazy_worker_policy.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_llvm_lazy_worker_policy.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_execution_entry.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_execution_entry.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_activation_cleanup.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_activation_cleanup.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_logical_activation_overlap.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_logical_activation_overlap.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_stub_runtime.module.cpp",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_stub_runtime.module.cpp"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_roots.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_roots.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_dynamic_materialization.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_dynamic_materialization.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_environment.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_execution_entry.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_execution_entry.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/native_activation.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/native_activation.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_object.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_object.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_materialization_identity.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_materialization_identity.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_exception_host.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_exception_host.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/source_exception_cold_publication.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/source_exception_cold_publication.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/pending_numeric_fused_bind.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/pending_numeric_fused_bind.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_ppc64_elfv1_loaded_function_range.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_ppc64_elfv1_loaded_function_range.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_state_signature.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_state_signature.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_resources.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_resources.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_restore.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_restore.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_function_address.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_function_address.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h",
+        "sha256": "b49dcb5ac07da0a9c25377f3ac1be6b3d035c2fca7199bcdeae4b5c5e83e36cc"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_call_continuation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_call_continuation_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_decl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_decl.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_hooks.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_hooks.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_win64_unwind_probe.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_win64_unwind_probe.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind_execution_gate.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind_execution_gate.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checked_tiered_aliases.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checked_tiered_aliases.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_loaded_function_ranges.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_loaded_function_ranges.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_numeric_bridge.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_numeric_bridge.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_aux_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_aux_environment.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_full_code_handoff.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_full_code_handoff.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_local_imported_provider_callbacks.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_local_imported_provider_callbacks.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/source_exception_guest_bridge.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/source_exception_guest_bridge.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_caller_frame.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_caller_frame.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_arm_mapping.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_arm_mapping.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/native_dwarf_register_location.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/native_dwarf_register_location.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_guest_exception_diagnostics.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_guest_exception_diagnostics.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown_impl.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_posix_unwind_probe.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_posix_unwind_probe.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_object_graph.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_object_graph.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_imported_function_lookup.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_imported_function_lookup.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_llvm_expanded_lane_unroll_policy.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_llvm_expanded_lane_unroll_policy.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generation.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generation.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_format.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_format.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_stack_guard.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_stack_guard.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_borrow.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_borrow.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_target_metadata.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_target_metadata.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_native_control.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_native_control.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h"
+      }
+    ]
+  },
+  {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-worker-registry-20261008-r41/before-source-v4",
+    "identity": [
+      1822,
+      34770,
+      1000
+    ],
+    "files": [
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/fixtures",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/fixtures"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_active_code_handoff_generation_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/debug_checkpoint_active_code_handoff_generation_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_worker_registry_reuse_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-worker-registry-20261008-r41/source-v4/uwvm2-ros/test/0017.runtime/debug_checkpoint_worker_registry_reuse_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_private_code_handoff_generation_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/test/0017.runtime/debug_checkpoint_private_code_handoff_generation_runtime.cc"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_resource_inputs.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_resource_inputs.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_effect_hooks.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_effect_hooks.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_thread_capture.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_thread_capture.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_indirect_bindings.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_indirect_bindings.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_call_indirect_table_views.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_call_indirect_table_views.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_stub_runtime.default.cpp",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_stub_runtime.default.cpp"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_binding.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_binding.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checked_size.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checked_size.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_operand_workspace.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_operand_workspace.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_gc_state_borrow.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_gc_state_borrow.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_posix_abi.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_posix_abi.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_debug_permission.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_debug_permission.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_reader.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_reader.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_impl.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/README.checkpoint-host-gate.md",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/README.checkpoint-host-gate.md"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_function_bindings.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_function_bindings.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_uncaught.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_uncaught.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_memory_transaction.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_memory_transaction.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/pending_numeric_memory_bind.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/pending_numeric_memory_bind.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_frames.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_frames.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_decl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_decl.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.module.cpp",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.module.cpp"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.cppm",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.cppm"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h",
+        "sha256": "ff94fc77ff60534f1bc6daad9e3b3493f7af19a95e29557e92bbe0d19caf52cc"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_references.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_references.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+        "sha256": "49cda58c81c9e8e6a309c6ea816deaab80858717f67f6473a5ef5212a5214bf8"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_impl.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_execution_entry.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_execution_entry.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_activation_cleanup.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_activation_cleanup.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_stub_runtime.module.cpp",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_stub_runtime.module.cpp"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_roots.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_roots.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_dynamic_materialization.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_dynamic_materialization.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_environment.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_execution_entry.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_execution_entry.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/native_activation.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/native_activation.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_object.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_object.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_materialization_identity.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_materialization_identity.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_exception_host.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_exception_host.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/source_exception_cold_publication.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/source_exception_cold_publication.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/pending_numeric_fused_bind.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/pending_numeric_fused_bind.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_ppc64_elfv1_loaded_function_range.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_ppc64_elfv1_loaded_function_range.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_state_signature.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_state_signature.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_resources.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_resources.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_restore.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_restore.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_function_address.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_function_address.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h",
+        "sha256": "cb0e762c5ee76dbf557cf51c3a0e8b24f49583d815950e1f54946725527d674f"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_call_continuation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_call_continuation_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_decl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_decl.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_hooks.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_hooks.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_win64_unwind_probe.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_win64_unwind_probe.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind_execution_gate.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind_execution_gate.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_loaded_function_ranges.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_loaded_function_ranges.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_numeric_bridge.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_numeric_bridge.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_aux_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_aux_environment.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_full_code_handoff.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_full_code_handoff.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_local_imported_provider_callbacks.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_local_imported_provider_callbacks.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/source_exception_guest_bridge.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/source_exception_guest_bridge.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_caller_frame.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_caller_frame.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_arm_mapping.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_arm_mapping.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/native_dwarf_register_location.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/native_dwarf_register_location.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_guest_exception_diagnostics.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_guest_exception_diagnostics.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown_impl.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_posix_unwind_probe.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_posix_unwind_probe.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_object_graph.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_object_graph.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_imported_function_lookup.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_imported_function_lookup.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_llvm_expanded_lane_unroll_policy.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_llvm_expanded_lane_unroll_policy.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generation.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generation.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_format.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_format.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_stack_guard.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_stack_guard.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_borrow.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_borrow.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_api.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_target_metadata.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_target_metadata.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_native_control.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_native_control.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/fixtures",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/fixtures"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_checkpoint_active_code_handoff_generation_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/debug_checkpoint_active_code_handoff_generation_runtime.cc"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_checkpoint_worker_registry_reuse_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-worker-registry-20261008-r41/source-v4/uwvm2/test/0017.runtime/debug_checkpoint_worker_registry_reuse_runtime.cc"
+      },
+      {
+        "path": "uwvm2/test/0017.runtime/debug_checkpoint_private_code_handoff_generation_runtime.cc",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/test/0017.runtime/debug_checkpoint_private_code_handoff_generation_runtime.cc"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_resource_inputs.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_resource_inputs.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_effect_hooks.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_effect_hooks.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_thread_capture.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_thread_capture.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_indirect_bindings.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_indirect_bindings.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_call_indirect_table_views.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_call_indirect_table_views.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_stub_runtime.default.cpp",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_stub_runtime.default.cpp"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_binding.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_binding.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checked_size.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checked_size.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_operand_workspace.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_operand_workspace.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_gc_state_borrow.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_gc_state_borrow.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_posix_abi.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_posix_abi.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_debug_permission.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_debug_permission.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_reader.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_reader.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_impl.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_tiered_publication.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_tiered_publication.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/README.checkpoint-host-gate.md",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/README.checkpoint-host-gate.md"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_function_bindings.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_function_bindings.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_uncaught.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_uncaught.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_memory_transaction.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_memory_transaction.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_tiered_entry_sampling.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_tiered_entry_sampling.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/pending_numeric_memory_bind.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/pending_numeric_memory_bind.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_frames.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_frames.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_decl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_decl.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.module.cpp",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.module.cpp"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.cppm",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.cppm"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h",
+        "sha256": "8f9f9f8561ff28c4d4631bbf2e626807bd17b4f6d3daf06b5f0a7aa8bd614766"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_references.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_references.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+        "sha256": "0b4c68ffbf9d759f0a9237fa81db726ea5269da6ccded796f50344e250351f3e"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_impl.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_llvm_lazy_worker_policy.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_llvm_lazy_worker_policy.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_execution_entry.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_execution_entry.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_activation_cleanup.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_activation_cleanup.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_logical_activation_overlap.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_logical_activation_overlap.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_stub_runtime.module.cpp",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_stub_runtime.module.cpp"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_roots.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_roots.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_dynamic_materialization.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_dynamic_materialization.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_environment.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_execution_entry.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_execution_entry.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/native_activation.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/native_activation.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_object.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_object.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_materialization_identity.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_materialization_identity.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_exception_host.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_exception_host.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/source_exception_cold_publication.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/source_exception_cold_publication.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/pending_numeric_fused_bind.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/pending_numeric_fused_bind.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_ppc64_elfv1_loaded_function_range.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_ppc64_elfv1_loaded_function_range.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_state_signature.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_state_signature.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_resources.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_resources.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_restore.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_restore.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_function_address.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_function_address.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h",
+        "sha256": "cb0e762c5ee76dbf557cf51c3a0e8b24f49583d815950e1f54946725527d674f"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_call_continuation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_call_continuation_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_decl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_decl.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_hooks.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_hooks.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_win64_unwind_probe.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_win64_unwind_probe.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind_execution_gate.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind_execution_gate.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checked_tiered_aliases.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checked_tiered_aliases.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_loaded_function_ranges.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_loaded_function_ranges.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_numeric_bridge.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_numeric_bridge.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_aux_environment.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_aux_environment.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_full_code_handoff.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_full_code_handoff.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_local_imported_provider_callbacks.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_local_imported_provider_callbacks.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/source_exception_guest_bridge.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/source_exception_guest_bridge.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_caller_frame.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_caller_frame.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_arm_mapping.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_arm_mapping.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/native_dwarf_register_location.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/native_dwarf_register_location.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_guest_exception_diagnostics.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_guest_exception_diagnostics.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown_impl.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown_impl.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_posix_unwind_probe.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_posix_unwind_probe.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_object_graph.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_object_graph.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_imported_function_lookup.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_imported_function_lookup.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_llvm_expanded_lane_unroll_policy.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_llvm_expanded_lane_unroll_policy.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generation.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generation.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_format.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_format.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_stack_guard.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_stack_guard.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_borrow.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_borrow.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_api.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_api.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_target_metadata.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_target_metadata.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_native_control.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_native_control.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h",
+        "symlink": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-full-code-handoff-20261008-r40/syntax-overlay-active-generation-v1/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h"
+      }
+    ]
+  }
+]

@@ -1,0 +1,77 @@
+{
+  "schema": "uwvm-owned-retired-native-components-offload-v1",
+  "files": [
+    {
+      "path": "batches/current453/build-meta/work/uwvm2-actual-native-Mips-CFI",
+      "sha256": "f2cf09feef97121c122c356768c34fed1604952bde3d974903da5ffbce5c91fa",
+      "bytes": 39329256,
+      "dev": 66312,
+      "inode": 23349629
+    },
+    {
+      "path": "batches/current453/build-meta/work/uwvm2-ros-actual-native-Mips-CFI",
+      "sha256": "f2cf09feef97121c122c356768c34fed1604952bde3d974903da5ffbce5c91fa",
+      "bytes": 39329256,
+      "dev": 66312,
+      "inode": 23349636
+    },
+    {
+      "path": "batches/current463/build-meta/work/uwvm2-actual-native-Mips-CFI",
+      "sha256": "d9e6e8529bbac08c042b074edf5d407d9037b1c3e868a12ffa4b3c715b7da06d",
+      "bytes": 39329264,
+      "dev": 66312,
+      "inode": 23475497
+    },
+    {
+      "path": "batches/current463/build-meta/work/uwvm2-ros-actual-native-Mips-CFI",
+      "sha256": "d9e6e8529bbac08c042b074edf5d407d9037b1c3e868a12ffa4b3c715b7da06d",
+      "bytes": 39329264,
+      "dev": 66312,
+      "inode": 23475518
+    },
+    {
+      "path": "batches/current472/build-meta/work/uwvm2-actual-native-Mips-CFI",
+      "sha256": "f807ea611e55fdbac65545ef2a4f798f78fe9d2a0f82f1024ae97e3b67578307",
+      "bytes": 39329264,
+      "dev": 66312,
+      "inode": 23479567
+    },
+    {
+      "path": "batches/current472/build-meta/work/uwvm2-ros-actual-native-Mips-CFI",
+      "sha256": "f807ea611e55fdbac65545ef2a4f798f78fe9d2a0f82f1024ae97e3b67578307",
+      "bytes": 39329264,
+      "dev": 66312,
+      "inode": 23479682
+    }
+  ],
+  "receipts": {
+    "453": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current453/build-meta/complete-evidence/receipt.json",
+      "sha256": "de1a623700e06ede007287e4209af360a1e3edf8de181ac5622ca1ab6a51c708",
+      "all_owned_PIDFDs_retired": true
+    },
+    "463": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current463/build-meta/complete-evidence/receipt.json",
+      "sha256": "34618ab6a4b313991e93fc18294f309649f448666b80be236ea757a96119e611",
+      "all_owned_PIDFDs_retired": true
+    },
+    "472": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current472/build-meta/complete-evidence/receipt.json",
+      "sha256": "00712ce1094685ffc92b82801c44bc2bfa4019a7f19cf878e518eaeda3b3578b",
+      "all_owned_PIDFDs_retired": true
+    }
+  },
+  "all_logs_receipts_and_sources_preserved": true,
+  "local_archive": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/native-mips-cfi-products480.tar.gz",
+  "archive_sha256": "cd47797ceb614a9fc94a31702041eef8d64612d262adef1a6680d6f363a09db4",
+  "archive_bytes": 84373690,
+  "local_archive_and_every_member_verified": true,
+  "remote_raw_products_retired": [
+    "batches/current453/build-meta/work/uwvm2-actual-native-Mips-CFI",
+    "batches/current453/build-meta/work/uwvm2-ros-actual-native-Mips-CFI",
+    "batches/current463/build-meta/work/uwvm2-actual-native-Mips-CFI",
+    "batches/current463/build-meta/work/uwvm2-ros-actual-native-Mips-CFI",
+    "batches/current472/build-meta/work/uwvm2-actual-native-Mips-CFI",
+    "batches/current472/build-meta/work/uwvm2-ros-actual-native-Mips-CFI"
+  ]
+}

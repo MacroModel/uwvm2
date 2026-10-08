@@ -1,0 +1,143 @@
+{
+  "schema": "ARM32-private-debug-frame-paired-merged-summary-v2",
+  "passed": true,
+  "qualified_execution_runs": 16,
+  "qualified_command_roots": 63,
+  "actual_ARM_metadata_runs": 6,
+  "actual_ARM_machine_code_execution": false,
+  "actual_Wasm_execution": false,
+  "owned_DATA_instruction_rows_evaluated": 996,
+  "CFA_only_instructions": 30,
+  "malformed_actual_objects_rejected": 84,
+  "actual_TailCC_restored_frame_instructions_refused": 12,
+  "public_ARM_Wasm_callers_qualified": false,
+  "ARM_native_ni_finish_qualified": false,
+  "complete_ARM_instruction_state_qualified": false,
+  "ARM_O0_TailCC_FastISel_qualified": false,
+  "module_compile_verified": false,
+  "new_public_stack_register_memory_interface": false,
+  "paired_source_sha256": {
+    "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h": "0bef98b09341b72597868447aa7b99df027ca64e3012ffbc91e5816f701ce1e5",
+    "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/section_memory_manager.h": "1da0ecd43671a19fe4f82912c7c7502837cd030f5984082dc4919fd1aa04ee50",
+    "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/section_memory_manager.cppm": "33fe01b5eee0dd6045cb0a616eaf8907089d67f0b750062582b58dee5e4863c6",
+    "test/0017.runtime/debug_native_registered_cfi_arm.cc": "84eacd9abe35003419adb902e4d04b46cb9f1f5d7e566c86fd7afc059abc797f"
+  },
+  "base_source_manifest_sha256": "109b689166d694483d7e6e59648a1eea5fcf438da5cdbd3360a9fdb2aa9a0c9a",
+  "base_source_files": 8234,
+  "scope": "Actual generated ARM ELF32 compiler CFI, bounded private MCJIT observer and owned DATA. Final x86-64/i386 registered-CFI regression. No ARM native SDK, ARM execution, public caller/ni/finish or complete async instruction-state claim. Stale post-r11 LDM lexical suffix is unavailable.",
+  "executables": {
+    "/dev/shm/uwvm-asm-6313e263-current735/build-meta/work/uwvm2-arm-codegen-driver-O2": {
+      "sha256": "3d9f99a5ac95b4ea1a0a060265136e1d6ebe60eda55e53fb0677bb058b2c71a5",
+      "GNU_STACK": [
+        6
+      ]
+    },
+    "/dev/shm/uwvm-asm-6313e263-current735/build-meta/work/uwvm2-ros-arm-codegen-driver-O2": {
+      "sha256": "3d9f99a5ac95b4ea1a0a060265136e1d6ebe60eda55e53fb0677bb058b2c71a5",
+      "GNU_STACK": [
+        6
+      ]
+    },
+    "/dev/shm/uwvm-asm-6313e263-current736/build-meta/work/uwvm2-debug_native_registered_cfi-O3": {
+      "sha256": "ba6633016ab1f3b79bb89435f01e701bd4a48bcdaf9c4d5b2e45ef740a42458b",
+      "GNU_STACK": [
+        6
+      ]
+    },
+    "/dev/shm/uwvm-asm-6313e263-current736/build-meta/work/uwvm2-debug_native_registered_cfi_i386-O3": {
+      "sha256": "3c74b4bb65b5be1bc8d85a5549fe3f871778c9705ca8ed27c36001c5f3a7ec38",
+      "GNU_STACK": [
+        6
+      ]
+    },
+    "/dev/shm/uwvm-asm-6313e263-current736/build-meta/work/uwvm2-ros-debug_native_registered_cfi-O3": {
+      "sha256": "ba6633016ab1f3b79bb89435f01e701bd4a48bcdaf9c4d5b2e45ef740a42458b",
+      "GNU_STACK": [
+        6
+      ]
+    },
+    "/dev/shm/uwvm-asm-6313e263-current736/build-meta/work/uwvm2-ros-debug_native_registered_cfi_i386-O3": {
+      "sha256": "3c74b4bb65b5be1bc8d85a5549fe3f871778c9705ca8ed27c36001c5f3a7ec38",
+      "GNU_STACK": [
+        6
+      ]
+    }
+  },
+  "ARM_objects": {
+    "/dev/shm/uwvm-asm-6313e263-current735/build-meta/work/uwvm2-ARM-O0-AAPCS.o": {
+      "sha256": "98185d92b6be0b5a178039820d777e59d77d45bc77a52b9163b72e0248e7b26a",
+      "ELF_machine": 40,
+      "actual_ARM_execution": false
+    },
+    "/dev/shm/uwvm-asm-6313e263-current735/build-meta/work/uwvm2-ARM-O3-AAPCS.o": {
+      "sha256": "af720e1566b254f265b4cc7187fbd74df0236b1ab04e18835731ed5760b07e1c",
+      "ELF_machine": 40,
+      "actual_ARM_execution": false
+    },
+    "/dev/shm/uwvm-asm-6313e263-current735/build-meta/work/uwvm2-ARM-O3-TailCC.o": {
+      "sha256": "344e54517c2b778dae22d84fd7003664bf4d5f878d7617d66f61292a6d82bead",
+      "ELF_machine": 40,
+      "actual_ARM_execution": false
+    },
+    "/dev/shm/uwvm-asm-6313e263-current735/build-meta/work/uwvm2-ros-ARM-O0-AAPCS.o": {
+      "sha256": "98185d92b6be0b5a178039820d777e59d77d45bc77a52b9163b72e0248e7b26a",
+      "ELF_machine": 40,
+      "actual_ARM_execution": false
+    },
+    "/dev/shm/uwvm-asm-6313e263-current735/build-meta/work/uwvm2-ros-ARM-O3-AAPCS.o": {
+      "sha256": "af720e1566b254f265b4cc7187fbd74df0236b1ab04e18835731ed5760b07e1c",
+      "ELF_machine": 40,
+      "actual_ARM_execution": false
+    },
+    "/dev/shm/uwvm-asm-6313e263-current735/build-meta/work/uwvm2-ros-ARM-O3-TailCC.o": {
+      "sha256": "344e54517c2b778dae22d84fd7003664bf4d5f878d7617d66f61292a6d82bead",
+      "ELF_machine": 40,
+      "actual_ARM_execution": false
+    }
+  },
+  "old_source717_cold_verified_retirement": {
+    "passed": true,
+    "source_files_retired": 8228,
+    "source_bytes_retired": 110878564,
+    "cold_archive_sha256": "2c885df390390dd43fbc6cbac535d961cce848cde2589caa3bf352f96fab5a6e",
+    "current_source722_retained": true
+  },
+  "full_record": {
+    "compressed_local_path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/native_arm32_debug_frame.qualification.json.xz",
+    "compressed_bytes": 104096,
+    "compressed_sha256": "8ba85891370a991bad5b3d78e94e6c7dc16845fc6ac4961fecf629f4c4e002fb",
+    "full_json_bytes": 1268041,
+    "full_json_sha256": "31345019f66f1109c6e71219d2fdc3fd311e93ee64294d26ac0a564015fa1088",
+    "full_json_remote_path": "/dev/shm/uwvm-asm-6313e263-current737/build-meta/native_arm32_debug_frame.qualification.json",
+    "cold_archive_member": "native_arm32_debug_frame.qualification.json",
+    "lossless_roundtrip_verified": true
+  },
+  "earlier_failed_profiles": {
+    "730": {
+      "passed": false,
+      "returncode": 1,
+      "scope": "Initial FastIO fixture compile error"
+    },
+    "731": {
+      "passed": false,
+      "returncode": 1,
+      "scope": "Unpatched linked ARM O0 FastISel rejects TailCC"
+    }
+  },
+  "original_snapshot_paired_source_sha256": {
+    "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h": "6f2cf32448baa8a8f8435775402c310e707f95a864d1fa9de02543fcb1b15661",
+    "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/section_memory_manager.h": "1da0ecd43671a19fe4f82912c7c7502837cd030f5984082dc4919fd1aa04ee50",
+    "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/section_memory_manager.cppm": "33fe01b5eee0dd6045cb0a616eaf8907089d67f0b750062582b58dee5e4863c6",
+    "test/0017.runtime/debug_native_registered_cfi_arm.cc": "84eacd9abe35003419adb902e4d04b46cb9f1f5d7e566c86fd7afc059abc797f"
+  },
+  "original_snapshot_execution_runs": 10,
+  "current_merged_execution_runs": 6,
+  "original_snapshot_malformed_object_checks": 42,
+  "current_merged_malformed_object_checks": 42,
+  "current_merged_requalification": {
+    "record": "native_arm32_debug_frame.macro_requalification.json",
+    "record_sha256": "0e05967fc34177cfca3c60ca756599cb353a7020b68ebf46a76fb87a688c2af9",
+    "cold_retention": "native_arm32_debug_frame.macro_retention.json",
+    "audit_receipt": "native_arm32_debug_frame.macro_audit_receipt.json"
+  }
+}

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import os; os.fork()
+               ~~~~~~~^^
+PermissionError: [Errno 1] Operation not permitted

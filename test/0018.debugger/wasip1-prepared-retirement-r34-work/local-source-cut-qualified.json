@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "files": 8787,
+  "manifest_sha256": "839d02935323faca56f194e84aabfd68786e2d1b64cc9329151c427e0452924f",
+  "source_archive_sha256": "a3140ed721b8769e0e94d58013f1e230a58e79041a01c2025955b9554806a1c0",
+  "all_payloads_read_back": true,
+  "remote_directory": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34",
+  "memory_upper_bytes": 180322304,
+  "limit_bytes": 2147483648
+}

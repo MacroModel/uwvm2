@@ -1,0 +1,18 @@
+{
+  "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h": "473e259afb3faed9dea28b35a1a8a5d742cfeaff5060ddfacd409c8a34ca0916",
+  "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h": "20ffa5b307e343acb87eb4b54d3648a7a45c04fb48f152f3b392735d874c42d7",
+  "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp": "c904a3c210d5660ef3f934863a2784a2e4878fd8de2efdfd94af6dc27549335f",
+  "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h": "0002154cbe3162064c7e4982531c5393ccf99503502a2fd10a5b7fe5b8d4aaed",
+  "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": "aa031d82c52d4c04745859ad00d5706ed41aaf60dc2eb0c7c6290791e4fb135e",
+  "uwvm2/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc": "4301d33c58548feecf7cf5887eb8a1af7e4bcf4bca7413e6a9c7d3fb7f4e426a",
+  "uwvm2/test/0017.runtime/debug_wasip1_environment_group_runtime.cc": "55f3b4cba1f078bd1aa38e32d962b0d3a16c1ee9da59cb1536e31a09c2fe1d49",
+  "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h": "473e259afb3faed9dea28b35a1a8a5d742cfeaff5060ddfacd409c8a34ca0916",
+  "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h": "20ffa5b307e343acb87eb4b54d3648a7a45c04fb48f152f3b392735d874c42d7",
+  "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp": "faa97e7880bbd50918fd27a35e2b3c881f49039dc2883a65e3c2e7e363243ab2",
+  "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h": "0002154cbe3162064c7e4982531c5393ccf99503502a2fd10a5b7fe5b8d4aaed",
+  "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": "aa031d82c52d4c04745859ad00d5706ed41aaf60dc2eb0c7c6290791e4fb135e",
+  "uwvm2-ros/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc": "4301d33c58548feecf7cf5887eb8a1af7e4bcf4bca7413e6a9c7d3fb7f4e426a",
+  "uwvm2-ros/test/0017.runtime/debug_wasip1_environment_group_runtime.cc": "55f3b4cba1f078bd1aa38e32d962b0d3a16c1ee9da59cb1536e31a09c2fe1d49",
+  "uwvm2/test/0017.runtime/wasip1_memory_binding_reset.cc": "e51d148f7931896fe11d1946db9c04a6be133dcfc38e51070c3380966dba7382",
+  "uwvm2-ros/test/0017.runtime/wasip1_memory_binding_reset.cc": "e51d148f7931896fe11d1946db9c04a6be133dcfc38e51070c3380966dba7382"
+}

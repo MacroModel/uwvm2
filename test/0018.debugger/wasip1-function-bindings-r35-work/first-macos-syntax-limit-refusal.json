@@ -1,0 +1,7 @@
+{
+  "passed": false,
+  "native_execution_claimed": false,
+  "source_sha256": "ba1aed026e7a773234e196fc3856f1753235bb91604aa9ed5017eb4d2ef62254",
+  "limit_bytes": 2147483648,
+  "reason": "Full combined LLVM/interpreter frontend exceeded aggregate budget and was terminated before qualification; not counted as a passing syntax or native run"
+}

@@ -1,0 +1,18 @@
+In file included from /Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp:78:
+/Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/uwvm/runtime/macro/push_macros.h:37:4: error: "Invalid interpreter mode. Please check the UWVM_USE_DEFAULT_INT or UWVM_USE_UWVM_INT macro."
+   37 | #  error "Invalid interpreter mode. Please check the UWVM_USE_DEFAULT_INT or UWVM_USE_UWVM_INT macro."
+      |    ^
+In file included from /Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp:195:
+In file included from /Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/impl.h:26:
+In file included from /Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate.h:45:
+/Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/uwvm/runtime/macro/push_macros.h:37:4: error: "Invalid interpreter mode. Please check the UWVM_USE_DEFAULT_INT or UWVM_USE_UWVM_INT macro."
+   37 | #  error "Invalid interpreter mode. Please check the UWVM_USE_DEFAULT_INT or UWVM_USE_UWVM_INT macro."
+      |    ^
+In file included from /Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp:195:
+In file included from /Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/impl.h:26:
+In file included from /Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate.h:92:
+In file included from /Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/runtime/exception/pending_numeric_outer.h:6:
+In file included from /Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/uwvm/runtime/storage/wasm_module.h:36:
+/Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/uwvm/runtime/macro/push_macros.h:37:4: error: "Invalid interpreter mode. Please check the UWVM_USE_DEFAULT_INT or UWVM_USE_UWVM_INT macro."
+   37 | #  error "Invalid interpreter mode. Please check the UWVM_USE_DEFAULT_INT or UWVM_USE_UWVM_INT macro."
+      |    ^

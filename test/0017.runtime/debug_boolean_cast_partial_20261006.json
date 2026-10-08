@@ -1,0 +1,178 @@
+{
+  "qualification_complete": false,
+  "created_at": "2026-10-06T12:05:27.929438+08:00",
+  "scope": "Copied Boolean explicit casts and finite scalar/type DATA, actual DAP syntax and console bridge. No fresh full VM/JIT, live stopped frame, compiler producer, modules build or native language parity qualification.",
+  "paired_scope_files": [
+    {
+      "repository": "uwvm2",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/src/uwvm2/uwvm/debugger/source_scalar_expression.h",
+      "sha256": "fdce64b36041d88e109591eb7680f05c321b8c9e9089658a12b2fdc2b4768c5e",
+      "bytes": 58110
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/src/uwvm2/uwvm/debugger/source_scalar_expression.h",
+      "sha256": "fdce64b36041d88e109591eb7680f05c321b8c9e9089658a12b2fdc2b4768c5e",
+      "bytes": 58110
+    },
+    {
+      "repository": "uwvm2",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0017.runtime/run_debug_linux_qemu_components.py",
+      "sha256": "ff88ae08df35d56353c73d3a22ca755bfeaa44d6dd38414fd2ddddc196ed1334",
+      "bytes": 16050
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0017.runtime/run_debug_linux_qemu_components.py",
+      "sha256": "ff88ae08df35d56353c73d3a22ca755bfeaa44d6dd38414fd2ddddc196ed1334",
+      "bytes": 16050
+    },
+    {
+      "repository": "uwvm2",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0017.runtime/README.debug-source-language-expressions.md",
+      "sha256": "68daa2ab990d3242ce9d04fc0379b9c30a91f0b16919fe718f658716aaf45a5c",
+      "bytes": 15782
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0017.runtime/README.debug-source-language-expressions.md",
+      "sha256": "68daa2ab990d3242ce9d04fc0379b9c30a91f0b16919fe718f658716aaf45a5c",
+      "bytes": 15782
+    },
+    {
+      "repository": "uwvm2",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0017.runtime/debug_source_dap_expression.cc",
+      "sha256": "219e7d91f8ee9b4fa1c3c93d4ae94ce61fb055cdb3b40e348d383fe7e2fc6036",
+      "bytes": 6923
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0017.runtime/debug_source_dap_expression.cc",
+      "sha256": "219e7d91f8ee9b4fa1c3c93d4ae94ce61fb055cdb3b40e348d383fe7e2fc6036",
+      "bytes": 6923
+    },
+    {
+      "repository": "uwvm2",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/dap_source_expression_cases.json",
+      "sha256": "d93fe4478a689f12cae47101d0a24e4eaa4e5112d1eacaf57a3d6a519cb01f98",
+      "bytes": 33527
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/dap_source_expression_cases.json",
+      "sha256": "d93fe4478a689f12cae47101d0a24e4eaa4e5112d1eacaf57a3d6a519cb01f98",
+      "bytes": 33527
+    },
+    {
+      "repository": "uwvm2",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0017.runtime/debug_source_boolean_cast.cc",
+      "sha256": "b2abb64686a6e2aaf338f4744384ae1c07925fe80024eb34ba46f981e21e4bd8",
+      "bytes": 9391
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0017.runtime/debug_source_boolean_cast.cc",
+      "sha256": "b2abb64686a6e2aaf338f4744384ae1c07925fe80024eb34ba46f981e21e4bd8",
+      "bytes": 9391
+    }
+  ],
+  "source_ids": {
+    "uwvm2": "sha256:ca67013eccc2a1654d2cc87cda55d5c930508cfe671472b6dc539ca81a1656fb",
+    "uwvm2-ros": "sha256:7e96d01218a150c9926fadcadb0a46cc7c4e1c18e53bf2ec39145f10a1d4767a"
+  },
+  "final_native_guards_observed": [
+    {
+      "repository": "uwvm2",
+      "passed": true,
+      "wall_seconds": 323.8632926749997,
+      "owned_RSS_peak_bytes": 688201728
+    },
+    {
+      "repository": "uwvm2-ros",
+      "passed": true,
+      "wall_seconds": 150.80239573799918,
+      "owned_RSS_peak_bytes": 689704960
+    }
+  ],
+  "native_each": {
+    "phases": 24,
+    "builds": 11,
+    "current_component_runs": 10,
+    "expected_old_header_failures": 3,
+    "boolean_cast_assertions": 1295317,
+    "category_assertions": 247159,
+    "DAP_positive": 202,
+    "DAP_negative": 60
+  },
+  "cross_successes_observed": [
+    {
+      "profile": "x86_64",
+      "repository": "uwvm2",
+      "passed": true
+    },
+    {
+      "profile": "x86_64",
+      "repository": "uwvm2-ros",
+      "passed": true
+    },
+    {
+      "profile": "aarch64",
+      "repository": "uwvm2",
+      "passed": true
+    },
+    {
+      "profile": "aarch64",
+      "repository": "uwvm2-ros",
+      "passed": true
+    },
+    {
+      "profile": "i686",
+      "repository": "uwvm2",
+      "passed": true
+    },
+    {
+      "profile": "i686",
+      "repository": "uwvm2-ros",
+      "passed": true
+    },
+    {
+      "profile": "riscv64",
+      "repository": "uwvm2",
+      "passed": true
+    },
+    {
+      "profile": "riscv64",
+      "repository": "uwvm2-ros",
+      "passed": true
+    }
+  ],
+  "cross_failed_guard_observed": {
+    "profile": "ppc64",
+    "repository": "uwvm2",
+    "passed": false,
+    "returncode": 1,
+    "error": "RuntimeError: Build command failed: 1",
+    "wall_seconds": 241.74529122500098,
+    "owned_RSS_peak_bytes": 607682560,
+    "underlying_compile_or_execute_reason_known": false
+  },
+  "remaining_work": [
+    "Read actual ppc64 failure logs and fix or rerun as evidence warrants.",
+    "Finish and verify all remaining architecture/repository combinations.",
+    "Collect full raw frozen source/target/log/receipt qualification and complete member-verified durable archive."
+  ],
+  "evidence_level": "Guard stdout and native summary observed through tool calls. Complete SSH raw logs/receipts are not retrieved or reverified after SSH became unreachable.",
+  "raw_evidence_location": "/run/user/1000/uwvm2-bool-cast-20261006-a2",
+  "raw_remote_evidence_durable_copy_verified": false,
+  "connectivity_failure": {
+    "ssh_port_22": "connection/15-second probes timed out",
+    "tailscale_ping": "no reply",
+    "local_tailscale_client": "Running and self online",
+    "host_reboot_confirmed": false
+  },
+  "prototype_failures_preserved": {
+    "prelaunch_metadata_rejections": 2,
+    "initial_baseline_compile_failure": "Unused reads/queries counters rejected by -Werror; fixed in final fixture and complete native regressions rerun."
+  },
+  "resource_guards": "Original 64GiB/swap0 cgroup; DATA admission6GiB, owned aggregate RSS1GiB, output64MiB, ELF/file8MiB, log1MiB, actual writer reserve1GiB/4096inodes. No full VM/SDK/JIT/producer gate lowered."
+}

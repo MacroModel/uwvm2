@@ -1,0 +1,1898 @@
+{
+  "schema": "uwvm-native-finish-i386-qualification-v1",
+  "passed": true,
+  "scope": "Linux little-endian i386 32-bit GNU full LLVM products; genuine vendor SDK; exact QEMU prefix; both call-stack policies; Wasm owners only",
+  "source_root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/source-current273",
+  "source_manifest_sha256": "de51465f0fb3cff8185929401f2727fff2cc909c28402ef94435a21fa878c7fa",
+  "source_file_count": 8060,
+  "tested_source_identities": {
+    "uwvm2": "sha256:792af91d770d7007ef8e82353211d3a62cd71139ae938acffe015d516d00878a",
+    "uwvm2-ros": "sha256:1ffc098eb77be56b6b91fc13f65039b747ae17374dd98de7cf933fb10679f1ea"
+  },
+  "actual_dependency_inputs": 5096,
+  "real_VM_sessions": 52,
+  "real_non_CLI_VM_sessions": 48,
+  "real_CLI_sessions": 4,
+  "real_finish_fixture_sessions": 20,
+  "real_physical_return_hops": 28,
+  "deep_recursion": 70,
+  "deep_finish": [
+    {
+      "label": "uwvm2-debug_native_finish_console-debug_native_finish_console_deep_stack_arguments-instruction-recursive-running",
+      "wrong_SP_hits": 69,
+      "real_successor_hits": 69
+    },
+    {
+      "label": "uwvm2-debug_native_finish_console-debug_native_finish_console_deep_stack_arguments-unwind-recursive-running",
+      "wrong_SP_hits": 69,
+      "real_successor_hits": 69
+    },
+    {
+      "label": "uwvm2-ros-debug_native_finish_console-debug_native_finish_console_deep_stack_arguments-instruction-recursive-running",
+      "wrong_SP_hits": 69,
+      "real_successor_hits": 69
+    },
+    {
+      "label": "uwvm2-ros-debug_native_finish_console-debug_native_finish_console_deep_stack_arguments-unwind-recursive-running",
+      "wrong_SP_hits": 69,
+      "real_successor_hits": 69
+    }
+  ],
+  "physical_caller_sessions": [
+    {
+      "label": "uwvm2-debug_native_physical_caller_runtime-debug_native_physical_caller_runtime-instruction-shallow",
+      "seconds": 6.028229657998963,
+      "counters": {
+        "physical": 34,
+        "recursive": 19,
+        "host-refused": 2,
+        "stale-refused": 36,
+        "boundary-refused": 0,
+        "replacement-callers": 4,
+        "multiple": 23,
+        "complete": 34,
+        "bounded": 0,
+        "maximum-depth": 4,
+        "result": 14,
+        "return-proofs": 34,
+        "return-refused": 2,
+        "return-alias-refused": 102,
+        "return-stale-refused": 36,
+        "return-advanced-refused": 34,
+        "return-fresh-after-step": 34,
+        "resume-committed": 34,
+        "resume-retained": 34,
+        "resume-rollback": 34,
+        "resume-refused": 281,
+        "resume-reentry-refused": 102,
+        "distinct-physical-incarnations": 0,
+        "sampled-cooperative-stops": 0,
+        "public-native-stack-bytes": 0
+      }
+    },
+    {
+      "label": "uwvm2-debug_native_physical_caller_runtime-debug_native_physical_caller_runtime-unwind-shallow",
+      "seconds": 5.87847938899904,
+      "counters": {
+        "physical": 34,
+        "recursive": 19,
+        "host-refused": 2,
+        "stale-refused": 36,
+        "boundary-refused": 0,
+        "replacement-callers": 4,
+        "multiple": 23,
+        "complete": 34,
+        "bounded": 0,
+        "maximum-depth": 4,
+        "result": 14,
+        "return-proofs": 34,
+        "return-refused": 2,
+        "return-alias-refused": 102,
+        "return-stale-refused": 36,
+        "return-advanced-refused": 34,
+        "return-fresh-after-step": 34,
+        "resume-committed": 34,
+        "resume-retained": 34,
+        "resume-rollback": 34,
+        "resume-refused": 281,
+        "resume-reentry-refused": 102,
+        "distinct-physical-incarnations": 0,
+        "sampled-cooperative-stops": 0,
+        "public-native-stack-bytes": 0
+      }
+    },
+    {
+      "label": "uwvm2-debug_native_physical_caller_runtime-debug_native_physical_caller_large_runtime-instruction-deep",
+      "seconds": 144.16189100599877,
+      "counters": {
+        "physical": 38,
+        "recursive": 36,
+        "host-refused": 2,
+        "stale-refused": 444,
+        "boundary-refused": 0,
+        "replacement-callers": 1,
+        "multiple": 37,
+        "complete": 32,
+        "bounded": 6,
+        "maximum-depth": 32,
+        "result": 48,
+        "return-proofs": 38,
+        "return-refused": 2,
+        "return-alias-refused": 114,
+        "return-stale-refused": 444,
+        "return-advanced-refused": 38,
+        "return-fresh-after-step": 38,
+        "resume-committed": 38,
+        "resume-retained": 38,
+        "resume-rollback": 38,
+        "resume-refused": 717,
+        "resume-reentry-refused": 114,
+        "distinct-physical-incarnations": 38,
+        "sampled-cooperative-stops": 404,
+        "public-native-stack-bytes": 0
+      }
+    },
+    {
+      "label": "uwvm2-debug_native_physical_caller_runtime-debug_native_physical_caller_large_runtime-unwind-deep",
+      "seconds": 143.75375991500005,
+      "counters": {
+        "physical": 38,
+        "recursive": 36,
+        "host-refused": 3,
+        "stale-refused": 445,
+        "boundary-refused": 0,
+        "replacement-callers": 1,
+        "multiple": 37,
+        "complete": 32,
+        "bounded": 6,
+        "maximum-depth": 32,
+        "result": 48,
+        "return-proofs": 38,
+        "return-refused": 3,
+        "return-alias-refused": 114,
+        "return-stale-refused": 445,
+        "return-advanced-refused": 38,
+        "return-fresh-after-step": 38,
+        "resume-committed": 38,
+        "resume-retained": 38,
+        "resume-rollback": 38,
+        "resume-refused": 721,
+        "resume-reentry-refused": 114,
+        "distinct-physical-incarnations": 38,
+        "sampled-cooperative-stops": 404,
+        "public-native-stack-bytes": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-debug_native_physical_caller_runtime-debug_native_physical_caller_runtime-instruction-shallow",
+      "seconds": 6.377617285999804,
+      "counters": {
+        "physical": 34,
+        "recursive": 19,
+        "host-refused": 2,
+        "stale-refused": 36,
+        "boundary-refused": 0,
+        "replacement-callers": 4,
+        "multiple": 23,
+        "complete": 34,
+        "bounded": 0,
+        "maximum-depth": 4,
+        "result": 14,
+        "return-proofs": 34,
+        "return-refused": 2,
+        "return-alias-refused": 102,
+        "return-stale-refused": 36,
+        "return-advanced-refused": 34,
+        "return-fresh-after-step": 34,
+        "resume-committed": 34,
+        "resume-retained": 34,
+        "resume-rollback": 34,
+        "resume-refused": 281,
+        "resume-reentry-refused": 102,
+        "distinct-physical-incarnations": 0,
+        "sampled-cooperative-stops": 0,
+        "public-native-stack-bytes": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-debug_native_physical_caller_runtime-debug_native_physical_caller_runtime-unwind-shallow",
+      "seconds": 6.326843378001286,
+      "counters": {
+        "physical": 34,
+        "recursive": 19,
+        "host-refused": 2,
+        "stale-refused": 36,
+        "boundary-refused": 0,
+        "replacement-callers": 4,
+        "multiple": 23,
+        "complete": 34,
+        "bounded": 0,
+        "maximum-depth": 4,
+        "result": 14,
+        "return-proofs": 34,
+        "return-refused": 2,
+        "return-alias-refused": 102,
+        "return-stale-refused": 36,
+        "return-advanced-refused": 34,
+        "return-fresh-after-step": 34,
+        "resume-committed": 34,
+        "resume-retained": 34,
+        "resume-rollback": 34,
+        "resume-refused": 281,
+        "resume-reentry-refused": 102,
+        "distinct-physical-incarnations": 0,
+        "sampled-cooperative-stops": 0,
+        "public-native-stack-bytes": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-debug_native_physical_caller_runtime-debug_native_physical_caller_large_runtime-instruction-deep",
+      "seconds": 162.5409693750007,
+      "counters": {
+        "physical": 38,
+        "recursive": 36,
+        "host-refused": 2,
+        "stale-refused": 444,
+        "boundary-refused": 0,
+        "replacement-callers": 1,
+        "multiple": 37,
+        "complete": 32,
+        "bounded": 6,
+        "maximum-depth": 32,
+        "result": 48,
+        "return-proofs": 38,
+        "return-refused": 2,
+        "return-alias-refused": 114,
+        "return-stale-refused": 444,
+        "return-advanced-refused": 38,
+        "return-fresh-after-step": 38,
+        "resume-committed": 38,
+        "resume-retained": 38,
+        "resume-rollback": 38,
+        "resume-refused": 717,
+        "resume-reentry-refused": 114,
+        "distinct-physical-incarnations": 38,
+        "sampled-cooperative-stops": 404,
+        "public-native-stack-bytes": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-debug_native_physical_caller_runtime-debug_native_physical_caller_large_runtime-unwind-deep",
+      "seconds": 159.55686550300015,
+      "counters": {
+        "physical": 38,
+        "recursive": 36,
+        "host-refused": 2,
+        "stale-refused": 444,
+        "boundary-refused": 0,
+        "replacement-callers": 1,
+        "multiple": 37,
+        "complete": 32,
+        "bounded": 6,
+        "maximum-depth": 32,
+        "result": 48,
+        "return-proofs": 38,
+        "return-refused": 2,
+        "return-alias-refused": 114,
+        "return-stale-refused": 444,
+        "return-advanced-refused": 38,
+        "return-fresh-after-step": 38,
+        "resume-committed": 38,
+        "resume-retained": 38,
+        "resume-rollback": 38,
+        "resume-refused": 717,
+        "resume-reentry-refused": 114,
+        "distinct-physical-incarnations": 38,
+        "sampled-cooperative-stops": 404,
+        "public-native-stack-bytes": 0
+      }
+    }
+  ],
+  "all_numeric_sessions": [
+    {
+      "label": "uwvm2-numeric-instruction-all-numeric",
+      "counters": {
+        "traps": 460,
+        "numeric": 9,
+        "visible": 149,
+        "hidden": 1743,
+        "retained": 13,
+        "transitions": 460,
+        "i64": 7,
+        "f32": 6,
+        "f64": 7,
+        "v128": 5,
+        "large-i64-constant": 1,
+        "large-i64-result": 1,
+        "real-si": 236,
+        "real-ni": 224
+      }
+    },
+    {
+      "label": "uwvm2-numeric-unwind-all-numeric",
+      "counters": {
+        "traps": 460,
+        "numeric": 9,
+        "visible": 149,
+        "hidden": 1743,
+        "retained": 13,
+        "transitions": 460,
+        "i64": 7,
+        "f32": 6,
+        "f64": 7,
+        "v128": 5,
+        "large-i64-constant": 1,
+        "large-i64-result": 1,
+        "real-si": 236,
+        "real-ni": 224
+      }
+    },
+    {
+      "label": "uwvm2-ros-numeric-instruction-all-numeric",
+      "counters": {
+        "traps": 460,
+        "numeric": 9,
+        "visible": 155,
+        "hidden": 1737,
+        "retained": 13,
+        "transitions": 460,
+        "i64": 7,
+        "f32": 6,
+        "f64": 7,
+        "v128": 5,
+        "large-i64-constant": 1,
+        "large-i64-result": 1,
+        "real-si": 236,
+        "real-ni": 224
+      }
+    },
+    {
+      "label": "uwvm2-ros-numeric-unwind-all-numeric",
+      "counters": {
+        "traps": 460,
+        "numeric": 9,
+        "visible": 155,
+        "hidden": 1737,
+        "retained": 13,
+        "transitions": 460,
+        "i64": 7,
+        "f32": 6,
+        "f64": 7,
+        "v128": 5,
+        "large-i64-constant": 1,
+        "large-i64-result": 1,
+        "real-si": 236,
+        "real-ni": 224
+      }
+    }
+  ],
+  "modern_Wasm_sessions": 8,
+  "component_executions": 10,
+  "public_native_stack_bytes": 0,
+  "full_LLVM_JIT": true,
+  "full_interpreter": false,
+  "ROS_basic_modes_added": false,
+  "qemu_prefix": [
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu/usr/bin/qemu-i386",
+    "-U",
+    "LD_LIBRARY_PATH",
+    "-E",
+    "LD_LIBRARY_PATH=/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current254/build-meta/work/ssl32/usr/lib/i386-linux-gnu:/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current260/build-meta/work/ssl32/usr/lib/i386-linux-gnu:/usr/lib32"
+  ],
+  "sdk_version": {
+    "version": "23.1.1-uwvm-ros.11",
+    "host_target": "i686-linux-gnu"
+  },
+  "sdk_ELF_class": 1,
+  "sdk_ELF_machine": 3,
+  "sdk_ELF_members": 1669,
+  "sdk_archives": 64,
+  "sdk_vendor_source_pins": 12874,
+  "sdk_build_sha256": "98b557221b739b95bd1f278ae83fac3e0dfa72b17bfd069f59207904cec5b288",
+  "receipts": {
+    "273": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/complete-evidence/receipt.json",
+      "sha256": "42bdab9861d90dc9bab38f987f0866c4d97bf235e37d14c5f0c5fa90ad8b65aa",
+      "passed": true,
+      "elapsed": 1825.4412851830002,
+      "rss_peak": 4486803456,
+      "resource_peak": {
+        "own_folder": 3940188160,
+        "shared_folder": 32009420800,
+        "group_memory": 39386165248
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "memory_max": 68719476736,
+      "swap_max": 0,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_tasks_retired": 58
+    },
+    "274": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current274/build-meta/complete-evidence/receipt.json",
+      "sha256": "3db2f33e0c3476a1fafebbfebb53c6d6f652655bbe7985c30f91d9da2cc54ff6",
+      "passed": true,
+      "elapsed": 2320.0049074050003,
+      "rss_peak": 3946708992,
+      "resource_peak": {
+        "own_folder": 3940188160,
+        "shared_folder": 32009392128,
+        "group_memory": 39162761216
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "memory_max": 68719476736,
+      "swap_max": 0,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_tasks_retired": 8
+    },
+    "287": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current287/build-meta/complete-evidence/receipt.json",
+      "sha256": "70c0520f4d4e8f246a894bff03656f0b5ca530090f88e4d254d2c23f056339d4",
+      "passed": true,
+      "elapsed": 160.24990720799906,
+      "rss_peak": 165855232,
+      "resource_peak": {
+        "own_folder": 3800768512,
+        "shared_folder": 31824211968,
+        "group_memory": 30222655488
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "memory_max": 68719476736,
+      "swap_max": 0,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_tasks_retired": 8
+    },
+    "278": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current278/build-meta/complete-evidence/receipt.json",
+      "sha256": "cab6d5ed201fbfdd49943741dda09c904fcaf6655d065b68458a4556c8c80c27",
+      "passed": true,
+      "elapsed": 1093.578960285,
+      "rss_peak": 3384799232,
+      "resource_peak": {
+        "own_folder": 3716255744,
+        "shared_folder": 30906560512,
+        "group_memory": 32744886272
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "memory_max": 68719476736,
+      "swap_max": 0,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_tasks_retired": 10
+    }
+  },
+  "compiler_parallelism": 1,
+  "memory_max_bytes": 68719476736,
+  "memory_swap_max_bytes": 0,
+  "owned_RSS_budget_bytes": 6442450944,
+  "owned_folder_high_water_bytes": 4294967296,
+  "shared_folder_high_water_bytes": 32212254720,
+  "earlier_failures_preserved": {
+    "246": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current246/build-meta/complete-evidence/receipt.json",
+      "sha256": "2d7e52a9ff42a0d5ad4fff4a3bec3f7e50ab6aa2de42a965961f63979532caa3",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "248": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current248/build-meta/complete-evidence/receipt.json",
+      "sha256": "fedd443051c5d7ae372a7e3aff9659e099d84e2297c8de4484c3cde215db0a22",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "249": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current249/build-meta/complete-evidence/receipt.json",
+      "sha256": "6f2ddb3812462dc58e3d5c70c2996a73bbe7cf2ef7953b60009f95912989509c",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "250": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current250/build-meta/complete-evidence/receipt.json",
+      "sha256": "f377c29fbe63dbb32b9736dcc948afc1a2fe335610cc2788327c9c5c7a61180f",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "251": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current251/build-meta/complete-evidence/receipt.json",
+      "sha256": "1712b8afc8a1a91f352bad318b2c3940b5c549c018cc281fd482e8a602f51cd0",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "252": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current252/build-meta/complete-evidence/receipt.json",
+      "sha256": "139f60fd8e6ceeeaf5521f152606b787e57cbadb446f421d5c087f288a325830",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "253": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current253/build-meta/complete-evidence/receipt.json",
+      "sha256": "9872accf99ade53dde1f7b68193821332f713a41ccf3beb15347df097e52c505",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "255": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current255/build-meta/complete-evidence/receipt.json",
+      "sha256": "c3d84e7c4cd653fdc0544dced197790e69bd0a28eb9131009ab16c8ebed1765c",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "256": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current256/build-meta/complete-evidence/receipt.json",
+      "sha256": "712122736cbe8a7d5465c69ede2d1b768eac63e0c0ef02751e4d88068af50df7",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "257": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current257/build-meta/complete-evidence/receipt.json",
+      "sha256": "dc723380f445cdec9c7b9e395ebbec23c838d6101b3783b79525ccd483f3a249",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "258": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current258/build-meta/complete-evidence/receipt.json",
+      "sha256": "8601e22fa50a0751dd797c97ff6607107ae196cc440ed6d7c36af74f7b7eb236",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "259": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current259/build-meta/complete-evidence/receipt.json",
+      "sha256": "185d182efa44a4595d69fbf041ac46c0045ff68e41a903b6f329c023b99789b5",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "261": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current261/build-meta/complete-evidence/receipt.json",
+      "sha256": "1808fd6e0615a4d14351ddcba0501dcfc913c4526124a986d974c3baf27119bb",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "262": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current262/build-meta/complete-evidence/receipt.json",
+      "sha256": "744158a427724798518070179f8aecda61d97d141ace318135314fbc9ef637b2",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "263": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current263/build-meta/complete-evidence/receipt.json",
+      "sha256": "ae449e652e29585fafcd6fb99492f7b1fae9699ea647a2795443c60ad73b8ef3",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "264": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current264/build-meta/complete-evidence/receipt.json",
+      "sha256": "47c1c4d3486415b17d25327c7eec65db9ab2995d68a88bb4bad22081995ee8fd",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "265": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current265/build-meta/complete-evidence/receipt.json",
+      "sha256": "f747c853e87420501b24105c9163dcebad630670fae16b28157679c69437a8a8",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "266": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current266/build-meta/complete-evidence/receipt.json",
+      "sha256": "7b83f0c9d3ddf9e427c98e24c2e505fc223b9edcd44b82ca6bc08a1a45d68536",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "267": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current267/build-meta/complete-evidence/receipt.json",
+      "sha256": "3e9c068975c32c84da73e9bbafa7d7e1bed82fa4740372efc3a8e5e5214cb6c4",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "269": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current269/build-meta/complete-evidence/receipt.json",
+      "sha256": "139d1c085e033bbd58b27181e1ded66a89ded314420df6845d5e3de019cf1f51",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "270": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current270/build-meta/complete-evidence/receipt.json",
+      "sha256": "bb2407299c2b5d2bcf8925ed715be16ab513759ab056ea850e89ba9390d0be82",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "275": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current275/build-meta/complete-evidence/receipt.json",
+      "sha256": "5f47d5985eb3a3d900f2fbe5551a1b8f7df5b79bfedacf7ed6065d03580a9402",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "276": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current276/build-meta/complete-evidence/receipt.json",
+      "sha256": "ccb65f6df1123c8fb97de6809f84bd1bb699d4b23b5f0221317132181a7e9f47",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "280": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current280/build-meta/complete-evidence/receipt.json",
+      "sha256": "4ca5453db65287d2c8c24d79da71303fde5d67193fa2ec8c80512e7d395e3c3d",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "281": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current281/build-meta/complete-evidence/receipt.json",
+      "sha256": "a2f8e34afd28c83e2038462cbf260ffbc6e8f513949862d53b62468a14bab044",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "282": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current282/build-meta/complete-evidence/receipt.json",
+      "sha256": "1c5271340abde17e351f099d2b7f351d870148e1b9acf83ddef3829e47f2cc92",
+      "passed": false,
+      "returncode": 1,
+      "error": null,
+      "retired": true
+    },
+    "283": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current283/build-meta/complete-evidence/receipt.json",
+      "sha256": "43c667116abf664d47a62ac39b5988946b78b991862a9d19ac10bb9a0f26102d",
+      "passed": false,
+      "returncode": null,
+      "error": "('shared persistent folder high water', 32245735424)",
+      "retired": true
+    },
+    "284": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current284/build-meta/complete-evidence/receipt.json",
+      "sha256": "b14f21c13f4faed88a73cff75dced6113f218e194b2a86335446286dd852796e",
+      "passed": false,
+      "returncode": null,
+      "error": "('shared persistent folder high water', 32245735424)",
+      "retired": true
+    }
+  },
+  "diagnostics_267_269_270_qualify_runtime": false,
+  "deep_sampling": "Each of38 distinct actual invocations completes every physical CFI/owner/hot-replacement/alias/stale/protected-wake/rollback/worker-ACK assertion once; later same-invocation cooperative stops resume only Wasm. Shallow cases remain exhaustive. Six bounded32-parent prefixes per deep run are required. Sampling changes test repetition only; no production boundary/CFI/owner rule is relaxed.",
+  "tested_changed_file_hashes": {
+    "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h": "d5d1605dd48596dc3e179adae9c39266f7c33a7afdc26135c4b6fe83de254475",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h": "70cc6d968547596d261ba80e6e976671f48f5bba2d29bfe0aa8bd7e654dec2b2",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h": "fbda1b31c09a1894ecb686bfea621b7ffc48b9b74b288b31e04116a4fc3233e6",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h": "bce741875e1a949fb021c9fee439e9caf170e3df1f2faac34a1ac3680dd117b5",
+    "uwvm2/src/uwvm2/uwvm/debugger/native_step_linux.h": "6409dda633b33908110a7d72f84ce4ae094c35a57883ebccd38b0c2791287ad4",
+    "uwvm2/src/uwvm2/uwvm/debugger/controller.h": "c01f8e77892756bbf5444607cd34eda245b1f417e6054b7cace5004a9fdf60bc",
+    "uwvm2/src/uwvm2/uwvm/debugger/native_owned_instruction_semantics.h": "8ee514a8ad6f5511683de91bbb134b9580a1610e45566fc199fa273663ffb53c",
+    "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h": "9503db2473394638bb2a3024e5c2c3210d1e0bb9827ba08b64f8e13735123668",
+    "uwvm2/xmake.lua": "63aa3412dc8077a3339e2040e94895281fd95119a4adb35d7ca7ccb5ea880918",
+    "uwvm2/test/0017.runtime/native_return_pop_i386.cc": "66a7f2e0705cfdf29cb2744b3927d1e63ccdf4ff999273da5501abbb90f4e8a4",
+    "uwvm2/test/0017.runtime/debug_native_finish_console.cc": "637920b2e2e23b6932f325fddf8457770d4ea801f2371d984a9e96f4e13f32eb",
+    "uwvm2/test/0017.runtime/debug_native_physical_caller_runtime.cc": "eeb181b97320a53cb9435f34ffa59e357858ec7b9001a1c3674e8c5c9eb5dbc7",
+    "uwvm2/test/0017.runtime/debug_native_cfi_i386.cc": "6a56048166c1ce41abbe45940349882439212aa3a6110a5c464cf959cb1724bb",
+    "uwvm2/test/0017.runtime/debug_native_registered_cfi_i386.cc": "3d6558a34ab25388fdcc37614a365d5386c7dff8df7e417afe7bfd0c73f4d5d9",
+    "uwvm2/test/0017.runtime/debug_native_stack_slot_width.cc": "41e8b5975b1f9399a94cb5456e36f5f2ccabddf06a610852e082a8c54fe7599a",
+    "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h": "d5d1605dd48596dc3e179adae9c39266f7c33a7afdc26135c4b6fe83de254475",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h": "70cc6d968547596d261ba80e6e976671f48f5bba2d29bfe0aa8bd7e654dec2b2",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h": "fbda1b31c09a1894ecb686bfea621b7ffc48b9b74b288b31e04116a4fc3233e6",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h": "bce741875e1a949fb021c9fee439e9caf170e3df1f2faac34a1ac3680dd117b5",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/native_step_linux.h": "6409dda633b33908110a7d72f84ce4ae094c35a57883ebccd38b0c2791287ad4",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/controller.h": "c01f8e77892756bbf5444607cd34eda245b1f417e6054b7cace5004a9fdf60bc",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/native_owned_instruction_semantics.h": "8ee514a8ad6f5511683de91bbb134b9580a1610e45566fc199fa273663ffb53c",
+    "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h": "d7edb69600b6d1dfe5b383b82760ab1ca3ec9537f2cc6b8a6babca86d4c85908",
+    "uwvm2-ros/xmake.lua": "e697ebcd290e9a246da1b6860ef02850dd6817a8f3c03ccf6301695f45c99e23",
+    "uwvm2-ros/test/0017.runtime/native_return_pop_i386.cc": "66a7f2e0705cfdf29cb2744b3927d1e63ccdf4ff999273da5501abbb90f4e8a4",
+    "uwvm2-ros/test/0017.runtime/debug_native_finish_console.cc": "637920b2e2e23b6932f325fddf8457770d4ea801f2371d984a9e96f4e13f32eb",
+    "uwvm2-ros/test/0017.runtime/debug_native_physical_caller_runtime.cc": "eeb181b97320a53cb9435f34ffa59e357858ec7b9001a1c3674e8c5c9eb5dbc7",
+    "uwvm2-ros/test/0017.runtime/debug_native_cfi_i386.cc": "6a56048166c1ce41abbe45940349882439212aa3a6110a5c464cf959cb1724bb",
+    "uwvm2-ros/test/0017.runtime/debug_native_registered_cfi_i386.cc": "3d6558a34ab25388fdcc37614a365d5386c7dff8df7e417afe7bfd0c73f4d5d9",
+    "uwvm2-ros/test/0017.runtime/debug_native_stack_slot_width.cc": "41e8b5975b1f9399a94cb5456e36f5f2ccabddf06a610852e082a8c54fe7599a",
+    "uwvm2/test/0017.runtime/debug_native_closed_call_continuation_runtime.cc": "7bead28a165802317bb6ed979e1b79220c1318bc0b3bea2a8b3e3f065b851be0",
+    "uwvm2-ros/test/0017.runtime/debug_native_closed_call_continuation_runtime.cc": "7bead28a165802317bb6ed979e1b79220c1318bc0b3bea2a8b3e3f065b851be0"
+  },
+  "runtime_images": [
+    {
+      "repository": "uwvm2",
+      "label": "native_return_pop_i386",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-native_return_pop_i386",
+      "sha256": "e2e8d767fad4e383ff22aa9b7fb926b2586cdf705cd8294170a3165ab07133d0",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2",
+      "label": "debug_native_cfi_i386",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-debug_native_cfi_i386",
+      "sha256": "cd1c38e18eabd93be8e747ef93165414f55b0305d0a2083542918aeb7aa4d5db",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2",
+      "label": "debug_native_registered_cfi_i386",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-debug_native_registered_cfi_i386",
+      "sha256": "c09af172e966ef0d1f631899a7122d42fccb596c99965683038ba3e6a0ea1628",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2",
+      "label": "debug_native_stack_slot_width",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-debug_native_stack_slot_width",
+      "sha256": "1137df4507f707e0438741d6370ef23fb07b0db57dd92b09cfc58e49fff64e26",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2",
+      "label": "debug_native_finish_console",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-debug_native_finish_console",
+      "sha256": "282c26393acf475b8d6e7a53af65f8c0394ca498c257f814f2886a1b840f82dc",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2",
+      "label": "debug_native_physical_caller_runtime",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-debug_native_physical_caller_runtime",
+      "sha256": "b0193b758e26d880d1cf341a51ce33433f28fe153e367cec4612326a91a7cccd",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2",
+      "label": "debug_native_call_console",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-debug_native_call_console",
+      "sha256": "84f28b1ea7c28a90c0abd694d098b6e8b101a5590c18797a1636f9b548dfdb76",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2-ros",
+      "label": "native_return_pop_i386",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-ros-native_return_pop_i386",
+      "sha256": "e2e8d767fad4e383ff22aa9b7fb926b2586cdf705cd8294170a3165ab07133d0",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2-ros",
+      "label": "debug_native_cfi_i386",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-ros-debug_native_cfi_i386",
+      "sha256": "cd1c38e18eabd93be8e747ef93165414f55b0305d0a2083542918aeb7aa4d5db",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2-ros",
+      "label": "debug_native_registered_cfi_i386",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-ros-debug_native_registered_cfi_i386",
+      "sha256": "c09af172e966ef0d1f631899a7122d42fccb596c99965683038ba3e6a0ea1628",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2-ros",
+      "label": "debug_native_stack_slot_width",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-ros-debug_native_stack_slot_width",
+      "sha256": "1137df4507f707e0438741d6370ef23fb07b0db57dd92b09cfc58e49fff64e26",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2-ros",
+      "label": "debug_native_finish_console",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-ros-debug_native_finish_console",
+      "sha256": "7fb03e1553481d8329a62418c032447c330ac54fd62e7af4b29ddbef65149780",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2-ros",
+      "label": "debug_native_physical_caller_runtime",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-ros-debug_native_physical_caller_runtime",
+      "sha256": "071c04cd786a0d823f4db148df81c28bbefb52cb41c504db081d4d3d9415191c",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2-ros",
+      "label": "debug_native_call_console",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current273/build-meta/work/uwvm2-ros-debug_native_call_console",
+      "sha256": "74b12eca343a41aa8f5d3782f73a841d215f25c56aecda65a9607ee51a9f6a07",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current274/build-meta/work/uwvm2-uwvm",
+      "sha256": "3d281af65e01489603e5ce6505f5912f06d8b1bda0176fa6ae555ae59240fdbd",
+      "ELF_machine": 3,
+      "ELF_class": 1
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current274/build-meta/work/uwvm2-ros-uwvm",
+      "sha256": "08f553ee52d2bd91ac2ea5911baaed32e31455c5faa04cecd6cbf338f9c9b049",
+      "ELF_machine": 3,
+      "ELF_class": 1
+    },
+    {
+      "repository": "uwvm2",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current283/build-meta/work/uwvm2-modern",
+      "sha256": "bc69360de4b66038532847ae6d353fb6de9af7dfdd948afeb000bd2f3cdcee02",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current283/build-meta/work/uwvm2-ros-modern",
+      "sha256": "05afd77199c8db7ed9c61e7af4749cb96204ee225af04a6b22888e1311dfc391",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current278/build-meta/work/uwvm2-numeric",
+      "sha256": "59cb452c006f42e07443e3d1f49d3df7b5f82da243864113d6181786ac276fab",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current278/build-meta/work/uwvm2-ros-numeric",
+      "sha256": "173f00cc547f795c30d581819219129408e44f47486d66d5ae0414aee04e5b9e",
+      "ELF_class": 1,
+      "ELF_machine": 3
+    }
+  ],
+  "remaining_implementation_scope": [
+    "Full physical caller/finish on PPC/MIPS/LoongArch/SPARC/ARM/s390 remain unqualified; low-level step/register records do not qualify these return paths",
+    "Actual i386 hardware/alternate libc and signal ABI, x32, full INT and all Core3 feature combinations are separate scopes",
+    "Native DAP stepOut on i386 is not qualified by console/CLI tests"
+  ],
+  "limits": [
+    "i386 return adjustment requires Success-decoded RET32/RETI32, exact original function entry forward decoding and CFA-4 saved RA; no backward boundary guesses",
+    "SP/FP/flags/native stack bytes, unproved GPR/FP bytes, VM/host frames, arbitrary address inputs remain unavailable",
+    "The exact frozen cut does not requalify concurrent peer edits outside its recorded source and dependencies"
+  ],
+  "test_fixture_overlay": {
+    "root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/source-current283",
+    "manifest_sha256": "4ae16e8c7802b6f44f5caf59999a0c2efe407f7b6c46b6388a112878e8572382",
+    "overlay_sha256": "2b06b65a86256c2d9e895603a679637f31ef00840ed9d43c33d1dcdc41ff4d66",
+    "scope": "Only modern fixture integer-FP assertions changed; exact same production273 runtime/host/main headers, layout and build source identity. Actual consumer source and complete dependency hashes are recorded independently."
+  },
+  "verified_input_manifest_sha256": "5669c975bc0df7a5d286ffa159d424afb819aa3b15da474fc9ae52e1c4ec0d5c",
+  "evidence_archive": {
+    "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/native-i386-runtime-evidence288.tar.gz",
+    "sha256": "8f0b5ccde322f25a7b0da0757c5f536d3f18963886a47fb61d777f9c07a234aa",
+    "bytes": 29619158,
+    "scope": "exact source273, immutable drivers/recipes, actual dependencies/logs/retirement receipts and SDK/package metadata. Compiled ELF and system/SDK libraries are represented by verified hashes."
+  },
+  "full_proof": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current288/build-meta/QUALIFIED288.json",
+  "full_proof_sha256": "67c9b0f62760acfd65d6c9d886c23075c1fa22715df1a0e086b46c86dd4e271b",
+  "archive_postvalidation": {
+    "passed": true,
+    "qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current288/build-meta/QUALIFIED288.json",
+    "qualification_sha256": "67c9b0f62760acfd65d6c9d886c23075c1fa22715df1a0e086b46c86dd4e271b",
+    "qualification_receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current288/build-meta/complete-evidence/receipt.json",
+    "qualification_receipt_sha256": "bbdd0a09b387966c263957f43c9c0b0f418210000c7c024e07c054af1b1a40e5",
+    "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/native-i386-runtime-evidence288.tar.gz",
+    "archive_sha256": "8f0b5ccde322f25a7b0da0757c5f536d3f18963886a47fb61d777f9c07a234aa",
+    "source_files_verified": 8060,
+    "test_overlay_files_verified": 2,
+    "archived_hashes_verified": 8066,
+    "all_qualification_tasks_retired": true,
+    "record": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current289/build-meta/archive-audit.json",
+    "record_sha256": "7424709089f00b04f18088d57f6412a9a883944b2b628601f41bd855187e70c1",
+    "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current289/build-meta/complete-evidence/receipt.json",
+    "receipt_sha256": "e7a34500c86fc53b7dd1d2c19c2e3aed3a936d9a05b57411a438a7a27bbd0bfe",
+    "all_owned_PIDFD_retired": true,
+    "memory_events_before": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "memory_events_after": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    }
+  },
+  "reclamation": {
+    "logical_path_bytes_reclaimed": 1235712244,
+    "retired_compiled_files": 24,
+    "record": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current289/build-meta/reclamation.json",
+    "record_sha256": "b468acdffe2d40c48d8e720509f1f66bd6fd90b3f65c006133152bf9fd47e331",
+    "scope": "Our explicitly named private consumer ELF32 executables/producer objects in retired owned batches only. No foreign process signalled; no complete system mapping census claimed. Existing recorded hashes remain historical; rebuild consumers for new execution.",
+    "preserved": "source273/source283 and all prior source cuts, LLVM247 genuine archives and headers, system/private target libraries and signed package inputs, all receipts/logs/source/dependency/build records and independently audited archive",
+    "all_originating_tasks_retired": true,
+    "post_reclamation_folder": {
+      "own_folder_bytes": 2595815424,
+      "shared_folder_bytes": 30753595392,
+      "scope": "post-reclamation filesystem block measurement; hardlinks counted once within each measured root",
+      "own_bound_bytes": 4294967296,
+      "shared_bound_bytes": 32212254720,
+      "record": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current289/build-meta/post-reclamation-folder.json",
+      "record_sha256": "49f2c50864bcdbdfef39ab48245ae3f781ab7b0f3104d58b61a1b73703824170"
+    }
+  },
+  "current_concurrent_deltas": [
+    {
+      "file": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "tested_sha256": "b60aad54c5d9390e908325f21ea612d5e4c718cab7021e655ba187ef98457448",
+      "current_sha256": "8c4e8834d43810d962b8df30ff9cfb58c023bdfee8b20c0e1c3c5df1eb883b6b"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h",
+      "tested_sha256": "473e259afb3faed9dea28b35a1a8a5d742cfeaff5060ddfacd409c8a34ca0916",
+      "current_sha256": "3859d785d8f09003457e3615797cc4a96af8599d6f42c06a8f5ce0f841385e66"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/uwvm/wasm/type/dl.h",
+      "tested_sha256": "500aab8967fbe548ad9958833c934ad7219fb0844c4e0e18ec190c6705743400",
+      "current_sha256": "ed00846f133b2a7a33f2eeeebe19e82fefe57c59b451eba9bed5a58ac02638c6"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/uwvm/wasm/storage/preload_module_attribute.h",
+      "tested_sha256": "cdf606db1b1e882bec3ca3b0db7af32bdc98aee49384dc7cadebfe7c2ae68bab",
+      "current_sha256": "e048ca8845a2110ba2832ce787b05fbda4c9983dc93eb1022b8db790f3dc7f7e"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/uwvm/wasm/loader/dl.h",
+      "tested_sha256": "46d6e122a88b0afbf64d356e0fc0465623672e903cb0149843f2f1ccd5f1965e",
+      "current_sha256": "4d7ade1ce56404b3b4aa072fcaebce4f8989d8012e9a60c5d45c8d7cedf3caab"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/uwvm/imported/wasi/wasip1/storage/env.h",
+      "tested_sha256": "9c6e56e8ee016af4ca2f3b8a3977bafa614c2ebd70f0aa873567e686a8225ce7",
+      "current_sha256": "798f8974a3fb0dedf19e6e12dfb4ffb723c5c75ec11fdc3b84ecf9500a3e56a5"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/environment/environment.h",
+      "tested_sha256": "9e198cbb6769cb3ca0f26e37d3b4c6304d7c1c452008629f1acaeb766248b30d",
+      "current_sha256": "6603e46f3b7071be157d564a09a961c58a00b332214348e922fc6f063262a509"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/args_get_wasm64.h",
+      "tested_sha256": "4cfd533dbf5bf2156dd1df72d9c80a68c6b3859816bc8ec8474108bbb412790c",
+      "current_sha256": "59ddd4095fd08e5afb7805f94f1f6c28c68089199cd93d11c9ae215c9a88915a"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/args_get.h",
+      "tested_sha256": "11ea311b479d9255ea4e7c79a1bbdcb3bd5b99342a39f6b4bf2c77b3f094534b",
+      "current_sha256": "7875be2ea4d93576f8b628df24fe9a707743bc617787d48289927635b65d41ca"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/args_sizes_get_wasm64.h",
+      "tested_sha256": "2b41970ab568f63f7901999c49bf613f1a720c57936257974fcb1558c8d834ad",
+      "current_sha256": "e46c451adc900beae66b789a4ee305c7dbc9bfa44a59871f971fe07ddd3140a4"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/args_sizes_get.h",
+      "tested_sha256": "75d067122857174c9d56dc0fc33518c61f34a9ca03b5f76c98cf394204256c94",
+      "current_sha256": "074a1b5143cea62b7043e75234d41d6f3e490d12dafd48d231308af4c9e990d6"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/clock_res_get_wasm64.h",
+      "tested_sha256": "4d810bf1a67d0b4162b14bc20942429613b9b80d53efc061ded22604581a011f",
+      "current_sha256": "ebcbe309a3df68833591b17e2b6cf6c9a086cd90511b890292ad22fdb7b362b8"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/clock_res_get.h",
+      "tested_sha256": "fcd729b1937ba001a7945e6daf31890bde23d8e074ea7256dfcb331f6a8fd0c2",
+      "current_sha256": "eb12c56393043f1c7d96993776766317c086f92dfb042cb860cdde50c8338391"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/clock_time_get_wasm64.h",
+      "tested_sha256": "f53cf951929b42ce2e0cf08ccce8d3bb1f74e71fc9e94ba27c296654599ecf59",
+      "current_sha256": "890d5833024a475a84989454d50067be5e183ee0cfa6f6f74e23bda3f2e81542"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/clock_time_get.h",
+      "tested_sha256": "fe41c109de1be60edc861183b3efb0374e69be4e5d4012a634fcadf03400c38e",
+      "current_sha256": "1078b4652548d7fbf852eb422d55b9799f9750b0bea14dd64dbba9f1e0682f31"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/environ_get_wasm64.h",
+      "tested_sha256": "05718b017fc74df2c48a07c532ef9012a57c5c20fae6c343d657071b1eb4e738",
+      "current_sha256": "3d0dfe6dea3c49183be9ff847f04e20e7ff5ea5cb206def50c9a54df2e8b466a"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/environ_get.h",
+      "tested_sha256": "bd32c57a5aa0cac2fd42bd52968e1bbba6d23d8161b05b495e8ef4467f091b51",
+      "current_sha256": "c1ea624274491e24980a22855f325e5cf9e3c3f9bef01d13230ebc7f63b1f60e"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/environ_sizes_get_wasm64.h",
+      "tested_sha256": "e28214d8c7bc33c20369334ae0bfade4693c4ce149c59b7b2a4ef9edcabe76bc",
+      "current_sha256": "f75c3835ed9b2ef4edd6da0e6be7227e85d742102caf4ac76514e7097a651e52"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/environ_sizes_get.h",
+      "tested_sha256": "f057620dbe5e3285100d675dc0cf8d17e8a960708cfeeff6f1e20b4eee04bbd4",
+      "current_sha256": "aa302807c1a312dcaec8d8b0804594ab44fe485dc1e3a2fcfcdecd01efa40cd7"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_fdstat_get_wasm64.h",
+      "tested_sha256": "8ce3d263f9548fe351594612c5dc89da6e3cd7243c8c7ba42aab6e3983e56130",
+      "current_sha256": "8df1e468f33921f0988a6e7638d34d508a5cee88cdab29010103a8ba767da349"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_fdstat_get.h",
+      "tested_sha256": "0f89a908edfd128cfa7b4782828fb6f8eaedffc27ef9547772745fdc9422a4ae",
+      "current_sha256": "3d6eb4358cb4a1432166160210b6aaf99550ae7154b3b74caf6cc990ea5b2cfe"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_filestat_get_wasm64.h",
+      "tested_sha256": "33e8b7bdd6d2fbd367e0857aa7a1fece973aa111696fcbd5e4a3717e6f74770c",
+      "current_sha256": "cd602811f10c08db5298ce125524abe83bd745eed999a056f465d35309a5c1c1"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_filestat_get.h",
+      "tested_sha256": "2bcad9ea7e3a20e444240aef7e70bb5b9281760f5eda461c5aa4ddc26dae91de",
+      "current_sha256": "9f64918550b726afb0bb6946bc10909a6e2d9ba1e8211c4a2a1a0985027a8a29"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_prestat_dir_name_wasm64.h",
+      "tested_sha256": "f8b695c2b29b634bbf5fc0eb7b04eb5af8e980481ebcfb39c8bcf3b1e8f44a1b",
+      "current_sha256": "66143ad220b70027647e030686c24d201d7c6773b7021bb1e5c9bfd74ce43f3f"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_prestat_dir_name.h",
+      "tested_sha256": "315eb6ce0f3b2dfc382f6572bbce00b288b5844665c3317eb49a7aeefae559c0",
+      "current_sha256": "0de06b7f9f370800eaeaf4cabbf27b738ca93581d99a74f2f2518ec463933990"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_prestat_get_wasm64.h",
+      "tested_sha256": "91feb3882b7a7982bd3a654970bc0cf0041cdd7c3e758201d0f061df69bf9535",
+      "current_sha256": "c124a31c801d09a578cf6677f4b0772cd7cfbc3fec360aeb7090d1c02f17ba31"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_prestat_get.h",
+      "tested_sha256": "4dc2aa05071863f560d0f5bbd54e05acd9b0cd007da0c7cd0e07455f566e4b94",
+      "current_sha256": "1a86ea724eeaefa513a544b52f20c5bdaed4674b5444c91e43a7f3bf83fc0749"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_pread_wasm64.h",
+      "tested_sha256": "6f75b6f0ea35315821a8d54e2aae8ce44c8e9283c4388ea6527e797a83c5e0ca",
+      "current_sha256": "2dc0bd88071515a18f90c88886cf2a2f386c2f5c393e40e78cdda671413eefe8"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_pread.h",
+      "tested_sha256": "725e5002432a21756c6fdef840946fad368248c9323f6df314e9b68b2fc22c55",
+      "current_sha256": "a701adb2ed0f47f8834b4e3aea63f2c2d536dadc08ef5725f46ce01eea579323"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_pwrite_wasm64.h",
+      "tested_sha256": "ee88d9b4e1c5bff33b353c2d18e83939fc60f20f7095c70d860c38796402cdd6",
+      "current_sha256": "63e09d7133cf8bc4f5ce6e9085abb842a13c7320fd05e07b588283efaeb2b4ef"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_pwrite.h",
+      "tested_sha256": "1c6bacab555488aedbc0375dad9acb6e885ef763a5cd7791efe0c8df23e4b319",
+      "current_sha256": "ac7463d78904a54433927f8151277078e547c637f095cd6baf4553d30dce11e8"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_read_wasm64.h",
+      "tested_sha256": "99a384ec19fe454696e0bf2c801a28a648a94ee8daf9cd77b2c59d46f04262a2",
+      "current_sha256": "34bcc79f5fdfd8adac02ea87d960b9f7dc2888f38bf0e42f91d8226a77ffb783"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_read.h",
+      "tested_sha256": "1fc1d2862ace5bd6828731025ec422f15cac136931377f1baa62dec41b4a56d5",
+      "current_sha256": "43839628c8148da580c201f48b2a2b2d08d4574d1c8f1496c7463a7b728e4bc2"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_readdir_wasm64.h",
+      "tested_sha256": "db572bf8377ca61422f8fddcb2f67bfedbe7a98a988dc2a0cd4224528dad7deb",
+      "current_sha256": "2a28f23bd2d7c6feb3eaf02bc58ec8d52212757d54565f69e81398c7bc621c99"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_readdir.h",
+      "tested_sha256": "3fda71be0509c503529015366d4c259ec9e4adde2109430d740f4a076b7d6e1a",
+      "current_sha256": "225ea70c2cf82678439cb5ce72d2ed937fbc0a6db3b8257ba58b796229c9d133"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_seek_wasm64.h",
+      "tested_sha256": "10f2f77bb7abf1f55aac2049883fa9e501f15800f9f475c3bdef05cdde1491a6",
+      "current_sha256": "f572833d64e5e17c7470920180bd4d14df096188c8e411550637bcfe0328ba9c"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_seek.h",
+      "tested_sha256": "9e0b1b90a5cd977807422bead9735108c3f32bf75377bae537aa63c62d1fad17",
+      "current_sha256": "9420834d24a4d6665bb5b313354b5c079aadb9b0d62442be7101895d38a2970c"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_tell_wasm64.h",
+      "tested_sha256": "1d8295e9d1f8f6a1cc4f5fa4a9e8c7dfd8aa39b1c985cd89d685beb74d20f71e",
+      "current_sha256": "ceb309dc7261320f45da8062e18b6ac3bceae06dc39bd8b6e2f2af8d2190c57a"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_tell.h",
+      "tested_sha256": "e85863bf942da6d6fff75ad7fa1a8025147357f7c4263bf0447f82faa341fddd",
+      "current_sha256": "a2e974d5720648589e90f481d91e05db9a0c5d5d392b3aa15df215eb1c4fc593"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_write_wasm64.h",
+      "tested_sha256": "f0675dd4f245108ac7373b081bde1f80dc610dc0e49ac7e4f786de5e79f2d108",
+      "current_sha256": "8ebce6b3785a7e506b9569f4f66461a9f1a1c58d4800132ee06c20ada5932d6b"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_write.h",
+      "tested_sha256": "2e6b990ee994b52af4d33ad7da92a3f1c222ad564f6097e64a6280ca673d035c",
+      "current_sha256": "c9713fcc0101e4b082eafa50a2cf2eecbe5f7747b3f07cf1ceb4ef5c6b878c82"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_create_directory_wasm64.h",
+      "tested_sha256": "ef0468ed7472f9af30f74b8ad8b4b62d01ecc73455bc0948c00a515048c39288",
+      "current_sha256": "1f0a1a3852b7a36dcff3ef10b538986d4bc299b1d67e31582fe9cc9ee002e7a7"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_create_directory.h",
+      "tested_sha256": "a01203bd410a72ebb58643dd187782f3f06086f379f347beb369c3a26ef70fcd",
+      "current_sha256": "b3c37052912c6bf9eb57aaf18fb35fbe2c7e23660e3fc6dfcf6c52201d84eacc"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_filestat_get_wasm64.h",
+      "tested_sha256": "09e488378bd7d2217fb965bb92a94b8018f7601623e7cab0f3831a1b0cbca151",
+      "current_sha256": "d9c85a4ca502c1815593e30147832ea950b2cef8b722c38ace0e7d56c998397a"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_filestat_get.h",
+      "tested_sha256": "8fb6180f290213129506d92d7f994e87376b618bb945838482d3a4969287fb04",
+      "current_sha256": "4cb6b0e7b50b47390e25c797fa7c815ce132b1d93b93e29eca0436138decb0ec"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_filestat_set_times_wasm64.h",
+      "tested_sha256": "460186ef885e82a3e4d2d3b2972e7dbeaf821d6c648c0e1d33c85d6963c646a6",
+      "current_sha256": "a7c23e5bc04fe09012e9a2734fccfd989b54ef98f03c9dce8cc1924833108ff9"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_filestat_set_times.h",
+      "tested_sha256": "db6c50a63e6785a77947474496369c962f0485c47bbe940160507ca9ab7d2ede",
+      "current_sha256": "4b27057bd8f86a9194c20551d512be70b3acc0e747f415234e4e8ba8a1b3495e"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_link_wasm64.h",
+      "tested_sha256": "4060b82da0aef09ce5bc0b1eaa8e747513c8c498496bbf26a4cdeaad10e60711",
+      "current_sha256": "d8719b277089d1ced4e82e48278bc4fb058452e483c4c60e39a08b4b27412a20"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_link.h",
+      "tested_sha256": "049f80db648a9d29eb5eed8b1aeba4781676063195344bce343173598ba18746",
+      "current_sha256": "b6c1fb22bc99537483989b41ded408038600476b24ea74995d409190ab9151ab"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_open_wasm64.h",
+      "tested_sha256": "b5c560d406b59005391a3cb6c9a3fa46542b6a5a05f295e13abcc3d41f720f36",
+      "current_sha256": "9e4f4eca00ce831c61905ebee0f972ee427b473fee3b02cedfb4e018728a19ad"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/utils/control/sealed_input.h",
+      "tested_sha256": "2ed8853610eccbd74777df802f4abc20a43529077b432580a937ed9a215e2d68",
+      "current_sha256": "9f3e1c93c4674d63060e87a156589eac28b313f9797c82f6fcb2bfa9a22c0dea"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_open.h",
+      "tested_sha256": "8f8c2e026448a7b9282038aea927d3488c51afa298a6d979564953fcd2c46b3a",
+      "current_sha256": "f8927ddc26a3ff0b77d467ba6f55d3058e653e61424a2c8c5a6582f27cc588d7"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_readlink_wasm64.h",
+      "tested_sha256": "ade14bae429aba73016ffc6d66cc5184dc2de24886e7a9c8d022487640d4710e",
+      "current_sha256": "9ff0d9e31de377db375dc5931f0720fcab190dcf2ede2b6849efb04f82cda639"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_readlink.h",
+      "tested_sha256": "1fcb8eeda354908c65db3d80a31346822d0cc7b727a8df0f2a9ea31736b0c6e1",
+      "current_sha256": "555f59c8a3e2137536b19a16e35c6b31d478893e47e07e67c2d4120aac1570f2"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_remove_directory_wasm64.h",
+      "tested_sha256": "dbfb4c6671a47a3798a5c2f78a5a8c59be2f19d645984a3513905c5921722d7b",
+      "current_sha256": "8475a64738c6b76e67656d824ac66c5da2092e8187eb4280f21870b6310f6405"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_remove_directory.h",
+      "tested_sha256": "aa7e74f1d49ab7da9e8defee6fb02d2a2a23a622868bdaa4380f0abb5c971995",
+      "current_sha256": "fa45c3f3248eaa96edfb0fca29f88f5d2c006e25143caad6500a18a90fcdec66"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_rename_wasm64.h",
+      "tested_sha256": "829f6374052014a1b3cfacef55b1759c0d7bc90d63c9842fa588416745db8435",
+      "current_sha256": "e6f37133177624133647aeaefe82a790793610e95db7e94db01799ba6e735898"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_rename.h",
+      "tested_sha256": "76d647babf1a88b6d90936db26d97eb434b297d2c02fbcc5d79fd65ae2500f6c",
+      "current_sha256": "4f50353ee9c2babfadf9b9e4535cba3c3ab1c4273065f8780093e42e17a65546"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_symlink_wasm64.h",
+      "tested_sha256": "1ca0ac9c9ff72f33c9a05fec661e115cf67978fdc815bdf7ba85a580d83952d5",
+      "current_sha256": "3b71bc9e61727ff0fb4e1ce3b746398e22f07e5cf0a29a22582707e78c3c6b78"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_symlink.h",
+      "tested_sha256": "188821204fa057b1627b6a5c6be397ed3002c66d74ea1548af7d809714abfe7b",
+      "current_sha256": "a8611e25c421ece8e7c58830b950a67f52e6feed76363fb976cb98f6d70e2886"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_unlink_file_wasm64.h",
+      "tested_sha256": "1102959b0e0c84d69534b70a2877eb3db0098c9585f91f161a004f1b84ca998f",
+      "current_sha256": "e23ebc761f65baca33804586b87a744ca51e9cd8a4a6ab47ac91f7d50e900e98"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_unlink_file.h",
+      "tested_sha256": "c0884ff80fba5759c27965f9173ed2be89e1548b61ac719eedc8cb096d87f9bf",
+      "current_sha256": "032133f9f2690b416730e1161967bbca1cb69bf7b8b97ffe0995d58fbec3e703"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/poll_oneoff_wasm64.h",
+      "tested_sha256": "0c68c89de2811d0790c67473332ef6cfc0b7a658d246db7ff4c6af783de2e0ba",
+      "current_sha256": "a0dffb9931acaf53272b40a2bc7147bb998c9c0d0260cec485cb6ee1a3e63d63"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/poll_oneoff.h",
+      "tested_sha256": "75cd7ed7943e4b1072c2c08816b5bbd704199d7685cf45cd46ad09e28e96e282",
+      "current_sha256": "0e06852f26008f8477666cf483761a32215d8aef4ecb5e6df92bd7844ab4c282"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/random_get_wasm64.h",
+      "tested_sha256": "7b3567d1c4ac6912e7fefe087e075d93b1d6a00af65d6bc47847a8169cfbd573",
+      "current_sha256": "eadb02959eed892ae4231d36284d6d3eb7bcabba60ba869051d2447468a966d3"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/random_get.h",
+      "tested_sha256": "29d11d51bb3879aa3e1dc7c9c6e365e1de5e27cfe58c0c9732fe8b5cb48f85a3",
+      "current_sha256": "a7f855677f3c6662bbd12018a2eea6471e0eb626922c0cf127c53f1f2def42f7"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/sock_accept_wasm64.h",
+      "tested_sha256": "3c8530cb6dc70dfdcebb8399df88e7ee088fdf4f9bb7939583d77fdb0b9cc686",
+      "current_sha256": "c3fb67daabe5e9b26a3d9ac3089e993f90473fdfbce34bbcd319c08f86fb883b"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/sock_accept.h",
+      "tested_sha256": "4c2d145fc9c3bd496379e6b4cac5bdea4d1c595f43e3a14171104c9d23771658",
+      "current_sha256": "612e8a1049e932e4dc03d366ce4f1faef75a01ba8c990ac77aaa570e00835d51"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/sock_recv_wasm64.h",
+      "tested_sha256": "e4f886a462774b1ff4e0c979134d4d7ba41a850918281dfd81d1758e0fa2b7ba",
+      "current_sha256": "cffd0d6a319709542a422f8863d1bf7d59dafffc6ecfdf789d46c840abfecf7b"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/sock_recv.h",
+      "tested_sha256": "95f008c8020d4c928eca9606380191a2f37e29b17a48b91598fc070b281a6540",
+      "current_sha256": "f2f1287e68327d6819117aa2ed0fe2ed2f70274d056eada9cc28feb62175a82d"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/sock_send_wasm64.h",
+      "tested_sha256": "4539388e28a14af2e6f8908c7588b67a10262f4111e9a34a4cf8f71599af07c0",
+      "current_sha256": "d4c6874afefb1686b60ae2030e3940c711c5d6a13554f0a3e8c58456bbf01d1f"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/imported/wasi/wasip1/func/sock_send.h",
+      "tested_sha256": "0ddb539d21911301069f0097620d862dafe5e41d69004ef9a27cc47f753cdc29",
+      "current_sha256": "274b4f5a1c32c76dc5f561d81c73d3110ec43f0f08d727cb5f55d6320d7383e0"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/uwvm/wasm/loader/weak_symbol.h",
+      "tested_sha256": "cf4cb9ef3cbf33f7db86d3eb39f57f97c2c0e9575cb62899bb43ec3319c0c45c",
+      "current_sha256": "6f3868a71d770cb0a6fe4447a0b00c103e4624959531d175270eb6ec9cf292f0"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_gc_emit.h",
+      "tested_sha256": "1b5198feafe8cc3dc2a99464e9b32b61f9e4116be167e11a8e1280a7b27776a8",
+      "current_sha256": "3e4244073b94f98b35cbb97eb1c176ba9fc56bbf2d5a40467f00cdb876f5ef42"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "tested_sha256": "ded0e9159e1debbc7b33aa6bdaa0c3552554cf16c3516439a7690109cad0f5d5",
+      "current_sha256": "fa3a85269e691329584eba3fd897f707418c19cd6bb2ebebd1d5cc23a5ac440f"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/llvm_jit_cache/environment.h",
+      "tested_sha256": "4765471865953315c95731d735a1e8ccb5502b43cf7917405280ba3b741be32f",
+      "current_sha256": "6c6765be74d94f0c1ead2a749e13e42f355cba17cc40e16aef013267cb3caa0d"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h",
+      "tested_sha256": "0ac0c5def9ec50f6eb7dcd7b12d97ec5f28634d161ea35cb47c6d88e13077844",
+      "current_sha256": "05f1ba3c97d581fdc64cb23c474fd1f76e27d92e473829cc3e8da2c9775d9fb0"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h",
+      "tested_sha256": "83df5c324ba97ff69cf66de0ce589022604339adf5d2edf1ae661f3b857db0e9",
+      "current_sha256": "e173deacf8949b4c3f0c6d82b8c27c7a2e5f0e688f072f9ffea34695704db9b6"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h",
+      "tested_sha256": "7a46c57d0d8dd178666694b0b33f8fc1a08c13d3fbd73a5c6b472c0c19383d13",
+      "current_sha256": "f6ad3a6a398f6d62e9f5f8ac3c8ac5c567eda63b43c212a24658963dea051e76"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+      "tested_sha256": "6cb9e0fdc02c0914d7d9941eeef40b0b23f615e5871341aac36935e9e253d42e",
+      "current_sha256": "4a0eee3c2ac442a4c825f12a93c0eec23eb8df12bb08110dc79737c2a6cb6694"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h",
+      "tested_sha256": "8ed18c8c75922783fdd2b6d50f6d639804794759eb929d1f42f005a578b8a089",
+      "current_sha256": "55747aa641c9f31fa77ae00acba9544ceb520cc99580c87181b731e4d3b7b561"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+      "tested_sha256": "bb74aa87b6209b4def9edb2d69e32723e24ab107ece682161c22fdeeec17ce38",
+      "current_sha256": "090b8304ed9ab8cc2cca9ccae2c383be4d1d68b47151574d7a5f2ad454018a6d"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h",
+      "tested_sha256": "7693cea078deebe051f7814e4b1ee9a1887f3dcb2fab6c579ad0d04fe33cfa1a",
+      "current_sha256": "a9d760840f45ec77452e395570b326ca49362533b9ad971f9612a247d8d7d6a9"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+      "tested_sha256": "c528c74b901bc8d8e92732105b0f3617e8362182321dd8d53cfba425a40ad382",
+      "current_sha256": "72926fb32ca968d145dcac59ab78e34177ce8007f85e379a3bd2747993b5608b"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/uwvm/host_api.default.cpp",
+      "tested_sha256": "389d72d23f959567c4f89aea8ec71b8d91e91ee2b3ab8d18f19dfb8156986dc5",
+      "current_sha256": "e9a7aad2d6d7d20c67cb8dc0c50602ff97359cbcf11fdb0399109b6750a88342"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/uwvm/debugger/source_language_expression.h",
+      "tested_sha256": "be3b9ae31b1afb91032afc33f6d8268a3440086d2a3d33b3b333cc1a2b930523",
+      "current_sha256": "47e47ec3d9394c4719e784a3b8498e674356de0124ab0e826d23a00d809593f5"
+    },
+    {
+      "file": "uwvm2/src/uwvm2/uwvm/debugger/source_dwarf_index.h",
+      "tested_sha256": "97a057bfc31370b8cc70adcdcff8e597ad263ff8fbd014f9672fa45041d5e645",
+      "current_sha256": "55e96fc7a3162eaf2010e30fbb94b5a651d85e9e9fa1c441cbd9c15ce9b4ae76"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "tested_sha256": "6c661ab97eb260c85de2dab81b4d266df82fd4446a861f8b2c443d72e7b9fe25",
+      "current_sha256": "471fc468e8fcf35549e417ae2e16fb06122f2b79ee601dedfa7a10d2fd972294"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h",
+      "tested_sha256": "473e259afb3faed9dea28b35a1a8a5d742cfeaff5060ddfacd409c8a34ca0916",
+      "current_sha256": "3859d785d8f09003457e3615797cc4a96af8599d6f42c06a8f5ce0f841385e66"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/uwvm/wasm/type/dl.h",
+      "tested_sha256": "500aab8967fbe548ad9958833c934ad7219fb0844c4e0e18ec190c6705743400",
+      "current_sha256": "ed00846f133b2a7a33f2eeeebe19e82fefe57c59b451eba9bed5a58ac02638c6"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/uwvm/wasm/storage/preload_module_attribute.h",
+      "tested_sha256": "cdf606db1b1e882bec3ca3b0db7af32bdc98aee49384dc7cadebfe7c2ae68bab",
+      "current_sha256": "e048ca8845a2110ba2832ce787b05fbda4c9983dc93eb1022b8db790f3dc7f7e"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/uwvm/wasm/loader/dl.h",
+      "tested_sha256": "46d6e122a88b0afbf64d356e0fc0465623672e903cb0149843f2f1ccd5f1965e",
+      "current_sha256": "4d7ade1ce56404b3b4aa072fcaebce4f8989d8012e9a60c5d45c8d7cedf3caab"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/uwvm/imported/wasi/wasip1/storage/env.h",
+      "tested_sha256": "9c6e56e8ee016af4ca2f3b8a3977bafa614c2ebd70f0aa873567e686a8225ce7",
+      "current_sha256": "798f8974a3fb0dedf19e6e12dfb4ffb723c5c75ec11fdc3b84ecf9500a3e56a5"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/environment/environment.h",
+      "tested_sha256": "9e198cbb6769cb3ca0f26e37d3b4c6304d7c1c452008629f1acaeb766248b30d",
+      "current_sha256": "6603e46f3b7071be157d564a09a961c58a00b332214348e922fc6f063262a509"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/args_get_wasm64.h",
+      "tested_sha256": "4cfd533dbf5bf2156dd1df72d9c80a68c6b3859816bc8ec8474108bbb412790c",
+      "current_sha256": "59ddd4095fd08e5afb7805f94f1f6c28c68089199cd93d11c9ae215c9a88915a"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/args_get.h",
+      "tested_sha256": "11ea311b479d9255ea4e7c79a1bbdcb3bd5b99342a39f6b4bf2c77b3f094534b",
+      "current_sha256": "7875be2ea4d93576f8b628df24fe9a707743bc617787d48289927635b65d41ca"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/args_sizes_get_wasm64.h",
+      "tested_sha256": "2b41970ab568f63f7901999c49bf613f1a720c57936257974fcb1558c8d834ad",
+      "current_sha256": "e46c451adc900beae66b789a4ee305c7dbc9bfa44a59871f971fe07ddd3140a4"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/args_sizes_get.h",
+      "tested_sha256": "75d067122857174c9d56dc0fc33518c61f34a9ca03b5f76c98cf394204256c94",
+      "current_sha256": "074a1b5143cea62b7043e75234d41d6f3e490d12dafd48d231308af4c9e990d6"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/clock_res_get_wasm64.h",
+      "tested_sha256": "4d810bf1a67d0b4162b14bc20942429613b9b80d53efc061ded22604581a011f",
+      "current_sha256": "ebcbe309a3df68833591b17e2b6cf6c9a086cd90511b890292ad22fdb7b362b8"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/clock_res_get.h",
+      "tested_sha256": "fcd729b1937ba001a7945e6daf31890bde23d8e074ea7256dfcb331f6a8fd0c2",
+      "current_sha256": "eb12c56393043f1c7d96993776766317c086f92dfb042cb860cdde50c8338391"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/clock_time_get_wasm64.h",
+      "tested_sha256": "f53cf951929b42ce2e0cf08ccce8d3bb1f74e71fc9e94ba27c296654599ecf59",
+      "current_sha256": "890d5833024a475a84989454d50067be5e183ee0cfa6f6f74e23bda3f2e81542"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/clock_time_get.h",
+      "tested_sha256": "fe41c109de1be60edc861183b3efb0374e69be4e5d4012a634fcadf03400c38e",
+      "current_sha256": "1078b4652548d7fbf852eb422d55b9799f9750b0bea14dd64dbba9f1e0682f31"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/environ_get_wasm64.h",
+      "tested_sha256": "05718b017fc74df2c48a07c532ef9012a57c5c20fae6c343d657071b1eb4e738",
+      "current_sha256": "3d0dfe6dea3c49183be9ff847f04e20e7ff5ea5cb206def50c9a54df2e8b466a"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/environ_get.h",
+      "tested_sha256": "bd32c57a5aa0cac2fd42bd52968e1bbba6d23d8161b05b495e8ef4467f091b51",
+      "current_sha256": "c1ea624274491e24980a22855f325e5cf9e3c3f9bef01d13230ebc7f63b1f60e"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/environ_sizes_get_wasm64.h",
+      "tested_sha256": "e28214d8c7bc33c20369334ae0bfade4693c4ce149c59b7b2a4ef9edcabe76bc",
+      "current_sha256": "f75c3835ed9b2ef4edd6da0e6be7227e85d742102caf4ac76514e7097a651e52"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/environ_sizes_get.h",
+      "tested_sha256": "f057620dbe5e3285100d675dc0cf8d17e8a960708cfeeff6f1e20b4eee04bbd4",
+      "current_sha256": "aa302807c1a312dcaec8d8b0804594ab44fe485dc1e3a2fcfcdecd01efa40cd7"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_fdstat_get_wasm64.h",
+      "tested_sha256": "8ce3d263f9548fe351594612c5dc89da6e3cd7243c8c7ba42aab6e3983e56130",
+      "current_sha256": "8df1e468f33921f0988a6e7638d34d508a5cee88cdab29010103a8ba767da349"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_fdstat_get.h",
+      "tested_sha256": "0f89a908edfd128cfa7b4782828fb6f8eaedffc27ef9547772745fdc9422a4ae",
+      "current_sha256": "3d6eb4358cb4a1432166160210b6aaf99550ae7154b3b74caf6cc990ea5b2cfe"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_filestat_get_wasm64.h",
+      "tested_sha256": "33e8b7bdd6d2fbd367e0857aa7a1fece973aa111696fcbd5e4a3717e6f74770c",
+      "current_sha256": "cd602811f10c08db5298ce125524abe83bd745eed999a056f465d35309a5c1c1"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_filestat_get.h",
+      "tested_sha256": "2bcad9ea7e3a20e444240aef7e70bb5b9281760f5eda461c5aa4ddc26dae91de",
+      "current_sha256": "9f64918550b726afb0bb6946bc10909a6e2d9ba1e8211c4a2a1a0985027a8a29"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_prestat_dir_name_wasm64.h",
+      "tested_sha256": "f8b695c2b29b634bbf5fc0eb7b04eb5af8e980481ebcfb39c8bcf3b1e8f44a1b",
+      "current_sha256": "66143ad220b70027647e030686c24d201d7c6773b7021bb1e5c9bfd74ce43f3f"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_prestat_dir_name.h",
+      "tested_sha256": "315eb6ce0f3b2dfc382f6572bbce00b288b5844665c3317eb49a7aeefae559c0",
+      "current_sha256": "0de06b7f9f370800eaeaf4cabbf27b738ca93581d99a74f2f2518ec463933990"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_prestat_get_wasm64.h",
+      "tested_sha256": "91feb3882b7a7982bd3a654970bc0cf0041cdd7c3e758201d0f061df69bf9535",
+      "current_sha256": "c124a31c801d09a578cf6677f4b0772cd7cfbc3fec360aeb7090d1c02f17ba31"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_prestat_get.h",
+      "tested_sha256": "4dc2aa05071863f560d0f5bbd54e05acd9b0cd007da0c7cd0e07455f566e4b94",
+      "current_sha256": "1a86ea724eeaefa513a544b52f20c5bdaed4674b5444c91e43a7f3bf83fc0749"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_pread_wasm64.h",
+      "tested_sha256": "6f75b6f0ea35315821a8d54e2aae8ce44c8e9283c4388ea6527e797a83c5e0ca",
+      "current_sha256": "2dc0bd88071515a18f90c88886cf2a2f386c2f5c393e40e78cdda671413eefe8"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_pread.h",
+      "tested_sha256": "725e5002432a21756c6fdef840946fad368248c9323f6df314e9b68b2fc22c55",
+      "current_sha256": "a701adb2ed0f47f8834b4e3aea63f2c2d536dadc08ef5725f46ce01eea579323"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_pwrite_wasm64.h",
+      "tested_sha256": "ee88d9b4e1c5bff33b353c2d18e83939fc60f20f7095c70d860c38796402cdd6",
+      "current_sha256": "63e09d7133cf8bc4f5ce6e9085abb842a13c7320fd05e07b588283efaeb2b4ef"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_pwrite.h",
+      "tested_sha256": "1c6bacab555488aedbc0375dad9acb6e885ef763a5cd7791efe0c8df23e4b319",
+      "current_sha256": "ac7463d78904a54433927f8151277078e547c637f095cd6baf4553d30dce11e8"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_read_wasm64.h",
+      "tested_sha256": "99a384ec19fe454696e0bf2c801a28a648a94ee8daf9cd77b2c59d46f04262a2",
+      "current_sha256": "34bcc79f5fdfd8adac02ea87d960b9f7dc2888f38bf0e42f91d8226a77ffb783"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_read.h",
+      "tested_sha256": "1fc1d2862ace5bd6828731025ec422f15cac136931377f1baa62dec41b4a56d5",
+      "current_sha256": "43839628c8148da580c201f48b2a2b2d08d4574d1c8f1496c7463a7b728e4bc2"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_readdir_wasm64.h",
+      "tested_sha256": "db572bf8377ca61422f8fddcb2f67bfedbe7a98a988dc2a0cd4224528dad7deb",
+      "current_sha256": "2a28f23bd2d7c6feb3eaf02bc58ec8d52212757d54565f69e81398c7bc621c99"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_readdir.h",
+      "tested_sha256": "3fda71be0509c503529015366d4c259ec9e4adde2109430d740f4a076b7d6e1a",
+      "current_sha256": "225ea70c2cf82678439cb5ce72d2ed937fbc0a6db3b8257ba58b796229c9d133"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_seek_wasm64.h",
+      "tested_sha256": "10f2f77bb7abf1f55aac2049883fa9e501f15800f9f475c3bdef05cdde1491a6",
+      "current_sha256": "f572833d64e5e17c7470920180bd4d14df096188c8e411550637bcfe0328ba9c"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_seek.h",
+      "tested_sha256": "9e0b1b90a5cd977807422bead9735108c3f32bf75377bae537aa63c62d1fad17",
+      "current_sha256": "9420834d24a4d6665bb5b313354b5c079aadb9b0d62442be7101895d38a2970c"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_tell_wasm64.h",
+      "tested_sha256": "1d8295e9d1f8f6a1cc4f5fa4a9e8c7dfd8aa39b1c985cd89d685beb74d20f71e",
+      "current_sha256": "ceb309dc7261320f45da8062e18b6ac3bceae06dc39bd8b6e2f2af8d2190c57a"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_tell.h",
+      "tested_sha256": "e85863bf942da6d6fff75ad7fa1a8025147357f7c4263bf0447f82faa341fddd",
+      "current_sha256": "a2e974d5720648589e90f481d91e05db9a0c5d5d392b3aa15df215eb1c4fc593"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_write_wasm64.h",
+      "tested_sha256": "f0675dd4f245108ac7373b081bde1f80dc610dc0e49ac7e4f786de5e79f2d108",
+      "current_sha256": "8ebce6b3785a7e506b9569f4f66461a9f1a1c58d4800132ee06c20ada5932d6b"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_write.h",
+      "tested_sha256": "2e6b990ee994b52af4d33ad7da92a3f1c222ad564f6097e64a6280ca673d035c",
+      "current_sha256": "c9713fcc0101e4b082eafa50a2cf2eecbe5f7747b3f07cf1ceb4ef5c6b878c82"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_create_directory_wasm64.h",
+      "tested_sha256": "ef0468ed7472f9af30f74b8ad8b4b62d01ecc73455bc0948c00a515048c39288",
+      "current_sha256": "1f0a1a3852b7a36dcff3ef10b538986d4bc299b1d67e31582fe9cc9ee002e7a7"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_create_directory.h",
+      "tested_sha256": "a01203bd410a72ebb58643dd187782f3f06086f379f347beb369c3a26ef70fcd",
+      "current_sha256": "b3c37052912c6bf9eb57aaf18fb35fbe2c7e23660e3fc6dfcf6c52201d84eacc"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_filestat_get_wasm64.h",
+      "tested_sha256": "09e488378bd7d2217fb965bb92a94b8018f7601623e7cab0f3831a1b0cbca151",
+      "current_sha256": "d9c85a4ca502c1815593e30147832ea950b2cef8b722c38ace0e7d56c998397a"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_filestat_get.h",
+      "tested_sha256": "8fb6180f290213129506d92d7f994e87376b618bb945838482d3a4969287fb04",
+      "current_sha256": "4cb6b0e7b50b47390e25c797fa7c815ce132b1d93b93e29eca0436138decb0ec"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_filestat_set_times_wasm64.h",
+      "tested_sha256": "460186ef885e82a3e4d2d3b2972e7dbeaf821d6c648c0e1d33c85d6963c646a6",
+      "current_sha256": "a7c23e5bc04fe09012e9a2734fccfd989b54ef98f03c9dce8cc1924833108ff9"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_filestat_set_times.h",
+      "tested_sha256": "db6c50a63e6785a77947474496369c962f0485c47bbe940160507ca9ab7d2ede",
+      "current_sha256": "4b27057bd8f86a9194c20551d512be70b3acc0e747f415234e4e8ba8a1b3495e"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_link_wasm64.h",
+      "tested_sha256": "4060b82da0aef09ce5bc0b1eaa8e747513c8c498496bbf26a4cdeaad10e60711",
+      "current_sha256": "d8719b277089d1ced4e82e48278bc4fb058452e483c4c60e39a08b4b27412a20"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_link.h",
+      "tested_sha256": "049f80db648a9d29eb5eed8b1aeba4781676063195344bce343173598ba18746",
+      "current_sha256": "b6c1fb22bc99537483989b41ded408038600476b24ea74995d409190ab9151ab"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_open_wasm64.h",
+      "tested_sha256": "b5c560d406b59005391a3cb6c9a3fa46542b6a5a05f295e13abcc3d41f720f36",
+      "current_sha256": "9e4f4eca00ce831c61905ebee0f972ee427b473fee3b02cedfb4e018728a19ad"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/utils/control/sealed_input.h",
+      "tested_sha256": "2ed8853610eccbd74777df802f4abc20a43529077b432580a937ed9a215e2d68",
+      "current_sha256": "9f3e1c93c4674d63060e87a156589eac28b313f9797c82f6fcb2bfa9a22c0dea"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_open.h",
+      "tested_sha256": "8f8c2e026448a7b9282038aea927d3488c51afa298a6d979564953fcd2c46b3a",
+      "current_sha256": "f8927ddc26a3ff0b77d467ba6f55d3058e653e61424a2c8c5a6582f27cc588d7"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_readlink_wasm64.h",
+      "tested_sha256": "ade14bae429aba73016ffc6d66cc5184dc2de24886e7a9c8d022487640d4710e",
+      "current_sha256": "9ff0d9e31de377db375dc5931f0720fcab190dcf2ede2b6849efb04f82cda639"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_readlink.h",
+      "tested_sha256": "1fcb8eeda354908c65db3d80a31346822d0cc7b727a8df0f2a9ea31736b0c6e1",
+      "current_sha256": "555f59c8a3e2137536b19a16e35c6b31d478893e47e07e67c2d4120aac1570f2"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_remove_directory_wasm64.h",
+      "tested_sha256": "dbfb4c6671a47a3798a5c2f78a5a8c59be2f19d645984a3513905c5921722d7b",
+      "current_sha256": "8475a64738c6b76e67656d824ac66c5da2092e8187eb4280f21870b6310f6405"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_remove_directory.h",
+      "tested_sha256": "aa7e74f1d49ab7da9e8defee6fb02d2a2a23a622868bdaa4380f0abb5c971995",
+      "current_sha256": "fa45c3f3248eaa96edfb0fca29f88f5d2c006e25143caad6500a18a90fcdec66"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_rename_wasm64.h",
+      "tested_sha256": "829f6374052014a1b3cfacef55b1759c0d7bc90d63c9842fa588416745db8435",
+      "current_sha256": "e6f37133177624133647aeaefe82a790793610e95db7e94db01799ba6e735898"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_rename.h",
+      "tested_sha256": "76d647babf1a88b6d90936db26d97eb434b297d2c02fbcc5d79fd65ae2500f6c",
+      "current_sha256": "4f50353ee9c2babfadf9b9e4535cba3c3ab1c4273065f8780093e42e17a65546"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_symlink_wasm64.h",
+      "tested_sha256": "1ca0ac9c9ff72f33c9a05fec661e115cf67978fdc815bdf7ba85a580d83952d5",
+      "current_sha256": "3b71bc9e61727ff0fb4e1ce3b746398e22f07e5cf0a29a22582707e78c3c6b78"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_symlink.h",
+      "tested_sha256": "188821204fa057b1627b6a5c6be397ed3002c66d74ea1548af7d809714abfe7b",
+      "current_sha256": "a8611e25c421ece8e7c58830b950a67f52e6feed76363fb976cb98f6d70e2886"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_unlink_file_wasm64.h",
+      "tested_sha256": "1102959b0e0c84d69534b70a2877eb3db0098c9585f91f161a004f1b84ca998f",
+      "current_sha256": "e23ebc761f65baca33804586b87a744ca51e9cd8a4a6ab47ac91f7d50e900e98"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_unlink_file.h",
+      "tested_sha256": "c0884ff80fba5759c27965f9173ed2be89e1548b61ac719eedc8cb096d87f9bf",
+      "current_sha256": "032133f9f2690b416730e1161967bbca1cb69bf7b8b97ffe0995d58fbec3e703"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/poll_oneoff_wasm64.h",
+      "tested_sha256": "0c68c89de2811d0790c67473332ef6cfc0b7a658d246db7ff4c6af783de2e0ba",
+      "current_sha256": "a0dffb9931acaf53272b40a2bc7147bb998c9c0d0260cec485cb6ee1a3e63d63"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/poll_oneoff.h",
+      "tested_sha256": "75cd7ed7943e4b1072c2c08816b5bbd704199d7685cf45cd46ad09e28e96e282",
+      "current_sha256": "0e06852f26008f8477666cf483761a32215d8aef4ecb5e6df92bd7844ab4c282"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/random_get_wasm64.h",
+      "tested_sha256": "7b3567d1c4ac6912e7fefe087e075d93b1d6a00af65d6bc47847a8169cfbd573",
+      "current_sha256": "eadb02959eed892ae4231d36284d6d3eb7bcabba60ba869051d2447468a966d3"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/random_get.h",
+      "tested_sha256": "29d11d51bb3879aa3e1dc7c9c6e365e1de5e27cfe58c0c9732fe8b5cb48f85a3",
+      "current_sha256": "a7f855677f3c6662bbd12018a2eea6471e0eb626922c0cf127c53f1f2def42f7"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/sock_accept_wasm64.h",
+      "tested_sha256": "3c8530cb6dc70dfdcebb8399df88e7ee088fdf4f9bb7939583d77fdb0b9cc686",
+      "current_sha256": "c3fb67daabe5e9b26a3d9ac3089e993f90473fdfbce34bbcd319c08f86fb883b"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/sock_accept.h",
+      "tested_sha256": "4c2d145fc9c3bd496379e6b4cac5bdea4d1c595f43e3a14171104c9d23771658",
+      "current_sha256": "612e8a1049e932e4dc03d366ce4f1faef75a01ba8c990ac77aaa570e00835d51"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/sock_recv_wasm64.h",
+      "tested_sha256": "e4f886a462774b1ff4e0c979134d4d7ba41a850918281dfd81d1758e0fa2b7ba",
+      "current_sha256": "cffd0d6a319709542a422f8863d1bf7d59dafffc6ecfdf789d46c840abfecf7b"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/sock_recv.h",
+      "tested_sha256": "95f008c8020d4c928eca9606380191a2f37e29b17a48b91598fc070b281a6540",
+      "current_sha256": "f2f1287e68327d6819117aa2ed0fe2ed2f70274d056eada9cc28feb62175a82d"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/sock_send_wasm64.h",
+      "tested_sha256": "4539388e28a14af2e6f8908c7588b67a10262f4111e9a34a4cf8f71599af07c0",
+      "current_sha256": "d4c6874afefb1686b60ae2030e3940c711c5d6a13554f0a3e8c58456bbf01d1f"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/sock_send.h",
+      "tested_sha256": "0ddb539d21911301069f0097620d862dafe5e41d69004ef9a27cc47f753cdc29",
+      "current_sha256": "274b4f5a1c32c76dc5f561d81c73d3110ec43f0f08d727cb5f55d6320d7383e0"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/uwvm/wasm/loader/weak_symbol.h",
+      "tested_sha256": "cf4cb9ef3cbf33f7db86d3eb39f57f97c2c0e9575cb62899bb43ec3319c0c45c",
+      "current_sha256": "6f3868a71d770cb0a6fe4447a0b00c103e4624959531d175270eb6ec9cf292f0"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_gc_emit.h",
+      "tested_sha256": "1b5198feafe8cc3dc2a99464e9b32b61f9e4116be167e11a8e1280a7b27776a8",
+      "current_sha256": "3e4244073b94f98b35cbb97eb1c176ba9fc56bbf2d5a40467f00cdb876f5ef42"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/llvm_jit_cache/environment.h",
+      "tested_sha256": "b57fb44b123b8cae33831b1ef99a57323bd2e2d865e8c9d9093ff15b30339049",
+      "current_sha256": "b138b8dd41843ed4f781c4d9ed544e0ad270e0f14fa8541670e7a76d7d9d215e"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "tested_sha256": "ded0e9159e1debbc7b33aa6bdaa0c3552554cf16c3516439a7690109cad0f5d5",
+      "current_sha256": "fa3a85269e691329584eba3fd897f707418c19cd6bb2ebebd1d5cc23a5ac440f"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h",
+      "tested_sha256": "0ac0c5def9ec50f6eb7dcd7b12d97ec5f28634d161ea35cb47c6d88e13077844",
+      "current_sha256": "05f1ba3c97d581fdc64cb23c474fd1f76e27d92e473829cc3e8da2c9775d9fb0"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h",
+      "tested_sha256": "435e69466eeace28daefd83945e22e90cc488244158e957587619f91ad4bd5b6",
+      "current_sha256": "fff4653fed06ad94420c90caf484cda67e37b0f3165880ac046881700ac72bdf"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h",
+      "tested_sha256": "7a46c57d0d8dd178666694b0b33f8fc1a08c13d3fbd73a5c6b472c0c19383d13",
+      "current_sha256": "f6ad3a6a398f6d62e9f5f8ac3c8ac5c567eda63b43c212a24658963dea051e76"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+      "tested_sha256": "c9c66c7962394ea100bbdfe2ca7d582fc182bb908e62830ed6a9b2cdf32c8a58",
+      "current_sha256": "b220bfca1ff2e81a6e27e6ba0e6e3e388483db6131978311ab4aa7857c653dd1"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h",
+      "tested_sha256": "8ed18c8c75922783fdd2b6d50f6d639804794759eb929d1f42f005a578b8a089",
+      "current_sha256": "55747aa641c9f31fa77ae00acba9544ceb520cc99580c87181b731e4d3b7b561"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+      "tested_sha256": "bb74aa87b6209b4def9edb2d69e32723e24ab107ece682161c22fdeeec17ce38",
+      "current_sha256": "090b8304ed9ab8cc2cca9ccae2c383be4d1d68b47151574d7a5f2ad454018a6d"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h",
+      "tested_sha256": "7693cea078deebe051f7814e4b1ee9a1887f3dcb2fab6c579ad0d04fe33cfa1a",
+      "current_sha256": "a9d760840f45ec77452e395570b326ca49362533b9ad971f9612a247d8d7d6a9"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+      "tested_sha256": "c528c74b901bc8d8e92732105b0f3617e8362182321dd8d53cfba425a40ad382",
+      "current_sha256": "72926fb32ca968d145dcac59ab78e34177ce8007f85e379a3bd2747993b5608b"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/uwvm/host_api.default.cpp",
+      "tested_sha256": "389d72d23f959567c4f89aea8ec71b8d91e91ee2b3ab8d18f19dfb8156986dc5",
+      "current_sha256": "e9a7aad2d6d7d20c67cb8dc0c50602ff97359cbcf11fdb0399109b6750a88342"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/uwvm/debugger/source_language_expression.h",
+      "tested_sha256": "be3b9ae31b1afb91032afc33f6d8268a3440086d2a3d33b3b333cc1a2b930523",
+      "current_sha256": "47e47ec3d9394c4719e784a3b8498e674356de0124ab0e826d23a00d809593f5"
+    },
+    {
+      "file": "uwvm2-ros/src/uwvm2/uwvm/debugger/source_dwarf_index.h",
+      "tested_sha256": "97a057bfc31370b8cc70adcdcff8e597ad263ff8fbd014f9672fa45041d5e645",
+      "current_sha256": "55e96fc7a3162eaf2010e30fbb94b5a651d85e9e9fa1c441cbd9c15ce9b4ae76"
+    }
+  ],
+  "current_concurrent_delta_scope": "Actual source273 compiler input hashes compared to local files; differences remain outside frozen-product qualification.",
+  "current_compiler_dependency_files_compared": 3503,
+  "current_native_changed_files_match_frozen_cut": true
+}

@@ -1,0 +1,720 @@
+{
+  "qualification": {
+    "passed": true,
+    "scope": "Unary sizeof in finite existing scalar syntax with correct operand precedence and type-only compound queries; direct references preserve existing declaration extent callbacks. Native witnesses, real Wasm32 LLVM metadata, mode frontends and PPC64/x86_64/aarch64 QEMU components. No fresh full product/live -Rdbg or full native language parity.",
+    "source_cuts": {
+      "uwvm2": "sha256:998d5e560ca52f2942da5f20a10f61735ad958f78e41b58ef9303f07129b513c",
+      "uwvm2-ros": "sha256:cfc8362b69e2689e847117ee69a6e85abf6eb80296d0f824286a78f1e69dd0f6"
+    },
+    "implementation_hashes": {
+      "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "7f126b612989710e5a1122aa108bb243881383ffabe9efd6d6bbd608e79aa24e",
+      "tools/debug/dap_adapter.py": "dcdf71cc6ede6652faa343f880c89e1bb50d6bf676e34e06de66609fd5c66790",
+      "test/0018.debugger/dap_source_expression_cases.json": "839f110f82693b4f042a2b0ddcb6725438852180aab4b8645b995cfa124a814e",
+      "test/0018.debugger/test_dap_source_frames.py": "1b86817edfb987f5fd00d1b10ecb7a35ccfeedb7f5b98e2b6a887b48287ffe05",
+      "test/0017.runtime/run_debug_linux_qemu_components.py": "683a4989315c1e70e81f12c545a261fae8eb3cbf0d95a37e5ee38cee0f885200",
+      "test/0017.runtime/fixtures/debug_source_language_numeric_producer.c": "174a75b8315a7387d42328182cd4a64daac05b1c79af3c4d0b5cb682f03a0b0b",
+      "test/0017.runtime/debug_source_language_index.cc": "7a793d8d1788284438dacfa830dff399b96a07bb455cbd251cf563b20917f442",
+      "test/0017.runtime/debug_source_sizeof_unary.cc": "a30b9f37583ffebba39db7cd74ddbcc128eacaea4efef76638ecbc759ac4d2c9",
+      "test/0017.runtime/debug_source_sizeof_unary_before.cc": "04f0fc17b4403b355c49edf6a64d1a685e813ee66e7e8cf2e9eb72fceba5a163",
+      "test/0017.runtime/debug_source_sizeof_unary_c.c": "77214d468bf070b0d09465cb7b1d2a193f02ee914ac10dc803f8779dde31bff3"
+    },
+    "rows": [
+      {
+        "repository": "uwvm2",
+        "profile": "native",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/native-a1/out-uwvm2/unary-native-a1/results.json",
+        "record_sha256": "1dbb5b7b01acd6147d394dc7ed1736de1d8b3876dde8fb226fd91729052ee2ab",
+        "passed": true,
+        "phases": 48,
+        "unary_sizeof_assertions": 149624,
+        "compound_sizeof_regression_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623,
+        "DAP_tests": {
+          "source-frames": 33,
+          "WASIp1-state": 28,
+          "WASIp1-commit-observation": 13
+        },
+        "old_parser_refusals_reproduced_and_fixed": 6
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "actual-LLVM-metadata",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/out-uwvm2/unary-index-a1/results.json",
+        "record_sha256": "da4a392e71c993e50afe0b9ac5b185f0d6a95c6472f1882155a50d8669ef679a",
+        "passed": true,
+        "phases": 24,
+        "fresh_Wasm_producers": 20,
+        "actual_parser_assertions": 4440,
+        "real_unary_sizeof_proofs": 420,
+        "real_compound_sizeof_proofs": 420,
+        "real_standard_wide_proofs": 140,
+        "independent_Wasm_unary_sizeof_static_assertions": 280,
+        "guest_ABI": "Wasm32",
+        "languages": [
+          "C17",
+          "C23",
+          "C++20",
+          "Objective-C",
+          "Objective-C++"
+        ],
+        "DWARF": [
+          4,
+          5
+        ],
+        "optimization": [
+          0,
+          2
+        ]
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "controller-frontend",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/frontend-a1/out-uwvm2/controller-frontend-a1/results.json",
+        "record_sha256": "e6c634d5ee19723761a9cf74c9a158114a4de3605079225c9b55167f5cf84b6c",
+        "passed": true,
+        "phases": 2,
+        "modes": [
+          "uwvm-int",
+          "LLVM-JIT"
+        ],
+        "full_product_qualified": false
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "ppc64",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/cross-a1/out-uwvm2/unary-cross-a1-ppc64/results.json",
+        "record_sha256": "58c119f415a0e8df82a4f802b58d9fbc5d300a081f1ebfe511045503df49b8ab",
+        "passed": true,
+        "QEMU_components": 13,
+        "target_outputs_equal_native": true,
+        "unary_sizeof_assertions": 149624,
+        "compound_sizeof_regression_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "x86_64",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/cross-a1/out-uwvm2/unary-cross-a1-x86_64/results.json",
+        "record_sha256": "f739752c4e4c13b4f3efbf19b1a28f4e131f1e99fc84770a006632be5c82318c",
+        "passed": true,
+        "QEMU_components": 13,
+        "target_outputs_equal_native": true,
+        "unary_sizeof_assertions": 149624,
+        "compound_sizeof_regression_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "aarch64",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/cross-a1/out-uwvm2/unary-cross-a1-aarch64/results.json",
+        "record_sha256": "dac036a8a7a6529a5acf672de43c249aef134348269a827188477518e1c7e94f",
+        "passed": true,
+        "QEMU_components": 13,
+        "target_outputs_equal_native": true,
+        "unary_sizeof_assertions": 149624,
+        "compound_sizeof_regression_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "native",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/native-a1/out-uwvm2-ros/unary-native-a1/results.json",
+        "record_sha256": "4412a091db31e5327ada6b0bd3398b326f9b384014f094a58a50c496a712953f",
+        "passed": true,
+        "phases": 48,
+        "unary_sizeof_assertions": 149624,
+        "compound_sizeof_regression_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623,
+        "DAP_tests": {
+          "source-frames": 33,
+          "WASIp1-state": 28,
+          "WASIp1-commit-observation": 13
+        },
+        "old_parser_refusals_reproduced_and_fixed": 6
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "actual-LLVM-metadata",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/out-uwvm2-ros/unary-index-a1/results.json",
+        "record_sha256": "52617828d52c07138e14126590cd66beca8034a4e6b9ac583db3050190195a88",
+        "passed": true,
+        "phases": 24,
+        "fresh_Wasm_producers": 20,
+        "actual_parser_assertions": 4440,
+        "real_unary_sizeof_proofs": 420,
+        "real_compound_sizeof_proofs": 420,
+        "real_standard_wide_proofs": 140,
+        "independent_Wasm_unary_sizeof_static_assertions": 280,
+        "guest_ABI": "Wasm32",
+        "languages": [
+          "C17",
+          "C23",
+          "C++20",
+          "Objective-C",
+          "Objective-C++"
+        ],
+        "DWARF": [
+          4,
+          5
+        ],
+        "optimization": [
+          0,
+          2
+        ]
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "controller-frontend",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/frontend-a1/out-uwvm2-ros/controller-frontend-a1/results.json",
+        "record_sha256": "052a9d74d7f9a9b163513a0b0864ed90214f280ebcf0dba4154d0870bac757d9",
+        "passed": true,
+        "phases": 2,
+        "modes": [
+          "uwvm-int",
+          "LLVM-JIT"
+        ],
+        "full_product_qualified": false
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "ppc64",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/cross-a1/out-uwvm2-ros/unary-cross-a1-ppc64/results.json",
+        "record_sha256": "57d9665958181a4c423e19bc205d580d308e5f19f70f09a82f4667b53cab9457",
+        "passed": true,
+        "QEMU_components": 13,
+        "target_outputs_equal_native": true,
+        "unary_sizeof_assertions": 149624,
+        "compound_sizeof_regression_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "x86_64",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/cross-a1/out-uwvm2-ros/unary-cross-a1-x86_64/results.json",
+        "record_sha256": "620545664ff6e1a40c0aa631583a4585074727766bc5929704e1929be8756920",
+        "passed": true,
+        "QEMU_components": 13,
+        "target_outputs_equal_native": true,
+        "unary_sizeof_assertions": 149624,
+        "compound_sizeof_regression_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "aarch64",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/cross-a1/out-uwvm2-ros/unary-cross-a1-aarch64/results.json",
+        "record_sha256": "fcde91b2c0c37bee89f6ccbd24f5eac0cf793a72e1392f955444109edd1a0620",
+        "passed": true,
+        "QEMU_components": 13,
+        "target_outputs_equal_native": true,
+        "unary_sizeof_assertions": 149624,
+        "compound_sizeof_regression_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623
+      }
+    ],
+    "counts": {
+      "successful_jobs": 12,
+      "retained_earlier_passed_jobs": 4,
+      "retained_failed_test_attempts": 1,
+      "failed_native_attempt_completed_compiler_executable_phases": 45,
+      "native_phases": 96,
+      "actual_LLVM_metadata_and_producer_phases": 48,
+      "controller_frontend_phases": 4,
+      "QEMU_components": 78,
+      "fresh_Wasm_producers": 40,
+      "unary_sizeof_assertions": 1196992,
+      "real_unary_sizeof_metadata_proofs": 840,
+      "independent_Wasm_unary_sizeof_static_assertions": 560,
+      "C_unary_sizeof_static_assertions": 80,
+      "C_unary_sizeof_runtime_checks": 20,
+      "compound_sizeof_regression_assertions": 50600,
+      "real_compound_sizeof_regression_proofs": 840,
+      "rank_regression_assertions": 855880,
+      "primitive_regression_assertions": 482344,
+      "exact_narrow_regression_assertions": 140984,
+      "actual_parser_assertions": 8880,
+      "old_parser_refusals_reproduced_and_fixed": 12,
+      "DAP_source_frame_tests": 66,
+      "DAP_WASIp1_state_tests": 56,
+      "DAP_WASIp1_commit_observation_tests": 26,
+      "DAP_total_protocol_tests": 148,
+      "DAP_positive": 305,
+      "DAP_negative": 250,
+      "scalar_property_checks": 1360000,
+      "input_hash_checks": 163368
+    },
+    "resources": {
+      "boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8",
+      "keeper_pid": 9769,
+      "keeper_birth": 16929,
+      "cgroup_bytes": 68719476736,
+      "swap_bytes": 0,
+      "DATA_owned_RSS_budget_bytes": 1073741824,
+      "DATA_owned_RSS_peak_bytes": 812310528,
+      "frontend_owned_RSS_budget_bytes": 17179869184,
+      "frontend_owned_RSS_peak_bytes": 2195849216,
+      "successful_job_seconds": 1715.0762202240003,
+      "earlier_attempt_job_seconds": 368.6040165619979,
+      "all_test_attempt_job_seconds": 2083.680236785998,
+      "each_class_own_output_budget_bytes": 67108864,
+      "maximum_observed_DATA_output_bytes": 53545192,
+      "maximum_observed_frontend_output_bytes": 5106886,
+      "hard_image_bytes": 17179869184,
+      "arena_free_bytes": 12953346048,
+      "filesystem_id": "12191019222208619510",
+      "no_OOM_events": true
+    },
+    "guards": [
+      {
+        "label": "uwvm2-unary-native",
+        "passed": true,
+        "seconds": 186.65037220400154,
+        "owned_RSS_peak_bytes": 739741696,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 301646,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-unary-native",
+        "passed": true,
+        "seconds": 187.09039721000045,
+        "owned_RSS_peak_bytes": 739692544,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 306772,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-unary-index",
+        "passed": true,
+        "seconds": 33.257596030998684,
+        "owned_RSS_peak_bytes": 709246976,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 301659,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-unary-index",
+        "passed": true,
+        "seconds": 33.565108099999634,
+        "owned_RSS_peak_bytes": 712183808,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 302794,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ppc64-unary-cross",
+        "passed": true,
+        "seconds": 189.21929326200006,
+        "owned_RSS_peak_bytes": 798568448,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 308946,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-ppc64-unary-cross",
+        "passed": true,
+        "seconds": 191.86236301899953,
+        "owned_RSS_peak_bytes": 798711808,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 315977,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-x8664-unary-cross",
+        "passed": true,
+        "seconds": 190.35431006100043,
+        "owned_RSS_peak_bytes": 802516992,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 308945,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-x8664-unary-cross",
+        "passed": true,
+        "seconds": 191.23598117799884,
+        "owned_RSS_peak_bytes": 802689024,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 316051,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-aarch64-unary-cross",
+        "passed": true,
+        "seconds": 197.7555745669997,
+        "owned_RSS_peak_bytes": 812310528,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 308934,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-aarch64-unary-cross",
+        "passed": true,
+        "seconds": 203.2715062850002,
+        "owned_RSS_peak_bytes": 812171264,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 316345,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-unary-frontend",
+        "passed": true,
+        "seconds": 55.628252716000134,
+        "owned_RSS_peak_bytes": 2195849216,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 301645,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-unary-frontend",
+        "passed": true,
+        "seconds": 55.18546559100105,
+        "owned_RSS_peak_bytes": 2194362368,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 303253,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      }
+    ],
+    "retained_earlier_attempts": [
+      {
+        "label": "uwvm2-unary-native",
+        "passed": false,
+        "seconds": 187.11301350199938,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a1/native-a1/guard-native-a1/receipts.json",
+        "record_sha256": "6fdccefc53e8fe19f5bffa77cdce6ce2032706512987a8ffcd8b3e11890dc11a",
+        "error": "RuntimeError: Build command failed: 1",
+        "returncode": 1
+      },
+      {
+        "label": "uwvm2-unary-index",
+        "passed": true,
+        "seconds": 34.651196707000054,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a1/guard-index-a1/receipts.json",
+        "record_sha256": "c725b663d23671b0dcaeb64ffa291629ddfc612d09574d1cf5cb745d351941f6",
+        "error": null,
+        "returncode": 0
+      },
+      {
+        "label": "uwvm2-ros-unary-index",
+        "passed": true,
+        "seconds": 34.594128245998945,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a1/guard-index-a1/receipts.json",
+        "record_sha256": "c725b663d23671b0dcaeb64ffa291629ddfc612d09574d1cf5cb745d351941f6",
+        "error": null,
+        "returncode": 0
+      },
+      {
+        "label": "uwvm2-unary-frontend",
+        "passed": true,
+        "seconds": 56.78986347099999,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a1/frontend-a1/guard-frontend-a1/receipts.json",
+        "record_sha256": "2ef762ee2d8ac7c2db3673f0a7cd3bd00700a9045e18d2a443bc89e5530e4645",
+        "error": null,
+        "returncode": 0
+      },
+      {
+        "label": "uwvm2-ros-unary-frontend",
+        "passed": true,
+        "seconds": 55.45581463599956,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a1/frontend-a1/guard-frontend-a1/receipts.json",
+        "record_sha256": "2ef762ee2d8ac7c2db3673f0a7cd3bd00700a9045e18d2a443bc89e5530e4645",
+        "error": null,
+        "returncode": 0
+      }
+    ],
+    "failure_explanation": "A1 passed 45 compiler/executable phases but the DAP selector fast path incorrectly accepted standalone sizeof. Reserved sizeof roots now bypass selector fast acceptance, keyword prefixes remain identifiers, and A2 completes all native/protocol checks in both repositories.",
+    "remaining": "Exact size_t identity; full ptype/aliases/CV/references/glvalues; user-type/VLA/function/incomplete/call/assignment/increment/overload sizeof; producer language-version selection; full other-language native semantics, live runtimes and remaining architecture product parity.",
+    "fresh_full_product_qualified": false,
+    "all_native_debugger_capabilities_implemented": false,
+    "sizeof_size_t_native_identity_implemented": false,
+    "sizeof_unary_implemented": true,
+    "all_inputs_after_unchanged": true,
+    "fresh_metadata_guest_bits": [
+      32
+    ],
+    "finite_numeric_model_guest_bits": [
+      32,
+      64
+    ],
+    "references": {
+      "CPP_sizeof": "https://eel.is/c++draft/expr.sizeof",
+      "CPP_unary": "https://eel.is/c++draft/expr.unary",
+      "C23_sizeof": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf"
+    }
+  },
+  "archive": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/sizeof-unary-evidence-a2.tar.xz",
+    "bytes": 53016464,
+    "sha256": "12ca2af67443efcb4ff3ba4817640998fbff9453020729cab8ec1f8a13ffbd14",
+    "regular_members": 7853,
+    "all_member_hashes_verified_linux": true,
+    "linux_archive_fsync_completed": true,
+    "inputs_after_unchanged": true,
+    "earlier_source_cuts_reconstructible_from_retained_members": true,
+    "prior_scalar_and_adapter_source_provenance_verified": true,
+    "image_allocated_bytes_after_archive": 4131139584,
+    "arena_free_bytes": 12881985536,
+    "filesystem_id": "12191019222208619510",
+    "large_archive_retained_on_linux_for_local_disk_control": true,
+    "large_archive_local_copy_claimed": false
+  },
+  "local_small_evidence": {
+    "passed": true,
+    "scope": "Large member-verified archive retained and fsynced on Linux only; local small qualification/proof summaries match archived member identities; final paired source/documents will have a small sidecar on both hosts",
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-unary-a2/sizeof-unary-evidence-a2.tar.xz",
+    "archive_sha256": "12ca2af67443efcb4ff3ba4817640998fbff9453020729cab8ec1f8a13ffbd14",
+    "archive_bytes": 53016464,
+    "large_local_archive_created": false,
+    "local_summary_members_verified_against_linux_archive": {
+      "sizeof-unary-qualification-a1.json": {
+        "bytes": 22290,
+        "sha256": "b6a5995889b52d9baf1f1d2753986ca0df258f974198b92f825de45a6e7da2be"
+      },
+      "adapter-boundary-fix-a2.json": {
+        "bytes": 1883,
+        "sha256": "e4e17aee2d825978abacc8565ba372f0ff6de4612a61ac0b210ea9bae1eb1ad6"
+      },
+      "paired-edit-a2.json": {
+        "bytes": 5199,
+        "sha256": "5ac1c607b927ad895530695aa002900618112dbaca9d3ef4790f4a3e1b6e49ab"
+      },
+      "environment-restoration-a1.json": {
+        "bytes": 1065,
+        "sha256": "ffe6cdd609394f1aec7fe2b0deabcb046f8319220ec4f8083fea5a0e64a35f5e"
+      }
+    },
+    "local_free_bytes": 255635456
+  }
+}

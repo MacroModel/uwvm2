@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r32/first-failed-products-recoverable.tar.zst",
+  "archive_sha256": "60951f4b1f198957c1e27d5976a79888cf37882cd7c3de761b72757989c612b1",
+  "payloads": {
+    "products/linux-integrated/uwvm2/runtime.o": "0b2faeacdae09bdaa8cda3c3a8ff0a06b99aef2897521ac496cd7d91d15d857f",
+    "products/linux-integrated/uwvm2/host-api.o": "4f5fe5dc570618957de2a578080f8e07ac07c5c5da194c6f3dba7c09080c2955",
+    "products/linux-integrated/uwvm2/fixture": "4bbeba80a7b3a0f3fdfa003852721b78af42e9408796f093c5f4461dd0c3681d",
+    "products/linux-integrated/uwvm2/environment-group": "dfcd8353cc8b3766e84223d11ffa1109c1006eda64856caecf937d0b0a812023",
+    "products/linux-integrated/uwvm2/wasip1-memory-binding": "79f0e6edd859262168c3e4b8c51d15e7d070e7c82188d60468b42efe12ebdfa9",
+    "products/linux-integrated/uwvm2/debug_checkpoint_complete_instance": "38f3a8c9e3505232aba3dacd3cd7d0737ad565859849986bd8094b04a1cef08d",
+    "products/linux-integrated/uwvm2/debug_checkpoint_complete_preload": "8dc9bbdefea7b7267b966d618bb9dc9840cea14a82128fad203ede553e6f6de8",
+    "products/linux-integrated/uwvm2/foreign-observation": "d848a70b68ac3b1709d78a4f518aeefd8fcc168abae0f899835d63cd08836458"
+  },
+  "all_payloads_read_back": true,
+  "failed_test_result_unchanged": true,
+  "source_manifest_sha256": "ea1734aea48d131bc0edaef08c0f2fcdcf952de686e35232154554fb29f2309b",
+  "bytes_retired": 666722672,
+  "archive_bytes": 56973232,
+  "retained_for_diagnosis": [
+    "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r32/products/linux-integrated/uwvm2/runtime.o",
+    "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r32/products/linux-integrated/uwvm2/host-api.o",
+    "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r32/products/linux-integrated/uwvm2/foreign-observation"
+  ],
+  "test_guard_sha256": "c2c3fc15221657331a9bf65bc0da39e842a8da6a1a4a39dae2662b2d4a5cf46c",
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+}

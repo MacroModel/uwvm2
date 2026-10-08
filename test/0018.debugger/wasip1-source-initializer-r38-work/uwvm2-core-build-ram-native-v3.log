@@ -1,0 +1,16 @@
+clang++: warning: -fdelayed-template-parsing is deprecated after C++20 [-Wdelayed-template-parsing-in-cxx20]
+In file included from /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-source-initializer-20261008-r38/syntax-overlay-v3/uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc:4:
+In file included from /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/run/owned_source.h:16:
+In file included from /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/cmdline/impl.h:26:
+In file included from /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/cmdline/parser.h:43:
+In file included from /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/cmdline/params/impl.h:59:
+/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/cmdline/params/runtime_llvm_jit_exception_dispatch.h:36:16: warning: braces around scalar initializer [-Wbraced-scalar-init]
+   36 |         .handle{::std::addressof(details::runtime_llvm_jit_exception_dispatch_callback)},
+      |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/cmdline/params/runtime_llvm_jit_exception_dispatch.h:37:18: warning: braces around scalar initializer [-Wbraced-scalar-init]
+   37 |         .is_exist{::std::addressof(::uwvm2::uwvm::runtime::runtime_mode::runtime_llvm_jit_exception_dispatch_existed)},
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/cmdline/params/runtime_llvm_jit_exception_dispatch.h:38:14: warning: braces around scalar initializer [-Wbraced-scalar-init]
+   38 |         .cate{::uwvm2::utils::cmdline::categorization::runtime}};
+      |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.

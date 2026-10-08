@@ -1,0 +1,296 @@
+{
+  "passed": true,
+  "round": "R61",
+  "scope": "Finite C++ UTF escaped single-unit source expressions on genuine x86_64 LLVM JIT full products; compiler-original C++/Rust DWARF4/5 regression; actual 16-architecture target ELF character parser DATA; full native language and target VM/JIT/DAP parity remain unqualified",
+  "products": {
+    "uwvm2": {
+      "source_id": "sha256:7ddc74c6a67e6ac7a621e6c646264b72fb7d92910d66c853ff53b90766dc1c4a",
+      "binary_sha256": "99c9d2ff4017b6595629f2fb871a6720b8f1537b4e8adee725e6ad8a8f67f359",
+      "binary_bytes": 179177968,
+      "actual_bundled_ROS_provider_receipt": null,
+      "exact_canonical_bundled_ROS12_X86_provider_qualified": false
+    },
+    "uwvm2-ros": {
+      "source_id": "sha256:7da06fbdc6ca43c09de09b670900506ed07e444f34ae333c8c5224c6db87e1aa",
+      "binary_sha256": "7f0fdcd7a59659cb0a8916db09d960d467f415f9e1916606af6fda029e6007f0",
+      "binary_bytes": 144715144,
+      "actual_bundled_ROS_provider_receipt": "/home/macromodel/Documents/uwvm3-implementation/current-language-llvm12-a3-r58/out-uwvm2-ros/product-a1/results.json",
+      "exact_canonical_bundled_ROS12_X86_provider_qualified": true
+    }
+  },
+  "components": {
+    "uwvm2": {
+      "debug_source_character_literal": "debug_source_character_literal: PASS checks=14791 owned DATA only",
+      "debug_source_character_escape": "debug_source_character_escape: PASS checks=652100 compiler_witnesses=283 ASCII finite DATA only",
+      "debug_source_utf_character_literal": "debug_source_utf_character_literal: PASS checks=628 compiler_witnesses=51 C++ finite UTF syntax DATA only"
+    },
+    "uwvm2-ros": {
+      "debug_source_character_literal": "debug_source_character_literal: PASS checks=14791 owned DATA only",
+      "debug_source_character_escape": "debug_source_character_escape: PASS checks=652100 compiler_witnesses=283 ASCII finite DATA only",
+      "debug_source_utf_character_literal": "debug_source_utf_character_literal: PASS checks=628 compiler_witnesses=51 C++ finite UTF syntax DATA only"
+    }
+  },
+  "properties": {
+    "uwvm2": {
+      "checks": 10000,
+      "log_sha256": "a069aa43ab5629166efbabc81c7968d3bacd4c485c836c61595edddaf0853229"
+    },
+    "uwvm2-ros": {
+      "checks": 10000,
+      "log_sha256": "a069aa43ab5629166efbabc81c7968d3bacd4c485c836c61595edddaf0853229"
+    }
+  },
+  "DAP": {
+    "uwvm2": {
+      "all": {
+        "sessions": 4,
+        "evaluations": 432,
+        "origins": 64,
+        "expected_refusals": 44,
+        "elapsed_seconds": 3.837860988001921
+      },
+      "unwind": {
+        "sessions": 4,
+        "evaluations": 432,
+        "origins": 64,
+        "expected_refusals": 44,
+        "elapsed_seconds": 3.8248028040106874
+      },
+      "soak": {
+        "sessions": 500,
+        "evaluations": 54000,
+        "origins": 8000,
+        "expected_refusals": 5500,
+        "elapsed_seconds": 603.573098214998
+      }
+    },
+    "uwvm2-ros": {
+      "all": {
+        "sessions": 4,
+        "evaluations": 432,
+        "origins": 64,
+        "expected_refusals": 44,
+        "elapsed_seconds": 3.818932448004489
+      },
+      "unwind": {
+        "sessions": 4,
+        "evaluations": 432,
+        "origins": 64,
+        "expected_refusals": 44,
+        "elapsed_seconds": 3.8175332749960944
+      },
+      "soak": {
+        "sessions": 500,
+        "evaluations": 54000,
+        "origins": 8000,
+        "expected_refusals": 5500,
+        "elapsed_seconds": 603.7322084759944
+      }
+    }
+  },
+  "before": {
+    "uwvm2": {
+      "all": {
+        "sessions": 4,
+        "actual_current_frame_cpp_UTF_refusals": 80
+      },
+      "unwind": {
+        "sessions": 4,
+        "actual_current_frame_cpp_UTF_refusals": 80
+      }
+    },
+    "uwvm2-ros": {
+      "all": {
+        "sessions": 4,
+        "actual_current_frame_cpp_UTF_refusals": 80
+      },
+      "unwind": {
+        "sessions": 4,
+        "actual_current_frame_cpp_UTF_refusals": 80
+      }
+    }
+  },
+  "guards": {
+    "utf-expressions-full-a1-r61/guard-build-uwvm2": {
+      "passed": true,
+      "commands": 1,
+      "original_OS_waits_and_owned_PIDFD_retirement": true,
+      "RSS_peak_bytes": 7394443264
+    },
+    "utf-expressions-full-a1-r61/guard-build-ros": {
+      "passed": true,
+      "commands": 1,
+      "original_OS_waits_and_owned_PIDFD_retirement": true,
+      "RSS_peak_bytes": 6090797056
+    },
+    "utf-expressions-components-a4-r61/guard-components": {
+      "passed": true,
+      "commands": 2,
+      "original_OS_waits_and_owned_PIDFD_retirement": true,
+      "RSS_peak_bytes": 734167040
+    },
+    "utf-expressions-properties-a1-r61/guard-properties": {
+      "passed": true,
+      "commands": 2,
+      "original_OS_waits_and_owned_PIDFD_retirement": true,
+      "RSS_peak_bytes": 59719680
+    },
+    "utf-expressions-before-a3-r61/guard-before": {
+      "passed": true,
+      "commands": 4,
+      "original_OS_waits_and_owned_PIDFD_retirement": true,
+      "RSS_peak_bytes": 189702144
+    },
+    "utf-expressions-cross-a1-r61/guard-cross": {
+      "passed": true,
+      "commands": 1,
+      "original_OS_waits_and_owned_PIDFD_retirement": true,
+      "RSS_peak_bytes": 625942528
+    },
+    "utf-expressions-dap-a4-r61/guard-dap-uwvm2": {
+      "passed": true,
+      "commands": 4,
+      "original_OS_waits_and_owned_PIDFD_retirement": true,
+      "RSS_peak_bytes": 198180864
+    },
+    "utf-expressions-dap-a4-r61/guard-dap-uwvm2-ros": {
+      "passed": true,
+      "commands": 4,
+      "original_OS_waits_and_owned_PIDFD_retirement": true,
+      "RSS_peak_bytes": 200916992
+    }
+  },
+  "cross": {
+    "passed": true,
+    "profiles": [
+      "aarch64",
+      "armel",
+      "armhf",
+      "i686",
+      "loongarch64",
+      "mips32",
+      "mips32el",
+      "mips64",
+      "mips64el",
+      "ppc32",
+      "ppc64",
+      "ppc64le",
+      "riscv64",
+      "s390x",
+      "sparc64",
+      "x86_64"
+    ],
+    "actual_target_ELFs": 32,
+    "full_VM_JIT_DAP_qualified": false
+  },
+  "unit_tests_per_repository": 495,
+  "totals": {
+    "sessions": 1016,
+    "evaluations": 109728,
+    "origins": 16256,
+    "expected_refusals": 11176
+  },
+  "qualification_boundaries": [
+    "Modern C++ finite escaped UTF literals/casts and sizeof only; ordinary non-ASCII/UTF raw input, braced/named Unicode escapes, wchar_t, glyph/rune display and Rust/Go/Zig char expression semantics remain unfinished",
+    "UTF primitive identity on genuine DWARF variable conditional results is not inferred from display spelling",
+    "Rust DWARF5 producer still needs -C llvm-args=-accel-tables=Disable for LLVM23 official verification; original default index failure preserved in R60",
+    "ROS provider is genuine canonical X86 23.1.1-uwvm-ros.12; later local/vendor/other-target changes are not classified as qualified",
+    "Only current frozen full x86_64 products and finite 16-target parser/type DATA, not full target VM/JIT/DAP or actual IDE UI",
+    "Before-a1 results used retired frames and are unqualified; before-a2/dap-a2/a3 failed fresh-scope sequencing; only before-a3 and dap-a4 counted"
+  ],
+  "environment": {
+    "host_free_bytes": 26944614400,
+    "shared_cgroup_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+  },
+  "local_integration": {
+    "uwvm2": {
+      "published_owned_files": {
+        "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "598bf07f1a7c5cccae7322f61c0c75305cbabd0f814cdd3d76a5076179ffeb24",
+        "src/uwvm2/uwvm/debugger/controller.h": "671768f07e53c1376b724dc0d60f6580e0fd4e9111c67d3b805f1c8221623ee7",
+        "src/uwvm2/uwvm/debugger/console.h": "4cf231cfde65804f7ba92f8757def56f10461ea55ed85e6d49bbf6f48673cf99",
+        "tools/debug/dap_adapter.py": "044d2e9e4cad7011ee8591042359709b6b77f58efc39f6f4802bfd9fc9b179ec",
+        "test/0018.debugger/run_dap_utf_characters.py": "09f0a9d94a4433818d8092da230f4b0d61648ee1084dabacbfb66d04bd40f9e9",
+        "test/0018.debugger/test_dap_utf_characters.py": "63c0d8bf948c3f4583e18e3a5d4ec347ea210c9b15810f4fb10042f118fcc788",
+        "test/0018.debugger/dap_character_literal_cases.json": "485c69ae11357e38d66d5384376d8bf659171009dd7bf418951cd3c670b90b87",
+        "test/0018.debugger/dap_source_expression_cases.json": "5794e11f835655baf390422b17e3e865c982da6d95550058038b7aba124685a5",
+        "test/0017.runtime/run_debug_linux_qemu_components.py": "210f6b501545b41c22da25931a8c6402f94b5919ff8c7aeb147a760d3568d3db",
+        "test/0017.runtime/debug_source_utf_character_literal.cc": "3a73edf12e386eb57f5b7befc326eb3dd11065e33b93d5c4f7c46eec59fc744d",
+        "test/0017.runtime/run_debug_utf_character_literals.py": "93c68acc27d64a0234a8ccd2e4b2ee7e4092bf0d16a084ef51392836a9f951fd"
+      },
+      "later_changed_src": [
+        "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h",
+        "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+      ],
+      "later_new_src": [],
+      "later_removed_src": [],
+      "later_concurrent_edits_preserved_and_unqualified": true
+    },
+    "uwvm2-ros": {
+      "published_owned_files": {
+        "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "598bf07f1a7c5cccae7322f61c0c75305cbabd0f814cdd3d76a5076179ffeb24",
+        "src/uwvm2/uwvm/debugger/controller.h": "671768f07e53c1376b724dc0d60f6580e0fd4e9111c67d3b805f1c8221623ee7",
+        "src/uwvm2/uwvm/debugger/console.h": "4cf231cfde65804f7ba92f8757def56f10461ea55ed85e6d49bbf6f48673cf99",
+        "tools/debug/dap_adapter.py": "044d2e9e4cad7011ee8591042359709b6b77f58efc39f6f4802bfd9fc9b179ec",
+        "test/0018.debugger/run_dap_utf_characters.py": "09f0a9d94a4433818d8092da230f4b0d61648ee1084dabacbfb66d04bd40f9e9",
+        "test/0018.debugger/test_dap_utf_characters.py": "63c0d8bf948c3f4583e18e3a5d4ec347ea210c9b15810f4fb10042f118fcc788",
+        "test/0018.debugger/dap_character_literal_cases.json": "485c69ae11357e38d66d5384376d8bf659171009dd7bf418951cd3c670b90b87",
+        "test/0018.debugger/dap_source_expression_cases.json": "5794e11f835655baf390422b17e3e865c982da6d95550058038b7aba124685a5",
+        "test/0017.runtime/run_debug_linux_qemu_components.py": "210f6b501545b41c22da25931a8c6402f94b5919ff8c7aeb147a760d3568d3db",
+        "test/0017.runtime/debug_source_utf_character_literal.cc": "3a73edf12e386eb57f5b7befc326eb3dd11065e33b93d5c4f7c46eec59fc744d",
+        "test/0017.runtime/run_debug_utf_character_literals.py": "93c68acc27d64a0234a8ccd2e4b2ee7e4092bf0d16a084ef51392836a9f951fd"
+      },
+      "later_changed_src": [
+        "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h",
+        "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+      ],
+      "later_new_src": [],
+      "later_removed_src": [],
+      "later_concurrent_edits_preserved_and_unqualified": true
+    }
+  },
+  "archive": {
+    "passed": true,
+    "path": "/home/macromodel/Documents/uwvm3-implementation/retained-utf-expressions-r61-final/evidence.tar.xz",
+    "bytes": 40128416,
+    "sha256": "22e68f0df53dcced66cfffb14bf58d177ce5382a3ac6dccd0fb80eabca7d22ab",
+    "logical_files": 84891,
+    "regular_members": 13685,
+    "hardlink_members": 71206,
+    "uncompressed_logical_bytes": 1197690728,
+    "all_regular_members_stream_hash_verified": true,
+    "all_hardlinks_resolve_only_prior_verified_archive_members": true,
+    "all_originals_before_after_hash_equal": true,
+    "fsync": true,
+    "seconds": 17.797786131006433,
+    "final_host_free_bytes": 26867572736,
+    "separately_retained_full_products_and_recovery_archives": {
+      "utf-expressions-full-a1-r61/out-uwvm2/product-a1/uwvm": {
+        "bytes": 179177968,
+        "sha256": "99c9d2ff4017b6595629f2fb871a6720b8f1537b4e8adee725e6ad8a8f67f359"
+      },
+      "utf-expressions-full-a1-r61/out-uwvm2-ros/product-a1/uwvm": {
+        "bytes": 144715144,
+        "sha256": "7f0fdcd7a59659cb0a8916db09d960d467f415f9e1916606af6fda029e6007f0"
+      },
+      "utf-expressions-recovery-a1-r61/current-local-source.tar.xz": {
+        "bytes": 13740572,
+        "sha256": "af8be682aacf7c8b400a92c4ac90f148a92973dc520b9570bef5bc39687b7481"
+      },
+      "retained-utf-expressions-first-objects-r61/objects.tar.xz": {
+        "bytes": 11483440,
+        "sha256": "d12945358fb44d2823433e751782063684783f9d81979e22a5fb374902a825f5"
+      },
+      "retained-utf-expressions-ros-objects-r61/objects.tar.xz": {
+        "bytes": 9855872,
+        "sha256": "24a71e414ba17e998884fda5af840cdc4251720d6ac24018e38fb2d750e4e772"
+      }
+    },
+    "separate_product_files_before_after_hash_equal": true
+  }
+}

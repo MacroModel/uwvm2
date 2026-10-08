@@ -1,0 +1,2467 @@
+{
+  "schema": "uwvm-source-string-preview-qualification-v1",
+  "administrative_collection_only": true,
+  "passed_component_scope": true,
+  "full_product_qualified": false,
+  "full_language_native_parity_qualified": false,
+  "actual_live_vm_memory_qualified": false,
+  "actual_new_producer_DWARF_qualified": false,
+  "source_cuts": [
+    {
+      "repository": "uwvm2",
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "production_files": 3143,
+      "all_staged_files": 4389,
+      "manifest": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/candidate-uwvm2-manifest.json",
+        "sha256": "196ce24406f67c5cc4474c96137986083f73307e258499f866190e4c7fcd2770"
+      },
+      "all_staged_files_after_unchanged": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "production_files": 3082,
+      "all_staged_files": 4300,
+      "manifest": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/candidate-uwvm2-ros-manifest.json",
+        "sha256": "6d23bfd8747b204324a96cc5fee1fac166a34cbd3670879818b4bbd6af4237ad"
+      },
+      "all_staged_files_after_unchanged": true
+    }
+  ],
+  "cross_components": [
+    {
+      "repository": "uwvm2",
+      "profile": "x86_64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 132032,
+        "sha256": "e0a25daf22dff7f73601fff7da4f9b7a2ff1a196924c0d0db50bf1398e195d50",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "aarch64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 183,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 128064,
+        "sha256": "2d6514eeaf0689169bd92a6ef8e417890f30571f40efba812bdd8a2bca105d86",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "i686",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 3,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 144560,
+        "sha256": "f20816f43bb0201e42c0c2ae098da18cd556ec191d56947c08404ef30ca7e47f",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "riscv64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 243,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 119392,
+        "sha256": "c25cb37dc854ac11cacf557a445e5093fe8c642e6e7c87454c9daec078b7cd0c",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 161168,
+        "sha256": "cd5d5ce4e5bd259cf17bc65adf763095cfa733b7f1374afa94f8c7d6a41260c6",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64le",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 141608,
+        "sha256": "51cd7841fe659b2f04fc6d79bca9b96c18f1ba90d07e8776e601658502ac5a8e",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc32",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 20,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 155452,
+        "sha256": "999d5ee14254c2f8ba0e6cde5d3b9156114f7fdfe15531afa4ee0530137a6f39",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "mips64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 156656,
+        "sha256": "54548a633cee8cbac8a2442e8aaebe7ca37d4eccc007c463d6b94c0664b95477",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "mips64el",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 156512,
+        "sha256": "b9ecf7f758cf223c8d55f08ac097ce6efc2810ccb16e01718f65dd0c5b3439be",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "mips32",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 165720,
+        "sha256": "1ffcc4ebdbf030e2eb15f31bb9ae7eaee96e994058b4cf77ef7b5075b0a26e55",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "mips32el",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 165480,
+        "sha256": "3065ed13e8b0ca4936dac56d7af5be50b566c59c588bed60dbb8a5e554778e6c",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "sparc64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 43,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 1078040,
+        "sha256": "1e95deb991fc081d96b5fb175c3112c49dc1ebd70f4acf23f5e5e8bc8f99aade",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "loongarch64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 258,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 128320,
+        "sha256": "d968d92fe4b735d1d06885bc5df1519593800dc1982c6fc56382e5f691e48e16",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "s390x",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 22,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 135792,
+        "sha256": "de16534f2a6f91ad378fb09b353d541a0db6fdfc1656d230a4b2ae4dd1368b7e",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "armhf",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 130784,
+        "sha256": "d0f26c9f54d38c1642c2142fa823a20344967a8bf75a2fa2c66b671429088c4e",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "armel",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-cross-a2/results.json",
+        "sha256": "2cba5c9e0812f0bd0a85fc773decf4fbaf2c24bdb8840dac28881f067da924d5"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-cross-a2",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+          "sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+        },
+        "seconds": 196.73475035400043,
+        "aggregate_owned_rss_peak_bytes": 612499456,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8192000172566622e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 132940,
+        "sha256": "5f72ca0e0d2261af012c987d36bee220f80c4a6177113e72ab2e14ec8f0c6bfc",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "x86_64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-x86_64/results.json",
+        "sha256": "c0bcf7c1b1cacc8bea2ff97ed49205e615b639d002161c1476c75364ba1745df"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-x86-64",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.564687399000832,
+        "aggregate_owned_rss_peak_bytes": 603926528,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 3.1300998671213165e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 132032,
+        "sha256": "e0a25daf22dff7f73601fff7da4f9b7a2ff1a196924c0d0db50bf1398e195d50",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "aarch64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-aarch64/results.json",
+        "sha256": "8a560e2ea99444375a5b9c55a111c3c4224c2d61478c5430fb0a1ba4a1c70bd2"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-aarch64",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.726804768000875,
+        "aggregate_owned_rss_peak_bytes": 607289344,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.799800131469965e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 183,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 128064,
+        "sha256": "2d6514eeaf0689169bd92a6ef8e417890f30571f40efba812bdd8a2bca105d86",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "i686",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-i686/results.json",
+        "sha256": "737f5a6f494172a1f683fc519e8903dc871aa3609e12f710fc52e2685fb352a4"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-i686",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.966869511001278,
+        "aggregate_owned_rss_peak_bytes": 601153536,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 4.81694598499962
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 3,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 144560,
+        "sha256": "f20816f43bb0201e42c0c2ae098da18cd556ec191d56947c08404ef30ca7e47f",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "riscv64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-riscv64/results.json",
+        "sha256": "841d985854da0f5ec6bac8bfdfc79b09cc861c8b7ac868389a289054a7e1ec58"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-riscv64",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.418082902997412,
+        "aggregate_owned_rss_peak_bytes": 604205056,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.843600304913707e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 243,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 119392,
+        "sha256": "c25cb37dc854ac11cacf557a445e5093fe8c642e6e7c87454c9daec078b7cd0c",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-ppc64/results.json",
+        "sha256": "da124c1f1f002ed93273eeb4eda2d40d523a4e32735a3f8c533db627f4caeab1"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-ppc64",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.480672615998628,
+        "aggregate_owned_rss_peak_bytes": 607895552,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.8021000616718084e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 161168,
+        "sha256": "cd5d5ce4e5bd259cf17bc65adf763095cfa733b7f1374afa94f8c7d6a41260c6",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64le",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-ppc64le/results.json",
+        "sha256": "97314b0223be548d5ac82c530f0f43021d121647330424554813bad250483fc7"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-ppc64le",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.090464411998255,
+        "aggregate_owned_rss_peak_bytes": 601993216,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.7138001314597204e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 141608,
+        "sha256": "51cd7841fe659b2f04fc6d79bca9b96c18f1ba90d07e8776e601658502ac5a8e",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc32",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-ppc32/results.json",
+        "sha256": "b52b987199ab619c9a6c66aff03032953b3068c9f6c1e8a95b44e19ec01d6ad5"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-ppc32",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.662256356998114,
+        "aggregate_owned_rss_peak_bytes": 597516288,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.905400106101297e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 20,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 155452,
+        "sha256": "999d5ee14254c2f8ba0e6cde5d3b9156114f7fdfe15531afa4ee0530137a6f39",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "mips64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-mips64/results.json",
+        "sha256": "5c8fb9aea51ff498913211338ff28f379d857cf2c5825e4226ca03cfb7f2b1bf"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-mips64",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.323706927996682,
+        "aggregate_owned_rss_peak_bytes": 598401024,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 3.1269999453797936e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 156656,
+        "sha256": "54548a633cee8cbac8a2442e8aaebe7ca37d4eccc007c463d6b94c0664b95477",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "mips64el",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-mips64el/results.json",
+        "sha256": "8ff179112d3de19caca5c052c048e21d01815dd7530a60849098d1e7601f64db"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-mips64el",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.083870139998908,
+        "aggregate_owned_rss_peak_bytes": 598495232,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 3.3106000046245754e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 156512,
+        "sha256": "b9ecf7f758cf223c8d55f08ac097ce6efc2810ccb16e01718f65dd0c5b3439be",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "mips32",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-mips32/results.json",
+        "sha256": "d4560bed02cbb512fc3dfb902de8e87555eede8ee02481e2b5181b0f4bd34228"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-mips32",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.123946763000276,
+        "aggregate_owned_rss_peak_bytes": 594632704,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.9290000384207815e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 165720,
+        "sha256": "1ffcc4ebdbf030e2eb15f31bb9ae7eaee96e994058b4cf77ef7b5075b0a26e55",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "mips32el",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-mips32el/results.json",
+        "sha256": "8a440a851f25c59d1fc5865ffae4c40255e0134960bbf7d637a74dd4ca5c7a86"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-mips32el",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.5943282440021,
+        "aggregate_owned_rss_peak_bytes": 594337792,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.964499799418263e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 165480,
+        "sha256": "3065ed13e8b0ca4936dac56d7af5be50b566c59c588bed60dbb8a5e554778e6c",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "sparc64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-sparc64/results.json",
+        "sha256": "6840b7733b809b1de6a09f95065127d49c27b41ca85b0dd5c0ca0f2bc581e3b4"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-sparc64",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.1018679589979,
+        "aggregate_owned_rss_peak_bytes": 600371200,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 3.1750998459756374e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 43,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 1078040,
+        "sha256": "1e95deb991fc081d96b5fb175c3112c49dc1ebd70f4acf23f5e5e8bc8f99aade",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "loongarch64",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-loongarch64/results.json",
+        "sha256": "7c3380b40564496d855c8e7fde5fd76556f8e21b4d50cb744942a0e1ea43e939"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-loongarch64",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.3392175150002,
+        "aggregate_owned_rss_peak_bytes": 601759744,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 3.3906999306054786e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 258,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 128320,
+        "sha256": "d968d92fe4b735d1d06885bc5df1519593800dc1982c6fc56382e5f691e48e16",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "s390x",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-s390x/results.json",
+        "sha256": "37f5d6946f410bfa7121a8b34d1affac8b23711fca1e24a83c9e69ac447ce23e"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-s390x",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.727209271997708,
+        "aggregate_owned_rss_peak_bytes": 607973376,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 3.1790001230547205e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 22,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 135792,
+        "sha256": "de16534f2a6f91ad378fb09b353d541a0db6fdfc1656d230a4b2ae4dd1368b7e",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "armhf",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a3-armhf/results.json",
+        "sha256": "ea96afe219188c4e5b1653fa6796b27696c8b9ff56340fc9094e9529d2ce5271"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a3-armhf",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+          "sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+        },
+        "seconds": 12.72564138999951,
+        "aggregate_owned_rss_peak_bytes": 598347776,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 2.883100023609586e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 130784,
+        "sha256": "d0f26c9f54d38c1642c2142fa823a20344967a8bf75a2fa2c66b671429088c4e",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "armel",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-cross-a4-armel/results.json",
+        "sha256": "8e51a9102733f90e805facefd6ccebb8b61bb3ca4e71b71d1368d13b3ee79418"
+      },
+      "controller": {
+        "label": "ros-string-preview-cross-a4-armel",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a4/receipts.json",
+          "sha256": "7df89d654845eef4485dcd9e0369c0f4664dc81ca3077a29281db07b220f7e1c"
+        },
+        "seconds": 12.300269431998458,
+        "aggregate_owned_rss_peak_bytes": 598011904,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 4.726800034404732e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 132940,
+        "sha256": "5f72ca0e0d2261af012c987d36bee220f80c4a6177113e72ab2e14ec8f0c6bfc",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "stdout_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5",
+      "query_checks": 106
+    }
+  ],
+  "cross_profiles": [
+    "x86_64",
+    "aarch64",
+    "i686",
+    "riscv64",
+    "ppc64",
+    "ppc64le",
+    "ppc32",
+    "mips64",
+    "mips64el",
+    "mips32",
+    "mips32el",
+    "sparc64",
+    "loongarch64",
+    "s390x",
+    "armhf",
+    "armel"
+  ],
+  "cross_passed_cases": 32,
+  "cross_query_checks": 3392,
+  "native_components": [
+    {
+      "repository": "uwvm2",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-a6/results.json",
+        "sha256": "fdd75d323c89e2daafaad8ad517de0a6df991378383c2bab92a54882000dbf41"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-a6",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a5/receipts.json",
+          "sha256": "9cfb5c571d9234990875964b66d2b34ea4422faa236b48eae4bfb824d8732164"
+        },
+        "seconds": 64.77867639599936,
+        "aggregate_owned_rss_peak_bytes": 564936704,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 4.561800233204849e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "query_checks": 106,
+      "rows": [
+        {
+          "label": "preview-build",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "preview-run",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5"
+        },
+        {
+          "label": "baseline-build",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "baseline-range",
+          "passed": true,
+          "returncode": -4,
+          "expected": "expected-failure",
+          "log_sha256": "ddc7652e7faef3e5cc48efcae3786357795502a9eca907def71de7d85d9ad72f"
+        },
+        {
+          "label": "baseline-preview",
+          "passed": true,
+          "returncode": -4,
+          "expected": "expected-failure",
+          "log_sha256": "b79ff91fdc3696a461969f221fc69001c12e761260234974307562525951ee13"
+        },
+        {
+          "label": "sequences-build",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "sequences-run",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "01b715f0785a0c1bb817298666fb0baf8c7f6a0cf4d82d2085f5b6ca7a2078d8"
+        },
+        {
+          "label": "language-build",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "language-run",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "c49549d92429479d99dc019f23903f273e3ea79b07086b76fa18bcf3bb91d90c"
+        },
+        {
+          "label": "pieces-build",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "pieces-run",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "31b6747911a9e2d4d975c0866204d5fb3950436d44e1d3b76ce945e804b6cdd9"
+        },
+        {
+          "label": "immutable-build",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "immutable-run",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "612a1a80fa0e614ae2ca364c3dda8acc23a430d4cefb2e7668e81bb439476a7d"
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-a6/results.json",
+        "sha256": "8f6ad7f472ad5feadd572629ae22f9e5f93f132c0254617087a300b0d351f89a"
+      },
+      "controller": {
+        "label": "uwvm2-ros-string-preview-a6",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a5/receipts.json",
+          "sha256": "9cfb5c571d9234990875964b66d2b34ea4422faa236b48eae4bfb824d8732164"
+        },
+        "seconds": 63.603676884999004,
+        "aggregate_owned_rss_peak_bytes": 563515392,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 4.425100269145332e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "query_checks": 106,
+      "rows": [
+        {
+          "label": "preview-build",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "preview-run",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5"
+        },
+        {
+          "label": "baseline-build",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "baseline-range",
+          "passed": true,
+          "returncode": -4,
+          "expected": "expected-failure",
+          "log_sha256": "ddc7652e7faef3e5cc48efcae3786357795502a9eca907def71de7d85d9ad72f"
+        },
+        {
+          "label": "baseline-preview",
+          "passed": true,
+          "returncode": -4,
+          "expected": "expected-failure",
+          "log_sha256": "b79ff91fdc3696a461969f221fc69001c12e761260234974307562525951ee13"
+        },
+        {
+          "label": "sequences-build",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "sequences-run",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "01b715f0785a0c1bb817298666fb0baf8c7f6a0cf4d82d2085f5b6ca7a2078d8"
+        },
+        {
+          "label": "language-build",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "language-run",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "c49549d92429479d99dc019f23903f273e3ea79b07086b76fa18bcf3bb91d90c"
+        },
+        {
+          "label": "pieces-build",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "pieces-run",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "31b6747911a9e2d4d975c0866204d5fb3950436d44e1d3b76ce945e804b6cdd9"
+        },
+        {
+          "label": "immutable-build",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "immutable-run",
+          "passed": true,
+          "returncode": 0,
+          "expected": 0,
+          "log_sha256": "612a1a80fa0e614ae2ca364c3dda8acc23a430d4cefb2e7668e81bb439476a7d"
+        }
+      ]
+    }
+  ],
+  "related_i686_components": [
+    {
+      "repository": "uwvm2",
+      "case": "pieces",
+      "profile": "i686",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-related-a2-pieces/results.json",
+        "sha256": "dae4efa63cc8bd825574848462da8937ae9a4ca5dd65c32c3c9311489e5c2908"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-related-a2-pieces",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a5/receipts.json",
+          "sha256": "9cfb5c571d9234990875964b66d2b34ea4422faa236b48eae4bfb824d8732164"
+        },
+        "seconds": 10.349295972999244,
+        "aggregate_owned_rss_peak_bytes": 516669440,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 8.826619347000815
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 3,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 62448,
+        "sha256": "66626d67d6e634baeda1154a8c180383835a55f4f6100cd495b0406e19051c75",
+        "GNU_STACK_flags": [
+          6
+        ]
+      }
+    },
+    {
+      "repository": "uwvm2",
+      "case": "immutable",
+      "profile": "i686",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2/string-preview-related-a2-immutable/results.json",
+        "sha256": "023628f44a42ecc10496899669c102821f8f86c75fa0f8b7483363bed388a858"
+      },
+      "controller": {
+        "label": "uwvm2-string-preview-related-a2-immutable",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a5/receipts.json",
+          "sha256": "9cfb5c571d9234990875964b66d2b34ea4422faa236b48eae4bfb824d8732164"
+        },
+        "seconds": 9.777597995998804,
+        "aggregate_owned_rss_peak_bytes": 527228928,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 3.951999678974971e-05
+      },
+      "source_id": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "ELF": {
+        "machine": 3,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 11220,
+        "sha256": "064ced000f6d9f6023c166112f400d1262a15d0f76fd96bb8e3dccbb18b1a392",
+        "GNU_STACK_flags": [
+          6
+        ]
+      }
+    },
+    {
+      "repository": "uwvm2-ros",
+      "case": "pieces",
+      "profile": "i686",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-related-a2-pieces/results.json",
+        "sha256": "bb348b08815dce35d89af71fbd5bf9bf36e39af2de1795266466fcab700488b5"
+      },
+      "controller": {
+        "label": "uwvm2-ros-string-preview-related-a2-pieces",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a5/receipts.json",
+          "sha256": "9cfb5c571d9234990875964b66d2b34ea4422faa236b48eae4bfb824d8732164"
+        },
+        "seconds": 10.168141966001713,
+        "aggregate_owned_rss_peak_bytes": 516751360,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 3.72989998140838e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 3,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 62448,
+        "sha256": "66626d67d6e634baeda1154a8c180383835a55f4f6100cd495b0406e19051c75",
+        "GNU_STACK_flags": [
+          6
+        ]
+      }
+    },
+    {
+      "repository": "uwvm2-ros",
+      "case": "immutable",
+      "profile": "i686",
+      "result": {
+        "path": "/tmp/uwvm2-string-preview-20261006-a1/out-uwvm2-ros/string-preview-related-a2-immutable/results.json",
+        "sha256": "a732f90d253c8f364d4668b448b60b69c416bea567c747989ecdd04a918e9a2b"
+      },
+      "controller": {
+        "label": "uwvm2-ros-string-preview-related-a2-immutable",
+        "receipt": {
+          "path": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a5/receipts.json",
+          "sha256": "9cfb5c571d9234990875964b66d2b34ea4422faa236b48eae4bfb824d8732164"
+        },
+        "seconds": 9.836694366000302,
+        "aggregate_owned_rss_peak_bytes": 526835712,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 166695,
+          "oom": 3,
+          "oom_kill": 1,
+          "oom_group_kill": 0
+        },
+        "event_counters_unchanged": true,
+        "admission_wait_seconds": 3.899600051227026e-05
+      },
+      "source_id": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf",
+      "ELF": {
+        "machine": 3,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 11220,
+        "sha256": "064ced000f6d9f6023c166112f400d1262a15d0f76fd96bb8e3dccbb18b1a392",
+        "GNU_STACK_flags": [
+          6
+        ]
+      }
+    }
+  ],
+  "attempts": [
+    {
+      "label": "uwvm2-string-preview-a1",
+      "passed": false,
+      "error": "AssertionError: ('Bounded DATA component disk reserve crossed', 3382558720, 4294967296)",
+      "returncode": null,
+      "seconds": 0.02755440200053272,
+      "root_child_launched": false,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-a1/receipts.json",
+      "receipt_sha256": "874f737fa5ccdbe83a6b9c031bbe6c92b16cc2cb4934c5262ab963589843e611"
+    },
+    {
+      "label": "uwvm2-string-preview-a2",
+      "passed": false,
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1,
+      "seconds": 9.568304284999613,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-a3/receipts.json",
+      "receipt_sha256": "4cbc7a5a40e86d98a0b8b5ba0f0f5e7d2c071466442e75faf785878a847462d9"
+    },
+    {
+      "label": "uwvm2-string-preview-a3",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 47.59837665699888,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-a4/receipts.json",
+      "receipt_sha256": "450cb26b84e61e7915ae03f76aed3d6efcc0995104befb9832453c25f9bbe43a"
+    },
+    {
+      "label": "uwvm2-ros-string-preview-a3",
+      "passed": false,
+      "error": "AssertionError: ('Shared cgroup less than 1GiB from maximum; stop only this owned build', 67659161600)",
+      "returncode": null,
+      "seconds": 46.39477131700187,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-a4/receipts.json",
+      "receipt_sha256": "450cb26b84e61e7915ae03f76aed3d6efcc0995104befb9832453c25f9bbe43a"
+    },
+    {
+      "label": "uwvm2-ros-string-preview-a4",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 49.95280977500079,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-a5/receipts.json",
+      "receipt_sha256": "199dd23b4c1145c2547dda559e897329b3d0e1eb4564328417fa834c88bf4a44"
+    },
+    {
+      "label": "uwvm2-string-preview-cross-a1",
+      "passed": false,
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1,
+      "seconds": 37.19268693900085,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a1/receipts.json",
+      "receipt_sha256": "b4c52a79fd8c2b0dec7a08dfc7047f815add9802068c38fefb8e25b1ec9ba401"
+    },
+    {
+      "label": "uwvm2-string-preview-cross-a2",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 196.73475035400043,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+      "receipt_sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+    },
+    {
+      "label": "uwvm2-ros-string-preview-cross-a2",
+      "passed": false,
+      "error": "AssertionError: ('Shared cgroup less than 1GiB from maximum; stop only this owned build', 67650813952)",
+      "returncode": null,
+      "seconds": 67.16460175199973,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-cross-a2/receipts.json",
+      "receipt_sha256": "3188e2d6c714c2de8d10285bb076809a2448e400ca749c9ec5f5dc9d9466887a"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-x86-64",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.564687399000832,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-aarch64",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.726804768000875,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-i686",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.966869511001278,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-riscv64",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.418082902997412,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-ppc64",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.480672615998628,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-ppc64le",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.090464411998255,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-ppc32",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.662256356998114,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-mips64",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.323706927996682,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-mips64el",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.083870139998908,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-mips32",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.123946763000276,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-mips32el",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.5943282440021,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-sparc64",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.1018679589979,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-loongarch64",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.3392175150002,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-s390x",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.727209271997708,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-armhf",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.72564138999951,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a3-armel",
+      "passed": false,
+      "error": "AssertionError: ('Bounded DATA component disk reserve crossed', 1072308224, 1073741824)",
+      "returncode": null,
+      "seconds": 9.753015690999746,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a3/receipts.json",
+      "receipt_sha256": "bdd2afd26e3bb84afc11af5118de458549402258859da67b7af7553489c6a44e"
+    },
+    {
+      "label": "ros-string-preview-cross-a4-armel",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 12.300269431998458,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a4/receipts.json",
+      "receipt_sha256": "7df89d654845eef4485dcd9e0369c0f4664dc81ca3077a29281db07b220f7e1c"
+    },
+    {
+      "label": "uwvm2-string-preview-a5",
+      "passed": false,
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1,
+      "seconds": 55.003255068000726,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a4/receipts.json",
+      "receipt_sha256": "7df89d654845eef4485dcd9e0369c0f4664dc81ca3077a29281db07b220f7e1c"
+    },
+    {
+      "label": "uwvm2-string-preview-a6",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 64.77867639599936,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a5/receipts.json",
+      "receipt_sha256": "9cfb5c571d9234990875964b66d2b34ea4422faa236b48eae4bfb824d8732164"
+    },
+    {
+      "label": "uwvm2-ros-string-preview-a6",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 63.603676884999004,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a5/receipts.json",
+      "receipt_sha256": "9cfb5c571d9234990875964b66d2b34ea4422faa236b48eae4bfb824d8732164"
+    },
+    {
+      "label": "uwvm2-string-preview-related-a2-pieces",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 10.349295972999244,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a5/receipts.json",
+      "receipt_sha256": "9cfb5c571d9234990875964b66d2b34ea4422faa236b48eae4bfb824d8732164"
+    },
+    {
+      "label": "uwvm2-string-preview-related-a2-immutable",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 9.777597995998804,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a5/receipts.json",
+      "receipt_sha256": "9cfb5c571d9234990875964b66d2b34ea4422faa236b48eae4bfb824d8732164"
+    },
+    {
+      "label": "uwvm2-ros-string-preview-related-a2-pieces",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 10.168141966001713,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a5/receipts.json",
+      "receipt_sha256": "9cfb5c571d9234990875964b66d2b34ea4422faa236b48eae4bfb824d8732164"
+    },
+    {
+      "label": "uwvm2-ros-string-preview-related-a2-immutable",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "seconds": 9.836694366000302,
+      "root_child_launched": true,
+      "receipt": "/tmp/uwvm2-string-preview-20261006-a1/control-bounded-final-a5/receipts.json",
+      "receipt_sha256": "9cfb5c571d9234990875964b66d2b34ea4422faa236b48eae4bfb824d8732164"
+    }
+  ],
+  "new_pieces_fixture_sha256": "72e7fb14e4cadb8fbffdd253863a675e0c650cb18d6f95ed2141ab983cac90e6",
+  "scope": "Real target C++ header DATA, cold owned callbacks, ELF checks and native/QEMU execution only; no actual new language producer, guest-memory lease, full VM/JIT or native language/architecture parity.",
+  "permanent_new_QEMU_registry_entry_executed": false,
+  "qualified_execution_seconds": 564.478729544986,
+  "qualified_controlled_episodes": 23,
+  "qualified_peak_owned_rss_bytes": 612499456,
+  "all_qualified_episode_memory_event_counters_unchanged": true,
+  "paired_current_owned_files": [
+    {
+      "path": "src/uwvm2/uwvm/debugger/source_language_expression.h",
+      "hashes": {
+        "uwvm2": "885d40be3e29943588ecf36300119313ebe30b09a3b4a06369c065b078b2db9b",
+        "uwvm2-ros": "885d40be3e29943588ecf36300119313ebe30b09a3b4a06369c065b078b2db9b"
+      },
+      "paired_equal": true
+    },
+    {
+      "path": "src/uwvm2/uwvm/debugger/source_dwarf_pieces.h",
+      "hashes": {
+        "uwvm2": "9c891fad7af40ddbd886f530af03417bd63b087c85c072180d723e64963e075b",
+        "uwvm2-ros": "9c891fad7af40ddbd886f530af03417bd63b087c85c072180d723e64963e075b"
+      },
+      "paired_equal": true
+    },
+    {
+      "path": "src/uwvm2/uwvm/debugger/source_dwarf_expression.h",
+      "hashes": {
+        "uwvm2": "9a6366ee597f80ff64e1dfa38d9f27625cd34d040684bf1b1298b47eb8e22d9f",
+        "uwvm2-ros": "9a6366ee597f80ff64e1dfa38d9f27625cd34d040684bf1b1298b47eb8e22d9f"
+      },
+      "paired_equal": true
+    },
+    {
+      "path": "test/0017.runtime/debug_source_string_preview.cc",
+      "hashes": {
+        "uwvm2": "c829c44d950bbd57d4581cca0b989b2d1afc1a1f1065f1abb77a3c06decef78b",
+        "uwvm2-ros": "c829c44d950bbd57d4581cca0b989b2d1afc1a1f1065f1abb77a3c06decef78b"
+      },
+      "paired_equal": true
+    },
+    {
+      "path": "test/0017.runtime/debug_source_dwarf_pieces.cc",
+      "hashes": {
+        "uwvm2": "72e7fb14e4cadb8fbffdd253863a675e0c650cb18d6f95ed2141ab983cac90e6",
+        "uwvm2-ros": "72e7fb14e4cadb8fbffdd253863a675e0c650cb18d6f95ed2141ab983cac90e6"
+      },
+      "paired_equal": true
+    },
+    {
+      "path": "test/0017.runtime/run_debug_linux_qemu_components.py",
+      "hashes": {
+        "uwvm2": "cb0ca1ffd2faa0e38bba5b8e4d3e44759a7f36ba04c745874477b1b826507463",
+        "uwvm2-ros": "cb0ca1ffd2faa0e38bba5b8e4d3e44759a7f36ba04c745874477b1b826507463"
+      },
+      "paired_equal": true
+    },
+    {
+      "path": "test/0017.runtime/README.debug-source-language-expressions.md",
+      "hashes": {
+        "uwvm2": "a5e655b8f08c2c9c24e0c783fdfc700cbee8bde049d2e5762c84f355fe0b9cab",
+        "uwvm2-ros": "a5e655b8f08c2c9c24e0c783fdfc700cbee8bde049d2e5762c84f355fe0b9cab"
+      },
+      "paired_equal": true
+    }
+  ],
+  "full_product_resource_preflight": {
+    "schema": "uwvm-original-full-product-read-only-resource-preflight-v1",
+    "test_or_compiler_launched": false,
+    "administrative_metadata_only": true,
+    "original_supervisor": "/tmp/uwvm2-observer-zero-20261006-a1/supervisor-products-a1.py",
+    "original_supervisor_sha256": "2c1ac87f85e140c1df4cb61ba48365632b86f9753dbcfc13a8bd0fb93d441f8a",
+    "disk_floor_bytes": 9288400896,
+    "admission_headroom_bytes": 9663676416,
+    "abort_headroom_bytes": 1073741824,
+    "current_memory_bytes": 54850465792,
+    "memory_max_bytes": 68719476736,
+    "memory_swap_max_bytes": 0,
+    "cpuset": "0,2,4,6,16-31",
+    "tmp_free_bytes": 1505787904,
+    "source_ids": {
+      "uwvm2": "sha256:bcaa5b9be81614fcaf525c1764fa6fd8eb86bc9eadf16122de861f68a4245341",
+      "uwvm2-ros": "sha256:3a319bd18360b41b04ff2a3c308d59a40c9ffe6b7a7ed2c26bf43edd85b93baf"
+    },
+    "full_product_resource_admissible": false,
+    "qualification": "No fresh full product result. This record is a read-only resource gate observation, not a build attempt.",
+    "memory_events": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n"
+  },
+  "evidence_archive_completed": false,
+  "archive_state": "Local 84934656-byte transfer failed with ENOSPC; sha fc4f0e88fef00ed675fcb2648d4c1bcd33d29b6c3b8d556cd844aea7ceb80bbe retained in failure receipt, incomplete transfer retired only after receipt saved remotely. Complete immutable source cuts and all actual binaries, logs and receipts remain SSH Linux /tmp/uwvm2-string-preview-20261006-a1. Remote new archive was not launched because actual free964239360 < required1207959552 bytes. No original source/test evidence removed.",
+  "resource_policy": {
+    "cgroup_max_bytes": 68719476736,
+    "swap_bytes": 0,
+    "cpuset": "0,2,4,6,16-31",
+    "test_affinity": "16-31",
+    "bounded_component_admission_memory_headroom": 6442450944,
+    "bounded_component_abort_memory_headroom": 1073741824,
+    "bounded_component_owned_rss_budget": 1073741824,
+    "bounded_component_file_limit": 8388608,
+    "bounded_component_log_limit": 1048576,
+    "bounded_component_aggregate_output_budget": 67108864,
+    "bounded_component_disk_reserve": 1073741824,
+    "final_component_admission_additional_disk_reserve": 67108864,
+    "original_full_product_guards_unchanged": true
+  }
+}

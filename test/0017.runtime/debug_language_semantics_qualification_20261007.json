@@ -1,0 +1,568 @@
+{
+  "qualification": {
+    "passed": true,
+    "scope": "Selected-frame C/Objective-C narrow conditional promotion and C++/Objective-C++ Boolean result semantics; native numeric DATA, real LLVM embedded metadata, fresh Wasm producers, actual controller frontend, PPC64 big-endian/x86_64 QEMU components. No fresh full -Rdbg live session qualified.",
+    "source_cuts": {
+      "uwvm2": "sha256:5786e45dd868d8597c029e51de84fc452821e805fd925e789c64120ffbf601d2",
+      "uwvm2-ros": "sha256:8b45d28de62e6b2c2c0f37cdaf2d52d9dcb7bd697dd7bee5fabeaf6058c06747"
+    },
+    "implementation_hashes": {
+      "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "59ed1c2e01d319bfedae43fe2e759ce57e29a5dd8c3cf2deabe6af7cb7cc6306",
+      "src/uwvm2/uwvm/debugger/source_dwarf_types.h": "38997a4956a46ba08ae9ac0606fc462e5dd7b8a9a9cc37d51152cf4a1cbc9884",
+      "src/uwvm2/uwvm/debugger/source_dwarf_index.h": "b19a06a7fa03e4edef59e0ec3d0766764097f551f9d325d1a53f13ab2474ccfd",
+      "src/uwvm2/uwvm/debugger/source_frames.h": "d8930320ab6389f3bf26ab76a2cebbd61f762be917bbb5dea889c615e30606b8",
+      "src/uwvm2/uwvm/debugger/controller.h": "ebcff4078b4f593f9024b6462e4eb9e0c0fae26bb9b243a41ea8f0f3ebbf91f8",
+      "test/0017.runtime/debug_source_language_numeric.cc": "84f5e00906dd86a8e243dc44729f44d7bbe105a8c15c0e49d04b9403f988f1d2",
+      "test/0017.runtime/debug_source_language_numeric_c.c": "78a020f20206ced60b14085e85b6cdf6049f8ca996a992f0453108ecb034c55e",
+      "test/0017.runtime/debug_source_language_numeric_before.cc": "a7ad4e7d058939dabea01bf6ad223679b9a4853d006bc27fe70e2c6e379a5065",
+      "test/0017.runtime/debug_source_language_index.cc": "20643b659a83913bdbfca6759fb8f561bb3f82586b6265f388a0f1be2b250026",
+      "test/0017.runtime/fixtures/debug_source_language_numeric_producer.c": "ff1024cca99df67cb85e377d4d576260f036afa689ba6dafa4196e05c40f0f04",
+      "test/0017.runtime/run_debug_linux_qemu_components.py": "e40c6be21de2ab268dedd12edc4d3e323332abe04a242e5fcee782d66479ee05"
+    },
+    "rows": [
+      {
+        "repository": "uwvm2",
+        "profile": "native",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/out-uwvm2/language-native-a2/results.json",
+        "record_sha256": "d1cea967552e9d545a5acf590ad1c6a55907e8822268abc19b77938d283c4f7d",
+        "native_phases": 25,
+        "language_assertions": 10967,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652,
+        "old_refusals": 4,
+        "old_wrong_CPP_boolean_results": 4,
+        "C_native_type_assertions": 10,
+        "C_runtime_value_checks": 1620,
+        "DAP_frame_tests": 33,
+        "DAP_corpus": {
+          "positive": 263,
+          "negative": 223
+        }
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "actual-LLVM-metadata",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/out-uwvm2/language-index-a2/results.json",
+        "record_sha256": "60b321aa4ff342dd2cd2b154068b7aa1777b9b25f66f2ac370ad75e741a2ef1f",
+        "phases": 24,
+        "actual_parser_assertions": 934,
+        "fresh_Wasm_producers": 20,
+        "languages": [
+          "C17",
+          "C23",
+          "C++20",
+          "Objective-C",
+          "Objective-C++"
+        ],
+        "DWARF": [
+          4,
+          5
+        ],
+        "optimization": [
+          0,
+          2
+        ],
+        "real_TinyGo_fresh_producer_qualified": false
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "controller-frontend",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/frontend-a1/out-uwvm2/controller-frontend-a2/results.json",
+        "record_sha256": "5a09db489d4894ba564c867ccf1720d536c1bc4662affd9ec36f96b4f07ad576",
+        "mode_paths": [
+          "uwvm-int",
+          "LLVM"
+        ],
+        "phases": 2,
+        "full_product_or_live_runtime_qualified": false
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "ppc64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/out-uwvm2/language-cross-a1-ppc64/results.json",
+        "record_sha256": "23668f58500d88a90e8f81e5fb81c245753f5d78b80c66d5064cb55d9130421b",
+        "QEMU_components": 8,
+        "target_outputs_equal_native": true,
+        "language_assertions": 10967,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "x86_64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/out-uwvm2/language-cross-a1-x86_64/results.json",
+        "record_sha256": "cb16b7dd8d54b78cc08b4ac8607f47be1bd9fa6f36de1be6c125acee6318dfb8",
+        "QEMU_components": 8,
+        "target_outputs_equal_native": true,
+        "language_assertions": 10967,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "native",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/out-uwvm2-ros/language-native-a2/results.json",
+        "record_sha256": "908f4f78c880e393acfd9b452dc900d0c415ab6fccb4ba8bac0b624a54825ec9",
+        "native_phases": 25,
+        "language_assertions": 10967,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652,
+        "old_refusals": 4,
+        "old_wrong_CPP_boolean_results": 4,
+        "C_native_type_assertions": 10,
+        "C_runtime_value_checks": 1620,
+        "DAP_frame_tests": 33,
+        "DAP_corpus": {
+          "positive": 263,
+          "negative": 223
+        }
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "actual-LLVM-metadata",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/out-uwvm2-ros/language-index-a2/results.json",
+        "record_sha256": "10e3e81a507b285d9a444a9e43beb4998de246d7a63cbc99ff58d8de0082c170",
+        "phases": 24,
+        "actual_parser_assertions": 934,
+        "fresh_Wasm_producers": 20,
+        "languages": [
+          "C17",
+          "C23",
+          "C++20",
+          "Objective-C",
+          "Objective-C++"
+        ],
+        "DWARF": [
+          4,
+          5
+        ],
+        "optimization": [
+          0,
+          2
+        ],
+        "real_TinyGo_fresh_producer_qualified": false
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "controller-frontend",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/frontend-a1/out-uwvm2-ros/controller-frontend-a2/results.json",
+        "record_sha256": "7b10130d149b6dc078807f649f6bda473d602c81f7eaecea3ad5e365c6436ced",
+        "mode_paths": [
+          "uwvm-int",
+          "LLVM"
+        ],
+        "phases": 2,
+        "full_product_or_live_runtime_qualified": false
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "ppc64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/out-uwvm2-ros/language-cross-a1-ppc64/results.json",
+        "record_sha256": "3b3d6b422eb65c8647e9bfc6c76e442d54c6541e9bfae9f9118058d400fbedfe",
+        "QEMU_components": 8,
+        "target_outputs_equal_native": true,
+        "language_assertions": 10967,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "x86_64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/out-uwvm2-ros/language-cross-a1-x86_64/results.json",
+        "record_sha256": "5e5e10c777d483c6de42ee630770813abdd43212fe58df0966011cb099c8b2ce",
+        "QEMU_components": 8,
+        "target_outputs_equal_native": true,
+        "language_assertions": 10967,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652
+      }
+    ],
+    "counts": {
+      "successful_jobs": 10,
+      "native_numeric_protocol_phases": 50,
+      "actual_LLVM_metadata_and_producer_phases": 48,
+      "controller_frontend_phases": 4,
+      "QEMU_components": 32,
+      "fresh_Wasm_producers": 40,
+      "actual_parser_assertions": 1868,
+      "language_semantics_assertions": 65802,
+      "distinct_regression_assertions": 72420,
+      "boolean_regression_assertions": 7771902,
+      "zig_regression_assertions": 57912,
+      "C_native_type_assertions": 20,
+      "C_runtime_value_checks": 3240,
+      "old_refusals_reproduced": 8,
+      "old_wrong_CPP_boolean_results_reproduced": 8,
+      "DAP_frame_tests": 66,
+      "DAP_positive": 263,
+      "DAP_negative": 223,
+      "scalar_property_checks": 1020000,
+      "input_hash_checks": 104958
+    },
+    "resources": {
+      "boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8",
+      "keeper_pid": 9769,
+      "keeper_birth": 16929,
+      "cgroup_bytes": 68719476736,
+      "swap_bytes": 0,
+      "DATA_owned_RSS_budget_bytes": 1073741824,
+      "DATA_owned_RSS_peak_bytes": 793952256,
+      "frontend_owned_RSS_budget_bytes": 17179869184,
+      "frontend_owned_RSS_peak_bytes": 2195701760,
+      "successful_guard_seconds": 899.9297398599997,
+      "all_attempt_seconds": 1075.6653869949996,
+      "each_class_own_output_budget_bytes": 67108864,
+      "maximum_observed_component_output_bytes": 58925775,
+      "maximum_observed_frontend_output_bytes": 6930876,
+      "hard_image_bytes": 17179869184,
+      "allocated_image_bytes_before_archive": 2294460416,
+      "arena_free_bytes": 14737874944,
+      "filesystem_id": "12191019222208619510",
+      "no_OOM_events": true
+    },
+    "guards": [
+      {
+        "label": "uwvm2-language-native",
+        "passed": true,
+        "seconds": 119.71768097300037,
+        "owned_RSS_peak_bytes": 731348992,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 64959,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-language-native",
+        "passed": true,
+        "seconds": 118.21219438900016,
+        "owned_RSS_peak_bytes": 730337280,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 68641,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ppc64-language-cross",
+        "passed": true,
+        "seconds": 117.01036805900003,
+        "owned_RSS_peak_bytes": 791212032,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 74941,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-ppc64-language-cross",
+        "passed": true,
+        "seconds": 120.7682009719997,
+        "owned_RSS_peak_bytes": 791326720,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 76606,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-x8664-language-cross",
+        "passed": true,
+        "seconds": 124.27921829000024,
+        "owned_RSS_peak_bytes": 793952256,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 80098,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-x8664-language-cross",
+        "passed": true,
+        "seconds": 122.09143913099979,
+        "owned_RSS_peak_bytes": 793927680,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 83127,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-language-index",
+        "passed": true,
+        "seconds": 31.6139238679998,
+        "owned_RSS_peak_bytes": 669429760,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 64957,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-language-index",
+        "passed": true,
+        "seconds": 32.13632837299974,
+        "owned_RSS_peak_bytes": 672260096,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 66354,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-controller-frontend",
+        "passed": true,
+        "seconds": 57.82934789000001,
+        "owned_RSS_peak_bytes": 2103091200,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 69985,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-controller-frontend",
+        "passed": true,
+        "seconds": 56.27103791499985,
+        "owned_RSS_peak_bytes": 2195701760,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 72455,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      }
+    ],
+    "retained_failed_attempts": [
+      {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/guard-qualification-a1/receipts.json",
+        "sha256": "af93ac19e04ca424eaaa97aff95a05f53c1351ffb131826e3b7b15d8052fac1d",
+        "error": "RuntimeError: Build command failed: 1",
+        "seconds": 119.17458630500005
+      },
+      {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/guard-index-a1/receipts.json",
+        "sha256": "257a18f0e8657f49168bbcb58137535a441b1bd6f5f90fff5fc6157b2e553366",
+        "error": "RuntimeError: Build command failed: 1",
+        "seconds": 29.687143322999873
+      },
+      {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/frontend-a1/guard-frontend-a1/receipts.json",
+        "sha256": "72f5a1291ea21af59e16fabb05a4736770bd67b1f7b18e5a0260829ff2e08c1b",
+        "error": "RuntimeError: Build command failed: 1",
+        "seconds": 26.873917506999987
+      }
+    ],
+    "references": {
+      "C23_conditional": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf",
+      "CPP_conditional": "https://eel.is/c++draft/expr.cond",
+      "CPP_logical": "https://eel.is/c++draft/expr.log.and",
+      "DWARF_language_IDs": "https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/BinaryFormat/Dwarf.def"
+    },
+    "remaining": "C++ exact same narrow integer/glvalue/type identity and cross-CU origin semantics; enum/pointer/class/overload results; complete Rust/standard Go/TinyGo/Zig/AssemblyScript language evaluators; fresh full -Rdbg sessions/all-architecture product parity remain unqualified.",
+    "TinyGo_scope": "Synthetic actual LLVM C99/TinyGo producer exclusion; no fresh TinyGo compiler/live session in this cut.",
+    "all_inputs_after_unchanged": true,
+    "fresh_full_product_qualified": false,
+    "all_native_debugger_capabilities_implemented": false
+  },
+  "archive": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/language-semantics-a1/language-semantics-evidence-a1.tar.xz",
+    "bytes": 32470768,
+    "sha256": "627e79d9bf9ecf73908ace882bcd687d234cb29da369f867da1be4925d5394b1",
+    "regular_members": 7288,
+    "all_member_hashes_verified_linux": true,
+    "linux_archive_fsync_completed": true,
+    "inputs_after_unchanged": true,
+    "prior_provider_archive_hash_reverified": true,
+    "image_allocated_bytes_after_archive": 2304995328,
+    "arena_free_bytes": 14696411136,
+    "filesystem_id": "12191019222208619510"
+  },
+  "local_copy": {
+    "passed": true,
+    "archive": "/Users/liyinan/.codex/artifacts/uwvm2-language-semantics-evidence-20261007-a1/language-semantics-evidence-a1.tar.xz",
+    "bytes": 32470768,
+    "sha256": "627e79d9bf9ecf73908ace882bcd687d234cb29da369f867da1be4925d5394b1",
+    "regular_members": 7288,
+    "all_regular_member_hashes_verified_local": true,
+    "all_regular_member_hashes_verified_linux": true,
+    "fsync_completed": true,
+    "local_free_bytes_after": 2027163648
+  }
+}

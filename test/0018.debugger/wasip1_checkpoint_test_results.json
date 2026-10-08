@@ -1,0 +1,1207 @@
+{
+  "date": "2026-10-04",
+  "ssh_host": "linux",
+  "frozen_source_ids": {
+    "uwvm2": "sha256:05a7ae5769fb4dc068b7ce266dc96c926760f9ea4e63dedef0650da2596b528a",
+    "uwvm2-ros": "sha256:a279356c1ea04685aedab6f75e86302b8c626db521700ccdda35eef996e62be8"
+  },
+  "repositories": {
+    "uwvm2": {
+      "phases": [
+        {
+          "variant": "llvm",
+          "name": "components-final",
+          "all_passed": true,
+          "source_id": "sha256:b1a6c62ae4908784d70674a01a92a5f7da745ca5499277323ea198f2a9039559",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/components-final-results.json",
+          "results_sha256": "a232968d3798516f97fecc91f6749bc62a4037702d43f5ec0fdb39b915473d90",
+          "checks": [
+            {
+              "name": "components-final-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/components-final-components-final-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "compile-wasip1_state",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/components-final-compile-wasip1_state.log",
+              "log_sha256": "b755f499f56f5adae4eb27dbb9485b1840e21fad6b37f108cd1da97a87174b97"
+            },
+            {
+              "name": "wasip1_state",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/components-final-wasip1_state.log",
+              "log_sha256": "dd433c6762821243f0b428462959e0188981edc100864d02c3110e615d8e8c65"
+            },
+            {
+              "name": "compile-wasip1_state_formatter",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/components-final-compile-wasip1_state_formatter.log",
+              "log_sha256": "1c030ff56137ffca2f7e053ec1d83fc4ad3fa769a57d445a72e8452df270ca30"
+            },
+            {
+              "name": "wasip1_state_formatter",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/components-final-wasip1_state_formatter.log",
+              "log_sha256": "70d672a16363b183c982cfe4b5f40c3ca2d28254cb889a5427edfba90550be6b"
+            },
+            {
+              "name": "compile-wasip1_edit_commands",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/components-final-compile-wasip1_edit_commands.log",
+              "log_sha256": "994e199acdf31631dedc837324086ef12c44d3d7c9c494efaf9ef02a0d3f51e2"
+            },
+            {
+              "name": "wasip1_edit_commands",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/components-final-wasip1_edit_commands.log",
+              "log_sha256": "a1af15c1d0a48f274b2e8e916a297ba6f33dbed03af50f87465cf60734d1d7c1"
+            },
+            {
+              "name": "compile-wasip1_checkpoint_commands",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/components-final-compile-wasip1_checkpoint_commands.log",
+              "log_sha256": "15cab3ce4341b14797869cae0ac9dc30ee630062549c7fc3d9895666ed4a09f9"
+            },
+            {
+              "name": "wasip1_checkpoint_commands",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/components-final-wasip1_checkpoint_commands.log",
+              "log_sha256": "82149356e920d169c2cea043f17dd2a8c7e9ca06281f5aa1d5db0940cff4589f"
+            },
+            {
+              "name": "dap-wasip1",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/components-final-dap-wasip1.log",
+              "log_sha256": "4c36b42d0c0aac9cb059f13f02b307b6ea5e30373f1e16b77ebbe954a54cc573"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-components-final-llvm.json",
+            "sha256": "fd91b961b3e8820d629b17922d6b1b4d43ae94c6c5387022f0f6a01c4444b35e",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 19,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 46,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "llvm",
+          "name": "build-runtime-final",
+          "all_passed": true,
+          "source_id": "sha256:05a7ae5769fb4dc068b7ce266dc96c926760f9ea4e63dedef0650da2596b528a",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/build-runtime-final-results.json",
+          "results_sha256": "992784eea96250948b16bb1bc45d8a788102c512aa23545477d3387947b98aa9",
+          "checks": [
+            {
+              "name": "build-runtime-final-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/build-runtime-final-build-runtime-final-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "runtime-compile",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/build-runtime-final-runtime-compile.log",
+              "log_sha256": "a4173006e2c9efe73021183574d302273ba45ccfa71a5bda8df1bd5b4489f1ba"
+            },
+            {
+              "name": "main-link",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/build-runtime-final-main-link.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-build-runtime-final-llvm.json",
+            "sha256": "b2d48ec05a78b5af39f70a7ebaa02b7c90203722ba15e6012f000d9939582a2a",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 5,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 110,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "llvm",
+          "name": "checkpoint-policy-final",
+          "all_passed": true,
+          "source_id": "sha256:05a7ae5769fb4dc068b7ce266dc96c926760f9ea4e63dedef0650da2596b528a",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/checkpoint-policy-final-results.json",
+          "results_sha256": "e529904aa9d52a309af4334df769db44ad15637866d111f3bdde2a5802964c24",
+          "checks": [
+            {
+              "name": "checkpoint-policy-final-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/checkpoint-policy-final-checkpoint-policy-final-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "debug_wasip1_checkpoint-parse",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/checkpoint-policy-final-debug_wasip1_checkpoint-parse.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "debug_wasip1_checkpoint-validate",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/checkpoint-policy-final-debug_wasip1_checkpoint-validate.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "compile-debug_wasip1_checkpoint",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/checkpoint-policy-final-compile-debug_wasip1_checkpoint.log",
+              "log_sha256": "426a26d79a27afc35767be3b481770dd1a0c9dafc523eda2e5abfcf092fe8250"
+            },
+            {
+              "name": "debug_wasip1_checkpoint-instruction",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/checkpoint-policy-final-debug_wasip1_checkpoint-instruction.log",
+              "log_sha256": "ff2c33994db683158508efea72633086cc5ba9f238482f32c648848911e75ac2"
+            },
+            {
+              "name": "debug_wasip1_checkpoint-unwind",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/checkpoint-policy-final-debug_wasip1_checkpoint-unwind.log",
+              "log_sha256": "0f961cdcc8dfb23221dd2bc1c534c4839ff07ce6b052532eede6d5734d5b5e54"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-checkpoint-policy-final-llvm.json",
+            "sha256": "5c2164cf0467b4ee3cf619bfcf0cc86eb98dfd0add442e567543188970cdbafd",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 9,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 141,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "llvm",
+          "name": "runtime-policy-final",
+          "all_passed": true,
+          "source_id": "sha256:77db329d26aa799a24cbb640fbc594c1532d396d019b1dd2bb69801a4336c764",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-results.json",
+          "results_sha256": "7796cbfff149ae89bdb8c28d046aa31acc39de1848c79555445537f4f939583c",
+          "checks": [
+            {
+              "name": "runtime-policy-final-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-runtime-policy-final-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "debug_wasip1_environment-parse",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-debug_wasip1_environment-parse.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "debug_wasip1_environment-validate",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-debug_wasip1_environment-validate.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "compile-debug_wasip1_environment_runtime",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-compile-debug_wasip1_environment_runtime.log",
+              "log_sha256": "ba3efad32df083833107c7e1ca6d6be420a84157e5c3957fc7bdb20af184f636"
+            },
+            {
+              "name": "debug_wasip1_environment_runtime-instruction",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-debug_wasip1_environment_runtime-instruction.log",
+              "log_sha256": "b85cc15d181eb9a83dede9dde9a708fce9fcb948f38200c35b700f3da9bde289"
+            },
+            {
+              "name": "debug_wasip1_environment_runtime-unwind",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-debug_wasip1_environment_runtime-unwind.log",
+              "log_sha256": "b85cc15d181eb9a83dede9dde9a708fce9fcb948f38200c35b700f3da9bde289"
+            },
+            {
+              "name": "debug_wasip1_environment-parse",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-debug_wasip1_environment-parse.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "debug_wasip1_environment-validate",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-debug_wasip1_environment-validate.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "compile-debug_wasip1_environment_capsule_runtime",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-compile-debug_wasip1_environment_capsule_runtime.log",
+              "log_sha256": "f6db4d36c8235072fa9c4ba23caabb0360c2a11899c0419c5b66d866c61d24b9"
+            },
+            {
+              "name": "debug_wasip1_environment_capsule_runtime-instruction",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-debug_wasip1_environment_capsule_runtime-instruction.log",
+              "log_sha256": "3c8098029d89568bf1648412ee37f2ece565aa2585458360fc416dfeabd39947"
+            },
+            {
+              "name": "debug_wasip1_environment_capsule_runtime-unwind",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-debug_wasip1_environment_capsule_runtime-unwind.log",
+              "log_sha256": "3c8098029d89568bf1648412ee37f2ece565aa2585458360fc416dfeabd39947"
+            },
+            {
+              "name": "debug_wasip1_environment_owned_capsule-parse",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-debug_wasip1_environment_owned_capsule-parse.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "debug_wasip1_environment_owned_capsule-validate",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-debug_wasip1_environment_owned_capsule-validate.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "compile-debug_wasip1_environment_owned_capsule_runtime",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-compile-debug_wasip1_environment_owned_capsule_runtime.log",
+              "log_sha256": "ab7935f6d8f40334579a1e45bc2de3082b93426df1726f0e2865b0de78fb8e4a"
+            },
+            {
+              "name": "debug_wasip1_environment_owned_capsule_runtime-instruction",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-debug_wasip1_environment_owned_capsule_runtime-instruction.log",
+              "log_sha256": "66a01703c64149316e7fb7671f0c243e7a4bf3d4d09c323b71cc3f872ca25259"
+            },
+            {
+              "name": "debug_wasip1_environment_owned_capsule_runtime-unwind",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/runtime-policy-final-debug_wasip1_environment_owned_capsule_runtime-unwind.log",
+              "log_sha256": "66a01703c64149316e7fb7671f0c243e7a4bf3d4d09c323b71cc3f872ca25259"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-runtime-policy-final-llvm.json",
+            "sha256": "8296974c489c3ecfc8f23bfe3e8980ef0cad5fa5654110f8884177838ed081f2",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 23,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 86,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "llvm",
+          "name": "experience",
+          "all_passed": true,
+          "source_id": "sha256:05a7ae5769fb4dc068b7ce266dc96c926760f9ea4e63dedef0650da2596b528a",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/experience-results.json",
+          "results_sha256": "ee5ef050d01bb151ed11e291ce6780886db657e2b6260518765717e9df101a6b",
+          "checks": [
+            {
+              "name": "experience-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/experience-experience-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "cli-dap-experience",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/experience-cli-dap-experience.log",
+              "log_sha256": "5fcbf231e6e49c25542ba954d8d03ca9a62ac4b7f2dd99713e9ea70492932fce"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-experience-llvm.json",
+            "sha256": "8e7bfa5a4c7d83e113fd175495a395176a815c791ee51965483f3d0dbcdbcd3a",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 20,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 42,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "llvm",
+          "name": "modes",
+          "all_passed": true,
+          "source_id": "sha256:05a7ae5769fb4dc068b7ce266dc96c926760f9ea4e63dedef0650da2596b528a",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/modes-results.json",
+          "results_sha256": "092ec6678351ae7074dba2c7ce0b80b1f8ad8a1810406a80a01401132dfab0ce",
+          "checks": [
+            {
+              "name": "modes-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/modes-modes-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "nondebug-wat-parse",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/modes-nondebug-wat-parse.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "nondebug-wat-validate",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/modes-nondebug-wat-validate.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "nondebug-full-llvm",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-llvm-out/modes-nondebug-full-llvm.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-modes-llvm.json",
+            "sha256": "6d9ca628167a4892a83063a0053254b6341055b5a257df1fe9ce4f391e36a88d",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 5,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 8,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "int",
+          "name": "build-int-final",
+          "all_passed": true,
+          "source_id": "sha256:05a7ae5769fb4dc068b7ce266dc96c926760f9ea4e63dedef0650da2596b528a",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-int-out/build-int-final-results.json",
+          "results_sha256": "4a9941efabe0f7fccd5ef1f006edd65127096ced84570013ed225a3c8932b635",
+          "checks": [
+            {
+              "name": "build-int-final-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-int-out/build-int-final-build-int-final-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "reused-main-source-dependencies-unchanged",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            },
+            {
+              "name": "runtime-compile",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-int-out/build-int-final-runtime-compile.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "host-api-compile",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-int-out/build-int-final-host-api-compile.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "main-link",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-int-out/build-int-final-main-link.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-build-int-final-int.json",
+            "sha256": "f65e326ff08241ee3525f8c36cfa5f71c6d376c053df95494938434058b7f35e",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 6,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 114,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "int",
+          "name": "modes",
+          "all_passed": true,
+          "source_id": "sha256:05a7ae5769fb4dc068b7ce266dc96c926760f9ea4e63dedef0650da2596b528a",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-int-out/modes-results.json",
+          "results_sha256": "a400fc7d5099685bdb73c9d0dd73dccc98d5e0f9bbc4318ca323cbf10bdd6c89",
+          "checks": [
+            {
+              "name": "modes-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-int-out/modes-modes-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "nondebug-wat-parse",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-int-out/modes-nondebug-wat-parse.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "nondebug-wat-validate",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-int-out/modes-nondebug-wat-validate.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "nondebug-full-int",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-int-out/modes-nondebug-full-int.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-modes-int.json",
+            "sha256": "abcb4f6f095f73bbd5deaff3acc02df9a7dc2d23b587ba4c25fdcd1996c8951a",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 5,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 18,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        }
+      ],
+      "products": {
+        "llvm": {
+          "sha256": "2a8e5d16454697888603008c7f223b8c44abd3a3954c34a4322f059e434b5ca0",
+          "source_id": "sha256:05a7ae5769fb4dc068b7ce266dc96c926760f9ea4e63dedef0650da2596b528a"
+        },
+        "int": {
+          "sha256": "f32b366123edfea032b00d341e244721d94435053d44178203928d102657eb11",
+          "source_id": "sha256:05a7ae5769fb4dc068b7ce266dc96c926760f9ea4e63dedef0650da2596b528a"
+        }
+      },
+      "live_checks": 170,
+      "live_results_sha256": "e7d56f6eed528e494a93023cdb30c439606fb82f77d937dc11978481391dabff",
+      "checkpoint_output": {
+        "instruction": "checkpoint reminder: capture WASIp1 together with Wasm at the same cooperative stop; Wasm-only snapshot omits FD/environment state.\ndebug_wasip1_checkpoint_runtime PASS checks=116 policy=instruction\n",
+        "unwind": "checkpoint reminder: capture WASIp1 together with Wasm at the same cooperative stop; Wasm-only snapshot omits FD/environment state.\ndebug_wasip1_checkpoint_runtime PASS checks=116 policy=unwind\n"
+      },
+      "current_local_wasip1_controller_block_sha256": "2c769685898c3295a4b32e55a8a331eb5a4737418997395f7316340e129aaa1e",
+      "current_local_wasip1_console_block_sha256": "114bb4c38b5f20bf3d8c8aead4a28bb800ad6045fd94135696866bebdd9e56d7"
+    },
+    "uwvm2-ros": {
+      "phases": [
+        {
+          "variant": "llvm",
+          "name": "components-final",
+          "all_passed": true,
+          "source_id": "sha256:36dedcd21a910d98b5644b072135593a9c04447d96234cd3226b393b16fab9b2",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/components-final-results.json",
+          "results_sha256": "4bcc3ccf0ae09eb6672aa75d631bfb1430fc2a02177668679d58ded6b0231565",
+          "checks": [
+            {
+              "name": "components-final-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/components-final-components-final-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "compile-wasip1_state",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/components-final-compile-wasip1_state.log",
+              "log_sha256": "8d4fcfdfd9028e1dd1e18f523b06208bc46dae27585e74844cf5998770004d77"
+            },
+            {
+              "name": "wasip1_state",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/components-final-wasip1_state.log",
+              "log_sha256": "dd433c6762821243f0b428462959e0188981edc100864d02c3110e615d8e8c65"
+            },
+            {
+              "name": "compile-wasip1_state_formatter",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/components-final-compile-wasip1_state_formatter.log",
+              "log_sha256": "ae7363d06a1ab9ff16a225356acf1d63f7808ddc039516bdd96e56d11eb6b2bc"
+            },
+            {
+              "name": "wasip1_state_formatter",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/components-final-wasip1_state_formatter.log",
+              "log_sha256": "70d672a16363b183c982cfe4b5f40c3ca2d28254cb889a5427edfba90550be6b"
+            },
+            {
+              "name": "compile-wasip1_edit_commands",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/components-final-compile-wasip1_edit_commands.log",
+              "log_sha256": "d03399fcd9108478b0582bef378daa3a16b4f0709bafea4fbfe8d80aa41d9869"
+            },
+            {
+              "name": "wasip1_edit_commands",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/components-final-wasip1_edit_commands.log",
+              "log_sha256": "a1af15c1d0a48f274b2e8e916a297ba6f33dbed03af50f87465cf60734d1d7c1"
+            },
+            {
+              "name": "compile-wasip1_checkpoint_commands",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/components-final-compile-wasip1_checkpoint_commands.log",
+              "log_sha256": "e4c4efcc11966b172f658f33279b1a4f30d9439117339399ce465321bb403c33"
+            },
+            {
+              "name": "wasip1_checkpoint_commands",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/components-final-wasip1_checkpoint_commands.log",
+              "log_sha256": "82149356e920d169c2cea043f17dd2a8c7e9ca06281f5aa1d5db0940cff4589f"
+            },
+            {
+              "name": "dap-wasip1",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/components-final-dap-wasip1.log",
+              "log_sha256": "4c36b42d0c0aac9cb059f13f02b307b6ea5e30373f1e16b77ebbe954a54cc573"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-ros-components-final-llvm.json",
+            "sha256": "8b84fc1fc2086133a507126ce81dbc1523e9a6340f4b341e89178ce8c3c3aef8",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 19,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 55,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "llvm",
+          "name": "build-runtime-final",
+          "all_passed": true,
+          "source_id": "sha256:a279356c1ea04685aedab6f75e86302b8c626db521700ccdda35eef996e62be8",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/build-runtime-final-results.json",
+          "results_sha256": "7b790f96404010eb3cf5eb6aeabc88e815571072e15590dc776aac525c58e758",
+          "checks": [
+            {
+              "name": "build-runtime-final-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/build-runtime-final-build-runtime-final-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "runtime-compile",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/build-runtime-final-runtime-compile.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "main-link",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/build-runtime-final-main-link.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-ros-build-runtime-final-llvm.json",
+            "sha256": "d57e95269e6505199fd621b927b7a22e228e582fca90ecec9e995333dce12572",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 5,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 105,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "llvm",
+          "name": "checkpoint-policy-final",
+          "all_passed": true,
+          "source_id": "sha256:a279356c1ea04685aedab6f75e86302b8c626db521700ccdda35eef996e62be8",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/checkpoint-policy-final-results.json",
+          "results_sha256": "a2e17923cd4c64eee648248a5a003a265175108a1e4c472989e5429fdce8ae31",
+          "checks": [
+            {
+              "name": "checkpoint-policy-final-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/checkpoint-policy-final-checkpoint-policy-final-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "debug_wasip1_checkpoint-parse",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/checkpoint-policy-final-debug_wasip1_checkpoint-parse.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "debug_wasip1_checkpoint-validate",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/checkpoint-policy-final-debug_wasip1_checkpoint-validate.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "compile-debug_wasip1_checkpoint",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/checkpoint-policy-final-compile-debug_wasip1_checkpoint.log",
+              "log_sha256": "0087b9eaa7f4e793067e4e1a18c15e4c4d5e54e9a02a07bac3e46a8f3df80e88"
+            },
+            {
+              "name": "debug_wasip1_checkpoint-instruction",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/checkpoint-policy-final-debug_wasip1_checkpoint-instruction.log",
+              "log_sha256": "ff2c33994db683158508efea72633086cc5ba9f238482f32c648848911e75ac2"
+            },
+            {
+              "name": "debug_wasip1_checkpoint-unwind",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/checkpoint-policy-final-debug_wasip1_checkpoint-unwind.log",
+              "log_sha256": "0f961cdcc8dfb23221dd2bc1c534c4839ff07ce6b052532eede6d5734d5b5e54"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-ros-checkpoint-policy-final-llvm.json",
+            "sha256": "94f64bcfda24053cde1f23f695b574e356b4075180628d52fe0da8c37b4a3088",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 9,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 149,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "llvm",
+          "name": "runtime-policy-final",
+          "all_passed": true,
+          "source_id": "sha256:07d4123af1d64beef96bc6cf35e4ca83cdfa874779ac6d85634c26fc85b6cc8d",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-results.json",
+          "results_sha256": "987f00f063c69bd3723e9a749af9f058d0d2eca7e8f4abb197b86c1001a12083",
+          "checks": [
+            {
+              "name": "runtime-policy-final-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-runtime-policy-final-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "debug_wasip1_environment-parse",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-debug_wasip1_environment-parse.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "debug_wasip1_environment-validate",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-debug_wasip1_environment-validate.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "compile-debug_wasip1_environment_runtime",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-compile-debug_wasip1_environment_runtime.log",
+              "log_sha256": "cc1051ef961258ade6ae8f2f8da1ce80bc88acf7f5815750e9bedf70fabd08fc"
+            },
+            {
+              "name": "debug_wasip1_environment_runtime-instruction",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-debug_wasip1_environment_runtime-instruction.log",
+              "log_sha256": "b85cc15d181eb9a83dede9dde9a708fce9fcb948f38200c35b700f3da9bde289"
+            },
+            {
+              "name": "debug_wasip1_environment_runtime-unwind",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-debug_wasip1_environment_runtime-unwind.log",
+              "log_sha256": "b85cc15d181eb9a83dede9dde9a708fce9fcb948f38200c35b700f3da9bde289"
+            },
+            {
+              "name": "debug_wasip1_environment-parse",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-debug_wasip1_environment-parse.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "debug_wasip1_environment-validate",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-debug_wasip1_environment-validate.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "compile-debug_wasip1_environment_capsule_runtime",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-compile-debug_wasip1_environment_capsule_runtime.log",
+              "log_sha256": "039bb3a97180a1181147e38699f0af434e674c90ef397520090677b1003e3eb4"
+            },
+            {
+              "name": "debug_wasip1_environment_capsule_runtime-instruction",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-debug_wasip1_environment_capsule_runtime-instruction.log",
+              "log_sha256": "3c8098029d89568bf1648412ee37f2ece565aa2585458360fc416dfeabd39947"
+            },
+            {
+              "name": "debug_wasip1_environment_capsule_runtime-unwind",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-debug_wasip1_environment_capsule_runtime-unwind.log",
+              "log_sha256": "3c8098029d89568bf1648412ee37f2ece565aa2585458360fc416dfeabd39947"
+            },
+            {
+              "name": "debug_wasip1_environment_owned_capsule-parse",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-debug_wasip1_environment_owned_capsule-parse.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "debug_wasip1_environment_owned_capsule-validate",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-debug_wasip1_environment_owned_capsule-validate.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "compile-debug_wasip1_environment_owned_capsule_runtime",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-compile-debug_wasip1_environment_owned_capsule_runtime.log",
+              "log_sha256": "5983e9b37c7558dcb0a2f582ec5ea44a9ca485413c45d68dc82a6458439ff958"
+            },
+            {
+              "name": "debug_wasip1_environment_owned_capsule_runtime-instruction",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-debug_wasip1_environment_owned_capsule_runtime-instruction.log",
+              "log_sha256": "66a01703c64149316e7fb7671f0c243e7a4bf3d4d09c323b71cc3f872ca25259"
+            },
+            {
+              "name": "debug_wasip1_environment_owned_capsule_runtime-unwind",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/runtime-policy-final-debug_wasip1_environment_owned_capsule_runtime-unwind.log",
+              "log_sha256": "66a01703c64149316e7fb7671f0c243e7a4bf3d4d09c323b71cc3f872ca25259"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-ros-runtime-policy-final-llvm.json",
+            "sha256": "d0bc2f5bcbbee56faf4e98e0b07cb8d3286707a8186cbf68a6770dd132a9d7b4",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 23,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 87,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "llvm",
+          "name": "experience",
+          "all_passed": true,
+          "source_id": "sha256:a279356c1ea04685aedab6f75e86302b8c626db521700ccdda35eef996e62be8",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/experience-results.json",
+          "results_sha256": "37b1eeea7c8306bbc0ec9331f8975992aab186897633bb0a270f091a656b0773",
+          "checks": [
+            {
+              "name": "experience-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/experience-experience-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "cli-dap-experience",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/experience-cli-dap-experience.log",
+              "log_sha256": "5fcbf231e6e49c25542ba954d8d03ca9a62ac4b7f2dd99713e9ea70492932fce"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-ros-experience-llvm.json",
+            "sha256": "8a425499dfc7ea856df06e6deceaee871fb8c387026b822cc5bed9de286bf401",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 19,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 47,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "llvm",
+          "name": "modes",
+          "all_passed": true,
+          "source_id": "sha256:a279356c1ea04685aedab6f75e86302b8c626db521700ccdda35eef996e62be8",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/modes-results.json",
+          "results_sha256": "246e1774ec0588f124f8e732aa6bfcaebfcf762b6adbe3de870739c003b33329",
+          "checks": [
+            {
+              "name": "modes-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/modes-modes-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "nondebug-wat-parse",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/modes-nondebug-wat-parse.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "nondebug-wat-validate",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/modes-nondebug-wat-validate.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "nondebug-full-llvm",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/modes-nondebug-full-llvm.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "removed-mode-lazy-declined",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/modes-reject-lazy.log",
+              "log_sha256": "612db4ad6a140bd8f4b04d999867ad66860b621975f0d92dab601a6e05ebf323"
+            },
+            {
+              "name": "removed-mode-tiered-declined",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-llvm-out/modes-reject-tiered.log",
+              "log_sha256": "a8c2802f0bdd12c2e3f647672135822374f4bc1743802ebb16f60b55b66aa08c"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-ros-modes-llvm.json",
+            "sha256": "80c504b27ae65f24ee6f5f0afac0bfdb1ecaee70189f2b5a77b160a2668da8d9",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 6,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 4,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "int",
+          "name": "build-int-final",
+          "all_passed": true,
+          "source_id": "sha256:a279356c1ea04685aedab6f75e86302b8c626db521700ccdda35eef996e62be8",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-int-out/build-int-final-results.json",
+          "results_sha256": "b1730a7c6b50d96e65db5ab0fa24c13c01fab3ad95c246764d649a503232d110",
+          "checks": [
+            {
+              "name": "build-int-final-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-int-out/build-int-final-build-int-final-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "reused-main-source-dependencies-unchanged",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            },
+            {
+              "name": "runtime-compile",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-int-out/build-int-final-runtime-compile.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "host-api-compile",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-int-out/build-int-final-host-api-compile.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "main-link",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-int-out/build-int-final-main-link.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-ros-build-int-final-int.json",
+            "sha256": "f7ee7910cb6cf3d24d9e0b7ca05388995b6aa150b65373a5abc243284b853717",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 6,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 116,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        },
+        {
+          "variant": "int",
+          "name": "modes",
+          "all_passed": true,
+          "source_id": "sha256:a279356c1ea04685aedab6f75e86302b8c626db521700ccdda35eef996e62be8",
+          "results_path": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-int-out/modes-results.json",
+          "results_sha256": "a72725df1eb08d181069603ffdb1eb7d486c1244d56efe8b245f1583c57abe5e",
+          "checks": [
+            {
+              "name": "modes-actual-cgroup",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-int-out/modes-modes-actual-cgroup.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "nondebug-wat-parse",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-int-out/modes-nondebug-wat-parse.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "nondebug-wat-validate",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-int-out/modes-nondebug-wat-validate.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "nondebug-full-int",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-int-out/modes-nondebug-full-int.log",
+              "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "removed-mode-lazy-declined",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-int-out/modes-reject-lazy.log",
+              "log_sha256": "612db4ad6a140bd8f4b04d999867ad66860b621975f0d92dab601a6e05ebf323"
+            },
+            {
+              "name": "removed-mode-tiered-declined",
+              "passed": true,
+              "log": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/uwvm2-ros-int-out/modes-reject-tiered.log",
+              "log_sha256": "a8c2802f0bdd12c2e3f647672135822374f4bc1743802ebb16f60b55b66aa08c"
+            },
+            {
+              "name": "unchanged-source-and-provider-inputs",
+              "passed": true,
+              "log": null,
+              "log_sha256": null
+            }
+          ],
+          "guard": {
+            "receipt": "/tmp/uwvm2-wasip1-checkpoint-1791102988565542000/guard-uwvm2-ros-modes-int.json",
+            "sha256": "bc74db394ac4032dcef526d0fda3681cf609abf004c0250809f18af835eca784",
+            "passed": true,
+            "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+            "limits": {
+              "guard_reserve_bytes": 4294967296,
+              "memory.max": "68719476736",
+              "memory.swap.max": "0",
+              "cpuset": "0,2,4,6,16-31"
+            },
+            "own_process_count": 6,
+            "all_owned_pidfds_retired": true,
+            "foreign_pids_observed_not_adopted": 19,
+            "memory_events_before": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n",
+            "memory_events_after": "low 0\nhigh 0\nmax 18836\noom 2\noom_kill 2\noom_group_kill 0\n"
+          }
+        }
+      ],
+      "products": {
+        "llvm": {
+          "sha256": "e4820a71dc2f5d8742d3c7716ac12ca986d5a5f9b47f954e207b8e996b748ce2",
+          "source_id": "sha256:a279356c1ea04685aedab6f75e86302b8c626db521700ccdda35eef996e62be8"
+        },
+        "int": {
+          "sha256": "90211070243eee4e9a13ea294bede68b0ddf9fc934c23453173a74070b28baa3",
+          "source_id": "sha256:a279356c1ea04685aedab6f75e86302b8c626db521700ccdda35eef996e62be8"
+        }
+      },
+      "live_checks": 170,
+      "live_results_sha256": "841160302a299b6c435517003d3c10b5c594a81abf410b1fca29df5ff0907e1f",
+      "checkpoint_output": {
+        "instruction": "checkpoint reminder: capture WASIp1 together with Wasm at the same cooperative stop; Wasm-only snapshot omits FD/environment state.\ndebug_wasip1_checkpoint_runtime PASS checks=116 policy=instruction\n",
+        "unwind": "checkpoint reminder: capture WASIp1 together with Wasm at the same cooperative stop; Wasm-only snapshot omits FD/environment state.\ndebug_wasip1_checkpoint_runtime PASS checks=116 policy=unwind\n"
+      },
+      "current_local_wasip1_controller_block_sha256": "2c769685898c3295a4b32e55a8a331eb5a4737418997395f7316340e129aaa1e",
+      "current_local_wasip1_console_block_sha256": "114bb4c38b5f20bf3d8c8aead4a28bb800ad6045fd94135696866bebdd9e56d7"
+    }
+  },
+  "qualification": "Fixed integrated source snapshots; preserve concurrent source expression/breakpoint changes. Task code/tests match the frozen inputs; controller/console WASIp1 blocks match. Documentation wording clarified after tests."
+}

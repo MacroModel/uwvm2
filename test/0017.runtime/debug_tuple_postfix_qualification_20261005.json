@@ -1,0 +1,179 @@
+{
+  "date": "2026-10-05",
+  "scope": "finite tuple/postfix and DAP bug follow-up; full native parity false",
+  "repositories": [
+    "uwvm2",
+    "uwvm2-ros"
+  ],
+  "source_cuts": {
+    "uwvm2": "sha256:bdfb7f5f65cf198f6e83da27122e59161703bf428718bba4a3235c35de42a471",
+    "uwvm2-ros": "sha256:5051f84a365d0dd178a66e95ceaadbfdcb605475f4508522d305523309a08353"
+  },
+  "paired_affected_file_hashes": {
+    "src/uwvm2/uwvm/debugger/source_dwarf_selectors.h": "28698cf6f99770bd946a025b070f9a40b49c0971ac726190fd256adb19565505",
+    "src/uwvm2/uwvm/debugger/source_dwarf_expression.h": "089761b7a13f0a8b79f9fee6282e6e850374713333a9e9e1132f46ef5f1aed2e",
+    "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "5a14c55a83c7302af4de9aaf6b84f575a84749d3ae45475cf7e34a08c789cb06",
+    "test/0017.runtime/native_step_linux_software.cc": "b5f992435cde955720c32f1e4e18c974fbd10b8fafcd7676aa7f07ac9000718d",
+    "test/0017.runtime/debug_source_tuple_postfix.cc": "d436bad5666351ae743139af268e20dd0513f03df9eb526cb1b2b8da258eba84",
+    "test/0017.runtime/run_debug_linux_qemu_components.py": "15d753ea740454bbcd51eb0e546501920ecf3edb1b6ec5cd86059011678fe2b8",
+    "tools/debug/dap_adapter.py": "1918f8aba02df9410fd7b70f8cbe7dfa2ae40f376368429869e2a6c64874dbd6",
+    "test/0018.debugger/test_dap_source_frames.py": "53118bf0490d33c9bf7201cd2834f56e68ac5528da0dfdc1dae1a184a121b61e",
+    "test/0017.runtime/fixtures/debug_source_tuple_rust.rs": "f7978664a1ca0f2e43e317a48fc270fca4385b190d8e6b6e70913f0228def9fb",
+    "test/0017.runtime/fixtures/debug_source_postfix_zig.zig": "1579f377df17fd75e2834ebff820b5aa4f0a6f563e69957978fddc05106c400e"
+  },
+  "qualifications": {
+    "tuple_postfix_qemu": {
+      "profiles": 16,
+      "repositories": 2,
+      "individual_pass": 32,
+      "scope": "owned DATA and target ELF; no runtime stop or full CLI"
+    },
+    "isolated_native_kernel": {
+      "profiles": [
+        "ppc64 big-endian ELFv1",
+        "armel soft-float",
+        "armhf hard-float"
+      ],
+      "repositories": 2,
+      "individual_pass": 6,
+      "scope": "real kernel/emulated signal context and private test executable page; not a Wasm-issued guest stop"
+    },
+    "actual_embedded_DWARF": {
+      "Rust": [
+        "DWARF4 O0",
+        "DWARF4 O1",
+        "DWARF5 O0",
+        "DWARF5 O1"
+      ],
+      "Zig": [
+        "Debug",
+        "ReleaseSafe"
+      ],
+      "repositories": 2,
+      "actual_Wasm_modules": 12,
+      "producer_build_validate_parse_commands": 40,
+      "scope": "real compiler metadata plus owned-byte value/type queries; no live guest value claim"
+    },
+    "x64_component_controls": {
+      "cases": 7,
+      "repositories": 2,
+      "individual_pass": 14,
+      "qemu_and_native_outputs_identical": true,
+      "scope": "DWARF selector/expression, scalar/language, display and Wasm/WASIp1 state/mutation DATA"
+    },
+    "no_exception_UBSan": {
+      "cases": 2,
+      "repositories": 2,
+      "profiles": [
+        "no-exceptions",
+        "undefined-behavior sanitizer"
+      ],
+      "executions_passed": 8,
+      "build_run_commands_passed": 16,
+      "scope": "owned expression/typegraph controls"
+    },
+    "latest_DAP": {
+      "per_repository": {
+        "uwvm2": 204,
+        "uwvm2-ros": 204
+      },
+      "scope": "synthetic protocol DATA only",
+      "old_adapter_negative_control": true,
+      "new_stop_identity_fix": true,
+      "new_empty_body_and_origin_stop_participant_checks": true
+    }
+  },
+  "remaining_language_source_counts": {
+    "implemented": 14,
+    "partial": 35,
+    "missing": 37,
+    "separate_level": 1,
+    "prohibited_by_scope": 1
+  },
+  "not_qualified": [
+    "full latest Rdbg product for either repository",
+    "native debugger equivalence in all eight languages",
+    "all Wasm3 middle states, replacement and script semantics",
+    "full WASIp1 external I/O rollback",
+    "x86_64 QEMU TF positive native stepping",
+    "latest full ROS11 SDK",
+    "new concurrent source drift",
+    "complete named-module runtime build"
+  ],
+  "failure_records": {
+    "ordinary_full_compile": "shared cgroup original pressure guard aborted at memory.current=67755941888; own peak=3000274944",
+    "full_compile_retry": "no child compiler launched after 120s with admission headroom below6GiB",
+    "ROS_header_guard": "actual .ros10 header rejected by .ros11 source contract",
+    "QEMU_x64_signal_observation": {
+      "si_code": 1,
+      "trap_vector": -1,
+      "saved_flags": 770,
+      "si_addr_matches_pc": true,
+      "positive_backend_qualified": false
+    },
+    "all_prior_build_harness_pressure_failures_preserved": true
+  },
+  "archive": {
+    "archive_sha256": "d15ded7833da60b31615bf5ba5b7d485eeb80ee285efbe57cbb7b55287063e46",
+    "archive_bytes": 10728194,
+    "archive_files": 838,
+    "all_inputs_after_unchanged": true
+  },
+  "local_evidence_dir": "/tmp/uwvm2-debug-complete-20261005/final-r2",
+  "remote_evidence_dir": "/tmp/uwvm2-language-fix-20261004/debug-complete-r8/out-uwvm2/final-evidence-a2",
+  "postflight": {
+    "all_final_sealer_owned_pidfds_retired": true,
+    "all_preceding_owned_pidfds_retired": true,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 469573,
+      "oom": 60,
+      "oom_kill": 12,
+      "oom_group_kill": 0
+    },
+    "memory_max": "68719476736",
+    "swap_max": "0",
+    "cpuset": "0,2,4,6,16-31",
+    "sealer_retirement": [
+      {
+        "pid": 2053879,
+        "birth": 12547801,
+        "pidfd_readable": true,
+        "reaped_returncode": 0
+      }
+    ],
+    "sealer_root_retirement": {
+      "pid": 2053879,
+      "pidfd_readable": true,
+      "actual_reaped_returncode": 0
+    },
+    "no_signal_to_foreign_tasks": true
+  },
+  "local_post_cut_source_drift": [
+    {
+      "repository": "uwvm2",
+      "source_id": "sha256:bdfb7f5f65cf198f6e83da27122e59161703bf428718bba4a3235c35de42a471",
+      "local_post_cut_source_drift": [
+        "src/uwvm2/runtime/compiler/llvm_jit/native_provenance.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h",
+        "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "source_id": "sha256:5051f84a365d0dd178a66e95ceaadbfdcb605475f4508522d305523309a08353",
+      "local_post_cut_source_drift": [
+        "src/uwvm2/runtime/compiler/llvm_jit/native_provenance.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h",
+        "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+      ]
+    }
+  ],
+  "native_full_equivalence_qualified": false,
+  "sealed_attempts": {
+    "count": 93,
+    "supervisor_roots_normal": 83,
+    "scope": "root result does not replace individual case assertions"
+  }
+}

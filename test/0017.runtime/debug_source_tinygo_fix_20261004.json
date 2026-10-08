@@ -1,0 +1,520 @@
+{
+  "date": "2026-10-04",
+  "passed": true,
+  "scope": "TinyGo language-level fixes and C/C++/Rust regression in both uwvm2 repositories",
+  "fixes": [
+    "根据 DW_LANG_Go 或 TinyGo 的实际 C99/producer 元数据识别 Go 布局，支持指针隐式成员访问、切片索引和有完整位置的字符串读取。",
+    "DW_OP_WASM_location 按 local/global/operand 分别读取真实同一停点的类型化值；缺失 DWARF 或值位置保持 unavailable。",
+    "call_indirect/call_ref 在值观察模式生成真实调用者值包，修复 asyncify goroutine 中 operand 栈上的局部变量读取。",
+    "source-out 使用已证明返回的真实祖先激活跨过无映射或歧义的 TinyGo 辅助函数，保持完整 Wasm 调用链校验。",
+    "当前已注册 LLVM 调试 worker 的内置 WASIp1 proc_exit 正常展开真实调用栈，保留 u32 退出码、跟踪及告警，并在正常退出后实际 join。",
+    "源码浮点显示增加十进制 value；新增 C++ 字符串拼接、输出及解析使用 fast_io。"
+  ],
+  "tested_counts": {
+    "TinyGo_CLI_sessions": 8,
+    "dynamic_call_CLI_sessions": 2,
+    "C_CPP_Rust_CLI_sessions": 6,
+    "WASIp1_proc_exit_CLI_sessions": 6,
+    "root_return_CLI_sessions": 2,
+    "UBSan_unit_fixtures": 14
+  },
+  "remote_root": "/tmp/uwvm2-language-fix-20261004/tinygo-fix-r11",
+  "evidence_directory": "/tmp/uwvm2-tinygo-fix-20261004-r1/evidence-r11",
+  "qualification_sha256": "5d4a28220395a06cd66db301f3866305c2875d8196b0c5eff2b6f2386ee034d7",
+  "source_closure_sha256": "8771ea254f27f74c16eb87eafe81bd5e607df597cc8a3a702e650f8fb9d0a29b",
+  "tests_only_in_linux_cgroup": true,
+  "guard_receipts": {
+    "build-uwvm2": {
+      "receipts_sha256": "e2dca26ccf91dde30876ac6656b8733318b75997052252102ba98cd3ce3ecfee",
+      "commands": 7
+    },
+    "build-uwvm2-ros": {
+      "receipts_sha256": "98748a2137ff6716e34012cb30757eaa21915b37b87d71913b208013bc66e8d1",
+      "commands": 7
+    },
+    "runtime-uwvm2": {
+      "receipts_sha256": "0581aa1d5ea115856e00c06fa92af5210c071822a2ae9c764c49897bce4761ec",
+      "commands": 4
+    },
+    "runtime-uwvm2-ros": {
+      "receipts_sha256": "532c95b92dfcc25b82141beadcff5bcdef18adc10c26a893557887c80067251b",
+      "commands": 4
+    },
+    "dynamic-after": {
+      "receipts_sha256": "9eb9bf03a18ee70dfa2557c9a03a059d4553f94c4930f9401da26a8b337f49a2",
+      "commands": 2
+    },
+    "language-regression": {
+      "receipts_sha256": "0e39acab85f8c6f3ab89da9a5851aa4ae454660fe0f6ad4b895be6e9cbbd6ff7",
+      "commands": 2
+    },
+    "step-units": {
+      "receipts_sha256": "6c0cd8807194777f16dcd97c60137850a87d537c08f0a44d2bce169a433d98f8",
+      "commands": 4
+    },
+    "remaining-units": {
+      "receipts_sha256": "8c721c8e599624ec75078947fe4276f32184eeef78c1fe556975dc54157de5cb",
+      "commands": 24
+    },
+    "proc-exit": {
+      "receipts_sha256": "20e159811e26ea4aaa58672acfeeed26f42bef132f3a5e018aa1c7a9d36904c6",
+      "commands": 9
+    },
+    "root-return-guard": {
+      "receipts_sha256": "4949db9f407dddc2cae9b0988d625c41f6572be429ce4303a1af2b7aa4383745",
+      "commands": 2
+    }
+  },
+  "limits": [
+    "本次验证针对记录的固定源码快照；其他 agent 在构建后的改动按哈希单独列出。",
+    "编译器省略的 DWARF 和变量位置不能恢复；不会猜测缺失的字符串指针或读取未知字节。",
+    "未实现 TinyGo goroutine 列表、保存任务的切换，也未宣称与原生语言调试器完全等价。",
+    "proc_exit 修复覆盖当前注册 initial worker 的真实内置直接绑定，不扩展 restored world、别名或第三方 host provider 的权限。",
+    "未增加跨出 Wasm 客体上下文调试 VM 本身的接口；本批不是所有 Wasm 3.0 或所有语言特性的完整认证。"
+  ],
+  "environment_retry": "首次运行组遇到 cgroup OOM 计数从 1 增至 2，保留 environment-oom-01 失败记录；重跑的全部通过记录内 OOM 计数均无增长。",
+  "repositories": {
+    "uwvm2": {
+      "source_id": "sha256:1d7dc62d529087be62d3dd57411c6ce314d86fbe8f81d37652fa9a0442b5caf2",
+      "source_manifest_sha256": "a7d4a0fa26a5a56de9dfaa2fed43221c6dfd2b020ab32c828e8b5d0f6de1ffa5",
+      "binary_sha256": "577c58b7ba16caf497a1d391ce3608af061d918e9594161ccc4d45ae9d9c7781",
+      "all_three_translation_units_fresh": true,
+      "build_command_file": "/tmp/uwvm2-tinygo-fix-20261004-r1/evidence-r11/uwvm2-current-build.json",
+      "TinyGo": [
+        {
+          "case": "unknown-O0",
+          "original_function": 38,
+          "original_expression_offset": 0,
+          "wasm_sha256": "1529ffd6d9183030d0abf1cc038342af53f843da1d5baeaa19b41dc8ffdaa37c",
+          "print_examples": [
+            {
+              "command": "print 1 2 p.Grid[1][2]",
+              "reply": "source-value stop=2 name=p.Grid[1][2]\n[2]: type=int32, offset=24, bytes=4, value=15\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 p.Grid[1][2]",
+              "reply": "source-value stop=2 name=p.Grid[1][2]\n[2]: type=int32, offset=24, bytes=4, value=15\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 n.Next.Value",
+              "reply": "source-value stop=2 name=n.Next.Value\nValue: type=int32, offset=0, bytes=4, value=9\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 n.Next.Value",
+              "reply": "source-value stop=2 name=n.Next.Value\nValue: type=int32, offset=0, bytes=4, value=9\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 s[1]",
+              "reply": "source-value stop=2 name=s[1]\nobject: type=int32, offset=0, bytes=4, value=5\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 s[1]",
+              "reply": "source-value stop=2 name=s[1]\nobject: type=int32, offset=0, bytes=4, value=5\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 t",
+              "reply": "source-value stop=2 name=t\nobject: type=string, offset=0, bytes=8\n  ptr: type=pointer, offset=0, bytes=4, unavailable=copied value contains unavailable bits\n  len: type=uintptr, offset=4, bytes=4, value=6\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 1000002 value",
+              "reply": "error: command or thread is not valid in the current execution state\n(uwvm-debug) "
+            }
+          ],
+          "source_out": [
+            {
+              "completion": "stopped: selected participant step\nstop-id 49\nthread 1 module=0 function=39 byte-offset=439 generation=2\n  source /tmp/uwvm2-language-fix-20261004/product-r9/tinygo-review/probe-unknown.go:32:21\n(uwvm-debug) ",
+              "trace": "stopped: selected participant step\nstop-id 49\nthread 1 module=0 function=39 byte-offset=439 generation=2\n  source /tmp/uwvm2-language-fix-20261004/product-r9/tinygo-review/probe-unknown.go:32:21\n  #0 module=0 function=39 [main] main.probeOuter\n  #1 module=0 function=17 [main] main.main\n  #2 module=0 function=12 [main] runtime.run\n  #3 module=0 function=11 [main] _start\n  caller source lines and byte offsets unavailable\n(uwvm-debug) "
+            }
+          ],
+          "quit_returncode": 0,
+          "managed_shutdown_complete": true
+        },
+        {
+          "case": "minimal-O0",
+          "original_function": 87,
+          "original_expression_offset": 0,
+          "wasm_sha256": "4993830e584a4095237e548eadf907a7535814fd6acf09a3b380e6b6d91e718e",
+          "print_examples": [
+            {
+              "command": "print 1 2 p.Grid[1][2]",
+              "reply": "source-value stop=2 name=p.Grid[1][2]\n[2]: type=int32, offset=24, bytes=4, value=15\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 p.Grid[1][2]",
+              "reply": "source-value stop=2 name=p.Grid[1][2]\n[2]: type=int32, offset=24, bytes=4, value=15\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 n.Next.Value",
+              "reply": "source-value stop=2 name=n.Next.Value\nValue: type=int32, offset=0, bytes=4, value=9\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 n.Next.Value",
+              "reply": "source-value stop=2 name=n.Next.Value\nValue: type=int32, offset=0, bytes=4, value=9\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 s[1]",
+              "reply": "source-value stop=2 name=s[1]\nobject: type=int32, offset=0, bytes=4, value=5\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 s[1]",
+              "reply": "source-value stop=2 name=s[1]\nobject: type=int32, offset=0, bytes=4, value=5\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 t",
+              "reply": "source-value stop=2 name=t\nobject: type=string, offset=0, bytes=8\n  ptr: type=pointer, offset=0, bytes=4, unavailable=copied value contains unavailable bits\n  len: type=uintptr, offset=4, bytes=4, value=6\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 1000002 value",
+              "reply": "error: command or thread is not valid in the current execution state\n(uwvm-debug) "
+            }
+          ],
+          "source_out": [
+            {
+              "completion": "stopped: selected participant step\nstop-id 49\nthread 1 module=0 function=88 byte-offset=439 generation=2\n  source /tmp/uwvm2-language-fix-20261004/product-r9/tinygo-review/probe.go:32:21\n(uwvm-debug) ",
+              "trace": "stopped: selected participant step\nstop-id 49\nthread 1 module=0 function=88 byte-offset=439 generation=2\n  source /tmp/uwvm2-language-fix-20261004/product-r9/tinygo-review/probe.go:32:21\n  #0 module=0 function=88 [main] main.probeOuter\n  #1 module=0 function=54 [main] main.main\n  #2 module=0 function=49 [main] runtime.run\n  #3 module=0 function=48 [main] _start\n  caller source lines and byte offsets unavailable\n(uwvm-debug) "
+            }
+          ],
+          "quit_returncode": 0,
+          "managed_shutdown_complete": true
+        },
+        {
+          "case": "sequences",
+          "original_function": 156,
+          "original_expression_offset": 0,
+          "wasm_sha256": "300b664598c30bfc078e5a565160b0deacae08affbb00f6aa153bb8cad37a582",
+          "print_examples": [
+            {
+              "command": "print 1 2 box.Numbers[1]",
+              "reply": "source-value stop=2 name=box.Numbers[1]\nobject: type=int32, offset=0, bytes=4, value=22\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 box.Numbers[1]",
+              "reply": "source-value stop=2 name=box.Numbers[1]\nobject: type=int32, offset=0, bytes=4, value=22\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 box.Text",
+              "reply": "source-value stop=2 name=box.Text\nText: type=string, offset=0, bytes=8, text=uwvm-tinygo\n  ptr: type=pointer, offset=0, bytes=4, value=guest:0x104a8\n  len: type=uintptr, offset=4, bytes=4, value=11\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 1000002 value",
+              "reply": "error: command or thread is not valid in the current execution state\n(uwvm-debug) "
+            }
+          ],
+          "source_out": [
+            {
+              "completion": "stopped: selected participant step\nstop-id 40\nthread 1 module=0 function=98 byte-offset=24 generation=2\n  source /tmp/uwvm2-language-fix-20261004/tinygo-fix-r4/tinygo-review/sequences.go:18:17\n(uwvm-debug) ",
+              "trace": "stopped: selected participant step\nstop-id 40\nthread 1 module=0 function=98 byte-offset=24 generation=2\n  source /tmp/uwvm2-language-fix-20261004/tinygo-fix-r4/tinygo-review/sequences.go:18:17\n  #0 module=0 function=98 [main] main.main\n  #1 module=0 function=93 [main] runtime.run\n  #2 module=0 function=92 [main] _start\n  caller source lines and byte offsets unavailable\n(uwvm-debug) "
+            }
+          ],
+          "quit_returncode": 0,
+          "managed_shutdown_complete": true
+        },
+        {
+          "case": "goroutines-O1",
+          "original_function": 53,
+          "original_expression_offset": 195,
+          "wasm_sha256": "30633ff87adbc782f95554ac8a38d667b38ab3e9073ca01b3a3062154026af65",
+          "print_examples": [
+            {
+              "command": "print 1 2 value",
+              "reply": "source-stop 2\nsource local value type=int32 = i32=11\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 value",
+              "reply": "source-stop 2\nsource local value type=int32 = i32=11\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 value + 2",
+              "reply": "source-value stop=2 name=value + 2\n$expression: type=signed integer, offset=0, bytes=4, value=13\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 value + 2",
+              "reply": "source-value stop=2 name=value + 2\n$expression: type=signed integer, offset=0, bytes=4, value=13\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 1000002 value",
+              "reply": "error: command or thread is not valid in the current execution state\n(uwvm-debug) "
+            }
+          ],
+          "source_out": [
+            {
+              "completion": "stopped: selected participant step\nstop-id 199\nthread 1 module=0 function=46 byte-offset=109 generation=2\n  source /tmp/uwvm2-language-fix-20261004/product-r9/tinygo-review/goroutines.go:11:5\n(uwvm-debug) ",
+              "trace": "stopped: selected participant step\nstop-id 199\nthread 1 module=0 function=46 byte-offset=109 generation=2\n  source /tmp/uwvm2-language-fix-20261004/product-r9/tinygo-review/goroutines.go:11:5\n  #0 module=0 function=46 [main] main.worker$gowrapper\n  #1 module=0 function=6 [main] tinygo_launch\n  #2 module=0 function=41 [main] _start\n  caller source lines and byte offsets unavailable\n(uwvm-debug) "
+            },
+            {
+              "completion": "stopped: selected participant step\nstop-id 430\nthread 1 module=0 function=41 byte-offset=732 generation=2\n  source /tmp/uwvm2-multilang-review-20261004-1791088010212-tools/tinygo/src/internal/task/task_asyncify.go:139:17\n(uwvm-debug) ",
+              "trace": "stopped: selected participant step\nstop-id 430\nthread 1 module=0 function=41 byte-offset=732 generation=2\n  source /tmp/uwvm2-multilang-review-20261004-1791088010212-tools/tinygo/src/internal/task/task_asyncify.go:139:17\n  inline runtime.run call-site runtime_wasmentry.go:19:5\n  #0 module=0 function=41 [main] _start\n  caller source lines and byte offsets unavailable\n(uwvm-debug) "
+            },
+            {
+              "completion": "stopped: selected participant step\nstop-id 2048\nthread 1 module=0 function=41 byte-offset=924 generation=2\n  source /tmp/uwvm2-multilang-review-20261004-1791088010212-tools/tinygo/src/runtime/runtime_wasmentry.go:20:5\n(uwvm-debug) ",
+              "trace": "stopped: selected participant step\nstop-id 2048\nthread 1 module=0 function=41 byte-offset=924 generation=2\n  source /tmp/uwvm2-multilang-review-20261004-1791088010212-tools/tinygo/src/runtime/runtime_wasmentry.go:20:5\n  #0 module=0 function=41 [main] _start\n  caller source lines and byte offsets unavailable\n(uwvm-debug) "
+            },
+            {
+              "completion": "guest exited: 0\n(uwvm-debug) ",
+              "trace": "error: command or thread is not valid in the current execution state\n(uwvm-debug) "
+            }
+          ],
+          "quit_returncode": 0,
+          "managed_shutdown_complete": true
+        }
+      ],
+      "proc_exit_codes": [
+        7,
+        255,
+        4294967295
+      ],
+      "language_regressions": [
+        "c-dwarf4-O0",
+        "cpp-rich-O0",
+        "rust-dwarf4-O0"
+      ],
+      "concurrent_working_tree_differences": [
+        {
+          "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h",
+          "tested_sha256": "eb5256f7ed6c2d6c469f529fe952b4dc2292b5046b9e4dbe132a67d0d4a1ef12",
+          "working_tree_sha256": "fd905583089d0ef25b14dc0b82d72971ab24843e7ec3db7014a5d4f4fca8b892"
+        },
+        {
+          "path": "src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h",
+          "tested_sha256": "96191453074e81d6a24bbe151060c12006c108e848ad2913efce200818f8673e",
+          "working_tree_sha256": "3edbe7ca8a2637eab0357bfe6035e69e61509582703106af137e936be7d9de28"
+        },
+        {
+          "path": "src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h",
+          "tested_sha256": "b3cee5a1d7ccdc5c7848709522c0be55743343ef24d003a8903c2b3b1aded3ee",
+          "working_tree_sha256": "4cea4cd7cb81c4440ec5b3e265079a519e688320abba103c823a0cbf7441054d"
+        }
+      ]
+    },
+    "uwvm2-ros": {
+      "source_id": "sha256:5d445ed9fc2df89641d9dd377b1a2ca5181f7ef301d9434569c7d62ba419d882",
+      "source_manifest_sha256": "c93d6d1ef71a21b65c2abf7575795fe3339f32078ce3021943be61a6151b17e2",
+      "binary_sha256": "717ba8a7ba8aa53d095e615331bc0610d689ba3b2fe8af67741a0c03e52704e8",
+      "all_three_translation_units_fresh": true,
+      "build_command_file": "/tmp/uwvm2-tinygo-fix-20261004-r1/evidence-r11/uwvm2-ros-current-build.json",
+      "TinyGo": [
+        {
+          "case": "unknown-O0",
+          "original_function": 38,
+          "original_expression_offset": 0,
+          "wasm_sha256": "1529ffd6d9183030d0abf1cc038342af53f843da1d5baeaa19b41dc8ffdaa37c",
+          "print_examples": [
+            {
+              "command": "print 1 2 p.Grid[1][2]",
+              "reply": "source-value stop=2 name=p.Grid[1][2]\n[2]: type=int32, offset=24, bytes=4, value=15\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 p.Grid[1][2]",
+              "reply": "source-value stop=2 name=p.Grid[1][2]\n[2]: type=int32, offset=24, bytes=4, value=15\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 n.Next.Value",
+              "reply": "source-value stop=2 name=n.Next.Value\nValue: type=int32, offset=0, bytes=4, value=9\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 n.Next.Value",
+              "reply": "source-value stop=2 name=n.Next.Value\nValue: type=int32, offset=0, bytes=4, value=9\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 s[1]",
+              "reply": "source-value stop=2 name=s[1]\nobject: type=int32, offset=0, bytes=4, value=5\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 s[1]",
+              "reply": "source-value stop=2 name=s[1]\nobject: type=int32, offset=0, bytes=4, value=5\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 t",
+              "reply": "source-value stop=2 name=t\nobject: type=string, offset=0, bytes=8\n  ptr: type=pointer, offset=0, bytes=4, unavailable=copied value contains unavailable bits\n  len: type=uintptr, offset=4, bytes=4, value=6\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 1000002 value",
+              "reply": "error: command or thread is not valid in the current execution state\n(uwvm-debug) "
+            }
+          ],
+          "source_out": [
+            {
+              "completion": "stopped: selected participant step\nstop-id 49\nthread 1 module=0 function=39 byte-offset=439 generation=2\n  source /tmp/uwvm2-language-fix-20261004/product-r9/tinygo-review/probe-unknown.go:32:21\n(uwvm-debug) ",
+              "trace": "stopped: selected participant step\nstop-id 49\nthread 1 module=0 function=39 byte-offset=439 generation=2\n  source /tmp/uwvm2-language-fix-20261004/product-r9/tinygo-review/probe-unknown.go:32:21\n  #0 module=0 function=39 [main] main.probeOuter\n  #1 module=0 function=17 [main] main.main\n  #2 module=0 function=12 [main] runtime.run\n  #3 module=0 function=11 [main] _start\n  caller source lines and byte offsets unavailable\n(uwvm-debug) "
+            }
+          ],
+          "quit_returncode": 0,
+          "managed_shutdown_complete": true
+        },
+        {
+          "case": "minimal-O0",
+          "original_function": 87,
+          "original_expression_offset": 0,
+          "wasm_sha256": "4993830e584a4095237e548eadf907a7535814fd6acf09a3b380e6b6d91e718e",
+          "print_examples": [
+            {
+              "command": "print 1 2 p.Grid[1][2]",
+              "reply": "source-value stop=2 name=p.Grid[1][2]\n[2]: type=int32, offset=24, bytes=4, value=15\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 p.Grid[1][2]",
+              "reply": "source-value stop=2 name=p.Grid[1][2]\n[2]: type=int32, offset=24, bytes=4, value=15\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 n.Next.Value",
+              "reply": "source-value stop=2 name=n.Next.Value\nValue: type=int32, offset=0, bytes=4, value=9\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 n.Next.Value",
+              "reply": "source-value stop=2 name=n.Next.Value\nValue: type=int32, offset=0, bytes=4, value=9\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 s[1]",
+              "reply": "source-value stop=2 name=s[1]\nobject: type=int32, offset=0, bytes=4, value=5\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 s[1]",
+              "reply": "source-value stop=2 name=s[1]\nobject: type=int32, offset=0, bytes=4, value=5\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 t",
+              "reply": "source-value stop=2 name=t\nobject: type=string, offset=0, bytes=8\n  ptr: type=pointer, offset=0, bytes=4, unavailable=copied value contains unavailable bits\n  len: type=uintptr, offset=4, bytes=4, value=6\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 1000002 value",
+              "reply": "error: command or thread is not valid in the current execution state\n(uwvm-debug) "
+            }
+          ],
+          "source_out": [
+            {
+              "completion": "stopped: selected participant step\nstop-id 49\nthread 1 module=0 function=88 byte-offset=439 generation=2\n  source /tmp/uwvm2-language-fix-20261004/product-r9/tinygo-review/probe.go:32:21\n(uwvm-debug) ",
+              "trace": "stopped: selected participant step\nstop-id 49\nthread 1 module=0 function=88 byte-offset=439 generation=2\n  source /tmp/uwvm2-language-fix-20261004/product-r9/tinygo-review/probe.go:32:21\n  #0 module=0 function=88 [main] main.probeOuter\n  #1 module=0 function=54 [main] main.main\n  #2 module=0 function=49 [main] runtime.run\n  #3 module=0 function=48 [main] _start\n  caller source lines and byte offsets unavailable\n(uwvm-debug) "
+            }
+          ],
+          "quit_returncode": 0,
+          "managed_shutdown_complete": true
+        },
+        {
+          "case": "sequences",
+          "original_function": 156,
+          "original_expression_offset": 0,
+          "wasm_sha256": "300b664598c30bfc078e5a565160b0deacae08affbb00f6aa153bb8cad37a582",
+          "print_examples": [
+            {
+              "command": "print 1 2 box.Numbers[1]",
+              "reply": "source-value stop=2 name=box.Numbers[1]\nobject: type=int32, offset=0, bytes=4, value=22\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 box.Numbers[1]",
+              "reply": "source-value stop=2 name=box.Numbers[1]\nobject: type=int32, offset=0, bytes=4, value=22\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 box.Text",
+              "reply": "source-value stop=2 name=box.Text\nText: type=string, offset=0, bytes=8, text=uwvm-tinygo\n  ptr: type=pointer, offset=0, bytes=4, value=guest:0x104a8\n  len: type=uintptr, offset=4, bytes=4, value=11\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 1000002 value",
+              "reply": "error: command or thread is not valid in the current execution state\n(uwvm-debug) "
+            }
+          ],
+          "source_out": [
+            {
+              "completion": "stopped: selected participant step\nstop-id 40\nthread 1 module=0 function=98 byte-offset=24 generation=2\n  source /tmp/uwvm2-language-fix-20261004/tinygo-fix-r4/tinygo-review/sequences.go:18:17\n(uwvm-debug) ",
+              "trace": "stopped: selected participant step\nstop-id 40\nthread 1 module=0 function=98 byte-offset=24 generation=2\n  source /tmp/uwvm2-language-fix-20261004/tinygo-fix-r4/tinygo-review/sequences.go:18:17\n  #0 module=0 function=98 [main] main.main\n  #1 module=0 function=93 [main] runtime.run\n  #2 module=0 function=92 [main] _start\n  caller source lines and byte offsets unavailable\n(uwvm-debug) "
+            }
+          ],
+          "quit_returncode": 0,
+          "managed_shutdown_complete": true
+        },
+        {
+          "case": "goroutines-O1",
+          "original_function": 53,
+          "original_expression_offset": 195,
+          "wasm_sha256": "30633ff87adbc782f95554ac8a38d667b38ab3e9073ca01b3a3062154026af65",
+          "print_examples": [
+            {
+              "command": "print 1 2 value",
+              "reply": "source-stop 2\nsource local value type=int32 = i32=11\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 value",
+              "reply": "source-stop 2\nsource local value type=int32 = i32=11\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 value + 2",
+              "reply": "source-value stop=2 name=value + 2\n$expression: type=signed integer, offset=0, bytes=4, value=13\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 2 value + 2",
+              "reply": "source-value stop=2 name=value + 2\n$expression: type=signed integer, offset=0, bytes=4, value=13\nsource-value end\n(uwvm-debug) "
+            },
+            {
+              "command": "print 1 1000002 value",
+              "reply": "error: command or thread is not valid in the current execution state\n(uwvm-debug) "
+            }
+          ],
+          "source_out": [
+            {
+              "completion": "stopped: selected participant step\nstop-id 199\nthread 1 module=0 function=46 byte-offset=109 generation=2\n  source /tmp/uwvm2-language-fix-20261004/product-r9/tinygo-review/goroutines.go:11:5\n(uwvm-debug) ",
+              "trace": "stopped: selected participant step\nstop-id 199\nthread 1 module=0 function=46 byte-offset=109 generation=2\n  source /tmp/uwvm2-language-fix-20261004/product-r9/tinygo-review/goroutines.go:11:5\n  #0 module=0 function=46 [main] main.worker$gowrapper\n  #1 module=0 function=6 [main] tinygo_launch\n  #2 module=0 function=41 [main] _start\n  caller source lines and byte offsets unavailable\n(uwvm-debug) "
+            },
+            {
+              "completion": "stopped: selected participant step\nstop-id 430\nthread 1 module=0 function=41 byte-offset=732 generation=2\n  source /tmp/uwvm2-multilang-review-20261004-1791088010212-tools/tinygo/src/internal/task/task_asyncify.go:139:17\n(uwvm-debug) ",
+              "trace": "stopped: selected participant step\nstop-id 430\nthread 1 module=0 function=41 byte-offset=732 generation=2\n  source /tmp/uwvm2-multilang-review-20261004-1791088010212-tools/tinygo/src/internal/task/task_asyncify.go:139:17\n  inline runtime.run call-site runtime_wasmentry.go:19:5\n  #0 module=0 function=41 [main] _start\n  caller source lines and byte offsets unavailable\n(uwvm-debug) "
+            },
+            {
+              "completion": "stopped: selected participant step\nstop-id 2048\nthread 1 module=0 function=41 byte-offset=924 generation=2\n  source /tmp/uwvm2-multilang-review-20261004-1791088010212-tools/tinygo/src/runtime/runtime_wasmentry.go:20:5\n(uwvm-debug) ",
+              "trace": "stopped: selected participant step\nstop-id 2048\nthread 1 module=0 function=41 byte-offset=924 generation=2\n  source /tmp/uwvm2-multilang-review-20261004-1791088010212-tools/tinygo/src/runtime/runtime_wasmentry.go:20:5\n  #0 module=0 function=41 [main] _start\n  caller source lines and byte offsets unavailable\n(uwvm-debug) "
+            },
+            {
+              "completion": "guest exited: 0\n(uwvm-debug) ",
+              "trace": "error: command or thread is not valid in the current execution state\n(uwvm-debug) "
+            }
+          ],
+          "quit_returncode": 0,
+          "managed_shutdown_complete": true
+        }
+      ],
+      "proc_exit_codes": [
+        7,
+        255,
+        4294967295
+      ],
+      "language_regressions": [
+        "c-dwarf4-O0",
+        "cpp-rich-O0",
+        "rust-dwarf4-O0"
+      ],
+      "concurrent_working_tree_differences": [
+        {
+          "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h",
+          "tested_sha256": "953323bcca5054a1216a60ac1c432e5c4b6401c911a50d5e5f342091292f286f",
+          "working_tree_sha256": "c30169f6bf8c5a67967d4654f75eced696bfa29d5fb72489d569d66e0e4a3aff"
+        },
+        {
+          "path": "src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h",
+          "tested_sha256": "96191453074e81d6a24bbe151060c12006c108e848ad2913efce200818f8673e",
+          "working_tree_sha256": "3edbe7ca8a2637eab0357bfe6035e69e61509582703106af137e936be7d9de28"
+        },
+        {
+          "path": "src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h",
+          "tested_sha256": "b3cee5a1d7ccdc5c7848709522c0be55743343ef24d003a8903c2b3b1aded3ee",
+          "working_tree_sha256": "4cea4cd7cb81c4440ec5b3e265079a519e688320abba103c823a0cbf7441054d"
+        }
+      ]
+    }
+  },
+  "command_examples": {
+    "ordinary": "uwvm -Rdbg -Rcc jit -Rcm full -Rct 0 -Rllvm-call-stack instruction -Rllvm-cache-path disable --run probe.wasm",
+    "ros": "uwvm -Rdbg -Rct 0 -Rllvm-call-stack instruction -Rllvm-cache-path disable --run probe.wasm",
+    "console": [
+      "bt <thread>",
+      "locals source <thread>",
+      "print <thread> <stop-id> p.Grid[1][2]",
+      "print <thread> <stop-id> n.Next.Value",
+      "print <thread> <stop-id> s[1]",
+      "print <thread> <stop-id> box.Text",
+      "print <thread> <stop-id> value + 2",
+      "step source <thread> out",
+      "wait",
+      "status",
+      "quit"
+    ],
+    "note": "变量名由相应样本及实际当前作用域决定。thread 与 stop-id 必须来自当前真实停点；连续 step 后需重新 bt 获取 stop-id。"
+  }
+}

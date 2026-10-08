@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "base_manifest_sha256": "352482281b0da11a598a53d546ab4826a1f68e2188cee07a934f092bdf76031b",
+  "overlay_manifest_sha256": "25ddbe02c8a6c73bb4171d66cfdb77ca4f8c439582c7dee010e9071b2125d609",
+  "delta_archive_sha256": "86d6f88d6859243df3b8e5fd12b3f7b1e01a873c2c9118b810a2eea209360cb6",
+  "changed_files": {
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h": "a08aaa22d6550a7c266615c16b9d8dd045cdcdbadb386ef96e3accc5f56a909a",
+    "uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": "7d8fbcea7dfbe6f7e94fbd4ae0659e9f108077f71379aa9bbe8214cb44641e8a",
+    "uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": "cf2fa16ce35c5c195c7edea78db9ffac17e9e26233da8b2dc3f8ee86d5873905",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "bb3f2929b51289938ae49323e3edd021cdc96116d14c2aef7789003184774b6e",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h": "257718f8a4e418ceeeb310eafe7d8ff8378e6ab6dfcd9cbc84b0691cfa4c0892",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": "7d8fbcea7dfbe6f7e94fbd4ae0659e9f108077f71379aa9bbe8214cb44641e8a",
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": "cf2fa16ce35c5c195c7edea78db9ffac17e9e26233da8b2dc3f8ee86d5873905",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "bb3f2929b51289938ae49323e3edd021cdc96116d14c2aef7789003184774b6e"
+  },
+  "reason": "Propagate actual census error into combined result, assert error::none on success, and document pending/closed-ready/discard protocol"
+}

@@ -1,0 +1,123 @@
+{
+  "passed": true,
+  "timestamp_ns": 1791370793760487000,
+  "scope": "Hash comparison only; latest concurrent workspace is not the qualified immutable source cut",
+  "compiled_own_paths": [
+    {
+      "repo": "uwvm2",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h",
+      "frozen_sha256": "3859d785d8f09003457e3615797cc4a96af8599d6f42c06a8f5ce0f841385e66",
+      "current_sha256": "3859d785d8f09003457e3615797cc4a96af8599d6f42c06a8f5ce0f841385e66",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h",
+      "frozen_sha256": "7050a0bd5ff6784bb8e417381034667951f65c2e505f47002eb535b2362751f2",
+      "current_sha256": "96498562724d63c3ea71f2665a6740e16b02afcfec09cd76961a9c356e770cc8",
+      "matches": false
+    },
+    {
+      "repo": "uwvm2",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "frozen_sha256": "6b8d7872ce65b753e7b2b427384bfaf0a35bbbd041404392443ee59f37c5661f",
+      "current_sha256": "8c4e8834d43810d962b8df30ff9cfb58c023bdfee8b20c0e1c3c5df1eb883b6b",
+      "matches": false
+    },
+    {
+      "repo": "uwvm2",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "frozen_sha256": "2ffb8d6d330475899a7716659f66ce6c9d38dc0b54ab99ed4b6c5ce81f045727",
+      "current_sha256": "fa3a85269e691329584eba3fd897f707418c19cd6bb2ebebd1d5cc23a5ac440f",
+      "matches": false
+    },
+    {
+      "repo": "uwvm2",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+      "frozen_sha256": "069a45a16ee10bf3a1e512a8ae92416ac31cfc99878b352fd2e298b1c72b29bb",
+      "current_sha256": "72926fb32ca968d145dcac59ab78e34177ce8007f85e379a3bd2747993b5608b",
+      "matches": false
+    },
+    {
+      "repo": "uwvm2",
+      "path": "test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "frozen_sha256": "ea473f1f8de9ecc758360d9a87f0c58b10ccc26701b50a1c7835b5e24738ddb2",
+      "current_sha256": "ea473f1f8de9ecc758360d9a87f0c58b10ccc26701b50a1c7835b5e24738ddb2",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2",
+      "path": "test/0017.runtime/debug_wasip1_environment_group_runtime.cc",
+      "frozen_sha256": "3e56513d653327b2b7f071d1930114fd352a07bf495510609391a87ef65ac3d1",
+      "current_sha256": "3e56513d653327b2b7f071d1930114fd352a07bf495510609391a87ef65ac3d1",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h",
+      "frozen_sha256": "3859d785d8f09003457e3615797cc4a96af8599d6f42c06a8f5ce0f841385e66",
+      "current_sha256": "3859d785d8f09003457e3615797cc4a96af8599d6f42c06a8f5ce0f841385e66",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h",
+      "frozen_sha256": "7050a0bd5ff6784bb8e417381034667951f65c2e505f47002eb535b2362751f2",
+      "current_sha256": "96498562724d63c3ea71f2665a6740e16b02afcfec09cd76961a9c356e770cc8",
+      "matches": false
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "frozen_sha256": "a42062976f8cbca8aa6b9a19b0158da7d53f946a996bba4af1c3b2eba013ed7b",
+      "current_sha256": "471fc468e8fcf35549e417ae2e16fb06122f2b79ee601dedfa7a10d2fd972294",
+      "matches": false
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "frozen_sha256": "2ffb8d6d330475899a7716659f66ce6c9d38dc0b54ab99ed4b6c5ce81f045727",
+      "current_sha256": "fa3a85269e691329584eba3fd897f707418c19cd6bb2ebebd1d5cc23a5ac440f",
+      "matches": false
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+      "frozen_sha256": "069a45a16ee10bf3a1e512a8ae92416ac31cfc99878b352fd2e298b1c72b29bb",
+      "current_sha256": "72926fb32ca968d145dcac59ab78e34177ce8007f85e379a3bd2747993b5608b",
+      "matches": false
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "frozen_sha256": "ea473f1f8de9ecc758360d9a87f0c58b10ccc26701b50a1c7835b5e24738ddb2",
+      "current_sha256": "ea473f1f8de9ecc758360d9a87f0c58b10ccc26701b50a1c7835b5e24738ddb2",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "test/0017.runtime/debug_wasip1_environment_group_runtime.cc",
+      "frozen_sha256": "3e56513d653327b2b7f071d1930114fd352a07bf495510609391a87ef65ac3d1",
+      "current_sha256": "3e56513d653327b2b7f071d1930114fd352a07bf495510609391a87ef65ac3d1",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2",
+      "path": "test/0017.runtime/wasip1_memory_binding_reset.cc",
+      "frozen_sha256": "d40e03889cb50b3f29eba7cebf24ee88d6f1d2cff093aff403b9179756d137a5",
+      "current_sha256": "d40e03889cb50b3f29eba7cebf24ee88d6f1d2cff093aff403b9179756d137a5",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "test/0017.runtime/wasip1_memory_binding_reset.cc",
+      "frozen_sha256": "d40e03889cb50b3f29eba7cebf24ee88d6f1d2cff093aff403b9179756d137a5",
+      "current_sha256": "d40e03889cb50b3f29eba7cebf24ee88d6f1d2cff093aff403b9179756d137a5",
+      "matches": true
+    }
+  ],
+  "compiled_own_path_matches": 8,
+  "compiled_own_path_count": 16,
+  "source_manifest_sha256": "194ff28bd7ea121fa338698e9cff6ba427c52fb7522e2fca9ae066ff1433b9be",
+  "concurrent_changes_preserved": true
+}

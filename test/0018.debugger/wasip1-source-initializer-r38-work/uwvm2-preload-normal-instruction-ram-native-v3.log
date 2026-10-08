@@ -1,0 +1,3 @@
+checkpoint reminder: capture WASIp1 together with Wasm at the same cooperative stop; Wasm-only snapshot omits FD/environment state.
+WORLD_PREPARATION status=6 resource=9 engine=5 modules=2 engines=0 functions=0 threads=0 frames=0 roots=0 payload=279942552 root_scopes=0 root_frames=0 roots_restored=0 workers_started=0 workers_enrolled=0 workers_joined=0 workers_held=0 worker_roots_restored=0 debug_prepared=0 debug_enrolled=0 debug_held=0 debug_tls_restored=0
+debug_checkpoint_complete_preload_runtime FAIL line=504

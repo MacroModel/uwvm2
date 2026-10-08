@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "report_sha256": "4d4dfabda10c8fd5ad13600ceec0592e4379331cbf149615842552397c90d88e",
+  "results_sha256": "e7d87aee3d177dd2d8d581973f2d9f29c229ffcdb164256a44dc6f49074f95e1",
+  "own_source_sha256": {
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h": "7cd64fa559619ce970713cdc6507ce012bbfc9255a53ee80093c8b35ea5a051d",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h": "fef246fd792707d4e5bdefe2c7d27a812ba9163027c06b056e08a78233c5a931",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h": "600c5c024b19db0cfeb30552446355e4f2dc0e1a2f0bcd4bd0a7297e1df16ded",
+    "uwvm2/test/0017.runtime/debug_wasip1_portable_runtime.cc": "4c39debe303844e06f222933b15bf95d7fb1de619d06dfe819e5800ecfb3a05d",
+    "uwvm2/test/0013.debugger/wasip1_resource_identity.cc": "c4b3f60e8394719cf3850bf4b27c3b59375ddf1769d83ca15c7eead4a2a28cb4",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "1f9a07def48d995213f975b8f1449372805f28db715a65e5216dfd4e63fd50f5",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h": "7cd64fa559619ce970713cdc6507ce012bbfc9255a53ee80093c8b35ea5a051d",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h": "fef246fd792707d4e5bdefe2c7d27a812ba9163027c06b056e08a78233c5a931",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h": "600c5c024b19db0cfeb30552446355e4f2dc0e1a2f0bcd4bd0a7297e1df16ded",
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_portable_runtime.cc": "4c39debe303844e06f222933b15bf95d7fb1de619d06dfe819e5800ecfb3a05d",
+    "uwvm2-ros/test/0013.debugger/wasip1_resource_identity.cc": "c4b3f60e8394719cf3850bf4b27c3b59375ddf1769d83ca15c7eead4a2a28cb4",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "1f9a07def48d995213f975b8f1449372805f28db715a65e5216dfd4e63fd50f5"
+  },
+  "durable_evidence": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-resource-alias-20261006-r14/source-and-test-evidence.tar.gz",
+    "sha256": "9e4d520fead34e1a0d301fea621f0ec760d045c6aee7ba691c294234eee2336c",
+    "bytes": 272596978,
+    "payloads": 17155,
+    "every_payload_verified": true,
+    "actual_tested_artifacts_included": true,
+    "original_runtime_paths_preserved_as_byte_identical_completed_product_links": true
+  },
+  "positive_checks": 7364,
+  "negative_checks": 632,
+  "archive_guard_passed": true,
+  "current_own_sources_match_tested_snapshot": true
+}

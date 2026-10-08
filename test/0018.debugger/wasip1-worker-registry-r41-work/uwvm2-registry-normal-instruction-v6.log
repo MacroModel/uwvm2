@@ -1,0 +1,2 @@
+REGISTRY first_actual_join_slot_reuse_status=0 retained_old_handles=256
+WORKER_REGISTRY policy=instruction live_limit=256 body_exit_not_reused=1 tls_pending_not_reused=1 retained_old_handles=256 actual_os_join_frees_one_slot=1 canonical_retry_preserved=1 invalid_address_rejected=1 wrong_control_block_rejected=1 actual_workers=585 actual_guest_returns_42=329 weak_holes_reused=320 PASS

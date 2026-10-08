@@ -1,0 +1,584 @@
+{
+  "passed": true,
+  "purpose": "finite copied sizeof extent category and representability parity, with four Linux QEMU architectures",
+  "full_native_language_parity": false,
+  "fresh_linked_live_Rdbg_qualified": false,
+  "entire_latest_workspace_qualified": false,
+  "source_cuts": {
+    "uwvm2": "sha256:8179056827908d1af707e72981543137d5459dc3c77148ef6099b132baa3efa3",
+    "uwvm2-ros": "sha256:628d29f32f1d7e699982f60d35d8f0b6526a6ff9e29d7292b189050520656bdc"
+  },
+  "jobs": [
+    {
+      "repository": "uwvm2",
+      "route": "native",
+      "phases_or_components": 43,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/native-a1/out-uwvm2/extent-native-a5/results.json",
+      "sha256": "ab9f7a82239c10cee60e30b464da13bc707c9680798798b354259bf631d880ea"
+    },
+    {
+      "repository": "uwvm2",
+      "route": "index",
+      "phases_or_components": 66,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/out-uwvm2/size-index-a1/results.json",
+      "sha256": "5dacc9519122b36dcb58f52c4f0b8c2bc1cd1859d4e7521c01208ff62ccf7f3e"
+    },
+    {
+      "repository": "uwvm2",
+      "route": "frontend",
+      "phases_or_components": 2,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/frontend-a1/out-uwvm2/controller-frontend-a1/results.json",
+      "sha256": "10c82ecb1db6ab9f1c4dbf2eedd6f3b4a8f2a4a76af4eef948a18da0257550fc"
+    },
+    {
+      "repository": "uwvm2",
+      "route": "QEMU-x86_64",
+      "phases_or_components": 8,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/out-uwvm2/extent-cross-a5-x86_64/results.json",
+      "sha256": "7a9d050969943a40520357468e5e7ee3bcc190efa0b9b989f38aa5423f373056"
+    },
+    {
+      "repository": "uwvm2",
+      "route": "QEMU-ppc64",
+      "phases_or_components": 8,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/out-uwvm2/extent-cross-a5-ppc64/results.json",
+      "sha256": "b54fec816e1dbec52856bfaa9d23d99c5bbd5f03119f3e8962f529235a963944"
+    },
+    {
+      "repository": "uwvm2",
+      "route": "QEMU-aarch64",
+      "phases_or_components": 8,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/out-uwvm2/extent-cross-a5-aarch64/results.json",
+      "sha256": "f0078203c2cffc15d722e24fc5fdb64f67795d31da39baf962c3c3627741ffa3"
+    },
+    {
+      "repository": "uwvm2",
+      "route": "QEMU-riscv64",
+      "phases_or_components": 8,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/out-uwvm2/extent-cross-a5-riscv64/results.json",
+      "sha256": "34ba2876cf588cbc8abd99f8195fa4cac293fe71808869ab2494355cd05c865c"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "native",
+      "phases_or_components": 43,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/native-a1/out-uwvm2-ros/extent-native-a5/results.json",
+      "sha256": "6ee3603e934efcd5eedf7bb90a4d2e04de369623b8f0eb77f3281a3b5d95cb5a"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "index",
+      "phases_or_components": 66,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/out-uwvm2-ros/size-index-a1/results.json",
+      "sha256": "5055878c7de70dc65752661c25029f82d365b30c8c042f4757b2e53d0438a1c9"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "frontend",
+      "phases_or_components": 2,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/frontend-a1/out-uwvm2-ros/controller-frontend-a1/results.json",
+      "sha256": "a44253da167e09ee0b0a0bb8a59befde98232bf0f47f10385555b703ccb87988"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "QEMU-x86_64",
+      "phases_or_components": 8,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/out-uwvm2-ros/extent-cross-a5-x86_64/results.json",
+      "sha256": "26241f90eac8eaf3404a9491761346bc9c3955208b501889b36c2ee1f2fb6ea1"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "QEMU-ppc64",
+      "phases_or_components": 8,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/out-uwvm2-ros/extent-cross-a5-ppc64/results.json",
+      "sha256": "8b140754ce525edf414ce13445289bf22359a152c60af52d2566c81ea32a3af1"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "QEMU-aarch64",
+      "phases_or_components": 8,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/out-uwvm2-ros/extent-cross-a5-aarch64/results.json",
+      "sha256": "d7267152aa77c09ef142b62571ea628407c3b247fb4cfde0859d95ae9b8039eb"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "QEMU-riscv64",
+      "phases_or_components": 8,
+      "passed": true,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/out-uwvm2-ros/extent-cross-a5-riscv64/results.json",
+      "sha256": "319089b70c447e210d25c777e6bfe1886a565740f101adf2f04b801a2c5a3f3f"
+    }
+  ],
+  "guards": [
+    {
+      "label": "uwvm2-logical-native",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/native-a1/guard-native-a5/receipts.json",
+      "sha256": "dc048e9a7106a1bfab92aff41486d79b11738154e05775fa3b750aaf7b62456a",
+      "passed": true,
+      "owned_rss_peak_bytes": 745963520,
+      "wall_seconds": 255.7153881009981,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-ros-logical-native",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/native-a1/guard-native-a5/receipts.json",
+      "sha256": "dc048e9a7106a1bfab92aff41486d79b11738154e05775fa3b750aaf7b62456a",
+      "passed": true,
+      "owned_rss_peak_bytes": 752361472,
+      "wall_seconds": 257.81288067700007,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-logical-index",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/guard-index-a5/receipts.json",
+      "sha256": "f8d138c759211fd0dc2fa272893fa36c6ee6b8f2413867a06a7f0fa829a9ddc1",
+      "passed": true,
+      "owned_rss_peak_bytes": 718127104,
+      "wall_seconds": 51.51195328000176,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-ros-logical-index",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/guard-index-a5/receipts.json",
+      "sha256": "f8d138c759211fd0dc2fa272893fa36c6ee6b8f2413867a06a7f0fa829a9ddc1",
+      "passed": true,
+      "owned_rss_peak_bytes": 717537280,
+      "wall_seconds": 55.19881357700069,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-logical-frontend",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/frontend-a1/guard-frontend-a5/receipts.json",
+      "sha256": "29702ad2040cd40c34b4d783bdb8d42523ce59495669f99d725d82214ee8abae",
+      "passed": true,
+      "owned_rss_peak_bytes": 2195779584,
+      "wall_seconds": 54.894378927001526,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-ros-logical-frontend",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/frontend-a1/guard-frontend-a5/receipts.json",
+      "sha256": "29702ad2040cd40c34b4d783bdb8d42523ce59495669f99d725d82214ee8abae",
+      "passed": true,
+      "owned_rss_peak_bytes": 2194526208,
+      "wall_seconds": 55.83632433399907,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-x8664-logical-cross",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/guard-cross-x86_64-uwvm2-a5/receipts.json",
+      "sha256": "6192d0c314f8880ace6550ac010b5bad2fd334899a25243eaef6127bcfc2990f",
+      "passed": true,
+      "owned_rss_peak_bytes": 771186688,
+      "wall_seconds": 112.1757188800002,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-ppc64-logical-cross",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/guard-cross-ppc64-uwvm2-a5/receipts.json",
+      "sha256": "c3cf2249b47466121715cf031fab8b3730c1f0a7b9a0e3ba3c1e82457f5ad284",
+      "passed": true,
+      "owned_rss_peak_bytes": 772669440,
+      "wall_seconds": 111.78497677099949,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-aarch64-logical-cross",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/guard-cross-aarch64-uwvm2-a5/receipts.json",
+      "sha256": "31df5d238de15801b0edd3b369e5a5da86cb1874ade8e0cdf845d8da07697260",
+      "passed": true,
+      "owned_rss_peak_bytes": 782393344,
+      "wall_seconds": 114.34851015399909,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-riscv64-logical-cross",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/guard-cross-riscv64-uwvm2-a5/receipts.json",
+      "sha256": "ab7365609a5de98bb557ef3aecfc2333fa4728669c5764bdea34a85fee3315be",
+      "passed": true,
+      "owned_rss_peak_bytes": 768995328,
+      "wall_seconds": 111.40985955099677,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-ros-x8664-logical-cross",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/guard-cross-x86_64-uwvm2-ros-a5/receipts.json",
+      "sha256": "7175d1d79faa5f4d341984038fa478d18953b5190a6529f1272d1a492dff58c5",
+      "passed": true,
+      "owned_rss_peak_bytes": 774643712,
+      "wall_seconds": 111.50523283399889,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-ros-ppc64-logical-cross",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/guard-cross-ppc64-uwvm2-ros-a5/receipts.json",
+      "sha256": "a87644b3fc655a2d9dcbb71bc1e44d2b3f6b3801ab3e32ad627b08c889e642b9",
+      "passed": true,
+      "owned_rss_peak_bytes": 772526080,
+      "wall_seconds": 110.89522651299922,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-ros-aarch64-logical-cross",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/guard-cross-aarch64-uwvm2-ros-a5/receipts.json",
+      "sha256": "7b88411fd8d39dbfbedcd43f24d452f8c9965cd9cf05a84afd129918fa3e912f",
+      "passed": true,
+      "owned_rss_peak_bytes": 785489920,
+      "wall_seconds": 113.77086749199952,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    },
+    {
+      "label": "uwvm2-ros-riscv64-logical-cross",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/cross-a1/guard-cross-riscv64-uwvm2-ros-a5/receipts.json",
+      "sha256": "4f712ab52f1e80cac2281f59780d81087b4cb40d17105db0eb334f194b3324a3",
+      "passed": true,
+      "owned_rss_peak_bytes": 768589824,
+      "wall_seconds": 110.91511067300235,
+      "fully_retired_reaped": true,
+      "oom_delta": 0,
+      "role_output_cap_bytes": 67108864
+    }
+  ],
+  "repeated_finite_checks": {
+    "size_extent": 2265860,
+    "size_type": 2704290,
+    "logical_preflight": 5083900,
+    "scalar_property": 1700000,
+    "character_escape_native": 1304200
+  },
+  "exact_predecessor_after_pairs": 114,
+  "fresh_Wasm_modules": 120,
+  "size_type_Wasm_proofs": 960,
+  "target_type_static_assertions": 1040,
+  "QEMU_components": 64,
+  "QEMU_profiles": [
+    "x86_64",
+    "ppc64",
+    "aarch64",
+    "riscv64"
+  ],
+  "DAP_protocol_tests": 148,
+  "expression_corpus": {
+    "positive": 595,
+    "negative": 330
+  },
+  "borrowed_riscv_provider": {
+    "passed": true,
+    "read_only_reuse": true,
+    "manifest": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/sysroot-manifest-complete.json",
+    "manifest_sha256": "abf4fde7153247a2caf9f1806cb39f154d6071485dfc0df51ccc5e3d7f9e63df",
+    "root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/sysroot",
+    "regular_files_matched_manifest": 2606,
+    "packages": [
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libc6-riscv64-cross_2.43-2ubuntu2cross1_all.deb",
+        "bytes": 1356848,
+        "sha256": "ede35a119f1cdba5b2d4093ea4a64801b137e380c9adc9963b04c7b6fe2ae2c5"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libc6-dev-riscv64-cross_2.43-2ubuntu2cross1_all.deb",
+        "bytes": 4107336,
+        "sha256": "134df7386b22367c1b59019c0b44ef97043cdfe14e28de84e43a3840852a0f24"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libgcc-15-dev-riscv64-cross_15.2.0-16ubuntu1cross1_all.deb",
+        "bytes": 3265146,
+        "sha256": "3410681ad2ecc95b521a651b5fe9e1ae4ce050de11ef170ebfda50c5f40f88ee"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libstdc++-15-dev-riscv64-cross_15.2.0-16ubuntu1cross1_all.deb",
+        "bytes": 4688468,
+        "sha256": "123b4e47f19acab90b28b8952ae21fc3dcc88b06dee1956b733fa228be3931c5"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libatomic1-riscv64-cross_16-20260322-1ubuntu1cross1_all.deb",
+        "bytes": 10228,
+        "sha256": "d63fc5cc0bb8af3139015179aaf265fcf621b6cc354a4b4d0b1ba4abc1d9615d"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libgcc-s1-riscv64-cross_16-20260322-1ubuntu1cross1_all.deb",
+        "bytes": 76946,
+        "sha256": "936e41913fadc695e56b0cd62d3c981a950849f16ce818d6fbfd919adf0dea0e"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libstdc++6-riscv64-cross_16-20260322-1ubuntu1cross1_all.deb",
+        "bytes": 795516,
+        "sha256": "02dfda00dd943e5810f9b53a0c4628dc14d4830d32d36cfae652e06800cf1889"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/linux-libc-dev-riscv64-cross_7.0.0-13.13cross1_all.deb",
+        "bytes": 1510712,
+        "sha256": "47ecf11a8e6d4d09ee7dccc1cb83de8d2a424b4e0cd7e5e325b8dea7aa6f701e"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libssl-dev_3.5.5-1ubuntu3_riscv64.deb",
+        "bytes": 7412290,
+        "sha256": "dd3e8459e9a42ad77f3ac3e969729387a21c2642c027cb07d5d633f0da782a23"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libssl3t64_3.5.5-1ubuntu3_riscv64.deb",
+        "bytes": 2186270,
+        "sha256": "d881a27114d92df4558feb8a80a18e2a732839e69bdc40b7aa27c73868d1ec64"
+      }
+    ],
+    "peer_inputs_modified": false,
+    "full_llvm_sdk_qualified_here": false,
+    "after_all_files_unchanged": true
+  },
+  "retained_attempt_jobs": [
+    {
+      "attempt": "a1",
+      "label": "uwvm2-logical-index",
+      "passed": true,
+      "error": null,
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a1/guard-index-a1/receipts.json",
+      "sha256": "ee1326384cef4ae369b73c61a50491db60da3a22e1fbd7d4af10835927aaa368"
+    },
+    {
+      "attempt": "a1",
+      "label": "uwvm2-ros-logical-index",
+      "passed": false,
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: '/proc/508716/cmdline'",
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a1/guard-index-a1/receipts.json",
+      "sha256": "ee1326384cef4ae369b73c61a50491db60da3a22e1fbd7d4af10835927aaa368"
+    },
+    {
+      "attempt": "a1",
+      "label": "uwvm2-logical-frontend",
+      "passed": true,
+      "error": null,
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a1/frontend-a1/guard-frontend-a1/receipts.json",
+      "sha256": "e3f9a443926ce1c097c76067533bc762443b3a9fbf6ee378d9730841d8ddb8b7"
+    },
+    {
+      "attempt": "a1",
+      "label": "uwvm2-ros-logical-frontend",
+      "passed": true,
+      "error": null,
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a1/frontend-a1/guard-frontend-a1/receipts.json",
+      "sha256": "e3f9a443926ce1c097c76067533bc762443b3a9fbf6ee378d9730841d8ddb8b7"
+    },
+    {
+      "attempt": "a1",
+      "label": "uwvm2-logical-native",
+      "passed": false,
+      "error": "RuntimeError: Build command failed: 1",
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a1/native-a1/guard-native-a1/receipts.json",
+      "sha256": "8f10ff7f688cc7bc61d4472022e87ca7fbc2b9c5422d3156686fd1cbbb8845ff"
+    },
+    {
+      "attempt": "a2",
+      "label": "uwvm2-logical-native",
+      "passed": false,
+      "error": "RuntimeError: Build command failed: 1",
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a2/native-a1/guard-native-a2/receipts.json",
+      "sha256": "3ece586ada4c57bbf0b11f6963b73e2dcd479370f21bd4d407560c5e70d7738f"
+    },
+    {
+      "attempt": "a3",
+      "label": "uwvm2-logical-index",
+      "passed": true,
+      "error": null,
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a3/guard-index-a3/receipts.json",
+      "sha256": "513142e7ca4eabbfe221c5526746b01477d16ff70067392f1985b4e50e39c4b1"
+    },
+    {
+      "attempt": "a3",
+      "label": "uwvm2-ros-logical-index",
+      "passed": true,
+      "error": null,
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a3/guard-index-a3/receipts.json",
+      "sha256": "513142e7ca4eabbfe221c5526746b01477d16ff70067392f1985b4e50e39c4b1"
+    },
+    {
+      "attempt": "a3",
+      "label": "uwvm2-logical-frontend",
+      "passed": true,
+      "error": null,
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a3/frontend-a1/guard-frontend-a3/receipts.json",
+      "sha256": "4ed7efe680a03b77f0f6590d1a34a7548034edc9bce775a5b8518405a80a9942"
+    },
+    {
+      "attempt": "a3",
+      "label": "uwvm2-ros-logical-frontend",
+      "passed": true,
+      "error": null,
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a3/frontend-a1/guard-frontend-a3/receipts.json",
+      "sha256": "4ed7efe680a03b77f0f6590d1a34a7548034edc9bce775a5b8518405a80a9942"
+    },
+    {
+      "attempt": "a3",
+      "label": "uwvm2-extent-native-followup",
+      "passed": true,
+      "error": null,
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a3/native-a1/guard-native-followup-a3/receipts.json",
+      "sha256": "3a2561fe727cc851d60fd332f43277dc2c43ff2690263c390e039a022c762cb1"
+    },
+    {
+      "attempt": "a3",
+      "label": "uwvm2-ros-extent-native-followup",
+      "passed": true,
+      "error": null,
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a3/native-a1/guard-native-followup-a3/receipts.json",
+      "sha256": "3a2561fe727cc851d60fd332f43277dc2c43ff2690263c390e039a022c762cb1"
+    },
+    {
+      "attempt": "a3",
+      "label": "uwvm2-logical-native",
+      "passed": false,
+      "error": "AssertionError: ",
+      "root_retired": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a3/native-a1/guard-native-a3/receipts.json",
+      "sha256": "c5e2264959b10905d20a3649f6f5446d9d2b5f771a9cb45bb25633632cc1b6cc"
+    }
+  ],
+  "arena_free_bytes": 10733498368,
+  "fsid": "12191019222208619510",
+  "ownership_scope": "No host/VM ASM capability; no new frame, memory, location or write capability",
+  "archive_verification": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a5/size-extent-evidence-a5.tar.xz",
+    "bytes": 92420352,
+    "sha256": "e675406fbc24a08b3fd7de171f01a0c47e7bea11ff7a0c0899af90ac78c76c6c",
+    "members_verified": 5799,
+    "source_cuts_reconstructible": 8,
+    "source_cuts_reconstructible_direct": 4,
+    "bundled_retired_source_archive": {
+      "member": "a3/size-extent-retired-a1-a2-evidence.tar.xz",
+      "sha256": "06ea882127b64261cf46da3e08245363edffc43c8c2ff01648ffe9445a742ecf",
+      "source_cuts_reconstructible": 4,
+      "reconstruction": "Nested source-reconstruction.json and content-addressed source objects inside this bundled archive"
+    },
+    "unique_source_objects": 3336,
+    "linux_fsync_completed": true,
+    "all_member_hashes_verified": true,
+    "all_inputs_after_unchanged": true,
+    "local_archive_copy_claimed": false,
+    "external_archive_references": {
+      "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-type-a5/size-type-evidence-a5.tar.xz": {
+        "bytes": 35261728,
+        "sha256": "a397af40481525dedea747ae19ac987967b659c2933f0ed01ba6be72ce984839",
+        "role": "Pinned predecessor evidence and independently restored external SDK/provider archives"
+      },
+      "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libc6-riscv64-cross_2.43-2ubuntu2cross1_all.deb": {
+        "bytes": 1356848,
+        "sha256": "ede35a119f1cdba5b2d4093ea4a64801b137e380c9adc9963b04c7b6fe2ae2c5",
+        "role": "Read-only borrowed RISC-V GNU provider package; separately retained, not bundled here"
+      },
+      "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libc6-dev-riscv64-cross_2.43-2ubuntu2cross1_all.deb": {
+        "bytes": 4107336,
+        "sha256": "134df7386b22367c1b59019c0b44ef97043cdfe14e28de84e43a3840852a0f24",
+        "role": "Read-only borrowed RISC-V GNU provider package; separately retained, not bundled here"
+      },
+      "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libgcc-15-dev-riscv64-cross_15.2.0-16ubuntu1cross1_all.deb": {
+        "bytes": 3265146,
+        "sha256": "3410681ad2ecc95b521a651b5fe9e1ae4ce050de11ef170ebfda50c5f40f88ee",
+        "role": "Read-only borrowed RISC-V GNU provider package; separately retained, not bundled here"
+      },
+      "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libstdc++-15-dev-riscv64-cross_15.2.0-16ubuntu1cross1_all.deb": {
+        "bytes": 4688468,
+        "sha256": "123b4e47f19acab90b28b8952ae21fc3dcc88b06dee1956b733fa228be3931c5",
+        "role": "Read-only borrowed RISC-V GNU provider package; separately retained, not bundled here"
+      },
+      "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libatomic1-riscv64-cross_16-20260322-1ubuntu1cross1_all.deb": {
+        "bytes": 10228,
+        "sha256": "d63fc5cc0bb8af3139015179aaf265fcf621b6cc354a4b4d0b1ba4abc1d9615d",
+        "role": "Read-only borrowed RISC-V GNU provider package; separately retained, not bundled here"
+      },
+      "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libgcc-s1-riscv64-cross_16-20260322-1ubuntu1cross1_all.deb": {
+        "bytes": 76946,
+        "sha256": "936e41913fadc695e56b0cd62d3c981a950849f16ce818d6fbfd919adf0dea0e",
+        "role": "Read-only borrowed RISC-V GNU provider package; separately retained, not bundled here"
+      },
+      "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libstdc++6-riscv64-cross_16-20260322-1ubuntu1cross1_all.deb": {
+        "bytes": 795516,
+        "sha256": "02dfda00dd943e5810f9b53a0c4628dc14d4830d32d36cfae652e06800cf1889",
+        "role": "Read-only borrowed RISC-V GNU provider package; separately retained, not bundled here"
+      },
+      "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/linux-libc-dev-riscv64-cross_7.0.0-13.13cross1_all.deb": {
+        "bytes": 1510712,
+        "sha256": "47ecf11a8e6d4d09ee7dccc1cb83de8d2a424b4e0cd7e5e325b8dea7aa6f701e",
+        "role": "Read-only borrowed RISC-V GNU provider package; separately retained, not bundled here"
+      },
+      "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libssl-dev_3.5.5-1ubuntu3_riscv64.deb": {
+        "bytes": 7412290,
+        "sha256": "dd3e8459e9a42ad77f3ac3e969729387a21c2642c027cb07d5d633f0da782a23",
+        "role": "Read-only borrowed RISC-V GNU provider package; separately retained, not bundled here"
+      },
+      "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/packages/libssl3t64_3.5.5-1ubuntu3_riscv64.deb": {
+        "bytes": 2186270,
+        "sha256": "d881a27114d92df4558feb8a80a18e2a732839e69bdc40b7aa27c73868d1ec64",
+        "role": "Read-only borrowed RISC-V GNU provider package; separately retained, not bundled here"
+      }
+    }
+  },
+  "cleanup_verification": {
+    "passed": true,
+    "archive_sha256": "e675406fbc24a08b3fd7de171f01a0c47e7bea11ff7a0c0899af90ac78c76c6c",
+    "source_cuts_reconstructible": true,
+    "raw_upload_spools_retained_in_archive": true,
+    "nested_retired_source_archive_exact_bytes_retained_in_main": true,
+    "retired_source_roots": [
+      "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a3/uwvm2",
+      "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/size-extent-a3/uwvm2-ros"
+    ],
+    "retired_regular_files": 6344,
+    "retired_bytes": 167817021,
+    "total_retired_this_cohort_bytes": 410015011,
+    "live_A5_deduplicated_source_and_all_logs_ELFs_providers_preserved": true,
+    "peer_files_removed": false,
+    "free_bytes_after": 10826596352,
+    "fsid": "12191019222208619510"
+  }
+}

@@ -1,0 +1,394 @@
+[
+  {
+    "label": "archive-linux-integrated-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r33.py",
+      "joint-archive-r33",
+      "linux-integrated",
+      "uwvm2"
+    ],
+    "exit": 1,
+    "seconds": 54.438002082999446
+  },
+  {
+    "label": "linux-integrated-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-linux-integrated-r33.py",
+      "joint-linux-integrated-r33",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 1218.984909750001
+  },
+  {
+    "label": "archive-linux-integrated-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r33.py",
+      "joint-archive-r33",
+      "linux-integrated",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 289.66398391700204
+  },
+  {
+    "label": "local-cold-linux-integrated-uwvm2-ros",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/rehome_product.py",
+      "linux-integrated",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 74.24491116599529
+  },
+  {
+    "label": "cross-windows-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r33.py",
+      "joint-cross-r33",
+      "windows",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 314.41959804199723
+  },
+  {
+    "label": "vm-windows-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r33.py",
+      "joint-vm-r33",
+      "windows",
+      "uwvm2"
+    ],
+    "exit": 1,
+    "seconds": 12.611234208001406
+  },
+  {
+    "label": "vm-windows-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r33.py",
+      "joint-vm-r33",
+      "windows",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 303.53948254200077
+  },
+  {
+    "label": "archive-windows-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r33.py",
+      "joint-archive-r33",
+      "windows",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 181.0001620000039
+  },
+  {
+    "label": "local-cold-windows-uwvm2",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/rehome_product.py",
+      "windows",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 30.039824665997003
+  },
+  {
+    "label": "cross-windows-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r33.py",
+      "joint-cross-r33",
+      "windows",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 253.07965445899754
+  },
+  {
+    "label": "object-cache-retire-windows-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-object-cache-retire-r33.py",
+      "joint-object-cache-retire-r33",
+      "windows",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 73.24947379200603
+  },
+  {
+    "label": "vm-windows-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r33.py",
+      "joint-vm-r33",
+      "windows",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 275.96977504200186
+  },
+  {
+    "label": "archive-windows-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r33.py",
+      "joint-archive-r33",
+      "windows",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 158.32174950000626
+  },
+  {
+    "label": "local-cold-windows-uwvm2-ros",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/rehome_product.py",
+      "windows",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 19.319143750006333
+  },
+  {
+    "label": "cross-freebsd-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r33.py",
+      "joint-cross-r33",
+      "freebsd",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 278.7648794580018
+  },
+  {
+    "label": "vm-freebsd-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r33.py",
+      "joint-vm-r33",
+      "freebsd",
+      "uwvm2"
+    ],
+    "exit": 1,
+    "seconds": 4.3134470829973
+  },
+  {
+    "label": "vm-freebsd-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r33.py",
+      "joint-vm-r33",
+      "freebsd",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 71.75867608300177
+  },
+  {
+    "label": "archive-freebsd-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r33.py",
+      "joint-archive-r33",
+      "freebsd",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 183.13090579199343
+  },
+  {
+    "label": "local-cold-freebsd-uwvm2",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/rehome_product.py",
+      "freebsd",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 19.02858041699801
+  },
+  {
+    "label": "cross-freebsd-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r33.py",
+      "joint-cross-r33",
+      "freebsd",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 254.44108841699926
+  },
+  {
+    "label": "object-cache-retire-freebsd-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-object-cache-retire-r33.py",
+      "joint-object-cache-retire-r33",
+      "freebsd",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 56.23263612500159
+  },
+  {
+    "label": "vm-freebsd-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r33.py",
+      "joint-vm-r33",
+      "freebsd",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 65.42306183300389
+  },
+  {
+    "label": "archive-freebsd-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r33.py",
+      "joint-archive-r33",
+      "freebsd",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 163.73010133299977
+  },
+  {
+    "label": "local-cold-freebsd-uwvm2-ros",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/rehome_product.py",
+      "freebsd",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 10.761125707998872
+  },
+  {
+    "label": "native-macos-matrix",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/pipeline_macos.py"
+    ],
+    "exit": 1,
+    "seconds": 566.3217594159942
+  }
+]

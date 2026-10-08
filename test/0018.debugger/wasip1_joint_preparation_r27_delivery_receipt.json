@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/delivery-metadata.tar.gz",
+  "archive_bytes": 415039,
+  "archive_sha256": "19022beec1f4de3e56f77b56da0ffcaa2cb3f8a1ddeecf8f4d06ebe49361b528",
+  "files": {
+    "README.debug-checkpoint-joint-preparation.md": {
+      "sha256": "f3185e661483e440e5a45cd5824fd82c441ca5a8e8d4f97acb78b2f377a816a2",
+      "bytes": 4739
+    },
+    "wasip1_joint_preparation_r27_delivery_inputs.json": {
+      "sha256": "0b4cf751b4b501578a6e2396130ec420e1231625c9f1e9b719af8e8772a32cc1",
+      "bytes": 2681
+    },
+    "wasip1_joint_preparation_r27_environment_refresh.json": {
+      "sha256": "d226adeb92e297ddad3530569aba07f91a17e8129f77594b6952cea4b8c858c0",
+      "bytes": 6582
+    },
+    "wasip1_joint_preparation_r27_final_metadata_guard.json": {
+      "sha256": "4941a800e87e1aa16cd45e5e04452bbe8b0936824ac37a2118f8ece3903bd680",
+      "bytes": 3854
+    },
+    "wasip1_joint_preparation_r27_mac_reboot_state.json": {
+      "sha256": "780a029647fdee87595d1dda39a18caa93ede34ddccc845ad45cfc8fb9490aba",
+      "bytes": 489
+    },
+    "wasip1_joint_preparation_r27_post_reboot_state.json": {
+      "sha256": "310112598caac56bf1bb7a45fab3c698b722a3f11c220d983cbcc7ac54f7f0ed",
+      "bytes": 1338
+    },
+    "wasip1_joint_preparation_r27_source_manifest.json": {
+      "sha256": "a4113876b763909d56c47ab8c6b5baa7adf53d5bea05c1fab36a450dc6dcd6b1",
+      "bytes": 1150558
+    },
+    "wasip1_joint_preparation_r27_test_report.json": {
+      "sha256": "228f23b23a5ec3f5120753430d5e387cd9016366f7f187da4d094e3d2a65728e",
+      "bytes": 29049
+    },
+    "wasip1_joint_preparation_r27_test_report.md": {
+      "sha256": "b679fe0cceaaad4a1a0be17ebdfff44aed4b0b3873e93ddd314bf375ba8aeb4d",
+      "bytes": 8824
+    },
+    "wasip1_joint_preparation_r27_workspace_scope.json": {
+      "sha256": "379b5320e2b6c36e8b39da6234e4afd62f8791d221cd95de696a500fe3d48a72",
+      "bytes": 5185
+    }
+  },
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "inputs_preserved": true,
+  "native_test_results_changed": false,
+  "no_large_product_or_sdk_duplicate": true
+}

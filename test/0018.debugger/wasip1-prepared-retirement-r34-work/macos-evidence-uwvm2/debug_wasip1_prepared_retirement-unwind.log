@@ -1,0 +1,2 @@
+WASIP1_PREPARED_RETIREMENT stage=execution status=1 prepare=12
+CHECKPOINT_WASIP1_PREPARED_RETIREMENT policy=unwind checks=27 missing_wasi_refused=1 strict_refused=1 execution_pending=1 tls_pending=1 physical_join=1 closed_after_join=1 explicit_discard=1 whole_restore=0 PASS

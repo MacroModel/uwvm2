@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "scope": "Only original qualified Mach-O transport duplicates; source and native logs retained",
+  "retired": [
+    {
+      "repo": "uwvm2",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/fixture.exe",
+      "bytes": 281248624,
+      "sha256": "3611700b94ed9631e3694e81f846bea48f38d51b2ce165b7b7e2eab405b5f7ef",
+      "verified_remote_archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/uwvm2-macos-qualified-products.tar.gz",
+      "archive_sha256": "0aebbc696152655e6f0435a08545f86107992b1505fe47fdf5df1025c006c523",
+      "archive_member": "fixture.exe",
+      "all_archive_payloads_read_back": true,
+      "qualification_guard_sha256": "159c53ffda97bfc16446ece942393d7a739a2d304d3b738c264af359acd1432f"
+    },
+    {
+      "repo": "uwvm2",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/environment-group.exe",
+      "bytes": 281533088,
+      "sha256": "0c82c6d68822a7d3156b6a48d02757ca6cb8f9b8987bbf6438e0afab564b4c20",
+      "verified_remote_archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/uwvm2-macos-qualified-products.tar.gz",
+      "archive_sha256": "0aebbc696152655e6f0435a08545f86107992b1505fe47fdf5df1025c006c523",
+      "archive_member": "environment-group.exe",
+      "all_archive_payloads_read_back": true,
+      "qualification_guard_sha256": "159c53ffda97bfc16446ece942393d7a739a2d304d3b738c264af359acd1432f"
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/fixture.exe",
+      "bytes": 200754848,
+      "sha256": "6ab7af06fb75cd678fe3e3df71483b0d55dcf8f5b6cca458d75b6a74bc2d5506",
+      "verified_remote_archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/uwvm2-ros-macos-qualified-products.tar.gz",
+      "archive_sha256": "bcac33d9ac670ee25cc29828d9e5aa03bb0ea8c0b0ca4a946db76c93deb7f2eb",
+      "archive_member": "fixture.exe",
+      "all_archive_payloads_read_back": true,
+      "qualification_guard_sha256": "159c53ffda97bfc16446ece942393d7a739a2d304d3b738c264af359acd1432f"
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/environment-group.exe",
+      "bytes": 201044960,
+      "sha256": "40b9f8d9f6f3d7d526e9c89f09b86de7530d29a589db1a19c908f3d4dd4cddcc",
+      "verified_remote_archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/uwvm2-ros-macos-qualified-products.tar.gz",
+      "archive_sha256": "bcac33d9ac670ee25cc29828d9e5aa03bb0ea8c0b0ca4a946db76c93deb7f2eb",
+      "archive_member": "environment-group.exe",
+      "all_archive_payloads_read_back": true,
+      "qualification_guard_sha256": "159c53ffda97bfc16446ece942393d7a739a2d304d3b738c264af359acd1432f"
+    }
+  ],
+  "retired_bytes": 964581520,
+  "products_recoverable_from_fully_read_back_remote_archives": true
+}

@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "diagnostic_only": true,
+  "exact_frozen_runtime_dependencies_unchanged": true,
+  "source_sha256": "b900558c0bb9addaa259bb2716f83c4995b4227965ae1368ae0d86be786cd872",
+  "binary_sha256": "ab539a7adc2e5142ad46364c6815e5fcb9948627a5cdd445b2d3b618729cc013",
+  "rows": [
+    {
+      "policy": "instruction",
+      "entry": 1,
+      "exit": 0,
+      "passed": true,
+      "log_sha256": "f5b5cf331db528c2d30982e4d34ac08c820660f92777530d2e3ebf3f6a003dd4"
+    },
+    {
+      "policy": "instruction",
+      "entry": 2,
+      "exit": 0,
+      "passed": true,
+      "log_sha256": "45e413e1f8e7cb5a5fc8ee17e94d310dd6fc6a977a0e1afa28913cd184b42c94"
+    },
+    {
+      "policy": "instruction",
+      "entry": 3,
+      "exit": 0,
+      "passed": true,
+      "log_sha256": "3866a18e074cd1573028a283a2d8a27486bad360edb2218e83b1ac06e272f586"
+    },
+    {
+      "policy": "instruction",
+      "entry": 4,
+      "exit": 0,
+      "passed": true,
+      "log_sha256": "27ddd2651234211c413a2b7433b5e81b5086d86588dfbf641c219cac460b926a"
+    },
+    {
+      "policy": "instruction",
+      "entry": 5,
+      "exit": 0,
+      "passed": true,
+      "log_sha256": "6e010bd04a4316672050841370e91ab737747b6fb07df9966071e0bb34ca3ed3"
+    },
+    {
+      "policy": "instruction",
+      "entry": 6,
+      "exit": 0,
+      "passed": true,
+      "log_sha256": "bd883e5dd4e4593613fb2e092a021a254df635e9e029a7da829be43aa505d8b3"
+    },
+    {
+      "policy": "unwind",
+      "entry": 1,
+      "exit": 0,
+      "passed": true,
+      "log_sha256": "7200027cdf52fb096182bd18b53880f538d12609ec82aad639eda1a4dca4a6b1"
+    },
+    {
+      "policy": "unwind",
+      "entry": 2,
+      "exit": 0,
+      "passed": true,
+      "log_sha256": "dd6392cd480c65fa057071e7f5cbf03d29dfa6ae205f8278df41047369d6c8f7"
+    },
+    {
+      "policy": "unwind",
+      "entry": 3,
+      "exit": 0,
+      "passed": true,
+      "log_sha256": "0929638319a1e2508d56df84dc574b7dba24449c40673279bb760c3167f41528"
+    },
+    {
+      "policy": "unwind",
+      "entry": 4,
+      "exit": 0,
+      "passed": true,
+      "log_sha256": "e8cdc5626c106aa2a79e6adc1850db6e915c44167e343955ecf7ead76c13e4c9"
+    },
+    {
+      "policy": "unwind",
+      "entry": 5,
+      "exit": 0,
+      "passed": true,
+      "log_sha256": "7f7f7ee924c7d9f520b8b733738a1e37244f7f5e44ac47d59d142454bd3b1174"
+    },
+    {
+      "policy": "unwind",
+      "entry": 6,
+      "exit": 0,
+      "passed": true,
+      "log_sha256": "107b0d55fc481ba9344296682bd750e8d62c10e261914ff8da1dcf5e8cbdfa23"
+    }
+  ]
+}

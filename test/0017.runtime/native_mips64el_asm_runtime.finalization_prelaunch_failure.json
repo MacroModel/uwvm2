@@ -1,0 +1,5 @@
+{
+  "passed": false,
+  "driver_started": false,
+  "error": "Cloned supervisor retained relative current479 D path; empty output collision before child creation. Corrected before retry."
+}

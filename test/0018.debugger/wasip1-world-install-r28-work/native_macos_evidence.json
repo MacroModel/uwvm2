@@ -1,0 +1,432 @@
+{
+  "passed": true,
+  "scope": "Qualified original arm64 binaries on native macOS; private world installation only",
+  "maximum_aggregate_upper_bytes": 345522176,
+  "limit_bytes": 2147483648,
+  "repos": {
+    "uwvm2": {
+      "passed": true,
+      "os": "macos",
+      "host_arch": "arm64",
+      "host_os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+      "execution_arch": "arm64 native",
+      "qualified_sha256": "9f76e0547ed7e9f36f092d7a187814652fb4ac2e33dcb39037e1a62d5a08cb90",
+      "group_qualified_sha256": "1c143f27b8822d7519e71bece6f2356e8f9cda56ede58b8f8ae51361988a3d39",
+      "binary_sha256": "3611700b94ed9631e3694e81f846bea48f38d51b2ce165b7b7e2eab405b5f7ef",
+      "group_binary_sha256": "0c82c6d68822a7d3156b6a48d02757ca6cb8f9b8987bbf6438e0afab564b4c20",
+      "source_manifest_sha256": "4a46be13165404991f29fc8e32843e05fe88e84d13bf910336e8ef950ec9d371",
+      "input_sha256": {
+        "fixture.exe": "3611700b94ed9631e3694e81f846bea48f38d51b2ce165b7b7e2eab405b5f7ef",
+        "environment-group.exe": "0c82c6d68822a7d3156b6a48d02757ca6cb8f9b8987bbf6438e0afab564b4c20",
+        "checkpoint.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+        "aliases.wasm": "ab1da939b0029bbc718d0af9e81fc88d5a7a5271a46b3c25f92e85e3dfe8a7ca",
+        "group-main.wasm": "ee9f33ae640a967785531c581e4baf7f639979669969307c0abefd0c224d1e3a",
+        "group-provider.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794"
+      },
+      "execution_sha256": "a02a05003cd7e4588c2cc1fd2a492b355e1259367b61fdfc0ed666f587d3b3fa",
+      "monitor_sha256": "e3f40b6c12239ba136e550671df54f58999e496a9d7287f1fc639db8080d1000",
+      "controller_sha256": "d76c5b380eddbe74dfa99f1461e96c6e5e32c541b10cb497ab30dac731487e54",
+      "rows": [
+        {
+          "label": "checkpoint-instruction",
+          "argv": [
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/fixture.exe",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/checkpoint.wasm",
+            "instruction",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/checkpoint-instruction"
+          ],
+          "checks": 197,
+          "exit": 0,
+          "passed": true,
+          "seconds": 5.867755708000004,
+          "sampled_aggregate_peak_rss_bytes": 171999232,
+          "aggregate_peak_upper_bytes": 334954496,
+          "limit_bytes": 2147483648,
+          "external_controller_reserve_bytes": 134217728,
+          "owned_ramdisk_capacity_bytes": 0,
+          "identities": [
+            {
+              "pid": 14672,
+              "seconds": 1791362771,
+              "microseconds": 167374,
+              "uid": 501,
+              "pgid": 14672
+            }
+          ],
+          "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/checkpoint-instruction.log",
+          "log_sha256": "ae95a03517afa9f3dcc5cf655971904688158c50e5b06dc09d116cd7c28ebdd3",
+          "pid_reaped": true
+        },
+        {
+          "label": "checkpoint-unwind",
+          "argv": [
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/fixture.exe",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/checkpoint.wasm",
+            "unwind",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/checkpoint-unwind"
+          ],
+          "checks": 197,
+          "exit": 0,
+          "passed": true,
+          "seconds": 3.589644208000209,
+          "sampled_aggregate_peak_rss_bytes": 164675584,
+          "aggregate_peak_upper_bytes": 327630848,
+          "limit_bytes": 2147483648,
+          "external_controller_reserve_bytes": 134217728,
+          "owned_ramdisk_capacity_bytes": 0,
+          "identities": [
+            {
+              "pid": 14697,
+              "seconds": 1791362777,
+              "microseconds": 35115,
+              "uid": 501,
+              "pgid": 14697
+            }
+          ],
+          "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/checkpoint-unwind.log",
+          "log_sha256": "2b5069e65d1c163e71bcd374bceab19b90cbf8f87176b16eb83803c97acb305f",
+          "pid_reaped": true
+        },
+        {
+          "label": "aliases-instruction",
+          "argv": [
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/fixture.exe",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/aliases.wasm",
+            "instruction",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/aliases-instruction"
+          ],
+          "checks": 197,
+          "exit": 0,
+          "passed": true,
+          "seconds": 3.705468957999983,
+          "sampled_aggregate_peak_rss_bytes": 165543936,
+          "aggregate_peak_upper_bytes": 328499200,
+          "limit_bytes": 2147483648,
+          "external_controller_reserve_bytes": 134217728,
+          "owned_ramdisk_capacity_bytes": 0,
+          "identities": [
+            {
+              "pid": 14703,
+              "seconds": 1791362780,
+              "microseconds": 625034,
+              "uid": 501,
+              "pgid": 14703
+            }
+          ],
+          "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/aliases-instruction.log",
+          "log_sha256": "e29561d75e6438e33a60a6be3892f9c77a2393fea99622b1a97105b53aebc90c",
+          "pid_reaped": true
+        },
+        {
+          "label": "aliases-unwind",
+          "argv": [
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/fixture.exe",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/aliases.wasm",
+            "unwind",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/aliases-unwind"
+          ],
+          "checks": 197,
+          "exit": 0,
+          "passed": true,
+          "seconds": 3.700742750000245,
+          "sampled_aggregate_peak_rss_bytes": 165167104,
+          "aggregate_peak_upper_bytes": 328122368,
+          "limit_bytes": 2147483648,
+          "external_controller_reserve_bytes": 134217728,
+          "owned_ramdisk_capacity_bytes": 0,
+          "identities": [
+            {
+              "pid": 14718,
+              "seconds": 1791362784,
+              "microseconds": 330900,
+              "uid": 501,
+              "pgid": 14718
+            }
+          ],
+          "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/aliases-unwind.log",
+          "log_sha256": "fff3a0752d2014ec2853f06e72c4f210fac9214d16d99487f35de70f1d1f8b6b",
+          "pid_reaped": true
+        },
+        {
+          "label": "environment-group-instruction",
+          "argv": [
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/environment-group.exe",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/group-main.wasm",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/group-provider.wasm",
+            "instruction",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/environment-group-instruction"
+          ],
+          "checks": 481,
+          "exit": 0,
+          "passed": true,
+          "seconds": 3.4139393340001334,
+          "sampled_aggregate_peak_rss_bytes": 182501376,
+          "aggregate_peak_upper_bytes": 345522176,
+          "limit_bytes": 2147483648,
+          "external_controller_reserve_bytes": 134217728,
+          "owned_ramdisk_capacity_bytes": 0,
+          "identities": [
+            {
+              "pid": 14726,
+              "seconds": 1791362788,
+              "microseconds": 32033,
+              "uid": 501,
+              "pgid": 14726
+            }
+          ],
+          "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/environment-group-instruction.log",
+          "log_sha256": "610c025356dad4b03ce40fa2792efbb4f08a698c7a7fdca8dbb535a2478feef4",
+          "pid_reaped": true
+        },
+        {
+          "label": "environment-group-unwind",
+          "argv": [
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/environment-group.exe",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/group-main.wasm",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/group-provider.wasm",
+            "unwind",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/environment-group-unwind"
+          ],
+          "checks": 481,
+          "exit": 0,
+          "passed": true,
+          "seconds": 1.1765330830003222,
+          "sampled_aggregate_peak_rss_bytes": 181354496,
+          "aggregate_peak_upper_bytes": 344375296,
+          "limit_bytes": 2147483648,
+          "external_controller_reserve_bytes": 134217728,
+          "owned_ramdisk_capacity_bytes": 0,
+          "identities": [
+            {
+              "pid": 14732,
+              "seconds": 1791362791,
+              "microseconds": 446198,
+              "uid": 501,
+              "pgid": 14732
+            }
+          ],
+          "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/environment-group-unwind.log",
+          "log_sha256": "054ea44208f4c1398e669862e3e961811c4d02b40789da927d409e354b08ba16",
+          "pid_reaped": true
+        }
+      ],
+      "counted_assertions": 1750,
+      "limit_bytes": 2147483648,
+      "owned_ramdisk_bytes": 0,
+      "nofork_probe_sha256": "06f08929938554e862d37fc43cbf78ef4692f32f849c69b49b9260d8ea6d8ef5",
+      "proof_scope": "private installation and candidate disposal; original world continues; full joint restore/publication/replay remains unavailable"
+    },
+    "uwvm2-ros": {
+      "passed": true,
+      "os": "macos",
+      "host_arch": "arm64",
+      "host_os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+      "execution_arch": "arm64 native",
+      "qualified_sha256": "7027a83dcee722a3012b13bf68a65bd005101a2fc28b1bed43ef0ac2262baede",
+      "group_qualified_sha256": "5d639a110766aa94ad8c78344e71f867c0e4d5157a947dd8ac0cee986ac39753",
+      "binary_sha256": "6ab7af06fb75cd678fe3e3df71483b0d55dcf8f5b6cca458d75b6a74bc2d5506",
+      "group_binary_sha256": "40b9f8d9f6f3d7d526e9c89f09b86de7530d29a589db1a19c908f3d4dd4cddcc",
+      "source_manifest_sha256": "4a46be13165404991f29fc8e32843e05fe88e84d13bf910336e8ef950ec9d371",
+      "input_sha256": {
+        "fixture.exe": "6ab7af06fb75cd678fe3e3df71483b0d55dcf8f5b6cca458d75b6a74bc2d5506",
+        "environment-group.exe": "40b9f8d9f6f3d7d526e9c89f09b86de7530d29a589db1a19c908f3d4dd4cddcc",
+        "checkpoint.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+        "aliases.wasm": "ab1da939b0029bbc718d0af9e81fc88d5a7a5271a46b3c25f92e85e3dfe8a7ca",
+        "group-main.wasm": "ee9f33ae640a967785531c581e4baf7f639979669969307c0abefd0c224d1e3a",
+        "group-provider.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794"
+      },
+      "execution_sha256": "6003b55bfe384632322ba2062b117ad01411a6560023d268b807435db72d5505",
+      "monitor_sha256": "e3f40b6c12239ba136e550671df54f58999e496a9d7287f1fc639db8080d1000",
+      "controller_sha256": "d76c5b380eddbe74dfa99f1461e96c6e5e32c541b10cb497ab30dac731487e54",
+      "rows": [
+        {
+          "label": "checkpoint-instruction",
+          "argv": [
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/fixture.exe",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/checkpoint.wasm",
+            "instruction",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/checkpoint-instruction"
+          ],
+          "checks": 197,
+          "exit": 0,
+          "passed": true,
+          "seconds": 5.5369965829995635,
+          "sampled_aggregate_peak_rss_bytes": 131186688,
+          "aggregate_peak_upper_bytes": 294420480,
+          "limit_bytes": 2147483648,
+          "external_controller_reserve_bytes": 134217728,
+          "owned_ramdisk_capacity_bytes": 0,
+          "identities": [
+            {
+              "pid": 17216,
+              "seconds": 1791363369,
+              "microseconds": 632978,
+              "uid": 501,
+              "pgid": 17216
+            }
+          ],
+          "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/checkpoint-instruction.log",
+          "log_sha256": "ae95a03517afa9f3dcc5cf655971904688158c50e5b06dc09d116cd7c28ebdd3",
+          "pid_reaped": true
+        },
+        {
+          "label": "checkpoint-unwind",
+          "argv": [
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/fixture.exe",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/checkpoint.wasm",
+            "unwind",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/checkpoint-unwind"
+          ],
+          "checks": 197,
+          "exit": 0,
+          "passed": true,
+          "seconds": 3.4012607080003363,
+          "sampled_aggregate_peak_rss_bytes": 128368640,
+          "aggregate_peak_upper_bytes": 291291136,
+          "limit_bytes": 2147483648,
+          "external_controller_reserve_bytes": 134217728,
+          "owned_ramdisk_capacity_bytes": 0,
+          "identities": [
+            {
+              "pid": 17360,
+              "seconds": 1791363375,
+              "microseconds": 161917,
+              "uid": 501,
+              "pgid": 17360
+            }
+          ],
+          "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/checkpoint-unwind.log",
+          "log_sha256": "2b5069e65d1c163e71bcd374bceab19b90cbf8f87176b16eb83803c97acb305f",
+          "pid_reaped": true
+        },
+        {
+          "label": "aliases-instruction",
+          "argv": [
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/fixture.exe",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/aliases.wasm",
+            "instruction",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/aliases-instruction"
+          ],
+          "checks": 197,
+          "exit": 0,
+          "passed": true,
+          "seconds": 3.432315416000165,
+          "sampled_aggregate_peak_rss_bytes": 129056768,
+          "aggregate_peak_upper_bytes": 292044800,
+          "limit_bytes": 2147483648,
+          "external_controller_reserve_bytes": 134217728,
+          "owned_ramdisk_capacity_bytes": 0,
+          "identities": [
+            {
+              "pid": 17383,
+              "seconds": 1791363378,
+              "microseconds": 563506,
+              "uid": 501,
+              "pgid": 17383
+            }
+          ],
+          "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/aliases-instruction.log",
+          "log_sha256": "e29561d75e6438e33a60a6be3892f9c77a2393fea99622b1a97105b53aebc90c",
+          "pid_reaped": true
+        },
+        {
+          "label": "aliases-unwind",
+          "argv": [
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/fixture.exe",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/aliases.wasm",
+            "unwind",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/aliases-unwind"
+          ],
+          "checks": 197,
+          "exit": 0,
+          "passed": true,
+          "seconds": 3.3592843749993335,
+          "sampled_aggregate_peak_rss_bytes": 128090112,
+          "aggregate_peak_upper_bytes": 291110912,
+          "limit_bytes": 2147483648,
+          "external_controller_reserve_bytes": 134217728,
+          "owned_ramdisk_capacity_bytes": 0,
+          "identities": [
+            {
+              "pid": 17389,
+              "seconds": 1791363381,
+              "microseconds": 996264,
+              "uid": 501,
+              "pgid": 17389
+            }
+          ],
+          "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/aliases-unwind.log",
+          "log_sha256": "fff3a0752d2014ec2853f06e72c4f210fac9214d16d99487f35de70f1d1f8b6b",
+          "pid_reaped": true
+        },
+        {
+          "label": "environment-group-instruction",
+          "argv": [
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/environment-group.exe",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/group-main.wasm",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/group-provider.wasm",
+            "instruction",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/environment-group-instruction"
+          ],
+          "checks": 481,
+          "exit": 0,
+          "passed": true,
+          "seconds": 2.6438987080000516,
+          "sampled_aggregate_peak_rss_bytes": 145752064,
+          "aggregate_peak_upper_bytes": 308822016,
+          "limit_bytes": 2147483648,
+          "external_controller_reserve_bytes": 134217728,
+          "owned_ramdisk_capacity_bytes": 0,
+          "identities": [
+            {
+              "pid": 17413,
+              "seconds": 1791363385,
+              "microseconds": 355848,
+              "uid": 501,
+              "pgid": 17413
+            }
+          ],
+          "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/environment-group-instruction.log",
+          "log_sha256": "610c025356dad4b03ce40fa2792efbb4f08a698c7a7fdca8dbb535a2478feef4",
+          "pid_reaped": true
+        },
+        {
+          "label": "environment-group-unwind",
+          "argv": [
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/environment-group.exe",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/group-main.wasm",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/group-provider.wasm",
+            "unwind",
+            "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/environment-group-unwind"
+          ],
+          "checks": 481,
+          "exit": 0,
+          "passed": true,
+          "seconds": 0.9288743340002839,
+          "sampled_aggregate_peak_rss_bytes": 144556032,
+          "aggregate_peak_upper_bytes": 307740672,
+          "limit_bytes": 2147483648,
+          "external_controller_reserve_bytes": 134217728,
+          "owned_ramdisk_capacity_bytes": 0,
+          "identities": [
+            {
+              "pid": 17460,
+              "seconds": 1791363388,
+              "microseconds": 239,
+              "uid": 501,
+              "pgid": 17460
+            }
+          ],
+          "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/environment-group-unwind.log",
+          "log_sha256": "054ea44208f4c1398e669862e3e961811c4d02b40789da927d409e354b08ba16",
+          "pid_reaped": true
+        }
+      ],
+      "counted_assertions": 1750,
+      "limit_bytes": 2147483648,
+      "owned_ramdisk_bytes": 0,
+      "nofork_probe_sha256": "06f08929938554e862d37fc43cbf78ef4692f32f849c69b49b9260d8ea6d8ef5",
+      "proof_scope": "private installation and candidate disposal; original world continues; full joint restore/publication/replay remains unavailable"
+    }
+  }
+}

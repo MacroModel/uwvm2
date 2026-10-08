@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r32/foreign-probes-recoverable.tar.zst",
+  "archive_sha256": "0c684d03f6ae39610a5169f7855d9c446f860c39107669dc82414703bba8f369",
+  "payloads": {
+    "foreign_probe": "58e7edeba2cdf2ab2f7a934d6eae64213092ce8a42c8b6f570fad76275b93664",
+    "foreign_probe2": "462b98d51e386a70568af6ca0aff4bc1c853c590c5b3310435ff6fc8e8dcf0eb"
+  },
+  "all_payloads_read_back": true,
+  "bytes_retired": 334602656,
+  "archive_bytes": 29403825,
+  "failed_diagnostics_unchanged": true,
+  "diagnostic_only": true
+}

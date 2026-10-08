@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "incremental_cold_archive": {
+    "local_path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/BE737-ARM32-debug-frame-source-and-evidence.tar.xz",
+    "local_bytes": 2158268,
+    "local_sha256": "371fca65dd52d723dbdfc354467f07cea23976858e175147a7c0dbaeb435b7dc",
+    "archive_sha256": "371fca65dd52d723dbdfc354467f07cea23976858e175147a7c0dbaeb435b7dc",
+    "independent_local_exact_byte_hash_verified": true
+  },
+  "base_source_retained_online": "/dev/shm/uwvm-asm-6313e263-current722/build-meta/work/source",
+  "base_source_already_cold_retained_in_BE727": true,
+  "base_source_manifest_sha256": "109b689166d694483d7e6e59648a1eea5fcf438da5cdbd3360a9fdb2aa9a0c9a",
+  "online_archive_sha256": "371fca65dd52d723dbdfc354467f07cea23976858e175147a7c0dbaeb435b7dc"
+}

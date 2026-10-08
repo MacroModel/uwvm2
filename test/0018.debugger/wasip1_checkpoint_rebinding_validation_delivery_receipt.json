@@ -1,0 +1,32 @@
+{
+  "report_sha256": "d7d7a9e7e8b6154dde8c29295b388229fbe1525abba2c85e2e07ec58c2ae3c1d",
+  "results_sha256": "a2100d6c4fa7ec6776ef3ab873493af4c587d6c7127daedce521d0ae3adf8bb4",
+  "raw_results_sha256": "9b26a23c4877fb79017d713dc6ba5a4883af3f37efda9f6aa00a10ee3511b993",
+  "archive": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-rebinding-validation-20261006-r16/source-and-test-evidence.tar.gz",
+    "bytes": 52873778,
+    "sha256": "5df4345cea5ed20297f44de3560bd2d3b2fd9a6142f62ab6f2ac876715e3f1e0",
+    "payloads": 14978,
+    "every_payload_verified": true
+  },
+  "own_source": {
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_state.h": "271667e3b14a9192249f0ee7d985badbc153df6ff44a768c131eb18c3f02661d",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_portable_checkpoint.h": "92b0d43c0ea43ef2460c32e983a05cd3b96b2a2e8b8aabd5e3bc3efbd232f96f",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_portable_checkpoint.cppm": "71e07f01a257017d360ceea0647d7aca79f90224e685471f0c48eff04861c05d",
+    "uwvm2/src/uwvm2/uwvm/debugger/controller_wasip1_portable.h": "f0cf321c4ac1efc60f497cc866092cd017c817592ae520659c5a7a832a8489a2",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "7f377c900ac30a924c76db07da181cc4bd2424da7944c6782c88f04c8be18802",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_state.h": "271667e3b14a9192249f0ee7d985badbc153df6ff44a768c131eb18c3f02661d",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_portable_checkpoint.h": "92b0d43c0ea43ef2460c32e983a05cd3b96b2a2e8b8aabd5e3bc3efbd232f96f",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_portable_checkpoint.cppm": "71e07f01a257017d360ceea0647d7aca79f90224e685471f0c48eff04861c05d",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/controller_wasip1_portable.h": "f0cf321c4ac1efc60f497cc866092cd017c817592ae520659c5a7a832a8489a2",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "7f377c900ac30a924c76db07da181cc4bd2424da7944c6782c88f04c8be18802",
+    "uwvm2/test/0013.debugger/wasip1_rebinding_validation.cc": "75f36a6a45c4e7ccb4afb3970eabf6412224bc18a033bddf03668aedaf7331fb",
+    "uwvm2-ros/test/0013.debugger/wasip1_rebinding_validation.cc": "75f36a6a45c4e7ccb4afb3970eabf6412224bc18a033bddf03668aedaf7331fb"
+  },
+  "all_required_tests_passed": true,
+  "scope": "Rebinding request/CLI/codec validation and native FastIO persistent metadata; controller header syntax under uwvm-int/LLVM-enabled header configuration. No fresh all-OS live-VM restoration claim.",
+  "local_report_paths": [
+    "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_rebinding_validation_test_report.md",
+    "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_rebinding_validation_test_report.md"
+  ]
+}

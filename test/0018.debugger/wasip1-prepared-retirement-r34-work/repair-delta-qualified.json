@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "base_manifest_sha256": "839d02935323faca56f194e84aabfd68786e2d1b64cc9329151c427e0452924f",
+  "overlay_manifest_sha256": "3f69494ae72f8379e01cf4e3e7a469c22bfd3e104c3fa416f376e6cc731d5a68",
+  "delta_archive_sha256": "0fd704c30808dcacc66a2870ea070675e858de2c08ca36460ed6fae137bf0d40",
+  "changed_files": {
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h": "8b0499c94824caaf8d22df740a9c329ad3d4cf234b0b4dc84958735b529037e3",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h": "8b0499c94824caaf8d22df740a9c329ad3d4cf234b0b4dc84958735b529037e3"
+  },
+  "reason": "Add qualified prepare/retire host API friend without exposing private capture members"
+}

@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "source_manifest_sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848",
+  "archive": "/Users/liyinan/Documents/MacroModel/wasip1-r30-owned-cold-evidence/uwvm2-macos-qualified-products.tar.gz",
+  "archive_sha256": "2250f7bcb1f10cc670e1af40748d4926bab0784071bba8b48a7ad87884901373",
+  "all_payloads_read_back": true,
+  "native_macos_tests_already_passed": 6,
+  "native_admission_bytes": 4294967296,
+  "free_before_bytes": 3832008704,
+  "retirement_reason": "qualified duplicate products; preserve native admission threshold",
+  "retired": [
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/fixture.exe",
+      "bytes": 281257840,
+      "sha256": "b37d197ff814dba34573d3c12dcbb65f442a2bcac0718345f53e0f3dfb09ff28",
+      "archive_member": "fixture.exe"
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/environment-group.exe",
+      "bytes": 281700064,
+      "sha256": "257cb24bd1290e199cb6f16cfec81d59007deeeafec21192f06700daeb4af3ec",
+      "archive_member": "environment-group.exe"
+    }
+  ],
+  "memory_upper_bytes": 164478976,
+  "limit_bytes": 2147483648,
+  "free_after_bytes": 4395483136,
+  "retired_bytes": 562957904
+}

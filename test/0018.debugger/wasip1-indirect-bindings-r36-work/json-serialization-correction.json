@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "change": "JSON line ending serialization only",
+  "source_analysis_reexecuted": false,
+  "old_wasm_fixture_json_sha256": "047337ff3ae3c5c1789edc35c148b6cb00ea336f830d2ec4e5fe9cdfe0ff1664",
+  "new_wasm_fixture_json_sha256": "e6e3cff200a4ef9ef77ebc65814eae7193d64f2e46658b5eca91e9f7983d2876",
+  "original_executed_controller_sha256": "501d81b4b46722724d8bf21536bd1be4dcabce5b258a74fba03028dc2a2d9e5c",
+  "matrix_eight_rows_exactly_equal": true,
+  "actual_native_runtime_runs": 0
+}

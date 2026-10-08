@@ -1,0 +1,1 @@
+clang++: warning: -fdelayed-template-parsing is deprecated after C++20 [-Wdelayed-template-parsing-in-cxx20]

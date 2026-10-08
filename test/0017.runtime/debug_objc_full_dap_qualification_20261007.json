@@ -1,0 +1,779 @@
+{
+  "passed": true,
+  "scope": "Fresh Linux x86_64 R35 full source plus Objective-C/Objective-C++ omitted array bound fix only; R41 actual DAP auxiliary cut",
+  "products": [
+    {
+      "repository": "uwvm2",
+      "source_id": "sha256:7dabb9544e11390246d5657307514c562cfe396c5c113e0dd19b8e8dce2c8c68",
+      "parent_source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+      "binary_sha256": "cec6f847f61d31d8c722050b665047015265c98273183d472da152d2113ea453",
+      "binary_bytes": 178660872,
+      "all_three_TUs_fresh": true,
+      "actual_dependencies": 3446,
+      "all_original_build_inputs_after_unchanged": true,
+      "build_receipt_sha256": "b3d7da607d374efaeb0d6593b54f3466584f99d0f5f1eaaa5b161677bb6e4ed5",
+      "object_retention": {
+        "passed": true,
+        "archive": "/home/macromodel/Documents/uwvm3-implementation/retained-objc-full-r41-final/uwvm2-fresh-objects-r41.tar.xz",
+        "sha256": "fe10452f63ebfd88a75897db63fba6bd2f3fe6f21f93d512392780a2e7067ebf",
+        "bytes": 10934776,
+        "entries": {
+          "host.o": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-full-r41-a1/out-uwvm2/product-a1/host.o",
+            "bytes": 6868976,
+            "sha256": "ab7b48c6a7f3aba36751d1d1fc2c8e8c6bc211dfb78c9900298a3c364937a166",
+            "identity": [
+              1821,
+              56477,
+              6868976,
+              1791371348820742896
+            ]
+          },
+          "main.o": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-full-r41-a1/out-uwvm2/product-a1/main.o",
+            "bytes": 48372768,
+            "sha256": "4219502180e7f57b56bb84f3c5aa9f6e70facab15be3e35f45a06161bcc85f67",
+            "identity": [
+              1821,
+              56519,
+              48372768,
+              1791371412588966994
+            ]
+          },
+          "runtime.o": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-full-r41-a1/out-uwvm2/product-a1/runtime.o",
+            "bytes": 144669536,
+            "sha256": "7334a40fe04da136bf54da0545b55e8f88917038d44c96190dcd57fc4102076a",
+            "identity": [
+              1821,
+              56472,
+              144669536,
+              1791371320451196186
+            ]
+          }
+        },
+        "all_members_stream_verified": true,
+        "fsync_completed": true,
+        "product_receipt_sha256": "b3d7da607d374efaeb0d6593b54f3466584f99d0f5f1eaaa5b161677bb6e4ed5",
+        "original_successful_guard_sha256": "6ddb55c9d3df6dac714ac85ab15d6fe0970ccf0b86b0bbe202850a8ebc072a23",
+        "VM_and_frozen_source_and_original_receipts_preserved": true,
+        "retired_original_duplicate_bytes": 199911280,
+        "arena_free_bytes": 9710907392
+      }
+    },
+    {
+      "repository": "uwvm2-ros",
+      "source_id": "sha256:615582fe79697513568f5a9404c526f1cb177ed3efb4d38757cb779bb55792b5",
+      "parent_source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+      "binary_sha256": "c945d07cfb353c2b143f621a1b60c8dba6e2bd2370de70d0d4f6e4685092c03b",
+      "binary_bytes": 144215240,
+      "all_three_TUs_fresh": true,
+      "actual_dependencies": 3411,
+      "all_original_build_inputs_after_unchanged": true,
+      "build_receipt_sha256": "b7991773288c382753d42d74225cc8ad95ce9d6323a5a7ce60b26b4bc24bafb7",
+      "object_retention": {
+        "passed": true,
+        "archive": "/home/macromodel/Documents/uwvm3-implementation/retained-objc-full-r41-final/uwvm2-ros-fresh-objects-r41.tar.xz",
+        "sha256": "1fad7e26e13ac4c65f5679c41b624731f63298fdf0468803608d7b3e203ebce9",
+        "bytes": 9399528,
+        "entries": {
+          "host.o": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-full-r41-a1/out-uwvm2-ros/product-a1/host.o",
+            "bytes": 6867208,
+            "sha256": "b25011a291f49481bfdf693189dee6a0d071df8da976f3fbc8a77e71b54420f5",
+            "identity": [
+              1821,
+              56895,
+              6867208,
+              1791371644408371565
+            ]
+          },
+          "main.o": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-full-r41-a1/out-uwvm2-ros/product-a1/main.o",
+            "bytes": 47706888,
+            "sha256": "0456cd799b4229c93a0d27929cd9cd2b2d56dec4d0adbc5bba8d0cfea7edaa73",
+            "identity": [
+              1821,
+              56898,
+              47706888,
+              1791371704378501791
+            ]
+          },
+          "runtime.o": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-full-r41-a1/out-uwvm2-ros/product-a1/runtime.o",
+            "bytes": 99456072,
+            "sha256": "9d4d9783ba7c1a886b17f2dc759a40515b15e9cd65515b1247d2d4b4af38a783",
+            "identity": [
+              1821,
+              56738,
+              99456072,
+              1791371617299859585
+            ]
+          }
+        },
+        "all_members_stream_verified": true,
+        "fsync_completed": true,
+        "product_receipt_sha256": "b7991773288c382753d42d74225cc8ad95ce9d6323a5a7ce60b26b4bc24bafb7",
+        "original_successful_guard_sha256": "bcdef089684b5a95d53e8d521369551b7cd42d59d4034dff6c98afb182e40073",
+        "VM_and_frozen_source_and_original_receipts_preserved": true,
+        "retired_original_duplicate_bytes": 154030168,
+        "arena_free_bytes": 9556455424
+      }
+    }
+  ],
+  "successful_guarded_jobs": 12,
+  "guarded_jobs": [
+    {
+      "label": "uwvm2build",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 242.2427072040009,
+      "aggregate_owned_rss_peak_bytes": 7287144448,
+      "minimum_observed_actual_free_bytes": 9511153664,
+      "maximum_observed_own_output_bytes": 384479195,
+      "runtime_library_files": null,
+      "runtime_library_pins_before_after_unchanged": null,
+      "guard_file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-full-r41-a1/guard-build-uwvm2-a1/receipts.json",
+      "guard_sha256": "6ddb55c9d3df6dac714ac85ab15d6fe0970ccf0b86b0bbe202850a8ebc072a23"
+    },
+    {
+      "label": "uwvm2unit",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 1.2467086190008558,
+      "aggregate_owned_rss_peak_bytes": 50597888,
+      "minimum_observed_actual_free_bytes": 9704976384,
+      "maximum_observed_own_output_bytes": 194238,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "guard_file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-dap-r41-a4/guard-unit-uwvm2-a1/receipts.json",
+      "guard_sha256": "5adbce69c85ed07fb220f827d2284d7a4c18e00e422d2ac78fcfc35abc8e5aa6"
+    },
+    {
+      "label": "uwvm2instruction",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 95.58404688100018,
+      "aggregate_owned_rss_peak_bytes": 191291392,
+      "minimum_observed_actual_free_bytes": 9704439808,
+      "maximum_observed_own_output_bytes": 544342,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "guard_file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-dap-r41-a4/guard-short-uwvm2-a1/receipts.json",
+      "guard_sha256": "036ce99c11c708137f09eac7bd59e84653ea5839ff0764a6c0776209ca3ad5ca"
+    },
+    {
+      "label": "uwvm2unwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 92.84477099900141,
+      "aggregate_owned_rss_peak_bytes": 191430656,
+      "minimum_observed_actual_free_bytes": 9596297216,
+      "maximum_observed_own_output_bytes": 1157851,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "guard_file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-dap-r41-a4/guard-short-uwvm2-a1/receipts.json",
+      "guard_sha256": "036ce99c11c708137f09eac7bd59e84653ea5839ff0764a6c0776209ca3ad5ca"
+    },
+    {
+      "label": "uwvm2arrays",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 7.458946464001201,
+      "aggregate_owned_rss_peak_bytes": 319758336,
+      "minimum_observed_actual_free_bytes": 9547563008,
+      "maximum_observed_own_output_bytes": 1542443,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "guard_file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-dap-r41-a4/guard-short-uwvm2-a1/receipts.json",
+      "guard_sha256": "036ce99c11c708137f09eac7bd59e84653ea5839ff0764a6c0776209ca3ad5ca"
+    },
+    {
+      "label": "uwvm2soak",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 605.5442001480005,
+      "aggregate_owned_rss_peak_bytes": 207421440,
+      "minimum_observed_actual_free_bytes": 9402417152,
+      "maximum_observed_own_output_bytes": 8530238,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "guard_file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-dap-r41-a4/guard-soak-uwvm2-a1/receipts.json",
+      "guard_sha256": "94a8619e202f9cb4f30265400a71b3972c691f108fb245fcedf5d796b1d35130"
+    },
+    {
+      "label": "uwvm2rosbuild",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 200.81941985399862,
+      "aggregate_owned_rss_peak_bytes": 5929811968,
+      "minimum_observed_actual_free_bytes": 9402605568,
+      "maximum_observed_own_output_bytes": 488703736,
+      "runtime_library_files": null,
+      "runtime_library_pins_before_after_unchanged": null,
+      "guard_file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-full-r41-a1/guard-build-uwvm2-ros-a1/receipts.json",
+      "guard_sha256": "bcdef089684b5a95d53e8d521369551b7cd42d59d4034dff6c98afb182e40073"
+    },
+    {
+      "label": "uwvm2rosunit",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 1.3110541260030004,
+      "aggregate_owned_rss_peak_bytes": 51286016,
+      "minimum_observed_actual_free_bytes": 9402437632,
+      "maximum_observed_own_output_bytes": 1542847,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "guard_file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-dap-r41-a4/guard-unit-uwvm2-ros-a1/receipts.json",
+      "guard_sha256": "62f5896107672dc87d2f89fc015cc37b157d24e7c04e60f2624f1a7e0b8d758c"
+    },
+    {
+      "label": "uwvm2rosinstruction",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 93.55121915699783,
+      "aggregate_owned_rss_peak_bytes": 189865984,
+      "minimum_observed_actual_free_bytes": 9402417152,
+      "maximum_observed_own_output_bytes": 2580861,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "guard_file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-dap-r41-a4/guard-short-uwvm2-ros-a1/receipts.json",
+      "guard_sha256": "1746b8720f0afa630a54322a669694effdf7739f1b30b8eab112f6cdff3578a8"
+    },
+    {
+      "label": "uwvm2rosunwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 96.65735165599835,
+      "aggregate_owned_rss_peak_bytes": 190709760,
+      "minimum_observed_actual_free_bytes": 9553018880,
+      "maximum_observed_own_output_bytes": 3654049,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "guard_file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-dap-r41-a4/guard-short-uwvm2-ros-a1/receipts.json",
+      "guard_sha256": "1746b8720f0afa630a54322a669694effdf7739f1b30b8eab112f6cdff3578a8"
+    },
+    {
+      "label": "uwvm2rosarrays",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 7.7604561949992785,
+      "aggregate_owned_rss_peak_bytes": 320839680,
+      "minimum_observed_actual_free_bytes": 9552261120,
+      "maximum_observed_own_output_bytes": 4174457,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "guard_file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-dap-r41-a4/guard-short-uwvm2-ros-a1/receipts.json",
+      "guard_sha256": "1746b8720f0afa630a54322a669694effdf7739f1b30b8eab112f6cdff3578a8"
+    },
+    {
+      "label": "uwvm2rossoak",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 606.6087948800014,
+      "aggregate_owned_rss_peak_bytes": 207163392,
+      "minimum_observed_actual_free_bytes": 9542414336,
+      "maximum_observed_own_output_bytes": 9852568,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "guard_file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/objc-dap-r41-a4/guard-soak-uwvm2-ros-a1/receipts.json",
+      "guard_sha256": "5ed2489ae87c5618514fd66486cd8e29cdab324e2fb45ca8e7590e80bf197846"
+    }
+  ],
+  "unit_tests_per_repository": 127,
+  "enum_and_array_sessions": [
+    {
+      "repository": "uwvm2",
+      "phase": "instruction",
+      "passed": true,
+      "elapsed_seconds": 94.58392541799913,
+      "profiles": {
+        "c-wasm32-dwarf4": [
+          "instruction"
+        ],
+        "c-wasm32-dwarf5": [
+          "instruction"
+        ],
+        "c-wasm64-dwarf4": [
+          "instruction"
+        ],
+        "c-wasm64-dwarf5": [
+          "instruction"
+        ],
+        "cpp-wasm32-dwarf4": [
+          "instruction"
+        ],
+        "cpp-wasm32-dwarf5": [
+          "instruction"
+        ],
+        "cpp-wasm64-dwarf4": [
+          "instruction"
+        ],
+        "cpp-wasm64-dwarf5": [
+          "instruction"
+        ],
+        "objc-wasm32-dwarf4": [
+          "instruction"
+        ],
+        "objc-wasm32-dwarf5": [
+          "instruction"
+        ],
+        "objc-wasm64-dwarf4": [
+          "instruction"
+        ],
+        "objc-wasm64-dwarf5": [
+          "instruction"
+        ],
+        "objcpp-wasm32-dwarf4": [
+          "instruction"
+        ],
+        "objcpp-wasm32-dwarf5": [
+          "instruction"
+        ],
+        "objcpp-wasm64-dwarf4": [
+          "instruction"
+        ],
+        "objcpp-wasm64-dwarf5": [
+          "instruction"
+        ]
+      },
+      "counts": {
+        "enum_sessions": 16,
+        "enum_evaluations": 192,
+        "array_selector_evaluations": 288,
+        "array_bounds_rejections": 192,
+        "tree_presentations": 64,
+        "tree_rows": 960
+      },
+      "result_sha256": "2967e1b4ae6102168970e5071c958e5e3b1bda62c32c2a2d26f29a8fdb48acb0"
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "unwind",
+      "passed": true,
+      "elapsed_seconds": 91.83562339300079,
+      "profiles": {
+        "c-wasm32-dwarf4": [
+          "unwind"
+        ],
+        "c-wasm32-dwarf5": [
+          "unwind"
+        ],
+        "c-wasm64-dwarf4": [
+          "unwind"
+        ],
+        "c-wasm64-dwarf5": [
+          "unwind"
+        ],
+        "cpp-wasm32-dwarf4": [
+          "unwind"
+        ],
+        "cpp-wasm32-dwarf5": [
+          "unwind"
+        ],
+        "cpp-wasm64-dwarf4": [
+          "unwind"
+        ],
+        "cpp-wasm64-dwarf5": [
+          "unwind"
+        ],
+        "objc-wasm32-dwarf4": [
+          "unwind"
+        ],
+        "objc-wasm32-dwarf5": [
+          "unwind"
+        ],
+        "objc-wasm64-dwarf4": [
+          "unwind"
+        ],
+        "objc-wasm64-dwarf5": [
+          "unwind"
+        ],
+        "objcpp-wasm32-dwarf4": [
+          "unwind"
+        ],
+        "objcpp-wasm32-dwarf5": [
+          "unwind"
+        ],
+        "objcpp-wasm64-dwarf4": [
+          "unwind"
+        ],
+        "objcpp-wasm64-dwarf5": [
+          "unwind"
+        ]
+      },
+      "counts": {
+        "enum_sessions": 16,
+        "enum_evaluations": 192,
+        "array_selector_evaluations": 288,
+        "array_bounds_rejections": 192,
+        "tree_presentations": 64,
+        "tree_rows": 960
+      },
+      "result_sha256": "1069354a809b115f90c964fde9f008726a6504fe3e3d52f5b27b0ff4956e479e"
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "soak",
+      "passed": true,
+      "elapsed_seconds": 604.4577846520006,
+      "profiles": {
+        "c-wasm32-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "c-wasm32-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "c-wasm64-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "c-wasm64-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "cpp-wasm32-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "cpp-wasm32-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "cpp-wasm64-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "cpp-wasm64-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "objc-wasm32-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "objc-wasm32-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "objc-wasm64-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "objc-wasm64-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "objcpp-wasm32-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "objcpp-wasm32-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "objcpp-wasm64-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "objcpp-wasm64-dwarf5": [
+          "instruction",
+          "unwind"
+        ]
+      },
+      "counts": {
+        "enum_sessions": 101,
+        "enum_evaluations": 1203,
+        "array_selector_evaluations": 1818,
+        "array_bounds_rejections": 1212,
+        "tree_presentations": 404,
+        "tree_rows": 6048
+      },
+      "result_sha256": "dde798ef91e0b674d37986af4578f4fefa87869b26cf319fa9ce0ab865c25761"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "instruction",
+      "passed": true,
+      "elapsed_seconds": 92.53690274900146,
+      "profiles": {
+        "c-wasm32-dwarf4": [
+          "instruction"
+        ],
+        "c-wasm32-dwarf5": [
+          "instruction"
+        ],
+        "c-wasm64-dwarf4": [
+          "instruction"
+        ],
+        "c-wasm64-dwarf5": [
+          "instruction"
+        ],
+        "cpp-wasm32-dwarf4": [
+          "instruction"
+        ],
+        "cpp-wasm32-dwarf5": [
+          "instruction"
+        ],
+        "cpp-wasm64-dwarf4": [
+          "instruction"
+        ],
+        "cpp-wasm64-dwarf5": [
+          "instruction"
+        ],
+        "objc-wasm32-dwarf4": [
+          "instruction"
+        ],
+        "objc-wasm32-dwarf5": [
+          "instruction"
+        ],
+        "objc-wasm64-dwarf4": [
+          "instruction"
+        ],
+        "objc-wasm64-dwarf5": [
+          "instruction"
+        ],
+        "objcpp-wasm32-dwarf4": [
+          "instruction"
+        ],
+        "objcpp-wasm32-dwarf5": [
+          "instruction"
+        ],
+        "objcpp-wasm64-dwarf4": [
+          "instruction"
+        ],
+        "objcpp-wasm64-dwarf5": [
+          "instruction"
+        ]
+      },
+      "counts": {
+        "enum_sessions": 16,
+        "enum_evaluations": 192,
+        "array_selector_evaluations": 288,
+        "array_bounds_rejections": 192,
+        "tree_presentations": 64,
+        "tree_rows": 960
+      },
+      "result_sha256": "4289e8ead7e9c9a5616b6563c6beb37148220d8c68c7d1bfe04401c3bdbd549d"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "unwind",
+      "passed": true,
+      "elapsed_seconds": 95.69727941399833,
+      "profiles": {
+        "c-wasm32-dwarf4": [
+          "unwind"
+        ],
+        "c-wasm32-dwarf5": [
+          "unwind"
+        ],
+        "c-wasm64-dwarf4": [
+          "unwind"
+        ],
+        "c-wasm64-dwarf5": [
+          "unwind"
+        ],
+        "cpp-wasm32-dwarf4": [
+          "unwind"
+        ],
+        "cpp-wasm32-dwarf5": [
+          "unwind"
+        ],
+        "cpp-wasm64-dwarf4": [
+          "unwind"
+        ],
+        "cpp-wasm64-dwarf5": [
+          "unwind"
+        ],
+        "objc-wasm32-dwarf4": [
+          "unwind"
+        ],
+        "objc-wasm32-dwarf5": [
+          "unwind"
+        ],
+        "objc-wasm64-dwarf4": [
+          "unwind"
+        ],
+        "objc-wasm64-dwarf5": [
+          "unwind"
+        ],
+        "objcpp-wasm32-dwarf4": [
+          "unwind"
+        ],
+        "objcpp-wasm32-dwarf5": [
+          "unwind"
+        ],
+        "objcpp-wasm64-dwarf4": [
+          "unwind"
+        ],
+        "objcpp-wasm64-dwarf5": [
+          "unwind"
+        ]
+      },
+      "counts": {
+        "enum_sessions": 16,
+        "enum_evaluations": 192,
+        "array_selector_evaluations": 288,
+        "array_bounds_rejections": 192,
+        "tree_presentations": 64,
+        "tree_rows": 960
+      },
+      "result_sha256": "e44b06f3f888e4951bb0c194ed1e0fd457397bf9665a7e4fe32358574ca4f6f9"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "soak",
+      "passed": true,
+      "elapsed_seconds": 605.6665438830023,
+      "profiles": {
+        "c-wasm32-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "c-wasm32-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "c-wasm64-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "c-wasm64-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "cpp-wasm32-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "cpp-wasm32-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "cpp-wasm64-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "cpp-wasm64-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "objc-wasm32-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "objc-wasm32-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "objc-wasm64-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "objc-wasm64-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "objcpp-wasm32-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "objcpp-wasm32-dwarf5": [
+          "instruction",
+          "unwind"
+        ],
+        "objcpp-wasm64-dwarf4": [
+          "instruction",
+          "unwind"
+        ],
+        "objcpp-wasm64-dwarf5": [
+          "instruction",
+          "unwind"
+        ]
+      },
+      "counts": {
+        "enum_sessions": 104,
+        "enum_evaluations": 1248,
+        "array_selector_evaluations": 1872,
+        "array_bounds_rejections": 1248,
+        "tree_presentations": 416,
+        "tree_rows": 6240
+      },
+      "result_sha256": "47fdebf9a9a63c3c0e8e857ac1a97958a86f2a67b660f28d5149fd7e6414a9ee"
+    }
+  ],
+  "totals": {
+    "enum_sessions": 269,
+    "enum_evaluations": 3219,
+    "array_selector_evaluations": 4842,
+    "array_bounds_rejections": 3228,
+    "tree_presentations": 1076,
+    "tree_rows": 16128,
+    "tinygo_array_sessions": 2,
+    "tinygo_builtin_comparisons": 180
+  },
+  "original_ObjectiveC_R35_failures": [
+    {
+      "repository": "uwvm2",
+      "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/enum-dap-r40-a8/out-uwvm2/instruction-a8/session-0008/results.json",
+      "sha256": "be3bdb91692a837338d463f618486068f5f067116fe212643a427c812ffb72ef",
+      "original_R35_VM_failure_preserved": true,
+      "error": "AssertionError(('actual DAP request result', ('variables', {'type': 'response', 'request_seq': 13, 'command': 'variables', 'success': False, 'message': 'valid variablesReference required', 'seq': 17})))",
+      "original_grid_response": {
+        "name": "grid",
+        "type": "int [2][3]",
+        "value": "unavailable (array has an unavailable bound)",
+        "variablesReference": 0,
+        "presentationHint": {
+          "attributes": [
+            "readOnly"
+          ]
+        }
+      },
+      "original_protocol_archive": "/home/macromodel/Documents/uwvm3-implementation/retained-enum-dap-r40-final/enum-dap-r40-evidence.tar.xz",
+      "archive_sha256": "2d20e6f2377499254e9acec0d98c0a73ace2224ab4549249efc1e60273fd7548",
+      "archive_member": "enum-dap-r40-a8/out-uwvm2/instruction-a8/session-0008/session-0/source-dap.json",
+      "protocol_sha256": "c167f6725ba9be555ca2a358266ead01d4765ea0636c9148492c750836b247d6"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/enum-dap-r40-a9/out-uwvm2-ros/instruction-a9/session-0008/results.json",
+      "sha256": "e4c76db4b796d89c6eaaf0e7158b4080b9446b57bea5a08ccae968a029154ae7",
+      "original_R35_VM_failure_preserved": true,
+      "error": "AssertionError(('actual DAP request result', ('variables', {'type': 'response', 'request_seq': 13, 'command': 'variables', 'success': False, 'message': 'valid variablesReference required', 'seq': 17})))",
+      "original_grid_response": {
+        "name": "grid",
+        "type": "int [2][3]",
+        "value": "unavailable (array has an unavailable bound)",
+        "variablesReference": 0,
+        "presentationHint": {
+          "attributes": [
+            "readOnly"
+          ]
+        }
+      },
+      "original_protocol_archive": "/home/macromodel/Documents/uwvm3-implementation/retained-enum-dap-r40-final/enum-dap-r40-evidence.tar.xz",
+      "archive_sha256": "2d20e6f2377499254e9acec0d98c0a73ace2224ab4549249efc1e60273fd7548",
+      "archive_member": "enum-dap-r40-a9/out-uwvm2-ros/instruction-a9/session-0008/session-0/source-dap.json",
+      "protocol_sha256": "4c475b3b69d29f4140b1bc5d28c2ff27cf2265abd9aa651e69179ea401caf760"
+    }
+  ],
+  "prior_retirement": {
+    "proof": "/home/macromodel/Documents/uwvm3-implementation/retained-objc-full-r41-final/prior-retirement-r41.json",
+    "sha256": "fc5359823b7e2b239ab1e1ca3c3644471f9711a3cea603bd9bb8606da02a2f3a",
+    "files": 28651,
+    "logical_bytes": 921833966
+  },
+  "runtime_libraries_before_after_unchanged": 108,
+  "all_original_R35_frozen_source_inputs_unchanged": true,
+  "current_whole_workspace_qualified": false,
+  "latest_ROS_LLVM_provider_qualified": false,
+  "full_cross_arch_VM_JIT_DAP_qualified": false,
+  "all_language_native_equivalence_qualified": false,
+  "actual_IDE_UI_qualified": false,
+  "full_ObjectiveC_runtime_or_optimized_language_parity_qualified": false,
+  "boot_id": "c8d3550f-3a19-40d7-8507-a76c2045ace5"
+}

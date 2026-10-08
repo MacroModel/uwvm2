@@ -1,0 +1,518 @@
+{
+  "passed": true,
+  "scope": "Standard integer-specifier combinations, compiler type-equivalence and numeric/sizeof oracle and scalar/DAP component DATA; not live producer or full native language debugger parity",
+  "source_cuts": {
+    "uwvm2": "sha256:100adc7fde7541f1373e627cfa3569b588c41182ac8ea1e601b0499fb3e39527",
+    "uwvm2-ros": "sha256:8774a5cd842f074d921c1f4a41573988d530abcd9719ec0f4454648cdc8e00b7"
+  },
+  "rows": [
+    {
+      "repository": "uwvm2",
+      "profile": "native",
+      "passed": true,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/builtin-type-a1/out-uwvm2/types-native-a1/results.json",
+      "record_sha256": "b14de63ee3b33d702449b3a3498d7cb62e7d3586be9374aba76c26ae81e8cc5e",
+      "native_phases": 32,
+      "old_CXX_failures": 4,
+      "old_DAP_failures": 1373,
+      "frame_protocol_tests": 33,
+      "fixture_checks": 51932,
+      "DAP_corpus": {
+        "positive": 255,
+        "negative": 223
+      },
+      "specifier_cases": 1803,
+      "specifier_CXX_ABI_rows": 3606,
+      "spacing_cases": 1046,
+      "spacing_CXX_ABI_rows": 2092,
+      "grouped_cases": 1045,
+      "grouped_CXX_ABI_rows": 2090,
+      "range_cases": 1230,
+      "range_CXX_ABI_rows": 2460
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64",
+      "passed": true,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/builtin-type-a1/out-uwvm2/types-cross-a1-ppc64/results.json",
+      "record_sha256": "669bdd1807d01578b0a460e2184f3cd5f887650ca7b4e6881933989ee9da2a39",
+      "QEMU_components": 8,
+      "fixture_checks": 51932,
+      "target_outputs_equal_native": true,
+      "specifier_cases": 1803,
+      "specifier_CXX_ABI_rows": 3606,
+      "spacing_cases": 1046,
+      "spacing_CXX_ABI_rows": 2092,
+      "grouped_cases": 1045,
+      "grouped_CXX_ABI_rows": 2090,
+      "range_cases": 1230,
+      "range_CXX_ABI_rows": 2460
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "x86_64",
+      "passed": true,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/builtin-type-a1/out-uwvm2/types-cross-a1-x86_64/results.json",
+      "record_sha256": "d4f3e8ddbf9374c506a88333791a106eb3b8c1d9a75841d95e153471befaef03",
+      "QEMU_components": 8,
+      "fixture_checks": 51932,
+      "target_outputs_equal_native": true,
+      "specifier_cases": 1803,
+      "specifier_CXX_ABI_rows": 3606,
+      "spacing_cases": 1046,
+      "spacing_CXX_ABI_rows": 2092,
+      "grouped_cases": 1045,
+      "grouped_CXX_ABI_rows": 2090,
+      "range_cases": 1230,
+      "range_CXX_ABI_rows": 2460
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "native",
+      "passed": true,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/builtin-type-a1/out-uwvm2-ros/types-native-a1/results.json",
+      "record_sha256": "bedb741692494bfc8182457ff89505def2cd6695d1bd23c2b7ffdbeb43e56c02",
+      "native_phases": 32,
+      "old_CXX_failures": 4,
+      "old_DAP_failures": 1373,
+      "frame_protocol_tests": 33,
+      "fixture_checks": 51932,
+      "DAP_corpus": {
+        "positive": 255,
+        "negative": 223
+      },
+      "specifier_cases": 1803,
+      "specifier_CXX_ABI_rows": 3606,
+      "spacing_cases": 1046,
+      "spacing_CXX_ABI_rows": 2092,
+      "grouped_cases": 1045,
+      "grouped_CXX_ABI_rows": 2090,
+      "range_cases": 1230,
+      "range_CXX_ABI_rows": 2460
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64",
+      "passed": true,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/builtin-type-a1/out-uwvm2-ros/types-cross-a1-ppc64/results.json",
+      "record_sha256": "d4bb0ecebb475a388e704486f03e8aa90e00ff2242b5d1d2b1d595bc0ce57505",
+      "QEMU_components": 8,
+      "fixture_checks": 51932,
+      "target_outputs_equal_native": true,
+      "specifier_cases": 1803,
+      "specifier_CXX_ABI_rows": 3606,
+      "spacing_cases": 1046,
+      "spacing_CXX_ABI_rows": 2092,
+      "grouped_cases": 1045,
+      "grouped_CXX_ABI_rows": 2090,
+      "range_cases": 1230,
+      "range_CXX_ABI_rows": 2460
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "x86_64",
+      "passed": true,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/builtin-type-a1/out-uwvm2-ros/types-cross-a1-x86_64/results.json",
+      "record_sha256": "c6c2815be5726b09e4b2442ba89db0a39f82b2e52923d02bbfd71465bc15739a",
+      "QEMU_components": 8,
+      "fixture_checks": 51932,
+      "target_outputs_equal_native": true,
+      "specifier_cases": 1803,
+      "specifier_CXX_ABI_rows": 3606,
+      "spacing_cases": 1046,
+      "spacing_CXX_ABI_rows": 2092,
+      "grouped_cases": 1045,
+      "grouped_CXX_ABI_rows": 2090,
+      "range_cases": 1230,
+      "range_CXX_ABI_rows": 2460
+    }
+  ],
+  "implementation_hashes": {
+    "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "b56ba0581cf3982add01756b2fe7adc079d67d7d2eb56bac265a6f6de90f8b56",
+    "tools/debug/dap_adapter.py": "a379c266bfed36607165c06d38aca11b6ca26166deef572f966c1c8dc5ba3ef5",
+    "test/0017.runtime/debug_source_builtin_type_specifiers.cc": "b71e5d8b974f6ba3f9119431f3e994818bfec4057779cd12e2f9aafcd2b4df26",
+    "test/0017.runtime/run_debug_builtin_type_specifiers.py": "c14afb7eaa705ea08d36d9fdb72e614b66afc4b7769e8f35a4961ff254059231",
+    "test/0017.runtime/run_debug_linux_qemu_components.py": "5d1dbfdccea6ee1dd668f278221b5ba52b71d86c3874282f3240b9fe49495af5",
+    "test/0018.debugger/dap_source_expression_cases.json": "6afc2ee103a632f6f4fb9e21ccb422be8bc5c25b727c73c7f11c02aa30ffdefa"
+  },
+  "counts": {
+    "successful_jobs": 6,
+    "native_phases": 64,
+    "QEMU_components": 32,
+    "frame_protocol_tests": 66,
+    "standard_spellings": 84,
+    "specifier_cases_per_job": 1803,
+    "specifier_case_checks": 10818,
+    "specifier_CXX_Wasm32_Wasm64_rows": 21636,
+    "spacing_cases_per_job": 1046,
+    "spacing_case_checks": 6276,
+    "spacing_CXX_Wasm32_Wasm64_rows": 12552,
+    "grouped_case_checks": 6270,
+    "grouped_CXX_Wasm32_Wasm64_rows": 12540,
+    "range_case_checks": 7380,
+    "range_CXX_Wasm32_Wasm64_rows": 14760,
+    "compiled_native_type_and_spacing_oracle_checks": 311592,
+    "old_CXX_failures": 8,
+    "old_DAP_failures": 2746,
+    "DAP_positive": 255,
+    "DAP_negative": 223,
+    "new_DAP_positive": 8,
+    "new_DAP_negative": 12,
+    "native_separator_fixture_checks": 1315968,
+    "native_scalar_property_checks": 340000,
+    "input_hash_checks": 43060
+  },
+  "guards": [
+    {
+      "label": "uwvm2-types-native",
+      "passed": true,
+      "aggregate_owned_rss_peak_bytes": 721702912,
+      "wall_seconds": 166.1910458220009,
+      "maximum_observed_own_output_bytes": 13587890,
+      "root_retirement": {
+        "pid": 290482,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-types-native",
+      "passed": true,
+      "aggregate_owned_rss_peak_bytes": 721793024,
+      "wall_seconds": 166.20588668399978,
+      "maximum_observed_own_output_bytes": 25835483,
+      "root_retirement": {
+        "pid": 293225,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "label": "uwvm2-ppc64-types-cross",
+      "passed": true,
+      "aggregate_owned_rss_peak_bytes": 789827584,
+      "wall_seconds": 101.24383446399952,
+      "maximum_observed_own_output_bytes": 33582154,
+      "root_retirement": {
+        "pid": 296257,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-ppc64-types-cross",
+      "passed": true,
+      "aggregate_owned_rss_peak_bytes": 790081536,
+      "wall_seconds": 101.79035038800066,
+      "maximum_observed_own_output_bytes": 39977339,
+      "root_retirement": {
+        "pid": 297595,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "label": "uwvm2-x8664-types-cross",
+      "passed": true,
+      "aggregate_owned_rss_peak_bytes": 791187456,
+      "wall_seconds": 101.80172229599884,
+      "maximum_observed_own_output_bytes": 45009336,
+      "root_retirement": {
+        "pid": 299151,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-x8664-types-cross",
+      "passed": true,
+      "aggregate_owned_rss_peak_bytes": 792383488,
+      "wall_seconds": 101.74519627100017,
+      "maximum_observed_own_output_bytes": 50071482,
+      "root_retirement": {
+        "pid": 300551,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    }
+  ],
+  "retained_attempts": {
+    "first_probe_directory_preflight_failure": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/builtin-type-a1/control-probe-a1/receipts.json",
+      "sha256": "31fb2a5510142be8d0719ba5b374148051834bd34ff1de7128e258fc916f56c4"
+    },
+    "correction": "Created the two private out directories; unchanged pinned probe then passed on both repos. No compiler or guest ran in the initial failed attempt."
+  },
+  "resources": {
+    "cgroup_bytes": 68719476736,
+    "owned_RSS_peak_bytes": 792383488,
+    "guard_seconds": 738.9780359249999,
+    "maximum_observed_own_output_bytes": 50071482,
+    "hard_image_bytes": 17179869184,
+    "allocated_image_bytes_before_archive": 1746227200,
+    "arena_free_bytes": 15221620736,
+    "filesystem_id": "12191019222208619510",
+    "no_OOM_events": true
+  },
+  "references": {
+    "CXX_integer_types": "https://eel.is/c++draft/dcl.type.simple",
+    "CXX_static_cast": "https://eel.is/c++draft/expr.static.cast",
+    "Zig_grammar": "https://ziglang.org/documentation/master/#Grammar"
+  },
+  "inputs_after_unchanged": true,
+  "archive": {
+    "passed": true,
+    "linux_archive_fsync_completed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/builtin-type-a1/builtin-type-evidence-a1.tar.xz",
+    "bytes": 26709188,
+    "sha256": "47dcfe6f70156933d3231add1952936a58aeb5d945685456070fca9b109669d5",
+    "regular_members": 7212,
+    "all_member_hashes_verified_linux": true,
+    "archived_inputs_after_unchanged": true,
+    "sdk_file_hashes_after_unchanged": true,
+    "prior_provider_archive_hash_reverified": true,
+    "image_allocated_bytes_after_archive": 1763397632,
+    "arena_free_bytes": 15176069120,
+    "filesystem_id": "12191019222208619510"
+  },
+  "local_archive_copy": {
+    "passed": true,
+    "archive": "/Users/liyinan/.codex/artifacts/uwvm2-builtin-type-evidence-20261006-a1/builtin-type-evidence-a1.tar.xz",
+    "bytes": 26709188,
+    "sha256": "47dcfe6f70156933d3231add1952936a58aeb5d945685456070fca9b109669d5",
+    "regular_members": 7212,
+    "all_regular_member_hashes_verified_local": true,
+    "all_regular_member_hashes_verified_linux": true,
+    "fsync_completed": true,
+    "local_free_bytes_after": 546082816
+  },
+  "current_scoped_review": {
+    "passed": true,
+    "rows": [
+      {
+        "repository": "uwvm2",
+        "path": "src/uwvm2/uwvm/debugger/source_scalar_expression.h",
+        "before": "9f14d6cdcaccf572f417b05dab303164c5ae3c4071649306ae05a07ed315b0a1",
+        "current_after": "b56ba0581cf3982add01756b2fe7adc079d67d7d2eb56bac265a6f6de90f8b56",
+        "owned_scope_matches_tested": true
+      },
+      {
+        "repository": "uwvm2",
+        "path": "tools/debug/dap_adapter.py",
+        "before": "652e2b7d4b5c1a0ff4cc3ad269fc4fc8c61ee4d68503c14cd823a12ca0cbfdc3",
+        "current_after": "a379c266bfed36607165c06d38aca11b6ca26166deef572f966c1c8dc5ba3ef5",
+        "owned_scope_matches_tested": true,
+        "owned_function": "validate_source_evaluation_expression",
+        "owned_body_before": "3670bdf1e6bea6af07566316f4eb6fe9bee6e69ff7236777b1cd36fa34ee7444",
+        "owned_body_after": "59163cc0f6c74822ec204cf5cbb1954927b718e5631606832975c7ac6fd005bf",
+        "unrelated_current_changes_preserved": true,
+        "synthetic_owned_after": "a379c266bfed36607165c06d38aca11b6ca26166deef572f966c1c8dc5ba3ef5",
+        "tested_full_adapter_sha256": "a379c266bfed36607165c06d38aca11b6ca26166deef572f966c1c8dc5ba3ef5",
+        "current_full_adapter_equal_tested": true,
+        "both_expression_validator_bodies_equal_tested": true
+      },
+      {
+        "repository": "uwvm2",
+        "path": "test/0017.runtime/debug_source_builtin_type_specifiers.cc",
+        "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "current_after": "b71e5d8b974f6ba3f9119431f3e994818bfec4057779cd12e2f9aafcd2b4df26",
+        "owned_scope_matches_tested": true
+      },
+      {
+        "repository": "uwvm2",
+        "path": "test/0017.runtime/run_debug_builtin_type_specifiers.py",
+        "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "current_after": "c14afb7eaa705ea08d36d9fdb72e614b66afc4b7769e8f35a4961ff254059231",
+        "owned_scope_matches_tested": true
+      },
+      {
+        "repository": "uwvm2",
+        "path": "test/0017.runtime/run_debug_linux_qemu_components.py",
+        "before": "4c34299048d633208a9e017dc4d47af3f408af0f91787b6ab0fcd1160eb52375",
+        "current_after": "5d1dbfdccea6ee1dd668f278221b5ba52b71d86c3874282f3240b9fe49495af5",
+        "owned_scope_matches_tested": true
+      },
+      {
+        "repository": "uwvm2",
+        "path": "test/0018.debugger/dap_source_expression_cases.json",
+        "before": "1cc4785b6026c08a544fca29b1ecdb0003803f0b8fa56035e3aba8e41e1fe6ce",
+        "current_after": "6afc2ee103a632f6f4fb9e21ccb422be8bc5c25b727c73c7f11c02aa30ffdefa",
+        "owned_scope_matches_tested": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "path": "src/uwvm2/uwvm/debugger/source_scalar_expression.h",
+        "before": "9f14d6cdcaccf572f417b05dab303164c5ae3c4071649306ae05a07ed315b0a1",
+        "current_after": "b56ba0581cf3982add01756b2fe7adc079d67d7d2eb56bac265a6f6de90f8b56",
+        "owned_scope_matches_tested": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "path": "tools/debug/dap_adapter.py",
+        "before": "652e2b7d4b5c1a0ff4cc3ad269fc4fc8c61ee4d68503c14cd823a12ca0cbfdc3",
+        "current_after": "a379c266bfed36607165c06d38aca11b6ca26166deef572f966c1c8dc5ba3ef5",
+        "owned_scope_matches_tested": true,
+        "owned_function": "validate_source_evaluation_expression",
+        "owned_body_before": "3670bdf1e6bea6af07566316f4eb6fe9bee6e69ff7236777b1cd36fa34ee7444",
+        "owned_body_after": "59163cc0f6c74822ec204cf5cbb1954927b718e5631606832975c7ac6fd005bf",
+        "unrelated_current_changes_preserved": true,
+        "synthetic_owned_after": "a379c266bfed36607165c06d38aca11b6ca26166deef572f966c1c8dc5ba3ef5",
+        "tested_full_adapter_sha256": "a379c266bfed36607165c06d38aca11b6ca26166deef572f966c1c8dc5ba3ef5",
+        "current_full_adapter_equal_tested": true,
+        "both_expression_validator_bodies_equal_tested": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "path": "test/0017.runtime/debug_source_builtin_type_specifiers.cc",
+        "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "current_after": "b71e5d8b974f6ba3f9119431f3e994818bfec4057779cd12e2f9aafcd2b4df26",
+        "owned_scope_matches_tested": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "path": "test/0017.runtime/run_debug_builtin_type_specifiers.py",
+        "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "current_after": "c14afb7eaa705ea08d36d9fdb72e614b66afc4b7769e8f35a4961ff254059231",
+        "owned_scope_matches_tested": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "path": "test/0017.runtime/run_debug_linux_qemu_components.py",
+        "before": "4c34299048d633208a9e017dc4d47af3f408af0f91787b6ab0fcd1160eb52375",
+        "current_after": "5d1dbfdccea6ee1dd668f278221b5ba52b71d86c3874282f3240b9fe49495af5",
+        "owned_scope_matches_tested": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "path": "test/0018.debugger/dap_source_expression_cases.json",
+        "before": "1cc4785b6026c08a544fca29b1ecdb0003803f0b8fa56035e3aba8e41e1fe6ce",
+        "current_after": "6afc2ee103a632f6f4fb9e21ccb422be8bc5c25b727c73c7f11c02aa30ffdefa",
+        "owned_scope_matches_tested": true
+      }
+    ],
+    "reviewed_files": 12,
+    "owned_scope": "5 whole paths and only expression validator per repository",
+    "unrelated_workspace_changes_preserved": true,
+    "owned_scope_and_selector_dependency_equal_tested": true,
+    "patch_sha256": "3e2c6fccfa84b0159f82b2d8621aee0f9aa30c13973769b3351e56c15b80e36b"
+  },
+  "local_redundant_upload_cleanup": {
+    "passed": true,
+    "only_this_round_redundant_local_upload_archives_removed": true,
+    "prior_archives_and_other_agent_files_preserved": true,
+    "recoverable_from_fsynced_dual_verified_archive": true,
+    "bytes_removed": 9684928,
+    "rows": [
+      {
+        "local_removed_path": "/tmp/uwvm2-builtin-type-20261006/uwvm2-source-a1.tar.xz",
+        "bytes": 4912928,
+        "sha256": "1bf0287bf0874237e4f19d7cc4077ca3c36520e7e179e967164e455738c30e40",
+        "retained_linux_source_upload": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/builtin-type-a1/uwvm2-source-a1.tar.xz",
+        "retained_dual_verified_archive_member": "qualified-a1/uwvm2-source-a1.tar.xz"
+      },
+      {
+        "local_removed_path": "/tmp/uwvm2-builtin-type-20261006/uwvm2-ros-source-a1.tar.xz",
+        "bytes": 4772000,
+        "sha256": "d47d2c4439fad4fbeef49f83352e0d4358c7150a9a5d1103dabf3cefdb2ad322",
+        "retained_linux_source_upload": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/builtin-type-a1/uwvm2-ros-source-a1.tar.xz",
+        "retained_dual_verified_archive_member": "qualified-a1/uwvm2-ros-source-a1.tar.xz"
+      }
+    ]
+  }
+}

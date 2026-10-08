@@ -1,0 +1,336 @@
+{
+  "passed": true,
+  "captured_at_utc": "2026-10-07T22:58:31.475241+00:00",
+  "completed": 5984,
+  "negative_runs": 5440,
+  "valid_control_bit_checks": 3604,
+  "fixture_count": 88,
+  "negative_fixture_count": 80,
+  "valid_control_fixture_count": 8,
+  "reports": [
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r1/aarch64-uwvm2-ros/qualification.json",
+      "sha256": "a3fd172779c46e5e3b7e804a9b7f5b9c890963d39442c1c14f5b5e179b18d1bf",
+      "arch": "aarch64",
+      "repo": "uwvm2-ros",
+      "completed": 352,
+      "negative_runs": 320,
+      "valid_control_checks": 212,
+      "profiles": [
+        "int-full-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+      },
+      "product_sha256": "6332d3c5512cfd6e8c1618a6d7219c978e1b6802284b80130fde75cab288d5f9"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r1/mips64-uwvm2/qualification.json",
+      "sha256": "6ed8c280c2c1e17c5fd167143be9f2589923eca734e62abfa2272d879f358523",
+      "arch": "mips64",
+      "repo": "uwvm2",
+      "completed": 264,
+      "negative_runs": 240,
+      "valid_control_checks": 159,
+      "profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1"
+      ],
+      "source_identities": null,
+      "product_sha256": "07b537815b6bb90a9c95e028b166c925f6ff2b7781941119ccba599492ac66a2"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r1/ppc64-uwvm2/qualification.json",
+      "sha256": "9f3aac848dd30d0ca871b66b2765455f8144e6d601821bedc15bface909c74ae",
+      "arch": "ppc64",
+      "repo": "uwvm2",
+      "completed": 264,
+      "negative_runs": 240,
+      "valid_control_checks": 159,
+      "profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1"
+      ],
+      "source_identities": null,
+      "product_sha256": "2d429f67fe895ca644a423aaacd9de735809ded05d772fff2e0493461c81a35e"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r1/mips64-uwvm2-ros/qualification.json",
+      "sha256": "3674c1a59607012fd337d1d6fb8c480020791d83443ff09bc9bee16f5913b2a8",
+      "arch": "mips64",
+      "repo": "uwvm2-ros",
+      "completed": 88,
+      "negative_runs": 80,
+      "valid_control_checks": 53,
+      "profiles": [
+        "int-full-compiled-default-delay-1"
+      ],
+      "source_identities": null,
+      "product_sha256": "4d515dea3ba207eab5d73ea7089e2e4a52c9df7b3a1fc7487c81b4a57b566af8"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r1/riscv64-uwvm2/qualification.json",
+      "sha256": "a38c215afd2311e4db657e8a1e5b3a318cd00109281e89df8568aa3369fc06bd",
+      "arch": "riscv64",
+      "repo": "uwvm2",
+      "completed": 792,
+      "negative_runs": 720,
+      "valid_control_checks": 477,
+      "profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3",
+        "llvm-lazy-balanced",
+        "llvm-lazy-debug",
+        "llvm-lazy-light"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+      },
+      "product_sha256": "d190fc0cab00d3f6d7cff32853540fc0c8228f24ee0e5ad6b5756e563615fcde"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r1/ppc64-uwvm2-ros/qualification.json",
+      "sha256": "a3cf32e9f6da04ae28dd207b54161bbf5636fb3fcdccf3048427b3546a9f9310",
+      "arch": "ppc64",
+      "repo": "uwvm2-ros",
+      "completed": 88,
+      "negative_runs": 80,
+      "valid_control_checks": 53,
+      "profiles": [
+        "int-full-compiled-default-delay-1"
+      ],
+      "source_identities": null,
+      "product_sha256": "56e2e873041f3269e0296baf7b9a6de404933a6bf499d36fe3afcc04ba158d15"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r1/x86_64-uwvm2-ros/qualification.json",
+      "sha256": "a79dc90189d5d07c5bec869db14c8bb3d07982653a4a2349ce2256e9e03c2f9f",
+      "arch": "x86_64",
+      "repo": "uwvm2-ros",
+      "completed": 352,
+      "negative_runs": 320,
+      "valid_control_checks": 212,
+      "profiles": [
+        "int-full-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+      },
+      "product_sha256": "e1462e925922f1c65eeed08df0daaef5a424eb4c9b2f0571210f2581a7f6d1ec"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r1/riscv64-uwvm2-ros/qualification.json",
+      "sha256": "77e0676fc5db3a3d91d166cdec448c09bb830325e7d9e90c457068f498f2f9f7",
+      "arch": "riscv64",
+      "repo": "uwvm2-ros",
+      "completed": 352,
+      "negative_runs": 320,
+      "valid_control_checks": 212,
+      "profiles": [
+        "int-full-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+      },
+      "product_sha256": "c9a11a2aa3aee288f85ecb76aeb31020ca189b1fc6f4a14233c08a6416ebfed8"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r1/x86_64-uwvm2/qualification.json",
+      "sha256": "af3011a3d52f2db08c9b9449e0efcb400fccea1f2314366f41ef335a96cf1b2b",
+      "arch": "x86_64",
+      "repo": "uwvm2",
+      "completed": 792,
+      "negative_runs": 720,
+      "valid_control_checks": 477,
+      "profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3",
+        "llvm-lazy-balanced",
+        "llvm-lazy-debug",
+        "llvm-lazy-light"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+      },
+      "product_sha256": "02de99c104f42b97de246cfae9130f0558cac4e42442103682e2a7cb9ca6659a"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r1/aarch64-uwvm2/qualification.json",
+      "sha256": "1109c1b4c764cc208902903aadc85670a01d45812d9d04a4349c7cefbd1cc637",
+      "arch": "aarch64",
+      "repo": "uwvm2",
+      "completed": 792,
+      "negative_runs": 720,
+      "valid_control_checks": 477,
+      "profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3",
+        "llvm-lazy-balanced",
+        "llvm-lazy-debug",
+        "llvm-lazy-light"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+      },
+      "product_sha256": "0c2d20ad3be6c5ed56cb39f6c511d8eae8df49c41477b72da7c24d68bcff2dcf"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r2/sparc64-uwvm2-ros/qualification.json",
+      "sha256": "d018f839eccc6a9869512cfb06cd406b9aec0897bab00f893df4c3450a8b5957",
+      "arch": "sparc64",
+      "repo": "uwvm2-ros",
+      "completed": 88,
+      "negative_runs": 80,
+      "valid_control_checks": 53,
+      "profiles": [
+        "int-full-compiled-default-delay-1"
+      ],
+      "source_identities": null,
+      "product_sha256": "017a998d4a3c212e8351a980d536dcb69330f9b83bc9a4451e8398741aef1f99"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r2/sparc64-uwvm2/qualification.json",
+      "sha256": "bcae329130aaea69e8be21fe82d8f2595786191ec6087d18785988ea19bd7274",
+      "arch": "sparc64",
+      "repo": "uwvm2",
+      "completed": 264,
+      "negative_runs": 240,
+      "valid_control_checks": 159,
+      "profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1"
+      ],
+      "source_identities": null,
+      "product_sha256": "0ac7ebd106f13ed5e0e6b6d19dbdc6eb50228f9c35241f75aed16c7c91257aa0"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r3/i686-uwvm2-ros/qualification.json",
+      "sha256": "893cf675ae44fb45dd7cfb2a976535afa0e203c083153e3c15c31f45fca887b3",
+      "arch": "i686",
+      "repo": "uwvm2-ros",
+      "completed": 88,
+      "negative_runs": 80,
+      "valid_control_checks": 53,
+      "profiles": [
+        "int-full-compiled-default-delay-1"
+      ],
+      "source_identities": null,
+      "product_sha256": "f15f3cebbddf936f5df40569f6235aff3fd13a3d521d9674d8b0778d00c37faf"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-trapping-cli-r3/i686-uwvm2/qualification.json",
+      "sha256": "3004264421cb24dde21b64778baa62cb8c387989c45576a97d4921e13db0f1eb",
+      "arch": "i686",
+      "repo": "uwvm2",
+      "completed": 264,
+      "negative_runs": 240,
+      "valid_control_checks": 159,
+      "profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1"
+      ],
+      "source_identities": null,
+      "product_sha256": "db06e0e55ba72f03effb71a4c6c3992946f96fd603b820a80f4706874ae5ea0e"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-trapping-cli-r2/uwvm2/qualification.json",
+      "sha256": "8cd7452ba443f1e941e19e0d5381ca94e80b11174180a6d50f75d7b344ccfc57",
+      "arch": "loongarch64",
+      "repo": "uwvm2",
+      "completed": 792,
+      "negative_runs": 720,
+      "valid_control_checks": 477,
+      "profiles": [
+        "int-full-compiled-default-delay-1",
+        "int-lazy+verification-compiled-default-delay-1",
+        "int-lazy-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3",
+        "llvm-lazy-balanced",
+        "llvm-lazy-debug",
+        "llvm-lazy-light"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:0d6c73833e59f7c5f52f27476f960b530a0d611ee6cee3a8f4e531a01f82972a",
+        "uwvm2-ros": "sha256:0b204b5873254ff3d1e056f9bf874a3888389bc4bad3ed02fa6efd9686006bcf"
+      },
+      "product_sha256": "a867b7199ad163a528a1c355b50d98b679e28d6e5f7f30d96ea64551af9b808e"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-trapping-cli-r3/uwvm2-ros/qualification.json",
+      "sha256": "8516e0e697bd446a4e8718cd2522546bf32c429a77dda7cdb41f2eb14e9deb52",
+      "arch": "loongarch64",
+      "repo": "uwvm2-ros",
+      "completed": 352,
+      "negative_runs": 320,
+      "valid_control_checks": 212,
+      "profiles": [
+        "int-full-compiled-default-delay-1",
+        "llvm-full-O1",
+        "llvm-full-O2",
+        "llvm-full-O3"
+      ],
+      "source_identities": {
+        "uwvm2": "sha256:0d6c73833e59f7c5f52f27476f960b530a0d611ee6cee3a8f4e531a01f82972a",
+        "uwvm2-ros": "sha256:0b204b5873254ff3d1e056f9bf874a3888389bc4bad3ed02fa6efd9686006bcf"
+      },
+      "product_sha256": "4a4c29130f1d269aec90db42ba8dde23143e6f7993ee2ddd518129d92ceb275f"
+    }
+  ],
+  "architectures": [
+    "aarch64",
+    "i686",
+    "loongarch64",
+    "mips64",
+    "ppc64",
+    "riscv64",
+    "sparc64",
+    "x86_64"
+  ],
+  "LLVM_JIT_qualified_architectures": [
+    "x86_64",
+    "aarch64",
+    "riscv64",
+    "loongarch64"
+  ],
+  "interpreter_only_architectures": [
+    "ppc64",
+    "mips64",
+    "sparc64",
+    "i686"
+  ],
+  "partial_failed_attempts_counted": false,
+  "scope": "Paired real CLI trapping conversion checks on eight Linux ISAs. Negative cases require the exact single fatal diagnostic and deliberate SIGILL/SIGTRAP/SIGABRT; SIGSEGV, timeouts and OOM do not pass. This scoped result is not complete Core3, all ISA, all compiler variants or tiered negative coverage."
+}

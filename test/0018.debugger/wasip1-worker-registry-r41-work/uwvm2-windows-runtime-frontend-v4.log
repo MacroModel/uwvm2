@@ -1,0 +1,4 @@
+clang++: warning: -fdelayed-template-parsing is deprecated after C++20 [-Wdelayed-template-parsing-in-cxx20]
+clang++: warning: argument unused during compilation: '-stdlib=libc++' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-rtlib=libgcc' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-unwindlib=libgcc' [-Wunused-command-line-argument]

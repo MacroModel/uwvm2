@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/delivery-metadata.tar.gz",
+  "archive_bytes": 452521,
+  "archive_sha256": "213d517a5b5ad76aadc4f1db0fb91203d654cdf7788d97464f205bc1ba8605a3",
+  "files": {
+    "wasip1_private_dispatch_r30_delivery_inputs.json": {
+      "sha256": "5066e0b070006ec46d3abfc8ca00538dc18fb46d39f489927265287e2b708a77",
+      "bytes": 2873
+    },
+    "wasip1_private_dispatch_r30_early_local_retirement.json": {
+      "sha256": "51724b02ebecf40297fc4b1005db9c479ccdf434c4ac919e520d93a7f506b09e",
+      "bytes": 1334
+    },
+    "wasip1_private_dispatch_r30_guard_inputs.json": {
+      "sha256": "141ac07ce04bf0ed6e117635184c4e1eb540901a6ebecf18074c6c725865dbe9",
+      "bytes": 4012
+    },
+    "wasip1_private_dispatch_r30_guard_rehome-r29.json": {
+      "sha256": "0690d0fc5b087eaef63627f145203d7d942beaf62eb25a22ec323b06a00be633",
+      "bytes": 3884
+    },
+    "wasip1_private_dispatch_r30_guard_report.json": {
+      "sha256": "0552cc301ac7b27e6819ba6a06aee8eae41bc1a13c47effdabdf5f8e4f58ac5e",
+      "bytes": 3904
+    },
+    "wasip1_private_dispatch_r30_guard_storage.json": {
+      "sha256": "fce266b30d08b9f61bb71f1c52879d6f189a6516df7d91978d2222768280bdf6",
+      "bytes": 3905
+    },
+    "wasip1_private_dispatch_r30_history_retirement.json": {
+      "sha256": "1901ac60f140454a875074a202fa249768aaa69163b9a8075287abc3422088aa",
+      "bytes": 16766
+    },
+    "wasip1_private_dispatch_r30_local_cold.json": {
+      "sha256": "e488a00f1a3929707def386113c7c104fcdb7843c0ec8b4ca0cefd37a2f55dc9",
+      "bytes": 2750
+    },
+    "wasip1_private_dispatch_r30_recovered_history.json": {
+      "sha256": "3fd7721feb81c9b92e02cf85c58eb57a5e31fab267ff8d4b81561d7d215e2439",
+      "bytes": 16976
+    },
+    "wasip1_private_dispatch_r30_source_cut.json": {
+      "sha256": "f65fb4cde1dea54454128519e84869a35b6fda4824c1c428ae139ebe8b876a90",
+      "bytes": 428
+    },
+    "wasip1_private_dispatch_r30_source_freeze.json": {
+      "sha256": "ff22f217dd0ecf5b43dbb0b16524af5e0de366f43a57bac3f992173404d5ade6",
+      "bytes": 420
+    },
+    "wasip1_private_dispatch_r30_source_inputs.json": {
+      "sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848",
+      "bytes": 1232927
+    },
+    "wasip1_private_dispatch_r30_storage.json": {
+      "sha256": "109711dd091073de1a2a2878a720ae4f1025382839fb7077e67def57215af2a1",
+      "bytes": 1381
+    },
+    "wasip1_private_dispatch_r30_storage_refusal.json": {
+      "sha256": "afa923a921175a421562001e7fd3b78341ed6f45e048980a68f038da7101bab0",
+      "bytes": 313
+    },
+    "wasip1_private_dispatch_r30_test_report.json": {
+      "sha256": "cfc12097c2e3af36f2776cadaeb1f890b709e2bc11134bc69aae1a7c764faa29",
+      "bytes": 54992
+    },
+    "wasip1_private_dispatch_r30_test_report.md": {
+      "sha256": "7e9d287f4102acee7b90521af4b7e64a1f027b6bdf250b690a80fd371685d815",
+      "bytes": 5584
+    },
+    "wasip1_private_dispatch_r30_uwvm2_macos.json": {
+      "sha256": "6d16be84f9f9b8ae96e58c330d5211f6754ac77fe56e0e66450bc73e9387aeda",
+      "bytes": 2754
+    },
+    "wasip1_private_dispatch_r30_uwvm2_ros_macos.json": {
+      "sha256": "622a2ec0c4186ce4c0417236d76a2723bdf9837ad8ea6b07f07b84b220a07510",
+      "bytes": 2754
+    },
+    "wasip1_private_dispatch_r30_workspace_scope.json": {
+      "sha256": "36b5f080e99772a96eed11728396ea9124f659f1eb6e5af805deecd0b6facf23",
+      "bytes": 4269
+    }
+  },
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "inputs_preserved": true,
+  "native_test_results_changed": false,
+  "no_large_product_or_sdk_duplicate": true
+}

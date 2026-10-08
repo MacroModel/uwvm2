@@ -1,0 +1,137 @@
+{
+  "schema": "uwvm-shared-original-cgroup-owned-pidfd-v1",
+  "argv": [
+    "python3",
+    "/dev/shm/uwvm-asm-6313e263-current739/build-meta/landlock.py",
+    "/dev/shm/uwvm-asm-6313e263-current739",
+    "python3",
+    "/dev/shm/uwvm-asm-6313e263-current739/build-meta/driver.py"
+  ],
+  "source_root": "/dev/shm/uwvm-asm-6313e263-current722/build-meta/work/source",
+  "source_manifest_sha256": "109b689166d694483d7e6e59648a1eea5fcf438da5cdbd3360a9fdb2aa9a0c9a",
+  "supervisor_sha256": "c1da4139186ea88ba3ad935981fd99558c6a6e7f2dc80c3ba72901ee3399579a",
+  "commands_sha256": "59f0116014ae87886b8dfd52b5731fddb8c94c5f811b178b1c81bb5c9f05beba",
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "memory_max": 68719476736,
+  "swap_max": 0,
+  "all_test_outputs_in_tmpfs": true,
+  "original_exclusive_disk_floor_qualified": false,
+  "owned_rss_budget": 6442450944,
+  "rss_peak": 145551360,
+  "resource_peak": {
+    "own_folder": 1179824128,
+    "shared_folder": 47222013952,
+    "group_memory": 25277644800
+  },
+  "resource_policy_sha256": "928865527f863fb3f5365f546e3273a772f53a325c21271a97c5440394746644",
+  "elapsed": 25.671631973999865,
+  "foreign_roster_before": [
+    10079,
+    116177,
+    143864,
+    146022,
+    146299,
+    148903,
+    149095,
+    149143,
+    149252,
+    149389,
+    150320,
+    150323,
+    150328,
+    150338,
+    150368,
+    150380,
+    150397,
+    150489,
+    150490,
+    150493
+  ],
+  "foreign_roster_after": [
+    10079,
+    116177,
+    143864,
+    146022,
+    146299,
+    148903,
+    149095,
+    149143,
+    151469,
+    151573,
+    151848,
+    151856,
+    151870,
+    151871,
+    151878,
+    151881
+  ],
+  "admissions": [
+    {
+      "pid": 150494,
+      "birth": 806687,
+      "ppid": 149923,
+      "state": "R",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 1617920,
+      "cgroup": "0::/user.slice/user-1000.slice/session-1024.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    }
+  ],
+  "executable_history": [
+    {
+      "pid": 150494,
+      "birth": 806687,
+      "exe": "/usr/bin/python3.14",
+      "sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700"
+    }
+  ],
+  "retirement": [
+    {
+      "pid": 150494,
+      "birth": 806687,
+      "pidfd_readable": true
+    }
+  ],
+  "memory_events_before": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "memory_events_after": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "returncode": 0,
+  "error": null,
+  "passed": true,
+  "log_sha256": "01eda5e591f8bc5ec1730213fac84e26bb07059d4b38d9d08b9253939d26308e"
+}

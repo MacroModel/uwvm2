@@ -1,0 +1,74 @@
+{
+  "wasip1_private_dispatch_r30_test_report.md": {
+    "bytes": 5584,
+    "sha256": "7e9d287f4102acee7b90521af4b7e64a1f027b6bdf250b690a80fd371685d815"
+  },
+  "wasip1_private_dispatch_r30_test_report.json": {
+    "bytes": 54992,
+    "sha256": "cfc12097c2e3af36f2776cadaeb1f890b709e2bc11134bc69aae1a7c764faa29"
+  },
+  "wasip1_private_dispatch_r30_source_inputs.json": {
+    "bytes": 1232927,
+    "sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848"
+  },
+  "wasip1_private_dispatch_r30_source_cut.json": {
+    "bytes": 428,
+    "sha256": "f65fb4cde1dea54454128519e84869a35b6fda4824c1c428ae139ebe8b876a90"
+  },
+  "wasip1_private_dispatch_r30_source_freeze.json": {
+    "bytes": 420,
+    "sha256": "ff22f217dd0ecf5b43dbb0b16524af5e0de366f43a57bac3f992173404d5ade6"
+  },
+  "wasip1_private_dispatch_r30_workspace_scope.json": {
+    "bytes": 4269,
+    "sha256": "36b5f080e99772a96eed11728396ea9124f659f1eb6e5af805deecd0b6facf23"
+  },
+  "wasip1_private_dispatch_r30_local_cold.json": {
+    "bytes": 2750,
+    "sha256": "e488a00f1a3929707def386113c7c104fcdb7843c0ec8b4ca0cefd37a2f55dc9"
+  },
+  "wasip1_private_dispatch_r30_storage.json": {
+    "bytes": 1381,
+    "sha256": "109711dd091073de1a2a2878a720ae4f1025382839fb7077e67def57215af2a1"
+  },
+  "wasip1_private_dispatch_r30_guard_inputs.json": {
+    "bytes": 4012,
+    "sha256": "141ac07ce04bf0ed6e117635184c4e1eb540901a6ebecf18074c6c725865dbe9"
+  },
+  "wasip1_private_dispatch_r30_guard_report.json": {
+    "bytes": 3904,
+    "sha256": "0552cc301ac7b27e6819ba6a06aee8eae41bc1a13c47effdabdf5f8e4f58ac5e"
+  },
+  "wasip1_private_dispatch_r30_guard_storage.json": {
+    "bytes": 3905,
+    "sha256": "fce266b30d08b9f61bb71f1c52879d6f189a6516df7d91978d2222768280bdf6"
+  },
+  "wasip1_private_dispatch_r30_guard_rehome-r29.json": {
+    "bytes": 3884,
+    "sha256": "0690d0fc5b087eaef63627f145203d7d942beaf62eb25a22ec323b06a00be633"
+  },
+  "wasip1_private_dispatch_r30_uwvm2_macos.json": {
+    "bytes": 2754,
+    "sha256": "6d16be84f9f9b8ae96e58c330d5211f6754ac77fe56e0e66450bc73e9387aeda"
+  },
+  "wasip1_private_dispatch_r30_uwvm2_ros_macos.json": {
+    "bytes": 2754,
+    "sha256": "622a2ec0c4186ce4c0417236d76a2723bdf9837ad8ea6b07f07b84b220a07510"
+  },
+  "wasip1_private_dispatch_r30_recovered_history.json": {
+    "bytes": 16976,
+    "sha256": "3fd7721feb81c9b92e02cf85c58eb57a5e31fab267ff8d4b81561d7d215e2439"
+  },
+  "wasip1_private_dispatch_r30_history_retirement.json": {
+    "bytes": 16766,
+    "sha256": "1901ac60f140454a875074a202fa249768aaa69163b9a8075287abc3422088aa"
+  },
+  "wasip1_private_dispatch_r30_storage_refusal.json": {
+    "bytes": 313,
+    "sha256": "afa923a921175a421562001e7fd3b78341ed6f45e048980a68f038da7101bab0"
+  },
+  "wasip1_private_dispatch_r30_early_local_retirement.json": {
+    "bytes": 1334,
+    "sha256": "51724b02ebecf40297fc4b1005db9c479ccdf434c4ac919e520d93a7f506b09e"
+  }
+}

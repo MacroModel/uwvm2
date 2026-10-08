@@ -1,0 +1,6 @@
+{
+  "passed": false,
+  "phase": "preflight-before-test",
+  "reason": "Native controller launched before transport finished; qualified.json not yet present",
+  "native_program_executed": false
+}

@@ -1,0 +1,26 @@
+{
+  "scope": "Exact local paired debug-generator hunk provenance, independent frozen test675/678 only; not a current full product qualification",
+  "changes": [
+    {
+      "repository": "uwvm2",
+      "file": "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h",
+      "before_sha256": "4bdc8e2c366d7cca24ac870a1b1ddd93e673ad7b5b2fbc77981c20b03ab1821c",
+      "after_sha256": "d24d02d742c29a244ddd40f4856ebf8d0cc493d4ff039f19e3a1688b7a36b980",
+      "owned_change": "Only two debug-activation MIPS endianness guards removed; ABI-width/R2/mips16/microMIPS exclusions preserved; the separately qualified typed-tail ABI guard remains unchanged",
+      "debug_region_before_sha256": "97e7fac548c0f92e42ac6934d207f86f6484736da053ec00d91ff33217d9b15d",
+      "debug_region_after_sha256": "fac6fcd9341e21c41768f876f8207f14ae7ae094045457a90d6980de472a2c8b"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "file": "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h",
+      "before_sha256": "3beef1e923b9c7f09dbb0835fa5c271c97d153c08650a9494f54de3f858c3a90",
+      "after_sha256": "0eed4d56d9427a813c0245853225bd4c6c4a83badbd2771628f3b4cd26e3b01a",
+      "owned_change": "Only two debug-activation MIPS endianness guards removed; ABI-width/R2/mips16/microMIPS exclusions preserved; the separately qualified typed-tail ABI guard remains unchanged",
+      "debug_region_before_sha256": "97e7fac548c0f92e42ac6934d207f86f6484736da053ec00d91ff33217d9b15d",
+      "debug_region_after_sha256": "fac6fcd9341e21c41768f876f8207f14ae7ae094045457a90d6980de472a2c8b"
+    }
+  ],
+  "actual_qualified_ordinary_VM_sessions": 4,
+  "actual_qualified_ROS_VM_sessions": 0,
+  "public_BE_gate_promoted": false
+}

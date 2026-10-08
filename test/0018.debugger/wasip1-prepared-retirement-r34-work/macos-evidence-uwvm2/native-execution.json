@@ -1,0 +1,179 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "label": "debug_checkpoint_prepared_retirement-instruction",
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_prepared_retirement.exe",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_retirement_cohort.wasm",
+        "instruction"
+      ],
+      "checks": null,
+      "exit": 0,
+      "passed": true,
+      "seconds": 16.25237449999986,
+      "sampled_aggregate_peak_rss_bytes": 178012160,
+      "aggregate_peak_upper_bytes": 1417510912,
+      "limit_bytes": 2147483648,
+      "external_controller_reserve_bytes": 134217728,
+      "owned_ramdisk_capacity_bytes": 1073741824,
+      "identities": [
+        {
+          "pid": 91267,
+          "seconds": 1791419518,
+          "microseconds": 141744,
+          "uid": 501,
+          "pgid": 91267
+        }
+      ],
+      "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_prepared_retirement-instruction.log",
+      "log_sha256": "afa71b483c0e260225d67b9d6874a1ab030645cdbf87e5925b60a7531d3fd80c",
+      "pid_reaped": true
+    },
+    {
+      "label": "debug_checkpoint_prepared_retirement-unwind",
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_prepared_retirement.exe",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_retirement_cohort.wasm",
+        "unwind"
+      ],
+      "checks": null,
+      "exit": 0,
+      "passed": true,
+      "seconds": 14.151456792002136,
+      "sampled_aggregate_peak_rss_bytes": 177815552,
+      "aggregate_peak_upper_bytes": 1417330688,
+      "limit_bytes": 2147483648,
+      "external_controller_reserve_bytes": 134217728,
+      "owned_ramdisk_capacity_bytes": 1073741824,
+      "identities": [
+        {
+          "pid": 91275,
+          "seconds": 1791419534,
+          "microseconds": 394576,
+          "uid": 501,
+          "pgid": 91275
+        }
+      ],
+      "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_prepared_retirement-unwind.log",
+      "log_sha256": "680e38fe8e66a6f49e8ae5656b126d88bb98671c566ba22d39a259e706b29040",
+      "pid_reaped": true
+    },
+    {
+      "label": "debug_checkpoint_native_cohort_retirement-instruction",
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_native_cohort_retirement.exe",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_retirement_cohort.wasm",
+        "instruction"
+      ],
+      "checks": null,
+      "exit": 0,
+      "passed": true,
+      "seconds": 15.479184374999022,
+      "sampled_aggregate_peak_rss_bytes": 161021952,
+      "aggregate_peak_upper_bytes": 1400520704,
+      "limit_bytes": 2147483648,
+      "external_controller_reserve_bytes": 134217728,
+      "owned_ramdisk_capacity_bytes": 1073741824,
+      "identities": [
+        {
+          "pid": 91290,
+          "seconds": 1791419548,
+          "microseconds": 546390,
+          "uid": 501,
+          "pgid": 91290
+        }
+      ],
+      "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_native_cohort_retirement-instruction.log",
+      "log_sha256": "352d76af838b69ad69badcf186d3715118511b7d2088fdd3931c60962a53b1a0",
+      "pid_reaped": true
+    },
+    {
+      "label": "debug_checkpoint_native_cohort_retirement-unwind",
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_native_cohort_retirement.exe",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_retirement_cohort.wasm",
+        "unwind"
+      ],
+      "checks": null,
+      "exit": 0,
+      "passed": true,
+      "seconds": 13.375234665996686,
+      "sampled_aggregate_peak_rss_bytes": 161202176,
+      "aggregate_peak_upper_bytes": 1400700928,
+      "limit_bytes": 2147483648,
+      "external_controller_reserve_bytes": 134217728,
+      "owned_ramdisk_capacity_bytes": 1073741824,
+      "identities": [
+        {
+          "pid": 91298,
+          "seconds": 1791419564,
+          "microseconds": 25964,
+          "uid": 501,
+          "pgid": 91298
+        }
+      ],
+      "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_native_cohort_retirement-unwind.log",
+      "log_sha256": "1cd754de6df0b1c22235a87388a0ef8d53429831309561a6f980016ecf9c9b9f",
+      "pid_reaped": true
+    },
+    {
+      "label": "debug_wasip1_prepared_retirement-instruction",
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_wasip1_prepared_retirement.exe",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_wasip1_checkpoint.wasm",
+        "instruction"
+      ],
+      "checks": 27,
+      "exit": 0,
+      "passed": true,
+      "seconds": 4.354439959002775,
+      "sampled_aggregate_peak_rss_bytes": 170852352,
+      "aggregate_peak_upper_bytes": 1410351104,
+      "limit_bytes": 2147483648,
+      "external_controller_reserve_bytes": 134217728,
+      "owned_ramdisk_capacity_bytes": 1073741824,
+      "identities": [
+        {
+          "pid": 91308,
+          "seconds": 1791419577,
+          "microseconds": 401547,
+          "uid": 501,
+          "pgid": 91308
+        }
+      ],
+      "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_wasip1_prepared_retirement-instruction.log",
+      "log_sha256": "989ad40f1ff3cc6a49d6e7578a71ac8213e84aea03b54598c29dcfcf7ba4711e",
+      "pid_reaped": true
+    },
+    {
+      "label": "debug_wasip1_prepared_retirement-unwind",
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_wasip1_prepared_retirement.exe",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_wasip1_checkpoint.wasm",
+        "unwind"
+      ],
+      "checks": 27,
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.4031708749971585,
+      "sampled_aggregate_peak_rss_bytes": 170721280,
+      "aggregate_peak_upper_bytes": 1410220032,
+      "limit_bytes": 2147483648,
+      "external_controller_reserve_bytes": 134217728,
+      "owned_ramdisk_capacity_bytes": 1073741824,
+      "identities": [
+        {
+          "pid": 91318,
+          "seconds": 1791419581,
+          "microseconds": 756267,
+          "uid": 501,
+          "pgid": 91318
+        }
+      ],
+      "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_wasip1_prepared_retirement-unwind.log",
+      "log_sha256": "bc75f844e407c15476b857b7dd1fe9f4f4f73feb5ee5087b94fac2f37b774a8e",
+      "pid_reaped": true
+    }
+  ]
+}

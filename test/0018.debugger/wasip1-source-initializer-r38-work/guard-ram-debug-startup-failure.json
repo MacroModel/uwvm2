@@ -1,0 +1,40 @@
+{
+  "passed": false,
+  "error": null,
+  "exit": 1,
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "boot_id": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+  "owned_peak_aggregate_rss_upper_bytes": 29732864,
+  "cgroup_peak_bytes": 51350884352,
+  "processes": [
+    {
+      "pid": 1678307,
+      "birth": 7697066,
+      "ppid": 1678306,
+      "uid": 1000,
+      "cgroup": "0::/user.slice/user-1000.slice/session-11346.scope\n",
+      "argv": [
+        "/usr/bin/python3",
+        "-u",
+        "-c",
+        "import os,sys,signal;os.sched_setaffinity(0,set(range(16,32)));os.kill(os.getpid(),signal.SIGSTOP);os.execvpe(sys.argv[1],sys.argv[1:],os.environ)",
+        "/usr/bin/python3",
+        "-u",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-source-initializer-20261008-r38/ram_native_debug.py"
+      ],
+      "pidfd_retired": true
+    }
+  ],
+  "parent_events_unchanged": true,
+  "validation_kind": "bounded tmpfs Linux native regression",
+  "actual_native_runtime_execution": true,
+  "original_native_storage_policy_unchanged": true,
+  "original_persistent_native_suite_admission_still_refused": true,
+  "new_analysis_file_ceiling_bytes": 16777216,
+  "host_available_bytes": 27375554560,
+  "ram_peak_allocated_bytes": 0,
+  "ram_ceiling_bytes": 805306368,
+  "ram_disposable_products_retired": true,
+  "ram_final_inventory": [],
+  "guard_sha256": "1958187ad9381ae7288dfd6365d8c73c77e9d459e9ca6d9e192a64453921cd87"
+}

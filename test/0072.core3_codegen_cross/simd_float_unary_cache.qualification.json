@@ -1,0 +1,2268 @@
+{
+  "schema": "uwvm-cross-simd-float-unary-signed-cache-assembly-qualification-v1",
+  "passed": true,
+  "scope": "Actual new-process cold/warm/warm-again signed caches and complete exported SIMD unary function extents on ten explicitly bound frozen products. These are per-product source cuts, not the complete current working trees, all SIMD/Core3/threads/ISA/ABI/macro combinations or measured hardware throughput.",
+  "prior_semantic_receipt": {
+    "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-summary-r1.json",
+    "sha256": "921f609874ff1114b793a2b18fd24ff54533ad478d0c18466e5548078da8e415",
+    "bytes": 19814
+  },
+  "fixtures_manifest": {
+    "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/fixtures/fixtures.json",
+    "sha256": "3a5e2b4472eaba88a0764c303fd9e41c03263eecd91cb99709741e69b0c75a56",
+    "bytes": 13334
+  },
+  "stage": {
+    "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-status.json",
+    "sha256": "6f11a5ed03effcf9ff0c6c348fe89c12c7a22025b93691b173c13e142bc1b587",
+    "bytes": 175
+  },
+  "products": [
+    {
+      "arch": "x86_64",
+      "repo": "uwvm2",
+      "signed_cache_processes": 360,
+      "authenticated_fresh_process_hits": 240,
+      "lane_checks": 25920,
+      "complete_exported_function_extents": 60,
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+      },
+      "product_sha256": "02de99c104f42b97de246cfae9130f0558cac4e42442103682e2a7cb9ca6659a",
+      "signed_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-cache/qualification.json",
+        "sha256": "9b66b6ed6dc886bdd6a417b438fd0d5fe9c64e7383fd606860ad12415cdb0ba0",
+        "bytes": 1600739
+      },
+      "actual_authenticated_assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-asm/summary.json",
+        "sha256": "eb684d02cb437c3b785119b6cce92adc8dfe65296baaeb5fdac1e1278afabf8c",
+        "bytes": 112234
+      },
+      "complete_instruction_observations": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-asm/simd-unary-instruction-observations.json",
+        "sha256": "075c5123a8cc780ad672a3777cc76ba1e02deae3f8757a99cf6dca353ffe3591",
+        "bytes": 67398
+      },
+      "O3_instruction_observations": [
+        {
+          "fixture": "f32x4-abs-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 2,
+            "retq": 1,
+            "vandps": 1,
+            "vmovaps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-asm/llvm-full-O3--f32x4-abs-special-bits/function-0.asm",
+          "assembly_sha256": "a6f74c445ec1e8ed0470998e41f82262c228ba3a4cab1dfe167be92181d516fb"
+        },
+        {
+          "fixture": "f32x4-neg-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 2,
+            "retq": 1,
+            "vmovaps": 1,
+            "vxorps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-asm/llvm-full-O3--f32x4-neg-special-bits/function-0.asm",
+          "assembly_sha256": "c9c771b7d3e0bb620df4d9a097c74bf555c84038823987aef22e6dc7c4bc054f"
+        },
+        {
+          "fixture": "f32x4-ceil-special-bits",
+          "instruction_lines": 3,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 1,
+            "retq": 1,
+            "vroundps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-asm/llvm-full-O3--f32x4-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "fc3f0f7b291c8a9a984b32423205e5dde7db7e4f198d2a9e0652cb8b164e1443"
+        },
+        {
+          "fixture": "f32x4-floor-special-bits",
+          "instruction_lines": 3,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 1,
+            "retq": 1,
+            "vroundps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-asm/llvm-full-O3--f32x4-floor-special-bits/function-0.asm",
+          "assembly_sha256": "5a739a8803f9bcfafc216bb46f3144e125001d1cdb267b847b7f3df89223f77d"
+        },
+        {
+          "fixture": "f32x4-trunc-special-bits",
+          "instruction_lines": 3,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 1,
+            "retq": 1,
+            "vroundps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-asm/llvm-full-O3--f32x4-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "3616908e8895248fbf7212ffee8ebfb75a07bb6bfe023a3c2e20b3b92d347bd9"
+        },
+        {
+          "fixture": "f64x2-abs-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 2,
+            "retq": 1,
+            "vandps": 1,
+            "vmovaps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-asm/llvm-full-O3--f64x2-abs-special-bits/function-0.asm",
+          "assembly_sha256": "ef7103cd0b8dd02ad7502515266a230ecac53d8c607c3b36590b2406c393335c"
+        },
+        {
+          "fixture": "f64x2-neg-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 2,
+            "retq": 1,
+            "vmovaps": 1,
+            "vxorps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-asm/llvm-full-O3--f64x2-neg-special-bits/function-0.asm",
+          "assembly_sha256": "c2c0c8a317daf4e0928262284bff75398217a9839f7241fa37da512470a9f005"
+        },
+        {
+          "fixture": "f64x2-ceil-special-bits",
+          "instruction_lines": 3,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 1,
+            "retq": 1,
+            "vroundpd": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-asm/llvm-full-O3--f64x2-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "35053356c4f484db5de05665435b6da52d99ce15a0177b3dcbfe96505f0f221c"
+        },
+        {
+          "fixture": "f64x2-floor-special-bits",
+          "instruction_lines": 3,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 1,
+            "retq": 1,
+            "vroundpd": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-asm/llvm-full-O3--f64x2-floor-special-bits/function-0.asm",
+          "assembly_sha256": "a08a9cd20491e63adbf3dd27de6f6a4c9c76b1e6b366cedfd8eb2a7260714b47"
+        },
+        {
+          "fixture": "f64x2-trunc-special-bits",
+          "instruction_lines": 3,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 1,
+            "retq": 1,
+            "vroundpd": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-asm/llvm-full-O3--f64x2-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "c9aebad4341e78ac7b83e5c687980d612312569ba9557875e97580c04f4b8640"
+        }
+      ]
+    },
+    {
+      "arch": "x86_64",
+      "repo": "uwvm2-ros",
+      "signed_cache_processes": 180,
+      "authenticated_fresh_process_hits": 120,
+      "lane_checks": 12960,
+      "complete_exported_function_extents": 30,
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+      },
+      "product_sha256": "e1462e925922f1c65eeed08df0daaef5a424eb4c9b2f0571210f2581a7f6d1ec",
+      "signed_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-cache/qualification.json",
+        "sha256": "ac4c5370ec1d511ebab764f0ae3b1d064fe74f2cf43b719e58cf08fafe08b112",
+        "bytes": 1163349
+      },
+      "actual_authenticated_assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-asm/summary.json",
+        "sha256": "a5da299f36ca95c720078f11474f863ef51973dbeea75bd6b18a879a77476487",
+        "bytes": 56824
+      },
+      "complete_instruction_observations": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-asm/simd-unary-instruction-observations.json",
+        "sha256": "d08fd98ff3f2119b7a7ac4cd58f57fa545894154d9452f835b33dddf07f0efcb",
+        "bytes": 32584
+      },
+      "O3_instruction_observations": [
+        {
+          "fixture": "f32x4-abs-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 2,
+            "retq": 1,
+            "vandps": 1,
+            "vmovaps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-asm/llvm-full-O3--f32x4-abs-special-bits/function-0.asm",
+          "assembly_sha256": "fa1fa06d005529171b8d3e949010fc935bd44248c23caab25a58c1c73afb3ade"
+        },
+        {
+          "fixture": "f32x4-neg-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 2,
+            "retq": 1,
+            "vmovaps": 1,
+            "vxorps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-asm/llvm-full-O3--f32x4-neg-special-bits/function-0.asm",
+          "assembly_sha256": "0cf1edaa717e372daaf4f94b6c65415c4094ceba6a4ca6d7f47e3e3bf770eedc"
+        },
+        {
+          "fixture": "f32x4-ceil-special-bits",
+          "instruction_lines": 3,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 1,
+            "retq": 1,
+            "vroundps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-asm/llvm-full-O3--f32x4-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "3d78a336071ad16adc8534909b56018cbbd8b72b6df8013ee4f4f726ca51cf11"
+        },
+        {
+          "fixture": "f32x4-floor-special-bits",
+          "instruction_lines": 3,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 1,
+            "retq": 1,
+            "vroundps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-asm/llvm-full-O3--f32x4-floor-special-bits/function-0.asm",
+          "assembly_sha256": "0fc7356502c7d96ac0c135e5279eea4fc3fbeeb8b82080f415a34d72a1bf844a"
+        },
+        {
+          "fixture": "f32x4-trunc-special-bits",
+          "instruction_lines": 3,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 1,
+            "retq": 1,
+            "vroundps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-asm/llvm-full-O3--f32x4-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "66d515941a22e60282609dc0fda860c0152d8873f4929090be4aa0e19bf9d5f7"
+        },
+        {
+          "fixture": "f64x2-abs-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 2,
+            "retq": 1,
+            "vandps": 1,
+            "vmovaps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-asm/llvm-full-O3--f64x2-abs-special-bits/function-0.asm",
+          "assembly_sha256": "8cd60fe8e5397f1ddb9a626e526a8bdef3671ea3be8c093b79e0c73af83bc3cf"
+        },
+        {
+          "fixture": "f64x2-neg-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 2,
+            "retq": 1,
+            "vmovaps": 1,
+            "vxorps": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-asm/llvm-full-O3--f64x2-neg-special-bits/function-0.asm",
+          "assembly_sha256": "b1a7cbfa634cb82f21e17560eed10b317ea25e28cfd1cb13e65ec304e5cbec64"
+        },
+        {
+          "fixture": "f64x2-ceil-special-bits",
+          "instruction_lines": 3,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 1,
+            "retq": 1,
+            "vroundpd": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-asm/llvm-full-O3--f64x2-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "4e97b1f7fc543f30dd24c01c6c59b79eb88bf34c6ad37ed6a42e6439fa4b40ff"
+        },
+        {
+          "fixture": "f64x2-floor-special-bits",
+          "instruction_lines": 3,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 1,
+            "retq": 1,
+            "vroundpd": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-asm/llvm-full-O3--f64x2-floor-special-bits/function-0.asm",
+          "assembly_sha256": "89d60a06db352da41ab3ca545dcc51ddb0fb22548c9c2dcb7462a4ebca7a96f5"
+        },
+        {
+          "fixture": "f64x2-trunc-special-bits",
+          "instruction_lines": 3,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "movabsq": 1,
+            "retq": 1,
+            "vroundpd": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/x86_64-uwvm2-ros-asm/llvm-full-O3--f64x2-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "193b437c5330deaa06bd5a95cce73ed5564fa21d1911f25737d4c6574a188fb3"
+        }
+      ]
+    },
+    {
+      "arch": "aarch64",
+      "repo": "uwvm2",
+      "signed_cache_processes": 360,
+      "authenticated_fresh_process_hits": 240,
+      "lane_checks": 25920,
+      "complete_exported_function_extents": 60,
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+      },
+      "product_sha256": "0c2d20ad3be6c5ed56cb39f6c511d8eae8df49c41477b72da7c24d68bcff2dcf",
+      "signed_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-cache/qualification.json",
+        "sha256": "ce632645d6ad6c39c4342b45de29d7c2048dbf3232d11dcf1120808dee4bb050",
+        "bytes": 2136137
+      },
+      "actual_authenticated_assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-asm/summary.json",
+        "sha256": "2b9f3990c9608a175cf93e449323a1e28b288455af657dd76c37dac3de84cb95",
+        "bytes": 124586
+      },
+      "complete_instruction_observations": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-asm/simd-unary-instruction-observations.json",
+        "sha256": "17d4ab55e12629e3646dc1b0ceab7af61c4fa67e07efd5d6e52a5602dce3950a",
+        "bytes": 83273
+      },
+      "O3_instruction_observations": [
+        {
+          "fixture": "f32x4-abs-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "bic": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-asm/llvm-full-O3--f32x4-abs-special-bits/function-0.asm",
+          "assembly_sha256": "362acd201ba2e85b32236e9fa23dde253855c5a91279a58959cbcdbc3aa1357a"
+        },
+        {
+          "fixture": "f32x4-neg-special-bits",
+          "instruction_lines": 9,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "eor": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movi": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-asm/llvm-full-O3--f32x4-neg-special-bits/function-0.asm",
+          "assembly_sha256": "1148bc8b1957cac8d810192e7354e928097e990d21aefda24e4b98fd973ea38c"
+        },
+        {
+          "fixture": "f32x4-ceil-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "frintp": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-asm/llvm-full-O3--f32x4-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "9e2e9d0b387c912f5990999d34f8010dfdeb760eda4e274536fd657479aa99ec"
+        },
+        {
+          "fixture": "f32x4-floor-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "frintm": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-asm/llvm-full-O3--f32x4-floor-special-bits/function-0.asm",
+          "assembly_sha256": "85d74fb4a1537f1ef4689b143e858e475a620cf5aa72c07de1aff1b6875341dd"
+        },
+        {
+          "fixture": "f32x4-trunc-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "frintz": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-asm/llvm-full-O3--f32x4-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "cbdf61ae1470035f652a5ad2212758b482b5214d43f904aae2daf3405713adf0"
+        },
+        {
+          "fixture": "f64x2-abs-special-bits",
+          "instruction_lines": 9,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "and": 1,
+            "ldr": 2,
+            "mov": 2,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-asm/llvm-full-O3--f64x2-abs-special-bits/function-0.asm",
+          "assembly_sha256": "f7f343d64e7dec5c2b34463b71fcad9f4e65ac90df8ba20481fd2092be8d042f"
+        },
+        {
+          "fixture": "f64x2-neg-special-bits",
+          "instruction_lines": 9,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "eor": 1,
+            "ldr": 2,
+            "mov": 2,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-asm/llvm-full-O3--f64x2-neg-special-bits/function-0.asm",
+          "assembly_sha256": "4b7df4a75141b1d571ebd1f679697eb5399adcebad3064afe9f33aeb3ce19d06"
+        },
+        {
+          "fixture": "f64x2-ceil-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "frintp": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-asm/llvm-full-O3--f64x2-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "91e799acaba433ea15ad382bac9f9e39112a1c5bdb64974a2fd6f88a99d5c088"
+        },
+        {
+          "fixture": "f64x2-floor-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "frintm": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-asm/llvm-full-O3--f64x2-floor-special-bits/function-0.asm",
+          "assembly_sha256": "b40fa3c7a1e8560294c133e38720e1caa5de7b4f9ec146d6850cb551512dcfea"
+        },
+        {
+          "fixture": "f64x2-trunc-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "frintz": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-asm/llvm-full-O3--f64x2-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "5a46acee3bf9de61c9f34742f8511de3eaee0a1b55e7b79756d0f1da936ba263"
+        }
+      ]
+    },
+    {
+      "arch": "aarch64",
+      "repo": "uwvm2-ros",
+      "signed_cache_processes": 180,
+      "authenticated_fresh_process_hits": 120,
+      "lane_checks": 12960,
+      "complete_exported_function_extents": 30,
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+      },
+      "product_sha256": "6332d3c5512cfd6e8c1618a6d7219c978e1b6802284b80130fde75cab288d5f9",
+      "signed_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-cache/qualification.json",
+        "sha256": "893ba301cb43c737b293ac55b4f96debea7f118dae0a6dfef03f6c673ce035e8",
+        "bytes": 1402008
+      },
+      "actual_authenticated_assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-asm/summary.json",
+        "sha256": "d666df0e6fea252f7e4d5328c9a910919d7b3879c55eb602594974f20c61d30a",
+        "bytes": 63052
+      },
+      "complete_instruction_observations": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-asm/simd-unary-instruction-observations.json",
+        "sha256": "c4e189a336872ce0f0ccd26fd797df76bd9fabca526d5749e9de2c484395b0d9",
+        "bytes": 39863
+      },
+      "O3_instruction_observations": [
+        {
+          "fixture": "f32x4-abs-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "bic": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-asm/llvm-full-O3--f32x4-abs-special-bits/function-0.asm",
+          "assembly_sha256": "54246c8c8e4634df481006380f18bbb18c947f4487983767bd5cfe6e92b67982"
+        },
+        {
+          "fixture": "f32x4-neg-special-bits",
+          "instruction_lines": 9,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "eor": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movi": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-asm/llvm-full-O3--f32x4-neg-special-bits/function-0.asm",
+          "assembly_sha256": "369ce08445baff16954ba9d1b2e0c50eded621e377d010b1fd8328d6851f23ef"
+        },
+        {
+          "fixture": "f32x4-ceil-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "frintp": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-asm/llvm-full-O3--f32x4-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "2d52daf48ef47ec05f66aa89947c52eb72b010563cbf068cdf9520612412882d"
+        },
+        {
+          "fixture": "f32x4-floor-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "frintm": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-asm/llvm-full-O3--f32x4-floor-special-bits/function-0.asm",
+          "assembly_sha256": "dff2e86998b3d49e2f37a3fcfe1535518d11b9ddb9e838f39030d186d5286631"
+        },
+        {
+          "fixture": "f32x4-trunc-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "frintz": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-asm/llvm-full-O3--f32x4-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "f4fef8799047f1d17dd82adcb04628c306c7cafd5ffd2831488e0a42cf80fdcc"
+        },
+        {
+          "fixture": "f64x2-abs-special-bits",
+          "instruction_lines": 9,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "and": 1,
+            "ldr": 2,
+            "mov": 2,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-asm/llvm-full-O3--f64x2-abs-special-bits/function-0.asm",
+          "assembly_sha256": "d6179122706e0327ab9c3251631a1fe3b113a883e51a6282095a960510e10d1f"
+        },
+        {
+          "fixture": "f64x2-neg-special-bits",
+          "instruction_lines": 9,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "eor": 1,
+            "ldr": 2,
+            "mov": 2,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-asm/llvm-full-O3--f64x2-neg-special-bits/function-0.asm",
+          "assembly_sha256": "942332a1ec4ea7cd6d8d08028b3286164ecb99f798cc739ecb4c5f24f33aaf1d"
+        },
+        {
+          "fixture": "f64x2-ceil-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "frintp": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-asm/llvm-full-O3--f64x2-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "47717360dbbaea9058a2e350215051b2f0922b1e08bbf851d73875b6762d5b2a"
+        },
+        {
+          "fixture": "f64x2-floor-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "frintm": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-asm/llvm-full-O3--f64x2-floor-special-bits/function-0.asm",
+          "assembly_sha256": "3021d99e5b82e936c4dc8010c89e8848f3a3858f72e0aedf195872c41a0418d2"
+        },
+        {
+          "fixture": "f64x2-trunc-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "frintz": 1,
+            "ldr": 2,
+            "mov": 1,
+            "movk": 3,
+            "ret": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/aarch64-uwvm2-ros-asm/llvm-full-O3--f64x2-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "94ed7eb6197b26604c3a4fe0cefcf9c2cd51ea527328a269352aadb2dda0e850"
+        }
+      ]
+    },
+    {
+      "arch": "riscv64",
+      "repo": "uwvm2",
+      "signed_cache_processes": 360,
+      "authenticated_fresh_process_hits": 240,
+      "lane_checks": 25920,
+      "complete_exported_function_extents": 60,
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+      },
+      "product_sha256": "d190fc0cab00d3f6d7cff32853540fc0c8228f24ee0e5ad6b5756e563615fcde",
+      "signed_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-cache/qualification.json",
+        "sha256": "717c27fb0396de5d9c2c4e3c9f384ba3044e1456a3ac34339c24117159b8670b",
+        "bytes": 2128039
+      },
+      "actual_authenticated_assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-asm/summary.json",
+        "sha256": "26cfef98b4583a08dab2635e19194ee322de31b378d0d042257a74d69b7ab1b1",
+        "bytes": 122384
+      },
+      "complete_instruction_observations": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-asm/simd-unary-instruction-observations.json",
+        "sha256": "70a1649dad8cbdde76dd53364d752ce71f08c8085ab700563a3e04fce23c38f9",
+        "bytes": 148844
+      },
+      "O3_instruction_observations": [
+        {
+          "fixture": "f32x4-abs-special-bits",
+          "instruction_lines": 11,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "c.addi": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "lui": 1,
+            "vand.vv": 1,
+            "vle8.v": 1,
+            "vmv.v.x": 1,
+            "vsetivli": 2
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-asm/llvm-full-O3--f32x4-abs-special-bits/function-0.asm",
+          "assembly_sha256": "23b9c6caf9d68dc50bb335582853532a2747e2c2a7225433035d42c3b7c16e7c"
+        },
+        {
+          "fixture": "f32x4-neg-special-bits",
+          "instruction_lines": 10,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "lui": 1,
+            "vle8.v": 1,
+            "vmv.v.x": 1,
+            "vsetivli": 2,
+            "vxor.vv": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-asm/llvm-full-O3--f32x4-neg-special-bits/function-0.asm",
+          "assembly_sha256": "964a5f99046dfb8b5abde1eceaf97bf3a30ca96969a9f8fd28770e098142a1b3"
+        },
+        {
+          "fixture": "f32x4-ceil-special-bits",
+          "instruction_lines": 25,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "csrrw": 1,
+            "csrrwi": 1,
+            "fmv.w.x": 1,
+            "lui": 4,
+            "vfcvt.f.x.v": 1,
+            "vfcvt.x.f.v": 1,
+            "vfsgnj.vv": 1,
+            "vfsgnjx.vv": 2,
+            "vle32.v": 1,
+            "vmerge.vxm": 1,
+            "vmflt.vf": 1,
+            "vmfne.vv": 1,
+            "vmsgtu.vx": 1,
+            "vmv.v.v": 1,
+            "vor.vx": 1,
+            "vsetivli": 1,
+            "vsetvli": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-asm/llvm-full-O3--f32x4-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "bb3c0309f21313e663dd50aca919c11985df9959095f810c64ab0d308de53078"
+        },
+        {
+          "fixture": "f32x4-floor-special-bits",
+          "instruction_lines": 25,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "csrrw": 1,
+            "csrrwi": 1,
+            "fmv.w.x": 1,
+            "lui": 4,
+            "vfcvt.f.x.v": 1,
+            "vfcvt.x.f.v": 1,
+            "vfsgnj.vv": 1,
+            "vfsgnjx.vv": 2,
+            "vle32.v": 1,
+            "vmerge.vxm": 1,
+            "vmflt.vf": 1,
+            "vmfne.vv": 1,
+            "vmsgtu.vx": 1,
+            "vmv.v.v": 1,
+            "vor.vx": 1,
+            "vsetivli": 1,
+            "vsetvli": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-asm/llvm-full-O3--f32x4-floor-special-bits/function-0.asm",
+          "assembly_sha256": "00ef8b10284f6280c6336f21a6d153be4f7014b9355ad7747e53f453a9847ae8"
+        },
+        {
+          "fixture": "f32x4-trunc-special-bits",
+          "instruction_lines": 23,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "fmv.w.x": 1,
+            "lui": 4,
+            "vfcvt.f.x.v": 1,
+            "vfcvt.rtz.x.f.v": 1,
+            "vfsgnj.vv": 1,
+            "vfsgnjx.vv": 2,
+            "vle32.v": 1,
+            "vmerge.vxm": 1,
+            "vmflt.vf": 1,
+            "vmfne.vv": 1,
+            "vmsgtu.vx": 1,
+            "vmv.v.v": 1,
+            "vor.vx": 1,
+            "vsetivli": 1,
+            "vsetvli": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-asm/llvm-full-O3--f32x4-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "211be794c4bcbb0c883283d055b7eb131b94ec612062e93f84aa37f2eeee7da7"
+        },
+        {
+          "fixture": "f64x2-abs-special-bits",
+          "instruction_lines": 11,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "c.li": 1,
+            "c.srli": 1,
+            "vand.vv": 1,
+            "vle8.v": 1,
+            "vmv.v.x": 1,
+            "vsetivli": 2
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-asm/llvm-full-O3--f64x2-abs-special-bits/function-0.asm",
+          "assembly_sha256": "f0592d376bd1b6a8f2f398b6480134ba2172d8c1d0f19344184b66e93f06682d"
+        },
+        {
+          "fixture": "f64x2-neg-special-bits",
+          "instruction_lines": 10,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "bseti": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "vle8.v": 1,
+            "vmv.v.x": 1,
+            "vsetivli": 2,
+            "vxor.vv": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-asm/llvm-full-O3--f64x2-neg-special-bits/function-0.asm",
+          "assembly_sha256": "b36879d0f55f478a90c8ca8e2d43da6b8b0691ecc67fb324cd2b12711a563fd3"
+        },
+        {
+          "fixture": "f64x2-ceil-special-bits",
+          "instruction_lines": 28,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 3,
+            "auipc": 1,
+            "bseti": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "c.slli": 3,
+            "csrrw": 1,
+            "csrrwi": 1,
+            "fmv.d.x": 1,
+            "lui": 1,
+            "vfcvt.f.x.v": 1,
+            "vfcvt.x.f.v": 1,
+            "vfsgnj.vv": 1,
+            "vfsgnjx.vv": 2,
+            "vle64.v": 1,
+            "vmerge.vxm": 1,
+            "vmflt.vf": 1,
+            "vmfne.vv": 1,
+            "vmsgtu.vx": 1,
+            "vmv.v.v": 1,
+            "vor.vx": 1,
+            "vsetivli": 1,
+            "vsetvli": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-asm/llvm-full-O3--f64x2-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "41344f1396c46f281aafe12a3a919c76204f0ac8985cd4f38243a2dbddc91c2f"
+        },
+        {
+          "fixture": "f64x2-floor-special-bits",
+          "instruction_lines": 28,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 3,
+            "auipc": 1,
+            "bseti": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "c.slli": 3,
+            "csrrw": 1,
+            "csrrwi": 1,
+            "fmv.d.x": 1,
+            "lui": 1,
+            "vfcvt.f.x.v": 1,
+            "vfcvt.x.f.v": 1,
+            "vfsgnj.vv": 1,
+            "vfsgnjx.vv": 2,
+            "vle64.v": 1,
+            "vmerge.vxm": 1,
+            "vmflt.vf": 1,
+            "vmfne.vv": 1,
+            "vmsgtu.vx": 1,
+            "vmv.v.v": 1,
+            "vor.vx": 1,
+            "vsetivli": 1,
+            "vsetvli": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-asm/llvm-full-O3--f64x2-floor-special-bits/function-0.asm",
+          "assembly_sha256": "82484446912fc292b87b33484a14beebc484753bbdfe7837de9e9f6ea9cc17a4"
+        },
+        {
+          "fixture": "f64x2-trunc-special-bits",
+          "instruction_lines": 26,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 3,
+            "auipc": 1,
+            "bseti": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "c.slli": 3,
+            "fmv.d.x": 1,
+            "lui": 1,
+            "vfcvt.f.x.v": 1,
+            "vfcvt.rtz.x.f.v": 1,
+            "vfsgnj.vv": 1,
+            "vfsgnjx.vv": 2,
+            "vle64.v": 1,
+            "vmerge.vxm": 1,
+            "vmflt.vf": 1,
+            "vmfne.vv": 1,
+            "vmsgtu.vx": 1,
+            "vmv.v.v": 1,
+            "vor.vx": 1,
+            "vsetivli": 1,
+            "vsetvli": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-asm/llvm-full-O3--f64x2-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "6e9ed56a409215e1036cb390704a0242807c1283cfc7261b2e41d7fbae7f064f"
+        }
+      ]
+    },
+    {
+      "arch": "riscv64",
+      "repo": "uwvm2-ros",
+      "signed_cache_processes": 180,
+      "authenticated_fresh_process_hits": 120,
+      "lane_checks": 12960,
+      "complete_exported_function_extents": 30,
+      "source_identities": {
+        "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+        "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+      },
+      "product_sha256": "c9a11a2aa3aee288f85ecb76aeb31020ca189b1fc6f4a14233c08a6416ebfed8",
+      "signed_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-cache/qualification.json",
+        "sha256": "09e05ee8b3994ab1baac2bca977540854c1a13f919d1ef2c931cfb698e3ef95a",
+        "bytes": 1389936
+      },
+      "actual_authenticated_assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-asm/summary.json",
+        "sha256": "50b60a7b2ff217a91039f5fee2a3696908fdba16a433c9fa4b646ac8d8bf82aa",
+        "bytes": 61954
+      },
+      "complete_instruction_observations": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-asm/simd-unary-instruction-observations.json",
+        "sha256": "cd78793cc38a69d87fb0f2bd322bb0abb7b5761aa854ca992a342b995a767df9",
+        "bytes": 64955
+      },
+      "O3_instruction_observations": [
+        {
+          "fixture": "f32x4-abs-special-bits",
+          "instruction_lines": 11,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "c.addi": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "lui": 1,
+            "vand.vv": 1,
+            "vle8.v": 1,
+            "vmv.v.x": 1,
+            "vsetivli": 2
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-asm/llvm-full-O3--f32x4-abs-special-bits/function-0.asm",
+          "assembly_sha256": "693d1cf72097f3cd21042c349646aa11abb64b0f2b901f1282dd4497312aeab2"
+        },
+        {
+          "fixture": "f32x4-neg-special-bits",
+          "instruction_lines": 10,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "lui": 1,
+            "vle8.v": 1,
+            "vmv.v.x": 1,
+            "vsetivli": 2,
+            "vxor.vv": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-asm/llvm-full-O3--f32x4-neg-special-bits/function-0.asm",
+          "assembly_sha256": "4bbd16a9ffa217c8fa189fa4aa9ab0421ac74545e7f69fa301ab65b92e3f3157"
+        },
+        {
+          "fixture": "f32x4-ceil-special-bits",
+          "instruction_lines": 25,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "csrrw": 1,
+            "csrrwi": 1,
+            "fmv.w.x": 1,
+            "lui": 4,
+            "vfcvt.f.x.v": 1,
+            "vfcvt.x.f.v": 1,
+            "vfsgnj.vv": 1,
+            "vfsgnjx.vv": 2,
+            "vle32.v": 1,
+            "vmerge.vxm": 1,
+            "vmflt.vf": 1,
+            "vmfne.vv": 1,
+            "vmsgtu.vx": 1,
+            "vmv.v.v": 1,
+            "vor.vx": 1,
+            "vsetivli": 1,
+            "vsetvli": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-asm/llvm-full-O3--f32x4-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "b9e89aa0d6d8ee63c1207dbc0a9e8fdc9ca5f955424113b5aa195965daf01c48"
+        },
+        {
+          "fixture": "f32x4-floor-special-bits",
+          "instruction_lines": 25,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "csrrw": 1,
+            "csrrwi": 1,
+            "fmv.w.x": 1,
+            "lui": 4,
+            "vfcvt.f.x.v": 1,
+            "vfcvt.x.f.v": 1,
+            "vfsgnj.vv": 1,
+            "vfsgnjx.vv": 2,
+            "vle32.v": 1,
+            "vmerge.vxm": 1,
+            "vmflt.vf": 1,
+            "vmfne.vv": 1,
+            "vmsgtu.vx": 1,
+            "vmv.v.v": 1,
+            "vor.vx": 1,
+            "vsetivli": 1,
+            "vsetvli": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-asm/llvm-full-O3--f32x4-floor-special-bits/function-0.asm",
+          "assembly_sha256": "cba28523a20c61ea68b2474c4f8106ede734d7136d865311a886379f391191ec"
+        },
+        {
+          "fixture": "f32x4-trunc-special-bits",
+          "instruction_lines": 23,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "fmv.w.x": 1,
+            "lui": 4,
+            "vfcvt.f.x.v": 1,
+            "vfcvt.rtz.x.f.v": 1,
+            "vfsgnj.vv": 1,
+            "vfsgnjx.vv": 2,
+            "vle32.v": 1,
+            "vmerge.vxm": 1,
+            "vmflt.vf": 1,
+            "vmfne.vv": 1,
+            "vmsgtu.vx": 1,
+            "vmv.v.v": 1,
+            "vor.vx": 1,
+            "vsetivli": 1,
+            "vsetvli": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-asm/llvm-full-O3--f32x4-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "ce95fb7c6abf145b29b7b64c352006f7c54b81bab513c976b3c9f8510b0d136c"
+        },
+        {
+          "fixture": "f64x2-abs-special-bits",
+          "instruction_lines": 11,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "c.li": 1,
+            "c.srli": 1,
+            "vand.vv": 1,
+            "vle8.v": 1,
+            "vmv.v.x": 1,
+            "vsetivli": 2
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-asm/llvm-full-O3--f64x2-abs-special-bits/function-0.asm",
+          "assembly_sha256": "6b4fec18fa965f5a9524c71c9ec730195d7a9512c63fa44ccf7ecc4004827386"
+        },
+        {
+          "fixture": "f64x2-neg-special-bits",
+          "instruction_lines": 10,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 1,
+            "auipc": 1,
+            "bseti": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "vle8.v": 1,
+            "vmv.v.x": 1,
+            "vsetivli": 2,
+            "vxor.vv": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-asm/llvm-full-O3--f64x2-neg-special-bits/function-0.asm",
+          "assembly_sha256": "f5c9d35a8fd960aa218c7dc66ff6dbd70e174465e0947dbe147c61ef5cc3f0a3"
+        },
+        {
+          "fixture": "f64x2-ceil-special-bits",
+          "instruction_lines": 28,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 3,
+            "auipc": 1,
+            "bseti": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "c.slli": 3,
+            "csrrw": 1,
+            "csrrwi": 1,
+            "fmv.d.x": 1,
+            "lui": 1,
+            "vfcvt.f.x.v": 1,
+            "vfcvt.x.f.v": 1,
+            "vfsgnj.vv": 1,
+            "vfsgnjx.vv": 2,
+            "vle64.v": 1,
+            "vmerge.vxm": 1,
+            "vmflt.vf": 1,
+            "vmfne.vv": 1,
+            "vmsgtu.vx": 1,
+            "vmv.v.v": 1,
+            "vor.vx": 1,
+            "vsetivli": 1,
+            "vsetvli": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-asm/llvm-full-O3--f64x2-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "03d1998cf30b93f8b4d94dd3970bb127ed952c891c7b943c8424ae2b98691623"
+        },
+        {
+          "fixture": "f64x2-floor-special-bits",
+          "instruction_lines": 28,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 3,
+            "auipc": 1,
+            "bseti": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "c.slli": 3,
+            "csrrw": 1,
+            "csrrwi": 1,
+            "fmv.d.x": 1,
+            "lui": 1,
+            "vfcvt.f.x.v": 1,
+            "vfcvt.x.f.v": 1,
+            "vfsgnj.vv": 1,
+            "vfsgnjx.vv": 2,
+            "vle64.v": 1,
+            "vmerge.vxm": 1,
+            "vmflt.vf": 1,
+            "vmfne.vv": 1,
+            "vmsgtu.vx": 1,
+            "vmv.v.v": 1,
+            "vor.vx": 1,
+            "vsetivli": 1,
+            "vsetvli": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-asm/llvm-full-O3--f64x2-floor-special-bits/function-0.asm",
+          "assembly_sha256": "a48e20e779ed7d6ceb87c726099513254b9500e704eeede6ad5b03474b3ea50d"
+        },
+        {
+          "fixture": "f64x2-trunc-special-bits",
+          "instruction_lines": 26,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi": 3,
+            "auipc": 1,
+            "bseti": 1,
+            "c.jr": 1,
+            "c.ld": 1,
+            "c.slli": 3,
+            "fmv.d.x": 1,
+            "lui": 1,
+            "vfcvt.f.x.v": 1,
+            "vfcvt.rtz.x.f.v": 1,
+            "vfsgnj.vv": 1,
+            "vfsgnjx.vv": 2,
+            "vle64.v": 1,
+            "vmerge.vxm": 1,
+            "vmflt.vf": 1,
+            "vmfne.vv": 1,
+            "vmsgtu.vx": 1,
+            "vmv.v.v": 1,
+            "vor.vx": 1,
+            "vsetivli": 1,
+            "vsetvli": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/riscv64-uwvm2-ros-asm/llvm-full-O3--f64x2-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "4c81270a6018ce503b0b7383806b3336e1569e441f3233788938fbf12c041918"
+        }
+      ]
+    },
+    {
+      "arch": "loongarch64",
+      "repo": "uwvm2",
+      "signed_cache_processes": 360,
+      "authenticated_fresh_process_hits": 240,
+      "lane_checks": 25920,
+      "complete_exported_function_extents": 60,
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      },
+      "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+      "signed_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-cache/qualification.json",
+        "sha256": "e5e94de2662f4348ea61edd20f342ce72864849842218d5ef9430e061607bc1e",
+        "bytes": 2108650
+      },
+      "actual_authenticated_assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-asm/summary.json",
+        "sha256": "8c04baeaf725eef7db8be9acd83fccaba32866a196bb3e0bdf760ca6d723034c",
+        "bytes": 123278
+      },
+      "complete_instruction_observations": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-asm/simd-unary-instruction-observations.json",
+        "sha256": "e7a44c5e2ab2d15bd3c2b5548d4064fe77ca1adaf9b2e7acf0f678f43c866ae8",
+        "bytes": 74133
+      },
+      "O3_instruction_observations": [
+        {
+          "fixture": "f32x4-abs-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "lu12i.w": 1,
+            "ori": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vand.v": 1,
+            "vld": 1,
+            "vreplgr2vr.w": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-asm/llvm-full-O3--f32x4-abs-special-bits/function-0.asm",
+          "assembly_sha256": "0b999cce8d962909e7fcb29ed5901a88afda38228a8f27330ea8022fd4eb6d21"
+        },
+        {
+          "fixture": "f32x4-neg-special-bits",
+          "instruction_lines": 6,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vld": 1,
+            "vldi": 1,
+            "vxor.v": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-asm/llvm-full-O3--f32x4-neg-special-bits/function-0.asm",
+          "assembly_sha256": "60af7a1cd7919499c9d94a79b9a6802e0e1583f9cbff2f00c9b3c22d4e3eaa09"
+        },
+        {
+          "fixture": "f32x4-ceil-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vfrintrp.s": 1,
+            "vld": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-asm/llvm-full-O3--f32x4-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "3d70830ae86a7831783cf6eec90431db276ad7b981854c5f11c783199f10e64a"
+        },
+        {
+          "fixture": "f32x4-floor-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vfrintrm.s": 1,
+            "vld": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-asm/llvm-full-O3--f32x4-floor-special-bits/function-0.asm",
+          "assembly_sha256": "6f3960c7149be6a4f8d75ebb2cd09eeabf657cbdcf8658d9b3043219547ffb81"
+        },
+        {
+          "fixture": "f32x4-trunc-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vfrintrz.s": 1,
+            "vld": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-asm/llvm-full-O3--f32x4-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "c74a09abb964df74b98ec37ef98e3d2a1ed945b3d8f101e63ed389b6de685fcf"
+        },
+        {
+          "fixture": "f64x2-abs-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi.w": 1,
+            "ld.d": 1,
+            "lu52i.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vand.v": 1,
+            "vld": 1,
+            "vreplgr2vr.d": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-asm/llvm-full-O3--f64x2-abs-special-bits/function-0.asm",
+          "assembly_sha256": "7bd0e5b1b18036f75431e95932e5b0b6bb83e0d2b4978dabbbf60612aec6e7aa"
+        },
+        {
+          "fixture": "f64x2-neg-special-bits",
+          "instruction_lines": 7,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "lu52i.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vld": 1,
+            "vreplgr2vr.d": 1,
+            "vxor.v": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-asm/llvm-full-O3--f64x2-neg-special-bits/function-0.asm",
+          "assembly_sha256": "e55a9409ab9016104831b32375998280a7661334b4c4c30d072c1ad7575d2f38"
+        },
+        {
+          "fixture": "f64x2-ceil-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vfrintrp.d": 1,
+            "vld": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-asm/llvm-full-O3--f64x2-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "3995809cf8ab552b05e37403a67b6153e5067ee3ba2839ba5b23894c1859fb4b"
+        },
+        {
+          "fixture": "f64x2-floor-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vfrintrm.d": 1,
+            "vld": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-asm/llvm-full-O3--f64x2-floor-special-bits/function-0.asm",
+          "assembly_sha256": "65c363d365b026b9b01a979c54660fe490db6eff1d3af8bffed6ec881b2e59d1"
+        },
+        {
+          "fixture": "f64x2-trunc-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vfrintrz.d": 1,
+            "vld": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-asm/llvm-full-O3--f64x2-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "17478eebbb2556580f11f79472a885810556a0ce0c8890f02fbbb5c37bb23b8d"
+        }
+      ]
+    },
+    {
+      "arch": "loongarch64",
+      "repo": "uwvm2-ros",
+      "signed_cache_processes": 180,
+      "authenticated_fresh_process_hits": 120,
+      "lane_checks": 12960,
+      "complete_exported_function_extents": 30,
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      },
+      "product_sha256": "dbfeecb0ff1ad294bd20d3d5999d88bf504c9cf7516ee6e33e22ed1656a86f9b",
+      "signed_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-cache/qualification.json",
+        "sha256": "ba5ed038533eed083399a8e107c69df74cb2f3dff507132aba73dda68bb71e16",
+        "bytes": 1396048
+      },
+      "actual_authenticated_assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-asm/summary.json",
+        "sha256": "83654635cfd968df5d74415644367c7f2fd6d6547c9e0fd618724456b4da813f",
+        "bytes": 62398
+      },
+      "complete_instruction_observations": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-asm/simd-unary-instruction-observations.json",
+        "sha256": "796b909d5337f6db066960e27b00dc482ff1cca0f94b91a5d1b280f17b6b37d1",
+        "bytes": 36735
+      },
+      "O3_instruction_observations": [
+        {
+          "fixture": "f32x4-abs-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "lu12i.w": 1,
+            "ori": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vand.v": 1,
+            "vld": 1,
+            "vreplgr2vr.w": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-asm/llvm-full-O3--f32x4-abs-special-bits/function-0.asm",
+          "assembly_sha256": "3cae7591d9eb960c1f810b59f9f5249666d4d26636c5d61cfe3e3c7b79c87621"
+        },
+        {
+          "fixture": "f32x4-neg-special-bits",
+          "instruction_lines": 6,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vld": 1,
+            "vldi": 1,
+            "vxor.v": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-asm/llvm-full-O3--f32x4-neg-special-bits/function-0.asm",
+          "assembly_sha256": "ed035466a277503fdcc3e993fe4b18afa2b04ca39d036cb83ab2e92bb03e801b"
+        },
+        {
+          "fixture": "f32x4-ceil-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vfrintrp.s": 1,
+            "vld": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-asm/llvm-full-O3--f32x4-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "24dc944a359cff15c580b8b8b3d280a0842e412e4ef1fc5a3fc3d02f29eb5b43"
+        },
+        {
+          "fixture": "f32x4-floor-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vfrintrm.s": 1,
+            "vld": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-asm/llvm-full-O3--f32x4-floor-special-bits/function-0.asm",
+          "assembly_sha256": "626bc9b76d444af36bfed86c4d296f50b42dbfc7cee98146dfd979df0a625f3f"
+        },
+        {
+          "fixture": "f32x4-trunc-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vfrintrz.s": 1,
+            "vld": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-asm/llvm-full-O3--f32x4-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "c62b07b0273be8093155be74dd8d0a51d9d73b32e3d60655f04616f5e572ab00"
+        },
+        {
+          "fixture": "f64x2-abs-special-bits",
+          "instruction_lines": 8,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "addi.w": 1,
+            "ld.d": 1,
+            "lu52i.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vand.v": 1,
+            "vld": 1,
+            "vreplgr2vr.d": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-asm/llvm-full-O3--f64x2-abs-special-bits/function-0.asm",
+          "assembly_sha256": "6f06f773c721d964701bd1f1f40901d12f8e364432231633bc9df24d810bc570"
+        },
+        {
+          "fixture": "f64x2-neg-special-bits",
+          "instruction_lines": 7,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "lu52i.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vld": 1,
+            "vreplgr2vr.d": 1,
+            "vxor.v": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-asm/llvm-full-O3--f64x2-neg-special-bits/function-0.asm",
+          "assembly_sha256": "fc35ed1597de45856b7d8f78380cb7173bbfef422e109c1d32f36a882cb943fd"
+        },
+        {
+          "fixture": "f64x2-ceil-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vfrintrp.d": 1,
+            "vld": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-asm/llvm-full-O3--f64x2-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "f0e8adbcfca0df8794933f687e60457183607cd4f673756ee4d82b8bb050157a"
+        },
+        {
+          "fixture": "f64x2-floor-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vfrintrm.d": 1,
+            "vld": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-asm/llvm-full-O3--f64x2-floor-special-bits/function-0.asm",
+          "assembly_sha256": "d36a08769cedfba8571573be2d4c296a3379edbcf4706f412ef82d1ac83bee7c"
+        },
+        {
+          "fixture": "f64x2-trunc-special-bits",
+          "instruction_lines": 5,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "ld.d": 1,
+            "pcalau12i": 1,
+            "ret": 1,
+            "vfrintrz.d": 1,
+            "vld": 1
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/loongarch64-uwvm2-ros-asm/llvm-full-O3--f64x2-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "3cbd597988a906b567a69fbf288e0896f33f790cf7f9f2417725a9f04c16f987"
+        }
+      ]
+    },
+    {
+      "arch": "mips64el",
+      "repo": "uwvm2",
+      "signed_cache_processes": 360,
+      "authenticated_fresh_process_hits": 240,
+      "lane_checks": 25920,
+      "complete_exported_function_extents": 60,
+      "source_identities": {
+        "uwvm2": "sha256:d68895f7c34545ab78b7ef53470e9cb6062a97c027904897105d00e536156746",
+        "uwvm2-ros": "sha256:a5298a08a9a22327fc8cc474ff67ad1f303994ecf67bba40b2679bd5e194b90b"
+      },
+      "product_sha256": "6a6354aa953a9cdabbbe957450f145f79dfc685291390b87c51b644452e43c62",
+      "signed_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-cache/qualification.json",
+        "sha256": "88cec13b4d6c24feaa296311e1176218c1b76cacd61fc6e28fe78cf943ca40b4",
+        "bytes": 2045567
+      },
+      "actual_authenticated_assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-asm/summary.json",
+        "sha256": "dd4d1bd040ff87005beb17e366b9b245809cd9a4131fe8a9a24157ac76ff480b",
+        "bytes": 122580
+      },
+      "complete_instruction_observations": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-asm/simd-unary-instruction-observations.json",
+        "sha256": "cd497754c00adf5d5ea0c5ec4dd21820a2880a9696d62dfda3bc6e92749d6821",
+        "bytes": 310947
+      },
+      "O3_instruction_observations": [
+        {
+          "fixture": "f32x4-abs-special-bits",
+          "instruction_lines": 62,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "andi": 8,
+            "daddiu": 3,
+            "dext": 2,
+            "dsll": 2,
+            "dsll32": 2,
+            "jr": 1,
+            "lbu": 16,
+            "lui": 1,
+            "nop": 1,
+            "or": 14,
+            "sll": 12
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-asm/llvm-full-O3--f32x4-abs-special-bits/function-0.asm",
+          "assembly_sha256": "fbadccd639094723d4b72cafe5fc68b7aecb25e8e146b8f47c46336b9c3dde7c"
+        },
+        {
+          "fixture": "f32x4-neg-special-bits",
+          "instruction_lines": 62,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "andi": 4,
+            "daddiu": 3,
+            "dext": 2,
+            "dsll": 2,
+            "dsll32": 2,
+            "jr": 1,
+            "lbu": 16,
+            "lui": 1,
+            "nop": 1,
+            "or": 14,
+            "sll": 12,
+            "xori": 4
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-asm/llvm-full-O3--f32x4-neg-special-bits/function-0.asm",
+          "assembly_sha256": "ea3439fefc2eb6043fdcd92725277522742ca16887266e0ea93ba7c58685d797"
+        },
+        {
+          "fixture": "f32x4-ceil-special-bits",
+          "instruction_lines": 71,
+          "link_setting_calls": 4,
+          "opcode_histogram": {
+            "daddiu": 8,
+            "dext": 2,
+            "dsll": 4,
+            "dsll32": 2,
+            "ext": 4,
+            "jalr": 4,
+            "jr": 1,
+            "ld": 6,
+            "ldc1": 2,
+            "lui": 4,
+            "lwc1": 4,
+            "mfc1": 4,
+            "mov.s": 2,
+            "move": 5,
+            "movn": 4,
+            "nop": 1,
+            "or": 2,
+            "sd": 6,
+            "sdc1": 2,
+            "sltu": 4
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-asm/llvm-full-O3--f32x4-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "c59e3c541f6f9f0188194b7cd12be77a0245422065441a6eb0cb60ba888e64da"
+        },
+        {
+          "fixture": "f32x4-floor-special-bits",
+          "instruction_lines": 71,
+          "link_setting_calls": 4,
+          "opcode_histogram": {
+            "daddiu": 8,
+            "dext": 2,
+            "dsll": 4,
+            "dsll32": 2,
+            "ext": 4,
+            "jalr": 4,
+            "jr": 1,
+            "ld": 6,
+            "ldc1": 2,
+            "lui": 4,
+            "lwc1": 4,
+            "mfc1": 4,
+            "mov.s": 2,
+            "move": 5,
+            "movn": 4,
+            "nop": 1,
+            "or": 2,
+            "sd": 6,
+            "sdc1": 2,
+            "sltu": 4
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-asm/llvm-full-O3--f32x4-floor-special-bits/function-0.asm",
+          "assembly_sha256": "741a422293af39e548cea6b3ced85da387453ca661c442d445c5f84c9945590c"
+        },
+        {
+          "fixture": "f32x4-trunc-special-bits",
+          "instruction_lines": 71,
+          "link_setting_calls": 4,
+          "opcode_histogram": {
+            "daddiu": 8,
+            "dext": 2,
+            "dsll": 4,
+            "dsll32": 2,
+            "ext": 4,
+            "jalr": 4,
+            "jr": 1,
+            "ld": 6,
+            "ldc1": 2,
+            "lui": 4,
+            "lwc1": 4,
+            "mfc1": 4,
+            "mov.s": 2,
+            "move": 5,
+            "movn": 4,
+            "nop": 1,
+            "or": 2,
+            "sd": 6,
+            "sdc1": 2,
+            "sltu": 4
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-asm/llvm-full-O3--f32x4-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "be811fef0f1d237487ee4a10ff8f831e1f5f84e843a86a7f1f85ccdc8b1e35e3"
+        },
+        {
+          "fixture": "f64x2-abs-special-bits",
+          "instruction_lines": 60,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "andi": 6,
+            "daddiu": 3,
+            "dext": 2,
+            "dsll": 2,
+            "dsll32": 2,
+            "jr": 1,
+            "lbu": 16,
+            "lui": 1,
+            "nop": 1,
+            "or": 14,
+            "sll": 12
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-asm/llvm-full-O3--f64x2-abs-special-bits/function-0.asm",
+          "assembly_sha256": "8b7a45dbbeff4d2b4019194dfd3e3c1d82e526c812a16e9904108682f3b1f036"
+        },
+        {
+          "fixture": "f64x2-neg-special-bits",
+          "instruction_lines": 60,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "andi": 4,
+            "daddiu": 3,
+            "dext": 2,
+            "dsll": 2,
+            "dsll32": 2,
+            "jr": 1,
+            "lbu": 16,
+            "lui": 1,
+            "nop": 1,
+            "or": 14,
+            "sll": 12,
+            "xori": 2
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-asm/llvm-full-O3--f64x2-neg-special-bits/function-0.asm",
+          "assembly_sha256": "dcc8ef15a22b53fbd9bd2d9df8a8df81435016d106b21dfac0c49195cac1533e"
+        },
+        {
+          "fixture": "f64x2-ceil-special-bits",
+          "instruction_lines": 47,
+          "link_setting_calls": 2,
+          "opcode_histogram": {
+            "daddiu": 10,
+            "dext": 2,
+            "dmfc1": 2,
+            "dsll": 4,
+            "dsll32": 2,
+            "jalr": 2,
+            "jr": 1,
+            "ld": 6,
+            "ldc1": 2,
+            "lui": 2,
+            "move": 3,
+            "movn": 2,
+            "nop": 1,
+            "sd": 6,
+            "sltu": 2
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-asm/llvm-full-O3--f64x2-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "846618b1fe5cea237ad59f0205b64a42c00fdd2425671a5b33f3beb0d2f4afb9"
+        },
+        {
+          "fixture": "f64x2-floor-special-bits",
+          "instruction_lines": 47,
+          "link_setting_calls": 2,
+          "opcode_histogram": {
+            "daddiu": 10,
+            "dext": 2,
+            "dmfc1": 2,
+            "dsll": 4,
+            "dsll32": 2,
+            "jalr": 2,
+            "jr": 1,
+            "ld": 6,
+            "ldc1": 2,
+            "lui": 2,
+            "move": 3,
+            "movn": 2,
+            "nop": 1,
+            "sd": 6,
+            "sltu": 2
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-asm/llvm-full-O3--f64x2-floor-special-bits/function-0.asm",
+          "assembly_sha256": "443e164ea49d08dd7f03c128e9e207511a59855a8233dc3fd012f5562635d3b3"
+        },
+        {
+          "fixture": "f64x2-trunc-special-bits",
+          "instruction_lines": 47,
+          "link_setting_calls": 2,
+          "opcode_histogram": {
+            "daddiu": 10,
+            "dext": 2,
+            "dmfc1": 2,
+            "dsll": 4,
+            "dsll32": 2,
+            "jalr": 2,
+            "jr": 1,
+            "ld": 6,
+            "ldc1": 2,
+            "lui": 2,
+            "move": 3,
+            "movn": 2,
+            "nop": 1,
+            "sd": 6,
+            "sltu": 2
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-asm/llvm-full-O3--f64x2-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "3f3728a34e7250d9ff396c63aadb2c1e9337a1844c585775af78d704a462997e"
+        }
+      ]
+    },
+    {
+      "arch": "mips64el",
+      "repo": "uwvm2-ros",
+      "signed_cache_processes": 180,
+      "authenticated_fresh_process_hits": 120,
+      "lane_checks": 12960,
+      "complete_exported_function_extents": 30,
+      "source_identities": {
+        "uwvm2": "sha256:d68895f7c34545ab78b7ef53470e9cb6062a97c027904897105d00e536156746",
+        "uwvm2-ros": "sha256:a5298a08a9a22327fc8cc474ff67ad1f303994ecf67bba40b2679bd5e194b90b"
+      },
+      "product_sha256": "a0bfd890169f115e2263de3d7ecbb24f04a0d00e7b311b1b7dc3526b4cfa058f",
+      "signed_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-cache/qualification.json",
+        "sha256": "77feace07d463ea528421aec4a3e83e8e12c19062874f88625a58bf4eb0ea90d",
+        "bytes": 1374463
+      },
+      "actual_authenticated_assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-asm/summary.json",
+        "sha256": "f592bda0be05e4966a8b59c4c122b9c20584e32ee8305e29f2633d2addfd3acf",
+        "bytes": 62038
+      },
+      "complete_instruction_observations": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-asm/simd-unary-instruction-observations.json",
+        "sha256": "e8e8754eeef5a5dd58ea0a8b3748c7b5579aa0c605f15a35af2a14233e0631ea",
+        "bytes": 144357
+      },
+      "O3_instruction_observations": [
+        {
+          "fixture": "f32x4-abs-special-bits",
+          "instruction_lines": 62,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "andi": 8,
+            "daddiu": 3,
+            "dext": 2,
+            "dsll": 2,
+            "dsll32": 2,
+            "jr": 1,
+            "lbu": 16,
+            "lui": 1,
+            "nop": 1,
+            "or": 14,
+            "sll": 12
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-asm/llvm-full-O3--f32x4-abs-special-bits/function-0.asm",
+          "assembly_sha256": "8b6d9e93fc153743abccde12eaf68e7ab8432987781322320c2f7e614a9a94d9"
+        },
+        {
+          "fixture": "f32x4-neg-special-bits",
+          "instruction_lines": 62,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "andi": 4,
+            "daddiu": 3,
+            "dext": 2,
+            "dsll": 2,
+            "dsll32": 2,
+            "jr": 1,
+            "lbu": 16,
+            "lui": 1,
+            "nop": 1,
+            "or": 14,
+            "sll": 12,
+            "xori": 4
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-asm/llvm-full-O3--f32x4-neg-special-bits/function-0.asm",
+          "assembly_sha256": "da35039273fce6e3cd5b93818fdbdda35e82440a3d984acd941b1d7595c7389d"
+        },
+        {
+          "fixture": "f32x4-ceil-special-bits",
+          "instruction_lines": 71,
+          "link_setting_calls": 4,
+          "opcode_histogram": {
+            "daddiu": 8,
+            "dext": 2,
+            "dsll": 4,
+            "dsll32": 2,
+            "ext": 4,
+            "jalr": 4,
+            "jr": 1,
+            "ld": 6,
+            "ldc1": 2,
+            "lui": 4,
+            "lwc1": 4,
+            "mfc1": 4,
+            "mov.s": 2,
+            "move": 5,
+            "movn": 4,
+            "nop": 1,
+            "or": 2,
+            "sd": 6,
+            "sdc1": 2,
+            "sltu": 4
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-asm/llvm-full-O3--f32x4-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "973dc42f605a6d88e271fd03ff870bc439cad53bf581bed1ecd80b0decd58f7a"
+        },
+        {
+          "fixture": "f32x4-floor-special-bits",
+          "instruction_lines": 71,
+          "link_setting_calls": 4,
+          "opcode_histogram": {
+            "daddiu": 8,
+            "dext": 2,
+            "dsll": 4,
+            "dsll32": 2,
+            "ext": 4,
+            "jalr": 4,
+            "jr": 1,
+            "ld": 6,
+            "ldc1": 2,
+            "lui": 4,
+            "lwc1": 4,
+            "mfc1": 4,
+            "mov.s": 2,
+            "move": 5,
+            "movn": 4,
+            "nop": 1,
+            "or": 2,
+            "sd": 6,
+            "sdc1": 2,
+            "sltu": 4
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-asm/llvm-full-O3--f32x4-floor-special-bits/function-0.asm",
+          "assembly_sha256": "0b27c264a6847301c911d8062843f5ef103cd371fa7941c4eae5c986d4b0dcc3"
+        },
+        {
+          "fixture": "f32x4-trunc-special-bits",
+          "instruction_lines": 71,
+          "link_setting_calls": 4,
+          "opcode_histogram": {
+            "daddiu": 8,
+            "dext": 2,
+            "dsll": 4,
+            "dsll32": 2,
+            "ext": 4,
+            "jalr": 4,
+            "jr": 1,
+            "ld": 6,
+            "ldc1": 2,
+            "lui": 4,
+            "lwc1": 4,
+            "mfc1": 4,
+            "mov.s": 2,
+            "move": 5,
+            "movn": 4,
+            "nop": 1,
+            "or": 2,
+            "sd": 6,
+            "sdc1": 2,
+            "sltu": 4
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-asm/llvm-full-O3--f32x4-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "b25815828304db71aa8c8762624e82e1fdc1c260bc33549f063ea0baff9ee2b9"
+        },
+        {
+          "fixture": "f64x2-abs-special-bits",
+          "instruction_lines": 60,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "andi": 6,
+            "daddiu": 3,
+            "dext": 2,
+            "dsll": 2,
+            "dsll32": 2,
+            "jr": 1,
+            "lbu": 16,
+            "lui": 1,
+            "nop": 1,
+            "or": 14,
+            "sll": 12
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-asm/llvm-full-O3--f64x2-abs-special-bits/function-0.asm",
+          "assembly_sha256": "0d99a90ceafb74e89dc360bad61946d6a21e8e9e6d77d768a760799786e68ee8"
+        },
+        {
+          "fixture": "f64x2-neg-special-bits",
+          "instruction_lines": 60,
+          "link_setting_calls": 0,
+          "opcode_histogram": {
+            "andi": 4,
+            "daddiu": 3,
+            "dext": 2,
+            "dsll": 2,
+            "dsll32": 2,
+            "jr": 1,
+            "lbu": 16,
+            "lui": 1,
+            "nop": 1,
+            "or": 14,
+            "sll": 12,
+            "xori": 2
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-asm/llvm-full-O3--f64x2-neg-special-bits/function-0.asm",
+          "assembly_sha256": "a0384b0b436cc070bcf742d3e2f633914c91f3aaff466cfd6abd02074e196516"
+        },
+        {
+          "fixture": "f64x2-ceil-special-bits",
+          "instruction_lines": 47,
+          "link_setting_calls": 2,
+          "opcode_histogram": {
+            "daddiu": 10,
+            "dext": 2,
+            "dmfc1": 2,
+            "dsll": 4,
+            "dsll32": 2,
+            "jalr": 2,
+            "jr": 1,
+            "ld": 6,
+            "ldc1": 2,
+            "lui": 2,
+            "move": 3,
+            "movn": 2,
+            "nop": 1,
+            "sd": 6,
+            "sltu": 2
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-asm/llvm-full-O3--f64x2-ceil-special-bits/function-0.asm",
+          "assembly_sha256": "e1543804197eaa45bc5da73303c3c2b5183d527624a776c45b2b414644f53993"
+        },
+        {
+          "fixture": "f64x2-floor-special-bits",
+          "instruction_lines": 47,
+          "link_setting_calls": 2,
+          "opcode_histogram": {
+            "daddiu": 10,
+            "dext": 2,
+            "dmfc1": 2,
+            "dsll": 4,
+            "dsll32": 2,
+            "jalr": 2,
+            "jr": 1,
+            "ld": 6,
+            "ldc1": 2,
+            "lui": 2,
+            "move": 3,
+            "movn": 2,
+            "nop": 1,
+            "sd": 6,
+            "sltu": 2
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-asm/llvm-full-O3--f64x2-floor-special-bits/function-0.asm",
+          "assembly_sha256": "3ebe9408efe485e7acd2ee95e3c5d5d8598a9c6937be0e34850dbd31393a8f3d"
+        },
+        {
+          "fixture": "f64x2-trunc-special-bits",
+          "instruction_lines": 47,
+          "link_setting_calls": 2,
+          "opcode_histogram": {
+            "daddiu": 10,
+            "dext": 2,
+            "dmfc1": 2,
+            "dsll": 4,
+            "dsll32": 2,
+            "jalr": 2,
+            "jr": 1,
+            "ld": 6,
+            "ldc1": 2,
+            "lui": 2,
+            "move": 3,
+            "movn": 2,
+            "nop": 1,
+            "sd": 6,
+            "sltu": 2
+          },
+          "assembly_path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/mips64el-uwvm2-ros-asm/llvm-full-O3--f64x2-trunc-special-bits/function-0.asm",
+          "assembly_sha256": "09ae5034b33824c34f90b0bbabfd2d09a9b82a3350858661904117dc22f41cd2"
+        }
+      ]
+    }
+  ],
+  "all_current_working_tree_qualified": false,
+  "complete_SIMD_qualified": false,
+  "complete_Core3_requested_threads_qualified": false,
+  "all_architectures_ABIs_qualified": false,
+  "twelve_exact_interpreter_variants_qualified": false,
+  "hardware_throughput_qualified": false,
+  "counts": {
+    "signed_cache_processes": 2700,
+    "authenticated_fresh_process_hits": 1800,
+    "cold_processes": 900,
+    "lane_checks": 194400,
+    "complete_exported_function_extents": 450,
+    "architecture_profiles": 5,
+    "paired_products": 10,
+    "successful_cgroup_commands": 20
+  },
+  "successful_cgroup_command_receipts": [
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/000-x86_64-uwvm2-cache/receipts.json",
+      "sha256": "dd126f91918f31acaf75bda7bcd04905994c67082e96a8b9cc4a0dddbce21b73",
+      "bytes": 215836
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/001-x86_64-uwvm2-asm/receipts.json",
+      "sha256": "7fab49d2dd6ddaa5d61133afaec8e70cef983f3f55eceb019627c47deeb9d15c",
+      "bytes": 37754
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/002-x86_64-uwvm2-ros-cache/receipts.json",
+      "sha256": "a327f637d0d9d42d5ff63a8d3d48bc1262861f77217b000f844b530e28536655",
+      "bytes": 109045
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/003-x86_64-uwvm2-ros-asm/receipts.json",
+      "sha256": "f119a9fc0cb3e2c3d5ec9854857446c11d5cbaaf783231c65885b264adf81cab",
+      "bytes": 28436
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/004-aarch64-uwvm2-cache/receipts.json",
+      "sha256": "82e78da3f1f89c619534452c19d6c61eb96712c35e4bcd855990c10784531117",
+      "bytes": 2228808
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/005-aarch64-uwvm2-asm/receipts.json",
+      "sha256": "6a7fb17736e333f52846835f1fda2605e2a9a61a8670f7d91036a349e3b50c9d",
+      "bytes": 34247
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/006-aarch64-uwvm2-ros-cache/receipts.json",
+      "sha256": "85ac4a183a7ede0db1c40bdac1d79a351c0255838fa472e6b26b6eae472d99d0",
+      "bytes": 1105965
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/007-aarch64-uwvm2-ros-asm/receipts.json",
+      "sha256": "64a3a192dbab37f9d5b18559afcd0b863ce9ab622539a77d00f4be66f0845968",
+      "bytes": 27327
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/008-riscv64-uwvm2-cache/receipts.json",
+      "sha256": "b13c331472f16b0383701b0d34fff17fecd542075d5e6cfcc446d7530b891f67",
+      "bytes": 2245087
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/009-riscv64-uwvm2-asm/receipts.json",
+      "sha256": "9d613193967583b78bb0dd3382f849d930c5d4a9d281650546d8cbd191592bcd",
+      "bytes": 36403
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/010-riscv64-uwvm2-ros-cache/receipts.json",
+      "sha256": "822803d8e497d703bb122a933a0f1d99af888d32ec2f8da3aea030f3f6e66fde",
+      "bytes": 1114338
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/011-riscv64-uwvm2-ros-asm/receipts.json",
+      "sha256": "abceb52b61f870a935808480bf7753674a04e6c05370a337ce651e31d187a1e9",
+      "bytes": 19486
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/012-loongarch64-uwvm2-cache/receipts.json",
+      "sha256": "c7bbbc911bb938a338640a9baae0d2b298429b151723b724191ca4f2cfc9c465",
+      "bytes": 2412853
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/013-loongarch64-uwvm2-asm/receipts.json",
+      "sha256": "35f457fada3e28371ea4083b141ecc6dad7f3026d7ad2c03fa870a30b15e3bf9",
+      "bytes": 29233
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/014-loongarch64-uwvm2-ros-cache/receipts.json",
+      "sha256": "05a34fd948cc942c98315c0a53641fab6c1971c23985923dd8984dda591e391e",
+      "bytes": 1195715
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/015-loongarch64-uwvm2-ros-asm/receipts.json",
+      "sha256": "d44996aabf3b4ead3d1be419458bce64804aa59a794e687d1dcb1ef32b37d714",
+      "bytes": 23246
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/016-mips64el-uwvm2-cache/receipts.json",
+      "sha256": "b1c1db1e51b6cbe5249a2e2e7cf2f761c0723c7903ccde580db60beb90c161ff",
+      "bytes": 2221987
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/017-mips64el-uwvm2-asm/receipts.json",
+      "sha256": "5fe9f2c3296541d7fd79ffe27a323f23ab7860f575b6b63ddf58da1e496ea32a",
+      "bytes": 33187
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/018-mips64el-uwvm2-ros-cache/receipts.json",
+      "sha256": "12c2517eb4695a27b3d3c525162e0d07c62175300b6bf514f196653da0cce0b1",
+      "bytes": 1102095
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cross-simd-float-unary-cache-asm-r1/cgopt-cross-simd-float-unary-cache-asm-r1-evidence/019-mips64el-uwvm2-ros-asm/receipts.json",
+      "sha256": "fde0a0f457e9b8d29ad152df55432f9e99650c7a76344022c9f2c87c88d18f41",
+      "bytes": 23419
+    }
+  ],
+  "remaining_qualification": [
+    "Actual T2 entry for these ten new unary fixtures.",
+    "All twelve exact interpreter macro build products; MIPS matrix and 480-process unary supplement are separate.",
+    "Remaining LLVM-supported Linux ISA/ABI profiles and complete Core3/requested thread concurrency coverage.",
+    "Hardware throughput and complete current live working trees."
+  ]
+}

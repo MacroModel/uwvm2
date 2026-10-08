@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "error": null,
+  "actual_root_exit": 0,
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "limits": {
+    "owned_rss_limit_bytes": 2147483648,
+    "memory.max": "68719476736",
+    "memory.swap.max": "0",
+    "cpuset": "0,2,4,6,16-31"
+  },
+  "owned_peak_aggregate_rss_upper_bytes": 10510336,
+  "parent_peak_memory_current_bytes": 43783032832,
+  "parent_events_unchanged": true,
+  "memory_events_before": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "memory_events_after": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "foreign_pids_observed_not_owned": [
+    1336801,
+    1366669,
+    1368243,
+    1376968,
+    1381853,
+    1381946,
+    1384697,
+    1385159,
+    1385247
+  ],
+  "history": [
+    {
+      "pid": 1384994,
+      "birth": 6288067,
+      "ppid": 1368646,
+      "state": "R",
+      "cg": "0::/user.slice/user-1000.slice/session-9448.scope\n",
+      "uid": 1000,
+      "argv": [
+        "/usr/bin/python3",
+        "-u",
+        "-c",
+        "import os,sys,signal;os.sched_setaffinity(0,set(range(16,32)));os.kill(os.getpid(),signal.SIGSTOP);os.execvpe(sys.argv[1],sys.argv[1:],os.environ)",
+        "/usr/bin/python3",
+        "-u",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/local_transport_qualify.py",
+        "joint-local-inputs-custody-r34",
+        "linux",
+        "all"
+      ]
+    }
+  ],
+  "retirement": [
+    {
+      "pid": 1384994,
+      "birth": 6288067,
+      "pidfd_retired": true
+    }
+  ],
+  "reaped": {},
+  "guard_sha256": "a8b75c44a80ba445f03575c512f0a86e00cc68bdcd847803de8101053b11fb7a",
+  "boot_id": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+  "anchor_pid": 11166,
+  "anchor_birth": 22661,
+  "storage_policy": {
+    "owned_directory": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17",
+    "directory_admission_bytes": 6442450944,
+    "directory_stop_bytes": 7516192768,
+    "directory_logical_stop_bytes": 17179869184,
+    "temporary_stop_bytes": 2147483648,
+    "filesystem_free_reserve_bytes": 34359738368,
+    "file_size_hard_limit_bytes": 1073741824,
+    "shared_cgroup_admission_bytes": 57982058496,
+    "shared_cgroup_stop_bytes": 64424509440,
+    "own_components_rss_stop_bytes": 2147483648,
+    "host_memory_admission_reserve_bytes": 8589934592,
+    "host_memory_running_reserve_bytes": 4294967296,
+    "tmpdir": "owned_directory/tmp",
+    "monitor_interval_seconds": 1,
+    "concurrency": "one suite under task-owned flock",
+    "limit_kind": "8 GiB private ext4 loop image provides a hard filesystem capacity; sampled guards keep additional reserves; RLIMIT_FSIZE enforces each file limit. Thin image allocation grows only with actual use.",
+    "cleanup": "Only explicitly owned disposable artifacts; retain inputs, dependency hashes, logs and reports. VM overlays one at a time, retired on completion after receipt validation. No full history extraction or private toolchain duplication.",
+    "volume_capacity_bytes": 8589934592,
+    "volume_free_reserve_bytes": 536870912,
+    "volume_image_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17.ext4",
+    "volume_inode_admission_reserve": 8192,
+    "volume_inode_running_reserve": 2048
+  },
+  "initial_storage": {
+    "directory": {
+      "logical_bytes": 7883554389,
+      "allocated_bytes": 6343286784,
+      "files": 158818
+    },
+    "temporary": {
+      "logical_bytes": 5837,
+      "allocated_bytes": 12288,
+      "files": 2
+    },
+    "filesystem_available_bytes": 35470745600,
+    "owned_volume_available_bytes": 2081189888,
+    "owned_volume_available_inodes": 9934,
+    "owned_volume_total_inodes": 65536,
+    "host_memory_available_bytes": 77493702656
+  },
+  "storage_peak_allocated_bytes": 6345863168,
+  "minimum_filesystem_available_bytes": 35469189120,
+  "final_storage": {
+    "logical_bytes": 7886130087,
+    "allocated_bytes": 6345863168,
+    "files": 158819
+  }
+}

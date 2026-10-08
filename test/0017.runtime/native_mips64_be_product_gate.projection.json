@@ -1,0 +1,130 @@
+{
+  "scope": "Paired exact production gate delta after independently qualified56 BE candidate VM/CLI sessions; new current-source product qualification pending",
+  "changes": [
+    {
+      "repo": "uwvm2",
+      "file": "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+      "before_sha256": "3b880e96cdefa95f92854ca0f3f7f3d6bc54c552391661347c6fe61110f2ca11",
+      "after_sha256": "a5f380852d317bd14163ef8aa5b9c0e7de86b59a8444acaa81ab90d055a0e39b",
+      "guard_count": 23,
+      "owned_delta": "Remove only MIPSEL from exact N64/R2 non-mips16/non-microMIPS debug guard; preserve all runtime authority checks"
+    },
+    {
+      "repo": "uwvm2",
+      "file": "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+      "before_sha256": "2388c32f27c38ef3502bb01a175426578ac647d0050e953200f317971fee578e",
+      "after_sha256": "14a6c4c4df614a9d24c886f416b29e29b92388e1ee01e953763b19fc18292ed4",
+      "guard_count": 1,
+      "owned_delta": "Remove only MIPSEL from exact N64/R2 non-mips16/non-microMIPS debug guard; preserve all runtime authority checks"
+    },
+    {
+      "repo": "uwvm2",
+      "file": "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h",
+      "before_sha256": "d60fd557e587b6d326686dd6f16493f66fc3de1306da0c4b6fb0d39450125236",
+      "after_sha256": "1a4f30e91df9b3dccd7834645ce0b1809236d97c48ef3c1a8b2222318f307269",
+      "guard_count": 4,
+      "owned_delta": "Remove only MIPSEL from exact N64/R2 non-mips16/non-microMIPS debug guard; preserve all runtime authority checks"
+    },
+    {
+      "repo": "uwvm2",
+      "file": "src/uwvm2/uwvm/debugger/controller.h",
+      "before_sha256": "f6b1e85891e04f7b3e1d40a0baaab2806b3db56c914451e1784aa2dd80502f73",
+      "after_sha256": "eedca7b85f25965eb43e6fe49b56bf49dcaaceeaa80da137383429dc5ba854b1",
+      "guard_count": 3,
+      "owned_delta": "Remove only MIPSEL from exact N64/R2 non-mips16/non-microMIPS debug guard; preserve all runtime authority checks"
+    },
+    {
+      "repo": "uwvm2",
+      "file": "test/0017.runtime/debug_native_finish_console.cc",
+      "before_sha256": "d1422c327f982ed27f7bb18a0019b8a5014d839a5edb6ad152f7b6c7d3e188fc",
+      "after_sha256": "aebd9818cea74bef220918d0c9f4924a6b2ddcf0095ed0712982ec6c057dec2e",
+      "guard_count": 2,
+      "owned_delta": "Remove only MIPSEL from exact N64/R2 non-mips16/non-microMIPS debug guard; preserve all runtime authority checks"
+    },
+    {
+      "repo": "uwvm2-ros",
+      "file": "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+      "before_sha256": "3b880e96cdefa95f92854ca0f3f7f3d6bc54c552391661347c6fe61110f2ca11",
+      "after_sha256": "a5f380852d317bd14163ef8aa5b9c0e7de86b59a8444acaa81ab90d055a0e39b",
+      "guard_count": 23,
+      "owned_delta": "Remove only MIPSEL from exact N64/R2 non-mips16/non-microMIPS debug guard; preserve all runtime authority checks"
+    },
+    {
+      "repo": "uwvm2-ros",
+      "file": "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+      "before_sha256": "2388c32f27c38ef3502bb01a175426578ac647d0050e953200f317971fee578e",
+      "after_sha256": "14a6c4c4df614a9d24c886f416b29e29b92388e1ee01e953763b19fc18292ed4",
+      "guard_count": 1,
+      "owned_delta": "Remove only MIPSEL from exact N64/R2 non-mips16/non-microMIPS debug guard; preserve all runtime authority checks"
+    },
+    {
+      "repo": "uwvm2-ros",
+      "file": "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h",
+      "before_sha256": "d60fd557e587b6d326686dd6f16493f66fc3de1306da0c4b6fb0d39450125236",
+      "after_sha256": "1a4f30e91df9b3dccd7834645ce0b1809236d97c48ef3c1a8b2222318f307269",
+      "guard_count": 4,
+      "owned_delta": "Remove only MIPSEL from exact N64/R2 non-mips16/non-microMIPS debug guard; preserve all runtime authority checks"
+    },
+    {
+      "repo": "uwvm2-ros",
+      "file": "src/uwvm2/uwvm/debugger/controller.h",
+      "before_sha256": "f6b1e85891e04f7b3e1d40a0baaab2806b3db56c914451e1784aa2dd80502f73",
+      "after_sha256": "eedca7b85f25965eb43e6fe49b56bf49dcaaceeaa80da137383429dc5ba854b1",
+      "guard_count": 3,
+      "owned_delta": "Remove only MIPSEL from exact N64/R2 non-mips16/non-microMIPS debug guard; preserve all runtime authority checks"
+    },
+    {
+      "repo": "uwvm2-ros",
+      "file": "test/0017.runtime/debug_native_finish_console.cc",
+      "before_sha256": "d1422c327f982ed27f7bb18a0019b8a5014d839a5edb6ad152f7b6c7d3e188fc",
+      "after_sha256": "aebd9818cea74bef220918d0c9f4924a6b2ddcf0095ed0712982ec6c057dec2e",
+      "guard_count": 2,
+      "owned_delta": "Remove only MIPSEL from exact N64/R2 non-mips16/non-microMIPS debug guard; preserve all runtime authority checks"
+    },
+    {
+      "repo": "uwvm2",
+      "file": "xmake.lua",
+      "before_sha256": "da6f23b542bba4c6f0059b9fb4c166ad4a599ebd40b32e9c4bb2ba0f4b9a2b05",
+      "after_sha256": "bd715ee8b5c45a633094386a5afa4806fccf7587e38a420eb718905e29b7444d",
+      "owned_delta": "Admit BE N64 continuation product and prevent gold consumers from receiving LLVM LTO bitcode"
+    },
+    {
+      "repo": "uwvm2",
+      "file": "xmake/rule.lua",
+      "before_sha256": "0c5676c443c6666e2b9add1e26c23712f9bd546db3f5e97caa489a65b12dc083",
+      "after_sha256": "4684ab00fc0949676f4b400f89bfcdc84bcd34cdae2ef85bb077bf8b6f033585",
+      "owned_delta": "Admit BE N64 continuation product and prevent gold consumers from receiving LLVM LTO bitcode"
+    },
+    {
+      "repo": "uwvm2-ros",
+      "file": "xmake.lua",
+      "before_sha256": "42ac6208d816ba47155930c3bb71b239e01419d1f4cf5f5512eaf28bc5327317",
+      "after_sha256": "0d8ca3e785a1369f80eddf718271ed05dc997a16ecd32ba135f08a2b975e00b4",
+      "owned_delta": "Admit BE N64 continuation product and prevent gold consumers from receiving LLVM LTO bitcode"
+    },
+    {
+      "repo": "uwvm2-ros",
+      "file": "xmake/rule.lua",
+      "before_sha256": "0c5676c443c6666e2b9add1e26c23712f9bd546db3f5e97caa489a65b12dc083",
+      "after_sha256": "4684ab00fc0949676f4b400f89bfcdc84bcd34cdae2ef85bb077bf8b6f033585",
+      "owned_delta": "Admit BE N64 continuation product and prevent gold consumers from receiving LLVM LTO bitcode"
+    },
+    {
+      "repo": "uwvm2",
+      "file": "xmake/platform/linux.lua",
+      "before_sha256": "e0f4f6b0ac01ea22b0a6539f9a46eb40e14578c283f417fef4e286d7ec8f02ca",
+      "after_sha256": "a1e1a6c4aecccf37c922c82c27d4f8a1b4ad8abbb3fb230c419623b1eabc7c27",
+      "owned_delta": "Choose qualified GNU gold by actual N64 compiler target byte order, preserving noexecstack and non-N64 profiles"
+    },
+    {
+      "repo": "uwvm2-ros",
+      "file": "xmake/platform/linux.lua",
+      "before_sha256": "e0f4f6b0ac01ea22b0a6539f9a46eb40e14578c283f417fef4e286d7ec8f02ca",
+      "after_sha256": "a1e1a6c4aecccf37c922c82c27d4f8a1b4ad8abbb3fb230c419623b1eabc7c27",
+      "owned_delta": "Choose qualified GNU gold by actual N64 compiler target byte order, preserving noexecstack and non-N64 profiles"
+    }
+  ],
+  "all_abi_width_R2_and_exclusion_guards_preserved": true,
+  "typed_tail_ABI_guard_unchanged": true,
+  "current_product_executions_qualified": false
+}

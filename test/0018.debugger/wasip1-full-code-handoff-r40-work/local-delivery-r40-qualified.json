@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "native_cases": 32,
+  "frontend_checks": 20,
+  "source_inputs": 50,
+  "owned_source_paths": 32,
+  "local_evidence_allocated_bytes": 7053312,
+  "source_manifest_sha256": "dd4e71cce2042786afb1d75151c1e2a19c0c66d30dcc56e79b64e77460d3aef3",
+  "synchronized_reports": {
+    "uwvm2": {
+      "wasip1_full_code_handoff_r40_test_report.md": "33714bd2f1e76927f58dab7a8596aac52d5ab1bd4aafaacd78677fc1946f8d13",
+      "wasip1_full_code_handoff_r40_test_report.json": "972510454519556335b23a724488c04a75aa3e1a43ea6515c53aae7ee4c6f5e1"
+    },
+    "uwvm2-ros": {
+      "wasip1_full_code_handoff_r40_test_report.md": "33714bd2f1e76927f58dab7a8596aac52d5ab1bd4aafaacd78677fc1946f8d13",
+      "wasip1_full_code_handoff_r40_test_report.json": "972510454519556335b23a724488c04a75aa3e1a43ea6515c53aae7ee4c6f5e1"
+    }
+  },
+  "archive_sha256": "8ca0e86929842e688dc104b1e60f79470e5201ece7225d0e8d129ff6e07eb974",
+  "validation_kind": "local delivery and source equivalence bookkeeping; native qualification remains in original cgroup receipts",
+  "world_publication": false,
+  "restored_worker_startup": false,
+  "guest_replay": false
+}

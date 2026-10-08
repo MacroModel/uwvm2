@@ -1,0 +1,360 @@
+{
+  "passed": true,
+  "scope": "Literal finite-range, DAP syntax/protocol and component DATA; live producer/native language parity not qualified",
+  "source_cuts": {
+    "uwvm2": "sha256:e16d76f6ba97223d5dcfadf1b47923fa9cd51d84e26614e029364896edc27a6a",
+    "uwvm2-ros": "sha256:f502154ca8b3adcb0a8b2be6aea046b098edbcb77c83c8a3e3a3a5847e65d548"
+  },
+  "rows": [
+    {
+      "repository": "uwvm2",
+      "profile": "native",
+      "passed": true,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-range-a2/out-uwvm2/range-native-a1/results.json",
+      "record_sha256": "a4f5fe9a524f5fffd3e486abfac3cd351f06c1ced1d66a469e1cac616f0871bd",
+      "recorded_phases": 15,
+      "range_cases": 1230,
+      "CXX_guest_ABI_result_rows": 2460,
+      "old_DAP_false_acceptances": 408,
+      "valid_maximum_rounding_cases": 70,
+      "frame_protocol_tests": 33,
+      "DAP_corpus": {
+        "positive": 230,
+        "negative": 182
+      }
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64",
+      "passed": true,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-range-a2/out-uwvm2/range-cross-a1-ppc64/results.json",
+      "record_sha256": "d501a9e5c5066117886ff3049caec2b0b1cbcfa2ef403332e52cd06c048a1e57",
+      "components": 3,
+      "range_cases": 1230,
+      "CXX_guest_ABI_result_rows": 2460,
+      "valid_maximum_rounding_cases": 70,
+      "wrapped_overflow_rejections": 16,
+      "target_output_equals_native": true
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "x86_64",
+      "passed": true,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-range-a2/out-uwvm2/range-cross-a1-x86_64/results.json",
+      "record_sha256": "3bbbfc60e1d894097c97ef58fbe3eea3c3873e78c2cb7a2326e1362b95493296",
+      "components": 3,
+      "range_cases": 1230,
+      "CXX_guest_ABI_result_rows": 2460,
+      "valid_maximum_rounding_cases": 70,
+      "wrapped_overflow_rejections": 16,
+      "target_output_equals_native": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "native",
+      "passed": true,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-range-a2/out-uwvm2-ros/range-native-a1/results.json",
+      "record_sha256": "78118b8a570a9101104aa14804ed7a64a5238db1e36397eeef7dd75e4f41f92e",
+      "recorded_phases": 15,
+      "range_cases": 1230,
+      "CXX_guest_ABI_result_rows": 2460,
+      "old_DAP_false_acceptances": 408,
+      "valid_maximum_rounding_cases": 70,
+      "frame_protocol_tests": 33,
+      "DAP_corpus": {
+        "positive": 230,
+        "negative": 182
+      }
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64",
+      "passed": true,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-range-a2/out-uwvm2-ros/range-cross-a1-ppc64/results.json",
+      "record_sha256": "37d4361595a6488edd15cf9bfa97c6952bedb6af31ca9230c0d86af717f27fcf",
+      "components": 3,
+      "range_cases": 1230,
+      "CXX_guest_ABI_result_rows": 2460,
+      "valid_maximum_rounding_cases": 70,
+      "wrapped_overflow_rejections": 16,
+      "target_output_equals_native": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "x86_64",
+      "passed": true,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-range-a2/out-uwvm2-ros/range-cross-a1-x86_64/results.json",
+      "record_sha256": "4bc4e56c412c4cbfc8a09dd1d31699a10bc27d9585e23309ed9c27e7cbe1d78b",
+      "components": 3,
+      "range_cases": 1230,
+      "CXX_guest_ABI_result_rows": 2460,
+      "valid_maximum_rounding_cases": 70,
+      "wrapped_overflow_rejections": 16,
+      "target_output_equals_native": true
+    }
+  ],
+  "counts": {
+    "successful_jobs": 6,
+    "native_phases": 30,
+    "frame_protocol_tests": 66,
+    "QEMU_components": 12,
+    "generated_literal_cases_per_job": 1230,
+    "generated_literal_checks": 7380,
+    "actual_CXX_Wasm32_Wasm64_rows": 14760,
+    "old_DAP_false_acceptances": 816,
+    "valid_maximum_rounding_cases_per_job": 70,
+    "DAP_positive": 230,
+    "DAP_negative": 182,
+    "new_DAP_positive": 9,
+    "new_DAP_negative": 50,
+    "input_hash_checks": 25486,
+    "separator_fixture_checks": 3947904
+  },
+  "guards": [
+    {
+      "label": "uwvm2-range-native",
+      "passed": true,
+      "aggregate_owned_rss_peak_bytes": 712601600,
+      "wall_seconds": 95.32758829100021,
+      "maximum_observed_own_output_bytes": 5955124,
+      "root_retirement": {
+        "pid": 175583,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-range-native",
+      "passed": true,
+      "aggregate_owned_rss_peak_bytes": 713355264,
+      "wall_seconds": 90.85130593999929,
+      "maximum_observed_own_output_bytes": 11934506,
+      "root_retirement": {
+        "pid": 177527,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "label": "uwvm2-ppc64-range-cross",
+      "passed": true,
+      "aggregate_owned_rss_peak_bytes": 780058624,
+      "wall_seconds": 40.45088202700026,
+      "maximum_observed_own_output_bytes": 13992305,
+      "root_retirement": {
+        "pid": 178892,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-ppc64-range-cross",
+      "passed": true,
+      "aggregate_owned_rss_peak_bytes": 779755520,
+      "wall_seconds": 39.58793554999829,
+      "maximum_observed_own_output_bytes": 16061295,
+      "root_retirement": {
+        "pid": 179557,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "label": "uwvm2-x8664-range-cross",
+      "passed": true,
+      "aggregate_owned_rss_peak_bytes": 782168064,
+      "wall_seconds": 38.46465933499894,
+      "maximum_observed_own_output_bytes": 17649594,
+      "root_retirement": {
+        "pid": 180881,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-x8664-range-cross",
+      "passed": true,
+      "aggregate_owned_rss_peak_bytes": 782077952,
+      "wall_seconds": 39.08221094600049,
+      "maximum_observed_own_output_bytes": 19249137,
+      "root_retirement": {
+        "pid": 183017,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    }
+  ],
+  "retained_failed_attempts": {
+    "native_fixture_underflow_expectation": {
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-range-a1/control-qualification-a1/receipts.json",
+      "sha256": "4c74737449ecd19c009a44ba0e1b40e7c440dfcebd0d6e6715171003bfa74cca"
+    },
+    "label_preflight": {
+      "observed_failure": "assert isinstance(label,str) and label.replace(\"-\",\"\").isalnum()",
+      "bad_label": "uwvm2-x86_64-range-cross",
+      "pending_x86_jobs_not_admitted": true,
+      "first_four_guards_passed": true,
+      "correction": "diagnostic labels x86_64 -> x8664; actual pinned argv and immutable source unchanged",
+      "original_command_file_sha256": "f5594f61e7c2fcc393823f6f67af8dd6ae525946c4a2b31c9668abc0325742c2",
+      "corrected_command_file_sha256": "d2ed954b432a7adad497ea23e75ff14f90f15b871d9611534703d361001b6d20"
+    },
+    "local_temporary_ENOSPC": "write-open refused; both adapter bytes remained intact at 50ed22d376ae434ed2eec7ea8f4079b19586ee2a272a1621a41b53d5db8b41a0. Removed only two SHA-verified redundant local upload archives already retained on Linux, then used atomic CAS writes."
+  },
+  "resources": {
+    "cgroup_bytes": 68719476736,
+    "owned_RSS_peak_bytes": 782168064,
+    "maximum_observed_own_output_bytes": 19249137,
+    "guard_seconds": 343.7645820889975,
+    "hard_image_bytes": 17179869184,
+    "allocated_image_bytes_before_archive": 1019482112,
+    "arena_free_bytes": 15913869312,
+    "filesystem_id": "12191019222208619510",
+    "no_OOM_events": true
+  },
+  "implementation_hashes": {
+    "tools/debug/dap_adapter.py": "d27d809102abe767d410a3163718a16071936696dda3e445b21d04b61bfb25a5",
+    "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "c512c7602fbc58275e837c83eb9c81cc2f335f9532c80aa7d2a5026207e46ecb",
+    "test/0017.runtime/debug_source_float_range.cc": "f9d5dd8b71505c4728a83412dc979513a389b89fbd78d54dd90f53caf1a36134",
+    "test/0017.runtime/run_debug_float_range.py": "864f48365efcbe3223c60b5c5d79c3874ccb885dab1b4bd40cbd6eaf00fbe819",
+    "test/0017.runtime/run_debug_linux_qemu_components.py": "379b7d6bba5de7aa5cb580c5396dde2fdd902fcd8f7d7fdcbf8dceacc2009171",
+    "test/0018.debugger/dap_source_expression_cases.json": "fd6c073466eda0a3353c744621950f686165b45f568f41402d65d4ef6b4fd24e"
+  },
+  "existing_CXX_fast_io_parser_unchanged": true,
+  "references": {
+    "Python_Decimal": "https://docs.python.org/3/library/decimal.html",
+    "range_policy": "finite fast_io decimal conversion including nonzero rounded-to-zero underflow errors"
+  },
+  "inputs_after_unchanged": true,
+  "archive": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-range-a2/float-range-evidence-a1.tar.xz",
+    "bytes": 34405604,
+    "sha256": "18b35b34dc5ecfc38fd2368e66d0e2cabbb5f28780cabb1373cd7d66c3dbdc26",
+    "regular_members": 12751,
+    "all_member_hashes_verified_linux": true,
+    "archived_inputs_after_unchanged": true,
+    "sdk_file_hashes_after_unchanged": true,
+    "image_allocated_bytes_after_archive": 1019506688
+  },
+  "local_copy": {
+    "passed": true,
+    "local_archive": "/Users/liyinan/.codex/artifacts/uwvm2-float-range-evidence-20261006-a1/float-range-evidence-a1.tar.xz",
+    "bytes": 34405604,
+    "sha256": "18b35b34dc5ecfc38fd2368e66d0e2cabbb5f28780cabb1373cd7d66c3dbdc26",
+    "regular_members": 12751,
+    "all_member_hashes_verified_local": true,
+    "linux_all_member_hashes_verified": true,
+    "local_free_bytes_after": 128081920
+  },
+  "current_adapter_scope": {
+    "passed": true,
+    "current": {
+      "uwvm2": {
+        "sha256": "47bbea77760042469bd192b10231896321f6bc006654fbe5ff92d84f7841c8be",
+        "qualified_function_unchanged": true
+      },
+      "uwvm2-ros": {
+        "sha256": "47bbea77760042469bd192b10231896321f6bc006654fbe5ff92d84f7841c8be",
+        "qualified_function_unchanged": true
+      }
+    },
+    "qualified_adapter_sha256": "d27d809102abe767d410a3163718a16071936696dda3e445b21d04b61bfb25a5",
+    "concurrent_other_function_changes_preserved": true
+  }
+}

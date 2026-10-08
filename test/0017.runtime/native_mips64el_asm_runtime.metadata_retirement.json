@@ -1,0 +1,114 @@
+{
+  "schema": "uwvm-shared-original-cgroup-owned-pidfd-v1",
+  "argv": [
+    "python3",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current481/build-meta/normalize-owner-profile.py"
+  ],
+  "source_root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/source-current471",
+  "source_manifest_sha256": "5be6f1020c7eb764f223ca010969b1781dbd0af0cf6ac773c82a8fd202fc926f",
+  "supervisor_sha256": "c006b52dc5e85973f2f11ceebac668af95425dae48f6aab7313ebcfba7e191de",
+  "commands_sha256": "0e36805e781ef533d91758a667cf80ddf51d12ba18738b9a7850f3a3a79f2988",
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "memory_max": 68719476736,
+  "swap_max": 0,
+  "all_test_outputs_in_tmpfs": false,
+  "original_exclusive_disk_floor_qualified": false,
+  "owned_rss_budget": 6442450944,
+  "rss_peak": 52707328,
+  "resource_peak": {
+    "own_folder": 3695013888,
+    "shared_folder": 38530617344,
+    "group_memory": 45643165696
+  },
+  "resource_policy_sha256": "fd56e4fd65e5bf725f197d95b5f63c288524030163212ab4a5f239be13dc6c6a",
+  "elapsed": 0.6091349850030383,
+  "foreign_roster_before": [
+    11166,
+    848297,
+    849510,
+    849637,
+    850382,
+    850383,
+    850384,
+    850472
+  ],
+  "foreign_roster_after": [
+    11166,
+    848297,
+    849510,
+    849637,
+    850382,
+    850383,
+    850384,
+    850472
+  ],
+  "admissions": [
+    {
+      "pid": 850977,
+      "birth": 4392157,
+      "ppid": 850810,
+      "state": "R",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 1028096,
+      "cgroup": "0::/user.slice/user-1000.slice/session-6450.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    }
+  ],
+  "executable_history": [
+    {
+      "pid": 850977,
+      "birth": 4392157,
+      "exe": "/usr/bin/python3.14",
+      "sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700"
+    }
+  ],
+  "retirement": [
+    {
+      "pid": 850977,
+      "birth": 4392157,
+      "pidfd_readable": true
+    }
+  ],
+  "memory_events_before": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "memory_events_after": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "returncode": 0,
+  "error": null,
+  "passed": true,
+  "log_sha256": "66ffac9f4d4c8b95674d631b93ad07eab12dbbd78e10455b70e719c1326dfcbd"
+}

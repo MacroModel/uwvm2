@@ -1,0 +1,237 @@
+{
+  "passed": true,
+  "scope": "Exact frozen source227 AArch64 full INT products, source/header/object/ELF/input/log/library closure and fresh final execution. Actual normal Wasm execution and Rdbg launch-time refusal; no live debugger or JIT-native claim.",
+  "source_root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/source-current227",
+  "source_manifest_sha256": "61c228c33b7c74650acf63d8f915026fafda5a3f3128f5e723b8cfd39b923dca",
+  "source_files": 8052,
+  "test_runner_sha256": "1f31dbda4553298135ee452034417093ff55eae3abf0018d9d6d49874e54d37c",
+  "images": [
+    {
+      "repository": "uwvm2",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current228/build-meta/work/uwvm2-full-int",
+      "sha256": "853573c7a8e67a20bc5d5b1af4a5f86bad81deed542b763b4bc9afe9265f9cc9",
+      "source_id": "78538935ba46f49b12e70905a8ae8f18177c3d1b048a5d6b110cf80609ed3f0a",
+      "profile": "full INT only; native JIT disabled",
+      "ELF_machine": 183
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current229/build-meta/work/uwvm2-ros-full-int",
+      "sha256": "68e8ddc705c85209f18a1152215994dfffc94bd3a0e0fb1ae7d4228def939927",
+      "source_id": "d4be2868e7cb6acf5cc21f3f3b3d327ceb962f2c16549bd490f4cbc79720a3b8",
+      "profile": "full INT only; native JIT disabled",
+      "ELF_machine": 183
+    }
+  ],
+  "selected_final_actual_INT_Wasm_executions": 2,
+  "selected_final_Rdbg_startup_refusals": 2,
+  "VM_native_context_exposed": false,
+  "failed227_and228_preserved": true,
+  "reboot_environment": {
+    "boot": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+    "container": "d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03",
+    "pid": 11166,
+    "birth": 22661,
+    "running": true,
+    "cgroup": "/sys/fs/cgroup/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope",
+    "max": "68719476736",
+    "swap": "0",
+    "cpus": "0,2,4,6,16-31",
+    "events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "keeper_cmdline": "sleep infinity "
+  },
+  "schema": "uwvm-full-int-aarch64-native-context-rejection-v1",
+  "full_proof": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current230/build-meta/QUALIFIED_INT230.json",
+  "full_proof_sha256": "3cc3bb66cffb53decfab638c83e8840457eb1973c46e9fc6c063c73a1dcec16b",
+  "evidence_archive": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current230/build-meta/work/evidence230.tar.gz",
+    "sha256": "864b6b21f775ae0ba723f60ce8d1d652569cdeb864af75f8e2145a01abcb4035",
+    "bytes": 18882232,
+    "members": 8171,
+    "full_proof": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current230/build-meta/QUALIFIED_INT230.json",
+    "full_proof_sha256": "3cc3bb66cffb53decfab638c83e8840457eb1973c46e9fc6c063c73a1dcec16b",
+    "member_index_sha256": "2b548140f26516f5e139c1bce031d1a8b40cb71781a14a6ad694ca57160c0b44"
+  },
+  "verified_inputs": 4246,
+  "library_closure_count": 77,
+  "results": [
+    {
+      "repository": "uwvm2",
+      "normal_Wasm_executions": 1,
+      "Rdbg_startup_refusals": 1,
+      "normal_exit_code": 0,
+      "rejected_Rdbg_exit_code": 126,
+      "log_sha256": "318f2a90195fecbcf19e9a3c4f2fc4b3663b7af57e58183f9505c9e1c0ea9d4e",
+      "Wasm_sha256": "338321097cf0c17efd4c63227d413331241853118c1f0f86e9d616bae54f84a4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "normal_Wasm_executions": 1,
+      "Rdbg_startup_refusals": 1,
+      "normal_exit_code": 0,
+      "rejected_Rdbg_exit_code": 126,
+      "log_sha256": "318f2a90195fecbcf19e9a3c4f2fc4b3663b7af57e58183f9505c9e1c0ea9d4e",
+      "Wasm_sha256": "338321097cf0c17efd4c63227d413331241853118c1f0f86e9d616bae54f84a4"
+    }
+  ],
+  "reclamation": {
+    "passed": true,
+    "logical_bytes_reclaimed": 227345696,
+    "complete_system_mapping_census": false,
+    "no_foreign_processes_signalled": true,
+    "authority": "Exact private path/hash, own source producers retired, all registered consumers229/230 retired, verified source/metadata archive retained",
+    "retained": "sources, SDK, sysroot, receipts, logs, .d files, recipes and source evidence archive",
+    "record_sha256": "6ab7e94fcf9fcf4c3fecf5e5501e104b34440ecde569a2cc9e97b6263f852bed",
+    "files": 6
+  },
+  "receipts": {
+    "227": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current227/build-meta/complete-evidence/receipt.json",
+      "sha256": "906bdd7cb37a668a25633ea231602b07a74474c81d0b6b98be0d40889cfe133e",
+      "passed": false,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_RSS_peak_bytes": 1670582272,
+      "resource_peak": {
+        "own_folder": 1832546304,
+        "shared_folder": 27681644544,
+        "group_memory": 15236378624
+      }
+    },
+    "228": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current228/build-meta/complete-evidence/receipt.json",
+      "sha256": "e1df881f75590f35ca7714e55b73ccdefb001a80cdc7e0af527f33727692ee5b",
+      "passed": false,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_RSS_peak_bytes": 4823810048,
+      "resource_peak": {
+        "own_folder": 1918791680,
+        "shared_folder": 28087906304,
+        "group_memory": 18412662784
+      }
+    },
+    "229": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current229/build-meta/complete-evidence/receipt.json",
+      "sha256": "9d43699a27e1a5b2d238b3483ad7a349d2b994475b22aec3ec51e17b3028ab66",
+      "passed": true,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_RSS_peak_bytes": 4757934080,
+      "resource_peak": {
+        "own_folder": 2066542592,
+        "shared_folder": 28352634880,
+        "group_memory": 16263696384
+      }
+    },
+    "230": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current230/build-meta/complete-evidence/receipt.json",
+      "sha256": "0b575540f598abfe57d7f0468da2ccd5146813a69360669d7f1cda2f74e24938",
+      "passed": true,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_RSS_peak_bytes": 102293504,
+      "resource_peak": {
+        "own_folder": 2070245376,
+        "shared_folder": 28376367104,
+        "group_memory": 14124666880
+      }
+    },
+    "231": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current231/build-meta/complete-evidence/receipt.json",
+      "sha256": "b02285d9bb769debdd694c97cd3e19c0cf12dbb076fcbed7c1e21e62653c59f9",
+      "passed": true,
+      "all_owned_PIDFD_retired": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_RSS_peak_bytes": 127467520,
+      "resource_peak": {
+        "own_folder": 2090434560,
+        "shared_folder": 28376375296,
+        "group_memory": 17933664256
+      }
+    }
+  },
+  "limitations": [
+    "AArch64 Linux exact GNU ABI and recorded QEMU prefix; not all interpreter features or other architectures",
+    "Rdbg is currently LLVM-full-only: no live full INT debug session, Wasm stepping or32-ASM-command-count qualification",
+    "Product frozen source227 includes the earlier unexecuted test script; the revised consumer runner is pinned separately by test_runner_sha256",
+    "Failed227 compiler configuration and failed228 initial debugger-entry expectation are retained; completed228 producer command scopes were independently revalidated229",
+    "Compiled private products were reclaimed after final audit, archive and owned PIDFD retirement; SDK/sysroot/source/logs remain"
+  ]
+}

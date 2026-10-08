@@ -1,0 +1,3756 @@
+{
+  "passed": true,
+  "round": "R48",
+  "date": "2026-10-07T17:43:21.882047+00:00",
+  "scope": "primitive predicate/Boolean semantics and finite genuine Rust/TinyGo DAP routes; no full native equivalence",
+  "products": [
+    {
+      "repository": "uwvm2",
+      "source_id": "sha256:dfeb3ea077517a749a9ac795d66ae402db90a03ae01bf9520f51a0f57fc0e5a4",
+      "binary_sha256": "14ee0e721eb8d7a43cb433e6cb1570df444449b714fb992333cb032ca1fb50b8",
+      "binary_bytes": 178669448,
+      "receipt_sha256": "fd9780f6f890bbe48402ef0f992cfa2a82e6fab0ae98527b009c4ee698c34fbf",
+      "all_product_TUs_fresh": true,
+      "historical_fixed_LLVM23_provider": true,
+      "latest_ROS_provider_qualified": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "source_id": "sha256:0a37477321b282fcfbd66cc4e22793f19423ddd9845f84dfdf0705d996372605",
+      "binary_sha256": "4ecd339ede8f9ac719d590d5204d74d2f06000068814f4f52b8f0ece9f59c8ba",
+      "binary_bytes": 144223880,
+      "receipt_sha256": "6379a7b003a771782d46a97f7a67cf8757afdf9e93bfa1269b19567d69d17f1f",
+      "all_product_TUs_fresh": true,
+      "historical_fixed_LLVM23_provider": true,
+      "latest_ROS_provider_qualified": false
+    }
+  ],
+  "components": [
+    {
+      "repository": "uwvm2",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-data-a4-r48/out-uwvm2/native-a1/results.json",
+      "receipt_sha256": "b874f2f842a7f60e0313040defbe3ec79dd708751da961875a86213852ef4646",
+      "primitive_checks": 721385,
+      "new_and_regression_cases": 9,
+      "old_header_expected_failure_signal": 4,
+      "all_actual_dependencies_pinned_before": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-data-a4-r48/out-uwvm2-ros/native-a1/results.json",
+      "receipt_sha256": "4d63d29902d7d17143a147f97bfc7b3aefceb712a97c2e12f2961a9d40e196d0",
+      "primitive_checks": 721385,
+      "new_and_regression_cases": 9,
+      "old_header_expected_failure_signal": 4,
+      "all_actual_dependencies_pinned_before": true
+    }
+  ],
+  "unit_tests": [
+    {
+      "repository": "uwvm2",
+      "count": 434,
+      "log_sha256": "9ab853403dbcce03751a9ffb09be8d030d525c62f9487407e19313246b3c2c1e"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "count": 434,
+      "log_sha256": "8d86f1330dffeca70b99a9bea36d5d0df43b64145efa1a1a67da38fddf04e88c"
+    }
+  ],
+  "sessions": [
+    {
+      "repository": "uwvm2",
+      "phase": "instruction",
+      "sessions": 2,
+      "receipt_sha256": "0f903797f8c895ad68181751e8accd35cc160dafa9b59dd190b506ac4ddb81a0",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/instruction-a1/session-0000/protocol.tar.xz",
+          "bytes": 15256,
+          "sha256": "e76bb039cc8085cd60575686aece4310b211d8f43c0919273ef3b9425d633bce",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/instruction-a1/session-0001/protocol.tar.xz",
+          "bytes": 15248,
+          "sha256": "569bd924b1d33614f842cfd8cfd080c445ebc7715348c5a91095970ac0c9e1ed",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "unwind",
+      "sessions": 2,
+      "receipt_sha256": "3758f70c323deb3bf83142945a91c7c6c483066f36f194768a49d3de51aa9117",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/unwind-a1/session-0000/protocol.tar.xz",
+          "bytes": 15240,
+          "sha256": "62ba54eb25202cfbc3c5aba8b5252a40177c1bacdacbc803b1edf01b793bf3c2",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/unwind-a1/session-0001/protocol.tar.xz",
+          "bytes": 15248,
+          "sha256": "ba1805d56ae884c811dfa1985c7fa39b40aa9b98820a9ca45f1954eb0bc5c59b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "soak",
+      "sessions": 37,
+      "receipt_sha256": "d92c3a35eba624c7bbab458f946c9db01331a5c5286c151d0581ad29c0f9b5e3",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0000/protocol.tar.xz",
+          "bytes": 15232,
+          "sha256": "ae2ab0717753cce10cb59526057f6f7fc4f75063d0a2672c1c2c5e5f9e05ec5f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0001/protocol.tar.xz",
+          "bytes": 15252,
+          "sha256": "300b141d67cf8fe9bc1e1bf2bec84f2fd0858b6059fa80161d9557064193093d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0002/protocol.tar.xz",
+          "bytes": 15248,
+          "sha256": "22ef3e31043dcb8125fdc2b11da20b072d20eae40e842c00d1009a0747d00e84",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0003/protocol.tar.xz",
+          "bytes": 15244,
+          "sha256": "6a5b40e5ba84daf6eec32884de5d18039b5fe82ab7a7894a0f654472b85e9bf5",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0004/protocol.tar.xz",
+          "bytes": 15248,
+          "sha256": "4fc1626a02b2a68e426ce4c9300ccffa766d8eb49bd0766845a81b5fdc6b21c9",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0005/protocol.tar.xz",
+          "bytes": 15256,
+          "sha256": "def725a56db5173ec77b866c57ecd1da852e0b40fff000f59d521a6e5d8fef55",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0006/protocol.tar.xz",
+          "bytes": 15264,
+          "sha256": "ff37361909ba6e24a8da20d092505da382da91b8c85e851e3301356806d077a8",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0007/protocol.tar.xz",
+          "bytes": 15252,
+          "sha256": "190ac30f85505a7c7d66b8a50be842a1c32dd9b514642c537a9fb8feb14473cf",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0008/protocol.tar.xz",
+          "bytes": 15256,
+          "sha256": "c73c4e72cb376d9d80fc84d1eeda7901ad19728288e7e06b73b0895948031cf3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0009/protocol.tar.xz",
+          "bytes": 15236,
+          "sha256": "7e684e6ff743393782805a8c1cca7dd495b95c39c01b541b88c96cecb411d423",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0010/protocol.tar.xz",
+          "bytes": 15252,
+          "sha256": "174e6d0f469684a8cc10421d71a6f9526ac3ba6c2e4b0157c84c71367ea6943d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0011/protocol.tar.xz",
+          "bytes": 15252,
+          "sha256": "e4bdaf986566444dfd02445e5df3e5ba329b8de2555c872590376e421f0a5472",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0012/protocol.tar.xz",
+          "bytes": 15248,
+          "sha256": "1c0212f453a2d6b97d4a4bc936705b9c9dcb33ba655d06f1bbfc5e86361fae96",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0013/protocol.tar.xz",
+          "bytes": 15244,
+          "sha256": "c50aa7b59169b1bbfc9989f007654727366cbe38aeaf41e708ae0405e2f2da66",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0014/protocol.tar.xz",
+          "bytes": 15244,
+          "sha256": "5a645397a2d6181f1369f8ee69ac3abacf8cdddeb50cc35f5343463ce5ea13de",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0015/protocol.tar.xz",
+          "bytes": 15244,
+          "sha256": "0808dbdff2c6a4f66386295de8a4906a751a192e63815c7902c398e5870535da",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0016/protocol.tar.xz",
+          "bytes": 15252,
+          "sha256": "56bc58249845fc15d7e810f8f9e25f0940d6c7cc7f7502b3bcd55f9cd4763616",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0017/protocol.tar.xz",
+          "bytes": 15248,
+          "sha256": "20570f52e88d29cda5e57fa7b81107511f92fab3930ced865f797f5222f6dc59",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0018/protocol.tar.xz",
+          "bytes": 15248,
+          "sha256": "2a3d88d43f8dace9caf8c23e54e11b4962d752af536b1a754933c7f899c653c8",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0019/protocol.tar.xz",
+          "bytes": 15244,
+          "sha256": "33787a34b37f19a0e539f05be846d65d8d1bc2c2dd1eecb60c29814beb27c8f8",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0020/protocol.tar.xz",
+          "bytes": 15244,
+          "sha256": "236df1a00e34e9ad7fcedfed8873ef4f8670a678d5e573f4abaa063b39d674d3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0021/protocol.tar.xz",
+          "bytes": 15256,
+          "sha256": "5af662b5ff22f3bd8b62688d76ac252969422d48f58d90a4b47deb981012b04e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0022/protocol.tar.xz",
+          "bytes": 15240,
+          "sha256": "5889ed2adaf53bb09517af8545ed4afb7af27fdbcf7620fdc1dc36b056782a8b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0023/protocol.tar.xz",
+          "bytes": 15240,
+          "sha256": "446f6e819908dd028d07a8ea5743ab1052ee0d6b73d9582efdb38f54b4fda80b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0024/protocol.tar.xz",
+          "bytes": 15256,
+          "sha256": "7af5237728ce2f6fd4a5b7f3a534aeaeb6c702ad690710be4e0957d813a7138a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0025/protocol.tar.xz",
+          "bytes": 15256,
+          "sha256": "d07fa2608d2fe9832e47411f573245c8c304d57dc4e8201e851218f8f98c527b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0026/protocol.tar.xz",
+          "bytes": 15248,
+          "sha256": "52db678febafc76656bde0bba030ddd0f17ff77590094232e2574c7a2fb737f4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0027/protocol.tar.xz",
+          "bytes": 15248,
+          "sha256": "baeb85bb294cd85696444ecfe3a78643bee7a6ebc7d1d57f8535ea6110a9fb90",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0028/protocol.tar.xz",
+          "bytes": 15244,
+          "sha256": "fe46aa9953ceff6841ee482bab0eeeff3794913d3dbf05c8d38a51fe17709b26",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0029/protocol.tar.xz",
+          "bytes": 15260,
+          "sha256": "61a3848986c2ac82b5e2e0f2bfc61cb609b860b4e3cae77d17375a7f76b7d6b0",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0030/protocol.tar.xz",
+          "bytes": 15244,
+          "sha256": "b1ac16f3c47b0c94b800f33cecd2b0c44973281940eec0472b8881e916dffda0",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0031/protocol.tar.xz",
+          "bytes": 15236,
+          "sha256": "a84d97bbe33c6b9d8ef47369a2a08c8f5c5a466f7af2c06b103afd73931cc388",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0032/protocol.tar.xz",
+          "bytes": 15232,
+          "sha256": "6e797944eb5d797a053a3b23927b31de8596f660d08d7f30f0bd258b3f86e64f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0033/protocol.tar.xz",
+          "bytes": 15236,
+          "sha256": "6ef6f3d99fc3700f48106e693bea7b3d03709143cb327e5306f35aa5408654db",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0034/protocol.tar.xz",
+          "bytes": 15248,
+          "sha256": "c77553201e04335e65ce59c919b1a1771b6638e4c0e03ccd5b66453a0570affd",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0035/protocol.tar.xz",
+          "bytes": 15244,
+          "sha256": "31f4c89e08159d40c6a24d2fc62e6081cc1ee2618474af011c54514596ecfc93",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/soak-a1/session-0036/protocol.tar.xz",
+          "bytes": 15248,
+          "sha256": "364b91c064c4f63a6a643b6364788ae7675ccb10bf20df3ad206a0cd7646a7ec",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "arrays",
+      "sessions": 1,
+      "receipt_sha256": "91fde3eefbc2081567e009d0f3c86d1f1e59b4e90e61e681cced4dff35b8c68c",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/arrays-a1/session-0000/session-0/source-dap.json",
+          "sha256": "8ebf04f5e3c598d5ba42e362cc77b116e78c75734073424b9d6500e45fd4f28e",
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "tinygo-unwind",
+      "sessions": 1,
+      "receipt_sha256": "94310a3e11fd031ba81deba6521fede74985b351a39d54b66fea3827c4823a32",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/tinygo-unwind-a1/session-0000/session-0/source-dap.json",
+          "sha256": "2fccfbc66ee647ac47ca894c1451e683418116fec01ba18e69158e8e193dbad6",
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "controls",
+      "sessions": 16,
+      "receipt_sha256": "ba45dd0af5ebf74b0be09f9f4f0d53cf6969a2a770c5a09b73801bc86bfa78ba",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0000/protocol.tar.xz",
+          "bytes": 14664,
+          "sha256": "966e2d3181929951de5277b9e182c55b7ffa7e5e2cb8523b11b4299aef2f4661",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0001/protocol.tar.xz",
+          "bytes": 14660,
+          "sha256": "5be1b54e884cd0dcec096256ba9d7c98a463651071d86f88ab1686ab7dc2b13e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0002/protocol.tar.xz",
+          "bytes": 16076,
+          "sha256": "ccfe7c643e19c35390101b559c97ecc20dc8aba0b1eca428fd263e4344b74b29",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0003/protocol.tar.xz",
+          "bytes": 16076,
+          "sha256": "35c691fd11a6c02ef1b4a42dbb2551c30d590102bbde1c1883837c9ad9d5ef2e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0004/protocol.tar.xz",
+          "bytes": 14672,
+          "sha256": "bf5f78d2aadea01d340bca1f351850488b861358efafaf7d75517cbb654f340c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0005/protocol.tar.xz",
+          "bytes": 14668,
+          "sha256": "ae8723e63e026913a35c08786834144d8376b07b137c63c0fcdd23fa9de9ef20",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0006/protocol.tar.xz",
+          "bytes": 16008,
+          "sha256": "a8333a51267bdb70c296c5ce40bea1f2eeab2108ae41cb8add989b7c9206a978",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0007/protocol.tar.xz",
+          "bytes": 16000,
+          "sha256": "0ae9807a076d2af4e7083247cc65633f121bebf3b98b7be0f8cf8cb88e65141b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0008/protocol.tar.xz",
+          "bytes": 14664,
+          "sha256": "556bfbd475b34dd2906996282d2f34d94916e55e5795d5479ef394631d903566",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0009/protocol.tar.xz",
+          "bytes": 14660,
+          "sha256": "bf2bcde33c1c8bc35a6927b3902090b8b8e122d258791710ffe4dc16a2596e0f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0010/protocol.tar.xz",
+          "bytes": 16080,
+          "sha256": "04f83c338d8a19e7b07bd89db20830d8c7d7a1a7ec7d4db68c78ac1c4e88afa7",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0011/protocol.tar.xz",
+          "bytes": 16072,
+          "sha256": "bb2c4f428942a363d2792ac53698e5187cabd47dac7bb19a39a5f04b44e2ceb1",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0012/protocol.tar.xz",
+          "bytes": 14660,
+          "sha256": "dc22c6de695663608652c64d04a97b6111dcfe864e9510b4dc32b1cd05cb12b7",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0013/protocol.tar.xz",
+          "bytes": 14664,
+          "sha256": "48f947e69735ac5fc0356368de0b95304e75e11878793820c3a0da66cc4da771",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0014/protocol.tar.xz",
+          "bytes": 16016,
+          "sha256": "5d268829222256d39c0a5a190b915c4594b84dd30ab149c9ac6efa377168ceef",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-a1/session-0015/protocol.tar.xz",
+          "bytes": 16004,
+          "sha256": "35577388db997ea1a91697bbaf9f54b6fa4bfe13baf89344e4344230e9217361",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "controls-unwind",
+      "sessions": 16,
+      "receipt_sha256": "4056fbc644c387b92358baa155fc182bb00c8e3be6b81045ea1bd02daf59e6a2",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0000/protocol.tar.xz",
+          "bytes": 14656,
+          "sha256": "298ca2b9a7155c386302dee51731068b574a1f42dc66ee396de7d5c0e0b3f0a8",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0001/protocol.tar.xz",
+          "bytes": 14664,
+          "sha256": "26779f96df4584208d74bb814e7ff2182ba33a6fe4f50f32870b041ebbc1facb",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0002/protocol.tar.xz",
+          "bytes": 16072,
+          "sha256": "07b0d0aa419379478d0d6483ff779d2f88a3c6096c661c62ac4dd80859026da8",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0003/protocol.tar.xz",
+          "bytes": 16068,
+          "sha256": "5dcdf046599520a347238ec5fadb86437467bb868df486a1a7b4fcccdb4e1583",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0004/protocol.tar.xz",
+          "bytes": 14652,
+          "sha256": "062c11618754489a81a1062799ff6089f8ff76ab10ce2cc2b88f2f208f58dee3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0005/protocol.tar.xz",
+          "bytes": 14672,
+          "sha256": "87c823f14a680c3dcad6d19dd76736eb5fc79364239d75ea8fd57f3aa151ec81",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0006/protocol.tar.xz",
+          "bytes": 16016,
+          "sha256": "2227f444a7876ba14106e15daeeaf9c8cf615bee4f0bf9e634a7d0dfcf66665e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0007/protocol.tar.xz",
+          "bytes": 16008,
+          "sha256": "5692552778be8f7c7d308badf10aeb2eeac883d12c234f3afdddb3d0e2c46cfc",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0008/protocol.tar.xz",
+          "bytes": 14656,
+          "sha256": "0c0a4cf94297ace5b356941b01d12e0bc04ed0db1a772968920153ae0802b165",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0009/protocol.tar.xz",
+          "bytes": 14660,
+          "sha256": "f75d27146f32fbb2b4ecf8457c4261fe2343f5337cebfc329a6624a955e99d00",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0010/protocol.tar.xz",
+          "bytes": 16068,
+          "sha256": "8e576adc9bf692dfb91239943a1ed45defb458466e4c3330cbad0e7a5a683e44",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0011/protocol.tar.xz",
+          "bytes": 16068,
+          "sha256": "33c3da9913364963511724160bc3d5ac974d91fe264ab7dfdeb6858151156f53",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0012/protocol.tar.xz",
+          "bytes": 14660,
+          "sha256": "07317f345cdf697f7a7f31fc9f258e2ee203bb4ebced319c309276c3d292cac9",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0013/protocol.tar.xz",
+          "bytes": 14664,
+          "sha256": "3836b67586044efdf03d077b98e7877422ae69b9b844d6db041b4a5d8c52397e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0014/protocol.tar.xz",
+          "bytes": 16016,
+          "sha256": "d7311024e37716c364258394ba7ee7e739bcae66cbc8ccdf0f38650d8be885c4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/controls-unwind-a1/session-0015/protocol.tar.xz",
+          "bytes": 16000,
+          "sha256": "dbc50b2d4f12bd2d2fddb49e5d3ef91e3b5d45b86af6724af711c801da316bb2",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "enums",
+      "sessions": 16,
+      "receipt_sha256": "5c7fa3998bfbd4c741d779f9d49b558c8b1640e2189a1d917b4631be9ca0e7f1",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0000/protocol.tar.xz",
+          "bytes": 6116,
+          "sha256": "db50a5911798b5bbbd901857569c0c27b849971a48eb6496a3d78a7d79c65acc",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0001/protocol.tar.xz",
+          "bytes": 6120,
+          "sha256": "7a6d49749dc1c42c39ebdfee2c4c6e56d7f7792f8cd257a8e4b4f68db4135feb",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0002/protocol.tar.xz",
+          "bytes": 6116,
+          "sha256": "288339b8b120867bcd34d2d51beae476c0ecd310c5f3f811f879611758e3f661",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0003/protocol.tar.xz",
+          "bytes": 6116,
+          "sha256": "d6a3d69775b8c5db717a75f1c04cf22c5be3dc988187af3ad8758c2179cf6cb4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0004/protocol.tar.xz",
+          "bytes": 6348,
+          "sha256": "c10eadfaf6e799ab5522434bd094a3057af5fc6e3b77b72d28c710cf39423764",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0005/protocol.tar.xz",
+          "bytes": 6352,
+          "sha256": "7bf0a4ceaa9dfafc60e05467433db76f2b2e60c3622d2660e52da7683891b6fc",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0006/protocol.tar.xz",
+          "bytes": 6352,
+          "sha256": "1b33c3a9fd9a6036aab097b4b63fc49d16516f62a90ffc93b8b439246c1602d2",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0007/protocol.tar.xz",
+          "bytes": 6360,
+          "sha256": "3d14a1287aac5085b9c4c710897afbb389be24c10d7b16700db3db93fa083a23",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0008/protocol.tar.xz",
+          "bytes": 6116,
+          "sha256": "e0023222f27ba8bd067b425bdee514fec966f2e931444f8c93244ec5c414e1a7",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0009/protocol.tar.xz",
+          "bytes": 6120,
+          "sha256": "620b6c74d97019e9d362a8b4632d68928dd3d09d959707e02e8c3c1206993264",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0010/protocol.tar.xz",
+          "bytes": 6124,
+          "sha256": "6c77f5f7f4e1cf1fd944aa4676596ebf775a198b49a45cc67bcaaf54779e9b40",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0011/protocol.tar.xz",
+          "bytes": 6116,
+          "sha256": "347a205a6aa52a93572d89c5b69d54098469eb6f6b6eb2f0cf162abe4436e310",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0012/protocol.tar.xz",
+          "bytes": 6352,
+          "sha256": "8f53cdcc47dc150772a7ba7da5bde104a7347348f604d49943f9a0b9eb8d1d68",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0013/protocol.tar.xz",
+          "bytes": 6360,
+          "sha256": "a290adf3400630973f868f29d27a9e927484299376d3c759ed97d04aab2ce65c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0014/protocol.tar.xz",
+          "bytes": 6352,
+          "sha256": "8cfbf9d082f1b963d3c9f719134ae9ada225c06699f39448f72923a3f30747a3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/enums-a1/session-0015/protocol.tar.xz",
+          "bytes": 6360,
+          "sha256": "3ab0929d55ccd436e11d83caffe2b2ea96feee1399b6aeac5d583df246b2b298",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "variants",
+      "sessions": 2,
+      "receipt_sha256": "7e2381ca619710db415f98b28cae346c149c69ed5885f49bcbc0726cdb8ec388",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/variants-a1/session-0000/protocol.tar.xz",
+          "bytes": 14160,
+          "sha256": "e6d8313742319c0ed03701a0b0e3c6016794d87d151a40c22f1732e53f67413b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/variants-a1/session-0001/protocol.tar.xz",
+          "bytes": 14168,
+          "sha256": "3927fa2e50d866faa2bdd07c78f7f835133de4219b25848d9e1fcb909e32c58e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "nested",
+      "sessions": 2,
+      "receipt_sha256": "e69e98c115807a3969508cb05087503ed82af0cc2d4788877fd30f417f105871",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/nested-a1/session-0000/protocol.tar.xz",
+          "bytes": 21308,
+          "sha256": "c5d2357c686781812daf9f63d1a375c3606c6d593a8ea37c13449ed078899e9d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/nested-a1/session-0001/protocol.tar.xz",
+          "bytes": 21308,
+          "sha256": "96c931624ab00bc2cd66ecb0500c8cd3752b3f3a6d6d895b476d19cd97c7f0f1",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "integers",
+      "sessions": 16,
+      "receipt_sha256": "7ee85a7359b37d7649e3663e1c4550f84133405bda29ff97a66c208e1248fa68",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0000/protocol.tar.xz",
+          "bytes": 13620,
+          "sha256": "15eff2fbb35581f145f23100e495e3f7e14330dfed39af928276dd9ca237187b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0001/protocol.tar.xz",
+          "bytes": 13624,
+          "sha256": "84de8c3e925782f82c86feec52ef09240f695de388dffa2001619b5f1d79b588",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0002/protocol.tar.xz",
+          "bytes": 13688,
+          "sha256": "72af9057cccf775e3d9f3ffbea2091474c1b42edf257f4547f53a7aa1a21dae3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0003/protocol.tar.xz",
+          "bytes": 13692,
+          "sha256": "c8424a9c019d58e0525212c87e2f75f2d087697fceb320f6f0772f7cd5a4fb79",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0004/protocol.tar.xz",
+          "bytes": 13612,
+          "sha256": "1812b4bfa96dd2ebc23e8576448aff232a8340d9fba8c99be468582cbd1ea1be",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0005/protocol.tar.xz",
+          "bytes": 13636,
+          "sha256": "254f99cc904eb58d13f1aa8bf4e5a818e2545dc891ac73d18cb38ec6751f1eb7",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0006/protocol.tar.xz",
+          "bytes": 13676,
+          "sha256": "63ec00a05d5f209d6d026505966d3f936718945d9f841505f23696f6c2627954",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0007/protocol.tar.xz",
+          "bytes": 13680,
+          "sha256": "d44a2d89f9d4b8d789492b6e7a3f1ae8f9b153f1b8d8092bc878d07fb6b81443",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0008/protocol.tar.xz",
+          "bytes": 13624,
+          "sha256": "3964348ef2765c2edc3dd5044e6de19f0715393b2955c1ca4c4bb4368628b82b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0009/protocol.tar.xz",
+          "bytes": 13620,
+          "sha256": "5e403ba2dada91de9713401cfe5b54b4dcd1d0dae38370283c6bc758b3fd6975",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0010/protocol.tar.xz",
+          "bytes": 13680,
+          "sha256": "96acc4ce272e873a63514bf2573cc6428bc487e9d406ee517c39c738f0b565ef",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0011/protocol.tar.xz",
+          "bytes": 13672,
+          "sha256": "c536d80088b68b80c403dbecc283750c95c51275caa57f5c0702f7e2997fe675",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0012/protocol.tar.xz",
+          "bytes": 13616,
+          "sha256": "e60ff8fbfe7c6a0872f54da1b7038364d291ab8d410534be73792f381a7c061e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0013/protocol.tar.xz",
+          "bytes": 13612,
+          "sha256": "a2e72abff2a178e9d898489fb87fe0364f3b745e9ccbc0cbda94bac26793e7c4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0014/protocol.tar.xz",
+          "bytes": 13672,
+          "sha256": "8b35b4c705da47852898bf1214c7e442842498cbb7a8ffbbb1de13b989c257a6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2/integers-a1/session-0015/protocol.tar.xz",
+          "bytes": 13684,
+          "sha256": "78dd6a7f7e5a832ab10b55f5227e8097ad91be786e2d5dfc85ab10a8465957d9",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "instruction",
+      "sessions": 2,
+      "receipt_sha256": "b07f5ffdd2a8f0f9971d36b7fbbbb955c3b23aa051417201897e6366a5d63892",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/instruction-a1/session-0000/protocol.tar.xz",
+          "bytes": 15276,
+          "sha256": "68a357463839eed0742b8d0071fdea079f893ccffccf5e2edd91685f7ef3134a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/instruction-a1/session-0001/protocol.tar.xz",
+          "bytes": 15276,
+          "sha256": "d8c058a1fd164fff78ddf06ea1dcf2372bf622afa99d2c4bd4007689a4c4b2d0",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "unwind",
+      "sessions": 2,
+      "receipt_sha256": "81aac22407b24eea49d47e562557aa35a81c651b6944ce2f2c68b1ffc7c58f62",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/unwind-a1/session-0000/protocol.tar.xz",
+          "bytes": 15272,
+          "sha256": "2319de217df7a94bff4dda2745be12eeafd74d1e44b2f344bcaa54c2eca75e4e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/unwind-a1/session-0001/protocol.tar.xz",
+          "bytes": 15272,
+          "sha256": "8f2edb1d25d5613aa7c7fec595934ec9c52bf588668c0971a8cb993667028a0f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "soak",
+      "sessions": 39,
+      "receipt_sha256": "a6419468faa902c05f250b349a426e4c0bd846ad30f22775d86ae61fc1257d9d",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0000/protocol.tar.xz",
+          "bytes": 15280,
+          "sha256": "d0923de96cf1f0b0ad57c2730761a0adadeba2dcaca28ba7d0d24fb3a419da5c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0001/protocol.tar.xz",
+          "bytes": 15272,
+          "sha256": "2dd8f11c36a9a8b006c0d6f2ccb5a14e66a39f1026fbccda6a73de1ffec98b00",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0002/protocol.tar.xz",
+          "bytes": 15280,
+          "sha256": "b13e13f49a7578d8698e49a99a048b731e78bbeb727f6ab1e733f38b051f91f4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0003/protocol.tar.xz",
+          "bytes": 15280,
+          "sha256": "28847e490e6627783d1424a6fa7d22161ecceac1fb384a56b456a32c6bf871b5",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0004/protocol.tar.xz",
+          "bytes": 15276,
+          "sha256": "3d41d34d424a529e336c3eb92f01832ed51528097b2f28fa0e6d0ec78629d40e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0005/protocol.tar.xz",
+          "bytes": 15280,
+          "sha256": "4a2aa6c7cea563de99d16e654af08b03ea66371b7126e8c77fbe62aa604b68ba",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0006/protocol.tar.xz",
+          "bytes": 15276,
+          "sha256": "e8d510d8e2d2fdf7396374cc0e8a98392372b731131eaa5992089be318a61b51",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0007/protocol.tar.xz",
+          "bytes": 15276,
+          "sha256": "5d9edfb891e4e01b4399156ee66e4a28c0fe63e0db7441552174c3d25b0b00fd",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0008/protocol.tar.xz",
+          "bytes": 15268,
+          "sha256": "2af1e3cf150097a15f2da85124ffe0b150481404debf84ed970d5c3445257b11",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0009/protocol.tar.xz",
+          "bytes": 15284,
+          "sha256": "18f5825f7025b74b29797fbd0b983da017f960bd40760160d8be1c347f99c927",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0010/protocol.tar.xz",
+          "bytes": 15284,
+          "sha256": "9765aa2d1fd61db1976493b14177332af24369e3a33baddcd842cc468a04a8a7",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0011/protocol.tar.xz",
+          "bytes": 15264,
+          "sha256": "6213bc39b8ca6679639b3617afa3a0be8630e71f1e03e8c329031506e6632f99",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0012/protocol.tar.xz",
+          "bytes": 15284,
+          "sha256": "910b009af08c431c4650cda71a1adcffc12b5d66dfe097ef66e7048f0bbdebf4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0013/protocol.tar.xz",
+          "bytes": 15276,
+          "sha256": "97874c8e3f5b3b84486944dea4c8fbf5c2e0a30a2752370aae00c15499bc8cac",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0014/protocol.tar.xz",
+          "bytes": 15256,
+          "sha256": "02791c8c3909c74822c5e3e1be7f8e8b10d32dd43b77d29f0e29e2ffa77f7b55",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0015/protocol.tar.xz",
+          "bytes": 15260,
+          "sha256": "52179cb87429e679ace1cba60b172467a6367a5548836a27c5283246e2733b2b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0016/protocol.tar.xz",
+          "bytes": 15268,
+          "sha256": "37310a7f09645412693e0943a78e5f9b290ff801c943b6f6a2980b24e1fcb4d7",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0017/protocol.tar.xz",
+          "bytes": 15260,
+          "sha256": "55ed9d0770ed6d3472b5010c4e3959bc7cd7f988a05a2b15218ab4b844154887",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0018/protocol.tar.xz",
+          "bytes": 15276,
+          "sha256": "4608deb6c8f80ee74cad725a1493d1987160b5d39df9ac6d7a25097c9cf39cca",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0019/protocol.tar.xz",
+          "bytes": 15260,
+          "sha256": "3d8b198834ecdc88920524feea319d45217c1b2aeaf8d5a90fc9cecc2bf6d530",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0020/protocol.tar.xz",
+          "bytes": 15256,
+          "sha256": "256488f87ceecb91d912642427dcc217ced39ad1013b401ae3de5099129251ff",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0021/protocol.tar.xz",
+          "bytes": 15268,
+          "sha256": "a0a163643ab1e76a8fe80bca6b62b43730c69a80fbdb56b3dbb4bbfee0ed8974",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0022/protocol.tar.xz",
+          "bytes": 15276,
+          "sha256": "6aeb3c5b00817867be37a2b07909658c66ac197812d91bfe688c81cc4c3514db",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0023/protocol.tar.xz",
+          "bytes": 15264,
+          "sha256": "69105705b081b2e10344a6dcae418059709c998e265497282e0bc98ece5583ed",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0024/protocol.tar.xz",
+          "bytes": 15280,
+          "sha256": "1427acf523234e8eed55c1f7d15ed86227f5c78d7d8239447f9acc3e3396362a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0025/protocol.tar.xz",
+          "bytes": 15260,
+          "sha256": "11b127a68249ccfc3fb908bcd23e8d2e362972aa79cc0ff0ae61e8cdb76ecd03",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0026/protocol.tar.xz",
+          "bytes": 15276,
+          "sha256": "4e554b92520c0fe34481c8cd25070fb6ec4c9a4c66e60d29f5b5593a6a02fa77",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0027/protocol.tar.xz",
+          "bytes": 15284,
+          "sha256": "4d88e844b0de26e25ef1fe29ba194a57a2e7fc9e3f50d84dde8e4271a84f5d94",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0028/protocol.tar.xz",
+          "bytes": 15268,
+          "sha256": "884fc9026a71042e412b91adab3717fd74c40e4ffc7743e2f0b166447660a4af",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0029/protocol.tar.xz",
+          "bytes": 15284,
+          "sha256": "2d740789e13226c0a9e2b3456df0f95eb289df148d22831d552d6e5618f62174",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0030/protocol.tar.xz",
+          "bytes": 15264,
+          "sha256": "76886cf7dfebdb7b56d0398ae0db09957b61ed9f92c109bbe14768cd55849542",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0031/protocol.tar.xz",
+          "bytes": 15264,
+          "sha256": "fda002708363585538227a283fd864dddc454303fef6d632760c90db8652d6ca",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0032/protocol.tar.xz",
+          "bytes": 15260,
+          "sha256": "4ff5fa5ec8eddb4902341c2ea05711c97825d909f6c900a1d0d54c9e1c368a21",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0033/protocol.tar.xz",
+          "bytes": 15272,
+          "sha256": "bb21954308cbb65e4514fefc1c290e9b4c0521bba8b147fa27c2906932deb1e9",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0034/protocol.tar.xz",
+          "bytes": 15268,
+          "sha256": "88d5e92f46a16370c1578320d94f072a89ab93f2cd9e35841e07514945ceed04",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0035/protocol.tar.xz",
+          "bytes": 15272,
+          "sha256": "2ca0e90c55f79272579fba73796cc569be4e8ff6185fdba9611611d05be55d8f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0036/protocol.tar.xz",
+          "bytes": 15268,
+          "sha256": "136d743ae055f7f830656dff049068dee9a601d086ac081605325bacc91e71b5",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0037/protocol.tar.xz",
+          "bytes": 15264,
+          "sha256": "64884de9344f8ea06d20fae74098239962ca594b9b1b38b071b4f908a470aa25",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/soak-a1/session-0038/protocol.tar.xz",
+          "bytes": 15264,
+          "sha256": "671a0e00155877c5e45d2d95a067f271a380f67ed32f0cbedfcbe2ff2cb1d39a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "arrays",
+      "sessions": 1,
+      "receipt_sha256": "61e1975a878f6c31ff0f6ada513019c44082385d684cdac7ea7056ec2daa43d4",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/arrays-a1/session-0000/session-0/source-dap.json",
+          "sha256": "4e8cf7450af0e600e5e9fc9851e7a4b66c87ed1aa45fbf5d3befc2b48417a7c8",
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "tinygo-unwind",
+      "sessions": 1,
+      "receipt_sha256": "812dcd77305dd70880a255432f19ad2383889574d2c1b58a2262ffe903b47fe4",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/tinygo-unwind-a1/session-0000/session-0/source-dap.json",
+          "sha256": "9f439532612593abec33924774a0aad85cf31af67bcf8a4197169c18318f8116",
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "controls",
+      "sessions": 16,
+      "receipt_sha256": "01d1b240cc2a5e70c1ecc682c41db69a19d399751ecbd47e9f89f1d5873e40b2",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0000/protocol.tar.xz",
+          "bytes": 14656,
+          "sha256": "710aa50c0c5467de25e44ffadf14a4697600d03cf925bc837c20b1f08a5bc5bd",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0001/protocol.tar.xz",
+          "bytes": 14640,
+          "sha256": "2d04af1924a7eccc87ddb16a445906190584e04e37abfbb1a7ea614c13e88fec",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0002/protocol.tar.xz",
+          "bytes": 16068,
+          "sha256": "047bfcd599b3ef2e5def92fd4f7d4497e960886e1a01b537fe7805c3f3ca5cd5",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0003/protocol.tar.xz",
+          "bytes": 16052,
+          "sha256": "5c202f02cdb25f6ec804e9ae7a108e26d56c53cb2911c6ae37c62c75c3617161",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0004/protocol.tar.xz",
+          "bytes": 14652,
+          "sha256": "e0ec20b76c5df5eb56d9b2941fa544ab7c02b5c8db04bf15b1a9583002b141a3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0005/protocol.tar.xz",
+          "bytes": 14640,
+          "sha256": "d08ab76552ad8748019bc0dea991698d22da85f2fa4ce30920d6f762e83df15d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0006/protocol.tar.xz",
+          "bytes": 15984,
+          "sha256": "af074f94309f7c164fb25d0d024cbf50e0d262ca827979356c4c1e9818ba0cad",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0007/protocol.tar.xz",
+          "bytes": 15996,
+          "sha256": "7ee00e7a02220bf0ce094a943ada4c6af6c81ff42c087f2c584348417462e868",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0008/protocol.tar.xz",
+          "bytes": 14652,
+          "sha256": "3ed148c35e5eaf9024aac5fa7194692c2eb4b161c955d7e8c59b698dea666358",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0009/protocol.tar.xz",
+          "bytes": 14640,
+          "sha256": "d069dd7510ecda0d6c823c9ca9eec6762868b69389ec578aef55501f83e5d0b6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0010/protocol.tar.xz",
+          "bytes": 16048,
+          "sha256": "96b0eb25d5024451d122da6ec90a5e9ba7375330a3e1a27e48a692774b5bae94",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0011/protocol.tar.xz",
+          "bytes": 16048,
+          "sha256": "29e5ce1c2cc07821fd5e0431b03a27659af9535bcb41a3e25bf944c7879273eb",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0012/protocol.tar.xz",
+          "bytes": 14640,
+          "sha256": "0f775439866cb64b4f3c536eb79b53c070072c7587934b67b050915757118491",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0013/protocol.tar.xz",
+          "bytes": 14652,
+          "sha256": "9d53b4db91890d8a7e3503f32d4605f6d487c00556cbe712b54c2c7288650411",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0014/protocol.tar.xz",
+          "bytes": 16000,
+          "sha256": "73e470bd7ca129ba270dac9a3ce8ca9fa2bbf02b5a8ae454c0c9d4f07bfa9daa",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-a1/session-0015/protocol.tar.xz",
+          "bytes": 15988,
+          "sha256": "7132b98e3b1d072bbb56c5af794766df585c179f87124f794bbf64c64d5915e3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "controls-unwind",
+      "sessions": 16,
+      "receipt_sha256": "748c7ea6f8910f2f376488d131654b6a5dfb366c728fb410bb1d3dce5f463831",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0000/protocol.tar.xz",
+          "bytes": 14660,
+          "sha256": "920be18feddb067fc517d4aff56c9e0659a50ae06d2b6ac2e0d5f60d43607559",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0001/protocol.tar.xz",
+          "bytes": 14648,
+          "sha256": "fd8455fe01995c13c241ef6cedfeaa5e12df271bcc221c1df2bbc10cc4679677",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0002/protocol.tar.xz",
+          "bytes": 16064,
+          "sha256": "da54fe2c4986dc92bdf0fb4a7bc321994ff8b622b6628141777cc54dc4ce9c97",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0003/protocol.tar.xz",
+          "bytes": 16056,
+          "sha256": "0f6c33d543db277c5cd6e4f4bd12b9f2e465b979d98d74b1c16ba10a04c007e7",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0004/protocol.tar.xz",
+          "bytes": 14644,
+          "sha256": "e7e67a9002613bc8e0f9582e862a484e11d4f71e694acc99be4bb83059b3fd0e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0005/protocol.tar.xz",
+          "bytes": 14644,
+          "sha256": "b7c1bd338b60b0206fbe9160ffdce163a7eeed1b10f149f8d08e89322be24ee2",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0006/protocol.tar.xz",
+          "bytes": 15992,
+          "sha256": "2f8fcab6d4e566cdfca76a86317e479dce0f5989978b8f4710bd30990b2a172f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0007/protocol.tar.xz",
+          "bytes": 16008,
+          "sha256": "125055204eb9e3513e3e648ffd93ad3f836a2a13562ca16e50e3dc8cab86da08",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0008/protocol.tar.xz",
+          "bytes": 14656,
+          "sha256": "838f0216704b056cb6584d644ef9d0d27a10983915a46a40fb942dbfe8f19606",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0009/protocol.tar.xz",
+          "bytes": 14652,
+          "sha256": "6a54614c0b15a8e57c4ed1628e4ddf064010e0cafdd7007b3fec505f4b5e864d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0010/protocol.tar.xz",
+          "bytes": 16056,
+          "sha256": "0d15fb8bcafb472f7f71a1e3ed0328c8b30424131dd4db698a0d9d6e6261b0cf",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0011/protocol.tar.xz",
+          "bytes": 16056,
+          "sha256": "ef8f56ff6a4ee1080a13f675ee52c3e2b1df07b8fa08959f6a86e271562d89cd",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0012/protocol.tar.xz",
+          "bytes": 14648,
+          "sha256": "3fafa38679e9be3a72b780b0843578ed68223bc4f481f2d05b1adebbbfea063a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0013/protocol.tar.xz",
+          "bytes": 14648,
+          "sha256": "ce667129cca1c014990eb3b360c317c972f82b001287e74ed8ef749b3d438624",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0014/protocol.tar.xz",
+          "bytes": 15992,
+          "sha256": "d5d174082df5ba665494251d3077dc0466f38fa86a598d27446020fd211bd839",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/controls-unwind-a1/session-0015/protocol.tar.xz",
+          "bytes": 15996,
+          "sha256": "6d5e68bc8922627fac1cbd556713472a62866f1a8b6b65badf361173783da348",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "enums",
+      "sessions": 16,
+      "receipt_sha256": "5b649ed4e0800757aae50f66e92da4dbcea41b5fce8f901757d61fc82a87b925",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0000/protocol.tar.xz",
+          "bytes": 6116,
+          "sha256": "ce2eff8bae0be840818aa2181c89d32287964d9367acde214e5a41b4af967887",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0001/protocol.tar.xz",
+          "bytes": 6112,
+          "sha256": "81d6d6efc2451de5ce2d39e0cf775c8f52f8b731ea58a4ab9a3ca6e1ba3da36a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0002/protocol.tar.xz",
+          "bytes": 6116,
+          "sha256": "dfea654f871e76fdd2373fafc4a9949dfd7b9f1f4b44c9dcf36d660ab4c3edec",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0003/protocol.tar.xz",
+          "bytes": 6108,
+          "sha256": "db796be3cac8f6b45494c4eb2deb8f31fcb01175e9f37ca02ef7954bb74afc68",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0004/protocol.tar.xz",
+          "bytes": 6360,
+          "sha256": "5e09a4d891c87e37d302505ac182064d57a117c0e4d9aeaf6aee7f0094044cc9",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0005/protocol.tar.xz",
+          "bytes": 6356,
+          "sha256": "185b6dcba59822d5508c2a9fd0d04aeb8e2012dc10828f1ea081af0260154a94",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0006/protocol.tar.xz",
+          "bytes": 6360,
+          "sha256": "1a83077411269eecd6b1f5e5c6adcad92a1619922fe96f28588b8902daa31a90",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0007/protocol.tar.xz",
+          "bytes": 6352,
+          "sha256": "1c9daa3c78d3e6b72d80a03f05a5f2d9b5298a50c380ca4db7ab5493fc7ccd7b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0008/protocol.tar.xz",
+          "bytes": 6120,
+          "sha256": "885229e3405010eb4a8c1e8644f47e0c0504e8409db2f639e4491b00dc119473",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0009/protocol.tar.xz",
+          "bytes": 6112,
+          "sha256": "e3b31474b7c2634ba90f2a2db0562c815a56488134c2f6baf4cadb5aa58ae4ed",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0010/protocol.tar.xz",
+          "bytes": 6108,
+          "sha256": "5b98eef37d20a9eccf7dc7c64321f7c22df3824eccef21b6a0b1a5fdfe70a787",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0011/protocol.tar.xz",
+          "bytes": 6108,
+          "sha256": "9fa3469e8e3b2c624acac3fecf70872ca183c81414cc47ef0674746333b58125",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0012/protocol.tar.xz",
+          "bytes": 6356,
+          "sha256": "9edfa47f178d2f74654339af3383ff956c3b01c67bb376ca5041b631f71a2071",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0013/protocol.tar.xz",
+          "bytes": 6356,
+          "sha256": "93eda4873b5e9a422d282509dd00fae8eadedb43605b59a09f716ef0a2df3181",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0014/protocol.tar.xz",
+          "bytes": 6348,
+          "sha256": "9760399522e791ea83ffa09300051fdf8e4f1e7c1b4ec3480a44d7b73cc965aa",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/enums-a1/session-0015/protocol.tar.xz",
+          "bytes": 6356,
+          "sha256": "cb498d62aaad7a8eef3ec7f71a68f5bee87dba63103807c6d7906124217f8669",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "variants",
+      "sessions": 2,
+      "receipt_sha256": "1fc29c33cef89c27711d6830e2cf5fc9134059590d46097dc309cc4d961488b4",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/variants-a1/session-0000/protocol.tar.xz",
+          "bytes": 14164,
+          "sha256": "f30d6f42f1f132ca728d6718a48f276e0b504f2b213aaffe803d28413abe929f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/variants-a1/session-0001/protocol.tar.xz",
+          "bytes": 14168,
+          "sha256": "d031a80e3f49ee7865158b6726a83261a5f300e55d1dd2ee9ef2db0040fc5415",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "nested",
+      "sessions": 2,
+      "receipt_sha256": "ab7d2bdc6f00d256d0ab89cfa7ec5ed932ce499346d27e977ad0b3fbb1f43d41",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/nested-a1/session-0000/protocol.tar.xz",
+          "bytes": 21328,
+          "sha256": "3a449e2375c41f9d81b60b96dade324769a66b824523e2dcb00f6bc8b949352c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/nested-a1/session-0001/protocol.tar.xz",
+          "bytes": 21316,
+          "sha256": "e0bb53297613e28a9bcd094126466dc28f02d8c1f5df033125a342a1ecf7741f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "integers",
+      "sessions": 16,
+      "receipt_sha256": "8ffa27107cdcb2ea960e090f12de4b6002f3966657f4032f66f45e33b0a500ec",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0000/protocol.tar.xz",
+          "bytes": 13644,
+          "sha256": "2519b8a115e2fbd64f5e4f6059eb70f4e86781d7187c75a78182bb89c31b1ed9",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0001/protocol.tar.xz",
+          "bytes": 13656,
+          "sha256": "2b70a2377900ed23822ae5b405fd3bf112be9d0696cebdbf9a1977894c8970d1",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0002/protocol.tar.xz",
+          "bytes": 13700,
+          "sha256": "d47e54a9ea6b1de5d48938b8ebe2e837dcc4835711f2af509a2d5dd3ac7a0229",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0003/protocol.tar.xz",
+          "bytes": 13704,
+          "sha256": "e21ce49ed3d114ab21d0d9304d05c944e96502d7040082c5172985e46625d21b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0004/protocol.tar.xz",
+          "bytes": 13640,
+          "sha256": "cb1e1788155423ab0541b1900c3463c6b23ce2a53a5d5e88d05f56952651fcb7",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0005/protocol.tar.xz",
+          "bytes": 13640,
+          "sha256": "061112e9e5fe43572bf6304b58e61cd5a008f2fe1aad7d9f119c9f8370727482",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0006/protocol.tar.xz",
+          "bytes": 13692,
+          "sha256": "3d73e1721caf903f3a977e967222afba7054b03247b73491e9badb60bb9b8845",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0007/protocol.tar.xz",
+          "bytes": 13700,
+          "sha256": "0e92b95ae1ceb3131976aa3abee2508bd28ce2f51626cd433be97f9db23cbb42",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0008/protocol.tar.xz",
+          "bytes": 13652,
+          "sha256": "3b6eb4fc02adde681d4b680a7d573b8764e1a31d6d6dd0d27ae3aed4a7cc4b83",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0009/protocol.tar.xz",
+          "bytes": 13636,
+          "sha256": "3a3ec588bd24dac0bf663ce481d03cd62e7a5ea9444e700ecee9a2fbc028bf13",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0010/protocol.tar.xz",
+          "bytes": 13700,
+          "sha256": "85c438c451e27e03c2bd280735cf1d3b0cf408f755ffa60e1eed69080e92a361",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0011/protocol.tar.xz",
+          "bytes": 13696,
+          "sha256": "db351c12055b8e25cc12dc271d060fc509c4c60fd127eb10eda626a967969a82",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0012/protocol.tar.xz",
+          "bytes": 13640,
+          "sha256": "29c500cd2f52d8238619aa4d50dc5a10c85c2644181ce17a4d34bb590dc27fd0",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0013/protocol.tar.xz",
+          "bytes": 13656,
+          "sha256": "9ce8d8b139b922428eb6d91d0260c2a6a6f533143f3f1d45b22b9437f98b8fc2",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0014/protocol.tar.xz",
+          "bytes": 13708,
+          "sha256": "e9e243b5a75b3bcaf63d7a6d93082c27bc83f5a5970d0a8599b81b872ca9a272",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/out-uwvm2-ros/integers-a1/session-0015/protocol.tar.xz",
+          "bytes": 13696,
+          "sha256": "d755abdffef4631eaba1eb6d512662f31c566f6e4a1c285fd9635e1c145a2db5",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "go-soak",
+      "sessions": 86,
+      "receipt_sha256": "0a9bf53b9e9f763fe5d9b228be8e34dd8a179af7b81d23c1ccd437f0558d827b",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0000/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "df4b60daed2eb56655ef95fdd50f035c431dacceb30bd096d5c26bb2e4b6267d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0001/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "5965e50ded20d9e1a7a0bd18804cac2028d22225ea3b761b3ca085457724ecd4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0002/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "ce69b2c348b1194a4dcdd6264be8373d1abba9df946cafad149e90eeb23fe998",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0003/protocol.tar.xz",
+          "bytes": 11848,
+          "sha256": "0d1cd450cc37f96344a90f9fb177cb877523eff20418cc8385bd9b19585db3c4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0004/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "fefa5ea620a2721565ade8fd9189d473890a9e40ce10c3ffff470cbcee93bdb4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0005/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "eaffe5370610829d5b4c0fe2453a180be147ed47c837e90d372c0c62f8da934e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0006/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "a05907ea12d010456634ae1b5dbd7ce95e7fa23e7cb21f5efc27e097f1942d8a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0007/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "8146d75c8b2fe257aa74a84ace464586b272739aed1cf1d9f3feb24bff60f4c9",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0008/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "69aef0e15dfc5fa9e2aae178322984d48b83ed82b5e36fc335ab7d3c16005384",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0009/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "392b2004bae312757b0dd0742e15961d9a060864a31510b0198431d74fea006d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0010/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "415b92d34640b38ed5222714c1e801ce39e4792ad67a4568e7fd2f719bb0d867",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0011/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "9f9470b30708d8df788df564380e652e4ef24db46e84b1f4ec65eb826b1a4ffd",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0012/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "a30f32cae34410ded245548b589bfe5af7eddfa517335f91837cf76865afe30f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0013/protocol.tar.xz",
+          "bytes": 11908,
+          "sha256": "cd27ea2df7f34a2c994c17fdba5bb2a9dd222960f072b8368782d13f76d0132f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0014/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "06f72aaa9a951f5e51da7ec7006556e80829b5f865bfc2e9c89e82392bb511e0",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0015/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "ac6f0d579a583cf6b67d73e24fb8db3c16b41f7a820c08690d70589c430f44d1",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0016/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "92fbc976b0e27cb217a39b262598f9efa69d6c5c2f5f99015573f6f987a48647",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0017/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "c7dace9f4eac753cd028a12a1e5e2412c903332562df27d2ea6e553de55f179b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0018/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "372ff97e7689ae1d02346305821441f89e5d01216ef4e546f4999cdf5bcd4ca0",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0019/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "62f83821fa0d04048e8297158be285997a1f47bfc256d8982491aab4c77963b4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0020/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "bc0329f5d06318127dd14c516a8d7a9ca2a97dc0a431c47ca008f9fa8a0d2193",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0021/protocol.tar.xz",
+          "bytes": 11840,
+          "sha256": "5eeca4df343718529c7d4839fb26b7361a21dba09ff2f00f67a7ab27f16ecd11",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0022/protocol.tar.xz",
+          "bytes": 11848,
+          "sha256": "6d0f807ee775298eae5c4edd5eb2813a315919a8f59f86722bd96998c217fed6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0023/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "4a3c28f25ae6992234c80dadf7e066a5a5d450afb972d62d92f9c279c5f67382",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0024/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "830f1786ff2b04bc26099e553ad4cbf787963a3efb454054270d85574cdbeb53",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0025/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "c855b67a7a07e8d3517a0b793a98d1cb809a363e1925560169f2d3f889bfce55",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0026/protocol.tar.xz",
+          "bytes": 11884,
+          "sha256": "ad3185d689260081007c257a438411f3d97d09ba7e96ae358b10cacca28c9a7d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0027/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "93f2826f19fbde3da2c40ca5888be238b1ab5c0378619ea37a1680ca08990f46",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0028/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "181e5517e3c5d1b9cd53d0a7928db6481a7b9d9d3ec2fe0506fb422ef76d9d32",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0029/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "7d7d9904f79d4b576d61e0621e3d82a3e490f56d350e8f8131314e5f1131cdba",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0030/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "3aba90c9f49833777ee3d591f843f4a5abac13c1999a5faae160904f2a32bd8f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0031/protocol.tar.xz",
+          "bytes": 11884,
+          "sha256": "53d517c0fe2503e5b765ad76c121976c699c572a91b220fa7850ad687c3833b7",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0032/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "2d27308807b18f1b7aa5b4c878361d48d0a4e1d8ef49cc3021322e62fb580f8b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0033/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "925705b0191b2e337ce602f09d88cfbcb9671e9ea815709ebbbef64a2269adc5",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0034/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "dc2216d29aab912eb784b3c33618317d02d6186ecbe27692c6286ef8017ac45b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0035/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "4a4c263e0f1b1c1c4d100aa7eee5683df49f7cd2e3564e738b0e8c17443cb507",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0036/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "f970d897e2a050d952be8f2fe2fc2d7ca2aaef3ed5daa7d91fe0b09b66034b19",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0037/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "467f781f58906ac7c568405a080c1745a29c64b95216650390023b20838f0847",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0038/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "39ac41e80ba8a333c9c23655f130508ea41afbefce5f3d7b984c04b5f95ba462",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0039/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "4b506deaa64c83e355ba772468549d2bb401d44d45207c99ede1e351948b952b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0040/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "85fe9c86904d7aaae289e1a91833c5c01e27ddbb85053a58fdceddd5b2d5fe27",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0041/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "7bbef3f86e8edb33c269efbf5ecca0e9599d1763048d7f3b4b351c978e633e26",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0042/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "5d21e090cbce5f468f8f95e5d506831bebecefa958c6883f0dda888c1163a7c5",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0043/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "b32cf5a30cf2bceafdf1ad8a3ebad2874160f0e60749cb2271a3b150078ce740",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0044/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "2e8ad24b3222091a461cce8a70b59b4226a954d595ea9fc977633745f65affcc",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0045/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "9cd67f2e2db0ce8d8d0cd94a7a663cdc2fc7c2b120bc9aeccccee57c45622876",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0046/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "5607f09eace957e8e680b90075656bcdad53daf592a50d4362efdfe2eacaf3ef",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0047/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "d0d76cdcd45ecb8e6c4bbd57f1b7d21aaa06f164c66430a9705a1e4bc8a56d85",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0048/protocol.tar.xz",
+          "bytes": 11884,
+          "sha256": "3ecc8ce5235d9e604fb74a35048dbcedd255e0d0615986249a6213aa0c359a41",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0049/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "365f8dbb2cd5fb51bb2bfe843bdd0ab5afb293b5f1abeaa8add8860f2c4dd845",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0050/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "e5a25f051ff3787030f69b33de06ec4181b558898b2828c2ed5108678cb8601f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0051/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "dbc7317a7f1a70bb5177320ae8f1685094886b8ed50a8251913aabfd7d55b691",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0052/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "77443b4c1134cc083192130dd8e13cea8f4cdaa741a3c44d61ae4fa16265a19d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0053/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "f09c8136ac4fc08e9a63503dced9ed8fa6e900032f511ca7abe32cf92f0b3116",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0054/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "ef83a1d35f8eb1e3e6c325a13fe258fe21a3532971ac4f965dc6951f57aa6d2d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0055/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "790203c4f32fc4bb96c25c39766768524ab0dfbf34d62f1e11cc494722af3fbe",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0056/protocol.tar.xz",
+          "bytes": 11844,
+          "sha256": "16b067bdb2477c92852ae3f38e2932b34ff4a4a0531573ead2095d951ca068c5",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0057/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "01b3ba304833f5243ab31c7c616892396ff99fb348b63cf15394be2a66b79111",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0058/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "bbc0ba2747102f4c82fc0c820c308341fe6bb18dce04754ec66a5e0d8a1eca61",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0059/protocol.tar.xz",
+          "bytes": 11908,
+          "sha256": "23b1653c9eb005e8e05fba3e1114ca2a0c5abe7cf119baf114aa57e435e0f12f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0060/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "08c7e05549325f41bb50f19a396d456cce898f9d2f5f7d5ddb27028437400769",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0061/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "d65851a4a1e75849c864ffbf36f37ae820d93599886284c579d4d9b7ef360d1f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0062/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "fb0f656ef68f380cc856982cd84832363ae976f25a2c410723e730779839c32a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0063/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "9d77d7e9f21204c336ae59584a4e79abbb2648d2c6fc3ec6d0fe3d70fc78ea84",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0064/protocol.tar.xz",
+          "bytes": 11852,
+          "sha256": "e7f837a7dbec1014398618bf8d36392c1c25e41fd3c8c743c62e2044186c0208",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0065/protocol.tar.xz",
+          "bytes": 11908,
+          "sha256": "73782a85d8f296cd06bed0ce66525a49c4c9f2918589208bd01781e7d8d046f2",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0066/protocol.tar.xz",
+          "bytes": 11884,
+          "sha256": "cc4f99a5b5174d4c29286361aae320e03aca878bf9375135b177f4981d821bfd",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0067/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "25b6ed5f5b979c48069105755d55c74b75fa7e0fb146a67d23ec9f10d464d081",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0068/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "07fb8d7d1788b8f6dd3db04cacc056d22b6738660280c54b66a6adfbd69afeca",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0069/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "4e8d8499ea31be72689594f0b03abd06f81f16850189c0390d57ea92a8349bb6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0070/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "9ac4133152258fb607b32865b4e281ead732d628edf5cca3e56e82fbea536688",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0071/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "73bd8e6593a1686ce5b4dfdbda6b0683fd9246e2da6ede19b8a6908f418625f3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0072/protocol.tar.xz",
+          "bytes": 11908,
+          "sha256": "eb123fef463912f4655049b6c30213dafa7f1935bae1f2b73e596c576f988da6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0073/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "9295e605c459255afe2124b11d844f851d3b4037d6f50c97ec2e48dc15d6c08b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0074/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "1f1d91e3576637fe586fd5b6531e0248250b940175131d92d341dc8c20fb7fc2",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0075/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "3487c0c7ac8bd116a84ec921f6e7ef29a3fb7704113dae2f85d2021f0749f92c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0076/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "e20871239497d7d81fce0e8a897fbe815b68d3d093af23f40da1a3d3103bc790",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0077/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "a5a15f7131172d391ab39ce9298b71fb5bfa199ad9c6570d3f1aa4fe55d9c321",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0078/protocol.tar.xz",
+          "bytes": 11884,
+          "sha256": "3938ddd201f5a4ee50ea96724ee247c586c5e4308ded9c2e3de72ff9a0611ccc",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0079/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "cfcc45c8a12a762bab2709279eeff8d44476bcb008346a9d7c5ddfc73116bd2f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0080/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "85a79cab125d2475103e38847606a2cb2d82ad5d0c7c763b53b6e1103dbbddbd",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0081/protocol.tar.xz",
+          "bytes": 11880,
+          "sha256": "8a8592039c89656610bdcf83a16baeb57654156291b771dee21671a8d17563fe",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0082/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "6a3967a87d6187b620ba9a62fb01b166b2a74133eeaecfc973269413389671bd",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0083/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "eafe84096476198614f5c663c28da1fb28438ebbf786c75b172f7d40ad9e1fba",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0084/protocol.tar.xz",
+          "bytes": 11884,
+          "sha256": "9cb18efee172502824615b20cc3fe1768fbecfc1d870e44ae02fb33fdf434338",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2/go-soak-a1/session-0085/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "403c7b6b88aceaadcebbcfd44c319ecdcbcd8776584e945487208ceb352588d2",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "go-soak",
+      "sessions": 86,
+      "receipt_sha256": "64c8a3772b1217d518e4153b810e6e04e6e4cda41eede8cbe2d6b96bed1f00ea",
+      "protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0000/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "421e9d2d6eb9b1b11217dd60a0734346d97face44adfafd18e3c53b33bcd33cd",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0001/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "e269e066da86f6d6c67b6f4eefdc66ca62c65130c4cef3e205c820c915e2bdbe",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0002/protocol.tar.xz",
+          "bytes": 11848,
+          "sha256": "62897b81c28641e509a3a4f4eb71f54cbc6b806f104ecce80d49db517a8cd7ed",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0003/protocol.tar.xz",
+          "bytes": 11912,
+          "sha256": "973a96e8831f8a526c896f238a09b65804fa02bb77120780b6f05bb0282ac8ec",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0004/protocol.tar.xz",
+          "bytes": 11856,
+          "sha256": "010db520c7d5e59ae5bc4b9a3aa9d19e694c9cc9090119f5243829fe12bdc408",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0005/protocol.tar.xz",
+          "bytes": 11852,
+          "sha256": "60fe88033de5d6403be81357ce505848d44ca63af6cf47caed8b608b982b5dca",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0006/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "a19e7ec191d70af04da3985505df8d7582ac5dd617511789224e5242af160135",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0007/protocol.tar.xz",
+          "bytes": 11856,
+          "sha256": "0da70c17eea986483a97cdf9e80710be272cd53ad13880ad80570c021837ada4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0008/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "9c40c795d9af7634ffb728c7f3cc041635dfc162d66c90053d53363f7f1c482f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0009/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "b5182d21ba30286772ee514b72621ac6534533ed553e63867413f13b4a721623",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0010/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "e09932cf3cdf4562853f2dc2ff28d7b0d6d0137ef41eb7aef4edb7df0e469cb3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0011/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "7519526b149f9deae3f5c888368f994747ed1a8cd42bde8cf385400cd18b2098",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0012/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "39c38c7d9d7ecab8750cf213f8e774256780a967dd63c3c14fcb8bd6a139e2d4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0013/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "def0dea493e947f7f5871e5dc98896b7a9fd584b3bcdf8254bf2ff019bf2dfdb",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0014/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "f9fa962e556aae93692d44ea355c83415c9d15407330f7be3f4b43eefd06cd58",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0015/protocol.tar.xz",
+          "bytes": 11844,
+          "sha256": "9069532edb4f6af248d1b8b490f9fd88db20871a40a11bec5fb3dd03ad7eb6a7",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0016/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "3c40ba26ee7f2db3992a7b84c7a128ddeab76be51e9dcbf34ab1d9fe2a88400f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0017/protocol.tar.xz",
+          "bytes": 11844,
+          "sha256": "324097a04064317b02531100cdea748458fad44641bfedd0a0421b390e055972",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0018/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "a8552579ec5b636773c163c249f2d4e4f3e8c63415c0906013e28247a86ab8df",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0019/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "241bd3d50579deb243f72838b67ae28099b332582bcb6520303c93d5e7a42438",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0020/protocol.tar.xz",
+          "bytes": 11908,
+          "sha256": "28ab51afbbaef05d84b99cd64c0253f99d0a0cead7cf1364fdd4f6b03446c353",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0021/protocol.tar.xz",
+          "bytes": 11912,
+          "sha256": "6707a3f7a61f4d1767ebbf4fa4be8ab905674a3068e08f099dcef9a647766817",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0022/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "53dc844439f96d877589903f1b2f338ace486bef568aadd10da6395fc88b6bf0",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0023/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "a1af314a724e15ce3bf0bd35e34222918132ca1a8ac092c9d7a1571c7a20074d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0024/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "aef4913c1c4d1aa40d0dc81bf508ff06f5a4cec6402f1558975cb3f39b464d04",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0025/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "6b4300e506b00359b5a0e90a2fee169d3e438b8a8fa7874cbc8238576751822c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0026/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "4ca387e8864d21c2874070814670ca27dfd1040d9f5e242f295bb3b1f54a6797",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0027/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "033c5ea7a2881f94ff250274e41750d07160caeebd01651bea31ba5abd9b45f9",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0028/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "307b49717f9dddf465eb74497183742ad6715ac110da828aa101fae38bd734f2",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0029/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "af821270f3704af695cece572dda684a1c1acd5a00d71623da7a47b9cd8d9600",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0030/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "e7c532974c899eeafb1c034ffaa238925543add3c25d4c86338d2019460a2bae",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0031/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "88e590c753ea54ecc651085192a394d62e03df0841d6d3104e33d9be5f54bf61",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0032/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "ade4ccfd0b3a0b9a60d4966039d7234c01c8277555c29686be957ac437a67990",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0033/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "eb30cb9c54f1c2f0b6018bef2d9d0ca4e4a76d1624b541fcd5378ba637c3f5c6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0034/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "b57cf7918239047d433da86a4ce91d661d46fb9ab1b3b40b7e9fca2f246a76db",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0035/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "d16dd6aaaecabfd67467d371517b3b54a26eb0fb4ecabd877188932cd8209912",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0036/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "c25aa81c271fc479e35490e093e3ff526a1def104f544e6cb61fe1c90fe47c93",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0037/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "d28582c46e846bb71ab950ee20e76065cb6bc0068290c8285061a36724595d5e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0038/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "bd173f0ab8d2f14c409d418aa94c9162cd85bea274b17496dd4cd314fad3dcac",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0039/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "0beef792ee14e7e30a89283ae1b3f4011fffb6b001c3de6702e5bd396eda45c6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0040/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "331fa6e6079ab8fa0555d7fef2856b9738a6b1a05a8b138b96f99b151c2ceb8e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0041/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "e7bb4f66a47e04bc75359fa96a623f47d09e8442eb3da7922ebc1dc878145a5b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0042/protocol.tar.xz",
+          "bytes": 11912,
+          "sha256": "ba85ce06d6c1d890615b214af76a942337074093c8c70303bbd9072bde29ad0d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0043/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "0905545a78cce1f348f56f2d96a6ed5bcf3698b69a881ff070ba4987733c5683",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0044/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "3385394d6a12faa6eb520f940cb22dee6c0ae9defb1aff22edbc0a9edf4ab103",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0045/protocol.tar.xz",
+          "bytes": 11852,
+          "sha256": "f06caea9cbe187cc2e5372033f4a38aabf2ff230bd99d7e1e7cc550f9898464d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0046/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "3cb6bf250f23f4ce37e895b6b9d161c6f4ff8f3628654752426ec859d961b596",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0047/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "54d7c095ac2131438ab7d6804592a80fcee00db2972d026914a74ca78958e081",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0048/protocol.tar.xz",
+          "bytes": 11884,
+          "sha256": "a7fb543419d4509aa8b89356faf8dea36c3060d44e3f175c87eb9964194c929b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0049/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "25170f5d6808f5a088cc04ce730a305f9c37cbe7f241edf61c42d367c64f64e8",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0050/protocol.tar.xz",
+          "bytes": 11908,
+          "sha256": "daefac1cfa2f2114397f4a19f45bfc5830606bf65bfa8de11f84010c65916b46",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0051/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "cceb4fce765b419d423014046b2abe30d903093c7ad136f26cc1316a32c1adbc",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0052/protocol.tar.xz",
+          "bytes": 11912,
+          "sha256": "16eaf8c524d2b5f261341b1e6cb57cf38107a1f7acd260dd3b5b28a882797fd0",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0053/protocol.tar.xz",
+          "bytes": 11844,
+          "sha256": "f6e995625ac1ea16d5a522ff78178fdc1583b144a0168dce12acd135820fa118",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0054/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "4f29dff7e89a5abdb519d6444ede3f63c55c9870daf30d18018a051d19ef3dae",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0055/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "d9d68cf81f042c6b37c63007da0cb49972361756683730b335bbeff9aa4829f0",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0056/protocol.tar.xz",
+          "bytes": 11908,
+          "sha256": "f02cb83a403650ad6c6c73c6ad63d5ea3469b143f65b08d5522fff7f2b3a8f52",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0057/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "b38719740bf9392d34c4771a057681fb3f35df1a63800c42837f0519c296560c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0058/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "61e0620a06708ba100c36237b9302d2edbd68b0a8565b31b270525b16a407e30",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0059/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "01a0d2dfe95525f73a5141900bbbe36957e4c34a60a7feda81bd9759851e06d7",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0060/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "d8f6b92b1f9408e098a1b9a9e3ef49b1ca7dfa1b3191d0cce5d3e7d1358a87ea",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0061/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "79d687dbeebe8454435c54e0a72eca67a1d67c77e5ca8d3993cf0f84bdb9323e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0062/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "c2662966fb3f1681275a3767b445a2707b0f8d976c6583d17b1131325172492a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0063/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "bbd99f13be1afbaecfc9993afe06f7075c6181e764cb15743952e957a36d24b4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0064/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "0f76fc11d04cac2717377cc1ac05e614f5f350813795e4c23e43ad56053c7ade",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0065/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "14727aa484b6b240788ba15ffd7fb1c9ac8690a7987badd6b00c23326dd170c4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0066/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "2a856c976c45050d45dbb6e217746b2d21ee153204b3d643fe0fd8fefd9a973d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0067/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "c5fed89afabbebc67b85cff00d8c89265b0c72d463c5c1d18a4277c5b151a2cb",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0068/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "fe45d9878088d438a19777290e0a9a9ba01594d37a67fad749c60211c9c709f5",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0069/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "615b6dbca6d89026d122c04000ac608470886df4a1897faaa640590d6fd34f0d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0070/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "1d65cbb4e2673eae1d57bcad2c8e3f89adc71dea043d60de6a2b52c0cf710522",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0071/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "a75266614f7ffabafc901004ce174f3314a280bb6aadc354c665c4051e4e52a0",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0072/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "0a54396a4182b52a201c3236181418964f35b1553eccefe63162ae6d253834c8",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0073/protocol.tar.xz",
+          "bytes": 11912,
+          "sha256": "a5024fabacc27fbed0d8734bd2ddc0b18e985d7b6646cca6a37d1148c106a706",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0074/protocol.tar.xz",
+          "bytes": 11912,
+          "sha256": "b03e4a2ad84c1fc0e4eff479e4d378812d1fd5f90712c9d418b3175654e01b2b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0075/protocol.tar.xz",
+          "bytes": 11856,
+          "sha256": "fab691deac4d8776c860a40883431743657259fb0a5b323d0bdcf27a1a21103e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0076/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "d0aa0d99547e4459d842bd2623b1a0fef8c1a36018e24647e3727784812fa480",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0077/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "6c9402bedfb7384d2e33fcf31f81e27ec382de67f98fa6f35659e11fd7e6c870",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0078/protocol.tar.xz",
+          "bytes": 11900,
+          "sha256": "df655b47a8cef9b596e8a7531207a8f6420c2e4440e2e41a2fa95aafbfb2e01e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0079/protocol.tar.xz",
+          "bytes": 11892,
+          "sha256": "2861a5ad0793396c7d0630795d1ce4d62aa01648d59c0be18b52241278989d75",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0080/protocol.tar.xz",
+          "bytes": 11912,
+          "sha256": "4aa34da10064021f038cbe2c95908c3ad9cfef8ee8026eb6c9e352e9b127d812",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0081/protocol.tar.xz",
+          "bytes": 11904,
+          "sha256": "79acd03fa036c059e38e9a496b6073c8d8ce9948eea85e43d6740032570cc6de",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0082/protocol.tar.xz",
+          "bytes": 11888,
+          "sha256": "43fb75081e51ed2280ea47bccc15042b2da068cdec7cb81990ebe1636e8866f4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0083/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "c7cb83de3ed6443875a7e55286b256c96a0bff3a50705714677491c133adcb9c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0084/protocol.tar.xz",
+          "bytes": 11896,
+          "sha256": "98b53780fb6fc8a1ec9d14c7d77cc02ee1034ef9f2ae3c9a4e17351751351a49",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/out-uwvm2-ros/go-soak-a1/session-0085/protocol.tar.xz",
+          "bytes": 11840,
+          "sha256": "81b9b87945358838a5a81d6fc7f63dc4e1a8ab096f155135b283e455bb80820c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    }
+  ],
+  "long": [
+    {
+      "repository": "uwvm2",
+      "elapsed_seconds": 612.2348408679973,
+      "sessions": 37,
+      "all_two_DWARF_profiles_and_policies": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "elapsed_seconds": 614.433744254995,
+      "sessions": 39,
+      "all_two_DWARF_profiles_and_policies": true
+    }
+  ],
+  "go_long": [
+    {
+      "repository": "uwvm2",
+      "elapsed_seconds": 601.2078431580012,
+      "sessions": 86,
+      "both_policies": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "elapsed_seconds": 602.2150336470004,
+      "sessions": 86,
+      "both_policies": true
+    }
+  ],
+  "totals": {
+    "Rust_sessions": 84,
+    "Rust_predicate_checks": 5544,
+    "Rust_integer_controls": 756,
+    "TinyGo_sessions": 176,
+    "TinyGo_predicate_checks": 8976,
+    "TinyGo_builtin_checks": 15840,
+    "control_sessions": 136
+  },
+  "QEMU": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/predicate-cross-a3-r48/out-matrix/results.json",
+    "receipt_sha256": "c612f3cf42dd45bd340ee7a887e5b0706e4e348bf7803d1b893cb19c7dcd467d",
+    "available_profiles": [
+      "x86_64",
+      "ppc64"
+    ],
+    "actual_QEMU_target_runs": 4,
+    "primitive_checks_per_target": 721385,
+    "source_bit_widths": [
+      32,
+      64
+    ],
+    "provider_inventory": [
+      {
+        "profile": "x86_64",
+        "available": true,
+        "missing_provider_paths": []
+      },
+      {
+        "profile": "aarch64",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/aarch64-linux-gnu/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/aarch64-linux-gnu/include/c++/15"
+        ]
+      },
+      {
+        "profile": "i686",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/i686-linux-gnu/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/i686-linux-gnu/include/c++/15"
+        ]
+      },
+      {
+        "profile": "riscv64",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/riscv64-linux-gnu/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/riscv64-linux-gnu/include/c++/15"
+        ]
+      },
+      {
+        "profile": "ppc64",
+        "available": true,
+        "missing_provider_paths": []
+      },
+      {
+        "profile": "ppc64le",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/powerpc64le-linux-gnu/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/powerpc64le-linux-gnu/include/c++/15"
+        ]
+      },
+      {
+        "profile": "ppc32",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/powerpc-linux-gnu/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/powerpc-linux-gnu/include/c++/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/bin/powerpc-linux-gnu-ld"
+        ]
+      },
+      {
+        "profile": "mips64",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/mips64-linux-gnuabi64/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/mips64-linux-gnuabi64/include/c++/15"
+        ]
+      },
+      {
+        "profile": "mips64el",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/mips64el-linux-gnuabi64/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/mips64el-linux-gnuabi64/include/c++/15"
+        ]
+      },
+      {
+        "profile": "mips32",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/mips-linux-gnu/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/mips-linux-gnu/include/c++/15"
+        ]
+      },
+      {
+        "profile": "mips32el",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/mipsel-linux-gnu/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/mipsel-linux-gnu/include/c++/15"
+        ]
+      },
+      {
+        "profile": "sparc64",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/sparc64-linux-gnu/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/sparc64-linux-gnu/include/c++/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/bin/sparc64-linux-gnu-ld"
+        ]
+      },
+      {
+        "profile": "loongarch64",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/loongarch64-linux-gnu/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/loongarch64-linux-gnu/include/c++/15"
+        ]
+      },
+      {
+        "profile": "s390x",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/s390x-linux-gnu/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/s390x-linux-gnu/include/c++/15"
+        ]
+      },
+      {
+        "profile": "armhf",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/arm-linux-gnueabihf/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/arm-linux-gnueabihf/include/c++/15"
+        ]
+      },
+      {
+        "profile": "armel",
+        "available": false,
+        "missing_provider_paths": [
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/gcc-cross/arm-linux-gnueabi/15",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/arm-linux-gnueabi/include/c++/15"
+        ]
+      }
+    ],
+    "full_VM_JIT_DAP_parity": false
+  },
+  "guards": [
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-data-a1-r48/guard-native/receipts.json",
+      "receipt_sha256": "1c7742cfb8e8841e8959390a80192d943886c82ed5dee1a8dd8427876bb1d2b2",
+      "label": "uwvm2native",
+      "passed": false,
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1,
+      "wall_seconds": 4.163384278996091,
+      "owned_rss_peak": 35721216,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-data-a2-r48/guard-native/receipts.json",
+      "receipt_sha256": "54d756d6e5506670a8e64c7eb295df099b00059ab5bd97be397da83cf537ff34",
+      "label": "uwvm2native",
+      "passed": false,
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1,
+      "wall_seconds": 21.14713745199697,
+      "owned_rss_peak": 500838400,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-data-a3-r48/guard-native/receipts.json",
+      "receipt_sha256": "636653c19cf7ac3c9cfa9ab1ee370b741c21eb04a9b5c03cab8479b61c3e3ea9",
+      "label": "uwvm2native",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 122.12599954599864,
+      "owned_rss_peak": 747524096,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-data-a3-r48/guard-native/receipts.json",
+      "receipt_sha256": "636653c19cf7ac3c9cfa9ab1ee370b741c21eb04a9b5c03cab8479b61c3e3ea9",
+      "label": "uwvm2rosnative",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 126.6999211479997,
+      "owned_rss_peak": 741765120,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-data-a4-r48/guard-native/receipts.json",
+      "receipt_sha256": "acf38aebf9ba1d36817bad1a78581b2484616489bdc45a21ae9d8db1493dd42e",
+      "label": "uwvm2native",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 136.14962971400382,
+      "owned_rss_peak": 742715392,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-data-a4-r48/guard-native/receipts.json",
+      "receipt_sha256": "acf38aebf9ba1d36817bad1a78581b2484616489bdc45a21ae9d8db1493dd42e",
+      "label": "uwvm2rosnative",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 135.2990876920012,
+      "owned_rss_peak": 742092800,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a1-r48/guard-u-tinygo/receipts.json",
+      "receipt_sha256": "ff4b611c041607d83342a12db2fbe5c8bd8380a27da556a033f0c63c920df3ba",
+      "label": "uwvm2arrays",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 8.715853736997815,
+      "owned_rss_peak": 322297856,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a1-r48/guard-u-tinygo/receipts.json",
+      "receipt_sha256": "ff4b611c041607d83342a12db2fbe5c8bd8380a27da556a033f0c63c920df3ba",
+      "label": "uwvm2tinygounwind",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 8.152183029997104,
+      "owned_rss_peak": 321957888,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a1-r48/guard-u-rust/receipts.json",
+      "receipt_sha256": "13f5d7c0e2a2f588530f4a57cc910012b0535556d9a0ab982dd8f6664033ce67",
+      "label": "uwvm2instruction",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 34.73943512199912,
+      "owned_rss_peak": 212135936,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a1-r48/guard-u-rust/receipts.json",
+      "receipt_sha256": "13f5d7c0e2a2f588530f4a57cc910012b0535556d9a0ab982dd8f6664033ce67",
+      "label": "uwvm2unwind",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 34.32476105800015,
+      "owned_rss_peak": 214077440,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a1-r48/guard-unit/receipts.json",
+      "receipt_sha256": "4be6e138cae0c64580c852a2e3d72704dbc9884a06e1bcc234343a6ac269202b",
+      "label": "uwvm2unit",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 2.830114001997572,
+      "owned_rss_peak": 61034496,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a1-r48/guard-unit/receipts.json",
+      "receipt_sha256": "4be6e138cae0c64580c852a2e3d72704dbc9884a06e1bcc234343a6ac269202b",
+      "label": "uwvm2rosunit",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 2.8194707829970866,
+      "owned_rss_peak": 60219392,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a1-r48/guard-u-soak/receipts.json",
+      "receipt_sha256": "44fa90a304dc71bb5291575f973cd41071dc374983437cc798d245537b01f844",
+      "label": "uwvm2soak",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 606.3187404939963,
+      "owned_rss_peak": 239538176,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-u-tinygo/receipts.json",
+      "receipt_sha256": "3583a5e4b98171f1129a851c67a1f6720d5a478d668ebcd6e038061f0cafb80c",
+      "label": "uwvm2arrays",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 7.9065349669981515,
+      "owned_rss_peak": 321306624,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-u-tinygo/receipts.json",
+      "receipt_sha256": "3583a5e4b98171f1129a851c67a1f6720d5a478d668ebcd6e038061f0cafb80c",
+      "label": "uwvm2tinygounwind",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 8.00901779299602,
+      "owned_rss_peak": 320278528,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-ros-tinygo/receipts.json",
+      "receipt_sha256": "2f94f3ca8360ecfcfb84e0391e6bee3c684d638035f161ce1ebe5d0bd4fb3b7a",
+      "label": "uwvm2rosarrays",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 8.838942395006598,
+      "owned_rss_peak": 320086016,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-ros-tinygo/receipts.json",
+      "receipt_sha256": "2f94f3ca8360ecfcfb84e0391e6bee3c684d638035f161ce1ebe5d0bd4fb3b7a",
+      "label": "uwvm2rostinygounwind",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 8.45805275800376,
+      "owned_rss_peak": 319635456,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-u-controls/receipts.json",
+      "receipt_sha256": "223bb4de5ac41b4030c7ca070f73cb59b869dc63bbaa81311d81d7704698dd0f",
+      "label": "uwvm2controls",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 87.02349721000064,
+      "owned_rss_peak": 269991936,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-u-controls/receipts.json",
+      "receipt_sha256": "223bb4de5ac41b4030c7ca070f73cb59b869dc63bbaa81311d81d7704698dd0f",
+      "label": "uwvm2controlsunwind",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 84.91157844600093,
+      "owned_rss_peak": 269766656,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-u-controls/receipts.json",
+      "receipt_sha256": "223bb4de5ac41b4030c7ca070f73cb59b869dc63bbaa81311d81d7704698dd0f",
+      "label": "uwvm2enums",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 101.39314518099854,
+      "owned_rss_peak": 192065536,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-u-controls/receipts.json",
+      "receipt_sha256": "223bb4de5ac41b4030c7ca070f73cb59b869dc63bbaa81311d81d7704698dd0f",
+      "label": "uwvm2variants",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 34.189345616003266,
+      "owned_rss_peak": 212529152,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-u-controls/receipts.json",
+      "receipt_sha256": "223bb4de5ac41b4030c7ca070f73cb59b869dc63bbaa81311d81d7704698dd0f",
+      "label": "uwvm2nested",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 43.016783698003564,
+      "owned_rss_peak": 222134272,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-u-controls/receipts.json",
+      "receipt_sha256": "223bb4de5ac41b4030c7ca070f73cb59b869dc63bbaa81311d81d7704698dd0f",
+      "label": "uwvm2integers",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 120.0562184839946,
+      "owned_rss_peak": 211443712,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-ros-controls/receipts.json",
+      "receipt_sha256": "574dd21d89e8c0a68bfaeee920e98be55e00fed68656f39436c6ff16a1200a4d",
+      "label": "uwvm2roscontrols",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 90.45914523999818,
+      "owned_rss_peak": 268390400,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-ros-controls/receipts.json",
+      "receipt_sha256": "574dd21d89e8c0a68bfaeee920e98be55e00fed68656f39436c6ff16a1200a4d",
+      "label": "uwvm2roscontrolsunwind",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 84.26565776699863,
+      "owned_rss_peak": 268365824,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-ros-controls/receipts.json",
+      "receipt_sha256": "574dd21d89e8c0a68bfaeee920e98be55e00fed68656f39436c6ff16a1200a4d",
+      "label": "uwvm2rosenums",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 97.24095311500423,
+      "owned_rss_peak": 191152128,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-ros-controls/receipts.json",
+      "receipt_sha256": "574dd21d89e8c0a68bfaeee920e98be55e00fed68656f39436c6ff16a1200a4d",
+      "label": "uwvm2rosvariants",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 32.30653311599599,
+      "owned_rss_peak": 212594688,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-ros-controls/receipts.json",
+      "receipt_sha256": "574dd21d89e8c0a68bfaeee920e98be55e00fed68656f39436c6ff16a1200a4d",
+      "label": "uwvm2rosnested",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 43.32227273799799,
+      "owned_rss_peak": 221954048,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-ros-controls/receipts.json",
+      "receipt_sha256": "574dd21d89e8c0a68bfaeee920e98be55e00fed68656f39436c6ff16a1200a4d",
+      "label": "uwvm2rosintegers",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 116.68628606499988,
+      "owned_rss_peak": 210464768,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-u-rust/receipts.json",
+      "receipt_sha256": "9745d72aa9d314d35f1e258e83565c07c6d1a68484e5a656ba47bd350f467bd8",
+      "label": "uwvm2instruction",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 33.689477299994905,
+      "owned_rss_peak": 213213184,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-u-rust/receipts.json",
+      "receipt_sha256": "9745d72aa9d314d35f1e258e83565c07c6d1a68484e5a656ba47bd350f467bd8",
+      "label": "uwvm2unwind",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 33.79875757199625,
+      "owned_rss_peak": 211922944,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-unit/receipts.json",
+      "receipt_sha256": "64d0602476febb9a8533669b7b52f15077a56323bb21c4b8dd17b1373f96e72f",
+      "label": "uwvm2unit",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 3.005132546000823,
+      "owned_rss_peak": 60940288,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-unit/receipts.json",
+      "receipt_sha256": "64d0602476febb9a8533669b7b52f15077a56323bb21c4b8dd17b1373f96e72f",
+      "label": "uwvm2rosunit",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 2.984287266001047,
+      "owned_rss_peak": 60223488,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-ros-soak/receipts.json",
+      "receipt_sha256": "baf534097479cba85838c468f38b7fdbbf98073e5c118de65679aab64dfbf0c3",
+      "label": "uwvm2rossoak",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 615.4230260799959,
+      "owned_rss_peak": 239460352,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-ros-rust/receipts.json",
+      "receipt_sha256": "a708ec097584216d1b29a8a7f620ad1655a7d6a4eb8637ac765f0073ee81e1e1",
+      "label": "uwvm2rosinstruction",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 37.01585150699975,
+      "owned_rss_peak": 212582400,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-ros-rust/receipts.json",
+      "receipt_sha256": "a708ec097584216d1b29a8a7f620ad1655a7d6a4eb8637ac765f0073ee81e1e1",
+      "label": "uwvm2rosunwind",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 35.60440643900074,
+      "owned_rss_peak": 212914176,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a2-r48/guard-u-soak/receipts.json",
+      "receipt_sha256": "d1e662a1a4ab9bfcd2d2ef2e2aaa737d4bc39cc9b623d656b6b29e73661ee560",
+      "label": "uwvm2soak",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 614.0472160660065,
+      "owned_rss_peak": 239783936,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a3-r48/guard-ros-soak/receipts.json",
+      "receipt_sha256": "354ef6278dd52c070cea6696eae600af633b4e8c096a4787cace66275e1d76e8",
+      "label": "uwvm2rosgosoak",
+      "passed": false,
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1,
+      "wall_seconds": 0.709519715004717,
+      "owned_rss_peak": 44109824,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a3-r48/guard-u-soak/receipts.json",
+      "receipt_sha256": "40a5db09a2d5056195c0ecb0ea066608b5ffcfc0d7736694fc08a378b7da477e",
+      "label": "uwvm2gosoak",
+      "passed": false,
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1,
+      "wall_seconds": 0.6079385289995116,
+      "owned_rss_peak": 34697216,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/guard-ros-soak/receipts.json",
+      "receipt_sha256": "de92b15e596b251a8c0fbdd193a9325c12a6a24b8042dcc81c6b9565b995d40e",
+      "label": "uwvm2rosgosoak",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 602.9944560639997,
+      "owned_rss_peak": 346595328,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-dap-a4-r48/guard-u-soak/receipts.json",
+      "receipt_sha256": "e0bb6ceda87a114cc3d8c993ba2bc66cdda1da654c8b117670fe3dca0cbeff3e",
+      "label": "uwvm2gosoak",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 601.9671818800052,
+      "owned_rss_peak": 348418048,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-cross-a2-r48/guard-matrix/receipts.json",
+      "receipt_sha256": "29f0f61556e45c1aa6d9067d4ee377b4b7c6dd3fe26a5902c804a07c7da11bef",
+      "label": "crossmatrix",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 61.75025410299713,
+      "owned_rss_peak": 580296704,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-cross-a3-r48/guard-matrix/receipts.json",
+      "receipt_sha256": "167869365fda8613b20b09b08ef4e5ff25a2ef3d653842cbc1ad1a660acf8d7c",
+      "label": "crossmatrix",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 70.57606876600039,
+      "owned_rss_peak": 580661248,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-full-a2-r48/guard-ros-build/receipts.json",
+      "receipt_sha256": "77878531f250aabfffca33dbd7a4a1cbd61dfa132cadd0fd59d744ea0eb887ed",
+      "label": "uwvm2rosbuild",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 212.5449525110016,
+      "owned_rss_peak": 5929508864,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-full-a2-r48/guard-uwvm2-build/receipts.json",
+      "receipt_sha256": "8430a934e4d876892b9e6475ec691813f9324de21a67ffe932912279601475f2",
+      "label": "uwvm2build",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 244.3720624139969,
+      "owned_rss_peak": 7287304192,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-full-a3-r48/guard-ros-build/receipts.json",
+      "receipt_sha256": "8fe9919ae4505b474ad504ccb4491104efe199a892b5456aec206e1dc8c37def",
+      "label": "uwvm2rosbuild",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 213.9827101560004,
+      "owned_rss_peak": 5929660416,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    },
+    {
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/predicate-full-a3-r48/guard-uwvm2-build/receipts.json",
+      "receipt_sha256": "4f0b5323e4509b728c659c023ab9a241e166d4e5580a0ead213f4b8bec5488ab",
+      "label": "uwvm2build",
+      "passed": true,
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 259.1828381879968,
+      "owned_rss_peak": 7287250944,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+    }
+  ],
+  "final_guard_jobs": 31,
+  "all_final_guard_jobs_passed": true,
+  "original_cgroup_only": true,
+  "OOM_events": 0,
+  "source_byte_changes": "R41 full source + paired source_scalar_expression.h and two component test paths; DAP adapter syntax and genuine runners independently pinned",
+  "limits": {
+    "memory_max_bytes": 68719476736,
+    "swap": 0,
+    "component_RSS": 1073741824,
+    "component_output": 67108864,
+    "component_file": 8388608,
+    "component_log": 1048576,
+    "full_build_RSS": 17179869184,
+    "full_build_output": 2147483648,
+    "arena_free_floor_bytes": 9288400896,
+    "host_reserve_bytes": 26843545600
+  },
+  "unqualified": [
+    "whole current dirty workspace",
+    "latest ROS external LLVM provider",
+    "full QEMU VM/JIT/DAP",
+    "14 other QEMU SDK/provider routes",
+    "live Zig producer/native syntax coverage",
+    "standard Go complete runtime and named Boolean identity",
+    "all language/native GDB/IDE GUI equivalence",
+    "overloaded operators and full type inference",
+    "AssemblyScript complete expressions"
+  ],
+  "references": [
+    "https://doc.rust-lang.org/reference/expressions/operator-expr.html",
+    "https://go.dev/ref/spec#Operators",
+    "https://ziglang.org/documentation/0.14.1/#Operators"
+  ],
+  "startup_failure": "predicate-cross-a1-r48 missing SDK linker; no compiler/target launched; separately retained",
+  "source_status_counts": {
+    "implemented": 14,
+    "partial": 39,
+    "missing": 33,
+    "separate_level": 1,
+    "prohibited_by_scope": 1
+  }
+}

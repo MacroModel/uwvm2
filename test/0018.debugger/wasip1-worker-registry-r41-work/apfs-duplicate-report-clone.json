@@ -1,0 +1,32 @@
+[
+  {
+    "source": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_root_alias_test_results.json",
+    "destination": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_root_alias_test_results.json",
+    "sha256": "87401c61be6c971ff48020ac9c6e6e3e975802a4af178e628abde14f7a2f8452",
+    "size": 25849413,
+    "before_inode": 81886359,
+    "after_inode": 82965385,
+    "bytes_and_paths_preserved": true,
+    "copy_on_write_not_hardlink": true
+  },
+  {
+    "source": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_path_provenance_test_results.json",
+    "destination": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_path_provenance_test_results.json",
+    "sha256": "dd457da61428e83c58b4d486196ca1f260c5ae8c079a03f9b4eaf0475f2d9151",
+    "size": 22001499,
+    "before_inode": 81963951,
+    "after_inode": 82965386,
+    "bytes_and_paths_preserved": true,
+    "copy_on_write_not_hardlink": true
+  },
+  {
+    "source": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_native_fd_quota_test_results.json",
+    "destination": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_native_fd_quota_test_results.json",
+    "sha256": "fb6ac8103e9b077c326c92292da35c04f9974881868aa6f30a4193fa6b2d9fbc",
+    "size": 20915146,
+    "before_inode": 81852256,
+    "after_inode": 82965387,
+    "bytes_and_paths_preserved": true,
+    "copy_on_write_not_hardlink": true
+  }
+]

@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "source_identities": {
+    "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+    "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+  },
+  "scope": "Actual T2 target entry; ordinary f32 unfused arithmetic, f64 ties-even and f32x4 lanes; not complete tiered/Core 3 coverage",
+  "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+  "report": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-t2-numeric-r2/results/qualification.json",
+  "report_sha256": "bc102be0048ccc081dc258dc7fef42857316428d3be4683ef6a86a77a6c80d1b",
+  "rows": 6,
+  "captured_at_utc": "2026-10-07T22:35:34.802238+00:00",
+  "observations": [
+    {
+      "mode": "lazy",
+      "optimization": 1,
+      "actual_t2_target_entry": true,
+      "full_module_ready": true,
+      "counters": {
+        "tiered_full_failed": 0,
+        "tiered_full_ready": 1,
+        "tiered_switches": 3623641
+      },
+      "checked_calls": 4000000,
+      "bit_checks_per_call": 6
+    },
+    {
+      "mode": "lazy",
+      "optimization": 2,
+      "actual_t2_target_entry": true,
+      "full_module_ready": true,
+      "counters": {
+        "tiered_full_failed": 0,
+        "tiered_full_ready": 1,
+        "tiered_switches": 3613793
+      },
+      "checked_calls": 4000000,
+      "bit_checks_per_call": 6
+    },
+    {
+      "mode": "lazy",
+      "optimization": 3,
+      "actual_t2_target_entry": true,
+      "full_module_ready": true,
+      "counters": {
+        "tiered_full_failed": 0,
+        "tiered_full_ready": 1,
+        "tiered_switches": 3593803
+      },
+      "checked_calls": 4000000,
+      "bit_checks_per_call": 6
+    },
+    {
+      "mode": "lazy+verification",
+      "optimization": 1,
+      "actual_t2_target_entry": true,
+      "full_module_ready": true,
+      "counters": {
+        "tiered_full_failed": 0,
+        "tiered_full_ready": 1,
+        "tiered_switches": 3626976
+      },
+      "checked_calls": 4000000,
+      "bit_checks_per_call": 6
+    },
+    {
+      "mode": "lazy+verification",
+      "optimization": 2,
+      "actual_t2_target_entry": true,
+      "full_module_ready": true,
+      "counters": {
+        "tiered_full_failed": 0,
+        "tiered_full_ready": 1,
+        "tiered_switches": 3635744
+      },
+      "checked_calls": 4000000,
+      "bit_checks_per_call": 6
+    },
+    {
+      "mode": "lazy+verification",
+      "optimization": 3,
+      "actual_t2_target_entry": true,
+      "full_module_ready": true,
+      "counters": {
+        "tiered_full_failed": 0,
+        "tiered_full_ready": 1,
+        "tiered_switches": 3624828
+      },
+      "checked_calls": 4000000,
+      "bit_checks_per_call": 6
+    }
+  ],
+  "repo": "uwvm2",
+  "ROS_tiered_supported": false,
+  "supported_interpreter_modes": [
+    "lazy",
+    "lazy+verification"
+  ]
+}

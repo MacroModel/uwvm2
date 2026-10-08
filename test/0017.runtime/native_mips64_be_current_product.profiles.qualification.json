@@ -1,0 +1,3355 @@
+{
+  "UTF8_BOM_handling": "Same BOM removal as Lua loadfile; hashes retain exact original bytes",
+  "scope": "Actual Lua5.4 current paired full platform callbacks, full release rules and exact native product block; whole xmake build not claimed",
+  "passed": true,
+  "source_manifest_sha256": "ee61e22141cf79d004933b26be53e87c7a66fab6e71205aa962cfb5ddaa403c5",
+  "platform_cases": [
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": "mips64el",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": "mips64el",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": "mips64el",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "arm64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "arm64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "arm64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "arm64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "arm64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "arm64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "arm64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "arm64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "arm64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "arm64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "arm64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "arm64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-arch",
+      "arch": "mips64",
+      "target": "detect",
+      "llvm_target": "detect",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-arch",
+      "arch": "mips64el",
+      "target": "detect",
+      "llvm_target": "detect",
+      "gold_arch": "mips64el",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-target-over-LE-alias",
+      "arch": "mips64el",
+      "target": "mips64-linux-gnuabi64",
+      "llvm_target": "mips64el-linux-gnuabi64",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-target-over-BE-alias",
+      "arch": "mips64",
+      "target": "mips64el-linux-gnuabi64",
+      "llvm_target": "mips64-linux-gnuabi64",
+      "gold_arch": "mips64el",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-LLVM-target",
+      "arch": "x86_64",
+      "target": "detect",
+      "llvm_target": "mips64-linux-gnuabi64",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-LLVM-target",
+      "arch": "x86_64",
+      "target": "detect",
+      "llvm_target": "mips64el-linux-gnuabi64",
+      "gold_arch": "mips64el",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "uppercase-BE",
+      "arch": "mips64el",
+      "target": "MIPS64-linux-gnuabi64",
+      "llvm_target": "detect",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-non-MIPS-target",
+      "arch": "mips64",
+      "target": "x86_64-linux-gnu",
+      "llvm_target": "mips64-linux-gnuabi64",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-BE-target-over-other-LLVM",
+      "arch": "x86_64",
+      "target": "mips64-linux-gnuabi64",
+      "llvm_target": "x86_64-linux-gnu",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": "mips64el",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": "mips64el",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": "mips64el",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "arm64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "arm64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "arm64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "arm64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "arm64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "arm64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "arm64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "arm64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "arm64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "arm64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "arm64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "arm64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "clang": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "clang": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "clang": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "release",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "clang": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-arch",
+      "arch": "mips64",
+      "target": "detect",
+      "llvm_target": "detect",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-arch",
+      "arch": "mips64el",
+      "target": "detect",
+      "llvm_target": "detect",
+      "gold_arch": "mips64el",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-target-over-LE-alias",
+      "arch": "mips64el",
+      "target": "mips64-linux-gnuabi64",
+      "llvm_target": "mips64el-linux-gnuabi64",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-target-over-BE-alias",
+      "arch": "mips64",
+      "target": "mips64el-linux-gnuabi64",
+      "llvm_target": "mips64-linux-gnuabi64",
+      "gold_arch": "mips64el",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-LLVM-target",
+      "arch": "x86_64",
+      "target": "detect",
+      "llvm_target": "mips64-linux-gnuabi64",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-LLVM-target",
+      "arch": "x86_64",
+      "target": "detect",
+      "llvm_target": "mips64el-linux-gnuabi64",
+      "gold_arch": "mips64el",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "uppercase-BE",
+      "arch": "mips64el",
+      "target": "MIPS64-linux-gnuabi64",
+      "llvm_target": "detect",
+      "gold_arch": "mips64",
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-non-MIPS-target",
+      "arch": "mips64",
+      "target": "x86_64-linux-gnu",
+      "llvm_target": "mips64-linux-gnuabi64",
+      "gold_arch": null,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-BE-target-over-other-LLVM",
+      "arch": "x86_64",
+      "target": "mips64-linux-gnuabi64",
+      "llvm_target": "x86_64-linux-gnu",
+      "gold_arch": "mips64",
+      "passed": true
+    }
+  ],
+  "LTO_cases": [
+    {
+      "repository": "uwvm2",
+      "route": "BE-arch",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-arch",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-arch",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-arch",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-arch",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-arch",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-arch",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-arch",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-arch",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-arch",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-arch",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-arch",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-target-over-LE-alias",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-target-over-LE-alias",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-target-over-LE-alias",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-target-over-LE-alias",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-target-over-LE-alias",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-target-over-LE-alias",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-target-over-BE-alias",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-target-over-BE-alias",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-target-over-BE-alias",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-target-over-BE-alias",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-target-over-BE-alias",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-target-over-BE-alias",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-LLVM-target",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-LLVM-target",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-LLVM-target",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-LLVM-target",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-LLVM-target",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "BE-LLVM-target",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-LLVM-target",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-LLVM-target",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-LLVM-target",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-LLVM-target",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-LLVM-target",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "LE-LLVM-target",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "uppercase-BE",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "uppercase-BE",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "uppercase-BE",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "uppercase-BE",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "uppercase-BE",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "uppercase-BE",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-non-MIPS-target",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-non-MIPS-target",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-non-MIPS-target",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-non-MIPS-target",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-non-MIPS-target",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-non-MIPS-target",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-BE-target-over-other-LLVM",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-BE-target-over-other-LLVM",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-BE-target-over-other-LLVM",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-BE-target-over-other-LLVM",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-BE-target-over-other-LLVM",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "route": "actual-BE-target-over-other-LLVM",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "x86_64",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "x86_64",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "x86_64",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "x86_64",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "x86_64",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "x86_64",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "arm64",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "arm64",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "arm64",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "arm64",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "arm64",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "arm64",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "riscv64",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "riscv64",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "riscv64",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "riscv64",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "riscv64",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "riscv64",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "ppc64",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "ppc64",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "ppc64",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "ppc64",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "ppc64",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "ppc64",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "sparc64",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "sparc64",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "sparc64",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "sparc64",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "sparc64",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "unrelated_arch": "sparc64",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-arch",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-arch",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-arch",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-arch",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-arch",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-arch",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-arch",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-arch",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-arch",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-arch",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-arch",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-arch",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-target-over-LE-alias",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-target-over-LE-alias",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-target-over-LE-alias",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-target-over-LE-alias",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-target-over-LE-alias",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-target-over-LE-alias",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-target-over-BE-alias",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-target-over-BE-alias",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-target-over-BE-alias",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-target-over-BE-alias",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-target-over-BE-alias",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-target-over-BE-alias",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-LLVM-target",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-LLVM-target",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-LLVM-target",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-LLVM-target",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-LLVM-target",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "BE-LLVM-target",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-LLVM-target",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-LLVM-target",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-LLVM-target",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-LLVM-target",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-LLVM-target",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "LE-LLVM-target",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "uppercase-BE",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "uppercase-BE",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "uppercase-BE",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "uppercase-BE",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "uppercase-BE",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "uppercase-BE",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-non-MIPS-target",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-non-MIPS-target",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-non-MIPS-target",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-non-MIPS-target",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-non-MIPS-target",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-non-MIPS-target",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-BE-target-over-other-LLVM",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-BE-target-over-other-LLVM",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-BE-target-over-other-LLVM",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-BE-target-over-other-LLVM",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-BE-target-over-other-LLVM",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "route": "actual-BE-target-over-other-LLVM",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "x86_64",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "x86_64",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "x86_64",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "x86_64",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "x86_64",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "x86_64",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "arm64",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "arm64",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "arm64",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "arm64",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "arm64",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "arm64",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "riscv64",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "riscv64",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "riscv64",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "riscv64",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "riscv64",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "riscv64",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "ppc64",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "ppc64",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "ppc64",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "ppc64",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "ppc64",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "ppc64",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "sparc64",
+      "mode": "release",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "sparc64",
+      "mode": "releasedbg",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "sparc64",
+      "mode": "minsizerel",
+      "requested_LTO": false,
+      "actual_expected_LTO": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "sparc64",
+      "mode": "release",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "sparc64",
+      "mode": "releasedbg",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "unrelated_arch": "sparc64",
+      "mode": "minsizerel",
+      "requested_LTO": true,
+      "actual_expected_LTO": true,
+      "passed": true
+    }
+  ],
+  "product_definition_cases": [
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "continuation_product": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "continuation_product": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "continuation_product": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "continuation_product": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "continuation_product": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "continuation_product": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "continuation_product": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "continuation_product": false,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "continuation_product": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "continuation_product": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "continuation_product": true,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "continuation_product": false,
+      "passed": true
+    }
+  ],
+  "actual_platform_cases": 210,
+  "actual_release_rule_cases": 168,
+  "actual_product_definition_cases": 12,
+  "syntax": [
+    {
+      "repository": "uwvm2",
+      "path": "xmake/platform/linux.lua",
+      "sha256": "a1e1a6c4aecccf37c922c82c27d4f8a1b4ad8abbb3fb230c419623b1eabc7c27"
+    },
+    {
+      "repository": "uwvm2",
+      "path": "xmake/rule.lua",
+      "sha256": "4684ab00fc0949676f4b400f89bfcdc84bcd34cdae2ef85bb077bf8b6f033585"
+    },
+    {
+      "repository": "uwvm2",
+      "path": "xmake.lua",
+      "sha256": "bd715ee8b5c45a633094386a5afa4806fccf7587e38a420eb718905e29b7444d"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "xmake/platform/linux.lua",
+      "sha256": "a1e1a6c4aecccf37c922c82c27d4f8a1b4ad8abbb3fb230c419623b1eabc7c27"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "xmake/rule.lua",
+      "sha256": "4684ab00fc0949676f4b400f89bfcdc84bcd34cdae2ef85bb077bf8b6f033585"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "xmake.lua",
+      "sha256": "0d8ca3e785a1369f80eddf718271ed05dc997a16ecd32ba135f08a2b975e00b4"
+    }
+  ],
+  "all_noexecstack_flags_preserved": true,
+  "actual_Wasm_VM_sessions": 0
+}

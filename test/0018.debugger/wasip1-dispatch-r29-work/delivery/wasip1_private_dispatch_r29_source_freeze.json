@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "files": 8767,
+  "hardlinked_immutable": 8576,
+  "new_files": 191,
+  "manifest_sha256": "194ff28bd7ea121fa338698e9cff6ba427c52fb7522e2fca9ae066ff1433b9be",
+  "source_archive_sha256": "c994dd6c8d89318e9b2578353cb2981bb634ca325bdc2cc07533bbe2501db6db",
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "all_payloads_read_back": true,
+  "changed_fixture_paths": [
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+    "uwvm2/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc"
+  ],
+  "initial_qualification_sha256": "2d99f43ef11ba8eb2954966f765d9db5d0c404ae56829a27f7158c132e655d1a",
+  "production_inputs_changed": false
+}

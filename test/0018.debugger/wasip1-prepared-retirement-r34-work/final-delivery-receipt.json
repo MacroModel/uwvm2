@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "delivery_all_bytes_verified": true,
+  "native_runs": 48,
+  "counted_wasip1_assertions": 432,
+  "owned_paths": 22,
+  "controller_files": 16,
+  "concurrent_changes_preserved": true,
+  "active_environment_updated": true,
+  "active_environment": "/home/macromodel/Documents/uwvm3-implementation/wasip1-active-environment.json",
+  "active_environment_sha256": "222fa469fe2e562ac9a65529f7ca16522b7c044b2b3b413b0890fa83e573fc46",
+  "source_manifest_sha256": "171e9f277d349278c53669b49d60d5727f73575fa9847d14dd40a5741924d73f",
+  "metadata_sha256": "957b501c1736c64fd9dc70f6b9ef9c182513efa71ab2c5f86bea5d1aeff7d806",
+  "native_qualification_sha256": "558e27c3f12059d23a808d5faa0926bcd5ae937439598dab748b727878429f21",
+  "new_native_suite_admitted": false,
+  "whole_world_publication_implemented": false,
+  "restored_guest_replay_implemented": false
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "uwvm-mips64el-release-lto-pending-v1",
+  "date": "2026-10-08",
+  "repositories": [
+    "uwvm2",
+    "uwvm2-ros"
+  ],
+  "qualification": false,
+  "implementation": "Automatically disable release-family LTO only for the qualified Linux Clang MIPS64EL native-debug target gold profile, preserving all unrelated existing release policies",
+  "source_inputs": {
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/work/source/uwvm2/xmake.lua": "da6f23b542bba4c6f0059b9fb4c166ad4a599ebd40b32e9c4bb2ba0f4b9a2b05",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/work/source/uwvm2/xmake/rule.lua": "0c5676c443c6666e2b9add1e26c23712f9bd546db3f5e97caa489a65b12dc083",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/work/source/uwvm2/xmake/platform/linux.lua": "c0d2652fb942ffc8ece4e2071f0120f0657ff1abb5a49e12cfc872b85c595953",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/work/source/uwvm2-ros/xmake.lua": "42ac6208d816ba47155930c3bb71b239e01419d1f4cf5f5512eaf28bc5327317",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/work/source/uwvm2-ros/xmake/rule.lua": "0c5676c443c6666e2b9add1e26c23712f9bd546db3f5e97caa489a65b12dc083",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/work/source/uwvm2-ros/xmake/platform/linux.lua": "c0d2652fb942ffc8ece4e2071f0120f0657ff1abb5a49e12cfc872b85c595953"
+  },
+  "producer": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/release-lto.py",
+  "producer_sha256": "fbf25a36b6df0c561c3ff15daf3a4c6a354ee3d18a419973c87b4f27e88ecb5c",
+  "supervisor": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/supervisor.py",
+  "supervisor_sha256": "9aa61d989492349806d6051f5b2fae54cb7c88f4081091ee6d9edf64541613f1",
+  "initial_admission_failure": {
+    "passed": false,
+    "driver_started": false,
+    "supervisor_exitcode": 1,
+    "stage": "initial admission limits before any child creation",
+    "error": "32 GiB disk reserve",
+    "resource_peak": {
+      "own_folder": 0,
+      "shared_folder": 0,
+      "group_memory": 48265908224
+    },
+    "qualification": false
+  },
+  "initial_admission_failure_sha256": "89db6797ad0cb16fc5037a4786503ffec5ba7492b176a21501bb8c93d9e0ae96",
+  "actual_compiler_children_created": 0,
+  "actual_QEMU_children_created": 0,
+  "actual_new_Wasm_VM_sessions": 0,
+  "planned_scope": {
+    "actual_Lua_syntax_files": 6,
+    "actual_release_rule_callbacks": 156,
+    "old_default_LTO_link_rejections": 2,
+    "target_links": 6,
+    "QEMU_native_CXX_executions": 6,
+    "full_current_product_build": false
+  },
+  "resume": "Preserve failed607. Clone the prepared producer/supervisor/source inputs into a fresh stage, retain original64GiB cgroup and all guards. Do not rerun or relabel607 as passed. Authenticate updated source paths/hashes before admission.",
+  "runtime_source574_qualification_reused_as_new_result": false,
+  "disk_free": 32121782272,
+  "disk_floor": 34359738368
+}

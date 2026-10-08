@@ -1,0 +1,593 @@
+{
+  "round": "R26",
+  "status": "complete",
+  "windows_full_product_observations": 1719,
+  "windows_guests": {
+    "vm-windows-cross-jit-57a5eaf8": {
+      "passed": true,
+      "nonce": "57a5eaf8f8659b9847ac533cebe3c46b",
+      "qemu_exit": 0,
+      "receipt_sha256": "7048120849273e22b320d8d411606d295bba4240bf81632e4890890de05ccc49",
+      "test_pass_checks": {
+        "uwvm2-ros-smoke-int": 1,
+        "uwvm2-ros-smoke-llvm": 1,
+        "uwvm2-ros-removed-Rjit": 1,
+        "uwvm2-ros-removed-Rtiered": 1,
+        "uwvm2-ros-removed-Rcm": 1,
+        "uwvm2-ros-coff-sdk-regression": 12,
+        "uwvm2-ros-instruction-native-checkpoint": 149,
+        "uwvm2-ros-instruction-portable-save": 51,
+        "uwvm2-ros-instruction-portable-restore": 83,
+        "uwvm2-ros-instruction-from-linux": 83,
+        "uwvm2-ros-unwind-native-checkpoint": 149,
+        "uwvm2-ros-unwind-portable-save": 51,
+        "uwvm2-ros-unwind-portable-restore": 83,
+        "uwvm2-ros-unwind-from-linux": 83,
+        "uwvm2-ros-public-cli": 98
+      },
+      "base_unchanged": true
+    },
+    "vm-windows-cross-jit-0d04d2a7": {
+      "passed": true,
+      "nonce": "0d04d2a751258677a19729ddbdab48e8",
+      "qemu_exit": 0,
+      "receipt_sha256": "1456f3d41b2061d48ea6416ecb2518420bee92d411d5bec1815b844a7a9b3721",
+      "test_pass_checks": {
+        "uwvm2-smoke-int": 1,
+        "uwvm2-smoke-llvm": 1,
+        "uwvm2-coff-sdk-regression": 12,
+        "uwvm2-instruction-native-checkpoint": 149,
+        "uwvm2-instruction-portable-save": 51,
+        "uwvm2-instruction-portable-restore": 83,
+        "uwvm2-instruction-from-linux": 83,
+        "uwvm2-unwind-native-checkpoint": 149,
+        "uwvm2-unwind-portable-save": 51,
+        "uwvm2-unwind-portable-restore": 83,
+        "uwvm2-unwind-from-linux": 83,
+        "uwvm2-public-cli": 98
+      },
+      "base_unchanged": true
+    }
+  },
+  "remaining": [],
+  "report_sha256": "632cce0a0b35135046f07f35a689f7f1a97c59cd95f3fb0f5192543e01e8d031",
+  "linux_full_products": {
+    "uwvm2": {
+      "passed": true,
+      "cli_dap_checks": 314,
+      "native_checkpoint": {
+        "instruction": 154,
+        "unwind": 154
+      },
+      "portable_save": {
+        "instruction": 51,
+        "unwind": 51
+      },
+      "portable_restore": {
+        "instruction": 83,
+        "unwind": 83
+      },
+      "from_windows": {
+        "instruction": 83,
+        "unwind": 83
+      },
+      "logs_sha256": {
+        "live-cli-dap.log": "6e7ee0612811fd4012594c823a06b1ac63e0c3407fccce54aded1100390c7429",
+        "debug_wasip1_checkpoint-instruction.log": "23cda828846c2bd3b1f32e87fa47b8964fa0510fb4d015267b8416c9702c9960",
+        "debug_wasip1_checkpoint-unwind.log": "2deaeede0931770b553c0a30cda50dee05a1426bb88aa467b948deb78723a83f",
+        "portable-from-windows-instruction.log": "0f4a9cf20f3bc9614fca9e0c96a946f2739458080986e34b15a204360379b68a",
+        "portable-from-windows-unwind.log": "78fe29e329355fac3089b9801ef19be9f597f1500de9e55fc2fe48873239686e"
+      },
+      "portable_source_provenance_sha256": "3540d622329f47bc2afd201e3c6026579e6341afdf989fdf656b7b6ee7bc6b4f",
+      "product_retirement_sha256": "1324cff8ad764a683ad1d91dd4d0d7c21dc82861b6c2b35f26bb19f71fdd6b53",
+      "archive_sha256": "f5911543cc5e3aeb4b8dade965ef940bbf603b024fe6d4da2eada3bc04ec360c",
+      "main_checks": 1056
+    },
+    "uwvm2-ros": {
+      "passed": true,
+      "cli_dap_checks": 314,
+      "native_checkpoint": {
+        "instruction": 154,
+        "unwind": 154
+      },
+      "portable_save": {
+        "instruction": 51,
+        "unwind": 51
+      },
+      "portable_restore": {
+        "instruction": 83,
+        "unwind": 83
+      },
+      "from_windows": {
+        "instruction": 83,
+        "unwind": 83
+      },
+      "logs_sha256": {
+        "live-cli-dap.log": "6e7ee0612811fd4012594c823a06b1ac63e0c3407fccce54aded1100390c7429",
+        "debug_wasip1_checkpoint-instruction.log": "23cda828846c2bd3b1f32e87fa47b8964fa0510fb4d015267b8416c9702c9960",
+        "debug_wasip1_checkpoint-unwind.log": "2deaeede0931770b553c0a30cda50dee05a1426bb88aa467b948deb78723a83f",
+        "portable-from-windows-instruction.log": "0f4a9cf20f3bc9614fca9e0c96a946f2739458080986e34b15a204360379b68a",
+        "portable-from-windows-unwind.log": "78fe29e329355fac3089b9801ef19be9f597f1500de9e55fc2fe48873239686e"
+      },
+      "portable_source_provenance_sha256": "5c3864a1c5167de646a64c22cc62b4ee614be694cc69bc4a0ef5408d115035a6",
+      "product_retirement_sha256": "9db3e43819f463b0d76abd57a4448f3ebc13df8c77259cbfbd1a0b802221c1a7",
+      "archive_sha256": "edd05ca552326989d948962aa5c48c5252fb180bb5c5a79c8371b9552f389487",
+      "main_checks": 1056
+    }
+  },
+  "linux_full_product_observations": 2112,
+  "freebsd_full_products": {
+    "uwvm2": {
+      "passed": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/vm-freebsd-cross-jit-b1260156/receipt.json",
+      "receipt_sha256": "a5b74c489526713637bd3baca5623757f07a7e96e64694aeeedc118dadc59dfd",
+      "nonce": "b126015644a2b4d358324300d1707b7d",
+      "qemu_exit": 0,
+      "base_unchanged": true,
+      "actual_checks": 1006,
+      "test_pass_checks": {
+        "uwvm2-smoke-int": 1,
+        "uwvm2-smoke-llvm": 1,
+        "uwvm2-coff-sdk-regression": 12,
+        "uwvm2-instruction-native-checkpoint": 154,
+        "uwvm2-instruction-portable-save": 51,
+        "uwvm2-instruction-portable-restore": 83,
+        "uwvm2-instruction-from-linux": 83,
+        "uwvm2-unwind-native-checkpoint": 154,
+        "uwvm2-unwind-portable-save": 51,
+        "uwvm2-unwind-portable-restore": 83,
+        "uwvm2-unwind-from-linux": 83,
+        "uwvm2-instruction-from-windows": 83,
+        "uwvm2-unwind-from-windows": 83,
+        "uwvm2-public-cli": 84
+      },
+      "exported_metadata": {
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/migration-source-freebsd-uwvm2-instruction.uwp": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/migration-source-freebsd-uwvm2-unwind.uwp": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      }
+    },
+    "uwvm2-ros": {
+      "passed": true,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/vm-freebsd-cross-jit-51c1ff1d/receipt.json",
+      "receipt_sha256": "f6b017a710736db305c7a372834251eb3702e3ecf51de351dc8e5544ea162769",
+      "nonce": "51c1ff1d660e1d88cab3e856d241a964",
+      "qemu_exit": 0,
+      "base_unchanged": true,
+      "actual_checks": 1009,
+      "test_pass_checks": {
+        "uwvm2-ros-smoke-int": 1,
+        "uwvm2-ros-smoke-llvm": 1,
+        "uwvm2-ros-removed-Rjit": 1,
+        "uwvm2-ros-removed-Rtiered": 1,
+        "uwvm2-ros-removed-Rcm": 1,
+        "uwvm2-ros-coff-sdk-regression": 12,
+        "uwvm2-ros-instruction-native-checkpoint": 154,
+        "uwvm2-ros-instruction-portable-save": 51,
+        "uwvm2-ros-instruction-portable-restore": 83,
+        "uwvm2-ros-instruction-from-linux": 83,
+        "uwvm2-ros-unwind-native-checkpoint": 154,
+        "uwvm2-ros-unwind-portable-save": 51,
+        "uwvm2-ros-unwind-portable-restore": 83,
+        "uwvm2-ros-unwind-from-linux": 83,
+        "uwvm2-ros-instruction-from-windows": 83,
+        "uwvm2-ros-unwind-from-windows": 83,
+        "uwvm2-ros-public-cli": 84
+      },
+      "exported_metadata": {
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/migration-source-freebsd-uwvm2-ros-instruction.uwp": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/migration-source-freebsd-uwvm2-ros-unwind.uwp": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      }
+    }
+  },
+  "freebsd_full_product_observations": 2015,
+  "freebsd_reverse_migration": {
+    "uwvm2": {
+      "proof_sha256": "4d51c926300b058ca623ba1de5324377c4330a4f23a230b04ceac1c1d48b4fab",
+      "rows": [
+        {
+          "passed": true,
+          "exit": 0,
+          "checks": 83,
+          "policy": "instruction",
+          "origin": "freebsd",
+          "target": "linux",
+          "source_receipt_sha256": "a5b74c489526713637bd3baca5623757f07a7e96e64694aeeedc118dadc59dfd",
+          "source_metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7",
+          "target_wasm_sha256": "6276162dc3dffdcd769bef8d62ddc8eeec87f0d00df9c184d132110f469e4b5c",
+          "target_binary_sha256": "3d4b413f15c746e193323a58d1d13d11319726bc8aeb8fee4cfe57d6c84acf5d",
+          "log_sha256": "0f4a9cf20f3bc9614fca9e0c96a946f2739458080986e34b15a204360379b68a"
+        },
+        {
+          "passed": true,
+          "exit": 0,
+          "checks": 83,
+          "policy": "unwind",
+          "origin": "freebsd",
+          "target": "linux",
+          "source_receipt_sha256": "a5b74c489526713637bd3baca5623757f07a7e96e64694aeeedc118dadc59dfd",
+          "source_metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7",
+          "target_wasm_sha256": "6276162dc3dffdcd769bef8d62ddc8eeec87f0d00df9c184d132110f469e4b5c",
+          "target_binary_sha256": "3d4b413f15c746e193323a58d1d13d11319726bc8aeb8fee4cfe57d6c84acf5d",
+          "log_sha256": "78fe29e329355fac3089b9801ef19be9f597f1500de9e55fc2fe48873239686e"
+        }
+      ]
+    },
+    "uwvm2-ros": {
+      "proof_sha256": "ea8966796160af2ff2972a8753dfaf0836bf78a3501ca49253f2099e386d8917",
+      "rows": [
+        {
+          "passed": true,
+          "exit": 0,
+          "checks": 83,
+          "policy": "instruction",
+          "origin": "freebsd",
+          "target": "linux",
+          "source_receipt_sha256": "f6b017a710736db305c7a372834251eb3702e3ecf51de351dc8e5544ea162769",
+          "source_metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7",
+          "target_wasm_sha256": "6276162dc3dffdcd769bef8d62ddc8eeec87f0d00df9c184d132110f469e4b5c",
+          "target_binary_sha256": "a2b32df48c6bae8a238d2b2efc72812fbeeadff3a1f4fea9bfdfb6450e248c81",
+          "log_sha256": "0f4a9cf20f3bc9614fca9e0c96a946f2739458080986e34b15a204360379b68a"
+        },
+        {
+          "passed": true,
+          "exit": 0,
+          "checks": 83,
+          "policy": "unwind",
+          "origin": "freebsd",
+          "target": "linux",
+          "source_receipt_sha256": "f6b017a710736db305c7a372834251eb3702e3ecf51de351dc8e5544ea162769",
+          "source_metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7",
+          "target_wasm_sha256": "6276162dc3dffdcd769bef8d62ddc8eeec87f0d00df9c184d132110f469e4b5c",
+          "target_binary_sha256": "a2b32df48c6bae8a238d2b2efc72812fbeeadff3a1f4fea9bfdfb6450e248c81",
+          "log_sha256": "78fe29e329355fac3089b9801ef19be9f597f1500de9e55fc2fe48873239686e"
+        }
+      ]
+    },
+    "windows": {
+      "receipt_sha256": "bee39e7145ea33519c3847706ee1566bb6b8e0c07143c586fa975da499942056",
+      "passed": true,
+      "checks": 332,
+      "qemu_exit": 0,
+      "base_unchanged": true
+    }
+  },
+  "three_os_bidirectional_paths": 6,
+  "macos_sdk_probe": {
+    "passed": true,
+    "scope": "Actual native macOS execution of arm64 cross-linked C++26 static runtime, FastIO, CoreFoundation, Security/SecTask and native OpenSSL SHA256; no Wasm/full product qualification",
+    "rows": [
+      {
+        "argv": [
+          "/tmp/uwvm-wasip1-cross-jit-20261007-r26/darwin-native-probe/probe"
+        ],
+        "exit": 0,
+        "seconds": 0.8080146659631282,
+        "sampled_aggregate_peak_rss_bytes": 8536064,
+        "aggregate_peak_upper_bytes": 42123264,
+        "limit_bytes": 2147483648,
+        "identities": [
+          {
+            "pid": 89107,
+            "seconds": 1791327438,
+            "microseconds": 900910,
+            "uid": 501,
+            "pgid": 89107
+          }
+        ],
+        "log": "/tmp/uwvm-wasip1-cross-jit-20261007-r26/darwin-native-probe/native.log",
+        "log_sha256": "421a11a44f05be7847adcb084524a7dcda4f5468ad0ba73968e49ca36a8aede4",
+        "passed": true,
+        "label": "darwin-real-sdk-probe",
+        "checks": 4
+      }
+    ]
+  },
+  "macos_macho_section_anchor_regression": {
+    "passed": true,
+    "actual_object_symbol_checks": 21,
+    "native_receipt_sha256": "98ca23cb035db0d5ba5e335769face7b5ad3b05e36afd6834d59fe6421b8ddac",
+    "diagnostic_archive_sha256": "2596aa460b94ad6baac565edd7e256a4b5cb7d0a25328b801ea8631027b72c2f",
+    "source_manifest_sha256": "d5927df705c64f88e1e259f02477a2d208f6f1eb5b35867d0aa63a179749d21a",
+    "aggregate_peak_upper_bytes": 201490432,
+    "full_runtime_dbg_passed": true,
+    "full_runtime_retest": "Both full products passed: ordinary 1177, ROS 1180",
+    "execution_ownership_granted": false
+  },
+  "readonly_io_fix": {
+    "code_synchronized": true,
+    "windows_readonly_cdfs_execution_qualified": true,
+    "default_read_timestamp_write_preserved": true,
+    "macos_actual_checks": 5,
+    "windows_per_repository": {
+      "uwvm2-ros": true,
+      "uwvm2": true
+    }
+  },
+  "macos_full_products": {
+    "uwvm2-ros": {
+      "passed": true,
+      "main_checks": 1180,
+      "source_manifest_sha256": "0e00f189ecefd584e8979d59698fe86f312459004a1e150c28479c6b07ecb9ad",
+      "native_receipt_sha256": "44f525694ef38bd7f36dd6aa8f59b4de7b74965b10ed5faf61069b2e0d205da4",
+      "native_result_sha256": {
+        "/tmp/uwvm-wasip1-cross-jit-20261007-r26/macos-platform-full-uwvm2-ros/full-cli-results.json": "3ee1cd80524729cf6cb5245c94f83e426a638345bb1057ce771056361532af45",
+        "/tmp/uwvm-wasip1-cross-jit-20261007-r26/macos-platform-full-uwvm2-ros/coff-regression-results.json": "9ec4543a5ed809fa18f24b983928ff46e589cac58003662c1da6c6b316b3bf08",
+        "/tmp/uwvm-wasip1-cross-jit-20261007-r26/macos-platform-full-uwvm2-ros/readonly-results.json": "5cfa416a835ab418386494b35ea3f6770a67b4dc35289b2a279c164b0eecb516",
+        "/tmp/uwvm-wasip1-cross-jit-20261007-r26/macos-platform-full-uwvm2-ros/native-checkpoint-results.json": "7a9511dd21515e04a40f2d4ed982a41495fc54b95d558d1a946699135f4dac82",
+        "/tmp/uwvm-wasip1-cross-jit-20261007-r26/macos-platform-full-uwvm2-ros/portable-and-migrations-results.json": "62291c64ca02dfce62671b5ecdeb66b3e32c727048acbb623271ee97b57627a6"
+      },
+      "aggregate_peak_upper_bytes": 404684800,
+      "source_compiled_archive_sha256": "52f688aedb6395f709810817c49aaa3ed5c4c13e5cdadbaacd17bd2bf345bc98"
+    },
+    "uwvm2": {
+      "passed": true,
+      "main_checks": 1177,
+      "source_manifest_sha256": "0e00f189ecefd584e8979d59698fe86f312459004a1e150c28479c6b07ecb9ad",
+      "native_receipt_sha256": "c16c72463a88d26ba69f64bf5681818bccb6a5d5ec705fdcc5bd6402a2e482ba",
+      "native_result_sha256": {
+        "/tmp/uwvm-wasip1-cross-jit-20261007-r26/macos-platform-full-uwvm2/full-cli-results.json": "00cd41af6f0fc0d3e2daa746de113b30eea31dbb360264051801a15f9f82b677",
+        "/tmp/uwvm-wasip1-cross-jit-20261007-r26/macos-platform-full-uwvm2/coff-regression-results.json": "90c94e2fde2e8991f11d56965854c02fab94c5011e6380507c34d0c3eb9e6ec6",
+        "/tmp/uwvm-wasip1-cross-jit-20261007-r26/macos-platform-full-uwvm2/readonly-results.json": "227582b6e650f99314996a951ac48ca483df51edf4fdbe14a0feec2652edb31a",
+        "/tmp/uwvm-wasip1-cross-jit-20261007-r26/macos-platform-full-uwvm2/native-checkpoint-results.json": "ba928a8ab60a019407a56dbfc2219eeeb5cd4f947cd4cfe9983a0e94d5ce081f",
+        "/tmp/uwvm-wasip1-cross-jit-20261007-r26/macos-platform-full-uwvm2/portable-and-migrations-results.json": "8adfee35b07aa62b43e81f4dba83ac13d2dbc55910cd206678a537d882d4927c"
+      },
+      "aggregate_peak_upper_bytes": 478363648,
+      "source_compiled_archive_sha256": "8f32120b3788ae7350c40e0d53a2361e612a46e5f3aa622873a4833c93d023ca"
+    }
+  },
+  "macos_cli_child_exit_regression": {
+    "passed": true,
+    "child_exit": 127,
+    "parent_expected_exit": 1,
+    "seconds": 2.2835227089817636,
+    "prompt_deadline_expired": false,
+    "aggregate_peak_upper_bytes": 344113152,
+    "native_results_sha256": "dc37b7ca211528769e228ea445726b10a9071ebbf18056e7cc56a8402522e457",
+    "source_archive_sha256": "52f688aedb6395f709810817c49aaa3ed5c4c13e5cdadbaacd17bd2bf345bc98",
+    "retired_authenticated_duplicates": {
+      "uwvm.exe": {
+        "sha256": "657689595a7d0367f478bab1ed36afa0a1c116d88996c4140b1c89f7d4ed94b6",
+        "bytes": 217960816
+      },
+      "cli-platform.exe": {
+        "sha256": "4e4085812441f9c758cb1053435ec714c2b0d51e50a23885eee4300dff14af42",
+        "bytes": 908992
+      }
+    }
+  },
+  "macos_full_product_observations": 2357,
+  "unsupported_scope": [
+    "whole Wasm/WASIp1 joint atomic restore/replay; separate paired checkpoint is required"
+  ],
+  "windows_readonly_full_products": {
+    "uwvm2-ros": {
+      "passed": true,
+      "checks": 861,
+      "receipt_sha256": "9c1641978f4727d94044ea34d6b7f0cfbc8593070a249065a6c16df8b9241b9e",
+      "test_pass_checks": {
+        "uwvm2-ros-smoke-int": 1,
+        "uwvm2-ros-smoke-llvm": 1,
+        "uwvm2-ros-removed-Rjit": 1,
+        "uwvm2-ros-removed-Rtiered": 1,
+        "uwvm2-ros-removed-Rcm": 1,
+        "uwvm2-ros-coff-sdk-regression": 12,
+        "uwvm2-ros-instruction-native-checkpoint": 149,
+        "uwvm2-ros-instruction-portable-save": 51,
+        "uwvm2-ros-instruction-portable-restore": 83,
+        "uwvm2-ros-instruction-from-linux": 83,
+        "uwvm2-ros-unwind-native-checkpoint": 149,
+        "uwvm2-ros-unwind-portable-save": 51,
+        "uwvm2-ros-unwind-portable-restore": 83,
+        "uwvm2-ros-unwind-from-linux": 83,
+        "uwvm2-ros-readonly-native-metadata": 12,
+        "uwvm2-ros-readonly-nt-smoke-int": 1,
+        "uwvm2-ros-readonly-nt-smoke-llvm": 1,
+        "uwvm2-ros-public-cli": 98
+      },
+      "qemu_exit": 0,
+      "base_unchanged": true,
+      "input_mode": "Direct CDFS; no input copy workaround"
+    },
+    "uwvm2": {
+      "passed": true,
+      "checks": 858,
+      "receipt_sha256": "79b7dc34e9946f4d6be82bd6887a3c92f24e55f583faafb97407252bfff69ec0",
+      "test_pass_checks": {
+        "uwvm2-smoke-int": 1,
+        "uwvm2-smoke-llvm": 1,
+        "uwvm2-coff-sdk-regression": 12,
+        "uwvm2-instruction-native-checkpoint": 149,
+        "uwvm2-instruction-portable-save": 51,
+        "uwvm2-instruction-portable-restore": 83,
+        "uwvm2-instruction-from-linux": 83,
+        "uwvm2-unwind-native-checkpoint": 149,
+        "uwvm2-unwind-portable-save": 51,
+        "uwvm2-unwind-portable-restore": 83,
+        "uwvm2-unwind-from-linux": 83,
+        "uwvm2-readonly-native-metadata": 12,
+        "uwvm2-readonly-nt-smoke-int": 1,
+        "uwvm2-readonly-nt-smoke-llvm": 1,
+        "uwvm2-public-cli": 98
+      },
+      "qemu_exit": 0,
+      "base_unchanged": true,
+      "input_mode": "Direct CDFS; no input copy workaround"
+    }
+  },
+  "peer_source_drift": {
+    "paths": 100,
+    "own_paths_still_match_tested_cut": 24,
+    "source_proof_sha256": "c15ee0dfd19a7d80277b0631205cf2e480b61bd4a3e87956ea5008a046af1272",
+    "scope": "Full product results refer to frozen source cut; concurrent peer changes retained"
+  },
+  "windows_readonly_full_product_observations": 1719,
+  "completion_scope": "R26 paired full consumers and portable WASIp1 OS migration only, for recorded immutable cuts; whole joint Wasm/WASIp1 atomic restore/replay remains outside implemented scope",
+  "closing_validation_sha256": "a35d141fda44a4f847be8daa315b87580d1509217877cfc4351963131a212fee",
+  "four_os_bidirectional_paths": 12,
+  "macos_reverse_migration": {
+    "linux": {
+      "uwvm2": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/products/linux/uwvm2/from-macos-migration.json",
+        "sha256": "c3515a2354638eb8638e2817497c87ffde25fdadbb79fc418973ce10a5cb14ae",
+        "data": {
+          "passed": true,
+          "rows": [
+            {
+              "passed": true,
+              "exit": 0,
+              "checks": 83,
+              "policy": "instruction",
+              "origin": "macos",
+              "target": "linux",
+              "source_receipt_sha256": "ab0dbd08b9a9a694dcb962660e799bf253a1162da62ac3c12d05616cd4a88585",
+              "source_metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7",
+              "target_wasm_sha256": "6276162dc3dffdcd769bef8d62ddc8eeec87f0d00df9c184d132110f469e4b5c",
+              "target_binary_sha256": "3d4b413f15c746e193323a58d1d13d11319726bc8aeb8fee4cfe57d6c84acf5d",
+              "log_sha256": "0f4a9cf20f3bc9614fca9e0c96a946f2739458080986e34b15a204360379b68a"
+            },
+            {
+              "passed": true,
+              "exit": 0,
+              "checks": 83,
+              "policy": "unwind",
+              "origin": "macos",
+              "target": "linux",
+              "source_receipt_sha256": "ab0dbd08b9a9a694dcb962660e799bf253a1162da62ac3c12d05616cd4a88585",
+              "source_metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7",
+              "target_wasm_sha256": "6276162dc3dffdcd769bef8d62ddc8eeec87f0d00df9c184d132110f469e4b5c",
+              "target_binary_sha256": "3d4b413f15c746e193323a58d1d13d11319726bc8aeb8fee4cfe57d6c84acf5d",
+              "log_sha256": "78fe29e329355fac3089b9801ef19be9f597f1500de9e55fc2fe48873239686e"
+            }
+          ]
+        }
+      },
+      "uwvm2-ros": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/products/linux/uwvm2-ros/from-macos-migration.json",
+        "sha256": "bd091321032f628d2d01dd26b9c0a060785e88f6d3428e4c312ac3f137a5a8ed",
+        "data": {
+          "passed": true,
+          "rows": [
+            {
+              "passed": true,
+              "exit": 0,
+              "checks": 83,
+              "policy": "instruction",
+              "origin": "macos",
+              "target": "linux",
+              "source_receipt_sha256": "dfa43f407c23c0e484cb903343da86ff83949b799435418977a84ac2fb9c7626",
+              "source_metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7",
+              "target_wasm_sha256": "6276162dc3dffdcd769bef8d62ddc8eeec87f0d00df9c184d132110f469e4b5c",
+              "target_binary_sha256": "a2b32df48c6bae8a238d2b2efc72812fbeeadff3a1f4fea9bfdfb6450e248c81",
+              "log_sha256": "0f4a9cf20f3bc9614fca9e0c96a946f2739458080986e34b15a204360379b68a"
+            },
+            {
+              "passed": true,
+              "exit": 0,
+              "checks": 83,
+              "policy": "unwind",
+              "origin": "macos",
+              "target": "linux",
+              "source_receipt_sha256": "dfa43f407c23c0e484cb903343da86ff83949b799435418977a84ac2fb9c7626",
+              "source_metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7",
+              "target_wasm_sha256": "6276162dc3dffdcd769bef8d62ddc8eeec87f0d00df9c184d132110f469e4b5c",
+              "target_binary_sha256": "a2b32df48c6bae8a238d2b2efc72812fbeeadff3a1f4fea9bfdfb6450e248c81",
+              "log_sha256": "78fe29e329355fac3089b9801ef19be9f597f1500de9e55fc2fe48873239686e"
+            }
+          ]
+        }
+      }
+    },
+    "windows": {
+      "passed": true,
+      "checks": 332,
+      "receipt_sha256": "045c4a01b10f77a2214760d411a2bb0578c169c274816d1b18d07dc678926b00",
+      "target_source_manifest_sha256": "0e00f189ecefd584e8979d59698fe86f312459004a1e150c28479c6b07ecb9ad",
+      "input_mode": "Direct CDFS; new final-source portable consumer"
+    },
+    "freebsd": {
+      "passed": true,
+      "checks": 332,
+      "receipt": "vm-freebsd-portable-migration-e88ba512/receipt.json",
+      "scope": "Genuine archived full FreeBSD target; later supplements repeat 332 using same target"
+    }
+  },
+  "freebsd_new_helper_supplement": {
+    "uwvm2": {
+      "passed": true,
+      "receipt_sha256": "6084cb1e3a7b088ce3679841bceea520fbbbb488cd1bfba8a458488fed35d631",
+      "checks": {
+        "uwvm2-instruction-from-macos": 83,
+        "uwvm2-unwind-from-macos": 83,
+        "uwvm2-readonly-import": 5,
+        "uwvm2-coff-regression": 12,
+        "uwvm2-cli-premature-child-transport": 1,
+        "uwvm2-current-helper-public-cli": 84
+      },
+      "supplemental_checks": 102,
+      "repeated_migration_checks": 166,
+      "scope": "Final-source helper execution against archived genuine older full FreeBSD product; core product not rebuilt for POSIX-only ignored flag changes",
+      "qemu_exit": 0,
+      "base_unchanged": true
+    },
+    "uwvm2-ros": {
+      "passed": true,
+      "receipt_sha256": "0893a3ed597cb205e004ae9f44426df0ea1105b45f0f91377b7e9695b6ef7b12",
+      "checks": {
+        "uwvm2-ros-instruction-from-macos": 83,
+        "uwvm2-ros-unwind-from-macos": 83,
+        "uwvm2-ros-readonly-import": 5,
+        "uwvm2-ros-coff-regression": 12,
+        "uwvm2-ros-cli-premature-child-transport": 1,
+        "uwvm2-ros-current-helper-public-cli": 84
+      },
+      "supplemental_checks": 102,
+      "repeated_migration_checks": 166,
+      "scope": "Final-source helper execution against archived genuine older full FreeBSD product; core product not rebuilt for POSIX-only ignored flag changes",
+      "qemu_exit": 0,
+      "base_unchanged": true
+    }
+  },
+  "linux_final_cut_supplement": {
+    "uwvm2": {
+      "passed": true,
+      "qualified_sha256": "b98ffa09df8f447597f231053127e41a9c3e2a4d7c4497856a8a126a19af9182",
+      "readonly_checks": 5,
+      "coff_scalar_checks": 12,
+      "scope": "Native final-source helpers, not a new full core product build"
+    },
+    "uwvm2-ros": {
+      "passed": true,
+      "qualified_sha256": "69b47f4e63e1cfc0aeb40555d80eac52706b68c473e5d6e463728422bea131f1",
+      "readonly_checks": 5,
+      "coff_scalar_checks": 12,
+      "scope": "Native final-source helpers, not a new full core product build"
+    }
+  },
+  "current_qualified_full_product_observations": {
+    "linux": 2112,
+    "windows": 1719,
+    "freebsd": 2015,
+    "macos": 2357
+  },
+  "historical_windows_pre_readonly_cut_observations": 1691,
+  "resource_closure": {
+    "owned_directory_allocated_bytes_before_evidence_archive": 5954404352,
+    "macos_native_upper_limit_bytes": 2147483648,
+    "archive_housekeeping_stop_line_incident_disclosed": true,
+    "private_failed_VM_images_disposable_after_termination": true
+  },
+  "historical_progress_before_final_validation": {
+    "macos_to_linux_checks": 332,
+    "macos_to_freebsd_checks": 332,
+    "linux_new_cut_helper_checks": 34,
+    "freebsd_transport_test": "incorrect parent argc corrected; latest full supplemental execution pending"
+  },
+  "latest_progress": {
+    "passed": true,
+    "four_os_bidirectional_paths": 12,
+    "windows_readonly_full_observations": 1719,
+    "freebsd_supplemental_observations": 204,
+    "linux_supplemental_observations": 34,
+    "scope": "All R26 required runtime checks completed; unsupported full joint atomic restore is retained as capability boundary"
+  }
+}

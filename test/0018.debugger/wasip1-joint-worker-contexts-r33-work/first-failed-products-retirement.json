@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r31/first-failed-products-recoverable.tar.zst",
+  "archive_sha256": "64312c5fd175d5b35e103b9a3f2e9a567cf9c8b2415880c82a108f373ce896e1",
+  "payloads": {
+    "chain_probe2": "ec3dda9ddba6e76f03e67eb8b96c9e3c89c12abc7c8fa3381775467de0822b46",
+    "products/linux-integrated/uwvm2/runtime.o": "bb6af6e4186f9bc8c6a8ac346d93823079c7bb5a2c4540063070a8127919d2e1",
+    "products/linux-integrated/uwvm2/host-api.o": "d0f865b28598ec0ee8f1d7ac50d4107b02d87db3f92305223cbedcd1b4c7139e",
+    "products/linux-integrated/uwvm2/fixture": "7e71dd75def0299a92396b0dd8a3b51b07ef44e8fe805fc96ae86702a9aca49a",
+    "products/linux-integrated/uwvm2/environment-group": "5061523b3ddc972d882fdd48498b4eb155408c39434168c9c0367eec608f065e",
+    "products/linux-integrated/uwvm2/wasip1-memory-binding": "79f0e6edd859262168c3e4b8c51d15e7d070e7c82188d60468b42efe12ebdfa9"
+  },
+  "all_payloads_read_back": true,
+  "failed_test_result_unchanged": true,
+  "diagnostic_only": true,
+  "source_manifest_sha256": "d81d0f6d08c1fc699031e859ce4135fc8e207094ecfb2acbc40e98161bfd5a9c",
+  "bytes_retired": 655073448,
+  "archive_bytes": 42738938,
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+}

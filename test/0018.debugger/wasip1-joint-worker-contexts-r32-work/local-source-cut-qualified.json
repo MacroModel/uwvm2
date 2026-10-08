@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "files": 8783,
+  "manifest_sha256": "ea1734aea48d131bc0edaef08c0f2fcdcf952de686e35232154554fb29f2309b",
+  "source_archive_sha256": "a021f81401d7d2096014520f33fa179061aaf3a05623cb45fb1dd52a407e68db",
+  "all_payloads_read_back": true,
+  "remote_directory": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r32",
+  "changed_from_r31": 14,
+  "memory_upper_bytes": 179617792,
+  "limit_bytes": 2147483648
+}

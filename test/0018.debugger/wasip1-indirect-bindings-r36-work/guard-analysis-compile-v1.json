@@ -1,0 +1,36 @@
+{
+  "passed": false,
+  "error": null,
+  "exit": 1,
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "boot_id": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+  "owned_peak_aggregate_rss_upper_bytes": 34615296,
+  "cgroup_peak_bytes": 44827881472,
+  "processes": [
+    {
+      "pid": 1601482,
+      "birth": 7127211,
+      "ppid": 1601481,
+      "uid": 1000,
+      "cgroup": "0::/user.slice/user-1000.slice/session-10768.scope\n",
+      "argv": [
+        "/usr/bin/python3",
+        "-u",
+        "-c",
+        "import os,sys,signal;os.sched_setaffinity(0,set(range(16,32)));os.kill(os.getpid(),signal.SIGSTOP);os.execvpe(sys.argv[1],sys.argv[1:],os.environ)",
+        "/usr/bin/python3",
+        "-u",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-indirect-bindings-20261008-r36/analysis_compile_matrix.py"
+      ],
+      "pidfd_retired": true
+    }
+  ],
+  "parent_events_unchanged": true,
+  "validation_kind": "compiler analysis only",
+  "actual_native_runtime_execution": false,
+  "original_native_storage_policy_unchanged": true,
+  "original_native_suite_admission_still_refused": true,
+  "new_analysis_file_ceiling_bytes": 16777216,
+  "host_available_bytes": 30618902528,
+  "guard_sha256": "15c82cca0d5833a38ee1d58957264816d9c3985ff5e7c08508b92df6b94cad6e"
+}

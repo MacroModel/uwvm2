@@ -1,0 +1,12 @@
+{
+  "schema": "uwvm-mips64el-release-lto-current-progress-v1",
+  "date": "2026-10-08",
+  "implemented_and_scoped_regression_complete": true,
+  "scope": "Linux Clang MIPS64EL native-debug gold release-family LTO guard, actual Lua callbacks plus native C++ target-link/QEMU regression. Zero new Wasm VM/full-current-product qualification.",
+  "qualification_sha256": "a6b4c06a029c1ba933462c8d9319cd1557d5b3f59dc5672b6121d3a5ccf86411",
+  "historical_pending607_preserved": true,
+  "actual_rule_callbacks": 156,
+  "actual_target_links": 6,
+  "actual_QEMU_native_CPP_programs": 6,
+  "actual_new_Wasm_VM_sessions": 0
+}

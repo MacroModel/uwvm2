@@ -1,0 +1,483 @@
+{
+  "schema": "uwvm2-rust-character-expressions-r62-v1",
+  "created_utc": "2026-10-08T06:35:43.276493+00:00",
+  "passed": true,
+  "scope": "Bounded escaped/ASCII Rust char literals, scalar primitive identity from original CU UTF metadata, comparison and explicit integer conversions; full fresh x86_64 LLVM JIT Watch/Hover plus portable 16-architecture DATA.",
+  "full_native_language_parity": false,
+  "full_cross_architecture_VM_JIT_DAP_qualified": false,
+  "actual_IDE_UI": false,
+  "current_whole_workspace_qualified": false,
+  "uwvm_int_full_qualified": false,
+  "host_VM_ASM_debugging_prohibited": true,
+  "products": [
+    {
+      "repository": "uwvm2",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-full-a3-r62/out-uwvm2/product-a1/uwvm",
+      "sha256": "ba954aa06f3bf1804f068aab32bd329487a446dbe15946fdacbe3e73a3248404",
+      "bytes": 179185664,
+      "source_id": "sha256:7cd3f407ece901d93aef7b448af3c1cb0e65c2ba8d08ebe070ddeccb1e25fe13",
+      "fresh_TUs": 3,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-full-a3-r62/out-uwvm2/product-a1/results.json",
+      "receipt_sha256": "c2beeaed491632ca94fd583223d5eee3fce30389fa369ec0ee17887572d5f95c"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-full-a3-r62/out-uwvm2-ros/product-a1/uwvm",
+      "sha256": "80940314156bc556d38a95ea36dcc37c70d839b3cd5208719149abbce0ef92db",
+      "bytes": 144722848,
+      "source_id": "sha256:dec2d1c722f31144946761cd5cb4d9e062f526c402e3c088d8465d6624214397",
+      "fresh_TUs": 3,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-full-a3-r62/out-uwvm2-ros/product-a1/results.json",
+      "receipt_sha256": "9024ba334a95414b431d01b29a685e744bc70d04392c021896e35fe17629677b"
+    }
+  ],
+  "components": {
+    "uwvm2": {
+      "passed": true,
+      "build_run_rows": 12,
+      "Rust_finite_checks": 128,
+      "Cxx_UTF_checks": 628,
+      "ASCII_literal_checks": 14791,
+      "ASCII_escape_checks": 652100,
+      "logical_preflight_and_language_numeric": true
+    },
+    "uwvm2-ros": {
+      "passed": true,
+      "build_run_rows": 12,
+      "Rust_finite_checks": 128,
+      "Cxx_UTF_checks": 628,
+      "ASCII_literal_checks": 14791,
+      "ASCII_escape_checks": 652100,
+      "logical_preflight_and_language_numeric": true
+    }
+  },
+  "properties": {
+    "uwvm2": {
+      "passed": true,
+      "cases": 10000,
+      "seed": 20261008,
+      "compiler_const_target": "wasm32-unknown-unknown",
+      "invalid_compiler_witnesses": 24,
+      "compiler_receipt": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-properties-a2-r62/out-uwvm2/results.json"
+    },
+    "uwvm2-ros": {
+      "passed": true,
+      "cases": 10000,
+      "seed": 20261008,
+      "compiler_const_target": "wasm32-unknown-unknown",
+      "invalid_compiler_witnesses": 24,
+      "compiler_receipt": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-properties-a2-r62/out-uwvm2-ros/results.json"
+    }
+  },
+  "DAP": {
+    "uwvm2": {
+      "passed": true,
+      "unit_tests": 497,
+      "sessions": 480,
+      "evaluations": 80640,
+      "origins": 7680,
+      "expected_refusals": 14880,
+      "new_Rust_char_evaluations": 28800,
+      "soak": {
+        "sessions": 472,
+        "seconds": 600.9633052680001
+      }
+    },
+    "uwvm2-ros": {
+      "passed": true,
+      "unit_tests": 497,
+      "sessions": 484,
+      "evaluations": 81312,
+      "origins": 7744,
+      "expected_refusals": 15004,
+      "new_Rust_char_evaluations": 29040,
+      "soak": {
+        "sessions": 476,
+        "seconds": 604.6294248199993
+      }
+    }
+  },
+  "baseline": {
+    "uwvm2": {
+      "passed": true,
+      "sessions": 8,
+      "fresh_frame_gaps": 128,
+      "incorrect_values_or_types": 64,
+      "refusals": 64
+    },
+    "uwvm2-ros": {
+      "passed": true,
+      "sessions": 8,
+      "fresh_frame_gaps": 128,
+      "incorrect_values_or_types": 64,
+      "refusals": 64
+    }
+  },
+  "QEMU": {
+    "passed": true,
+    "actual_target_ELFs": 32,
+    "architectures": [
+      "aarch64",
+      "armel",
+      "armhf",
+      "i686",
+      "loongarch64",
+      "mips32",
+      "mips32el",
+      "mips64",
+      "mips64el",
+      "ppc32",
+      "ppc64",
+      "ppc64le",
+      "riscv64",
+      "s390x",
+      "sparc64",
+      "x86_64"
+    ],
+    "scope": "Finite Rust parser/type/value/encoding metadata DATA only; no target full VM/JIT/DAP claim"
+  },
+  "guards": {
+    "guard-build-uwvm2": [
+      {
+        "label": "uwvm2build",
+        "seconds": 242.92083190800622,
+        "rss_peak": 7394344960,
+        "passed": true,
+        "all_own_descendants_retired": true
+      }
+    ],
+    "properties": [
+      {
+        "label": "uwvm2properties",
+        "seconds": 1.4007412009959808,
+        "rss_peak": 86982656,
+        "passed": true,
+        "all_own_descendants_retired": true
+      },
+      {
+        "label": "uwvm2rosproperties",
+        "seconds": 1.4286377950047608,
+        "rss_peak": 80445440,
+        "passed": true,
+        "all_own_descendants_retired": true
+      }
+    ],
+    "unit-uwvm2": [
+      {
+        "label": "uwvm2-unit",
+        "seconds": 2.3698750470066443,
+        "rss_peak": 53002240,
+        "passed": true,
+        "all_own_descendants_retired": true
+      }
+    ],
+    "dap-uwvm2": [
+      {
+        "label": "uwvm2-all",
+        "seconds": 4.87349163700128,
+        "rss_peak": 168861696,
+        "passed": true,
+        "all_own_descendants_retired": true
+      },
+      {
+        "label": "uwvm2-unwind",
+        "seconds": 4.7809172549896175,
+        "rss_peak": 171323392,
+        "passed": true,
+        "all_own_descendants_retired": true
+      },
+      {
+        "label": "uwvm2-soak",
+        "seconds": 601.8411061820079,
+        "rss_peak": 198852608,
+        "passed": true,
+        "all_own_descendants_retired": true
+      }
+    ],
+    "before-uwvm2": [
+      {
+        "label": "uwvm2-all",
+        "seconds": 4.860448434003047,
+        "rss_peak": 188055552,
+        "passed": true,
+        "all_own_descendants_retired": true
+      },
+      {
+        "label": "uwvm2-unwind",
+        "seconds": 4.918670687999111,
+        "rss_peak": 188280832,
+        "passed": true,
+        "all_own_descendants_retired": true
+      }
+    ],
+    "guard-build-ros": [
+      {
+        "label": "uwvm2-rosbuild",
+        "seconds": 209.63880662100564,
+        "rss_peak": 6090809344,
+        "passed": true,
+        "all_own_descendants_retired": true
+      }
+    ],
+    "unit-uwvm2-ros": [
+      {
+        "label": "uwvm2-ros-unit",
+        "seconds": 2.4319239519973053,
+        "rss_peak": 53022720,
+        "passed": true,
+        "all_own_descendants_retired": true
+      }
+    ],
+    "dap-uwvm2-ros": [
+      {
+        "label": "uwvm2-ros-all",
+        "seconds": 4.92383272999723,
+        "rss_peak": 172847104,
+        "passed": true,
+        "all_own_descendants_retired": true
+      },
+      {
+        "label": "uwvm2-ros-unwind",
+        "seconds": 5.003806232998613,
+        "rss_peak": 170676224,
+        "passed": true,
+        "all_own_descendants_retired": true
+      },
+      {
+        "label": "uwvm2-ros-soak",
+        "seconds": 605.5644287009927,
+        "rss_peak": 200916992,
+        "passed": true,
+        "all_own_descendants_retired": true
+      }
+    ],
+    "before-uwvm2-ros": [
+      {
+        "label": "uwvm2-ros-all",
+        "seconds": 5.1604972990026,
+        "rss_peak": 190054400,
+        "passed": true,
+        "all_own_descendants_retired": true
+      },
+      {
+        "label": "uwvm2-ros-unwind",
+        "seconds": 4.9729451480088755,
+        "rss_peak": 190517248,
+        "passed": true,
+        "all_own_descendants_retired": true
+      }
+    ],
+    "components": [
+      {
+        "label": "uwvm2components",
+        "seconds": 65.69761954600108,
+        "rss_peak": 727027712,
+        "passed": true,
+        "all_own_descendants_retired": true
+      },
+      {
+        "label": "uwvm2roscomponents",
+        "seconds": 68.23973658899195,
+        "rss_peak": 734408704,
+        "passed": true,
+        "all_own_descendants_retired": true
+      }
+    ],
+    "QEMU": [
+      {
+        "label": "qualifiedtypesmatrix",
+        "seconds": 406.8429708869953,
+        "rss_peak": 618795008,
+        "passed": true,
+        "all_own_descendants_retired": true
+      }
+    ]
+  },
+  "totals": {
+    "sessions": 964,
+    "evaluations": 161952,
+    "constant_origins": 15424,
+    "expected_refusals": 29884,
+    "new_Rust_char_evaluations": 57840
+  },
+  "limitations": [
+    "Raw Unicode glyph source tokens/display",
+    "Rust typed integer suffix literal grammar (255u8); use (255 as u8) as char in bounded grammar",
+    "Rust byte literal syntax and broader source-language feature parity",
+    "Default Rust DWARF5 debug_names producer/verifier issue unchanged; existing original producer uses Disable accelerator flag",
+    "Full 16-architecture VM/JIT/DAP and actual native IDE UI remain unqualified",
+    "Language-level guest value writes, arbitrary target execution and host VM ASM are outside these copied scalar paths"
+  ],
+  "owned_tested_files": {
+    "src/uwvm2/uwvm/debugger/source_scalar_expression.h": {
+      "sha256": "6bcbecf9321df2158230e9fd278529344d5f86bc32d9bc5abe41090d6e8ce287",
+      "tested_root": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-full-a3-r62",
+      "repositories": [
+        "uwvm2",
+        "uwvm2-ros"
+      ]
+    },
+    "src/uwvm2/uwvm/debugger/controller.h": {
+      "sha256": "e07efcebea2cd8fc8e35baa083b53bcc40af56457af7603e961648e0abdb849d",
+      "tested_root": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-full-a3-r62",
+      "repositories": [
+        "uwvm2",
+        "uwvm2-ros"
+      ]
+    },
+    "src/uwvm2/uwvm/debugger/console.h": {
+      "sha256": "56138da7c93d0531255ec4c63b4c1995645e322dcbd479c7fa23e5b976f5157a",
+      "tested_root": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-full-a3-r62",
+      "repositories": [
+        "uwvm2",
+        "uwvm2-ros"
+      ]
+    },
+    "tools/debug/dap_adapter.py": {
+      "sha256": "ad222c230dcd36dcb6d7dfc5be09202aa20536a2ca517a0563de62ed8eae967a",
+      "tested_root": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-full-a3-r62",
+      "repositories": [
+        "uwvm2",
+        "uwvm2-ros"
+      ]
+    },
+    "test/0017.runtime/debug_source_rust_character_literal.cc": {
+      "sha256": "74dc9a58796682f6ba7c3fc2381d40a57286ce7ee060588660a54fcd47692841",
+      "tested_root": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-full-a3-r62",
+      "repositories": [
+        "uwvm2",
+        "uwvm2-ros"
+      ]
+    },
+    "test/0017.runtime/debug_rust_character_witness.rs": {
+      "sha256": "4ec223026c997962c1d9251e124547e70c9e68fe5370ef2645316277f5fa548d",
+      "tested_root": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-properties-a2-r62",
+      "repositories": [
+        "uwvm2",
+        "uwvm2-ros"
+      ]
+    },
+    "test/0017.runtime/run_debug_rust_characters.py": {
+      "sha256": "d258b5cf1a7afdd5cfb79a1c3e780a68e8051c86df0e6948023325518f7bb669",
+      "tested_root": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-properties-a2-r62",
+      "repositories": [
+        "uwvm2",
+        "uwvm2-ros"
+      ]
+    },
+    "test/0017.runtime/run_debug_linux_qemu_components.py": {
+      "sha256": "55f50993158f9b7645aa8d80c80036fac0d392803bbaa3705c37e664e091592b",
+      "tested_root": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-full-a3-r62",
+      "repositories": [
+        "uwvm2",
+        "uwvm2-ros"
+      ]
+    },
+    "test/0018.debugger/run_dap_rust_characters.py": {
+      "sha256": "588c53a81eb04a15d21d2da64bc07f6ccbfcc5886c961ca845eea65ad7a84052",
+      "tested_root": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-full-a3-r62",
+      "repositories": [
+        "uwvm2",
+        "uwvm2-ros"
+      ]
+    },
+    "test/0018.debugger/test_dap_rust_characters.py": {
+      "sha256": "bf8972bafc9e2e3bcd005665d94162a06ac099e52ea0eba4a1e83200379a83ea",
+      "tested_root": "/home/macromodel/Documents/uwvm3-implementation/rust-characters-full-a3-r62",
+      "repositories": [
+        "uwvm2",
+        "uwvm2-ros"
+      ]
+    }
+  },
+  "local_integration": {
+    "scope": "preserve all concurrent edits; only explicit own source bytes and final property compiler helper overlays are qualified",
+    "repositories": {
+      "uwvm2": {
+        "owned_tested_bytes_match": true,
+        "frozen_source_id": "sha256:7cd3f407ece901d93aef7b448af3c1cb0e65c2ba8d08ebe070ddeccb1e25fe13",
+        "later_peer_changed_src": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h",
+          "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+        ],
+        "later_peer_new_src": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h"
+        ],
+        "later_peer_removed_src": []
+      },
+      "uwvm2-ros": {
+        "owned_tested_bytes_match": true,
+        "frozen_source_id": "sha256:dec2d1c722f31144946761cd5cb4d9e062f526c402e3c088d8465d6624214397",
+        "later_peer_changed_src": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h",
+          "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+        ],
+        "later_peer_new_src": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h"
+        ],
+        "later_peer_removed_src": []
+      }
+    }
+  },
+  "source_only_remaining_observations": [
+    {
+      "scope": "partial conditional breakpoint language support, not exercised/claimed by the character Watch/Hover qualification",
+      "path": "src/uwvm2/uwvm/debugger/controller.h",
+      "frozen_source_sha256": "e07efcebea2cd8fc8e35baa083b53bcc40af56457af7603e961648e0abdb849d",
+      "finding": "filter_breakpoint_condition_locked wraps source predicate as (expr)!=0 and requires signed_integer; C++ predicates return bool, and Rust bool!=integer is invalid. This still needs a genuine false-condition test and implementation; no live condition PASS claimed."
+    }
+  ],
+  "archive": {
+    "passed": true,
+    "path": "/home/macromodel/Documents/uwvm3-implementation/retained-rust-characters-r62-final/evidence.tar.xz",
+    "bytes": 50467336,
+    "sha256": "6eaa3301f135f198be49df40534367daf5a318c9a22ea742cee301dfa556659f",
+    "logical_files": 102427,
+    "regular_members": 13741,
+    "hardlink_members": 88686,
+    "uncompressed_logical_bytes": 1506037007,
+    "all_regular_members_stream_hash_verified": true,
+    "all_hardlinks_resolve_only_prior_verified_archive_members": true,
+    "all_originals_before_after_hash_equal": true,
+    "fsync": true,
+    "seconds": 36.22006702500221,
+    "final_host_free_bytes": 26946871296,
+    "separately_retained_full_products_and_recovery_archives": {
+      "rust-characters-full-a1-r62/current-local-source.tar.xz": {
+        "bytes": 12553216,
+        "sha256": "f4a7a55171f58f71e497cae079c7ed319b2bbce8b0594a82f0a500078841bced"
+      },
+      "rust-characters-full-a3-r62/out-uwvm2/product-a1/uwvm": {
+        "bytes": 179185664,
+        "sha256": "ba954aa06f3bf1804f068aab32bd329487a446dbe15946fdacbe3e73a3248404"
+      },
+      "rust-characters-full-a3-r62/out-uwvm2-ros/product-a1/uwvm": {
+        "bytes": 144722848,
+        "sha256": "80940314156bc556d38a95ea36dcc37c70d839b3cd5208719149abbce0ef92db"
+      },
+      "rust-characters-recovery-a1-r62/closed-r56-r57-products.tar.xz": {
+        "bytes": 142126184,
+        "sha256": "948e874a7a6c38758ca344f0a328e964164488bfe7d7c031e99a3dadc0900305"
+      },
+      "rust-characters-recovery-a1-r62/closed-r61-baseline-products.tar.xz": {
+        "bytes": 42424088,
+        "sha256": "62fc8adf150d25b17092e527008f3e0a1e32f2cb85d96bb9ab2925dc17729d4a"
+      },
+      "rust-characters-recovery-a1-r62/ordinary-fresh-objects.tar.xz": {
+        "bytes": 9564712,
+        "sha256": "1a63849d4058bb7cb5bfb8db8e25aedfd8d3b5d66fd3fd2ad2baebd505c98d30"
+      },
+      "rust-characters-recovery-a1-r62/ros-fresh-objects.tar.xz": {
+        "bytes": 8223496,
+        "sha256": "4ee249cb77d71fb17322ddc924aec661175a8042529f3954848c6ab3507fb55f"
+      }
+    },
+    "separate_product_files_before_after_hash_equal": true
+  }
+}

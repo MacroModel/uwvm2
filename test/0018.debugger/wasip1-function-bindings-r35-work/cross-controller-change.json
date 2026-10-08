@@ -1,0 +1,7 @@
+{
+  "before_controller": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/cross.py",
+  "before_sha256": "d88a547dca1e53c7926a424d005fd9a715483cdea41fc8d90dc6e2e65dced223",
+  "after_controller": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-function-bindings-r35-work/cross.py",
+  "after_sha256": "7ec270f3c9b42617f57417b717183d59447b05802ea2cd2ac49d0b72a434210b",
+  "old_frozen_controller_unchanged": true
+}

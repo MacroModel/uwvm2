@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "base_manifest_sha256": "3f69494ae72f8379e01cf4e3e7a469c22bfd3e104c3fa416f376e6cc731d5a68",
+  "overlay_manifest_sha256": "27535550e6e1f6f41316ebdf7f75a457b2b6e89222c2fb7282bf5c8742148ad7",
+  "delta_archive_sha256": "752a8cc65786d0d453b18434b2846aefd77498c0693adece61cf002243b7a2ca",
+  "changed_files": {
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h": "469e2ff4034d9ef92ba334c90eb6a16c50e8e28cc03e487206a2494d05374f27",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h": "f7cfc9d70ec93051fd300b543fa560b3957db572fe5633c70bf1f134877a4de9"
+  },
+  "reason": "Complete census accepts only the internally authenticated combined prepare/retirement request"
+}

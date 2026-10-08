@@ -1,0 +1,128 @@
+{
+  "schema": "uwvm-shared-original-cgroup-owned-pidfd-v1",
+  "argv": [
+    "python3",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current604/build-meta/retire.py"
+  ],
+  "source_root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/source-current574",
+  "source_manifest_sha256": "0974ef98538f20dcd465a6d86ff60b8c8bda205a54245c48ed1944517d18db9b",
+  "supervisor_sha256": "d8b7541d429f88c86e7ac10b75222e8a7de9a6d3fb8cacd6fd299a298b76eb58",
+  "commands_sha256": "8a8a5f01fb1c9ac5a7d306017cfa5dd18beed23d7aeee5c1f975a5d8387b038a",
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "memory_max": 68719476736,
+  "swap_max": 0,
+  "all_test_outputs_in_tmpfs": false,
+  "original_exclusive_disk_floor_qualified": false,
+  "owned_rss_budget": 6442450944,
+  "rss_peak": 28819456,
+  "resource_peak": {
+    "own_folder": 1178398720,
+    "shared_folder": 42780786688,
+    "group_memory": 42709118976
+  },
+  "resource_policy_sha256": "9d54eebe649a5c962f053e83583d7903fe5ad966f349d863c93535c277acb0c9",
+  "elapsed": 11.039094191000913,
+  "foreign_roster_before": [
+    11166,
+    1434911,
+    1466438,
+    1466642,
+    1481970,
+    1482113,
+    1482123,
+    1482906,
+    1483661,
+    1484870,
+    1485231,
+    1485233
+  ],
+  "foreign_roster_after": [
+    11166,
+    1434911,
+    1466438,
+    1466642,
+    1481970,
+    1482113,
+    1482123,
+    1482906,
+    1483661,
+    1485427,
+    1485515,
+    1485554,
+    1485555,
+    1485557,
+    1485561,
+    1485563,
+    1485564,
+    1485567
+  ],
+  "admissions": [
+    {
+      "pid": 1485234,
+      "birth": 6625951,
+      "ppid": 1485065,
+      "state": "R",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 1036288,
+      "cgroup": "0::/user.slice/user-1000.slice/session-10092.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    }
+  ],
+  "executable_history": [
+    {
+      "pid": 1485234,
+      "birth": 6625951,
+      "exe": "/usr/bin/python3.14",
+      "sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700"
+    }
+  ],
+  "retirement": [
+    {
+      "pid": 1485234,
+      "birth": 6625951,
+      "pidfd_readable": true
+    }
+  ],
+  "memory_events_before": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "memory_events_after": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "returncode": 0,
+  "error": null,
+  "passed": true,
+  "log_sha256": "542cc94305aa9804fbba1ed356246f8e1a6a10a4b04aa794d70848e181fc74f0"
+}

@@ -1,0 +1,2613 @@
+{
+  "schema_version": 1,
+  "scope": "Exact production headers, native/C++ standard library and actual QEMU target ELF; all read callbacks supply owned DATA only. No actual producer CU/DWARF, runtime source transaction, VM/JIT memory or full language/ASM parity qualification.",
+  "full_product_qualified": false,
+  "source_cuts": {
+    "uwvm2": {
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b",
+      "manifest": {
+        "path": "/tmp/uwvm2-sequence-provenance-20261006-a1/candidate-a3-uwvm2-manifest.json",
+        "sha256": "e714079f4e5f1846724a5fb9da25ed81d48305daba31c4509557ed7f382edff6",
+        "bytes": 1136892
+      },
+      "production_files": 3144,
+      "all_files": 4396,
+      "all_inputs_after_unchanged": true,
+      "production_delta_header": {
+        "path": "/tmp/uwvm2-sequence-provenance-20261006-a1/candidate-a3-uwvm2/src/uwvm2/uwvm/debugger/source_language_expression.h",
+        "sha256": "b4c129bf9acdf814d72dfd1b96084a96f74d9fc94a862cbff8aac3fc0957efd0",
+        "bytes": 27093
+      },
+      "fixture": {
+        "path": "/tmp/uwvm2-sequence-provenance-20261006-a1/candidate-a3-uwvm2/test/0017.runtime/debug_source_sequence_provenance.cc",
+        "sha256": "7dd4188d9d343eb51862447b0e20dba511f1da27214f81bb88a4a5016b54286c",
+        "bytes": 13837
+      }
+    },
+    "uwvm2-ros": {
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4",
+      "manifest": {
+        "path": "/tmp/uwvm2-sequence-provenance-20261006-a1/candidate-a3-uwvm2-ros-manifest.json",
+        "sha256": "15f8fa66d0b6257a82094a7f77906558d2b446ddda7adb2d02994bc28b000b17",
+        "bytes": 1113885
+      },
+      "production_files": 3083,
+      "all_files": 4307,
+      "all_inputs_after_unchanged": true,
+      "production_delta_header": {
+        "path": "/tmp/uwvm2-sequence-provenance-20261006-a1/candidate-a3-uwvm2-ros/src/uwvm2/uwvm/debugger/source_language_expression.h",
+        "sha256": "b4c129bf9acdf814d72dfd1b96084a96f74d9fc94a862cbff8aac3fc0957efd0",
+        "bytes": 27093
+      },
+      "fixture": {
+        "path": "/tmp/uwvm2-sequence-provenance-20261006-a1/candidate-a3-uwvm2-ros/test/0017.runtime/debug_source_sequence_provenance.cc",
+        "sha256": "7dd4188d9d343eb51862447b0e20dba511f1da27214f81bb88a4a5016b54286c",
+        "bytes": 13837
+      }
+    }
+  },
+  "native": [
+    {
+      "repository": "uwvm2",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-native-a3/results.json",
+        "sha256": "9057cac8ae00fcc42de5da080049c09602e1d8f11e40c3edb33575c418563fc9",
+        "bytes": 2738361
+      },
+      "phases": [
+        {
+          "label": "provenance-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 10.636896416999662,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "provenance-run",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 0.0035640880014398135,
+          "log_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416"
+        },
+        {
+          "label": "baseline-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 10.686280887999601,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "baseline-range",
+          "returncode": -4,
+          "passed": true,
+          "seconds": 1.1177980760003265,
+          "log_sha256": "abbd25777fdf6b10007460f9f7fd43c54e05db028f822804ea9a1becf5d617ab"
+        },
+        {
+          "label": "baseline-gates",
+          "returncode": -4,
+          "passed": true,
+          "seconds": 1.1178009359973657,
+          "log_sha256": "366d58c54ecdf89cfcc4b55de3410aa5d8cf5de9640fc2181c9417f5063dace1"
+        },
+        {
+          "label": "baseline-members",
+          "returncode": -4,
+          "passed": true,
+          "seconds": 1.1182017480023205,
+          "log_sha256": "fc8b62f38db2ce68e2b3d6acc8b26fca8945ef1aa2ff8a491d23d7f5d7cc137a"
+        },
+        {
+          "label": "sequences-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 11.638718605001486,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "sequences-run",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 0.0014251889988372568,
+          "log_sha256": "01b715f0785a0c1bb817298666fb0baf8c7f6a0cf4d82d2085f5b6ca7a2078d8"
+        },
+        {
+          "label": "language-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 10.386815198999102,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "language-run",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 0.0015933750000840519,
+          "log_sha256": "c49549d92429479d99dc019f23903f273e3ea79b07086b76fa18bcf3bb91d90c"
+        },
+        {
+          "label": "preview-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 10.837959481003054,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "preview-run",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 0.001475850000133505,
+          "log_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5"
+        },
+        {
+          "label": "cpp-reference-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 10.035866856000212,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "cpp-reference-run",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 0.0014442679967032745,
+          "log_sha256": "c1a6a97119ea197fd890f1eedbdd802d3276a97f2d802f0ecfc026b0777ac476"
+        },
+        {
+          "label": "tuple-postfix-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 11.639360846998898,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "tuple-postfix-run",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 0.0015018750018498395,
+          "log_sha256": "e2b53343b33ca32127e4e938a5bdf9492925208d0dbdc9090522afffd36b289e"
+        }
+      ],
+      "positive_runs": 6,
+      "old_header_negative_controls": 3,
+      "assertions_in_new_fixture": 1907,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-native-a3/results.json",
+        "sha256": "09b3c6f775b787e63eb9392901960b232ffb0373c9afdd359ca34ab5b698f30e",
+        "bytes": 2751558
+      },
+      "phases": [
+        {
+          "label": "provenance-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 10.637881407998066,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "provenance-run",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 0.003774773002078291,
+          "log_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416"
+        },
+        {
+          "label": "baseline-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 10.737151504999929,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "baseline-range",
+          "returncode": -4,
+          "passed": true,
+          "seconds": 1.117742049998924,
+          "log_sha256": "abbd25777fdf6b10007460f9f7fd43c54e05db028f822804ea9a1becf5d617ab"
+        },
+        {
+          "label": "baseline-gates",
+          "returncode": -4,
+          "passed": true,
+          "seconds": 1.117826902998786,
+          "log_sha256": "366d58c54ecdf89cfcc4b55de3410aa5d8cf5de9640fc2181c9417f5063dace1"
+        },
+        {
+          "label": "baseline-members",
+          "returncode": -4,
+          "passed": true,
+          "seconds": 1.1163445620004495,
+          "log_sha256": "fc8b62f38db2ce68e2b3d6acc8b26fca8945ef1aa2ff8a491d23d7f5d7cc137a"
+        },
+        {
+          "label": "sequences-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 11.940596191001532,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "sequences-run",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 0.001472533000196563,
+          "log_sha256": "01b715f0785a0c1bb817298666fb0baf8c7f6a0cf4d82d2085f5b6ca7a2078d8"
+        },
+        {
+          "label": "language-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 10.638668884999788,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "language-run",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 0.0015715189983893652,
+          "log_sha256": "c49549d92429479d99dc019f23903f273e3ea79b07086b76fa18bcf3bb91d90c"
+        },
+        {
+          "label": "preview-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 10.68731971100351,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "preview-run",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 0.001558289000968216,
+          "log_sha256": "63fcec7314a544c9d3f9e878c6d146355f85d9f659ed4d63269a142d57f711e5"
+        },
+        {
+          "label": "cpp-reference-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 10.184608319999825,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "cpp-reference-run",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 0.0014908509983797558,
+          "log_sha256": "c1a6a97119ea197fd890f1eedbdd802d3276a97f2d802f0ecfc026b0777ac476"
+        },
+        {
+          "label": "tuple-postfix-build",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 12.788357855999493,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "tuple-postfix-run",
+          "returncode": 0,
+          "passed": true,
+          "seconds": 0.0014934239989088383,
+          "log_sha256": "e2b53343b33ca32127e4e938a5bdf9492925208d0dbdc9090522afffd36b289e"
+        }
+      ],
+      "positive_runs": 6,
+      "old_header_negative_controls": 3,
+      "assertions_in_new_fixture": 1907,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    }
+  ],
+  "cross": [
+    {
+      "repository": "uwvm2",
+      "profile": "x86_64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a4-x86_64/results.json",
+        "sha256": "ab0014860bcbdde5ae44e7cf53e5f4c8d943176e7b04ccf13e89f6047b781379",
+        "bytes": 267972
+      },
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 159104,
+        "sha256": "ed1e39471bac0e2b1180cd99bf4648df8330050bfca60f76441bfb9449e86d51",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 12.358361992999562,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "aarch64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-aarch64/results.json",
+        "sha256": "c922b2725f72b3933a95825dfb25ca5a68c73763da146814a82b12710790e1bc",
+        "bytes": 320629
+      },
+      "ELF": {
+        "machine": 183,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 142808,
+        "sha256": "f9c6c5ea54989c875d6be9edfc80867ee1e44c13b62686916b88da71f267db8d",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 12.356783217001066,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "i686",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-i686/results.json",
+        "sha256": "801df9becb5fd89c7de3ab98c9e8e53cdff97e4481b05ca8317d7bd2acf1e6da",
+        "bytes": 315686
+      },
+      "ELF": {
+        "machine": 3,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 172128,
+        "sha256": "19510ad2f2e218cdd833e03b3e1dd70f3a15815989efd1910d921a5d374f18a0",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 12.266981970002234,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "riscv64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-riscv64/results.json",
+        "sha256": "57d4f5847bfd6ad04809347bb43914fd24d6a759503a0833fa25c1676dfa6bc3",
+        "bytes": 317893
+      },
+      "ELF": {
+        "machine": 243,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 123264,
+        "sha256": "b410f13f72981b09abc40e175c72705a0b74a3f4273ec4382aa33e799e9138fa",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 12.52665616199738,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-ppc64/results.json",
+        "sha256": "1c6c59498e2f5ad1a012bab4c8c3f5ec7ca237cd55c2734d5dd11f0cc29036c2",
+        "bytes": 319952
+      },
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 226864,
+        "sha256": "ff2986e49aa31884b6de58107508d69864f4d465bd8df69ceeba406bb82d2391",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 12.206111657997099,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64le",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-ppc64le/results.json",
+        "sha256": "e853cbb0aed1063501c911538ccd109783ef3e1d88096f3c9e4c263c61d1463d",
+        "bytes": 322616
+      },
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 163744,
+        "sha256": "f8d11eab59b1db881959871a09d1d4f7713d9468529ad7fa0221a2d8c6c28d1b",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.504761033003888,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc32",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-ppc32/results.json",
+        "sha256": "53676db4dff231a2d478553549e7633c9fd8976c68b43caee3318b8f843dc9f6",
+        "bytes": 317060
+      },
+      "ELF": {
+        "machine": 20,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 221320,
+        "sha256": "be5f040be066f9d4f36c52f0360628c994b010f669481e8ca5d3f54327272717",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.809544253999775,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "mips64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-mips64/results.json",
+        "sha256": "f4c13307cee57eba897954302b1716a9614a37a88f41ec1f1eccb0970ac9f82a",
+        "bytes": 319677
+      },
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 179112,
+        "sha256": "3fd08349b138f9552974fd6510e3262e4e1636f1a090a328f239274b58063866",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 10.908214721999684,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "mips64el",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-mips64el/results.json",
+        "sha256": "911544d8c1a8695b0c65d770eeca4cc2966a7dabdb0b5560d5480e327a2e78ee",
+        "bytes": 321280
+      },
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 178904,
+        "sha256": "5015f86a43761238095bec7bb007018e32f15a70b4cd7068c90aef6feedc0d8b",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.007496619997255,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "mips32",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-mips32/results.json",
+        "sha256": "01114058f0c9278454c2080fba5d3239522fc5d8331b740e0696edc8b28838ab",
+        "bytes": 314832
+      },
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 186820,
+        "sha256": "0a2e4a9681ff8c961ff2d8079efd458e1371461f478429fd55509d5c62135d86",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.553156876001594,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "mips32el",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-mips32el/results.json",
+        "sha256": "8b59f7c3a26b5248b06c944d4728e157acb2eb49a28b0582caa8388a368c719a",
+        "bytes": 315332
+      },
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 186660,
+        "sha256": "447fb6c3b419ac6a3f0d6c530eb0849babaf717e212c2c22e9bfef0f2d01db11",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.206614005997835,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "sparc64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-sparc64/results.json",
+        "sha256": "3cce80a91bd29f1096faf6add09df13db9b5e423247e4e0466424a5702cb9364",
+        "bytes": 316647
+      },
+      "ELF": {
+        "machine": 43,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 1078296,
+        "sha256": "5aea318feafd3b66511bbbbc7873d1ec4e157c31d1a7622371404ab37ee1edd8",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.00121900600061,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "loongarch64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-loongarch64/results.json",
+        "sha256": "ab8aa8d843eaaa408ddb3423ff12e76526b88353a9153e961c6dc8528f2f6297",
+        "bytes": 321339
+      },
+      "ELF": {
+        "machine": 258,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 142680,
+        "sha256": "fdbc35684c5622bae731e13a2ef87493a6932dd1f2e798f09bb70ce451fb3548",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.152789559004304,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "s390x",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-s390x/results.json",
+        "sha256": "da41659223b4fb52e16de540f14e9f4f95a8f44b2f440c666d662ef41756c39d",
+        "bytes": 315716
+      },
+      "ELF": {
+        "machine": 22,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 166760,
+        "sha256": "88d026b3add09b498d045df1a351a1d9987555d4f686e7be846d550da10de3be",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.353914356997848,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "armhf",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-armhf/results.json",
+        "sha256": "343706330a6dccbc261bf00e9208ebeaed8b5311456fd90b943c7da1686ef770",
+        "bytes": 318855
+      },
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 147096,
+        "sha256": "9533fa68660abbc72ee3e88647ab3b46eb00a89d1301c21be984aa7a86c5b660",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.554020977997425,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "armel",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2/sequence-cross-a5-armel/results.json",
+        "sha256": "4398ffbc4a96850b0165883e18b6a7b177b4a40cdfe4d423865b7f6b163a5cc5",
+        "bytes": 317263
+      },
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 148048,
+        "sha256": "ac675672b4d3a1cfb9ef3ababebd1d3a9ead7191710560fccd0d22cd6f31f728",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.6050641490001,
+      "source_id": "sha256:07a00db1867e0ea8bca677607e597e0f52b3f5359e7afc7f30a370e97e0c105b"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "x86_64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-x86_64/results.json",
+        "sha256": "38c01584369c26343d9dd4ee0b9efb0abfa2660d55a50b95529201db25c449f5",
+        "bytes": 271132
+      },
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 159104,
+        "sha256": "ed1e39471bac0e2b1180cd99bf4648df8330050bfca60f76441bfb9449e86d51",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 12.021657293000317,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "aarch64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-aarch64/results.json",
+        "sha256": "162f76e62031a4058714a167d52ef9839921435749d7b365ef4aa8ee0cdf9398",
+        "bytes": 323786
+      },
+      "ELF": {
+        "machine": 183,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 142808,
+        "sha256": "f9c6c5ea54989c875d6be9edfc80867ee1e44c13b62686916b88da71f267db8d",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 12.175328191002336,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "i686",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-i686/results.json",
+        "sha256": "ae1e6660e4776fa77381144957fcf7a9dd5b5f40ab92511638bda6175b68166c",
+        "bytes": 318833
+      },
+      "ELF": {
+        "machine": 3,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 172128,
+        "sha256": "19510ad2f2e218cdd833e03b3e1dd70f3a15815989efd1910d921a5d374f18a0",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 12.275863234997814,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "riscv64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-riscv64/results.json",
+        "sha256": "a9f4947c8027bc1c9fc7ffa05d8fcc453c4c3fdc710c9cf542aaeb7ab9a203ae",
+        "bytes": 321049
+      },
+      "ELF": {
+        "machine": 243,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 123264,
+        "sha256": "b410f13f72981b09abc40e175c72705a0b74a3f4273ec4382aa33e799e9138fa",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 12.123277004997362,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-ppc64/results.json",
+        "sha256": "d5b1e194b6b40a699ac0be21b08061729b99a6f5ae7f70276a6ca63f15378cdf",
+        "bytes": 323108
+      },
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 226864,
+        "sha256": "ff2986e49aa31884b6de58107508d69864f4d465bd8df69ceeba406bb82d2391",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.454383576001419,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64le",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-ppc64le/results.json",
+        "sha256": "23b3f1f46536d3fbb441cf2ab981a398d8ff48d3d11fef893c9d3144da3a1ae5",
+        "bytes": 325772
+      },
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 163744,
+        "sha256": "f8d11eab59b1db881959871a09d1d4f7713d9468529ad7fa0221a2d8c6c28d1b",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.355975168004079,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc32",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-ppc32/results.json",
+        "sha256": "7da423d942e5e471ec9398b6dece9fc5cb899f05df46ac646e189eea4005f2e6",
+        "bytes": 320209
+      },
+      "ELF": {
+        "machine": 20,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 221320,
+        "sha256": "be5f040be066f9d4f36c52f0360628c994b010f669481e8ca5d3f54327272717",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.456034352999268,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "mips64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-mips64/results.json",
+        "sha256": "75343ac8774b7af3df18a5c72225ad314f5dfd27aad01b93630bf6d1de0b7775",
+        "bytes": 322833
+      },
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 179112,
+        "sha256": "3fd08349b138f9552974fd6510e3262e4e1636f1a090a328f239274b58063866",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.00684977399942,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "mips64el",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-mips64el/results.json",
+        "sha256": "efc269e38bac0ba78fc4d3638c271d59e94b96e500bbf8971f6366c1b74488b6",
+        "bytes": 324437
+      },
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 178904,
+        "sha256": "5015f86a43761238095bec7bb007018e32f15a70b4cd7068c90aef6feedc0d8b",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 10.902716488999431,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "mips32",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-mips32/results.json",
+        "sha256": "274f45c267bea320ceee98eefb1cf5954ad278e2568fbcc14f66e71592196291",
+        "bytes": 317980
+      },
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 186820,
+        "sha256": "0a2e4a9681ff8c961ff2d8079efd458e1371461f478429fd55509d5c62135d86",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.353594860000157,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "mips32el",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-mips32el/results.json",
+        "sha256": "8c7138097937caad998fc9c279fa790acb990e3eefa4532cdbc08e6f074ab1dd",
+        "bytes": 318479
+      },
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 186660,
+        "sha256": "447fb6c3b419ac6a3f0d6c530eb0849babaf717e212c2c22e9bfef0f2d01db11",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.104213276001246,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "sparc64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-sparc64/results.json",
+        "sha256": "c8bb967ba0dabadc461506dadbeda9a78645af257d023efc679cb4292e1fba35",
+        "bytes": 319803
+      },
+      "ELF": {
+        "machine": 43,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 1078296,
+        "sha256": "5aea318feafd3b66511bbbbc7873d1ec4e157c31d1a7622371404ab37ee1edd8",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.05221767999683,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "loongarch64",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-loongarch64/results.json",
+        "sha256": "49d10a29fba88884d5c50d27c20f1bf42be39e55b5881aced49f82e3ab79f217",
+        "bytes": 324495
+      },
+      "ELF": {
+        "machine": 258,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 142680,
+        "sha256": "fdbc35684c5622bae731e13a2ef87493a6932dd1f2e798f09bb70ce451fb3548",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 10.951674431998981,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "s390x",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-s390x/results.json",
+        "sha256": "e196cb10918a0a453e599582443add96919449ee07315e88a951020c92022c73",
+        "bytes": 318873
+      },
+      "ELF": {
+        "machine": 22,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 166760,
+        "sha256": "88d026b3add09b498d045df1a351a1d9987555d4f686e7be846d550da10de3be",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.355250356999022,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "armhf",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-armhf/results.json",
+        "sha256": "cccd8b451ba46061d53f3066fc0995eb8112e6c7e3bb7bdf92c324e3a092221f",
+        "bytes": 322002
+      },
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 147096,
+        "sha256": "9533fa68660abbc72ee3e88647ab3b46eb00a89d1301c21be984aa7a86c5b660",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.504651973998989,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "armel",
+      "record": {
+        "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/out-uwvm2-ros/sequence-cross-a5-armel/results.json",
+        "sha256": "2ff916439ceae43eab2b862b9ffcbd31e7856dbdae9074264226a9c8565eac90",
+        "bytes": 320411
+      },
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 148048,
+        "sha256": "ac675672b4d3a1cfb9ef3ababebd1d3a9ead7191710560fccd0d22cd6f31f728",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "assertions": 1907,
+      "stdout_sha256": "618cba459f4326a1ab07af1d9d551628e0a17b489850f5eb6a163d707c9b8416",
+      "matches_native_x86_64": true,
+      "compile_execution_seconds": 11.503757048998523,
+      "source_id": "sha256:7aae0755ae01b3166fdaf2b17758a0e0f4ebd5d8b474de5b12593aaa1bdf42e4"
+    }
+  ],
+  "guards": [
+    {
+      "label": "uwvm2-sequence-native-a3",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 81.25412518099984,
+      "aggregate_owned_rss_peak_bytes": 564842496,
+      "minimum_observed_actual_free_bytes": 9827917824,
+      "maximum_observed_shared_memory_bytes": 54843154432,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 778267,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-native-a3",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 83.08511162500145,
+      "aggregate_owned_rss_peak_bytes": 562417664,
+      "minimum_observed_actual_free_bytes": 9820585984,
+      "maximum_observed_shared_memory_bytes": 55970226176,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 780626,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a4-x86-64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 13.486642462001328,
+      "aggregate_owned_rss_peak_bytes": 592293888,
+      "minimum_observed_actual_free_bytes": 9820045312,
+      "maximum_observed_shared_memory_bytes": 55222362112,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 784938,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-x86-64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.9713541050005,
+      "aggregate_owned_rss_peak_bytes": 592281600,
+      "minimum_observed_actual_free_bytes": 9819381760,
+      "maximum_observed_shared_memory_bytes": 52189900800,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 788005,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-aarch64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 13.5287972599981,
+      "aggregate_owned_rss_peak_bytes": 595570688,
+      "minimum_observed_actual_free_bytes": 9818759168,
+      "maximum_observed_shared_memory_bytes": 53184122880,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 788583,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-aarch64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 13.15044782699988,
+      "aggregate_owned_rss_peak_bytes": 595521536,
+      "minimum_observed_actual_free_bytes": 9818132480,
+      "maximum_observed_shared_memory_bytes": 51911659520,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 789050,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-i686",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 13.310132274000352,
+      "aggregate_owned_rss_peak_bytes": 586932224,
+      "minimum_observed_actual_free_bytes": 9817477120,
+      "maximum_observed_shared_memory_bytes": 52171489280,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 789313,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-i686",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 13.319685545000539,
+      "aggregate_owned_rss_peak_bytes": 586964992,
+      "minimum_observed_actual_free_bytes": 9816834048,
+      "maximum_observed_shared_memory_bytes": 52158586880,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 789902,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-riscv64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 13.874487486002181,
+      "aggregate_owned_rss_peak_bytes": 592326656,
+      "minimum_observed_actual_free_bytes": 9816170496,
+      "maximum_observed_shared_memory_bytes": 52315148288,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 790117,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-riscv64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 13.175894508000056,
+      "aggregate_owned_rss_peak_bytes": 592228352,
+      "minimum_observed_actual_free_bytes": 9815539712,
+      "maximum_observed_shared_memory_bytes": 52061888512,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 790318,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-ppc64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 13.30438380600026,
+      "aggregate_owned_rss_peak_bytes": 591572992,
+      "minimum_observed_actual_free_bytes": 9814921216,
+      "maximum_observed_shared_memory_bytes": 51842256896,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 791202,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-ppc64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.37143281599856,
+      "aggregate_owned_rss_peak_bytes": 591634432,
+      "minimum_observed_actual_free_bytes": 9814253568,
+      "maximum_observed_shared_memory_bytes": 52376027136,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 792161,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-ppc64le",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.531200132998492,
+      "aggregate_owned_rss_peak_bytes": 579133440,
+      "minimum_observed_actual_free_bytes": 9813606400,
+      "maximum_observed_shared_memory_bytes": 51983269888,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 792673,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-ppc64le",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.27439093400244,
+      "aggregate_owned_rss_peak_bytes": 579055616,
+      "minimum_observed_actual_free_bytes": 9812955136,
+      "maximum_observed_shared_memory_bytes": 52132732928,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 792983,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-ppc32",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.88993687599941,
+      "aggregate_owned_rss_peak_bytes": 573358080,
+      "minimum_observed_actual_free_bytes": 9812307968,
+      "maximum_observed_shared_memory_bytes": 51918790656,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 793333,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-ppc32",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.305110909001087,
+      "aggregate_owned_rss_peak_bytes": 573345792,
+      "minimum_observed_actual_free_bytes": 9811640320,
+      "maximum_observed_shared_memory_bytes": 53101785088,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 794656,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-mips64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 11.962269021998509,
+      "aggregate_owned_rss_peak_bytes": 575455232,
+      "minimum_observed_actual_free_bytes": 9810980864,
+      "maximum_observed_shared_memory_bytes": 53125521408,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 795734,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-mips64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 11.90799018100006,
+      "aggregate_owned_rss_peak_bytes": 575500288,
+      "minimum_observed_actual_free_bytes": 9810321408,
+      "maximum_observed_shared_memory_bytes": 54858096640,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 796852,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-mips64el",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.031694209999841,
+      "aggregate_owned_rss_peak_bytes": 575541248,
+      "minimum_observed_actual_free_bytes": 9809653760,
+      "maximum_observed_shared_memory_bytes": 55464771584,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 797956,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-mips64el",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 11.812531820000004,
+      "aggregate_owned_rss_peak_bytes": 575393792,
+      "minimum_observed_actual_free_bytes": 9808990208,
+      "maximum_observed_shared_memory_bytes": 55372742656,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 798712,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-mips32",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.533131408999907,
+      "aggregate_owned_rss_peak_bytes": 569200640,
+      "minimum_observed_actual_free_bytes": 9808330752,
+      "maximum_observed_shared_memory_bytes": 55863721984,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 799234,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-mips32",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.255708813998353,
+      "aggregate_owned_rss_peak_bytes": 569057280,
+      "minimum_observed_actual_free_bytes": 9807671296,
+      "maximum_observed_shared_memory_bytes": 57262366720,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 799758,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-mips32el",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.093480515999545,
+      "aggregate_owned_rss_peak_bytes": 569868288,
+      "minimum_observed_actual_free_bytes": 9807015936,
+      "maximum_observed_shared_memory_bytes": 56613285888,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 800053,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-mips32el",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 11.988962948002154,
+      "aggregate_owned_rss_peak_bytes": 569520128,
+      "minimum_observed_actual_free_bytes": 9806344192,
+      "maximum_observed_shared_memory_bytes": 56629809152,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 801092,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-sparc64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 11.906279894999898,
+      "aggregate_owned_rss_peak_bytes": 577339392,
+      "minimum_observed_actual_free_bytes": 9805705216,
+      "maximum_observed_shared_memory_bytes": 55014785024,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 801590,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-sparc64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 11.999769962996652,
+      "aggregate_owned_rss_peak_bytes": 577630208,
+      "minimum_observed_actual_free_bytes": 9805049856,
+      "maximum_observed_shared_memory_bytes": 53282381824,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 801982,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-loongarch64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.098577774999285,
+      "aggregate_owned_rss_peak_bytes": 589598720,
+      "minimum_observed_actual_free_bytes": 9804427264,
+      "maximum_observed_shared_memory_bytes": 54274224128,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 802566,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-loongarch64",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 11.925730746999761,
+      "aggregate_owned_rss_peak_bytes": 589832192,
+      "minimum_observed_actual_free_bytes": 9803800576,
+      "maximum_observed_shared_memory_bytes": 50879614976,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 802858,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-s390x",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.305776576999051,
+      "aggregate_owned_rss_peak_bytes": 590770176,
+      "minimum_observed_actual_free_bytes": 9803165696,
+      "maximum_observed_shared_memory_bytes": 52483948544,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 803140,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-s390x",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.238665043001674,
+      "aggregate_owned_rss_peak_bytes": 590983168,
+      "minimum_observed_actual_free_bytes": 9802526720,
+      "maximum_observed_shared_memory_bytes": 54326018048,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 803341,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-armhf",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.469550052999693,
+      "aggregate_owned_rss_peak_bytes": 573534208,
+      "minimum_observed_actual_free_bytes": 9801908224,
+      "maximum_observed_shared_memory_bytes": 55546474496,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 803757,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-armhf",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.389416972000618,
+      "aggregate_owned_rss_peak_bytes": 574025728,
+      "minimum_observed_actual_free_bytes": 9801273344,
+      "maximum_observed_shared_memory_bytes": 55002009600,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 804322,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-sequence-cross-a5-armel",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.588744118998875,
+      "aggregate_owned_rss_peak_bytes": 573153280,
+      "minimum_observed_actual_free_bytes": 9800646656,
+      "maximum_observed_shared_memory_bytes": 58574397440,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 804599,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-sequence-cross-a5-armel",
+      "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+      "passed": true,
+      "wall_seconds": 12.41525804399862,
+      "aggregate_owned_rss_peak_bytes": 572710912,
+      "minimum_observed_actual_free_bytes": 9800011776,
+      "maximum_observed_shared_memory_bytes": 60961005568,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "actual_writable_filesystem": {
+        "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+        "TMPDIR": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/tmp",
+        "fsid": 8764068325862668744,
+        "free_bytes": 9835020288,
+        "inodes": 2404833,
+        "disk_reserve_bytes": 1073741824,
+        "bounded_output_budget_bytes": 67108864,
+        "same_cgroup_required": true,
+        "test_inputs": "/tmp/uwvm2-sequence-provenance-20261006-a1"
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 804852,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    }
+  ],
+  "fixture_assertions_per_run": 1907,
+  "full_language_inventory_status_changed": false,
+  "external_toolchains_and_SDK_preserved": true,
+  "io": "C++ strings, diagnostics and little-endian carrier encoding use fast_io. Python is test orchestration only.",
+  "guard_raw_records": [
+    {
+      "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/control-native-a3/receipts.json",
+      "sha256": "c88daf0dc3391cb7bad55021955b5eb71dd50ed531c9a247dcdbc5c5c98c0c71",
+      "bytes": 236502
+    },
+    {
+      "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/control-cross-a4/receipts.json",
+      "sha256": "75bbf6bcbfc5d479554d776852d4ee4d96fe7c24599b5cdf8c32a38693678964",
+      "bytes": 50061
+    },
+    {
+      "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/control-cross-a5/receipts.json",
+      "sha256": "1a0a26b9c2f76da7b4b5964dd3a85a162b2bdc633715d5aa17ea7e1b102c27ca",
+      "bytes": 973587
+    }
+  ],
+  "guarded_qualification_episodes": 34,
+  "cross_profiles": 16,
+  "cross_repository_targets": 32,
+  "cross_fixture_assertions": 61024,
+  "sum_guarded_build_execution_seconds": 565.756671854997,
+  "peak_owned_rss_bytes": 595570688,
+  "historical_failures_preserved": [
+    {
+      "root": "/tmp/uwvm2-sequence-provenance-20261006-a1/control-native-a1",
+      "test_launched": false,
+      "reason": "Own waiting controller retired by original PIDFD before any admission; moved writes to another existing writable filesystem."
+    },
+    {
+      "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a1/control-native-a1",
+      "passed": false,
+      "reason": "New fixture failed compilation on three fast_io const-char-pointer arguments; fixed with string_view."
+    },
+    {
+      "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a2/control-native-a2",
+      "passed": false,
+      "reason": "New fixture incorrectly demanded exactly one aggregate node for string display; corrected to nonempty output."
+    },
+    {
+      "root": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/control-cross-a4",
+      "passed": false,
+      "reason": "Shared cgroup memory.swap.max temporarily failed zero-swap identity check; own ROS x86_64 compile was interrupted and original owned PIDFD subtree retired. No OOM event changed."
+    }
+  ],
+  "source_and_raw_evidence_retained": {
+    "source": "/tmp/uwvm2-sequence-provenance-20261006-a1",
+    "successful_logs_ELFs_guards": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+    "external_dependencies": "Original installed toolchains/sysroots/LLVM SDK; file hashes are in individual raw records."
+  },
+  "archival": {
+    "gzip": {
+      "archive_complete": true,
+      "external_tools_archived": false,
+      "external_tools": "Original providers retained at pinned paths; their hashes are in raw records.",
+      "maximum_archive_bytes": 134217728,
+      "disk_reserve_bytes": 1073741824,
+      "members": 9333,
+      "source": "/tmp/uwvm2-sequence-provenance-20261006-a1",
+      "run": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3",
+      "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/sequence-provenance-evidence-a1.tar.gz",
+      "bytes": 123905162,
+      "sha256": "1e46c1a769f1d8377b73726ffa27189e1657157487371029151355392c1a40cb",
+      "all_members_byte_verified": true,
+      "all_original_inputs_after_unchanged": true,
+      "seconds": 9.817085998998664
+    },
+    "xz": {
+      "archive_complete": true,
+      "original_gzip_sha256": "1e46c1a769f1d8377b73726ffa27189e1657157487371029151355392c1a40cb",
+      "maximum_archive_bytes": 134217728,
+      "disk_reserve_bytes": 1073741824,
+      "members": 9333,
+      "administrative_recompression_only": true,
+      "path": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/sequence-provenance-evidence-a1.tar.xz",
+      "bytes": 31355236,
+      "sha256": "be23beb1c6eaf53079f22d3baa68eea9036ddea5ddf2bcac49298fd4c905fc8a",
+      "all_members_byte_verified": true,
+      "source_after_unchanged": true,
+      "seconds": 82.64231497199944
+    },
+    "persistent_linux_copy": {
+      "copied": true,
+      "source": "/run/user/1000/uwvm2-sequence-provenance-20261006-a3/sequence-provenance-evidence-a1.tar.xz",
+      "bytes": 31355236,
+      "sha256": "be23beb1c6eaf53079f22d3baa68eea9036ddea5ddf2bcac49298fd4c905fc8a",
+      "disk_reserve_bytes": 67108864,
+      "initial_free_bytes": 177045504,
+      "path": "/home/macromodel/Documents/uwvm3-implementation/uwvm2-sequence-provenance-evidence-20261006-a1/sequence-provenance-evidence-a1.tar.xz",
+      "all_bytes_verified": true,
+      "source_after_unchanged": true,
+      "seconds": 0.059210742998402566
+    },
+    "local_transfer_failure": {
+      "local_copy_complete": false,
+      "error": "Local filesystem ENOSPC during streamed copy despite admission observation",
+      "partial_path": "/tmp/uwvm2-sequence-provenance-20261006/sequence-provenance-evidence-a1.tar.xz.partial",
+      "partial_bytes": 23068672,
+      "partial_sha256": "5554c076fb4335397f0564d25c25e38e9f7c03747bcdce98a6e628d5cbcf457c",
+      "partial_inode": 81994359,
+      "complete_persistent_linux_backup": "/home/macromodel/Documents/uwvm3-implementation/uwvm2-sequence-provenance-evidence-20261006-a1/sequence-provenance-evidence-a1.tar.xz",
+      "complete_sha256": "be23beb1c6eaf53079f22d3baa68eea9036ddea5ddf2bcac49298fd4c905fc8a",
+      "only_own_incomplete_copy_retired": true
+    }
+  },
+  "active_paired_current_review": [
+    {
+      "path": "src/uwvm2/uwvm/debugger/source_language_expression.h",
+      "paired": true,
+      "sha256": "b4c129bf9acdf814d72dfd1b96084a96f74d9fc94a862cbff8aac3fc0957efd0"
+    },
+    {
+      "path": "test/0017.runtime/debug_source_sequence_provenance.cc",
+      "paired": true,
+      "sha256": "7dd4188d9d343eb51862447b0e20dba511f1da27214f81bb88a4a5016b54286c"
+    },
+    {
+      "path": "test/0017.runtime/debug_source_language_sequences.cc",
+      "paired": true,
+      "sha256": "ef2b370da7033fa31ceacab7eebe59391f8f3b949e1c2bf6ae7baa7c02dc0a78"
+    },
+    {
+      "path": "test/0017.runtime/debug_source_language_expression.cc",
+      "paired": true,
+      "sha256": "2346ee0d1a0f890d80f5ecf7e7c2396e4bc5c81cbe27767cd71c07c261ce54c3"
+    }
+  ],
+  "original_full_pipeline_preflight": {
+    "original_full_pipeline_directory": "/tmp",
+    "required_free_bytes": 9288400896,
+    "observed_free_bytes": 3785068544,
+    "required_shared_memory_headroom_bytes": 9663676416,
+    "observed_shared_memory_bytes": 53087895552,
+    "memory_max_bytes": 68719476736,
+    "full_product_launched": false,
+    "scope": "Read-only resource observation; bounded DATA writes use separately guarded /run/user/1000 filesystem.",
+    "original_full_pipeline_admissible": false
+  },
+  "archive_contains_complete_owned_source_and_raw_evidence": true,
+  "archive_contains_external_installed_tools": false
+}

@@ -1,0 +1,118 @@
+{
+  "source_manifest_sha256": "a4113876b763909d56c47ab8c6b5baa7adf53d5bea05c1fab36a450dc6dcd6b1",
+  "rows": [
+    {
+      "repo": "uwvm2",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "actual_sha256": "f3d366c6f8e9af52635a7aef6e804a8d9a019f803751b27f34d50592ad0087cd",
+      "frozen_sha256": "ded0e9159e1debbc7b33aa6bdaa0c3552554cf16c3516439a7690109cad0f5d5",
+      "matches": false
+    },
+    {
+      "repo": "uwvm2",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+      "actual_sha256": "4a0eee3c2ac442a4c825f12a93c0eec23eb8df12bb08110dc79737c2a6cb6694",
+      "frozen_sha256": "6cb9e0fdc02c0914d7d9941eeef40b0b23f615e5871341aac36935e9e253d42e",
+      "matches": false
+    },
+    {
+      "repo": "uwvm2",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+      "actual_sha256": "c528c74b901bc8d8e92732105b0f3617e8362182321dd8d53cfba425a40ad382",
+      "frozen_sha256": "c528c74b901bc8d8e92732105b0f3617e8362182321dd8d53cfba425a40ad382",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+      "actual_sha256": "bb74aa87b6209b4def9edb2d69e32723e24ab107ece682161c22fdeeec17ce38",
+      "frozen_sha256": "bb74aa87b6209b4def9edb2d69e32723e24ab107ece682161c22fdeeec17ce38",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h",
+      "actual_sha256": "2cd7a36fb60b44436b5fd3beffd367ed0ab55d8e689ffaf7bc6abdbdcf54fff2",
+      "frozen_sha256": "2cd7a36fb60b44436b5fd3beffd367ed0ab55d8e689ffaf7bc6abdbdcf54fff2",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2",
+      "path": "test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "actual_sha256": "0f91a6d27cc79bb770e3169074441581e9ff998649833e1b5d25182270f643d9",
+      "frozen_sha256": "0f91a6d27cc79bb770e3169074441581e9ff998649833e1b5d25182270f643d9",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2",
+      "path": "test/0017.runtime/fixtures/debug_wasip1_checkpoint_builtin_aliases.wat",
+      "actual_sha256": "628d43f12b98bf47221fcaa1bdbc902715151e5a7292f2cb3fb5ab9f7f576bc7",
+      "frozen_sha256": "628d43f12b98bf47221fcaa1bdbc902715151e5a7292f2cb3fb5ab9f7f576bc7",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2",
+      "path": "test/0017.runtime/README.debug-checkpoint-joint-preparation.md",
+      "actual_sha256": "f3185e661483e440e5a45cd5824fd82c441ca5a8e8d4f97acb78b2f377a816a2",
+      "frozen_sha256": null,
+      "matches": false
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "actual_sha256": "f3d366c6f8e9af52635a7aef6e804a8d9a019f803751b27f34d50592ad0087cd",
+      "frozen_sha256": "ded0e9159e1debbc7b33aa6bdaa0c3552554cf16c3516439a7690109cad0f5d5",
+      "matches": false
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+      "actual_sha256": "b220bfca1ff2e81a6e27e6ba0e6e3e388483db6131978311ab4aa7857c653dd1",
+      "frozen_sha256": "c9c66c7962394ea100bbdfe2ca7d582fc182bb908e62830ed6a9b2cdf32c8a58",
+      "matches": false
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+      "actual_sha256": "c528c74b901bc8d8e92732105b0f3617e8362182321dd8d53cfba425a40ad382",
+      "frozen_sha256": "c528c74b901bc8d8e92732105b0f3617e8362182321dd8d53cfba425a40ad382",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+      "actual_sha256": "bb74aa87b6209b4def9edb2d69e32723e24ab107ece682161c22fdeeec17ce38",
+      "frozen_sha256": "bb74aa87b6209b4def9edb2d69e32723e24ab107ece682161c22fdeeec17ce38",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h",
+      "actual_sha256": "2cd7a36fb60b44436b5fd3beffd367ed0ab55d8e689ffaf7bc6abdbdcf54fff2",
+      "frozen_sha256": "2cd7a36fb60b44436b5fd3beffd367ed0ab55d8e689ffaf7bc6abdbdcf54fff2",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "actual_sha256": "0f91a6d27cc79bb770e3169074441581e9ff998649833e1b5d25182270f643d9",
+      "frozen_sha256": "0f91a6d27cc79bb770e3169074441581e9ff998649833e1b5d25182270f643d9",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "test/0017.runtime/fixtures/debug_wasip1_checkpoint_builtin_aliases.wat",
+      "actual_sha256": "628d43f12b98bf47221fcaa1bdbc902715151e5a7292f2cb3fb5ab9f7f576bc7",
+      "frozen_sha256": "628d43f12b98bf47221fcaa1bdbc902715151e5a7292f2cb3fb5ab9f7f576bc7",
+      "matches": true
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "test/0017.runtime/README.debug-checkpoint-joint-preparation.md",
+      "actual_sha256": "f3185e661483e440e5a45cd5824fd82c441ca5a8e8d4f97acb78b2f377a816a2",
+      "frozen_sha256": null,
+      "matches": false
+    }
+  ],
+  "does_not_qualify_later_workspace_edits": true
+}

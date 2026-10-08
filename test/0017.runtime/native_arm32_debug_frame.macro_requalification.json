@@ -1,0 +1,31 @@
+{
+  "schema": "ARM32-private-debug-frame-linux-elf-macro-merged-v1",
+  "passed": true,
+  "merged_execution_runs": 6,
+  "owned_command_roots": 27,
+  "malformed_actual_objects_rejected": 42,
+  "restored_frame_instruction_positions_refused": 12,
+  "actual_linux_elf_macros_defined": true,
+  "actual_linux_macro_values_equal_LLVM": true,
+  "paired_source_sha256": {
+    "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h": "0bef98b09341b72597868447aa7b99df027ca64e3012ffbc91e5816f701ce1e5",
+    "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/section_memory_manager.h": "1da0ecd43671a19fe4f82912c7c7502837cd030f5984082dc4919fd1aa04ee50",
+    "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/section_memory_manager.cppm": "33fe01b5eee0dd6045cb0a616eaf8907089d67f0b750062582b58dee5e4863c6",
+    "test/0017.runtime/debug_native_registered_cfi_arm.cc": "84eacd9abe35003419adb902e4d04b46cb9f1f5d7e566c86fd7afc059abc797f"
+  },
+  "actual_ARM_machine_code_execution": false,
+  "public_ARM_Wasm_callers_qualified": false,
+  "ARM_native_ni_finish_qualified": false,
+  "scope": "Actual Linux elf.h forced after real LLVM ELF declarations, production ARM parser macro branch, real ARM compiler CFI plus owned DATA only; no ARM native SDK/live caller/finish claim",
+  "qualification_sha256": "4e1a12bd1cc773b9538a431d831fece9a005d25a841d544246af0b4276a1834e",
+  "receipt_sha256": "d7e99fb37c227dc4e32d12a18ba8d77d93aa7b2321d2330443f49d0fd420c39d",
+  "macro_order_header_sha256": "485455191917193e306756b7b3e1ef501c5b37cadd0d8b495dd5c1ffed477835",
+  "memory_events": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  }
+}

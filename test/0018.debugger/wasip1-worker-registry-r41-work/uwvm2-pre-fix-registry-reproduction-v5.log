@@ -1,0 +1,2 @@
+REGISTRY first_actual_join_slot_reuse_status=4 retained_old_handles=256
+debug_checkpoint_worker_registry_reuse_runtime FAIL line=239

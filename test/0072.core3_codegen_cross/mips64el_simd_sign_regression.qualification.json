@@ -1,0 +1,171 @@
+{
+  "schema": 1,
+  "passed": true,
+  "scope": "Paired frozen R14 genuine ROS12 Linux N64EL R2 CLI products after the no-MSA SIMD sign lowering repair: baseline FP/SIMD/Core3/long tails, high-memory and exact OOB diagnoses, ten SIMD float-unary witnesses, signed fresh-process default/explicit caches, and bounded unary generated functions. Main full/lazy/verified-lazy interpreter and full/lazy JIT; ROS full interpreter/JIT only. No complete Core3/all-ISA or hardware throughput qualification.",
+  "source_identities": {
+    "uwvm2": "sha256:b9f1dbe5b7c6637eecd1e833ac2bf8575825523f52bed5dcb98ec13c9c90356f",
+    "uwvm2-ros": "sha256:519a83f4c70815855f241c68e04e3958d267245adcee94f9473f4e0142eacfd9"
+  },
+  "source_manifest": {
+    "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cache-source-r14-manifest.json",
+    "sha256": "9a286abb9e370ac1e96f6d3a41f3734a5ebad096880662ad50a3944303261277"
+  },
+  "products": [
+    {
+      "repo": "uwvm2",
+      "source_identities": {
+        "uwvm2": "sha256:b9f1dbe5b7c6637eecd1e833ac2bf8575825523f52bed5dcb98ec13c9c90356f",
+        "uwvm2-ros": "sha256:519a83f4c70815855f241c68e04e3958d267245adcee94f9473f4e0142eacfd9"
+      },
+      "product_sha256": "8c0446c7d7be7d7623f41e6db2426bbe5fac43fd9f83d728571c01e6daeb2f60",
+      "actual_dependency_count": 2759,
+      "runtime_processes": 1719,
+      "baseline_processes": 1152,
+      "SIMD_unary_processes": 90,
+      "high_memory_processes": 117,
+      "signed_cache_processes": 360,
+      "authenticated_warm_processes": 240,
+      "complete_unary_function_extents": 60,
+      "qualifications": {
+        "unary": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-r1/unary/uwvm2/semantics/qualification.json",
+          "sha256": "00541c7dd0b00d899838d566e01a68aa20968b893689d2a2933af70c501dda6d"
+        },
+        "baseline": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-r1/baseline/uwvm2/semantics/qualification.json",
+          "sha256": "b1e323d66d0676283db1875725c332e3cb4b91773030462ea6984484d361910e"
+        },
+        "high_memory": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-r1/high/uwvm2/qualification.json",
+          "sha256": "508f4539ccbd0e3fa65be7349fd90d1dcb2b1835eaba9be22813f070e5d2a461"
+        },
+        "signed_cache": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-r1/uwvm2-cache/qualification.json",
+          "sha256": "2754136d98b4b3c7bdedce5a6d1c4b77d32af89ef6a113ae220bb9baaf299d83"
+        },
+        "bounded_unary_assembly": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/uwvm2-asm/summary.json",
+          "sha256": "aacaad493942fb530097b1fb8485ea8ab280f2d028fc04babc45b3f7f9253f98"
+        },
+        "unary_instruction_observations": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/uwvm2-asm/simd-unary-instruction-observations.json",
+          "sha256": "ddddf149c114f11221b4864080f00f8a8d3c37187a70bee7473d9f2c5cbab489"
+        }
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "source_identities": {
+        "uwvm2": "sha256:b9f1dbe5b7c6637eecd1e833ac2bf8575825523f52bed5dcb98ec13c9c90356f",
+        "uwvm2-ros": "sha256:519a83f4c70815855f241c68e04e3958d267245adcee94f9473f4e0142eacfd9"
+      },
+      "product_sha256": "eae8368da6e8a5fbfd9ec33d698ef62d07f1bfa1e4eef61d82f07a603a1a7630",
+      "actual_dependency_count": 2724,
+      "runtime_processes": 784,
+      "baseline_processes": 512,
+      "SIMD_unary_processes": 40,
+      "high_memory_processes": 52,
+      "signed_cache_processes": 180,
+      "authenticated_warm_processes": 120,
+      "complete_unary_function_extents": 30,
+      "qualifications": {
+        "unary": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/unary/uwvm2-ros/semantics/qualification.json",
+          "sha256": "01223348bbdbea3ded1dda2c540f37d0d99dfce582d58639b4db418b3eb23799"
+        },
+        "baseline": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/baseline/uwvm2-ros/semantics/qualification.json",
+          "sha256": "61eda8908cbb60230af23764cea15f079ff2bdecc8e4c1e26d4f5df276410761"
+        },
+        "high_memory": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/high/uwvm2-ros/qualification.json",
+          "sha256": "2ca5f58147bf79d1fce445d06a75a7b2180edfed34e728f84159de7d96a4946e"
+        },
+        "signed_cache": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/uwvm2-ros-cache/qualification.json",
+          "sha256": "cb12d955c59dee781e457d085650807e30b9a3fddb9e7ea640917e1899f0aeae"
+        },
+        "bounded_unary_assembly": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/uwvm2-ros-asm/summary.json",
+          "sha256": "d1111203ba9272f6f97b5ae3deada1913dbc2eb6ef22dae33470bad0bd5d4dd7"
+        },
+        "unary_instruction_observations": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/uwvm2-ros-asm/simd-unary-instruction-observations.json",
+          "sha256": "04be78db0b2bea75cb392596038d849aa6dddfc06d3bf6d57473b37d3c8d6552"
+        }
+      }
+    }
+  ],
+  "counts": {
+    "baseline_runtime_processes": 1664,
+    "high_memory_processes": 169,
+    "valid_high_address_processes": 13,
+    "exact_memory_OOB_processes": 156,
+    "SIMD_unary_runtime_processes": 130,
+    "signed_cache_processes": 540,
+    "authenticated_warm_processes": 360,
+    "total_runtime_processes": 2503,
+    "complete_unary_function_extents": 90,
+    "actual_cgroup_commands": 10
+  },
+  "actual_cgroup_receipts": [
+    {
+      "label": "uwvm2-unary",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-r1/cgopt-mips64el-r14-simd-sign-test-r1-evidence/000-uwvm2-unary/receipts.json",
+      "sha256": "b8a1d166a0867db2ec4edd749de802e4a3d089a7b7a39cd224e872b2a8cb06f5"
+    },
+    {
+      "label": "uwvm2-baseline",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-r1/cgopt-mips64el-r14-simd-sign-test-r1-evidence/001-uwvm2-baseline/receipts.json",
+      "sha256": "ba71ba6a77ffde77a1177281f1f6cf50f494604f9ab13cd22d4ea3d99e7d9f9f"
+    },
+    {
+      "label": "uwvm2-high",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-r1/cgopt-mips64el-r14-simd-sign-test-r1-evidence/002-uwvm2-high/receipts.json",
+      "sha256": "5d20344988fbe1992e1abf5aa411273912df2e287c4371fbf847e79338a8ec9b"
+    },
+    {
+      "label": "uwvm2-cache",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-r1/cgopt-mips64el-r14-simd-sign-test-r1-evidence/003-uwvm2-cache/receipts.json",
+      "sha256": "85711a3aa00dab28e15fa54bf57363d81b9fb5b5895488cee9c07dfbc56246df"
+    },
+    {
+      "label": "uwvm2-asm",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/cgopt-mips64el-r14-simd-sign-test-loader-r2-evidence/000-uwvm2-asm/receipts.json",
+      "sha256": "7f96518024e9064d35a1f4f9587f0569f8313a645fa91c3c9ffd3c95dacb4a95"
+    },
+    {
+      "label": "uwvm2-ros-unary",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/cgopt-mips64el-r14-simd-sign-test-loader-r2-evidence/001-uwvm2-ros-unary/receipts.json",
+      "sha256": "c2c232453c5c6255127bff7b80f446bd6fe86f5e126bbcf569e2c7ee4fbefe1a"
+    },
+    {
+      "label": "uwvm2-ros-baseline",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/cgopt-mips64el-r14-simd-sign-test-loader-r2-evidence/002-uwvm2-ros-baseline/receipts.json",
+      "sha256": "9b31c84d3d96e86e5cf205d621ef087f9d57e0190afaafdcf8b1d1f84c86ef2f"
+    },
+    {
+      "label": "uwvm2-ros-high",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/cgopt-mips64el-r14-simd-sign-test-loader-r2-evidence/003-uwvm2-ros-high/receipts.json",
+      "sha256": "7f402c8fcd63af541092a94b3cf4e110a3ca0bbb8964949fe9cec3bf5bd28d33"
+    },
+    {
+      "label": "uwvm2-ros-cache",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/cgopt-mips64el-r14-simd-sign-test-loader-r2-evidence/004-uwvm2-ros-cache/receipts.json",
+      "sha256": "a6f8abcf6ceceb28ccada6b6dfeea95c8a7a326c015fa24b32c0f54be2a6c403"
+    },
+    {
+      "label": "uwvm2-ros-asm",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-loader-r2/cgopt-mips64el-r14-simd-sign-test-loader-r2-evidence/005-uwvm2-ros-asm/receipts.json",
+      "sha256": "d59bf66cb962001d263055cd397413d83d1ccae179f405a1f77327c5d16bc652"
+    }
+  ],
+  "successful_main_prefix_retained": 4,
+  "new_loader_corrected_commands": 6,
+  "original_failed_loader_stage_preserved": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-test-r1",
+  "actual_T2_qualification_in_this_cohort": false,
+  "all_current_working_tree_qualified": false,
+  "complete_Core3_requested_threads_qualified": false,
+  "all_architecture_ABI_qualified": false,
+  "hardware_throughput_qualified": false
+}

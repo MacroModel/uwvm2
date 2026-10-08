@@ -1,0 +1,54 @@
+{
+  "origin": "/Users/liyinan/Documents/MacroModel/wasip1-r33-owned-cold-evidence",
+  "original_directory_mode": 365,
+  "files": {
+    "uwvm2-ros-windows-qualified-products.tar.zst": {
+      "sha256": "79cba9cc52c36a395ac9bdcc48cca09a1f123b37c9ff116a8c8d16a46ce595f2",
+      "size": 36188614,
+      "device": 16777231,
+      "inode": 82795270,
+      "uid": 501,
+      "mtime_ns": "1791391505483279148"
+    },
+    "uwvm2-freebsd-qualified-products.tar.zst": {
+      "sha256": "662aa45009705453694bb7078e075d42da00420db604fc72b6862595fee9f2d5",
+      "size": 40831633,
+      "device": 16777231,
+      "inode": 82797721,
+      "uid": 501,
+      "mtime_ns": "1791392237886022737"
+    },
+    "uwvm2-linux-integrated-qualified-products.tar.zst": {
+      "sha256": "6a8dd8b9c1b9f7df03fe89f73ae70d3c5a4f8ce29d902d85a5534a9279651ca9",
+      "size": 58233116,
+      "device": 16777231,
+      "inode": 82676175,
+      "uid": 501,
+      "mtime_ns": "1791387073657932103"
+    },
+    "uwvm2-ros-freebsd-qualified-products.tar.zst": {
+      "sha256": "170d79028959e5e853f66a35696cd2e702172fa4ef52c69687cbe5a2b11fea68",
+      "size": 36833120,
+      "device": 16777231,
+      "inode": 82799485,
+      "uid": 501,
+      "mtime_ns": "1791392796651740794"
+    },
+    "uwvm2-ros-linux-integrated-qualified-products.tar.zst": {
+      "sha256": "9301c14631d4233b4e445f608ba1925e6da9d3ed091e80728cea80439fc3b9ed",
+      "size": 53178893,
+      "device": 16777231,
+      "inode": 82735325,
+      "uid": 501,
+      "mtime_ns": "1791389458819293257"
+    },
+    "uwvm2-windows-qualified-products.tar.zst": {
+      "sha256": "b796dbe038253bc528dca7f6eea9b8601ae2facd5b322f78aa24c34edcbf536c",
+      "size": 39226684,
+      "device": 16777231,
+      "inode": 82772008,
+      "uid": 501,
+      "mtime_ns": "1791390714895871167"
+    }
+  }
+}

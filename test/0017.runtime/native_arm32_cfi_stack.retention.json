@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "cold": {
+    "archive": "/dev/shm/uwvm-asm-6313e263-current727/build-meta/work/ARM32-source-and-evidence.tar.xz",
+    "archive_bytes": 24618596,
+    "archive_sha256": "c52e4a115ec1f9f66f0e82608c1febcdffc373cee38f678d99ec91298c337f48"
+  },
+  "ack": {
+    "local_path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/BE727-ARM32-source-and-evidence.tar.xz",
+    "local_bytes": 24618596,
+    "local_sha256": "c52e4a115ec1f9f66f0e82608c1febcdffc373cee38f678d99ec91298c337f48",
+    "archive_sha256": "c52e4a115ec1f9f66f0e82608c1febcdffc373cee38f678d99ec91298c337f48",
+    "independent_local_exact_byte_hash_verified": true
+  },
+  "historical_failed_source721_verified": true,
+  "raw_files_not_yet_deleted": 8262
+}

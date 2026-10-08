@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "boot_id": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+  "anchor_pid": 11166,
+  "anchor_birth": 22661,
+  "cgroup": "/sys/fs/cgroup/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope",
+  "memory_max_bytes": 68719476736,
+  "swap_max_bytes": 0,
+  "reused_anchor": true,
+  "reused_volume": true,
+  "tests_executed": false,
+  "guards_refreshed": [
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "d37e98c8ba75ce21bd2b91b0c45c3c9800e9bda624ea26b85334099ae122883d"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-pch-archive-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-pch-archive-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "eb0686124a8e916a95c42669ec7515367761f1d95936e45e56e93bfa9a2b7184"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-vm-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "5e3fe4874cfe5d95a2d999055155e43a797c6d43073d0a6652d73fed0a1f1162"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-recheck-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-recheck-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "306ccdeee70fcdfc2f762a866bea60a48fd88b0813ca1330509f25fdcc4c521f"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cold-store-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-cold-store-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "2f5220b476cc7ce7ebf3cdb107fef8f4fc458c7a635d7fecd3dedd7fdc931243"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-macos-ordinary-12g-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-cross-macos-ordinary-12g-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "341a3e9dff2cb8d8d9eef1e4545601fa7e5b8f17a6183621930055e607a0e1ba"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-cross-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "0d0d710f88d1ff434ef915357cb91ce38b82707525315e371fb4e260a022085e"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-finite-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-finite-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "8a717dc9ac6eb8150dabf5b85246182f46dea38e68e0ca6880fb78b2e94993c9"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-archive-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "d0408ab49da1a114994c5fa0eb6a45f15125a10044ad1cadb8571b5beebad1da"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-prepare-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-prepare-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "7a9429f4fb918dd37275aa7ab013886b99089acf0c35d33a350a1f3c6cd09a13"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-qualified-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-qualified-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "3c142b348760e3e8603ceba7b4b227f2ae67b6b2d22c823f28ec4e0691f4ee5a"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-linux-integrated-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-linux-integrated-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "8caa8ab4cd78ef095498e17d34fec1db44a5ba1625cc3623169a35837a7a50e8"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-report-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-report-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "ba683178a8aa2cab1787d948a90153ceaa17f18bbc0905f41c79d8902537e38d"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-macos-delivery-r27.py",
+      "backup": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-prepare-20261007-r27/guard-joint-macos-delivery-r27.py.before-second-reboot-c8d3550f-3a19-40d7-8507-a76c2045ace5",
+      "sha256": "b40a2c27512e4404f612911f06e74077daa23ccc2fff1fbda6e788f8bfa6098d"
+    }
+  ]
+}

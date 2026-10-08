@@ -1,0 +1,220 @@
+{
+  "passed": true,
+  "scope": "Fresh native copied numeric/declaration/type DATA and exact DAP bridge; environment recovery only. No current full VM/JIT/live stopped frame/language producer/modules/complete native language experience qualification.",
+  "environment": {
+    "passed": true,
+    "boot": "7458ba8f-e0eb-4fff-be38-97fc93aab47a",
+    "init_pid": 45005,
+    "init_birth": 74453,
+    "cgroup": "/sys/fs/cgroup/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope",
+    "memory_max_bytes": 68719476736,
+    "swap_max_bytes": 0,
+    "cpuset": "0,2,4,6,16-31",
+    "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+    "image": "/home/macromodel/Documents/uwvm3-implementation/dbg-language-bounded-20261006-r13.ext4",
+    "hard_image_max_bytes": 17179869184,
+    "filesystem_id": 12191019222208619510,
+    "filesystem_total_bytes": 16729894912,
+    "filesystem_available_bytes": 16610168832,
+    "image_allocated_bytes": 275058688,
+    "host_disk_free_bytes": 131653103616,
+    "host_disk_reserve_bytes": 26843545600,
+    "cgroup_procs_uid": 0,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "tests_executed": false,
+    "restore_tool_sha256": "917a3b04b2588c0a9c617d9159f4490dc6560f16331eb3e9db657c086948a894",
+    "idempotent_restore_verified": true
+  },
+  "native": [
+    {
+      "repository": "uwvm2",
+      "source_id": "sha256:ac7e93ee0acf5ee2d98a5567f2bc9fd6759132efd6fe78c682f2d8dcac2daa9a",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/bool-cast-reboot-a1/out-uwvm2/bool-cast-native-a1/results.json",
+      "record_sha256": "6e7a2503c60fccfc64cbec730ea837baa9e73aa4f5b8597abea4a1f643ecdf2a",
+      "phases": 24,
+      "boolean_cast_assertions": 1295317,
+      "prior_category_assertions": 247159,
+      "DAP_positive": 202,
+      "DAP_negative": 60,
+      "character_cpp_and_python_checks": 11802,
+      "old_header_expected_failures": [
+        "baseline-integer",
+        "baseline-f32",
+        "baseline-f64"
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "source_id": "sha256:273728554faeac23d90cc02ef43bec9b60c0b0dab6bc80e120ece3b8acffab19",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/bool-cast-reboot-a1/out-uwvm2-ros/bool-cast-native-a1/results.json",
+      "record_sha256": "d7a18ebf132eede1818bf37459f502df1fea5c4c3f019b5a49875f7b1bcaf9fb",
+      "phases": 24,
+      "boolean_cast_assertions": 1295317,
+      "prior_category_assertions": 247159,
+      "DAP_positive": 202,
+      "DAP_negative": 60,
+      "character_cpp_and_python_checks": 11802,
+      "old_header_expected_failures": [
+        "baseline-integer",
+        "baseline-f32",
+        "baseline-f64"
+      ]
+    }
+  ],
+  "guards": [
+    {
+      "label": "uwvm2-bool-cast-native-reboot-a1",
+      "passed": true,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "wall_seconds": 144.65882555400003,
+      "aggregate_owned_rss_peak_bytes": 689582080,
+      "maximum_observed_own_output_bytes": 10527634,
+      "minimum_observed_host_disk_free_bytes": 132122419200,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 58071,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "supervisor_sha256": "df7b9e715c39de46bdd2284c7c33a27ecf3953122986c4dc0faa5e33476e1ded"
+    },
+    {
+      "label": "uwvm2-ros-bool-cast-native-reboot-a1",
+      "passed": true,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "wall_seconds": 142.46620227500011,
+      "aggregate_owned_rss_peak_bytes": 690069504,
+      "maximum_observed_own_output_bytes": 21088725,
+      "minimum_observed_host_disk_free_bytes": 132055035904,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 62268,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "supervisor_sha256": "df7b9e715c39de46bdd2284c7c33a27ecf3953122986c4dc0faa5e33476e1ded"
+    }
+  ],
+  "full_VM_qualified": false,
+  "LLVM_JIT_qualified": false,
+  "producer_qualified": false,
+  "modules_build_qualified": false,
+  "new_boot_cross_qualified": false,
+  "new_boot_cross_target_count": 0,
+  "prior_cross_raw_evidence_survived_cleanup": false,
+  "rejected_pre_test_admission": {
+    "passed": false,
+    "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/bool-cast-reboot-a1/control-native-reboot-a1/receipts.json",
+    "sha256": "a5d9b6cbe28b0d206e36da993c2536168b995a8842381b51c7c9b291f0fb0547",
+    "no_component_test_launched": true,
+    "actual_root_reaped_returncode": -9,
+    "reason": "Cgroup control ownership did not match root stopped-admission helper. Restored original root ownership, pinned helper image and explicit user; retried with fresh control directory.",
+    "cleanup_discovery_error": "AssertionError: "
+  },
+  "cross_provider_inventory": {
+    "prior_sdk_root_exists": false,
+    "native_host_qemu_count": 0,
+    "old_runtime_evidence_exists": false,
+    "cross_sdk_restored": false
+  },
+  "restore_tool": {
+    "host_entry": "/home/macromodel/Documents/uwvm3-implementation/restore_language_test_environment_20261006.py",
+    "sha256": "917a3b04b2588c0a9c617d9159f4490dc6560f16331eb3e9db657c086948a894",
+    "test_execution": false,
+    "idempotent_restore_and_readonly_checks_verified": true
+  },
+  "verified_input_count": 7396,
+  "successful_guard_wall_seconds": 287.12502782900015,
+  "aggregate_owned_rss_peak_bytes": 690069504,
+  "owned_output_peak_bytes": 21088725,
+  "arena_usage_before_archive": {
+    "filesystem_used_bytes": 102989824,
+    "available_bytes": 16610127872,
+    "image_allocated_bytes": 275062784
+  },
+  "evidence_backup": {
+    "linux_persistent": {
+      "passed": true,
+      "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/bool-cast-reboot-a1/boolean-cast-reboot-evidence-a1.tar.xz",
+      "bytes": 18435472,
+      "sha256": "63180f195dfd80cd6cd08504b06072b234117468c78df55acb9a626d04fc5dd3",
+      "members": 6538,
+      "index_sha256": "75a46b39133797631c56e7dd701da74929d23d950c2d1d8b04cd840b97bf998c",
+      "all_members_sha256_verified": true,
+      "persistent_linux_copy": true,
+      "full_old_cross_raw_evidence_included": false
+    },
+    "local_persistent": {
+      "passed": true,
+      "archive": "/Users/liyinan/.codex/artifacts/uwvm2-bool-cast-reboot-evidence-20261006-a1/boolean-cast-reboot-evidence-a1.tar.xz",
+      "bytes": 18435472,
+      "sha256": "63180f195dfd80cd6cd08504b06072b234117468c78df55acb9a626d04fc5dd3",
+      "members": 6538,
+      "all_members_sha256_verified": true,
+      "local_min_free_bytes": 67108864,
+      "free_after_bytes": 579309568,
+      "linux_persistent_verified": true
+    }
+  },
+  "post_archive_usage": {
+    "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+    "image_allocated_bytes": 285536256,
+    "filesystem_used_bytes": 122781696,
+    "filesystem_available_bytes": 16590336000,
+    "host_disk_available_bytes": 131273646080,
+    "memory_current_bytes": 4889591808,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+    "cgroup_members": [
+      45005,
+      66984,
+      67111,
+      73061,
+      74845,
+      74846,
+      75076,
+      75077,
+      75088,
+      75089,
+      75090,
+      75091,
+      75129,
+      75130
+    ]
+  },
+  "paired_repository_restore_tool": "tools/debug/restore_linux_test_environment.py",
+  "cross_sdk_restored": false
+}

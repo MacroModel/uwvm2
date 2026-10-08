@@ -1,0 +1,294 @@
+{
+  "schema": 1,
+  "passed": true,
+  "scope": "Frozen R14 genuine ROS12 MIPS64EL R2 main VM only: actual full T2 function1 entry and module readiness, SIMD abs/neg exact sign/payload results, signed default/explicit fresh-process cache reuse, bounded full T2 hot/loop function extents. No ROS tiered or hardware performance claim.",
+  "source_identities": {
+    "uwvm2": "sha256:b9f1dbe5b7c6637eecd1e833ac2bf8575825523f52bed5dcb98ec13c9c90356f",
+    "uwvm2-ros": "sha256:519a83f4c70815855f241c68e04e3958d267245adcee94f9473f4e0142eacfd9"
+  },
+  "product_sha256": "8c0446c7d7be7d7623f41e6db2426bbe5fac43fd9f83d728571c01e6daeb2f60",
+  "modes": [
+    "lazy",
+    "lazy+verification"
+  ],
+  "full_optimization_levels": [
+    1,
+    2,
+    3
+  ],
+  "fixture_kind": "simd-sign",
+  "counts": {
+    "uncached_runtime_processes": 6,
+    "signed_cache_processes": 36,
+    "authenticated_warm_processes": 24,
+    "total_runtime_processes": 42,
+    "checked_calls_per_process": 4000000,
+    "bit_checks_per_call": 12,
+    "total_checked_calls": 168000000,
+    "total_bit_checks": 2016000000,
+    "complete_actual_T2_function_extents": 12,
+    "actual_cgroup_commands": 3
+  },
+  "all_checked_calls_executed_in_T2_claimed": false,
+  "actual_T2_target_entry_required_per_process": true,
+  "qualifications": {
+    "uncached": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-t2-r1/simd-sign-results/qualification.json",
+      "sha256": "324080d31c487317954dd003a0a828c922a24678b35eaaa1845e7ac798e0109a"
+    },
+    "signed_cache": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-t2-r1/simd-sign-cache-results/qualification.json",
+      "sha256": "89428a3a81d76870fc014380b5bfe1825c97aac9d0e324a4b68f62c0a576ebe5"
+    },
+    "bounded_assembly": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-t2-asm-r1/simd-sign-results/summary.json",
+      "sha256": "dc2e08ae1677e4594d21497fe03fef3c15d78b441545bbfd52526f161c9eca1b"
+    }
+  },
+  "actual_cgroup_receipts": [
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-t2-r1/cgopt-mips64el-r14-simd-sign-t2-r1-evidence/000-uwvm2-actual-T2-simd-sign/receipts.json",
+      "sha256": "35c4b7b95676b811867ea64c66865703a6a4d1363cb5978afb2b802dcde27284",
+      "label": "uwvm2-actual-T2-simd-sign"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-t2-r1/cgopt-mips64el-r14-simd-sign-t2-r1-evidence/001-uwvm2-authenticated-T2-simd-sign/receipts.json",
+      "sha256": "e0e3cb452f623844a8ac5feb485558bbda1770b3502f1984661757ad07aa0e90",
+      "label": "uwvm2-authenticated-T2-simd-sign"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r14-simd-sign-t2-asm-r1/cgopt-mips64el-r14-simd-sign-t2-asm-r1-evidence/000-uwvm2-actual-T2-sign-asm/receipts.json",
+      "sha256": "b8d0a5e9bfffca1f67894dbd579b968a9f6082357cd84e27ebb71fba61fa3b66",
+      "label": "uwvm2-actual-T2-sign-asm"
+    }
+  ],
+  "actual_assembly_functions": [
+    {
+      "profile": "lazy-O1",
+      "functions": [
+        {
+          "architecture_group": "mips64",
+          "assembly_sha256": "e6886bb9275f48f34a0890f67b186af4d067b1c144ccb881858e24a3159e8dd7",
+          "direct_wasm_tail_jumps": 0,
+          "disassembly_extent": "bounded-ELF-function",
+          "fp_instruction_lines": [],
+          "function": "uwvm_m_c3cdc192b32124c0_tiered_core_func_1",
+          "indirect_linkless_jumps": 0,
+          "instruction_lines": 235,
+          "link_setting_calls": 14,
+          "object_sha256": "5198fecea8ed8d3f2efb64c8a495b7d1349b0b8519c4fc2a9ccc329efabfdb88",
+          "relocation_lines_excluded": true,
+          "section": ".text",
+          "size": 940,
+          "start": 304
+        },
+        {
+          "architecture_group": "mips64",
+          "assembly_sha256": "47ce1596de7eb3b4356644b309c2181a3c6a82153b831bde34a045e670cb280d",
+          "direct_wasm_tail_jumps": 0,
+          "disassembly_extent": "bounded-ELF-function",
+          "fp_instruction_lines": [],
+          "function": "uwvm_m_c3cdc192b32124c0_tiered_core_func_2",
+          "indirect_linkless_jumps": 0,
+          "instruction_lines": 63,
+          "link_setting_calls": 5,
+          "object_sha256": "5198fecea8ed8d3f2efb64c8a495b7d1349b0b8519c4fc2a9ccc329efabfdb88",
+          "relocation_lines_excluded": true,
+          "section": ".text",
+          "size": 252,
+          "start": 1512
+        }
+      ]
+    },
+    {
+      "profile": "lazy-O2",
+      "functions": [
+        {
+          "architecture_group": "mips64",
+          "assembly_sha256": "6167985833f7696c5e84eaaed2ede08b6fcc82925ea50a4a104d784fa4989218",
+          "direct_wasm_tail_jumps": 0,
+          "disassembly_extent": "bounded-ELF-function",
+          "fp_instruction_lines": [],
+          "function": "uwvm_m_c3cdc192b32124c0_tiered_core_func_1",
+          "indirect_linkless_jumps": 0,
+          "instruction_lines": 235,
+          "link_setting_calls": 14,
+          "object_sha256": "5198fecea8ed8d3f2efb64c8a495b7d1349b0b8519c4fc2a9ccc329efabfdb88",
+          "relocation_lines_excluded": true,
+          "section": ".text",
+          "size": 940,
+          "start": 304
+        },
+        {
+          "architecture_group": "mips64",
+          "assembly_sha256": "46672f7bd0064bcfd958a17890c8734543f0c06eb5cc05a07a7c34ebdb1896aa",
+          "direct_wasm_tail_jumps": 0,
+          "disassembly_extent": "bounded-ELF-function",
+          "fp_instruction_lines": [],
+          "function": "uwvm_m_c3cdc192b32124c0_tiered_core_func_2",
+          "indirect_linkless_jumps": 0,
+          "instruction_lines": 63,
+          "link_setting_calls": 5,
+          "object_sha256": "5198fecea8ed8d3f2efb64c8a495b7d1349b0b8519c4fc2a9ccc329efabfdb88",
+          "relocation_lines_excluded": true,
+          "section": ".text",
+          "size": 252,
+          "start": 1512
+        }
+      ]
+    },
+    {
+      "profile": "lazy-O3",
+      "functions": [
+        {
+          "architecture_group": "mips64",
+          "assembly_sha256": "9294621fb01c8acad40a619a2998cf8b837806413c78ebf4a17a7b374a24a953",
+          "direct_wasm_tail_jumps": 0,
+          "disassembly_extent": "bounded-ELF-function",
+          "fp_instruction_lines": [],
+          "function": "uwvm_m_c3cdc192b32124c0_tiered_core_func_1",
+          "indirect_linkless_jumps": 0,
+          "instruction_lines": 235,
+          "link_setting_calls": 14,
+          "object_sha256": "79596f9b8b3b04d120976c90c77870f7cffc35a6ffcc378ee34d3c468fc29705",
+          "relocation_lines_excluded": true,
+          "section": ".text",
+          "size": 940,
+          "start": 304
+        },
+        {
+          "architecture_group": "mips64",
+          "assembly_sha256": "9c3dfa52ec6278baf579c36fae337a8c1570c5141dddd1361d125f26bbced0ff",
+          "direct_wasm_tail_jumps": 0,
+          "disassembly_extent": "bounded-ELF-function",
+          "fp_instruction_lines": [],
+          "function": "uwvm_m_c3cdc192b32124c0_tiered_core_func_2",
+          "indirect_linkless_jumps": 0,
+          "instruction_lines": 63,
+          "link_setting_calls": 5,
+          "object_sha256": "79596f9b8b3b04d120976c90c77870f7cffc35a6ffcc378ee34d3c468fc29705",
+          "relocation_lines_excluded": true,
+          "section": ".text",
+          "size": 252,
+          "start": 1512
+        }
+      ]
+    },
+    {
+      "profile": "lazy+verification-O1",
+      "functions": [
+        {
+          "architecture_group": "mips64",
+          "assembly_sha256": "bf40d2bb7edec0505653d45665341a65bb626aa407621291791b256cb5949596",
+          "direct_wasm_tail_jumps": 0,
+          "disassembly_extent": "bounded-ELF-function",
+          "fp_instruction_lines": [],
+          "function": "uwvm_m_c3cdc192b32124c0_tiered_core_func_1",
+          "indirect_linkless_jumps": 0,
+          "instruction_lines": 235,
+          "link_setting_calls": 14,
+          "object_sha256": "5198fecea8ed8d3f2efb64c8a495b7d1349b0b8519c4fc2a9ccc329efabfdb88",
+          "relocation_lines_excluded": true,
+          "section": ".text",
+          "size": 940,
+          "start": 304
+        },
+        {
+          "architecture_group": "mips64",
+          "assembly_sha256": "0676807a5f3ea8b6c280cad7e444a1245fa94ced70b86fa69c563c16871a3f03",
+          "direct_wasm_tail_jumps": 0,
+          "disassembly_extent": "bounded-ELF-function",
+          "fp_instruction_lines": [],
+          "function": "uwvm_m_c3cdc192b32124c0_tiered_core_func_2",
+          "indirect_linkless_jumps": 0,
+          "instruction_lines": 63,
+          "link_setting_calls": 5,
+          "object_sha256": "5198fecea8ed8d3f2efb64c8a495b7d1349b0b8519c4fc2a9ccc329efabfdb88",
+          "relocation_lines_excluded": true,
+          "section": ".text",
+          "size": 252,
+          "start": 1512
+        }
+      ]
+    },
+    {
+      "profile": "lazy+verification-O2",
+      "functions": [
+        {
+          "architecture_group": "mips64",
+          "assembly_sha256": "a2444d87827761997043fb1481d7b70524aa75e7357c00c458f6c18bf7fb63b4",
+          "direct_wasm_tail_jumps": 0,
+          "disassembly_extent": "bounded-ELF-function",
+          "fp_instruction_lines": [],
+          "function": "uwvm_m_c3cdc192b32124c0_tiered_core_func_1",
+          "indirect_linkless_jumps": 0,
+          "instruction_lines": 235,
+          "link_setting_calls": 14,
+          "object_sha256": "5198fecea8ed8d3f2efb64c8a495b7d1349b0b8519c4fc2a9ccc329efabfdb88",
+          "relocation_lines_excluded": true,
+          "section": ".text",
+          "size": 940,
+          "start": 304
+        },
+        {
+          "architecture_group": "mips64",
+          "assembly_sha256": "a145eb676b19b20445e552b3ae215808926d15c742bf79478d76d119f7eb86d3",
+          "direct_wasm_tail_jumps": 0,
+          "disassembly_extent": "bounded-ELF-function",
+          "fp_instruction_lines": [],
+          "function": "uwvm_m_c3cdc192b32124c0_tiered_core_func_2",
+          "indirect_linkless_jumps": 0,
+          "instruction_lines": 63,
+          "link_setting_calls": 5,
+          "object_sha256": "5198fecea8ed8d3f2efb64c8a495b7d1349b0b8519c4fc2a9ccc329efabfdb88",
+          "relocation_lines_excluded": true,
+          "section": ".text",
+          "size": 252,
+          "start": 1512
+        }
+      ]
+    },
+    {
+      "profile": "lazy+verification-O3",
+      "functions": [
+        {
+          "architecture_group": "mips64",
+          "assembly_sha256": "30c9f46796b5d74c4151177e99780c588f0cb8ed48cea2483e3ebf5e7299b4e1",
+          "direct_wasm_tail_jumps": 0,
+          "disassembly_extent": "bounded-ELF-function",
+          "fp_instruction_lines": [],
+          "function": "uwvm_m_c3cdc192b32124c0_tiered_core_func_1",
+          "indirect_linkless_jumps": 0,
+          "instruction_lines": 235,
+          "link_setting_calls": 14,
+          "object_sha256": "79596f9b8b3b04d120976c90c77870f7cffc35a6ffcc378ee34d3c468fc29705",
+          "relocation_lines_excluded": true,
+          "section": ".text",
+          "size": 940,
+          "start": 304
+        },
+        {
+          "architecture_group": "mips64",
+          "assembly_sha256": "c353593bc0328b578f9cc5885b92aa5212f3977aa40c557e068f5d2372a29524",
+          "direct_wasm_tail_jumps": 0,
+          "disassembly_extent": "bounded-ELF-function",
+          "fp_instruction_lines": [],
+          "function": "uwvm_m_c3cdc192b32124c0_tiered_core_func_2",
+          "indirect_linkless_jumps": 0,
+          "instruction_lines": 63,
+          "link_setting_calls": 5,
+          "object_sha256": "79596f9b8b3b04d120976c90c77870f7cffc35a6ffcc378ee34d3c468fc29705",
+          "relocation_lines_excluded": true,
+          "section": ".text",
+          "size": 252,
+          "start": 1512
+        }
+      ]
+    }
+  ],
+  "full_ROS_tiered_qualified": false,
+  "all_current_working_tree_qualified": false,
+  "all_architecture_ABI_qualified": false,
+  "complete_Core3_requested_threads_qualified": false,
+  "hardware_throughput_qualified": false
+}

@@ -1,0 +1,4 @@
+NATIVE_COHORT stage=execution status=1 cohort=0
+NATIVE_COHORT stage=tls status=2
+NATIVE_COHORT stage=join status=0
+CHECKPOINT_NATIVE_COHORT_RETIREMENT policy=instruction actual_workers=2 execution_pending=1 tls_pending=2 partial_tls_exit_refused=1 physical_join=1 admission_closed_until_join=1 unregistered_refused=1 alias_refused=1 aggregate_live_cleanup=1 unchanged_outputs=1 same_epoch=1 legacy_reset_stop_source_refused=2 retained_instance=42 whole_restore=0 PASS

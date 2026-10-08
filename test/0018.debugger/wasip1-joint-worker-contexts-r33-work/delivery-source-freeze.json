@@ -1,0 +1,27 @@
+{
+  "primary": {
+    "passed": true,
+    "files": 8783,
+    "hardlinked_immutable": 8769,
+    "new_files": 14,
+    "manifest_sha256": "b22ea661b18400b72dd73a7c4a80f717a56449fd3575f95b8830641edd3dd15d",
+    "source_archive_sha256": "78bb5a430914decaf9e275ca0bd8d06fb076759ad1f0fd10c2b5132b176cb0e0",
+    "all_payloads_read_back": true,
+    "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+  },
+  "ros_overlay": {
+    "passed": true,
+    "base_manifest_sha256": "b22ea661b18400b72dd73a7c4a80f717a56449fd3575f95b8830641edd3dd15d",
+    "overlay_manifest_sha256": "15fa0a34d3bf1c27e6744969a79e2e04f69846882ab1137a4114f2f6f789ecde",
+    "delta_archive_sha256": "eda28afdc55c7923d2b8d14b64c7e1f9a69a5e4193cd688d2d158c17b74b0286",
+    "all_payloads_read_back": true,
+    "changed_files": {
+      "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h": "7dee15276c8b7db51d5acbb3a1b0cf12d5c3eb78a91ec87a155edc62260e3fa1"
+    },
+    "hardlinked_immutable_ros_files": 4346,
+    "old_inputs_untouched": true,
+    "failed_original_guard_sha256": "676866da7702c7d0663bfd3c7c285c45c9897f473cae2aab9e0567949537703a",
+    "failed_products_directory": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r33/products/linux-compile-failed/uwvm2-ros",
+    "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+  }
+}

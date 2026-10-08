@@ -1,0 +1,729 @@
+{
+  "qualification": {
+    "passed": true,
+    "scope": "Validated C/C++/Objective-C/Objective-C++ standard int/long/long long rank and canonical copied names across literals, standard casts, promotion, unary/shift, usual arithmetic and conditional expressions. Native LP64 compiler witnesses, independent ILP32 table and fresh Wasm static type witnesses, actual LLVM embedded metadata, production controller frontend and PPC64/x86_64/aarch64 QEMU components. No fresh linked full product or live -Rdbg session qualified.",
+    "source_cuts": {
+      "uwvm2": "sha256:b2f15aef7e2e996d21ee22b28b0be1906ad8c3647dd2cd92fb087137125a85ce",
+      "uwvm2-ros": "sha256:6bf2d3664efc1120f06d8f5d1cae51754ed20bbdc94aec6c7d72524a9ab3569d"
+    },
+    "implementation_hashes": {
+      "src/uwvm2/uwvm/debugger/source_dwarf_types.h": "ba86550eba91ae17c1dfbe6641b8d954e8a379b7d7d3b70a18762b4633569a68",
+      "src/uwvm2/uwvm/debugger/source_dwarf_index.h": "97a057bfc31370b8cc70adcdcff8e597ad263ff8fbd014f9672fa45041d5e645",
+      "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "ac89081de7bc28f01a59848b8f4697e7c876d5a19387c0cf7558103be4f55063",
+      "src/uwvm2/uwvm/debugger/controller.h": "d68e94e71825ceed30650f2cda0347541482d1bca4d7971e17061a3c302bc885",
+      "test/0017.runtime/debug_source_integer_rank.cc": "d3a50085f537799ceb3cbf68f80271cac801f395d4343f52ac9ab0c78b9d1c61",
+      "test/0017.runtime/debug_source_integer_rank_before.cc": "6513cc6bdf14560cb8b26a8a649ccb53de2b027831b7c416a8380873400cfec7",
+      "test/0017.runtime/debug_source_narrow_bridge.cc": "e20d2c612355af4d77880bbc10ce12f48ce8d2538dbadd8c6cfec6c7c62b016f",
+      "test/0017.runtime/debug_source_language_index.cc": "166927364176b4f31a535f422a3e7881a14a81a3b9f74bccef1076230509281f",
+      "test/0017.runtime/fixtures/debug_source_language_numeric_producer.c": "7a3cbc6f5c9f5f1e9b7e65122257282fdf8dde28b9995ebb8d05a4df245230cf",
+      "test/0017.runtime/run_debug_linux_qemu_components.py": "5e120fae9eb33f294b78d781beff546fdfa4533ccc96c1e5706cb6831742e416"
+    },
+    "rows": [
+      {
+        "repository": "uwvm2",
+        "profile": "native",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/out-uwvm2/rank-native-a1/results.json",
+        "record_sha256": "64d1c89e782fa668dd67a79a11205ffea2b3a9c50dad0acb611dfe0e171a1425",
+        "native_phases": 34,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623,
+        "language_assertions": 10966,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652,
+        "old_generic_names": 5,
+        "canonical_standard_integer_CLI_comparisons": 5,
+        "C_native_type_assertions": 22,
+        "C_runtime_value_checks": 1626,
+        "DAP_frame_tests": 33,
+        "DAP_corpus": {
+          "positive": 263,
+          "negative": 223
+        }
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "actual-LLVM-metadata",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/out-uwvm2/rank-index-a1/results.json",
+        "record_sha256": "da23f126edd484b2cebfb4447039e30a53958c60ccf36391fb445ba44851f290",
+        "phases": 24,
+        "standard_wide_proofs": 140,
+        "Wasm_static_rank_type_assertions": 160,
+        "primitive_CPP_bridge_proofs": 48,
+        "C_base_exclusions": 72,
+        "canonical_CPP_DIE_proofs": 8,
+        "observed_C23_module_CU_language_codes": [
+          29
+        ],
+        "actual_parser_assertions": 3600,
+        "fresh_Wasm_producers": 20,
+        "languages": [
+          "C17",
+          "C23",
+          "C++20",
+          "Objective-C",
+          "Objective-C++"
+        ],
+        "DWARF": [
+          4,
+          5
+        ],
+        "optimization": [
+          0,
+          2
+        ],
+        "real_TinyGo_fresh_producer_qualified": false
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "controller-frontend",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/frontend-a1/out-uwvm2/controller-frontend-a1/results.json",
+        "record_sha256": "5dc3da84d960742bcb6c626c5aef37525f58496f771d4d8453e574261dc5cc54",
+        "mode_paths": [
+          "uwvm-int",
+          "LLVM"
+        ],
+        "phases": 2,
+        "full_product_or_live_runtime_qualified": false
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "ppc64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/out-uwvm2/rank-cross-a1-ppc64/results.json",
+        "record_sha256": "8a39e1f35180d4312e19ed0a19c75da9f0a650960cf8de36869b18876fcecff2",
+        "QEMU_components": 11,
+        "target_outputs_equal_native": true,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623,
+        "language_assertions": 10966,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "x86_64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/out-uwvm2/rank-cross-a1-x86_64/results.json",
+        "record_sha256": "34c1f37365dce0a3933a0dd35ae8154b72c4442a1c6acb15f1656682f5423d20",
+        "QEMU_components": 11,
+        "target_outputs_equal_native": true,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623,
+        "language_assertions": 10966,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "aarch64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/aarch64-a1/tests-a1/out-uwvm2/rank-cross-a1-aarch64/results.json",
+        "record_sha256": "2c4efbde6b3c742428bdb831f8a2802e5ab3832a517856fefa366f8618f0862f",
+        "QEMU_components": 11,
+        "target_outputs_equal_native": true,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623,
+        "language_assertions": 10966,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "native",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/out-uwvm2-ros/rank-native-a1/results.json",
+        "record_sha256": "8661b190f8d3b6dd4516830c7b0878876642a21b71b7d836ba8f6332b6a7629f",
+        "native_phases": 34,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623,
+        "language_assertions": 10966,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652,
+        "old_generic_names": 5,
+        "canonical_standard_integer_CLI_comparisons": 5,
+        "C_native_type_assertions": 22,
+        "C_runtime_value_checks": 1626,
+        "DAP_frame_tests": 33,
+        "DAP_corpus": {
+          "positive": 263,
+          "negative": 223
+        }
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "actual-LLVM-metadata",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/out-uwvm2-ros/rank-index-a1/results.json",
+        "record_sha256": "ceb232575549c17166a7a19e9662bd5c424f2a30e53acc7adb3473431e10e200",
+        "phases": 24,
+        "standard_wide_proofs": 140,
+        "Wasm_static_rank_type_assertions": 160,
+        "primitive_CPP_bridge_proofs": 48,
+        "C_base_exclusions": 72,
+        "canonical_CPP_DIE_proofs": 8,
+        "observed_C23_module_CU_language_codes": [
+          29
+        ],
+        "actual_parser_assertions": 3600,
+        "fresh_Wasm_producers": 20,
+        "languages": [
+          "C17",
+          "C23",
+          "C++20",
+          "Objective-C",
+          "Objective-C++"
+        ],
+        "DWARF": [
+          4,
+          5
+        ],
+        "optimization": [
+          0,
+          2
+        ],
+        "real_TinyGo_fresh_producer_qualified": false
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "controller-frontend",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/frontend-a1/out-uwvm2-ros/controller-frontend-a1/results.json",
+        "record_sha256": "5dd0fd2e437ad2033fc8e358ffdbe93032ca18be6302cb4a8e3f084e4e8715f8",
+        "mode_paths": [
+          "uwvm-int",
+          "LLVM"
+        ],
+        "phases": 2,
+        "full_product_or_live_runtime_qualified": false
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "ppc64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/out-uwvm2-ros/rank-cross-a1-ppc64/results.json",
+        "record_sha256": "f524e2c2d19d8c2c2357a8cf9aac027b62639a4ef85cf9749fb0650ac44220ea",
+        "QEMU_components": 11,
+        "target_outputs_equal_native": true,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623,
+        "language_assertions": 10966,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "x86_64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/out-uwvm2-ros/rank-cross-a1-x86_64/results.json",
+        "record_sha256": "b16020f6b25be4ed7d2224d73386498929c6720d2fa4fd64f5fbb07d83ea8e45",
+        "QEMU_components": 11,
+        "target_outputs_equal_native": true,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623,
+        "language_assertions": 10966,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "aarch64",
+        "passed": true,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/aarch64-a1/tests-a1/out-uwvm2-ros/rank-cross-a1-aarch64/results.json",
+        "record_sha256": "83fce1cf8b31d88ba78873db7e55842e8347e18b0dd33b09049122b9df6f9b65",
+        "QEMU_components": 11,
+        "target_outputs_equal_native": true,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623,
+        "language_assertions": 10966,
+        "distinct_assertions": 12070,
+        "boolean_assertions": 1295317,
+        "zig_assertions": 9652
+      }
+    ],
+    "counts": {
+      "successful_jobs": 12,
+      "provider_restoration_jobs": 1,
+      "native_numeric_protocol_phases": 68,
+      "actual_LLVM_metadata_and_producer_phases": 48,
+      "controller_frontend_phases": 4,
+      "QEMU_components": 66,
+      "fresh_Wasm_producers": 40,
+      "standard_integer_rank_assertions": 855880,
+      "real_standard_wide_proofs": 280,
+      "independent_Wasm_static_rank_type_assertions": 320,
+      "primitive_bridge_assertions": 482344,
+      "real_CPP_primitive_bridge_proofs": 96,
+      "real_C_base_exclusions": 144,
+      "exact_narrow_assertions": 140984,
+      "real_canonical_CPP_DIE_proofs": 16,
+      "actual_parser_assertions": 7200,
+      "language_semantics_assertions": 87728,
+      "distinct_regression_assertions": 96560,
+      "boolean_regression_assertions": 10362536,
+      "zig_regression_assertions": 77216,
+      "C_native_type_assertions": 44,
+      "C_runtime_value_checks": 3252,
+      "old_generic_computed_names_reproduced_and_fixed": 10,
+      "canonical_standard_integer_CLI_comparisons": 10,
+      "DAP_frame_tests": 66,
+      "DAP_positive": 263,
+      "DAP_negative": 223,
+      "scalar_property_checks": 1360000,
+      "input_hash_checks": 145657
+    },
+    "resources": {
+      "boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8",
+      "keeper_pid": 9769,
+      "keeper_birth": 16929,
+      "cgroup_bytes": 68719476736,
+      "swap_bytes": 0,
+      "DATA_owned_RSS_budget_bytes": 1073741824,
+      "DATA_owned_RSS_peak_bytes": 811524096,
+      "frontend_owned_RSS_budget_bytes": 17179869184,
+      "frontend_owned_RSS_peak_bytes": 2194673664,
+      "successful_guard_seconds": 1559.5081442690025,
+      "all_attempt_seconds": 1559.5081442690025,
+      "each_class_own_output_budget_bytes": 67108864,
+      "maximum_observed_component_output_bytes": 62470980,
+      "maximum_observed_frontend_output_bytes": 5103289,
+      "provider_owned_RSS_peak_bytes": 28155904,
+      "maximum_observed_provider_output_bytes": 103886792,
+      "provider_download_bytes": 11626632,
+      "provider_regular_bytes": 88018384,
+      "hard_image_bytes": 17179869184,
+      "allocated_image_bytes_before_archive": 3143798784,
+      "arena_free_bytes": 13894664192,
+      "filesystem_id": "12191019222208619510",
+      "no_OOM_events": true
+    },
+    "guards": [
+      {
+        "label": "uwvm2-rank-native",
+        "passed": true,
+        "seconds": 162.77033170100003,
+        "owned_RSS_peak_bytes": 739557376,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 177531,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-rank-native",
+        "passed": true,
+        "seconds": 164.44719832900046,
+        "owned_RSS_peak_bytes": 741707776,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 181117,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ppc64-rank-cross",
+        "passed": true,
+        "seconds": 168.43224362799992,
+        "owned_RSS_peak_bytes": 798183424,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 183530,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-ppc64-rank-cross",
+        "passed": true,
+        "seconds": 167.01606911899944,
+        "owned_RSS_peak_bytes": 797933568,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 186106,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-x8664-rank-cross",
+        "passed": true,
+        "seconds": 169.84149713999977,
+        "owned_RSS_peak_bytes": 799707136,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 190388,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-x8664-rank-cross",
+        "passed": true,
+        "seconds": 168.18237876700005,
+        "owned_RSS_peak_bytes": 799670272,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 196604,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-rank-index",
+        "passed": true,
+        "seconds": 34.522288726000625,
+        "owned_RSS_peak_bytes": 709443584,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 177546,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-rank-index",
+        "passed": true,
+        "seconds": 37.913214789999984,
+        "owned_RSS_peak_bytes": 707330048,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 178772,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-aarch64-rank-cross",
+        "passed": true,
+        "seconds": 179.39858589600044,
+        "owned_RSS_peak_bytes": 810799104,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 190900,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-aarch64-rank-cross",
+        "passed": true,
+        "seconds": 176.6352200850015,
+        "owned_RSS_peak_bytes": 811524096,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 198797,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-controller-frontend",
+        "passed": true,
+        "seconds": 56.98576425799911,
+        "owned_RSS_peak_bytes": 2194145280,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 177545,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-controller-frontend",
+        "passed": true,
+        "seconds": 53.517847543000244,
+        "owned_RSS_peak_bytes": 2194673664,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 179185,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "aarch64-pinned-sdk-restoration",
+        "passed": true,
+        "seconds": 19.84550428700095,
+        "owned_RSS_peak_bytes": 28155904,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 187130,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      }
+    ],
+    "aarch64_provider_record": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/aarch64-a1/provider-a1/sdk-restoration-a1.json",
+      "sha256": "3a43a96da6c6fb755e91bb4ed3be2ed0c277a0713fdb6785f089c0aa9cfeb45e",
+      "restored_regular_bytes": 88018384,
+      "download_bytes": 11626632,
+      "packages": 8,
+      "files": 2453,
+      "provider_guard_own_output_budget_bytes": 167772160,
+      "component_guard_own_output_budget_bytes": 67108864
+    },
+    "retained_failed_attempts": [],
+    "references": {
+      "C23_conditional": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf",
+      "CPP_conditional": "https://eel.is/c++draft/expr.cond",
+      "CPP_arithmetic_conversion": "https://eel.is/c++draft/expr.arith.conv",
+      "CPP_integer_rank": "https://eel.is/c++draft/conv.rank",
+      "CPP_integer_literals": "https://eel.is/c++draft/lex.icon",
+      "DWARF_language_IDs": "https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/BinaryFormat/Dwarf.def"
+    },
+    "remaining": "Full native ptype/alias/glvalue/reference/CV/enum/pointer/class/overload semantics; precise size_t identity, extended integer/floating/character types and complete native literal/grammar rules; cross-CU wrappers; C23 old CU language/version selection; complete Rust/Go/TinyGo/Zig/AssemblyScript evaluators; fresh full -Rdbg and all-architecture product parity remain unqualified.",
+    "TinyGo_scope": "Synthetic actual LLVM C99/TinyGo producer exclusion; no fresh TinyGo compiler/live session in this cut.",
+    "all_inputs_after_unchanged": true,
+    "C23_profile_requires_explicit_DW_LANG_C23": true,
+    "C23_fresh_compiler_old_CU_version_gap_remains": true,
+    "CPP_character_literals_scope": "Single ordinary ASCII character and existing ASCII escape subset on default signed-char Wasm ABI; no unsigned-char producer option, wide/UTF/multichar literal qualification.",
+    "fresh_full_product_qualified": false,
+    "standard_C_CPP_integer_rank_copied_names_implemented": true,
+    "sizeof_size_t_native_identity_implemented": false,
+    "no_old_numeric_value_mismatch_claimed": true,
+    "CPP_primitive_copied_type_names_implemented": true,
+    "complete_native_ptype_implemented": false,
+    "cross_CU_alias_wrapper_qualification": false,
+    "all_native_debugger_capabilities_implemented": false
+  },
+  "archive": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/integer-rank-evidence-a1.tar.xz",
+    "bytes": 58786388,
+    "sha256": "91ccf0e59c14df364fbb019e14cbfbb733b5c7b3a0ede365ca5a94b527e62973",
+    "regular_members": 9752,
+    "all_member_hashes_verified_linux": true,
+    "linux_archive_fsync_completed": true,
+    "inputs_after_unchanged": true,
+    "prior_provider_archive_hash_reverified": true,
+    "image_allocated_bytes_after_archive": 3173388288,
+    "arena_free_bytes": 13819768832,
+    "filesystem_id": "12191019222208619510"
+  },
+  "local_copy": {
+    "passed": true,
+    "archive": "/Users/liyinan/.codex/artifacts/uwvm2-integer-rank-evidence-20261007-a1/integer-rank-evidence-a1.tar.xz",
+    "bytes": 58786388,
+    "sha256": "91ccf0e59c14df364fbb019e14cbfbb733b5c7b3a0ede365ca5a94b527e62973",
+    "regular_members": 9752,
+    "all_regular_member_hashes_verified_local": true,
+    "all_regular_member_hashes_verified_linux": true,
+    "fsync_completed": true,
+    "local_free_bytes_after": 139714560
+  }
+}

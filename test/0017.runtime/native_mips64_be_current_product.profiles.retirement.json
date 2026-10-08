@@ -1,0 +1,110 @@
+{
+  "schema": "uwvm-shared-original-cgroup-owned-pidfd-v1",
+  "argv": [
+    "python3",
+    "/dev/shm/uwvm-asm-6313e263-current711/build-meta/profile.py"
+  ],
+  "source_root": "/dev/shm/uwvm-asm-6313e263-current711/build-meta/work/source",
+  "source_manifest_sha256": "ee61e22141cf79d004933b26be53e87c7a66fab6e71205aa962cfb5ddaa403c5",
+  "supervisor_sha256": "9799ec739a597edf314a6d275429645828e3e31e3bf0d4829fab4388457b7701",
+  "commands_sha256": "518253c9931e3d13f32e282114f30213dd02d464adcf625f14ee27e50ce3835e",
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "memory_max": 68719476736,
+  "swap_max": 0,
+  "all_test_outputs_in_tmpfs": true,
+  "original_shared_folder_ceiling_qualified": false,
+  "new_persistent_test_products": 0,
+  "persistent_write_confinement": "Actual Linux Landlock inherited by all test descendants; writable current711 owned tmpfs, no other filesystem write domain, and /dev/null only",
+  "landlock_probes_sha256": "91fd19321c0dd0afabc4e984a8481319c5516d8f3e158759dffd9a6d5b4cdab4",
+  "original_exclusive_disk_floor_qualified": false,
+  "owned_rss_budget": 6442450944,
+  "rss_peak": 0,
+  "resource_peak": {
+    "own_folder": 1179824128,
+    "shared_folder": 46992490496,
+    "group_memory": 30537351168,
+    "persistent_disk_min_free": 27250585600
+  },
+  "resource_policy_sha256": "467ca3948ebb2885909a3f244127fa6b89ffddaca0fac103a20432620c19d53b",
+  "elapsed": 0.934846286996617,
+  "foreign_roster_before": [
+    11166,
+    1880179,
+    1886147,
+    1888268,
+    1889968,
+    1890312,
+    1890745
+  ],
+  "foreign_roster_after": [
+    11166,
+    1880179,
+    1886147,
+    1888268,
+    1889968,
+    1890312,
+    1890745
+  ],
+  "admissions": [
+    {
+      "pid": 1890747,
+      "birth": 9034617,
+      "ppid": 1890548,
+      "state": "R",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 1044480,
+      "cgroup": "0::/user.slice/user-1000.slice/session-13606.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    }
+  ],
+  "executable_history": [],
+  "retirement": [
+    {
+      "pid": 1890747,
+      "birth": 9034617,
+      "pidfd_readable": true
+    }
+  ],
+  "memory_events_before": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "memory_events_after": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "returncode": 0,
+  "error": null,
+  "passed": true,
+  "log_sha256": "fc61098c321691a53ed795563f882b9eba30847a935d85f89941c15a18354571"
+}

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "original_region_limit_bytes": 268435456,
+  "region_limit_bytes": 329252864,
+  "existing_bytes": 264492060,
+  "bundle_bytes": 64338022,
+  "required_bytes": 328830082,
+  "aggregate_limit_bytes": 2147483648,
+  "projected_aggregate_bytes": 2143013758,
+  "older_regions_unchanged": true,
+  "reason": "Six qualified archives already occupy almost the whole original region. Two further native Mac products are losslessly interleaved into one archive; all exact payloads and original qualification hashes remain.",
+  "native_limits_unchanged": true
+}

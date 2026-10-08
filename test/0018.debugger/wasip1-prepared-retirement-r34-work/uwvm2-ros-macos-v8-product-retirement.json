@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "all_payloads_read_back": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/uwvm2-ros-macos-v8-qualified-products.tar.zst",
+  "archive_bytes": 47855566,
+  "archive_sha256": "6e73785c5a05c6c156afb620b89fa278f80a9e38816e870a646b34a47b64d961",
+  "payloads": {
+    "debug_wasip1_checkpoint-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-execution.json": "b3bc8f7452b1d1709a79059d9cbc33a20b8ab8ab70ffaf58a5f2c64a8f2f1fd2",
+    "host-api.d": "bb8742a2ace931e46154c9f5c4b76508ff52333c17d0c9048a29804283420a1e",
+    "receipt.json": "808aeb053efb4caba7b0d3cfc52118f5daa6996ebc0e0c9005b12b8d1b16ddaf",
+    "debug_checkpoint_native_cohort_retirement.d": "aa3e86d3152313f9a01ad3adf8705f5f1f2d2cd5cd923e4e5a3323daab1b5c60",
+    "debug_checkpoint_prepared_retirement-instruction.log": "afa71b483c0e260225d67b9d6874a1ab030645cdbf87e5925b60a7531d3fd80c",
+    "debug_checkpoint_prepared_retirement-build.log": "27a5af73ff620bf643e7bb2f92f3dbc5ce7f0b45d5406564863928f519a20f45",
+    "nofork-probe.log": "06f08929938554e862d37fc43cbf78ef4692f32f849c69b49b9260d8ea6d8ef5",
+    "debug_checkpoint_retirement_cohort.wasm": "bea388e35f208f3bbf8e5e5c999e880b4189b94f25046ab377ec1d0cb1c9eab1",
+    "runtime.d": "e108af24569361ea22a5d26fa6a39239573297ef2f51651031b2facf708e73fa",
+    "runtime-compile.log": "a66cfd6bf854029979091872cf77a09e6b7a0aaf8f7399fdd732446bd40b19b2",
+    "debug_checkpoint_prepared_retirement-unwind.log": "680e38fe8e66a6f49e8ae5656b126d88bb98671c566ba22d39a259e706b29040",
+    "macos_monitor.py": "e3f40b6c12239ba136e550671df54f58999e496a9d7287f1fc639db8080d1000",
+    "macos_native.py": "98b3668893c9a7bf2d33e390d8f0f3f8f27d8741acc6d338edd3edcd883e78f0",
+    "debug_checkpoint_prepared_retirement.d": "bd0277f52003f23a63aae916171d72752264e0c8dd02fb9caeedf9774a1644ba",
+    "host-api.o": "e8a421096ca0e0fdeb030d9d2550ec1fc21ad8b3e971eb6ec4afc0ffee851914",
+    "debug_checkpoint_native_cohort_retirement.exe": "3212742922d79073547df1ed534ecfaae01853b0c6b47edefb87e59651fe6023",
+    "debug_checkpoint_native_cohort_retirement-build.log": "34c40c5211961fffad310482b4bca3be9f6ae8d2e8f563dc7308baeea516f6da",
+    "runtime.o": "78a5c3dc71c33de0ad519adf650cb1b07b9851eb955dd1ecb1f3554f5f5e9108",
+    "debug_wasip1_prepared_retirement.exe": "8cace639c989afc3220b53edcdd9dcdd0e7010fa0a9907d4320e63dc2374aa97",
+    "mach_exc_server.o": "f82d2557e66dafc83eb3cfce4caf09473d7dd551a4c171e593177e0a0e50514e",
+    "debug_wasip1_prepared_retirement-qualified.json": "5178e33a2ca0d9e635e80e184cbf890674e92ee3330e2e129f46f718ad97d0d0",
+    "debug_checkpoint_native_cohort_retirement-instruction.log": "352d76af838b69ad69badcf186d3715118511b7d2088fdd3931c60962a53b1a0",
+    "spec.json": "a2487bc30f96913150c265569b35af841f2c1723766c383d9c8f113d63675833",
+    "debug_wasip1_prepared_retirement-instruction.log": "989ad40f1ff3cc6a49d6e7578a71ac8213e84aea03b54598c29dcfcf7ba4711e",
+    "nofork-probe.json": "db127d1187dea6119d0f70d5025ad4f179ccf57ece5f51747f36a4cafd1188f1",
+    "debug_wasip1_checkpoint-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "debug_wasip1_checkpoint.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+    "debug_checkpoint_retirement_cohort-validate.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qualified.json": "cca0feca765425feeeb44a39a1bddf512d63928f25e802938017837757557b1e",
+    "debug_checkpoint_native_cohort_retirement-unwind.log": "1cd754de6df0b1c22235a87388a0ef8d53429831309561a6f980016ecf9c9b9f",
+    "results.json": "33f7e7579a003a33ff84d76250d7ab80528ab297bf57fd7a2ec468e0fe2bf9dd",
+    "debug_checkpoint_native_cohort_retirement-qualified.json": "eaf5d36a3cda25a187b114927777b08195da861f3a6125f4f732942b9526c410",
+    "host-api-compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "debug_checkpoint_prepared_retirement-qualified.json": "30bf49d8028ff99ba882dbeb66fb635daee96084f19347b9aa390e41c02a5698",
+    "runtime-qualified.json": "ffc27b34cea501b7bfce3d5c27dd182f35b39fc96bbde2782f63df76bc9c7e70",
+    "debug_wasip1_prepared_retirement-build.log": "d40270c85f9f8aa2d2c5e8da81764993a38da973d7188e639af04a5b5f383a6a",
+    "debug_wasip1_prepared_retirement-unwind.log": "bc75f844e407c15476b857b7dd1fe9f4f4f73feb5ee5087b94fac2f37b774a8e",
+    "debug_checkpoint_prepared_retirement.exe": "7887e43605722671dbf22eb53998481cb53cb2834853217f1d125e63ea2639fb",
+    "host-api-qualified.json": "aa16a7feff64da3ed140db92a49715996f74fea298885ee9e0e309f0c16bcb0e",
+    "native-evidence-import-qualified.json": "7169118f0d9e639ee26fe4e0984e3233cbe1794a81cb89b5db2201922fe51577",
+    "debug_wasip1_prepared_retirement.d": "35fa86091a0670f43d07ee36e3cc09a8ee2f85ce0030c7a8e65cb4a9d098bffb",
+    "debug_checkpoint_retirement_cohort-assemble.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sdk-cache-retirement.json": "f955f12b6382f58dd03354528190519df2a65972fa79c2eda9b4e1497a2c193a"
+  },
+  "retired_raw": [
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2-ros/host-api.o",
+      "bytes": 5037208,
+      "sha256": "e8a421096ca0e0fdeb030d9d2550ec1fc21ad8b3e971eb6ec4afc0ffee851914",
+      "archive_member": "host-api.o"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2-ros/debug_checkpoint_native_cohort_retirement.exe",
+      "bytes": 197686752,
+      "sha256": "3212742922d79073547df1ed534ecfaae01853b0c6b47edefb87e59651fe6023",
+      "archive_member": "debug_checkpoint_native_cohort_retirement.exe"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2-ros/runtime.o",
+      "bytes": 86992040,
+      "sha256": "78a5c3dc71c33de0ad519adf650cb1b07b9851eb955dd1ecb1f3554f5f5e9108",
+      "archive_member": "runtime.o"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2-ros/debug_wasip1_prepared_retirement.exe",
+      "bytes": 200682256,
+      "sha256": "8cace639c989afc3220b53edcdd9dcdd0e7010fa0a9907d4320e63dc2374aa97",
+      "archive_member": "debug_wasip1_prepared_retirement.exe"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2-ros/mach_exc_server.o",
+      "bytes": 3328,
+      "sha256": "f82d2557e66dafc83eb3cfce4caf09473d7dd551a4c171e593177e0a0e50514e",
+      "archive_member": "mach_exc_server.o"
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2-ros/debug_checkpoint_prepared_retirement.exe",
+      "bytes": 197732288,
+      "sha256": "7887e43605722671dbf22eb53998481cb53cb2834853217f1d125e63ea2639fb",
+      "archive_member": "debug_checkpoint_prepared_retirement.exe"
+    }
+  ],
+  "encoder": {
+    "path": "/usr/bin/zstd",
+    "sha256": "d7477b5cedfdb8dbfa0a0b166b8f417e8624954ba4ae0ddb5baddf9ac66fddea",
+    "window_limit_bytes": 536870912
+  },
+  "archive_format": "tar.zst-long-window-bounded",
+  "source_manifest_sha256": "171e9f277d349278c53669b49d60d5727f73575fa9847d14dd40a5741924d73f",
+  "recovery_custody": "retained in bounded original Linux task volume; no new local cold capacity allocated"
+}

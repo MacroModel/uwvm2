@@ -1,0 +1,47 @@
+{
+  "wasip1_joint_preparation_r27_test_report.json": {
+    "sha256": "228f23b23a5ec3f5120753430d5e387cd9016366f7f187da4d094e3d2a65728e",
+    "bytes": 29049,
+    "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_joint_preparation_r27_test_report.json"
+  },
+  "wasip1_joint_preparation_r27_environment_refresh.json": {
+    "sha256": "d226adeb92e297ddad3530569aba07f91a17e8129f77594b6952cea4b8c858c0",
+    "bytes": 6582,
+    "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_joint_preparation_r27_environment_refresh.json"
+  },
+  "wasip1_joint_preparation_r27_mac_reboot_state.json": {
+    "sha256": "780a029647fdee87595d1dda39a18caa93ede34ddccc845ad45cfc8fb9490aba",
+    "bytes": 489,
+    "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_joint_preparation_r27_mac_reboot_state.json"
+  },
+  "wasip1_joint_preparation_r27_workspace_scope.json": {
+    "sha256": "379b5320e2b6c36e8b39da6234e4afd62f8791d221cd95de696a500fe3d48a72",
+    "bytes": 5185,
+    "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_joint_preparation_r27_workspace_scope.json"
+  },
+  "wasip1_joint_preparation_r27_post_reboot_state.json": {
+    "sha256": "310112598caac56bf1bb7a45fab3c698b722a3f11c220d983cbcc7ac54f7f0ed",
+    "bytes": 1338,
+    "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_joint_preparation_r27_post_reboot_state.json"
+  },
+  "wasip1_joint_preparation_r27_source_manifest.json": {
+    "sha256": "a4113876b763909d56c47ab8c6b5baa7adf53d5bea05c1fab36a450dc6dcd6b1",
+    "bytes": 1150558,
+    "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_joint_preparation_r27_source_manifest.json"
+  },
+  "wasip1_joint_preparation_r27_test_report.md": {
+    "sha256": "b679fe0cceaaad4a1a0be17ebdfff44aed4b0b3873e93ddd314bf375ba8aeb4d",
+    "bytes": 8824,
+    "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_joint_preparation_r27_test_report.md"
+  },
+  "wasip1_joint_preparation_r27_final_metadata_guard.json": {
+    "sha256": "4941a800e87e1aa16cd45e5e04452bbe8b0936824ac37a2118f8ece3903bd680",
+    "bytes": 3854,
+    "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_joint_preparation_r27_final_metadata_guard.json"
+  },
+  "README.debug-checkpoint-joint-preparation.md": {
+    "sha256": "f3185e661483e440e5a45cd5824fd82c441ca5a8e8d4f97acb78b2f377a816a2",
+    "bytes": 4739,
+    "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0017.runtime/README.debug-checkpoint-joint-preparation.md"
+  }
+}

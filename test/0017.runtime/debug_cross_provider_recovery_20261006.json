@@ -1,0 +1,892 @@
+{
+  "passed": true,
+  "scope": "Frozen production scalar/type/DAP DATA components; ppc64 and x86_64 Linux QEMU only. No full CLI, live language producer, native debugger parity, hot replacement or all-architecture completion claim.",
+  "sources": {
+    "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/uwvm2": {
+      "source_id": "sha256:300778691017324a622b5f22e2b418e267dd394dc607547a283d55f341658308",
+      "pinned_files": 3164,
+      "manifest_sha256": "4fa7dfb530b300a422bb243041891413f6fe7908efd51588b5867261fc53e640"
+    },
+    "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/uwvm2-ros": {
+      "source_id": "sha256:273728554faeac23d90cc02ef43bec9b60c0b0dab6bc80e120ece3b8acffab19",
+      "pinned_files": 3103,
+      "manifest_sha256": "3a00260b49f4f4561cedcc943266152db77005fc3f5118ff05a22d5079f0ac2a"
+    },
+    "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/uwvm2": {
+      "source_id": "sha256:b5d602209e5f91d8344ad582ab4198d8c1bc573e96a6afea246d08f9a6a9333a",
+      "pinned_files": 3164,
+      "manifest_sha256": "ce3dcc44017730416efe23445adfdc215c76a27456631ad5ccc344c5b6aae166"
+    },
+    "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/uwvm2-ros": {
+      "source_id": "sha256:cbf51f1ce95fd01fde24005340f29c5ea68f489199c166664704609aa303a9ec",
+      "pinned_files": 3103,
+      "manifest_sha256": "3643e0f2e0909a9d700d1252f297c92dc85f58022774641059f1a7c36b0e4c93"
+    }
+  },
+  "rows": [
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64",
+      "case": "debug_source_boolean_cast",
+      "passed": true,
+      "checks": 1295317,
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 232464,
+        "sha256": "f21e247bba01ed34b23cec927977e744f791ce80b43d9d510e2070832f97f464",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "phases": [
+        {
+          "phase": "compile-link",
+          "returncode": 0,
+          "wall_seconds": 11.516390022999985,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "phase": "qemu-execute",
+          "returncode": 0,
+          "wall_seconds": 3.6761225340001147,
+          "log_sha256": "b5166f001067a352a8d24aabb2e6fa75c7c2ab64a8b8924f8169d64fae8f7c14"
+        }
+      ],
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2/bool-cast-cross-a1-ppc64/results.json",
+      "results_sha256": "a85b3e5f9c0b7a140f0c93567031133bb51b1f28c52af004d492333dcc4a2197"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64",
+      "case": "debug_source_zig_category",
+      "passed": true,
+      "checks": 247159,
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 298528,
+        "sha256": "8faf4ada5a7176b886cb83192d10c8c111b386074f2c740d26add163deab081c",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "phases": [
+        {
+          "phase": "compile-link",
+          "returncode": 0,
+          "wall_seconds": 11.547313445999862,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "phase": "qemu-execute",
+          "returncode": 0,
+          "wall_seconds": 0.8165081040001496,
+          "log_sha256": "9e343ddc9ed477c18dd2be4996ce43d43e386d94ea37969e205bb8b5eb0dd16f"
+        }
+      ],
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2/bool-cast-cross-a1-ppc64/results.json",
+      "results_sha256": "a85b3e5f9c0b7a140f0c93567031133bb51b1f28c52af004d492333dcc4a2197"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64",
+      "case": "debug_source_dap_expression",
+      "passed": true,
+      "checks": 202,
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 306832,
+        "sha256": "c19f1c0830ef832238bf24b6abffc236f6877f46836ff8b14565fd6b43bab717",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "phases": [
+        {
+          "phase": "compile-link",
+          "returncode": 0,
+          "wall_seconds": 14.417413151999881,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "phase": "qemu-execute",
+          "returncode": 0,
+          "wall_seconds": 0.06463630800044484,
+          "log_sha256": "7e90884697a18c4e72d7ce16a5a5020bede054f4d58ed545c14d304963596c06"
+        }
+      ],
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2/bool-cast-cross-a1-ppc64/results.json",
+      "results_sha256": "a85b3e5f9c0b7a140f0c93567031133bb51b1f28c52af004d492333dcc4a2197"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "x86_64",
+      "case": "debug_source_boolean_cast",
+      "passed": true,
+      "checks": 1295317,
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 205096,
+        "sha256": "6239826e28f2e33bd5e9c419c96baa8fbf741712d8101b73a36e5c94841b4462",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "phases": [
+        {
+          "phase": "compile-link",
+          "returncode": 0,
+          "wall_seconds": 11.850587832000201,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "phase": "qemu-execute",
+          "returncode": 0,
+          "wall_seconds": 2.877359157999763,
+          "log_sha256": "b5166f001067a352a8d24aabb2e6fa75c7c2ab64a8b8924f8169d64fae8f7c14"
+        },
+        {
+          "phase": "native-reference",
+          "returncode": 0,
+          "wall_seconds": 0.2655967430000601,
+          "log_sha256": "b5166f001067a352a8d24aabb2e6fa75c7c2ab64a8b8924f8169d64fae8f7c14"
+        }
+      ],
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2/bool-cast-cross-a1-x86_64/results.json",
+      "results_sha256": "d954bca801940795add4ca5d6f3fd261f959ece7ba57c8d8344e586b73d0a472"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "x86_64",
+      "case": "debug_source_zig_category",
+      "passed": true,
+      "checks": 247159,
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 218816,
+        "sha256": "1e1394a91f73718e235e026d984f6d8650b67e3dff477962d840dfb8f23a8d1a",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "phases": [
+        {
+          "phase": "compile-link",
+          "returncode": 0,
+          "wall_seconds": 11.563190359000146,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "phase": "qemu-execute",
+          "returncode": 0,
+          "wall_seconds": 0.6667791639997631,
+          "log_sha256": "9e343ddc9ed477c18dd2be4996ce43d43e386d94ea37969e205bb8b5eb0dd16f"
+        },
+        {
+          "phase": "native-reference",
+          "returncode": 0,
+          "wall_seconds": 0.06450398900005894,
+          "log_sha256": "9e343ddc9ed477c18dd2be4996ce43d43e386d94ea37969e205bb8b5eb0dd16f"
+        }
+      ],
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2/bool-cast-cross-a1-x86_64/results.json",
+      "results_sha256": "d954bca801940795add4ca5d6f3fd261f959ece7ba57c8d8344e586b73d0a472"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "x86_64",
+      "case": "debug_source_dap_expression",
+      "passed": true,
+      "checks": 202,
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 241856,
+        "sha256": "3b8c19dfff18846d9906de945409faee09a60c44542c92288e7194a64a9b4c92",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "phases": [
+        {
+          "phase": "compile-link",
+          "returncode": 0,
+          "wall_seconds": 14.426944171000287,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "phase": "qemu-execute",
+          "returncode": 0,
+          "wall_seconds": 0.06486935699967944,
+          "log_sha256": "7e90884697a18c4e72d7ce16a5a5020bede054f4d58ed545c14d304963596c06"
+        },
+        {
+          "phase": "native-reference",
+          "returncode": 0,
+          "wall_seconds": 0.0018654750001587672,
+          "log_sha256": "7e90884697a18c4e72d7ce16a5a5020bede054f4d58ed545c14d304963596c06"
+        }
+      ],
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2/bool-cast-cross-a1-x86_64/results.json",
+      "results_sha256": "d954bca801940795add4ca5d6f3fd261f959ece7ba57c8d8344e586b73d0a472"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "x86_64",
+      "case": "debug_source_dap_expression",
+      "default_qemu_root": true,
+      "passed": true,
+      "checks": 202,
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 241856,
+        "sha256": "3b8c19dfff18846d9906de945409faee09a60c44542c92288e7194a64a9b4c92",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2/provider-default-cross-a1-x86_64/results.json",
+      "results_sha256": "2be45856db47e4a2c611817f42a9ede7bd15cfa66aa9f7bab29b2d1bcefed384"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64",
+      "case": "debug_source_boolean_cast",
+      "passed": true,
+      "checks": 1295317,
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 232464,
+        "sha256": "f21e247bba01ed34b23cec927977e744f791ce80b43d9d510e2070832f97f464",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "phases": [
+        {
+          "phase": "compile-link",
+          "returncode": 0,
+          "wall_seconds": 11.64927861599972,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "phase": "qemu-execute",
+          "returncode": 0,
+          "wall_seconds": 3.7246949360001054,
+          "log_sha256": "b5166f001067a352a8d24aabb2e6fa75c7c2ab64a8b8924f8169d64fae8f7c14"
+        }
+      ],
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2-ros/bool-cast-cross-a1-ppc64/results.json",
+      "results_sha256": "29f1ce44337a2aa54f110d32bf50efae3dc4506bda7127cdc403c2d56f6b267d"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64",
+      "case": "debug_source_zig_category",
+      "passed": true,
+      "checks": 247159,
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 298528,
+        "sha256": "8faf4ada5a7176b886cb83192d10c8c111b386074f2c740d26add163deab081c",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "phases": [
+        {
+          "phase": "compile-link",
+          "returncode": 0,
+          "wall_seconds": 11.548817572999724,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "phase": "qemu-execute",
+          "returncode": 0,
+          "wall_seconds": 0.8178405329999805,
+          "log_sha256": "9e343ddc9ed477c18dd2be4996ce43d43e386d94ea37969e205bb8b5eb0dd16f"
+        }
+      ],
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2-ros/bool-cast-cross-a1-ppc64/results.json",
+      "results_sha256": "29f1ce44337a2aa54f110d32bf50efae3dc4506bda7127cdc403c2d56f6b267d"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64",
+      "case": "debug_source_dap_expression",
+      "passed": true,
+      "checks": 202,
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 306832,
+        "sha256": "c19f1c0830ef832238bf24b6abffc236f6877f46836ff8b14565fd6b43bab717",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "phases": [
+        {
+          "phase": "compile-link",
+          "returncode": 0,
+          "wall_seconds": 14.471736174999933,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "phase": "qemu-execute",
+          "returncode": 0,
+          "wall_seconds": 0.06489575400019021,
+          "log_sha256": "7e90884697a18c4e72d7ce16a5a5020bede054f4d58ed545c14d304963596c06"
+        }
+      ],
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2-ros/bool-cast-cross-a1-ppc64/results.json",
+      "results_sha256": "29f1ce44337a2aa54f110d32bf50efae3dc4506bda7127cdc403c2d56f6b267d"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "x86_64",
+      "case": "debug_source_boolean_cast",
+      "passed": true,
+      "checks": 1295317,
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 205096,
+        "sha256": "6239826e28f2e33bd5e9c419c96baa8fbf741712d8101b73a36e5c94841b4462",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "phases": [
+        {
+          "phase": "compile-link",
+          "returncode": 0,
+          "wall_seconds": 11.567955265999899,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "phase": "qemu-execute",
+          "returncode": 0,
+          "wall_seconds": 2.877934764999736,
+          "log_sha256": "b5166f001067a352a8d24aabb2e6fa75c7c2ab64a8b8924f8169d64fae8f7c14"
+        },
+        {
+          "phase": "native-reference",
+          "returncode": 0,
+          "wall_seconds": 0.2647107070001766,
+          "log_sha256": "b5166f001067a352a8d24aabb2e6fa75c7c2ab64a8b8924f8169d64fae8f7c14"
+        }
+      ],
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2-ros/bool-cast-cross-a1-x86_64/results.json",
+      "results_sha256": "5f2d7217cae3c2f71ec6c2f307016aa2d0631bc1ec83a06fa42d01eebb25c122"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "x86_64",
+      "case": "debug_source_zig_category",
+      "passed": true,
+      "checks": 247159,
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 218816,
+        "sha256": "1e1394a91f73718e235e026d984f6d8650b67e3dff477962d840dfb8f23a8d1a",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "phases": [
+        {
+          "phase": "compile-link",
+          "returncode": 0,
+          "wall_seconds": 11.596453718000248,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "phase": "qemu-execute",
+          "returncode": 0,
+          "wall_seconds": 0.6663171989998773,
+          "log_sha256": "9e343ddc9ed477c18dd2be4996ce43d43e386d94ea37969e205bb8b5eb0dd16f"
+        },
+        {
+          "phase": "native-reference",
+          "returncode": 0,
+          "wall_seconds": 0.0642125730000771,
+          "log_sha256": "9e343ddc9ed477c18dd2be4996ce43d43e386d94ea37969e205bb8b5eb0dd16f"
+        }
+      ],
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2-ros/bool-cast-cross-a1-x86_64/results.json",
+      "results_sha256": "5f2d7217cae3c2f71ec6c2f307016aa2d0631bc1ec83a06fa42d01eebb25c122"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "x86_64",
+      "case": "debug_source_dap_expression",
+      "passed": true,
+      "checks": 202,
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 241856,
+        "sha256": "3b8c19dfff18846d9906de945409faee09a60c44542c92288e7194a64a9b4c92",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "phases": [
+        {
+          "phase": "compile-link",
+          "returncode": 0,
+          "wall_seconds": 14.405026076000013,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "phase": "qemu-execute",
+          "returncode": 0,
+          "wall_seconds": 0.06438320300003397,
+          "log_sha256": "7e90884697a18c4e72d7ce16a5a5020bede054f4d58ed545c14d304963596c06"
+        },
+        {
+          "phase": "native-reference",
+          "returncode": 0,
+          "wall_seconds": 0.0017879490001178056,
+          "log_sha256": "7e90884697a18c4e72d7ce16a5a5020bede054f4d58ed545c14d304963596c06"
+        }
+      ],
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2-ros/bool-cast-cross-a1-x86_64/results.json",
+      "results_sha256": "5f2d7217cae3c2f71ec6c2f307016aa2d0631bc1ec83a06fa42d01eebb25c122"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "x86_64",
+      "case": "debug_source_dap_expression",
+      "default_qemu_root": true,
+      "passed": true,
+      "checks": 202,
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 241856,
+        "sha256": "3b8c19dfff18846d9906de945409faee09a60c44542c92288e7194a64a9b4c92",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/out-uwvm2-ros/provider-default-cross-a1-x86_64/results.json",
+      "results_sha256": "ceb39392fac8bbe0549c26de2fd81017e41a4c8d5b27372fa26f7b8173bd9a27"
+    }
+  ],
+  "counts": {
+    "component_rows": 14,
+    "boolean_cast_checks": 5181268,
+    "category_checks": 988636,
+    "dap_positive_rows": 1212,
+    "input_hash_verifications": 12724,
+    "completed_guards": 6
+  },
+  "guards": [
+    {
+      "label": "uwvm2-ppc64-provider-components-a2",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 760967168,
+      "wall_seconds": 43.48455083800036,
+      "maximum_observed_own_output_bytes": 2077134,
+      "minimum_observed_actual_free_bytes": 16330166272,
+      "minimum_observed_host_disk_free_bytes": 128815415296,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "8b423a60ab9a4dd87169be53a73500d6fc27696d6cc50a0769360c573c11949e",
+      "Popen_root_pidfd_retirement": {
+        "pid": 98310,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-ppc64-provider-components-a2",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 761077760,
+      "wall_seconds": 43.534957072,
+      "maximum_observed_own_output_bytes": 4165219,
+      "minimum_observed_actual_free_bytes": 16328048640,
+      "minimum_observed_host_disk_free_bytes": 128808714240,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "8b423a60ab9a4dd87169be53a73500d6fc27696d6cc50a0769360c573c11949e",
+      "Popen_root_pidfd_retirement": {
+        "pid": 98879,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-x86-64-provider-components-a2",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 763097088,
+      "wall_seconds": 42.94011635400011,
+      "maximum_observed_own_output_bytes": 5699698,
+      "minimum_observed_actual_free_bytes": 16326344704,
+      "minimum_observed_host_disk_free_bytes": 128755904512,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "8b423a60ab9a4dd87169be53a73500d6fc27696d6cc50a0769360c573c11949e",
+      "Popen_root_pidfd_retirement": {
+        "pid": 100810,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-x86-64-provider-components-a2",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 763211776,
+      "wall_seconds": 43.0741203890002,
+      "maximum_observed_own_output_bytes": 7245176,
+      "minimum_observed_actual_free_bytes": 16324653056,
+      "minimum_observed_host_disk_free_bytes": 128727085056,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "8b423a60ab9a4dd87169be53a73500d6fc27696d6cc50a0769360c573c11949e",
+      "Popen_root_pidfd_retirement": {
+        "pid": 102533,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-x86-64-provider-default-a2",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 762380288,
+      "wall_seconds": 15.495206309999958,
+      "maximum_observed_own_output_bytes": 7841372,
+      "minimum_observed_actual_free_bytes": 16323964928,
+      "minimum_observed_host_disk_free_bytes": 128711815168,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "8b423a60ab9a4dd87169be53a73500d6fc27696d6cc50a0769360c573c11949e",
+      "Popen_root_pidfd_retirement": {
+        "pid": 103023,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-x86-64-provider-default-a2",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 762408960,
+      "wall_seconds": 15.478356797999822,
+      "maximum_observed_own_output_bytes": 8442072,
+      "minimum_observed_actual_free_bytes": 16323203072,
+      "minimum_observed_host_disk_free_bytes": 128711311360,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "8b423a60ab9a4dd87169be53a73500d6fc27696d6cc50a0769360c573c11949e",
+      "Popen_root_pidfd_retirement": {
+        "pid": 103450,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    }
+  ],
+  "preserved_linker_failure": [
+    {
+      "label": "uwvm2-ppc64-provider-components-a1",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "aggregate_owned_rss_peak_bytes": 732831744,
+      "wall_seconds": 38.44716714199967,
+      "maximum_observed_own_output_bytes": 520640,
+      "minimum_observed_actual_free_bytes": 16410968064,
+      "minimum_observed_host_disk_free_bytes": 130236948480,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "0b72cecb92c0cb553271c5b30422c0a8611ddb5008945e850d06005fc44a60df",
+      "Popen_root_pidfd_retirement": {
+        "pid": 90670,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 1
+      }
+    }
+  ],
+  "sdk_guard": [
+    {
+      "label": "ppc64-sdk-restoration-a1",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 44097536,
+      "wall_seconds": 71.69216762099995,
+      "maximum_observed_own_output_bytes": 0,
+      "minimum_observed_actual_free_bytes": 16412139520,
+      "minimum_observed_host_disk_free_bytes": 130718011392,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "3c770049a8f8ec6a5498cda8190bbdb8a363fe5ffba9376b064c84cac889f82f",
+      "Popen_root_pidfd_retirement": {
+        "pid": 85637,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    }
+  ],
+  "resources": {
+    "cgroup_memory_max_bytes": 68719476736,
+    "swap_max_bytes": 0,
+    "owned_rss_budget_bytes": 1073741824,
+    "output_budget_bytes": 67108864,
+    "file_budget_bytes": 8388608,
+    "log_budget_bytes": 1048576,
+    "filesystem_reserve_bytes": 1073741824,
+    "inode_reserve": 4096,
+    "host_reserve_bytes": 26843545600,
+    "shared_DATA_headroom_bytes": 6442450944,
+    "full_product_headroom_bytes": 9663676416,
+    "peak_owned_rss_bytes": 763211776,
+    "maximum_observed_own_output_bytes": 8442072,
+    "guard_wall_seconds": 204.00730776100045
+  },
+  "sdk": {
+    "root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1",
+    "packages": 9,
+    "download_bytes": 12422580,
+    "regular_provider_bytes": 80168579,
+    "provider_files": 2777,
+    "plan_sha256": "f7788e483b2513f42835031188a7da5e320bd9c259d25f919bba4a9d39d28ecb",
+    "record_sha256": "96b5a09dee0677aa0bac031ade169678d7bcfdb2608a07b95a9581ebc9a5d93b",
+    "all_provider_and_deb_hashes_reverified": true
+  },
+  "public_recipe_sha256": "c75dd784667a9ad4ee48b4369e183684638d0186439c3e0c7dfe892054859351",
+  "native_linker_path_limited_to_compile_env": true,
+  "default_qemu_root_checks": 2,
+  "all_input_and_log_hashes_after_unchanged": true,
+  "final_controls": {
+    "negative": {
+      "passed": true,
+      "expected_old_recipe_failure": true,
+      "source_cuts": {
+        "uwvm2": "sha256:b5d602209e5f91d8344ad582ab4198d8c1bc573e96a6afea246d08f9a6a9333a"
+      },
+      "same_source_cut_as_positive": true,
+      "old_recipe_sha256": "3a4b27d62d438092277e6254fcc2e5f1420eb63d13a14e3f81a5e9d9b5a37347",
+      "fixed_recipe_sha256": "c75dd784667a9ad4ee48b4369e183684638d0186439c3e0c7dfe892054859351",
+      "fixed_result_sha256": "a85b3e5f9c0b7a140f0c93567031133bb51b1f28c52af004d492333dcc4a2197",
+      "negative_result_sha256": "3e20201c1c041c2389f43f33d2d5ec2b8068820b9cbb539a29a6d9a1b719d91f",
+      "negative_log_sha256": "b3f116b8f7783134bda53c4583232b1fedb957c50206ca025f858d67b59c6d52",
+      "negative_compile_returncode": 1,
+      "qemu_execution_attempted": false,
+      "provider_hashes_before_after_unchanged": true,
+      "same_actual_compiler_dependencies_as_positive": true,
+      "dependency_files": 822,
+      "scope": "One actual old-recipe compile/link control on the exact successful current production snapshot. No debugger runtime execution in the expected failure."
+    },
+    "negative_guard": {
+      "label": "uwvm2-ppc64-provider-loader-negative-a2",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 12.756434103999709,
+      "aggregate_owned_rss_peak_bytes": 605536256,
+      "Popen_root_pidfd_retirement": {
+        "pid": 106419,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "13c9c08ad8e4e02a93b79076e404ab447d23856e8b45ccf1e4d9ac43a89b4ace"
+    },
+    "preserved_negative_helper_failure": {
+      "error": "KeyError: dependency_hashes (unavailable after failed link); repaired checker reads actual test.d",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/control-provider-negative-a1/receipts.json",
+      "receipt_sha256": "9d6f4b5467eeae020bf3371cb6b5fe1c0947d5ddcdc853a48dad730cf7e78183",
+      "root_retired": true,
+      "no_OOM": true
+    },
+    "archive": {
+      "passed": true,
+      "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a2/cross-provider-recovery-evidence-a1.tar.xz",
+      "bytes": 64405376,
+      "sha256": "fabce1d3219f8a80a6723a7f9738ed53dfb0315a695892a51eef134f417c460f",
+      "regular_members": 15467,
+      "verified_linux_member_hashes": true,
+      "input_files_after_unchanged": true,
+      "wall_seconds": 26.1442699979998,
+      "quota_bytes": 17179869184,
+      "filesystem_free_bytes": 16258781184
+    },
+    "usage": {
+      "image_hard_limit_bytes": 17179869184,
+      "image_allocated_bytes": 609497088,
+      "filesystem_free_bytes": 16258138112,
+      "host_free_bytes": 128075567104,
+      "persistent_ext4_fsid": "12191019222208619510"
+    }
+  },
+  "archive_local_copy": {
+    "path": "/Users/liyinan/.codex/artifacts/uwvm2-cross-provider-recovery-evidence-20261006-a1/cross-provider-recovery-evidence-a1.tar.xz",
+    "sha256": "fabce1d3219f8a80a6723a7f9738ed53dfb0315a695892a51eef134f417c460f",
+    "bytes": 64405376,
+    "regular_members": 15467,
+    "all_member_hashes_verified": true
+  },
+  "paired_public_scoped_changes_only": true
+}

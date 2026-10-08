@@ -1,0 +1,21 @@
+{
+  "identical_reports_in_both_repositories": true,
+  "reports": {
+    "wasip1_prepared_retirement_r34_test_report.md": {
+      "sha256": "76974c2ea0aa5cbc46a325a2ad0a80155f437da09589ca090bfca37df8a08246",
+      "bytes": 13683
+    },
+    "wasip1_prepared_retirement_r34_test_report.json": {
+      "sha256": "3c82e6d3bf1b93795a1801e2639557106363238016ee673ff78b81609dce2469",
+      "bytes": 87200
+    }
+  },
+  "source_manifest_sha256": "171e9f277d349278c53669b49d60d5727f73575fa9847d14dd40a5741924d73f",
+  "original_native_qualification_sha256": "558e27c3f12059d23a808d5faa0926bcd5ae937439598dab748b727878429f21",
+  "delivery_storage_status_sha256": "1fb8273b8b8b7e54a7eca13aea626b5fe7270a26f90d2524e1297515f8175bcb",
+  "final_delivery_controller_identity_sha256": "09081af8b68fc85a84da57def24e21182ec03c4a823a4771428565e357790074",
+  "native_runs": 48,
+  "counted_wasip1_assertions": 432,
+  "whole_world_publication_implemented": false,
+  "restored_guest_replay_implemented": false
+}

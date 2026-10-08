@@ -1,0 +1,1009 @@
+{
+  "passed": true,
+  "scope": "WASIp1 debugger FD-slot reuse at the 65536-cell scan boundary; OS count-policy tests and genuine Linux LLVM-full cooperative stops",
+  "own_source_sha256": {
+    "uwvm2/src/uwvm2/imported/wasi/wasip1/fd_manager/fd_map.h": "42831c266a15c6c2b67b2b1c9f2f64daaa4fbee4fd3aa54f9594f522178f4aec",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h": "dd02e143185753ed74ce854e16922151142d8e7d48f33a95dd4c28f3befbb51a",
+    "uwvm2/test/0013.debugger/wasip1_fd_slot_reuse.cc": "998bb0d13fa8c2910535f2ded88a62aebad5190713f25fff1804141a1c3942aa",
+    "uwvm2/test/0017.runtime/debug_wasip1_portable_runtime.cc": "2cad380679d5b6e033632e775638d7168d920f7173d5c554c624aac327859ac7",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "82b959049fc2213e97210408ed84822bc3faaf4978703cba22167a842c358a13",
+    "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/fd_manager/fd_map.h": "42831c266a15c6c2b67b2b1c9f2f64daaa4fbee4fd3aa54f9594f522178f4aec",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h": "dd02e143185753ed74ce854e16922151142d8e7d48f33a95dd4c28f3befbb51a",
+    "uwvm2-ros/test/0013.debugger/wasip1_fd_slot_reuse.cc": "998bb0d13fa8c2910535f2ded88a62aebad5190713f25fff1804141a1c3942aa",
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_portable_runtime.cc": "2cad380679d5b6e033632e775638d7168d920f7173d5c554c624aac327859ac7",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "82b959049fc2213e97210408ed84822bc3faaf4978703cba22167a842c358a13"
+  },
+  "native_os": [
+    {
+      "repository": "uwvm2",
+      "target": "linux",
+      "checks": 126588,
+      "cases": 2891,
+      "unsupported": 0,
+      "passed": true,
+      "exit": 0,
+      "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/uwvm2-linux-post/verified.log",
+      "log_sha256": "1399648b08261fde28a1822a4bdc653fd996614088040eda8488550315cd4dd2",
+      "compiled": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/uwvm2-linux-post/codec-compiled.json"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "linux",
+      "checks": 126588,
+      "cases": 2891,
+      "unsupported": 0,
+      "passed": true,
+      "exit": 0,
+      "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/uwvm2-ros-linux-post/verified.log",
+      "log_sha256": "1399648b08261fde28a1822a4bdc653fd996614088040eda8488550315cd4dd2",
+      "compiled": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/uwvm2-ros-linux-post/codec-compiled.json"
+    },
+    {
+      "argv": [
+        "/usr/bin/sandbox-exec",
+        "-p",
+        "(version 1)(allow default)(deny process-fork)",
+        "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/uwvm2-macos/codec",
+        "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/uwvm2-macos/codec-files-1791244547438970000"
+      ],
+      "exit": 0,
+      "seconds": 0.46724800002994016,
+      "sampled_aggregate_peak_rss_bytes": 3620864,
+      "aggregate_peak_upper_bytes": 33374208,
+      "limit_bytes": 2147483648,
+      "identities": [
+        {
+          "pid": 94649,
+          "seconds": 1791244547,
+          "microseconds": 439172,
+          "uid": 501,
+          "pgid": 94649
+        }
+      ],
+      "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/uwvm2-macos/verified.log",
+      "log_sha256": "1399648b08261fde28a1822a4bdc653fd996614088040eda8488550315cd4dd2",
+      "repository": "uwvm2",
+      "target": "macos",
+      "checks": 126588,
+      "cases": 2891,
+      "unsupported": 0,
+      "passed": true,
+      "compiled": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/uwvm2-macos/codec-compiled.json"
+    },
+    {
+      "argv": [
+        "/usr/bin/sandbox-exec",
+        "-p",
+        "(version 1)(allow default)(deny process-fork)",
+        "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/uwvm2-ros-macos/codec",
+        "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/uwvm2-ros-macos/codec-files-1791244551314489000"
+      ],
+      "exit": 0,
+      "seconds": 0.16926216700812802,
+      "sampled_aggregate_peak_rss_bytes": 4210688,
+      "aggregate_peak_upper_bytes": 35012608,
+      "limit_bytes": 2147483648,
+      "identities": [
+        {
+          "pid": 94656,
+          "seconds": 1791244551,
+          "microseconds": 314702,
+          "uid": 501,
+          "pgid": 94656
+        }
+      ],
+      "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/uwvm2-ros-macos/verified.log",
+      "log_sha256": "1399648b08261fde28a1822a4bdc653fd996614088040eda8488550315cd4dd2",
+      "repository": "uwvm2-ros",
+      "target": "macos",
+      "checks": 126588,
+      "cases": 2891,
+      "unsupported": 0,
+      "passed": true,
+      "compiled": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/uwvm2-ros-macos/codec-compiled.json"
+    },
+    {
+      "repository": "uwvm2",
+      "target": "freebsd",
+      "checks": 126588,
+      "cases": 2891,
+      "passed": true,
+      "receipt": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/vm-freebsd-codec-148f7d96/receipt.json",
+      "receipt_sha256": "9e1037528d3c1d1970a1e417a1f653dd777be01602c51c298025c48e0ed3e99f",
+      "serial_sha256": "3c0fb4beb8c3e0ac6f82310e61348670e03eb2c1f46a8f522d210af64bf81298"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "freebsd",
+      "checks": 126588,
+      "cases": 2891,
+      "passed": true,
+      "receipt": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/vm-freebsd-codec-148f7d96/receipt.json",
+      "receipt_sha256": "9e1037528d3c1d1970a1e417a1f653dd777be01602c51c298025c48e0ed3e99f",
+      "serial_sha256": "3c0fb4beb8c3e0ac6f82310e61348670e03eb2c1f46a8f522d210af64bf81298"
+    },
+    {
+      "repository": "uwvm2",
+      "target": "windows",
+      "checks": 126588,
+      "cases": 2891,
+      "passed": true,
+      "receipt": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/vm-windows-codec-7d7a85b4/receipt.json",
+      "receipt_sha256": "f3bd0c8bed15442bfeaad8962333c230d98bcd9997e88385e278a1de12e328f0",
+      "serial_sha256": "1f117ba1818174cc0263d7ad81e678a738086631dd7a48e5666b78d4bab7c294"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "windows",
+      "checks": 126588,
+      "cases": 2891,
+      "passed": true,
+      "receipt": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/vm-windows-codec-7d7a85b4/receipt.json",
+      "receipt_sha256": "f3bd0c8bed15442bfeaad8962333c230d98bcd9997e88385e278a1de12e328f0",
+      "serial_sha256": "1f117ba1818174cc0263d7ad81e678a738086631dd7a48e5666b78d4bab7c294"
+    }
+  ],
+  "native_policy_checks": 1012704,
+  "native_policy_cases_per_run": 2891,
+  "genuine_runtime": {
+    "before": [
+      {
+        "repository": "uwvm2",
+        "case": "fd-slot",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/before/uwvm2-runtime-linux/fd-slot-instruction-save-1791245215182698234.log",
+        "log_sha256": "1b9201606d7c945b824929151b362e644d294b1d81dda94f41cb6b35dfebd561",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "fd-slot",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 97,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/before/uwvm2-runtime-linux/fd-slot-instruction-restore-1791245215298508353.log",
+        "log_sha256": "fe7d8a0ffb277559899c4c9656287827ec235d128de267f3b210fced608b9912",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "fd-slot",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/before/uwvm2-runtime-linux/fd-slot-unwind-save-1791245215914394616.log",
+        "log_sha256": "5b4a53b1e0d6bbc18bd7de3e27ce6d53fb8079e491c2ffb8438d448185742955",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "fd-slot",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 97,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/before/uwvm2-runtime-linux/fd-slot-unwind-restore-1791245216029210034.log",
+        "log_sha256": "e510464c4f53f6e4134073f7e2cee668cd377b98ec2f0d3fca998c741abea014",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "fd-slot",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/before/uwvm2-ros-runtime-linux/fd-slot-instruction-save-1791244972147661835.log",
+        "log_sha256": "1b9201606d7c945b824929151b362e644d294b1d81dda94f41cb6b35dfebd561",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "fd-slot",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 97,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/before/uwvm2-ros-runtime-linux/fd-slot-instruction-restore-1791244972262593389.log",
+        "log_sha256": "fe7d8a0ffb277559899c4c9656287827ec235d128de267f3b210fced608b9912",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "fd-slot",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/before/uwvm2-ros-runtime-linux/fd-slot-unwind-save-1791244972928713574.log",
+        "log_sha256": "5b4a53b1e0d6bbc18bd7de3e27ce6d53fb8079e491c2ffb8438d448185742955",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "fd-slot",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 97,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/before/uwvm2-ros-runtime-linux/fd-slot-unwind-restore-1791244973043651563.log",
+        "log_sha256": "e510464c4f53f6e4134073f7e2cee668cd377b98ec2f0d3fca998c741abea014",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      }
+    ],
+    "post": [
+      {
+        "repository": "uwvm2",
+        "case": "standard",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/standard-instruction-save-1791245286371009673.log",
+        "log_sha256": "1b9201606d7c945b824929151b362e644d294b1d81dda94f41cb6b35dfebd561",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "standard",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 83,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/standard-instruction-restore-1791245286486239349.log",
+        "log_sha256": "0f4a9cf20f3bc9614fca9e0c96a946f2739458080986e34b15a204360379b68a",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "standard",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/standard-unwind-save-1791245286651113705.log",
+        "log_sha256": "5b4a53b1e0d6bbc18bd7de3e27ce6d53fb8079e491c2ffb8438d448185742955",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "standard",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 83,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/standard-unwind-restore-1791245286766067165.log",
+        "log_sha256": "78fe29e329355fac3089b9801ef19be9f597f1500de9e55fc2fe48873239686e",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "sparse-reserved",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 52,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/sparse-reserved-instruction-save-1791245286931462959.log",
+        "log_sha256": "68168f9769997fc313afc2fd8a3ddc2c6b10e9d4f565916f8f7eb25fb8b37ede",
+        "metadata_sha256": "a29058bfa25a2f0fcc16435bfb0cc0ba0bf6f7044225e670587f027ddddb9702"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "sparse-reserved",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 89,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/sparse-reserved-instruction-restore-1791245287046844021.log",
+        "log_sha256": "089d898a58bfe27d935ad52db128c5eab4c50462fd480f158feb7bd9f9c1233b",
+        "metadata_sha256": "a29058bfa25a2f0fcc16435bfb0cc0ba0bf6f7044225e670587f027ddddb9702"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "sparse-reserved",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 52,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/sparse-reserved-unwind-save-1791245287212300489.log",
+        "log_sha256": "1d9cd44ad0267d8397bad708c182a698886179fff2330f6b481ace910aeec021",
+        "metadata_sha256": "a29058bfa25a2f0fcc16435bfb0cc0ba0bf6f7044225e670587f027ddddb9702"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "sparse-reserved",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 89,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/sparse-reserved-unwind-restore-1791245287327582519.log",
+        "log_sha256": "72c02416f7f7105786f16ea32c49a635745b0242237f7415b83e9f7725982b72",
+        "metadata_sha256": "a29058bfa25a2f0fcc16435bfb0cc0ba0bf6f7044225e670587f027ddddb9702"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "root-alias",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 52,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/root-alias-instruction-save-1791245287493121263.log",
+        "log_sha256": "b660d0bc679eb247581e8cc37a0e855d6d44a8fa3fd59c1fe2b55aec5b26901b",
+        "metadata_sha256": "549ee1c39c9db99c351dda2f84488178f922622b6984558009fc2ce559efce18"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "root-alias",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 85,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/root-alias-instruction-restore-1791245287658562439.log",
+        "log_sha256": "ba304c62e42436ec486b57506931bb36a7eca0b6ec7d68b742c1432e3c370f11",
+        "metadata_sha256": "549ee1c39c9db99c351dda2f84488178f922622b6984558009fc2ce559efce18"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "root-alias",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 52,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/root-alias-unwind-save-1791245287873954781.log",
+        "log_sha256": "060579beb7fa41f18a64f14c10d8203866e24674207224212ef7b00d26304a96",
+        "metadata_sha256": "549ee1c39c9db99c351dda2f84488178f922622b6984558009fc2ce559efce18"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "root-alias",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 85,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/root-alias-unwind-restore-1791245287988707128.log",
+        "log_sha256": "b148b906cf38549c3951019bf6e4ae937af1eb9ffb78568dc30516c772e54a76",
+        "metadata_sha256": "549ee1c39c9db99c351dda2f84488178f922622b6984558009fc2ce559efce18"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "normalized-path",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/normalized-path-instruction-save-1791245288204024466.log",
+        "log_sha256": "d7b56832f65ee7ad51b879d04032cdddfd936781cf38b5cd2e48cc512aecc8d5",
+        "metadata_sha256": "ab0b7083fb450ea75221a65f0de057b23e4771fc94d8a6ad174e05921b0130e8"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "normalized-path",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 84,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/normalized-path-instruction-restore-1791245288319127604.log",
+        "log_sha256": "9d88b514b9b6d60b3a3426cc9292687257286345712d12380aa51d1142333de1",
+        "metadata_sha256": "ab0b7083fb450ea75221a65f0de057b23e4771fc94d8a6ad174e05921b0130e8"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "normalized-path",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/normalized-path-unwind-save-1791245288484388141.log",
+        "log_sha256": "ac56c7755e87467ae57d086a0c3b29a07e7cc63e7a925ca881a4b1fdd8bc2568",
+        "metadata_sha256": "ab0b7083fb450ea75221a65f0de057b23e4771fc94d8a6ad174e05921b0130e8"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "normalized-path",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 84,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/normalized-path-unwind-restore-1791245288599542368.log",
+        "log_sha256": "fd2d94d20c5eba86c3a21cc44cd922544ff9249af599f3ab3c309266d883f599",
+        "metadata_sha256": "ab0b7083fb450ea75221a65f0de057b23e4771fc94d8a6ad174e05921b0130e8"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "dsync",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/dsync-instruction-save-1791245288765130855.log",
+        "log_sha256": "909f718845683b65b6e1cfe2809c851f8ac8450e7607db1c74bd6ea64c31e6f5",
+        "metadata_sha256": "4b592e8870c5526a3548ae21f284d7f606d0489c1d384a292dffb642b0be340c"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "dsync",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 87,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/dsync-instruction-restore-1791245288880094000.log",
+        "log_sha256": "f7e89c30c2b3cf0f41549a23255970a93b0c9e717af00eb511459fe7675e0b2b",
+        "metadata_sha256": "4b592e8870c5526a3548ae21f284d7f606d0489c1d384a292dffb642b0be340c"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "dsync",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/dsync-unwind-save-1791245289045549067.log",
+        "log_sha256": "ad2abac5a4afa0d22b5da66059b1905b4c9a6b55f88628680671396abdbb0d1b",
+        "metadata_sha256": "4b592e8870c5526a3548ae21f284d7f606d0489c1d384a292dffb642b0be340c"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "dsync",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 87,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/dsync-unwind-restore-1791245289161071279.log",
+        "log_sha256": "6bdf51fdc101dc95eb37cdca8a684c895c77abdfc11d8f7e6dcce08f16464db7",
+        "metadata_sha256": "4b592e8870c5526a3548ae21f284d7f606d0489c1d384a292dffb642b0be340c"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "root-flags",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 53,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/root-flags-instruction-save-1791245289326384946.log",
+        "log_sha256": "ccbe6a502981a05026cd892a22e4fb32e514fe0d41406518bd6247094826df9c",
+        "metadata_sha256": "2b49d4c2b2ba1437daf708ab8d1ca02de013196234b117a8d35bd24bb99917b1"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "root-flags",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 103,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/root-flags-instruction-restore-1791245289492049824.log",
+        "log_sha256": "0839dfbec54745a7050da6445ee18a485bf7f09321553b6757111e110108e6e5",
+        "metadata_sha256": "2b49d4c2b2ba1437daf708ab8d1ca02de013196234b117a8d35bd24bb99917b1"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "root-flags",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 53,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/root-flags-unwind-save-1791245289707619154.log",
+        "log_sha256": "cb031184fca13bda6f9256e99a74b9f27d0648918f9df3492bd270828f5a5fb6",
+        "metadata_sha256": "2b49d4c2b2ba1437daf708ab8d1ca02de013196234b117a8d35bd24bb99917b1"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "root-flags",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 103,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/root-flags-unwind-restore-1791245289873352805.log",
+        "log_sha256": "c4eb3e74c79f7b8927863bd8acee5f921aebc72726c7cffac0b2a76979fd8d25",
+        "metadata_sha256": "2b49d4c2b2ba1437daf708ab8d1ca02de013196234b117a8d35bd24bb99917b1"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "root-choice",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 54,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/root-choice-instruction-save-1791245290089068127.log",
+        "log_sha256": "45d457b237c3da96df28e161694a22bea7ba3f26e668b727d823a5416ba86023",
+        "metadata_sha256": "b938138f16a653b0a7c9ca6df33bfeae0b2ed76ab6343516c3062a86e2cd5958"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "root-choice",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 109,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/root-choice-instruction-restore-1791245290254191786.log",
+        "log_sha256": "529efe4084a284f60c5b81b08c4b442a65fa998e1aed768d8d0850e1bc19195a",
+        "metadata_sha256": "b938138f16a653b0a7c9ca6df33bfeae0b2ed76ab6343516c3062a86e2cd5958"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "root-choice",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 54,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/root-choice-unwind-save-1791245290469344597.log",
+        "log_sha256": "2af2be1b7772dd475c3aa0d048bee14a3f561f453ceb7d752a5bd5e30c4ee8d5",
+        "metadata_sha256": "b938138f16a653b0a7c9ca6df33bfeae0b2ed76ab6343516c3062a86e2cd5958"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "root-choice",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 109,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/root-choice-unwind-restore-1791245290634793409.log",
+        "log_sha256": "27c955f000f4980dcc17cecc69c9260c47e362a0ae4ebb94332e74bdf2ae4949",
+        "metadata_sha256": "b938138f16a653b0a7c9ca6df33bfeae0b2ed76ab6343516c3062a86e2cd5958"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "fd-slot",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/fd-slot-instruction-save-1791245290850566383.log",
+        "log_sha256": "1b9201606d7c945b824929151b362e644d294b1d81dda94f41cb6b35dfebd561",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "fd-slot",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 105,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/fd-slot-instruction-restore-1791245290966008210.log",
+        "log_sha256": "6b090a4122bb35a629c6176defde1b09263ca901c75b41c47f4f1b5b46a439a9",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "fd-slot",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/fd-slot-unwind-save-1791245291582265270.log",
+        "log_sha256": "5b4a53b1e0d6bbc18bd7de3e27ce6d53fb8079e491c2ffb8438d448185742955",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2",
+        "case": "fd-slot",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 105,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-runtime-linux/fd-slot-unwind-restore-1791245291697327041.log",
+        "log_sha256": "5d27956bed03288cdaf2f5948fb01bb7ae96898afdc0b557c73fee2060a5e93f",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "standard",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/standard-instruction-save-1791245454041607608.log",
+        "log_sha256": "1b9201606d7c945b824929151b362e644d294b1d81dda94f41cb6b35dfebd561",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "standard",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 83,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/standard-instruction-restore-1791245454157079879.log",
+        "log_sha256": "0f4a9cf20f3bc9614fca9e0c96a946f2739458080986e34b15a204360379b68a",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "standard",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/standard-unwind-save-1791245454322271736.log",
+        "log_sha256": "5b4a53b1e0d6bbc18bd7de3e27ce6d53fb8079e491c2ffb8438d448185742955",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "standard",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 83,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/standard-unwind-restore-1791245454437580063.log",
+        "log_sha256": "78fe29e329355fac3089b9801ef19be9f597f1500de9e55fc2fe48873239686e",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "sparse-reserved",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 52,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/sparse-reserved-instruction-save-1791245454603156171.log",
+        "log_sha256": "68168f9769997fc313afc2fd8a3ddc2c6b10e9d4f565916f8f7eb25fb8b37ede",
+        "metadata_sha256": "a29058bfa25a2f0fcc16435bfb0cc0ba0bf6f7044225e670587f027ddddb9702"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "sparse-reserved",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 89,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/sparse-reserved-instruction-restore-1791245454718171878.log",
+        "log_sha256": "089d898a58bfe27d935ad52db128c5eab4c50462fd480f158feb7bd9f9c1233b",
+        "metadata_sha256": "a29058bfa25a2f0fcc16435bfb0cc0ba0bf6f7044225e670587f027ddddb9702"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "sparse-reserved",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 52,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/sparse-reserved-unwind-save-1791245454883501372.log",
+        "log_sha256": "1d9cd44ad0267d8397bad708c182a698886179fff2330f6b481ace910aeec021",
+        "metadata_sha256": "a29058bfa25a2f0fcc16435bfb0cc0ba0bf6f7044225e670587f027ddddb9702"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "sparse-reserved",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 89,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/sparse-reserved-unwind-restore-1791245454998937143.log",
+        "log_sha256": "72c02416f7f7105786f16ea32c49a635745b0242237f7415b83e9f7725982b72",
+        "metadata_sha256": "a29058bfa25a2f0fcc16435bfb0cc0ba0bf6f7044225e670587f027ddddb9702"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "root-alias",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 52,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/root-alias-instruction-save-1791245455164212521.log",
+        "log_sha256": "b660d0bc679eb247581e8cc37a0e855d6d44a8fa3fd59c1fe2b55aec5b26901b",
+        "metadata_sha256": "549ee1c39c9db99c351dda2f84488178f922622b6984558009fc2ce559efce18"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "root-alias",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 85,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/root-alias-instruction-restore-1791245455279414986.log",
+        "log_sha256": "ba304c62e42436ec486b57506931bb36a7eca0b6ec7d68b742c1432e3c370f11",
+        "metadata_sha256": "549ee1c39c9db99c351dda2f84488178f922622b6984558009fc2ce559efce18"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "root-alias",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 52,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/root-alias-unwind-save-1791245455444946085.log",
+        "log_sha256": "060579beb7fa41f18a64f14c10d8203866e24674207224212ef7b00d26304a96",
+        "metadata_sha256": "549ee1c39c9db99c351dda2f84488178f922622b6984558009fc2ce559efce18"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "root-alias",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 85,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/root-alias-unwind-restore-1791245455560154192.log",
+        "log_sha256": "b148b906cf38549c3951019bf6e4ae937af1eb9ffb78568dc30516c772e54a76",
+        "metadata_sha256": "549ee1c39c9db99c351dda2f84488178f922622b6984558009fc2ce559efce18"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "normalized-path",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/normalized-path-instruction-save-1791245455725439326.log",
+        "log_sha256": "d7b56832f65ee7ad51b879d04032cdddfd936781cf38b5cd2e48cc512aecc8d5",
+        "metadata_sha256": "ab0b7083fb450ea75221a65f0de057b23e4771fc94d8a6ad174e05921b0130e8"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "normalized-path",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 84,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/normalized-path-instruction-restore-1791245455840920526.log",
+        "log_sha256": "9d88b514b9b6d60b3a3426cc9292687257286345712d12380aa51d1142333de1",
+        "metadata_sha256": "ab0b7083fb450ea75221a65f0de057b23e4771fc94d8a6ad174e05921b0130e8"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "normalized-path",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/normalized-path-unwind-save-1791245456006405228.log",
+        "log_sha256": "ac56c7755e87467ae57d086a0c3b29a07e7cc63e7a925ca881a4b1fdd8bc2568",
+        "metadata_sha256": "ab0b7083fb450ea75221a65f0de057b23e4771fc94d8a6ad174e05921b0130e8"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "normalized-path",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 84,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/normalized-path-unwind-restore-1791245456121830152.log",
+        "log_sha256": "fd2d94d20c5eba86c3a21cc44cd922544ff9249af599f3ab3c309266d883f599",
+        "metadata_sha256": "ab0b7083fb450ea75221a65f0de057b23e4771fc94d8a6ad174e05921b0130e8"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "dsync",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/dsync-instruction-save-1791245456287163747.log",
+        "log_sha256": "909f718845683b65b6e1cfe2809c851f8ac8450e7607db1c74bd6ea64c31e6f5",
+        "metadata_sha256": "4b592e8870c5526a3548ae21f284d7f606d0489c1d384a292dffb642b0be340c"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "dsync",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 87,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/dsync-instruction-restore-1791245456402129404.log",
+        "log_sha256": "f7e89c30c2b3cf0f41549a23255970a93b0c9e717af00eb511459fe7675e0b2b",
+        "metadata_sha256": "4b592e8870c5526a3548ae21f284d7f606d0489c1d384a292dffb642b0be340c"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "dsync",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/dsync-unwind-save-1791245456567565004.log",
+        "log_sha256": "ad2abac5a4afa0d22b5da66059b1905b4c9a6b55f88628680671396abdbb0d1b",
+        "metadata_sha256": "4b592e8870c5526a3548ae21f284d7f606d0489c1d384a292dffb642b0be340c"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "dsync",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 87,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/dsync-unwind-restore-1791245456683111780.log",
+        "log_sha256": "6bdf51fdc101dc95eb37cdca8a684c895c77abdfc11d8f7e6dcce08f16464db7",
+        "metadata_sha256": "4b592e8870c5526a3548ae21f284d7f606d0489c1d384a292dffb642b0be340c"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "root-flags",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 53,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/root-flags-instruction-save-1791245456848425398.log",
+        "log_sha256": "ccbe6a502981a05026cd892a22e4fb32e514fe0d41406518bd6247094826df9c",
+        "metadata_sha256": "2b49d4c2b2ba1437daf708ab8d1ca02de013196234b117a8d35bd24bb99917b1"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "root-flags",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 103,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/root-flags-instruction-restore-1791245457014017896.log",
+        "log_sha256": "0839dfbec54745a7050da6445ee18a485bf7f09321553b6757111e110108e6e5",
+        "metadata_sha256": "2b49d4c2b2ba1437daf708ab8d1ca02de013196234b117a8d35bd24bb99917b1"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "root-flags",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 53,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/root-flags-unwind-save-1791245457229554765.log",
+        "log_sha256": "cb031184fca13bda6f9256e99a74b9f27d0648918f9df3492bd270828f5a5fb6",
+        "metadata_sha256": "2b49d4c2b2ba1437daf708ab8d1ca02de013196234b117a8d35bd24bb99917b1"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "root-flags",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 103,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/root-flags-unwind-restore-1791245457395116729.log",
+        "log_sha256": "c4eb3e74c79f7b8927863bd8acee5f921aebc72726c7cffac0b2a76979fd8d25",
+        "metadata_sha256": "2b49d4c2b2ba1437daf708ab8d1ca02de013196234b117a8d35bd24bb99917b1"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "root-choice",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 54,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/root-choice-instruction-save-1791245457610479277.log",
+        "log_sha256": "45d457b237c3da96df28e161694a22bea7ba3f26e668b727d823a5416ba86023",
+        "metadata_sha256": "b938138f16a653b0a7c9ca6df33bfeae0b2ed76ab6343516c3062a86e2cd5958"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "root-choice",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 109,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/root-choice-instruction-restore-1791245457776243615.log",
+        "log_sha256": "529efe4084a284f60c5b81b08c4b442a65fa998e1aed768d8d0850e1bc19195a",
+        "metadata_sha256": "b938138f16a653b0a7c9ca6df33bfeae0b2ed76ab6343516c3062a86e2cd5958"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "root-choice",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 54,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/root-choice-unwind-save-1791245457991633194.log",
+        "log_sha256": "2af2be1b7772dd475c3aa0d048bee14a3f561f453ceb7d752a5bd5e30c4ee8d5",
+        "metadata_sha256": "b938138f16a653b0a7c9ca6df33bfeae0b2ed76ab6343516c3062a86e2cd5958"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "root-choice",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 109,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/root-choice-unwind-restore-1791245458156990316.log",
+        "log_sha256": "27c955f000f4980dcc17cecc69c9260c47e362a0ae4ebb94332e74bdf2ae4949",
+        "metadata_sha256": "b938138f16a653b0a7c9ca6df33bfeae0b2ed76ab6343516c3062a86e2cd5958"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "fd-slot",
+        "policy": "instruction",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/fd-slot-instruction-save-1791245458372740156.log",
+        "log_sha256": "1b9201606d7c945b824929151b362e644d294b1d81dda94f41cb6b35dfebd561",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "fd-slot",
+        "policy": "instruction",
+        "mode": "restore",
+        "checks": 105,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/fd-slot-instruction-restore-1791245458487874399.log",
+        "log_sha256": "6b090a4122bb35a629c6176defde1b09263ca901c75b41c47f4f1b5b46a439a9",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "fd-slot",
+        "policy": "unwind",
+        "mode": "save",
+        "checks": 51,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/fd-slot-unwind-save-1791245459104772949.log",
+        "log_sha256": "5b4a53b1e0d6bbc18bd7de3e27ce6d53fb8079e491c2ffb8438d448185742955",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      },
+      {
+        "repository": "uwvm2-ros",
+        "case": "fd-slot",
+        "policy": "unwind",
+        "mode": "restore",
+        "checks": 105,
+        "log": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/post/uwvm2-ros-runtime-linux/fd-slot-unwind-restore-1791245459220393141.log",
+        "log_sha256": "5d27956bed03288cdaf2f5948fb01bb7ae96898afdc0b557c73fee2060a5e93f",
+        "metadata_sha256": "ec1d2101d501488da445939324b8cc2066681bed0a8805041f317e7a483164f7"
+      }
+    ]
+  },
+  "genuine_positive_checks": 4640,
+  "negative_control_checks": 592,
+  "positive_checks_total": 1017344,
+  "genuine_positive_processes": 64,
+  "negative_control_processes": 8,
+  "guards": {
+    "components": {
+      "path": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/guard-components.json",
+      "sha256": "eccd52457ceeeb3eb55d5b9388a4261b91b980e76877ab35da29702edc940635",
+      "owned_peak_aggregate_rss_upper_bytes": 479375360,
+      "parent_peak_memory_current_bytes": 63427223552,
+      "parent_events_unchanged": true,
+      "owned_processes": 8,
+      "foreign_processes_untouched": 139
+    },
+    "cross-freebsd-component": {
+      "path": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/guard-cross-freebsd-component.json",
+      "sha256": "cfa7034beb5e61de96c78ba1e00f03e374b70d091058239bb98d86017e354723",
+      "owned_peak_aggregate_rss_upper_bytes": 488390656,
+      "parent_peak_memory_current_bytes": 57089818624,
+      "parent_events_unchanged": true,
+      "owned_processes": 7,
+      "foreign_processes_untouched": 140
+    },
+    "cross-windows-component": {
+      "path": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/guard-cross-windows-component.json",
+      "sha256": "0ebf1a27b0210cc23d3bb4741537eed83eeb61ede351cfe500e511e198824716",
+      "owned_peak_aggregate_rss_upper_bytes": 504635392,
+      "parent_peak_memory_current_bytes": 57832579072,
+      "parent_events_unchanged": true,
+      "owned_processes": 8,
+      "foreign_processes_untouched": 143
+    },
+    "vm-freebsd-component": {
+      "path": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/guard-vm-freebsd-component.json",
+      "sha256": "ba368a371c49bc95a110d99780da08d21cf1696805b5e31fccfdde2ccf9110a3",
+      "owned_peak_aggregate_rss_upper_bytes": 1420390400,
+      "parent_peak_memory_current_bytes": 58371207168,
+      "parent_events_unchanged": true,
+      "owned_processes": 5,
+      "foreign_processes_untouched": 107
+    },
+    "vm-windows-component": {
+      "path": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/guard-vm-windows-component.json",
+      "sha256": "da18d28d19664cac06f2ef3989c52e4b65c5a6557839e0eb579783478d1c8555",
+      "owned_peak_aggregate_rss_upper_bytes": 2240978944,
+      "parent_peak_memory_current_bytes": 60044951552,
+      "parent_events_unchanged": true,
+      "owned_processes": 5,
+      "foreign_processes_untouched": 795
+    },
+    "runtime-before-uwvm2": {
+      "path": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/guard-runtime-before-uwvm2.json",
+      "sha256": "64e9a4f1918214d697fb3a9879311cce93ec79ee582cee3fb11c77860b95f4a9",
+      "owned_peak_aggregate_rss_upper_bytes": 2600333312,
+      "parent_peak_memory_current_bytes": 63773331456,
+      "parent_events_unchanged": true,
+      "owned_processes": 9,
+      "foreign_processes_untouched": 415
+    },
+    "runtime-before-uwvm2-ros": {
+      "path": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/guard-runtime-before-uwvm2-ros.json",
+      "sha256": "fde76bcb376ffceea318ca281793f62a1798af573615407bf89bd4fbae4554cd",
+      "owned_peak_aggregate_rss_upper_bytes": 4226449408,
+      "parent_peak_memory_current_bytes": 62204686336,
+      "parent_events_unchanged": true,
+      "owned_processes": 11,
+      "foreign_processes_untouched": 1343
+    },
+    "runtime-uwvm2": {
+      "path": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/guard-runtime-uwvm2.json",
+      "sha256": "b8bd8938755ddff0655af6dbb929fbcdf6a02a85aa5e6c3cfe19068a6d7ec005",
+      "owned_peak_aggregate_rss_upper_bytes": 2600349696,
+      "parent_peak_memory_current_bytes": 63352606720,
+      "parent_events_unchanged": true,
+      "owned_processes": 39,
+      "foreign_processes_untouched": 421
+    },
+    "runtime-uwvm2-ros": {
+      "path": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/guard-runtime-uwvm2-ros.json",
+      "sha256": "512c11223f9906ebd73b25e871b0bcb44c48eaddc0b693eac8eac97348084594",
+      "owned_peak_aggregate_rss_upper_bytes": 4226510848,
+      "parent_peak_memory_current_bytes": 66010165248,
+      "parent_events_unchanged": true,
+      "owned_processes": 41,
+      "foreign_processes_untouched": 196
+    }
+  },
+  "vm": [
+    {
+      "os": "freebsd",
+      "nonce": "148f7d96f32b1f9a94dc9d372958e7c6",
+      "qemu_exit": 0,
+      "base_unchanged": true,
+      "receipt": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/vm-freebsd-codec-148f7d96/receipt.json",
+      "receipt_sha256": "9e1037528d3c1d1970a1e417a1f653dd777be01602c51c298025c48e0ed3e99f",
+      "serial_sha256": "3c0fb4beb8c3e0ac6f82310e61348670e03eb2c1f46a8f522d210af64bf81298",
+      "test_pass_checks": {
+        "uwvm2-native-codec": 126588,
+        "uwvm2-ros-native-codec": 126588
+      }
+    },
+    {
+      "os": "windows",
+      "nonce": "7d7a85b4aa1fc01f46ef27f746ccd31b",
+      "qemu_exit": 0,
+      "base_unchanged": true,
+      "receipt": "/tmp/uwvm-wasip1-fd-slot-reuse-20261006-r13/vm-windows-codec-7d7a85b4/receipt.json",
+      "receipt_sha256": "f3bd0c8bed15442bfeaad8962333c230d98bcd9997e88385e278a1de12e328f0",
+      "serial_sha256": "1f117ba1818174cc0263d7ad81e678a738086631dd7a48e5666b78d4bab7c294",
+      "test_pass_checks": {
+        "uwvm2-native-codec": 126588,
+        "uwvm2-ros-native-codec": 126588
+      }
+    }
+  ],
+  "mac_archive_sha256": "4546ce85279074c43f9439ec57bd373e3e92c3d9ef6a8487f75d1121d58d18d9",
+  "limitations": [
+    "Four-OS runs test allocation policy and actual native execution; genuine checkpoint/manager stop coverage in this round is Linux instruction and unwind.",
+    "External file contents are excluded; this change does not add whole-instance Wasm or atomic joint Wasm/WASIp1 restore.",
+    "Capture Wasm and WASIp1 together at the same genuine cooperative stop."
+  ],
+  "retained_failure_history": [
+    "Initial own source staging hit ENOSPC before tests.",
+    "Initial probe compilation rejected an unwrapped FastIO C string; fixed before successful control runs.",
+    "Initial positive probe inspected sparse FD91 after boundary restore had made it dense, causing probe SIGSEGV; fixed and rerun."
+  ],
+  "durable_evidence": {
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-fd-slot-reuse-20261006-r13/source-and-test-evidence.tar.gz",
+    "sha256": "cf1303ff80eb507ec440cce76b43c0532fec88aa5949c1cf442a1152b7a33d0a",
+    "bytes": 169134421,
+    "payloads": 17152,
+    "guard_archive_sha256": "0e262b9f385c8cb77da2f787313989ebfdadce9b7b550254bf34019b6e9bee2b",
+    "every_payload_verified": true
+  }
+}

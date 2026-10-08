@@ -1,0 +1,89 @@
+{
+  "previous_manifest_sha256": "dd4e71cce2042786afb1d75151c1e2a19c0c66d30dcc56e79b64e77460d3aef3",
+  "unchanged_inputs": {
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h": "c3bd606cdb390d31cfd981fa44a7b675fd8ec51e0ae1083a986180988caf6b56",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h": "268631aff527ea2ea06d3ae2729fbe97a0a6c729f3b6b6de680e39a33efdcdb2",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h": "687bb989730e26fe66ad25fb04144ca26bbd04432c83f71037867d56cf9370a0",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h": "e93f3bd70e384abc39d64fab81b429be203fb65e6cd2c39610244c7e9b5c8180",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h": "91f7ceb0bc5cc6ff5171fb3ae9c36509720aa314c3114246e256b5407ffb6b18",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_full_code_handoff.h": "9ad547dc28dbde0f2865b642f0868ea32125c00d74c1d54bb693c4f3bba235bf",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_function_bindings.h": "5b2ee5e08bbfd5ceda1c5c4d62832e136b5d4fd02815812e08b0df0528e8781c",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_indirect_bindings.h": "c3aca81c2b2a9d32d03601ecee48753f5e00ac74eb12141016a6769453b537c9",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": "47e072c5b591429d0d43203ef84fcb00ade10aeae6592f42dc2f50d860a3e1ad",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h": "d9bdcc8515da15f9f32c8364c53a485ec1de45923e81b9cebdaf7578bc5c7261",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": "7399c87c028bb4fc31b88c6e0f3a906807ef7d68448dc768663619c5d3406462",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h": "24beb4f86b3d823ca0f01e2fdb6b9b69f512c5a7bbd583a706319c9aca7d38cc",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h": "ad9cff818b3feca2fe2a2d4da48cb59e3daf47258447ac3135a4fb31ac6385ce",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h": "3d1cd02c7fa7d49683398002532e7ed61c6bdf4e98923a4cd68cec2d0ed9503c",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "993aa60073731c392026e110843e1c1836a39119b552dc080589fb0603f281ce",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc": "b2e9e2803d4508acda57792f02e808fc532c2b8700f6035f47bc52c0c65e9480",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc": "70e4b6d0267ce7a916bac8c33ae6d00b27ad32a3fe93aa8b04f1c426fcf3d171",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": "88e4e7c69e54e2db5170941177afa0d2490bd32606a0beb66ac76fb6912c6d0f",
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": "cbf12c59c0e92f926c3010fb534011f78ef190d11f4947f16822b9183dec6f6c",
+    "uwvm2-ros/test/0017.runtime/fixtures/debug_checkpoint_indirect_retirement_cohort.wat": "e13454143892be962ddd8d20bf9de1be47b4975b3c10a3241f70cb68e7b83eb2",
+    "uwvm2-ros/test/0017.runtime/fixtures/debug_wasip1_indirect_prepared_retirement.wat": "0e7418438b787d62a7d855296d375e6b13497c8b9c973eb6b06c10a92f8dd6ab",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h": "c3bd606cdb390d31cfd981fa44a7b675fd8ec51e0ae1083a986180988caf6b56",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h": "d926067bf10cc75c30c6a434adced9f38cdd73a5cb6fabab6745ee71956dc50d",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h": "674c5b4f0c915472a33ac67b18b559fa1e1b44f28e6ee54059a17239dc2a7140",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h": "e93f3bd70e384abc39d64fab81b429be203fb65e6cd2c39610244c7e9b5c8180",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h": "91f7ceb0bc5cc6ff5171fb3ae9c36509720aa314c3114246e256b5407ffb6b18",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_full_code_handoff.h": "9ad547dc28dbde0f2865b642f0868ea32125c00d74c1d54bb693c4f3bba235bf",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_function_bindings.h": "5b2ee5e08bbfd5ceda1c5c4d62832e136b5d4fd02815812e08b0df0528e8781c",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_indirect_bindings.h": "c3aca81c2b2a9d32d03601ecee48753f5e00ac74eb12141016a6769453b537c9",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": "47e072c5b591429d0d43203ef84fcb00ade10aeae6592f42dc2f50d860a3e1ad",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h": "d9bdcc8515da15f9f32c8364c53a485ec1de45923e81b9cebdaf7578bc5c7261",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": "7399c87c028bb4fc31b88c6e0f3a906807ef7d68448dc768663619c5d3406462",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h": "24beb4f86b3d823ca0f01e2fdb6b9b69f512c5a7bbd583a706319c9aca7d38cc",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h": "ad9cff818b3feca2fe2a2d4da48cb59e3daf47258447ac3135a4fb31ac6385ce",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h": "6f785a1a064313750dfd68b60a09167e07018bb61e77c36f447d3f2e113bbe52",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "993aa60073731c392026e110843e1c1836a39119b552dc080589fb0603f281ce",
+    "uwvm2/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc": "b2e9e2803d4508acda57792f02e808fc532c2b8700f6035f47bc52c0c65e9480",
+    "uwvm2/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc": "70e4b6d0267ce7a916bac8c33ae6d00b27ad32a3fe93aa8b04f1c426fcf3d171",
+    "uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": "88e4e7c69e54e2db5170941177afa0d2490bd32606a0beb66ac76fb6912c6d0f",
+    "uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": "cbf12c59c0e92f926c3010fb534011f78ef190d11f4947f16822b9183dec6f6c",
+    "uwvm2/test/0017.runtime/fixtures/debug_checkpoint_indirect_retirement_cohort.wat": "e13454143892be962ddd8d20bf9de1be47b4975b3c10a3241f70cb68e7b83eb2",
+    "uwvm2/test/0017.runtime/fixtures/debug_wasip1_indirect_prepared_retirement.wat": "0e7418438b787d62a7d855296d375e6b13497c8b9c973eb6b06c10a92f8dd6ab",
+    "uwvm2/test/0017.runtime/debug_checkpoint_private_code_handoff_generation_runtime.cc": "2ce48248b8a799c84516ca88992df16ee1b3912b5fbf9b2f5100648f6b7e3f75",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_private_code_handoff_generation_runtime.cc": "2ce48248b8a799c84516ca88992df16ee1b3912b5fbf9b2f5100648f6b7e3f75",
+    "uwvm2/test/0017.runtime/debug_checkpoint_active_code_handoff_generation_runtime.cc": "d935dfda7a2471a8cebdc3f3553a87d9cc787c871f347354ab7c12cbdfb7b5fb",
+    "uwvm2/test/0017.runtime/fixtures/checkpoint_actual_generation2_nested_continuation.wat": "840de2c57b23c94ee837620d8ff788bef706ea9caf28cec2d7b8ddf6d9d962fc",
+    "uwvm2/test/0017.runtime/fixtures/checkpoint_actual_generation2_nested_replacement.wat": "6506ab81c46e0a3854d67e6bab616654347c66fdda1202104e1d757a01fd3072",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_active_code_handoff_generation_runtime.cc": "d935dfda7a2471a8cebdc3f3553a87d9cc787c871f347354ab7c12cbdfb7b5fb",
+    "uwvm2-ros/test/0017.runtime/fixtures/checkpoint_actual_generation2_nested_continuation.wat": "840de2c57b23c94ee837620d8ff788bef706ea9caf28cec2d7b8ddf6d9d962fc",
+    "uwvm2-ros/test/0017.runtime/fixtures/checkpoint_actual_generation2_nested_replacement.wat": "6506ab81c46e0a3854d67e6bab616654347c66fdda1202104e1d757a01fd3072"
+  },
+  "delta": {
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h": "b49dcb5ac07da0a9c25377f3ac1be6b3d035c2fca7199bcdeae4b5c5e83e36cc",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h": "fac20a932b74bfacf02755cd008eba9e7ab36819da44d6e3fae7d14b2073ef37",
+    "uwvm2/test/0017.runtime/debug_checkpoint_worker_registry_reuse_runtime.cc": "773d6c3ec7c07282227f4cadcd1f4212ee8f8522be457d96e0384fbea78bb8ce",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h": "b49dcb5ac07da0a9c25377f3ac1be6b3d035c2fca7199bcdeae4b5c5e83e36cc",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h": "a731b57411937aed003cb8b3a12fd0f33b61aeccb7fea49c63b17ca3d9968831",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_worker_registry_reuse_runtime.cc": "773d6c3ec7c07282227f4cadcd1f4212ee8f8522be457d96e0384fbea78bb8ce"
+  },
+  "before": {
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h": {
+      "sha256": "cb0e762c5ee76dbf557cf51c3a0e8b24f49583d815950e1f54946725527d674f",
+      "device": 16777231,
+      "inode": 81514215,
+      "mode": 33188
+    },
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h": {
+      "sha256": "8f9f9f8561ff28c4d4631bbf2e626807bd17b4f6d3daf06b5f0a7aa8bd614766",
+      "device": 16777231,
+      "inode": 81514216,
+      "mode": 33188
+    },
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h": {
+      "sha256": "cb0e762c5ee76dbf557cf51c3a0e8b24f49583d815950e1f54946725527d674f",
+      "device": 16777231,
+      "inode": 81514237,
+      "mode": 33188
+    },
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h": {
+      "sha256": "ff94fc77ff60534f1bc6daad9e3b3493f7af19a95e29557e92bbe0d19caf52cc",
+      "device": 16777231,
+      "inode": 81514238,
+      "mode": 33188
+    }
+  }
+}

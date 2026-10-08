@@ -1,0 +1,498 @@
+{
+  "scope": "Distinct current workspace xmake wiring only, Lua54 syntax4, actual production Linux platform function plus scoped owner gate14 cases, actual Clang linker selection2; no complete xmake build",
+  "qualification": true,
+  "source_inputs": {
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/source/uwvm2/xmake.lua": "da6f23b542bba4c6f0059b9fb4c166ad4a599ebd40b32e9c4bb2ba0f4b9a2b05",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/source/uwvm2/xmake/platform/linux.lua": "f280b4b485fa112dadd2936ed066036b5b98b28c7c220013377f6b5f757c5e92",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/source/uwvm2-ros/xmake.lua": "42ac6208d816ba47155930c3bb71b239e01419d1f4cf5f5512eaf28bc5327317",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/source/uwvm2-ros/xmake/platform/linux.lua": "f280b4b485fa112dadd2936ed066036b5b98b28c7c220013377f6b5f757c5e92",
+    "/usr/lib/x86_64-linux-gnu/liblua5.4.so.0.0.0": "369a4e42cf61e4bea7ac784ffc4ff5ca731f81a11f3fb5cc88943e8c1a2c7441",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/driver.cc": "91193433e324b0a1e525cfecac51f43ca0f6bd882e1c34292510c9740115bf5c",
+    "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current595/build-meta/work/mips64el-linux-gnuabi64-ld.gold": "a5e7e2bbe76413d7ea6e27cdadc06d0862e0849f656241eff3fcad78f7c5c486",
+    "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang-23": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b"
+  },
+  "actual_Lua_syntax_files": 4,
+  "actual_Lua_config_cases": 14,
+  "actual_Clang_driver_selections": 2,
+  "actual_new_Wasm_VM_sessions": 0,
+  "syntax": [
+    {
+      "repository": "uwvm2",
+      "file": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/source/uwvm2/xmake.lua",
+      "sha256": "da6f23b542bba4c6f0059b9fb4c166ad4a599ebd40b32e9c4bb2ba0f4b9a2b05",
+      "actual_Lua54_syntax_pass": true
+    },
+    {
+      "repository": "uwvm2",
+      "file": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/source/uwvm2/xmake/platform/linux.lua",
+      "sha256": "f280b4b485fa112dadd2936ed066036b5b98b28c7c220013377f6b5f757c5e92",
+      "actual_Lua54_syntax_pass": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "file": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/source/uwvm2-ros/xmake.lua",
+      "sha256": "42ac6208d816ba47155930c3bb71b239e01419d1f4cf5f5512eaf28bc5327317",
+      "actual_Lua54_syntax_pass": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "file": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/source/uwvm2-ros/xmake/platform/linux.lua",
+      "sha256": "f280b4b485fa112dadd2936ed066036b5b98b28c7c220013377f6b5f757c5e92",
+      "actual_Lua54_syntax_pass": true
+    }
+  ],
+  "cases": [
+    {
+      "repository": "uwvm2",
+      "case": "mips64-arch-targetEL",
+      "config": {
+        "arch": "mips64",
+        "target": "mips64el-linux-gnuabi64",
+        "llvm-target": "detect",
+        "use-llvm-compiler": true,
+        "linux-native-debug": true,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "cx:-mllvm -mips-tail-calls",
+        "cx:-mxgot",
+        "cx:-ffunction-sections",
+        "cx:-fdata-sections",
+        "ld:-fuse-ld=gold",
+        "ld:--ld-path=mips64el-linux-gnuabi64-ld.gold",
+        "ld:-Wl,-z,noexecstack",
+        "ld:-Wl,--gc-sections",
+        "cx:--target=mips64el-linux-gnuabi64",
+        "ld:--target=mips64el-linux-gnuabi64",
+        "cx:-fno-rtti",
+        "sys:dl",
+        "def:UWVM2_ENABLE_DEBUG_NATIVE_CONTINUATION_LINUX_PRODUCT=1"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2",
+      "case": "mips64-arch-llvmTargetEL",
+      "config": {
+        "arch": "mips64",
+        "target": "detect",
+        "llvm-target": "mips64el-linux-gnuabi64",
+        "use-llvm-compiler": true,
+        "linux-native-debug": true,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "cx:-mllvm -mips-tail-calls",
+        "cx:-mxgot",
+        "cx:-ffunction-sections",
+        "cx:-fdata-sections",
+        "ld:-fuse-ld=gold",
+        "ld:--ld-path=mips64el-linux-gnuabi64-ld.gold",
+        "ld:-Wl,-z,noexecstack",
+        "ld:-Wl,--gc-sections",
+        "cx:-fno-rtti",
+        "sys:dl",
+        "def:UWVM2_ENABLE_DEBUG_NATIVE_CONTINUATION_LINUX_PRODUCT=1"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2",
+      "case": "mips64BE-excluded",
+      "config": {
+        "arch": "mips64",
+        "target": "mips64-linux-gnuabi64",
+        "llvm-target": "detect",
+        "use-llvm-compiler": true,
+        "linux-native-debug": true,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "cx:-mllvm -mips-tail-calls",
+        "cx:-mxgot",
+        "cx:-ffunction-sections",
+        "cx:-fdata-sections",
+        "ld:-fuse-ld=lld",
+        "cx:--target=mips64-linux-gnuabi64",
+        "ld:--target=mips64-linux-gnuabi64",
+        "cx:-fno-rtti",
+        "sys:dl"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2",
+      "case": "no-native-debug",
+      "config": {
+        "arch": "mips64",
+        "target": "mips64el-linux-gnuabi64",
+        "llvm-target": "detect",
+        "use-llvm-compiler": true,
+        "linux-native-debug": false,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "cx:-mllvm -mips-tail-calls",
+        "cx:-mxgot",
+        "cx:-ffunction-sections",
+        "cx:-fdata-sections",
+        "ld:-fuse-ld=lld",
+        "cx:--target=mips64el-linux-gnuabi64",
+        "ld:--target=mips64el-linux-gnuabi64",
+        "cx:-fno-rtti",
+        "sys:dl"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2",
+      "case": "x64-existing-path",
+      "config": {
+        "arch": "x86_64",
+        "target": "x86_64-linux-gnu",
+        "llvm-target": "detect",
+        "use-llvm-compiler": true,
+        "linux-native-debug": true,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "ld:-fuse-ld=lld",
+        "cx:--target=x86_64-linux-gnu",
+        "ld:--target=x86_64-linux-gnu",
+        "cx:-fno-rtti",
+        "sys:dl",
+        "def:UWVM2_ENABLE_DEBUG_NATIVE_CONTINUATION_LINUX_PRODUCT=1"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2",
+      "case": "loong64-canonical-alias",
+      "config": {
+        "arch": "loong64",
+        "target": "loongarch64-linux-gnu",
+        "llvm-target": "detect",
+        "use-llvm-compiler": true,
+        "linux-native-debug": true,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "ld:-fuse-ld=lld",
+        "cx:--target=loongarch64-linux-gnu",
+        "ld:--target=loongarch64-linux-gnu",
+        "cx:-fno-rtti",
+        "sys:dl",
+        "def:UWVM2_ENABLE_DEBUG_NATIVE_CONTINUATION_LINUX_PRODUCT=1"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2",
+      "case": "PPC64-existing-system-linker",
+      "config": {
+        "arch": "ppc64",
+        "target": "powerpc64-linux-gnu",
+        "llvm-target": "detect",
+        "use-llvm-compiler": true,
+        "linux-native-debug": true,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "cx:--target=powerpc64-linux-gnu",
+        "ld:--target=powerpc64-linux-gnu",
+        "cx:-fno-rtti",
+        "sys:dl"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "case": "mips64-arch-targetEL",
+      "config": {
+        "arch": "mips64",
+        "target": "mips64el-linux-gnuabi64",
+        "llvm-target": "detect",
+        "use-llvm-compiler": true,
+        "linux-native-debug": true,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "cx:-mllvm -mips-tail-calls",
+        "cx:-mxgot",
+        "cx:-ffunction-sections",
+        "cx:-fdata-sections",
+        "ld:-fuse-ld=gold",
+        "ld:--ld-path=mips64el-linux-gnuabi64-ld.gold",
+        "ld:-Wl,-z,noexecstack",
+        "ld:-Wl,--gc-sections",
+        "cx:--target=mips64el-linux-gnuabi64",
+        "ld:--target=mips64el-linux-gnuabi64",
+        "cx:-fno-rtti",
+        "sys:dl",
+        "def:UWVM2_ENABLE_DEBUG_NATIVE_CONTINUATION_LINUX_PRODUCT=1"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "case": "mips64-arch-llvmTargetEL",
+      "config": {
+        "arch": "mips64",
+        "target": "detect",
+        "llvm-target": "mips64el-linux-gnuabi64",
+        "use-llvm-compiler": true,
+        "linux-native-debug": true,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "cx:-mllvm -mips-tail-calls",
+        "cx:-mxgot",
+        "cx:-ffunction-sections",
+        "cx:-fdata-sections",
+        "ld:-fuse-ld=gold",
+        "ld:--ld-path=mips64el-linux-gnuabi64-ld.gold",
+        "ld:-Wl,-z,noexecstack",
+        "ld:-Wl,--gc-sections",
+        "cx:-fno-rtti",
+        "sys:dl",
+        "def:UWVM2_ENABLE_DEBUG_NATIVE_CONTINUATION_LINUX_PRODUCT=1"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "case": "mips64BE-excluded",
+      "config": {
+        "arch": "mips64",
+        "target": "mips64-linux-gnuabi64",
+        "llvm-target": "detect",
+        "use-llvm-compiler": true,
+        "linux-native-debug": true,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "cx:-mllvm -mips-tail-calls",
+        "cx:-mxgot",
+        "cx:-ffunction-sections",
+        "cx:-fdata-sections",
+        "ld:-fuse-ld=lld",
+        "cx:--target=mips64-linux-gnuabi64",
+        "ld:--target=mips64-linux-gnuabi64",
+        "cx:-fno-rtti",
+        "sys:dl"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "case": "no-native-debug",
+      "config": {
+        "arch": "mips64",
+        "target": "mips64el-linux-gnuabi64",
+        "llvm-target": "detect",
+        "use-llvm-compiler": true,
+        "linux-native-debug": false,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "cx:-mllvm -mips-tail-calls",
+        "cx:-mxgot",
+        "cx:-ffunction-sections",
+        "cx:-fdata-sections",
+        "ld:-fuse-ld=lld",
+        "cx:--target=mips64el-linux-gnuabi64",
+        "ld:--target=mips64el-linux-gnuabi64",
+        "cx:-fno-rtti",
+        "sys:dl"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "case": "x64-existing-path",
+      "config": {
+        "arch": "x86_64",
+        "target": "x86_64-linux-gnu",
+        "llvm-target": "detect",
+        "use-llvm-compiler": true,
+        "linux-native-debug": true,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "ld:-fuse-ld=lld",
+        "cx:--target=x86_64-linux-gnu",
+        "ld:--target=x86_64-linux-gnu",
+        "cx:-fno-rtti",
+        "sys:dl",
+        "def:UWVM2_ENABLE_DEBUG_NATIVE_CONTINUATION_LINUX_PRODUCT=1"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "case": "loong64-canonical-alias",
+      "config": {
+        "arch": "loong64",
+        "target": "loongarch64-linux-gnu",
+        "llvm-target": "detect",
+        "use-llvm-compiler": true,
+        "linux-native-debug": true,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "ld:-fuse-ld=lld",
+        "cx:--target=loongarch64-linux-gnu",
+        "ld:--target=loongarch64-linux-gnu",
+        "cx:-fno-rtti",
+        "sys:dl",
+        "def:UWVM2_ENABLE_DEBUG_NATIVE_CONTINUATION_LINUX_PRODUCT=1"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "case": "PPC64-existing-system-linker",
+      "config": {
+        "arch": "ppc64",
+        "target": "powerpc64-linux-gnu",
+        "llvm-target": "detect",
+        "use-llvm-compiler": true,
+        "linux-native-debug": true,
+        "sysroot": "none",
+        "march": "none",
+        "strip": "none"
+      },
+      "actual_production_linux_target_outputs": [
+        "cx:--target=powerpc64-linux-gnu",
+        "ld:--target=powerpc64-linux-gnu",
+        "cx:-fno-rtti",
+        "sys:dl"
+      ],
+      "actual_owned_continuation_gate_outputs_checked": true,
+      "gate_fragment_scoped": true,
+      "full_xmake_build": false
+    }
+  ],
+  "driver": [
+    {
+      "repository": "uwvm2",
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "--target=mips64el-linux-gnuabi64",
+        "--sysroot=/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current425/build-meta/work/deps",
+        "--gcc-install-dir=/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current425/build-meta/work/deps/usr/lib/gcc-cross/mips64el-linux-gnuabi64/13",
+        "-B/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current595/build-meta/work",
+        "-march=mips64r2",
+        "-mabi=64",
+        "-mxgot",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "-O0",
+        "-g0",
+        "-fuse-ld=gold",
+        "--ld-path=mips64el-linux-gnuabi64-ld.gold",
+        "-Wl,-z,noexecstack",
+        "-Wl,--gc-sections",
+        "-DUWVM2_ENABLE_DEBUG_NATIVE_CONTINUATION_LINUX_PRODUCT=1",
+        "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/driver.cc",
+        "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current425/build-meta/work/deps/usr/lib/gcc-cross/mips64el-linux-gnuabi64/13/libatomic.a",
+        "-###",
+        "-o",
+        "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/uwvm2-dry-run-output"
+      ],
+      "returncode": 0,
+      "log": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/uwvm2-clang-driver.log",
+      "log_sha256": "5f4ad752ef63855f3fb475a33dffe2555cb228db219c3730a9c6c284bfbcddb3",
+      "actual_Clang_selected_linker": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current595/build-meta/work/mips64el-linux-gnuabi64-ld.gold",
+      "linker_sha256": "a5e7e2bbe76413d7ea6e27cdadc06d0862e0849f656241eff3fcad78f7c5c486",
+      "actual_compile_or_VM": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "--target=mips64el-linux-gnuabi64",
+        "--sysroot=/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current425/build-meta/work/deps",
+        "--gcc-install-dir=/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current425/build-meta/work/deps/usr/lib/gcc-cross/mips64el-linux-gnuabi64/13",
+        "-B/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current595/build-meta/work",
+        "-march=mips64r2",
+        "-mabi=64",
+        "-mxgot",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "-O0",
+        "-g0",
+        "-fuse-ld=gold",
+        "--ld-path=mips64el-linux-gnuabi64-ld.gold",
+        "-Wl,-z,noexecstack",
+        "-Wl,--gc-sections",
+        "-DUWVM2_ENABLE_DEBUG_NATIVE_CONTINUATION_LINUX_PRODUCT=1",
+        "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/driver.cc",
+        "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current425/build-meta/work/deps/usr/lib/gcc-cross/mips64el-linux-gnuabi64/13/libatomic.a",
+        "-###",
+        "-o",
+        "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/uwvm2-ros-dry-run-output"
+      ],
+      "returncode": 0,
+      "log": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current602/build-meta/work/uwvm2-ros-clang-driver.log",
+      "log_sha256": "b22d0a33da8900b71a86123e1b7e60fee049650c80e6588f696f17abb0b5b79d",
+      "actual_Clang_selected_linker": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current595/build-meta/work/mips64el-linux-gnuabi64-ld.gold",
+      "linker_sha256": "a5e7e2bbe76413d7ea6e27cdadc06d0862e0849f656241eff3fcad78f7c5c486",
+      "actual_compile_or_VM": false
+    }
+  ],
+  "runtime_source574_record_not_relabelled_as_new_local_build": true,
+  "enable_lto_n_required_for_mixed_linker_profile": true
+}

@@ -1,0 +1,211 @@
+{
+  "passed": true,
+  "final_checks": 7226,
+  "negative_baseline_checks": 1150,
+  "results_sha256": "2a3d76ce621aafd377a20741eee6326882d726ac5d3a97da802beea992e26a47",
+  "report_sha256": "0a0e6322b832c6ed357ebd33841164c32c2257579e7915fa4f8b092c2f4e141b",
+  "archive_placement": {
+    "passed": true,
+    "primary_archive": "/Users/liyinan/Documents/MacroModel/builds/wasip1-sync-flags-20261006-r9/test-inputs-evidence-1791231027767555883.tar.gz",
+    "archive_sha256": "aad3313d84e64fd5a291089aeeba7dc0a5b8b0592c582634dfef8dd5c0f3991d",
+    "archive_bytes": 19684751,
+    "all_payloads_validated": 19293,
+    "linux_persistent_copy": {
+      "passed": true,
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-sync-flags-20261006-r9-private-vm/evidence/source-evidence.tar.gz",
+      "archive_sha256": "aad3313d84e64fd5a291089aeeba7dc0a5b8b0592c582634dfef8dd5c0f3991d",
+      "bytes": 19684751,
+      "filesystem_reserve_policy_changed": false,
+      "helper_memory_limit_bytes": 33554432
+    },
+    "test_root": "/tmp/uwvm-wasip1-sync-flags-20261006-r9",
+    "sdk_archive": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-checkpoint-reboot-20261005-r3/test-environment-1791210330404465482.tar.gz",
+    "sdk_archive_sha256": "3cb41246b39b4a9e15aefd7b30c33cbd0feda8466753edeff9f71f6273b4e49f"
+  },
+  "current_own_source_qualification": {
+    "passed": true,
+    "own_rows": [
+      {
+        "repository": "uwvm2",
+        "path": "src/uwvm2/imported/wasi/wasip1/func/fd_fdstat_get_wasm64.h",
+        "sha256": "8ce3d263f9548fe351594612c5dc89da6e3cd7243c8c7ba42aab6e3983e56130",
+        "matches_tested_snapshot": true
+      },
+      {
+        "repository": "uwvm2",
+        "path": "src/uwvm2/imported/wasi/wasip1/func/fd_fdstat_get.h",
+        "sha256": "0f89a908edfd128cfa7b4782828fb6f8eaedffc27ef9547772745fdc9422a4ae",
+        "matches_tested_snapshot": true
+      },
+      {
+        "repository": "uwvm2",
+        "path": "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md",
+        "sha256": "90c118496b21ed41d42f49c8172f99e860cd3b3954b67d95f712123a357aaff2",
+        "matches_tested_snapshot": true
+      },
+      {
+        "repository": "uwvm2",
+        "path": "test/0013.debugger/wasip1_sync_flags.cc",
+        "sha256": "f599aa61c8072e7725e03515de6a6e3e28e2ae6c371a277692e74b1f674fad7d",
+        "matches_tested_snapshot": true
+      },
+      {
+        "repository": "uwvm2",
+        "path": "test/0017.runtime/debug_wasip1_portable_runtime.cc",
+        "sha256": "366261768e874e8fc6270ac116d33411c1752680561110877058bc168964c21e",
+        "matches_tested_snapshot": true
+      },
+      {
+        "repository": "uwvm2",
+        "path": "test/0017.runtime/fixtures/debug_wasip1_dsync.wat",
+        "sha256": "f7baa6ec1c3974bd502f453133229e93574e3a5ac9ead32a721c2dfc6982b46e",
+        "matches_tested_snapshot": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "path": "src/uwvm2/imported/wasi/wasip1/func/fd_fdstat_get_wasm64.h",
+        "sha256": "8ce3d263f9548fe351594612c5dc89da6e3cd7243c8c7ba42aab6e3983e56130",
+        "matches_tested_snapshot": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "path": "src/uwvm2/imported/wasi/wasip1/func/fd_fdstat_get.h",
+        "sha256": "0f89a908edfd128cfa7b4782828fb6f8eaedffc27ef9547772745fdc9422a4ae",
+        "matches_tested_snapshot": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "path": "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md",
+        "sha256": "90c118496b21ed41d42f49c8172f99e860cd3b3954b67d95f712123a357aaff2",
+        "matches_tested_snapshot": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "path": "test/0013.debugger/wasip1_sync_flags.cc",
+        "sha256": "f599aa61c8072e7725e03515de6a6e3e28e2ae6c371a277692e74b1f674fad7d",
+        "matches_tested_snapshot": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "path": "test/0017.runtime/debug_wasip1_portable_runtime.cc",
+        "sha256": "366261768e874e8fc6270ac116d33411c1752680561110877058bc168964c21e",
+        "matches_tested_snapshot": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "path": "test/0017.runtime/fixtures/debug_wasip1_dsync.wat",
+        "sha256": "f7baa6ec1c3974bd502f453133229e93574e3a5ac9ead32a721c2dfc6982b46e",
+        "matches_tested_snapshot": true
+      }
+    ],
+    "unrelated_current_changes_retained": [
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h",
+        "tested_snapshot_sha256": "4f2ff375a1b5d9015966380c23813ed2364f9a52076b32ea606c2ec7ff08153f",
+        "current_sha256": "7a60fe4d053402057c859c2273a70e8cf2c3977c0cc0fbe5c00ab753790f73f3"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h",
+        "tested_snapshot_sha256": "2176b4320cc8719dc8362716953967ba5744ed9d5059c85699f19de4b05b1bea",
+        "current_sha256": "1f3233c182d1c61806d4fee26f4fcf9da412a7004672565139cbc2cffe5476af"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+        "tested_snapshot_sha256": "77ce152ed869a7abb1dbf1a851bf143127df5dfc1fe9f35af81f9b37df3eb64e",
+        "current_sha256": "e75f84430d420fc6968c70a0b7d6d6a54322362ae8f0a37fd95d33526233eb42"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h",
+        "tested_snapshot_sha256": "2a43cca94ad7e0227ee2187539d12f06f8d793f27d518b714d81519f02395350",
+        "current_sha256": "cae57766379ec03c99f66cbf905661c9955f8dc95741745907b090454cd0e29a"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/uwvm/debugger/native_execution_plan.md",
+        "tested_snapshot_sha256": "b6b9d9d1547fa230ce523b87b429bd41ae73740761e42d05a0dba6157c99ce1d",
+        "current_sha256": "00bc6a1045bd120f99751e5b7f360da560ddd621c93f9f4ecd30acbc426ad982"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/uwvm/debugger/source_language_expression.h",
+        "tested_snapshot_sha256": "76a6143816f19dcdbf6813ef271c1f7fe42b75ad62512b2dd62a246186945aba",
+        "current_sha256": "885d40be3e29943588ecf36300119313ebe30b09a3b4a06369c065b078b2db9b"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/uwvm/debugger/source_dwarf_pieces.h",
+        "tested_snapshot_sha256": "b04cc536c6c484ce9b9bbf97325f6f13a219e164a518ad391c85458d6d0083c1",
+        "current_sha256": "9c891fad7af40ddbd886f530af03417bd63b087c85c072180d723e64963e075b"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/uwvm/debugger/native_branch_destination.h",
+        "tested_snapshot_sha256": "015ff89996f382fe26534053e49b6e16bd9a614f2db226ab17132625354c7024",
+        "current_sha256": "d2e86dcfe3be6af2033a469def6403f9a738fbd25af8691c53d1c3d9718f7725"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/uwvm/debugger/source_dwarf_expression.h",
+        "tested_snapshot_sha256": "089761b7a13f0a8b79f9fee6282e6e850374713333a9e9e1132f46ef5f1aed2e",
+        "current_sha256": "9a6366ee597f80ff64e1dfa38d9f27625cd34d040684bf1b1298b47eb8e22d9f"
+      },
+      {
+        "path": "uwvm2/src/uwvm2/uwvm/debugger/native_owned_instruction_semantics.h",
+        "tested_snapshot_sha256": "78dc1f2c32b93a857468811efdb93f0d4df24cde96c552dda97a3c6f5bf7d86b",
+        "current_sha256": "00a6716ec22cfa9083d668596911ecd221e95433bb1a8614ed973b5b8465f7c2"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h",
+        "tested_snapshot_sha256": "4f2ff375a1b5d9015966380c23813ed2364f9a52076b32ea606c2ec7ff08153f",
+        "current_sha256": "7a60fe4d053402057c859c2273a70e8cf2c3977c0cc0fbe5c00ab753790f73f3"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h",
+        "tested_snapshot_sha256": "2176b4320cc8719dc8362716953967ba5744ed9d5059c85699f19de4b05b1bea",
+        "current_sha256": "1f3233c182d1c61806d4fee26f4fcf9da412a7004672565139cbc2cffe5476af"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+        "tested_snapshot_sha256": "77ce152ed869a7abb1dbf1a851bf143127df5dfc1fe9f35af81f9b37df3eb64e",
+        "current_sha256": "e75f84430d420fc6968c70a0b7d6d6a54322362ae8f0a37fd95d33526233eb42"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h",
+        "tested_snapshot_sha256": "16f0cae3670d3f593a105091fc1096790efb0425062f549832537cc4bbf980d8",
+        "current_sha256": "981ca234b6e3d4552613d2271dd0477a2de0bd29bcda4cd790fd9c0aa30115dd"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/native_execution_plan.md",
+        "tested_snapshot_sha256": "b6b9d9d1547fa230ce523b87b429bd41ae73740761e42d05a0dba6157c99ce1d",
+        "current_sha256": "00bc6a1045bd120f99751e5b7f360da560ddd621c93f9f4ecd30acbc426ad982"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/source_language_expression.h",
+        "tested_snapshot_sha256": "76a6143816f19dcdbf6813ef271c1f7fe42b75ad62512b2dd62a246186945aba",
+        "current_sha256": "885d40be3e29943588ecf36300119313ebe30b09a3b4a06369c065b078b2db9b"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/source_dwarf_pieces.h",
+        "tested_snapshot_sha256": "b04cc536c6c484ce9b9bbf97325f6f13a219e164a518ad391c85458d6d0083c1",
+        "current_sha256": "9c891fad7af40ddbd886f530af03417bd63b087c85c072180d723e64963e075b"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/native_branch_destination.h",
+        "tested_snapshot_sha256": "015ff89996f382fe26534053e49b6e16bd9a614f2db226ab17132625354c7024",
+        "current_sha256": "d2e86dcfe3be6af2033a469def6403f9a738fbd25af8691c53d1c3d9718f7725"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/source_dwarf_expression.h",
+        "tested_snapshot_sha256": "089761b7a13f0a8b79f9fee6282e6e850374713333a9e9e1132f46ef5f1aed2e",
+        "current_sha256": "9a6366ee597f80ff64e1dfa38d9f27625cd34d040684bf1b1298b47eb8e22d9f"
+      },
+      {
+        "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/native_owned_instruction_semantics.h",
+        "tested_snapshot_sha256": "78dc1f2c32b93a857468811efdb93f0d4df24cde96c552dda97a3c6f5bf7d86b",
+        "current_sha256": "00a6716ec22cfa9083d668596911ecd221e95433bb1a8614ed973b5b8465f7c2"
+      }
+    ]
+  },
+  "qualified_resource_peaks": {
+    "own_rss_upper_bytes": 4293849088,
+    "parent_memory_current_bytes": 66996133888,
+    "macos_rss_upper_bytes": 1645805568
+  },
+  "failed_monitor_attempts": 6,
+  "all_failed_attempt_own_pidfds_retired": true
+}

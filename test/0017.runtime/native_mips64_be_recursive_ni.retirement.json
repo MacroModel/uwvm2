@@ -1,0 +1,111 @@
+{
+  "schema": "uwvm-shared-original-cgroup-owned-pidfd-v1",
+  "argv": [
+    "python3",
+    "/dev/shm/uwvm-asm-6313e263-current666/build-meta/audit.py"
+  ],
+  "source_root": "/dev/shm/uwvm-asm-6313e263-current666/build-meta/work/source",
+  "source_manifest_sha256": "6fda20778484e46cb2190655031f0485c6e54a14639688dcc021edc2413dec23",
+  "supervisor_sha256": "31b511c8e6e045712c1166ab41bd9e5cf1b48323f64c01cf958f3e9a1da53f24",
+  "commands_sha256": "b14f67354f8c13c7c801b6af80ed9c7a49958d3be495796d0efa74e6a1e03009",
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "memory_max": 68719476736,
+  "swap_max": 0,
+  "all_test_outputs_in_tmpfs": true,
+  "original_shared_folder_ceiling_qualified": false,
+  "new_persistent_test_products": 0,
+  "persistent_write_confinement": "Actual Linux Landlock inherited by all test descendants; writable current666 owned tmpfs, separately owned current618 configured SDK output directory, and /dev/null only",
+  "landlock_probes_sha256": "84ff315383bc0716331ff78d2d2ee8eb3676490d80cf32bd1545bee21ed61a5c",
+  "original_exclusive_disk_floor_qualified": false,
+  "owned_rss_budget": 6442450944,
+  "rss_peak": 190787584,
+  "resource_peak": {
+    "own_folder": 1179824128,
+    "shared_folder": 45779378176,
+    "group_memory": 48426504192,
+    "persistent_disk_min_free": 26945253376
+  },
+  "resource_policy_sha256": "21033f03a57abd34e967e1af0d099dcfc1316b56a892b6b3e310086eff8710c1",
+  "elapsed": 22.565442014994915,
+  "foreign_roster_before": [
+    11166,
+    1694317,
+    1694426,
+    1697970
+  ],
+  "foreign_roster_after": [
+    11166,
+    1694317,
+    1694426,
+    1698299
+  ],
+  "admissions": [
+    {
+      "pid": 1697972,
+      "birth": 7902325,
+      "ppid": 1697827,
+      "state": "R",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 2334720,
+      "cgroup": "0::/user.slice/user-1000.slice/session-11511.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    }
+  ],
+  "executable_history": [
+    {
+      "pid": 1697972,
+      "birth": 7902325,
+      "exe": "/usr/bin/python3.14",
+      "sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700"
+    }
+  ],
+  "retirement": [
+    {
+      "pid": 1697972,
+      "birth": 7902325,
+      "pidfd_readable": true
+    }
+  ],
+  "memory_events_before": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "memory_events_after": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "returncode": 0,
+  "error": null,
+  "passed": true,
+  "log_sha256": "cf7e0860bb29131495e22408d0b6443ff12e571b4b6d1f8d632245b1dee8ff9d"
+}

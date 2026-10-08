@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "archive_sha256": "5f8c7c0b406186d385406d15b33a738d015802c7ef3187ee172798f455c4d0f3",
+  "payloads": {
+    "debug_checkpoint_native_cohort_retirement-instruction.log": "352d76af838b69ad69badcf186d3715118511b7d2088fdd3931c60962a53b1a0",
+    "debug_checkpoint_native_cohort_retirement-unwind.log": "1cd754de6df0b1c22235a87388a0ef8d53429831309561a6f980016ecf9c9b9f",
+    "debug_checkpoint_prepared_retirement-instruction.log": "afa71b483c0e260225d67b9d6874a1ab030645cdbf87e5925b60a7531d3fd80c",
+    "debug_checkpoint_prepared_retirement-unwind.log": "680e38fe8e66a6f49e8ae5656b126d88bb98671c566ba22d39a259e706b29040",
+    "debug_checkpoint_retirement_cohort.wasm": "bea388e35f208f3bbf8e5e5c999e880b4189b94f25046ab377ec1d0cb1c9eab1",
+    "debug_wasip1_checkpoint.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+    "debug_wasip1_prepared_retirement-instruction.log": "989ad40f1ff3cc6a49d6e7578a71ac8213e84aea03b54598c29dcfcf7ba4711e",
+    "debug_wasip1_prepared_retirement-unwind.log": "bc75f844e407c15476b857b7dd1fe9f4f4f73feb5ee5087b94fac2f37b774a8e",
+    "macos_monitor.py": "e3f40b6c12239ba136e550671df54f58999e496a9d7287f1fc639db8080d1000",
+    "macos_native.py": "98b3668893c9a7bf2d33e390d8f0f3f8f27d8741acc6d338edd3edcd883e78f0",
+    "native-execution.json": "b3bc8f7452b1d1709a79059d9cbc33a20b8ab8ab70ffaf58a5f2c64a8f2f1fd2",
+    "nofork-probe.json": "db127d1187dea6119d0f70d5025ad4f179ccf57ece5f51747f36a4cafd1188f1",
+    "nofork-probe.log": "06f08929938554e862d37fc43cbf78ef4692f32f849c69b49b9260d8ea6d8ef5",
+    "qualified.json": "cca0feca765425feeeb44a39a1bddf512d63928f25e802938017837757557b1e",
+    "receipt.json": "808aeb053efb4caba7b0d3cfc52118f5daa6996ebc0e0c9005b12b8d1b16ddaf",
+    "spec.json": "a2487bc30f96913150c265569b35af841f2c1723766c383d9c8f113d63675833"
+  },
+  "all_payloads_read_back": true,
+  "local_packaging_memory_upper_bytes": 1234780160,
+  "owned_ramdisk_bytes": 1073741824,
+  "limit_bytes": 2147483648
+}

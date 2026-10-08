@@ -1,0 +1,2500 @@
+{
+  "passed": true,
+  "scope": "Actual frozen source header, finite DAP syntax and owned numeric DATA on target ELF/QEMU. No live VM stop, producer DWARF, full Wasm3 language or ASM host-context qualification.",
+  "production_header_before_sha256": "97bbf7b2a748a19e51356324d9e5e3d4b19b83191c47cc5ccde072dd123e4308",
+  "production_header_after_sha256": "d58991fb7caf1b5e8351dfff3dae06206fbebe5252a99503943ee8f880deba8f",
+  "paired_review": {
+    "scope": "Read-only final paired source review; no local test or compilation",
+    "byte_identical_paired_files": true,
+    "files": {
+      "src/uwvm2/uwvm/debugger/source_scalar_expression.h": {
+        "sha256": "d58991fb7caf1b5e8351dfff3dae06206fbebe5252a99503943ee8f880deba8f",
+        "bytes": 51174
+      },
+      "test/0017.runtime/debug_source_character_literal.cc": {
+        "sha256": "b54dff5e3b1efa57fbf783682732a96b5ad2217c566d31cdb0fd0b82e569b1dd",
+        "bytes": 6744
+      },
+      "test/0017.runtime/run_debug_character_literals.py": {
+        "sha256": "ffb63a0be67901fbc31ac8adc0e10fa1738fb5aa9dc6c69878b72e61fa0a55a9",
+        "bytes": 3344
+      },
+      "test/0017.runtime/run_debug_linux_qemu_components.py": {
+        "sha256": "0c917f95e66c3a4a638abbd82b29d5f5f05d96909272b13b09ed13cc45e1a158",
+        "bytes": 15880
+      },
+      "test/0018.debugger/dap_character_literal_cases.json": {
+        "sha256": "349ef14a761b8e2965be06a090107d6c28ff2ed7e5f46df8ca7c37afeeb3f8e3",
+        "bytes": 147688
+      },
+      "test/0017.runtime/README.debug-source-language-expressions.md": {
+        "sha256": "5fed393a34880a0c596fd545ec507d4034abccc44befdb3e52d156d9186c6c96",
+        "bytes": 10549
+      }
+    }
+  },
+  "source_cuts": {
+    "uwvm2": "sha256:a9e24ea765da7d1d05fd39fc999cd0a1cd2ab599bed6c5050a3f4e14864e4c0e",
+    "uwvm2-ros": "sha256:a9470e170b6906266f4a0d7e6cf088592e9d22babde1dae347bb32ff90bb9b44"
+  },
+  "native": [
+    {
+      "repository": "uwvm2",
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-native-a1/results.json",
+      "record_sha256": "c0dff75fe10a5fafabdddee7dbf169a97c6441067f8f942f0cc772088ae72082",
+      "source_id": "sha256:a9e24ea765da7d1d05fd39fc999cd0a1cd2ab599bed6c5050a3f4e14864e4c0e",
+      "phases": 12,
+      "component_assertions": 14791,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "old_failures": [
+        {
+          "label": "baseline-space",
+          "returncode": -4,
+          "expected_reason": "closing quote must not skip literal whitespace",
+          "log_sha256": "e700d2bb2494ba6aadc168c6d433bd6e8095453640907d43baf65ceb81cb7cc7"
+        },
+        {
+          "label": "baseline-quote",
+          "returncode": -4,
+          "expected_reason": "unescaped apostrophe is not a character",
+          "log_sha256": "5afc20133b7a09052622a254fbd6cf3cfbeb1ebed41f3a0277bf9b9025c8dd29"
+        },
+        {
+          "label": "baseline-line",
+          "returncode": -4,
+          "expected_reason": "raw line break is not a character",
+          "log_sha256": "6f1b512993893acf44084d3512ece0eebc58c3cc206862699ee033d312207cfb"
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-native-a1/results.json",
+      "record_sha256": "6310ae4afe5b31c3e8fabc25048c4823a1246f04a15c4fb81076c9efffc13402",
+      "source_id": "sha256:a9470e170b6906266f4a0d7e6cf088592e9d22babde1dae347bb32ff90bb9b44",
+      "phases": 12,
+      "component_assertions": 14791,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "old_failures": [
+        {
+          "label": "baseline-space",
+          "returncode": -4,
+          "expected_reason": "closing quote must not skip literal whitespace",
+          "log_sha256": "e700d2bb2494ba6aadc168c6d433bd6e8095453640907d43baf65ceb81cb7cc7"
+        },
+        {
+          "label": "baseline-quote",
+          "returncode": -4,
+          "expected_reason": "unescaped apostrophe is not a character",
+          "log_sha256": "5afc20133b7a09052622a254fbd6cf3cfbeb1ebed41f3a0277bf9b9025c8dd29"
+        },
+        {
+          "label": "baseline-line",
+          "returncode": -4,
+          "expected_reason": "raw line break is not a character",
+          "log_sha256": "6f1b512993893acf44084d3512ece0eebc58c3cc206862699ee033d312207cfb"
+        }
+      ]
+    }
+  ],
+  "cross": [
+    {
+      "repository": "uwvm2",
+      "profile": "x86_64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-x86_64/results.json",
+      "record_sha256": "2620cdc4f6128d4e7b3902935bddf663a0eaa47ec6b4df260ee07fd898025706",
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 220296,
+        "sha256": "4e1594637e01017f2557c8b10772de6951daa080a625487711fbaeac49fdf606",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": true
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "aarch64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-aarch64/results.json",
+      "record_sha256": "69e089a99d13c72484bc918b77f7f18352cea4583ee52bcde01babd7fa18dc9a",
+      "ELF": {
+        "machine": 183,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 201056,
+        "sha256": "174d9f45db09f8773f2c6a09d0016e74367d352fb814cf0f0e639130349e9f60",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "i686",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-i686/results.json",
+      "record_sha256": "a8e14c56eac58c6e56b1128922aaeb80b98886d75d392866bd0925ea62f7b4d4",
+      "ELF": {
+        "machine": 3,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 268600,
+        "sha256": "f0db762100a0c3dd4bf52b5e2df3c94f4c292d472747975317c716686de69cf4",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "riscv64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-riscv64/results.json",
+      "record_sha256": "e6b5242b8b2a78cbbec5cf016c09e56126b8fcbb154373ca922f00a41f3b3479",
+      "ELF": {
+        "machine": 243,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 190512,
+        "sha256": "3de81ba9b4c41f588348b10c7b4c005e3286d98ff32bb106cf4cbe5126c5a3a2",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-ppc64/results.json",
+      "record_sha256": "f08077ebb22ed2c55e86f5ffd25504703c9d7490a2a62440de91dcd62031b5c3",
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 292576,
+        "sha256": "12aa4861720559b16b449fac67964f68201da79f95a92ffc8a69c977d2c46c45",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64le",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-ppc64le/results.json",
+      "record_sha256": "8ee387ccbb455d81cb3fd82f8c7cacb40a74ff8daf54f240fb3a5024a0f2e16b",
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 222912,
+        "sha256": "e02e2160b1d7eab762615be8dbb498ae9c8a8865be4436cdfc0e960988375ce1",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc32",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-ppc32/results.json",
+      "record_sha256": "40403fa2df550b3f11f247272d511bba30e39e9170c56bc92ffcae2899d5b9be",
+      "ELF": {
+        "machine": 20,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 288684,
+        "sha256": "2913805405e3b853af2bf4be581e87b9f9f592e8b5001502678989265d4ec7ee",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "mips64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-mips64/results.json",
+      "record_sha256": "148dde51001dc8aa11c11b5eb15cfe58f472e92c0392da7a236dca6d575f14d1",
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 289224,
+        "sha256": "043a8f4da0ba48ea05cfa3d523381a4761b8d421274fafffce1924a41ea6bc4b",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "mips64el",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-mips64el/results.json",
+      "record_sha256": "c61cc37281fc9410572a316b79d2a79bbfadd4825742e6c060690fa2e7ee18c7",
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 285712,
+        "sha256": "2b9e92e46cbb619ddbf6a554e95a42517bd3830e49f2f40599c4be5f2fe9c467",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "mips32",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-mips32/results.json",
+      "record_sha256": "3d489737214fe042621f83c093bedc54a76fb815ad4287b057ef50be7b6f9b7b",
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 310560,
+        "sha256": "fd88a68a792d3711fe65848a37e7ba9f8b19eb455891a7a8cdb04e00bfd21ffc",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "mips32el",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-mips32el/results.json",
+      "record_sha256": "bf7141bf898aa7f0b8515a472dea3ac7ff3ef32a7788633b1c9ae41747527b36",
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 310272,
+        "sha256": "1522ed7b7b309c0186fdc1437e696962cfb58cb5b0412a521b1b9e92f7b16729",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "sparc64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-sparc64/results.json",
+      "record_sha256": "6406001890daa0dcc1e4c282217a763cede904c79c7e048db18b654fcfdbfd49",
+      "ELF": {
+        "machine": 43,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 1081440,
+        "sha256": "5da1f8cc26c3d0d6d475652875a5b586496c655ea489b7022cbcf5d90d4c1e23",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "loongarch64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-loongarch64/results.json",
+      "record_sha256": "e79ea57adff5cc863919ee278aa51f6d3033ab7cdc76104ddf06c33babd81819",
+      "ELF": {
+        "machine": 258,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 211176,
+        "sha256": "62ac6e207eb395604bee84232772ea2f41ccce936591c102438564a940997289",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "s390x",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-s390x/results.json",
+      "record_sha256": "c09a30a405817f532c2b89822f34e24e66c5230a339b13593b2f5a6471931718",
+      "ELF": {
+        "machine": 22,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 203712,
+        "sha256": "19268a137830ccf18abc7c57ce06dd3df6b930644d8d8cf8fabc4a9a3512c6b6",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "armhf",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-armhf/results.json",
+      "record_sha256": "04b93d725b518ead95eb92f8eda44ec1ad1f39db3c67d4c8d856e9fc85a8b3f3",
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 231144,
+        "sha256": "47393089d288000a0e0b181e210f6528589e879396476b8f0bcdd1ea6e2967a4",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "armel",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/character-cross-a1-armel/results.json",
+      "record_sha256": "1f1f548924747dd251bac909d36fd5e4a45fd7551a2d21f419c08f87885d1430",
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 239932,
+        "sha256": "3f3a0cd30d2e26c178cdb521e1d4671995552cf75a38ba88c169b3deec39a84b",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "x86_64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-x86_64/results.json",
+      "record_sha256": "d06027324c06395c17c4c94ead3f09913e812d809d21ddd69c227582791b77f5",
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 220296,
+        "sha256": "4e1594637e01017f2557c8b10772de6951daa080a625487711fbaeac49fdf606",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "aarch64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-aarch64/results.json",
+      "record_sha256": "343d67f75358421ed9ac6dffedb3cde27ccbf0b53b7590ace16ba4823a29762d",
+      "ELF": {
+        "machine": 183,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 201056,
+        "sha256": "174d9f45db09f8773f2c6a09d0016e74367d352fb814cf0f0e639130349e9f60",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "i686",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-i686/results.json",
+      "record_sha256": "3bb6ecdab77841c435674a14def1fa0c12fb499e10c8184dd1b0895f60603edc",
+      "ELF": {
+        "machine": 3,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 268600,
+        "sha256": "f0db762100a0c3dd4bf52b5e2df3c94f4c292d472747975317c716686de69cf4",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "riscv64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-riscv64/results.json",
+      "record_sha256": "a4f43fb75fa06d67863e92da0bc8819bebdff4a5af3f908ee9a4aaf681c6b4c9",
+      "ELF": {
+        "machine": 243,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 190512,
+        "sha256": "3de81ba9b4c41f588348b10c7b4c005e3286d98ff32bb106cf4cbe5126c5a3a2",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-ppc64/results.json",
+      "record_sha256": "f381cfbb541fc4b179d46a2b9cef4e5f8831f843e7558894b5308ca7b4ab576a",
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 292576,
+        "sha256": "12aa4861720559b16b449fac67964f68201da79f95a92ffc8a69c977d2c46c45",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64le",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-ppc64le/results.json",
+      "record_sha256": "d9a82a22f79e79a7c2b016624477ecbf0c16d1d57d3b14ac055742c8af08d9c6",
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 222912,
+        "sha256": "e02e2160b1d7eab762615be8dbb498ae9c8a8865be4436cdfc0e960988375ce1",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc32",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-ppc32/results.json",
+      "record_sha256": "fa2874a3a3c64ef882be53d0acf79006dfdc3f57dbe0e6bd7af586e88d7a9c85",
+      "ELF": {
+        "machine": 20,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 288684,
+        "sha256": "2913805405e3b853af2bf4be581e87b9f9f592e8b5001502678989265d4ec7ee",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "mips64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-mips64/results.json",
+      "record_sha256": "0b8820924ca3603bf56fa925e0db93b5fa95729aab87cec8d414b1148b94fd01",
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 289224,
+        "sha256": "043a8f4da0ba48ea05cfa3d523381a4761b8d421274fafffce1924a41ea6bc4b",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "mips64el",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-mips64el/results.json",
+      "record_sha256": "dac9c6d4f2702707f7dc84f4fd119e99a49ba5886e080f76c1d0c61957110faf",
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 285712,
+        "sha256": "2b9e92e46cbb619ddbf6a554e95a42517bd3830e49f2f40599c4be5f2fe9c467",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "mips32",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-mips32/results.json",
+      "record_sha256": "35a8757986cb088716934b22fef4d95110797a8f523606bea374955c30601841",
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 310560,
+        "sha256": "fd88a68a792d3711fe65848a37e7ba9f8b19eb455891a7a8cdb04e00bfd21ffc",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "mips32el",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-mips32el/results.json",
+      "record_sha256": "37fe44f2f5eb2b1441da31aff0b0002490aae5f90906f4e8b36751994021f3a2",
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 310272,
+        "sha256": "1522ed7b7b309c0186fdc1437e696962cfb58cb5b0412a521b1b9e92f7b16729",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "sparc64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-sparc64/results.json",
+      "record_sha256": "4b90e5251362ad6a997e9f5b657a90e8385b4f403671f16e5a52bb6db73e95a5",
+      "ELF": {
+        "machine": 43,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 1081440,
+        "sha256": "5da1f8cc26c3d0d6d475652875a5b586496c655ea489b7022cbcf5d90d4c1e23",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "loongarch64",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-loongarch64/results.json",
+      "record_sha256": "b7bed8c7b893d9a2f8877258259552e1e5bb532b1c71f3b8b4f1b241764ce372",
+      "ELF": {
+        "machine": 258,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 211176,
+        "sha256": "62ac6e207eb395604bee84232772ea2f41ccce936591c102438564a940997289",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "s390x",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-s390x/results.json",
+      "record_sha256": "4878e190f0403ed71a2b8a7093fea1bca310650ed0dc1e54796c6713d62cd826",
+      "ELF": {
+        "machine": 22,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 203712,
+        "sha256": "19268a137830ccf18abc7c57ce06dd3df6b930644d8d8cf8fabc4a9a3512c6b6",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "armhf",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-armhf/results.json",
+      "record_sha256": "4134c48bbaeb49e53c5c3b9ac73efcfd0cad2ad7fd7677877dbd09edfd1548a9",
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 231144,
+        "sha256": "47393089d288000a0e0b181e210f6528589e879396476b8f0bcdd1ea6e2967a4",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "armel",
+      "passed": true,
+      "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2-ros/character-cross-a1-armel/results.json",
+      "record_sha256": "c1facc9fdce1a6bf10666789a789dd859049fcd9b57ebdef8db2a8cac95e677b",
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 239932,
+        "sha256": "3f3a0cd30d2e26c178cdb521e1d4671995552cf75a38ba88c169b3deec39a84b",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "component_assertions": 14791,
+      "stdout_sha256": "5291f64d17202290e214f2f37c4bb5da194b7245b003a5d142bb63184e705239",
+      "same_output_as_x86_64_component": true,
+      "differential": {
+        "passed": true,
+        "checks": 11802,
+        "golden_positive": 594,
+        "golden_negative": 1208,
+        "arithmetic_properties": 10000,
+        "seed": 20261006,
+        "log_sha256": "73dc7bbbd775b81b771d09d8e0ec673bf86483096bacb13c1ba71be11042fa74"
+      },
+      "actual_dependency_hashes_verified": true,
+      "x86_native_reference_checked": false
+    }
+  ],
+  "registry": {
+    "record": "/run/user/1000/uwvm2-character-literal-20261006-a1/out-uwvm2/registry-component-a1/results.json",
+    "record_sha256": "0a636401ed2149c713c95360b325be840b423f11781a87c54fa8f82ea3d2bca9",
+    "paired_target_rows": 2,
+    "QEMU_and_native_probe_rows_per_repository": 11802
+  },
+  "guards": [
+    {
+      "label": "uwvm2-native-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 686829568,
+      "wall_seconds": 72.84286231200167,
+      "admission_wait_seconds": 61.80607138599953,
+      "Popen_root_pidfd_retirement": {
+        "pid": 828336,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 6290489,
+      "minimum_observed_actual_free_bytes": 9627746304
+    },
+    {
+      "label": "uwvm2-ros-native-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 683413504,
+      "wall_seconds": 73.55879336699945,
+      "admission_wait_seconds": 57.80053169199891,
+      "Popen_root_pidfd_retirement": {
+        "pid": 829573,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 12599427,
+      "minimum_observed_actual_free_bytes": 9621168128
+    },
+    {
+      "label": "uwvm2-x86-64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 730365952,
+      "wall_seconds": 16.53239075700185,
+      "admission_wait_seconds": 3.58949982910417e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 830945,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 13665830,
+      "minimum_observed_actual_free_bytes": 9619992576
+    },
+    {
+      "label": "uwvm2-ros-x86-64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 730304512,
+      "wall_seconds": 16.497887473000446,
+      "admission_wait_seconds": 4.2896997911157086e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 831122,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 14737143,
+      "minimum_observed_actual_free_bytes": 9617977344
+    },
+    {
+      "label": "uwvm2-aarch64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 730988544,
+      "wall_seconds": 18.61028946299848,
+      "admission_wait_seconds": 4.2979998397640884e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 831325,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 15630112,
+      "minimum_observed_actual_free_bytes": 9616453632
+    },
+    {
+      "label": "uwvm2-ros-aarch64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 730873856,
+      "wall_seconds": 17.536248091000743,
+      "admission_wait_seconds": 8.028286904998822,
+      "Popen_root_pidfd_retirement": {
+        "pid": 832638,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 16527972,
+      "minimum_observed_actual_free_bytes": 9613737984
+    },
+    {
+      "label": "uwvm2-i686-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 727748608,
+      "wall_seconds": 16.395446088998142,
+      "admission_wait_seconds": 4.410600013216026e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 832884,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 17479662,
+      "minimum_observed_actual_free_bytes": 9612152832
+    },
+    {
+      "label": "uwvm2-ros-i686-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 727851008,
+      "wall_seconds": 16.348302575999696,
+      "admission_wait_seconds": 4.555900159175508e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 833422,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 18436232,
+      "minimum_observed_actual_free_bytes": 9610485760
+    },
+    {
+      "label": "uwvm2-riscv64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 728268800,
+      "wall_seconds": 16.254429996999534,
+      "admission_wait_seconds": 4.4894000893691555e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 833800,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 19314715,
+      "minimum_observed_actual_free_bytes": 9608826880
+    },
+    {
+      "label": "uwvm2-ros-riscv64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 728211456,
+      "wall_seconds": 15.574687017000542,
+      "admission_wait_seconds": 4.4841999624622986e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 834257,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 20198090,
+      "minimum_observed_actual_free_bytes": 9607278592
+    },
+    {
+      "label": "uwvm2-ppc64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 732180480,
+      "wall_seconds": 15.98152605300129,
+      "admission_wait_seconds": 4.555300256470218e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 834438,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 21182913,
+      "minimum_observed_actual_free_bytes": 9605828608
+    },
+    {
+      "label": "uwvm2-ros-ppc64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 732176384,
+      "wall_seconds": 16.05347561799863,
+      "admission_wait_seconds": 4.7196997911669314e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 835474,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 22172627,
+      "minimum_observed_actual_free_bytes": 9604243456
+    },
+    {
+      "label": "uwvm2-ppc64le-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 722980864,
+      "wall_seconds": 16.164120965997427,
+      "admission_wait_seconds": 4.6437999117188156e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 835636,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 23092758,
+      "minimum_observed_actual_free_bytes": 9602678784
+    },
+    {
+      "label": "uwvm2-ros-ppc64le-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 722948096,
+      "wall_seconds": 15.740782062999642,
+      "admission_wait_seconds": 5.0729002396110445e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 835944,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 24017780,
+      "minimum_observed_actual_free_bytes": 9601101824
+    },
+    {
+      "label": "uwvm2-ppc32-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 721899520,
+      "wall_seconds": 15.878304133999336,
+      "admission_wait_seconds": 4.5905002480139956e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 836176,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 24993465,
+      "minimum_observed_actual_free_bytes": 9599524864
+    },
+    {
+      "label": "uwvm2-ros-ppc32-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 721428480,
+      "wall_seconds": 15.933668122001109,
+      "admission_wait_seconds": 5.114499799674377e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 836562,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 25974031,
+      "minimum_observed_actual_free_bytes": 9597947904
+    },
+    {
+      "label": "uwvm2-mips64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 720609280,
+      "wall_seconds": 15.274572499001806,
+      "admission_wait_seconds": 5.178100036573596e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 836819,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 26956092,
+      "minimum_observed_actual_free_bytes": 9596317696
+    },
+    {
+      "label": "uwvm2-ros-mips64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 720502784,
+      "wall_seconds": 15.186147833999712,
+      "admission_wait_seconds": 4.208999962429516e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 837104,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 27943046,
+      "minimum_observed_actual_free_bytes": 9594687488
+    },
+    {
+      "label": "uwvm2-mips64el-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 720556032,
+      "wall_seconds": 14.959614875002444,
+      "admission_wait_seconds": 5.42800007679034e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 837541,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 28925001,
+      "minimum_observed_actual_free_bytes": 9593065472
+    },
+    {
+      "label": "uwvm2-ros-mips64el-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 720666624,
+      "wall_seconds": 15.442174903000705,
+      "admission_wait_seconds": 4.719099888461642e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 838085,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 29911850,
+      "minimum_observed_actual_free_bytes": 9591443456
+    },
+    {
+      "label": "uwvm2-mips32-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 717402112,
+      "wall_seconds": 15.152289978999761,
+      "admission_wait_seconds": 4.8793997848406434e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 838422,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 30904376,
+      "minimum_observed_actual_free_bytes": 9589813248
+    },
+    {
+      "label": "uwvm2-ros-mips32-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 716652544,
+      "wall_seconds": 15.126977862000786,
+      "admission_wait_seconds": 5.076900197309442e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 838828,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 31901783,
+      "minimum_observed_actual_free_bytes": 9588170752
+    },
+    {
+      "label": "uwvm2-mips32el-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 717008896,
+      "wall_seconds": 15.02665960900049,
+      "admission_wait_seconds": 4.861400157096796e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 839456,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 32895991,
+      "minimum_observed_actual_free_bytes": 9586540544
+    },
+    {
+      "label": "uwvm2-ros-mips32el-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 716845056,
+      "wall_seconds": 15.013236440001492,
+      "admission_wait_seconds": 5.077300011180341e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 839857,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 33895079,
+      "minimum_observed_actual_free_bytes": 9584902144
+    },
+    {
+      "label": "uwvm2-sparc64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 722792448,
+      "wall_seconds": 15.652168993001396,
+      "admission_wait_seconds": 4.9459002184448764e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 840259,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 35662768,
+      "minimum_observed_actual_free_bytes": 9583321088
+    },
+    {
+      "label": "uwvm2-ros-sparc64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 722448384,
+      "wall_seconds": 15.250780716000008,
+      "admission_wait_seconds": 4.283900125301443e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 840553,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 37435350,
+      "minimum_observed_actual_free_bytes": 9581735936
+    },
+    {
+      "label": "uwvm2-loongarch64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 725966848,
+      "wall_seconds": 15.344393956998829,
+      "admission_wait_seconds": 5.1146002078894526e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 840777,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 38341734,
+      "minimum_observed_actual_free_bytes": 9580187648
+    },
+    {
+      "label": "uwvm2-ros-loongarch64-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 726048768,
+      "wall_seconds": 15.365146161999292,
+      "admission_wait_seconds": 4.656300006899983e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 840972,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 39253011,
+      "minimum_observed_actual_free_bytes": 9578643456
+    },
+    {
+      "label": "uwvm2-s390x-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 733343744,
+      "wall_seconds": 15.223016192001523,
+      "admission_wait_seconds": 5.390399746829644e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 841278,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 40140695,
+      "minimum_observed_actual_free_bytes": 9577115648
+    },
+    {
+      "label": "uwvm2-ros-s390x-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 733003776,
+      "wall_seconds": 15.132445458002621,
+      "admission_wait_seconds": 4.770200030179694e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 841572,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 41033272,
+      "minimum_observed_actual_free_bytes": 9575583744
+    },
+    {
+      "label": "uwvm2-armhf-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 717983744,
+      "wall_seconds": 15.48847018699962,
+      "admission_wait_seconds": 4.4984000851400197e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 841809,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 41955031,
+      "minimum_observed_actual_free_bytes": 9574023168
+    },
+    {
+      "label": "uwvm2-ros-armhf-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 718163968,
+      "wall_seconds": 15.615645327001403,
+      "admission_wait_seconds": 4.9644997488940135e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 842086,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 42881671,
+      "minimum_observed_actual_free_bytes": 9572454400
+    },
+    {
+      "label": "uwvm2-armel-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 715419648,
+      "wall_seconds": 15.352679131003242,
+      "admission_wait_seconds": 4.966500273440033e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 842446,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 43808827,
+      "minimum_observed_actual_free_bytes": 9570881536
+    },
+    {
+      "label": "uwvm2-ros-armel-cross-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 715526144,
+      "wall_seconds": 15.498736981997354,
+      "admission_wait_seconds": 4.0678001823835075e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 843387,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 44740863,
+      "minimum_observed_actual_free_bytes": 9569304576
+    },
+    {
+      "label": "paired-registry-a1",
+      "passed": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 166695,
+        "oom": 3,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "aggregate_owned_rss_peak_bytes": 749961216,
+      "wall_seconds": 31.610728207000648,
+      "admission_wait_seconds": 3.647699850262143e-05,
+      "Popen_root_pidfd_retirement": {
+        "pid": 844181,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "path": "/run/user/1000/uwvm2-character-literal-20261006-a1",
+        "fsid": 8764068325862668744,
+        "uid": 1000,
+        "free_bytes": 9644597248
+      },
+      "bounded_component_output_budget_bytes": 67108864,
+      "bounded_component_disk_reserve_bytes": 1073741824,
+      "maximum_observed_own_output_bytes": 46630389,
+      "minimum_observed_actual_free_bytes": 9566748672
+    }
+  ],
+  "totals": {
+    "cross_targets": 32,
+    "cross_component_assertions": 473312,
+    "cross_probe_rows": 377664,
+    "cross_arithmetic_properties": 320000,
+    "guard_episodes": 35,
+    "successful_guard_wall_seconds": 682.6190994110111,
+    "aggregate_owned_rss_peak_bytes": 749961216
+  },
+  "raw_collection": {
+    "path": "/run/user/1000/uwvm2-character-literal-20261006-a1/character-literal-qualification-collection-a1.json",
+    "sha256": "a567a34233500559aaf32be369c75147bdee64dbc084269c9d8ab2fa5862da38"
+  },
+  "original_full_product_preflight": {
+    "scope": "Read-only original full product admission observation; no compiler/VM launched",
+    "full_product_qualified": false,
+    "memory_current": 56205529088,
+    "original_full_memory_spare_bytes": 9663676416,
+    "original_full_disk_reserve_bytes": 9288400896,
+    "filesystems": {
+      "/tmp": {
+        "free_bytes": 852185088,
+        "fsid": 13743444405475221619
+      },
+      "/run/user/1000": {
+        "free_bytes": 9597308928,
+        "fsid": 8764068325862668744
+      }
+    },
+    "64GiB_cgroup": "/sys/fs/cgroup/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope",
+    "original_tmp_full_disk_admission": false
+  },
+  "full_product_qualified": false,
+  "native_language_parity_qualified": false,
+  "all_ELFs_inputs_logs_after_verified": true,
+  "evidence_backup": {
+    "local_persistent_backup_passed": true,
+    "path": "/Users/liyinan/.codex/artifacts/uwvm2-character-literal-evidence-20261006-a1/character-literal-evidence-a1.tar.xz",
+    "sha256": "cadd1dc37a64171de0e1ae4ff903c157f9151d07f01220cfaf753e30696fd5ed",
+    "bytes": 36368132,
+    "members": 9209,
+    "full_original_archive_bytes_identical": true,
+    "Linux_persistent_copy_passed": false,
+    "Linux_persistent_copy_reason": "Root filesystem had 0 bytes available; original archive plus 64MiB admission reserve not satisfied, no Linux persistent copy created. Raw runtime sources, logs and archive retained."
+  },
+  "Linux_persistent_copy_admission_failure": {
+    "persistent_full_copy_admission": false,
+    "free_bytes": 0,
+    "required_bytes": 103476996,
+    "archive_bytes": 36368132,
+    "partial_persistent_copy_created": false
+  }
+}

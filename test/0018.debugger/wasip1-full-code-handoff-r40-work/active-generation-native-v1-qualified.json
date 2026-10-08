@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "fresh_native_cases": 4,
+  "frontend_checks": 2,
+  "genuine_active_generation_2_cases": 4,
+  "active_nested_body_handoff_episodes": 8,
+  "source_manifest_sha256": "dd4e71cce2042786afb1d75151c1e2a19c0c66d30dcc56e79b64e77460d3aef3",
+  "base_native_qualification_sha256": "784278d5148c580c8ffae47330a6a628d87b60c4a30deb0fb132fa0e9d555603",
+  "dormant_generation_qualification_sha256": "2f941767afc9c4986787aead6dd728a818e2890d15a612429970f203266a486a",
+  "source_equivalence_sha256": "699583f3048ddf20b16debf57a93801849a8b84cf1d56cbac57e572faeb77c29",
+  "results_sha256": "d9a884277a488e7449e06f6363df48e499a3aab3d3d0df990f45bc266a09eb02",
+  "controller_sha256": "c54f0dbfdbbcd0a40b9beadc3c996511c23f29adaf329ed562e1cdd12e5610ad",
+  "original_retained_world_continuation_tested": true,
+  "original_retained_world_continuation_result": 1190,
+  "world_publication": false,
+  "restored_worker_startup": false,
+  "guest_replay": false
+}

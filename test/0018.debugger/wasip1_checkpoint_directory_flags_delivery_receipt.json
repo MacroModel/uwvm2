@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "final_checks": 36872,
+  "native_abi_checks": 31592,
+  "genuine_llvm_checkpoint_checks": 5280,
+  "negative_abi_checks": 9602,
+  "negative_genuine_checks": 596,
+  "own_source_sha256": {
+    "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_open.h": "8f8c2e026448a7b9282038aea927d3488c51afa298a6d979564953fcd2c46b3a",
+    "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_open_wasm64.h": "b5c560d406b59005391a3cb6c9a3fa46542b6a5a05f295e13abcc3d41f720f36",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h": "c3a39c83213482c971a02f5df933e7fb99a32f5fa92fe2e20322143f255ede3d",
+    "uwvm2/test/0017.runtime/debug_wasip1_portable_runtime.cc": "4f937b4e6f5e8d7d1295d598f733f0bc432078321d1ec75104683894641db5d3",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "58c5e31e31ad5ab2ba486d727160156f13361716d66c6fca18a2700a239512c7",
+    "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_open.h": "8f8c2e026448a7b9282038aea927d3488c51afa298a6d979564953fcd2c46b3a",
+    "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_open_wasm64.h": "b5c560d406b59005391a3cb6c9a3fa46542b6a5a05f295e13abcc3d41f720f36",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h": "c3a39c83213482c971a02f5df933e7fb99a32f5fa92fe2e20322143f255ede3d",
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_portable_runtime.cc": "4f937b4e6f5e8d7d1295d598f733f0bc432078321d1ec75104683894641db5d3",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "58c5e31e31ad5ab2ba486d727160156f13361716d66c6fca18a2700a239512c7",
+    "uwvm2/src/uwvm2/imported/wasi/wasip1/func/base.h": "ab57767bfa3de2279600e0f69824f1e11d3e4a2760e85b3c0f5c93a28fb2892f",
+    "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/base.h": "ab57767bfa3de2279600e0f69824f1e11d3e4a2760e85b3c0f5c93a28fb2892f",
+    "uwvm2/test/0013.debugger/wasip1_directory_flags.cc": "dd807006f70d85049e3a2b1220f6cf01ad9c1ba0315ece8e544995a8aa886100",
+    "uwvm2/test/0017.runtime/fixtures/debug_wasip1_root_flags.wat": "a80588e178569a89353ec0696cb3c153bfc12ec5cb1126d5b65b4d2abac5e70f",
+    "uwvm2-ros/test/0013.debugger/wasip1_directory_flags.cc": "dd807006f70d85049e3a2b1220f6cf01ad9c1ba0315ece8e544995a8aa886100",
+    "uwvm2-ros/test/0017.runtime/fixtures/debug_wasip1_root_flags.wat": "a80588e178569a89353ec0696cb3c153bfc12ec5cb1126d5b65b4d2abac5e70f"
+  },
+  "reports": [
+    {
+      "repository": "uwvm2",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_directory_flags_test_report.md",
+      "sha256": "6a4ea8542bbdcdde56a5e9775fa74d13fd9b9779f65d77185f04e498ecd726f0"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_directory_flags_test_report.md",
+      "sha256": "6a4ea8542bbdcdde56a5e9775fa74d13fd9b9779f65d77185f04e498ecd726f0"
+    }
+  ],
+  "source_archive": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-directory-flags-20261006-r11-private-vm/evidence/source-evidence.tar.gz",
+    "sha256": "60618383d1e64041e84f9f97745e7e64528a69e3231ddc14af106bc0f3dc0400",
+    "bytes": 40493559,
+    "uid": 1000,
+    "maintenance_helper_limit_bytes": 33554432,
+    "source_archive_qualified_payloads": 44894,
+    "filesystem_reserve_policy_changed": false
+  },
+  "compressed_full_evidence": {
+    "test-results-complete.json": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-directory-flags-20261006-r11-private-vm/evidence/test-results-complete.json.gz",
+      "gzip_bytes": 4881049,
+      "gzip_sha256": "13c71edfe3da279da34b4fd2ed26930a1ae7fc0bceb1b935230b6abf4879b68d",
+      "uncompressed_sha256": "f5db49b6140718a7fad2488fb7968d5c7549d531f2c542be138cd49c1d652ba3",
+      "verified_decompression": true
+    },
+    "archive-qualification.json": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-directory-flags-20261006-r11-private-vm/evidence/archive-qualification.json.gz",
+      "gzip_bytes": 2168644,
+      "gzip_sha256": "bede9214a0a9bedef55a866feca64d516c667617bfa19f69e110d7aa2db74e83",
+      "uncompressed_sha256": "2bc8464ef741e5fafa073ddd6918b8cfd45fa6522301edf5c3443a19d3cd97db",
+      "verified_decompression": true
+    }
+  },
+  "current_abi_closure_exact": true,
+  "concurrent_source_differences": [
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h",
+    "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h",
+    "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/native_debug_cfi.h"
+  ],
+  "large_evidence_persistent_on_linux": true
+}

@@ -1,0 +1,285 @@
+{
+  "archive": "r36-delivery-evidence.tar.gz",
+  "archive_sha256": "68136fa47432f35ab8dcd10703c86fa2aacb79672188c1f6dc3a13b12b9368a9",
+  "archive_bytes": 335446,
+  "payloads": {
+    "analysis-compile-qualified-v2.json": {
+      "sha256": "277fb150aa1c99f81b2cef45ffe5433c4d1415a59712fe62f15898c477a5dcca",
+      "bytes": 49855,
+      "mode": 292
+    },
+    "analysis-compile-results-v2.json": {
+      "sha256": "6979902ed477743f00614b95a4eeb8a17c2cb45048d26b2f4c21d7acdf1d6b9f",
+      "bytes": 40046,
+      "mode": 292
+    },
+    "analysis_compile_matrix-attempt-v1.py": {
+      "sha256": "07d49fe4784f85f6d34909126acd711f3ab2cf20d78f9194ff3d90f392771f41",
+      "bytes": 6561,
+      "mode": 292
+    },
+    "analysis_compile_matrix.py": {
+      "sha256": "501d81b4b46722724d8bf21536bd1be4dcabce5b258a74fba03028dc2a2d9e5c",
+      "bytes": 6544,
+      "mode": 292
+    },
+    "before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "sha256": "35e02b511a123a20ea04eb7e7611de8fd7aa311811db74faae04866dae579185",
+      "bytes": 89651,
+      "mode": 292
+    },
+    "before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": {
+      "sha256": "d1fc679580426035fddf44b5f8052c3e6448e6bb9c0bced04578060a01647278",
+      "bytes": 10693,
+      "mode": 292
+    },
+    "before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": {
+      "sha256": "4cc849214db797cec536497cd1e9c0244d379bec232e570360f16353ede26332",
+      "bytes": 88242,
+      "mode": 292
+    },
+    "before/uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": {
+      "sha256": "dfa724ef1614e1d5913e2c4b4b0871fefc6220704802c34efd06234277232096",
+      "bytes": 50283,
+      "mode": 292
+    },
+    "before/uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": {
+      "sha256": "690d75a66bf474c9ad79d3c52d2dd62a4558e4fd2d719d7678723518ec017194",
+      "bytes": 33234,
+      "mode": 292
+    },
+    "before/uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": {
+      "sha256": "d51e63fcd8477a29be63ecdfca66ad19e1cb053981615771119bf1b8919be02c",
+      "bytes": 15729,
+      "mode": 292
+    },
+    "before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "sha256": "35e02b511a123a20ea04eb7e7611de8fd7aa311811db74faae04866dae579185",
+      "bytes": 89651,
+      "mode": 292
+    },
+    "before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": {
+      "sha256": "d1fc679580426035fddf44b5f8052c3e6448e6bb9c0bced04578060a01647278",
+      "bytes": 10693,
+      "mode": 292
+    },
+    "before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": {
+      "sha256": "4cc849214db797cec536497cd1e9c0244d379bec232e570360f16353ede26332",
+      "bytes": 88242,
+      "mode": 292
+    },
+    "before/uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": {
+      "sha256": "dfa724ef1614e1d5913e2c4b4b0871fefc6220704802c34efd06234277232096",
+      "bytes": 50283,
+      "mode": 292
+    },
+    "before/uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": {
+      "sha256": "690d75a66bf474c9ad79d3c52d2dd62a4558e4fd2d719d7678723518ec017194",
+      "bytes": 33234,
+      "mode": 292
+    },
+    "before/uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": {
+      "sha256": "d51e63fcd8477a29be63ecdfca66ad19e1cb053981615771119bf1b8919be02c",
+      "bytes": 15729,
+      "mode": 292
+    },
+    "before-edit-sha256.json": {
+      "sha256": "947644d3d0719f4239947e6de7cc3542fe0c128acdff33847b7fa75a3ad466b5",
+      "bytes": 1663,
+      "mode": 292
+    },
+    "guard-analysis-compile-v1.json": {
+      "sha256": "aa3cebb65d2967ec91f1ea2d90f5e6a30cf0648789af235b718e98ffd5cd4ac2",
+      "bytes": 1374,
+      "mode": 292
+    },
+    "guard-analysis-compile-v2.json": {
+      "sha256": "c0567507dc26a88a192f08148ecd8dde24339cadd669cd81dd0f166eb19e6c20",
+      "bytes": 37012,
+      "mode": 292
+    },
+    "guard_analysis_compile-attempt-v1.py": {
+      "sha256": "15c82cca0d5833a38ee1d58957264816d9c3985ff5e7c08508b92df6b94cad6e",
+      "bytes": 6660,
+      "mode": 292
+    },
+    "guard_analysis_compile.py": {
+      "sha256": "c5a106ea7a92f2cfe6e7a9832fa2f9332ef68183367c0ff838310d8f8643495e",
+      "bytes": 6660,
+      "mode": 292
+    },
+    "owned-source-changes.patch": {
+      "sha256": "006998299e1872c2d95d5b702238020d505f72b0f352c45ebad211062b149796",
+      "bytes": 77228,
+      "mode": 292
+    },
+    "pending-native-indirect-cases.json": {
+      "sha256": "021eaba13bc35bb6ce2ff92390ebe6f971e3d0a1ccd44fd6cff74bc6b6eada9a",
+      "bytes": 14110,
+      "mode": 292
+    },
+    "r36-storage-final.json": {
+      "sha256": "e9c767505d78bc8d030b629dce8b7e60da890557cf6db87dea9b24d5f095a00f",
+      "bytes": 1049,
+      "mode": 292
+    },
+    "r36-storage-path-sum-initial.json": {
+      "sha256": "0ba87b7bd776c48c17b1293920f29778bbf9171950a750f521318aa49286fc21",
+      "bytes": 591,
+      "mode": 292
+    },
+    "syntax-overlay-v1.json": {
+      "sha256": "2579e98c54ca9e9b5d4e3822d0421ad0b8b34ab03415a4c9127dfa65ee224d2b",
+      "bytes": 2895,
+      "mode": 292
+    },
+    "syntax-overlay-v1.tar.gz": {
+      "sha256": "70dc94edcce79c5b6c7d9b47d3088c9e7110ce1b88b63d30ff9d2db0f3e9102e",
+      "bytes": 152073,
+      "mode": 292
+    },
+    "uwvm2-debug_checkpoint_indirect_retirement_cohort-assemble.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 292
+    },
+    "uwvm2-debug_checkpoint_indirect_retirement_cohort-validate.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 292
+    },
+    "uwvm2-debug_checkpoint_indirect_retirement_cohort.wasm": {
+      "sha256": "6d6bad55cde4c1930bf3db6e4b886ed764a7befb5625709628a49a0b50296664",
+      "bytes": 1018,
+      "mode": 292
+    },
+    "uwvm2-debug_wasip1_indirect_prepared_retirement-assemble.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 292
+    },
+    "uwvm2-debug_wasip1_indirect_prepared_retirement-validate.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 292
+    },
+    "uwvm2-debug_wasip1_indirect_prepared_retirement.wasm": {
+      "sha256": "c66c3919fface88a493566ca9ddec3c514d8489b27bbc5daf1b53b7b94f90426",
+      "bytes": 823,
+      "mode": 292
+    },
+    "uwvm2-freebsd-runtime-v2.log": {
+      "sha256": "9e1da97d6e111f3c67ec63ba3f2c3d249bcdbc07f659ce85d475566ff38fe9da",
+      "bytes": 4336,
+      "mode": 292
+    },
+    "uwvm2-linux-core-v2.log": {
+      "sha256": "d4bd98bd90cc376836238bd4b28727394cdcc237a66d8ffc887eea66a5f887d6",
+      "bytes": 2664,
+      "mode": 292
+    },
+    "uwvm2-linux-runtime-v2.log": {
+      "sha256": "9bc876026b679135d8351e669f2fd994c6b7e91e3e9f8751f27aa5e1f66a2c21",
+      "bytes": 4232,
+      "mode": 292
+    },
+    "uwvm2-linux-wasip1-v2.log": {
+      "sha256": "cbb8ee8fb7fb3c60293ac43ca2faa145e8ede508a005945f0116e3dedfb0798a",
+      "bytes": 2660,
+      "mode": 292
+    },
+    "uwvm2-macos-runtime-v2.log": {
+      "sha256": "9bc876026b679135d8351e669f2fd994c6b7e91e3e9f8751f27aa5e1f66a2c21",
+      "bytes": 4232,
+      "mode": 292
+    },
+    "uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-assemble.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 292
+    },
+    "uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-validate.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 292
+    },
+    "uwvm2-ros-debug_checkpoint_indirect_retirement_cohort.wasm": {
+      "sha256": "6d6bad55cde4c1930bf3db6e4b886ed764a7befb5625709628a49a0b50296664",
+      "bytes": 1018,
+      "mode": 292
+    },
+    "uwvm2-ros-debug_wasip1_indirect_prepared_retirement-assemble.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 292
+    },
+    "uwvm2-ros-debug_wasip1_indirect_prepared_retirement-validate.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 292
+    },
+    "uwvm2-ros-debug_wasip1_indirect_prepared_retirement.wasm": {
+      "sha256": "c66c3919fface88a493566ca9ddec3c514d8489b27bbc5daf1b53b7b94f90426",
+      "bytes": 823,
+      "mode": 292
+    },
+    "uwvm2-ros-freebsd-runtime-v2.log": {
+      "sha256": "a9f3ca3bc6255ab4c7f21576ff9e5dd9a5e25ea05ca0560219df71e89680b1b7",
+      "bytes": 3028,
+      "mode": 292
+    },
+    "uwvm2-ros-linux-core-v2.log": {
+      "sha256": "27c7fc4e1d0aff1471c275d659c4384489bdd1ee1d1aede635c91ec66594829e",
+      "bytes": 2696,
+      "mode": 292
+    },
+    "uwvm2-ros-linux-runtime-v2.log": {
+      "sha256": "d42fe3676603a81c8e376fe586ef2e3e0bd344122dc7a28d5e69d70774dc1583",
+      "bytes": 2924,
+      "mode": 292
+    },
+    "uwvm2-ros-linux-wasip1-v2.log": {
+      "sha256": "f28d3e5111104c7535708d47ec752440dfafb933ed16836c5a002f3f1b97b5d7",
+      "bytes": 2692,
+      "mode": 292
+    },
+    "uwvm2-ros-macos-runtime-v2.log": {
+      "sha256": "d42fe3676603a81c8e376fe586ef2e3e0bd344122dc7a28d5e69d70774dc1583",
+      "bytes": 2924,
+      "mode": 292
+    },
+    "uwvm2-ros-windows-runtime-v2.log": {
+      "sha256": "792653420d939950bfa4531cc2dc2ed3ddae6fa89f0ce21aafd19f35a563a5d1",
+      "bytes": 3238,
+      "mode": 292
+    },
+    "uwvm2-windows-runtime-v2.log": {
+      "sha256": "258e21e1ad08a14ea6cc5990cb6afaf719fd4d10a2fb2cd78bdfd230c4a712ee",
+      "bytes": 4546,
+      "mode": 292
+    },
+    "wasip1_indirect_bindings_r36_test_report.json": {
+      "sha256": "29a3b90f149713e187dc7748cbf29adc4048fdb22f950a4a725ec8942428507f",
+      "bytes": 93576,
+      "mode": 292
+    },
+    "wasip1_indirect_bindings_r36_test_report.md": {
+      "sha256": "275996d7bee8bb21f80e0e42228683702dd32b524aa56cea7a5a0918c089ab8c",
+      "bytes": 3146,
+      "mode": 292
+    },
+    "wasm-fixture-validation.json": {
+      "sha256": "047337ff3ae3c5c1789edc35c148b6cb00ea336f830d2ec4e5fe9cdfe0ff1664",
+      "bytes": 7650,
+      "mode": 292
+    },
+    "write_report.py": {
+      "sha256": "8ac4c22fcc02b9efc95eb6306e57321bb80b79e5c1611b4a5192f2a0a8538ca9",
+      "bytes": 6072,
+      "mode": 292
+    }
+  },
+  "source_manifest_sha256": "2579e98c54ca9e9b5d4e3822d0421ad0b8b34ab03415a4c9127dfa65ee224d2b",
+  "passed_source_analysis": true,
+  "actual_native_runtime_runs": 0
+}

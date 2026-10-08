@@ -1,0 +1,277 @@
+[
+  {
+    "label": "report",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-report-r29.py",
+      "joint-report-r29"
+    ],
+    "exit": 0,
+    "seconds": 48.86931375000131
+  },
+  {
+    "label": "storage",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-storage-r29.py",
+      "joint-storage-r29"
+    ],
+    "exit": 1,
+    "seconds": 0.23859100000117905
+  },
+  {
+    "label": "storage",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-storage-r29.py",
+      "joint-storage-r29"
+    ],
+    "exit": 0,
+    "seconds": 48.66696362499897
+  },
+  {
+    "label": "fetch-world-install-final-qualified.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/world-install-final-qualified.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/world-install-final-qualified.json"
+    ],
+    "exit": 0,
+    "seconds": 0.1933898750012304
+  },
+  {
+    "label": "fetch-final-storage-qualified.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/final-storage-qualified.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/final-storage-qualified.json"
+    ],
+    "exit": 0,
+    "seconds": 0.17634179199922073
+  },
+  {
+    "label": "fetch-input-freeze-qualified.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/input-freeze-qualified.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/input-freeze-qualified.json"
+    ],
+    "exit": 0,
+    "seconds": 0.17458574999909615
+  },
+  {
+    "label": "fetch-historical-products-hot-retirement.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/historical-products-hot-retirement.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/historical-products-hot-retirement.json"
+    ],
+    "exit": 0,
+    "seconds": 0.17776091700034158
+  },
+  {
+    "label": "fetch-source-fixture-observer-correction.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/source-fixture-observer-correction.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/source-fixture-observer-correction.json"
+    ],
+    "exit": 0,
+    "seconds": 0.17987854199964204
+  },
+  {
+    "label": "fetch-guard-joint-report-r29.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-report-r29.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/guard-joint-report-r29.json"
+    ],
+    "exit": 0,
+    "seconds": 0.174910000001546
+  },
+  {
+    "label": "fetch-guard-joint-storage-r29.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-storage-r29.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/guard-joint-storage-r29.json"
+    ],
+    "exit": 0,
+    "seconds": 0.16680666700085567
+  },
+  {
+    "label": "fetch-guard-joint-historical-retire-r29.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-historical-retire-r29.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/guard-joint-historical-retire-r29.json"
+    ],
+    "exit": 0,
+    "seconds": 0.1603057499996794
+  },
+  {
+    "label": "fetch-storage-policy.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/storage-policy.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/storage-policy.json"
+    ],
+    "exit": 0,
+    "seconds": 0.1651949590013828
+  },
+  {
+    "label": "fetch-cold-storage-qualification.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-r27-owned-cold-evidence/qualification.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/cold-storage-qualification.json"
+    ],
+    "exit": 0,
+    "seconds": 0.1796581669987063
+  },
+  {
+    "label": "fetch-active-environment-final-r29.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-active-environment.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/active-environment-final-r29.json"
+    ],
+    "exit": 0,
+    "seconds": 0.17557791699982772
+  },
+  {
+    "label": "fetch-uwvm2-macos-product-retirement.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/uwvm2-macos-product-retirement.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/uwvm2-macos-product-retirement.json"
+    ],
+    "exit": 0,
+    "seconds": 0.17745300000024145
+  },
+  {
+    "label": "fetch-uwvm2-ros-macos-product-retirement.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/uwvm2-ros-macos-product-retirement.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/uwvm2-ros-macos-product-retirement.json"
+    ],
+    "exit": 0,
+    "seconds": 0.1649149579989171
+  },
+  {
+    "label": "prepare-local-delivery",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/prepare_delivery.py"
+    ],
+    "exit": 0,
+    "seconds": 0.7242931670007238
+  },
+  {
+    "label": "stage-delivery",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "-r",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/delivery",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/"
+    ],
+    "exit": 0,
+    "seconds": 0.3030009579997568
+  },
+  {
+    "label": "qualify-delivery",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-delivery-r29.py",
+      "joint-delivery-r29"
+    ],
+    "exit": 0,
+    "seconds": 47.00834166700042
+  },
+  {
+    "label": "fetch-delivery-metadata-receipt.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/delivery-metadata-receipt.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/delivery-metadata-receipt.json"
+    ],
+    "exit": 0,
+    "seconds": 0.1693817499999568
+  },
+  {
+    "label": "fetch-delivery-metadata.tar.gz",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/delivery-metadata.tar.gz",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/delivery-metadata.tar.gz"
+    ],
+    "exit": 0,
+    "seconds": 0.2035132919991156
+  },
+  {
+    "label": "fetch-guard-joint-delivery-r29.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-delivery-r29.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/guard-joint-delivery-r29.json"
+    ],
+    "exit": 0,
+    "seconds": 0.1754803340008948
+  }
+]

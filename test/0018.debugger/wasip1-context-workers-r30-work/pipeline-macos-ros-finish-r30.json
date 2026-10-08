@@ -1,0 +1,55 @@
+[
+  {
+    "label": "native-uwvm2-ros",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos_native.py",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 17.385784207999677
+  },
+  {
+    "label": "native-evidence-transfer-uwvm2-ros",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/uwvm2-ros-macos-native-evidence.tar.gz",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/uwvm2-ros-macos-native-evidence.json",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/"
+    ],
+    "exit": 0,
+    "seconds": 0.1653550829978485
+  },
+  {
+    "label": "archive-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r30.py",
+      "joint-archive-r30",
+      "macos",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 82.59582262500044
+  },
+  {
+    "label": "cold-uwvm2-ros",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/rehome_product.py",
+      "macos",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 73.79211149999901
+  }
+]

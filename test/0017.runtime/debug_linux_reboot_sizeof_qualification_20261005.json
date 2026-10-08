@@ -1,0 +1,4759 @@
+{
+  "date": "2026-10-05",
+  "scope": "finite read-only conditional/sizeof source expressions; reboot recovery and real language regressions",
+  "current_feature_qualified": true,
+  "all_native_capabilities_implemented": false,
+  "full_native_language_parity": false,
+  "full_cross_arch_product_parity": false,
+  "cgroup": {
+    "path": "/sys/fs/cgroup/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope",
+    "boot_id": "fe09fe71-9493-4b3c-9295-694bcadeee5f",
+    "memory_max_bytes": 68719476736,
+    "swap_max_bytes": 0,
+    "cpuset_cpus_effective": "0,2,4,6,16-31",
+    "restored_original_container": true,
+    "container_init_pid": 9593,
+    "container_init_birthtick": 18401,
+    "memory_events_final": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "restoration_record": {
+      "path": "/tmp/uwvm2-language-resume-20261005-a1/cgroup-restoration.json",
+      "sha256": "fa7fe3fcf64fa5ef9ad4ded5821a591df7e236a9433cf29374ffd7d6b3ea14f9",
+      "bytes": 858
+    }
+  },
+  "test_protection": "All compiler/version/VM/QEMU/test work used original PIDFD supervisors in the original 64GiB Linux cgroup; limits were retained; no foreign task process signalled.",
+  "production_IO": "Existing fast_io paths retained; this change adds metadata evaluation and no new I/O backend.",
+  "ASM_VM_or_host_authority_added": false,
+  "source_cuts": {
+    "uwvm2": {
+      "source_id": "sha256:769f70f26c95663c86db398a9a4dfe9f92c3a8e0e3c40898bf0531c9429844bd",
+      "frozen_production_include_files_after_unchanged": true,
+      "pinned_production_include_file_count": 3138,
+      "frozen_all_files_after_unchanged": true,
+      "pinned_all_file_count": 4337
+    },
+    "uwvm2-ros": {
+      "source_id": "sha256:ff68e598da424ca95c7af82d05f80bc19ea624eee6b59b7807053c020b43e188",
+      "frozen_production_include_files_after_unchanged": true,
+      "pinned_production_include_file_count": 3077,
+      "frozen_all_files_after_unchanged": true,
+      "pinned_all_file_count": 4248
+    }
+  },
+  "fresh_products": {
+    "uwvm2": {
+      "source_id": "sha256:769f70f26c95663c86db398a9a4dfe9f92c3a8e0e3c40898bf0531c9429844bd",
+      "binary": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/product-a1/uwvm2-main",
+      "binary_sha256": "1aa39027a0ba5b7852752bd490201f8a32979e57728346cc3212ac872906e38a",
+      "SDK_record_sha256": "4a77c7e05578fd7ca4085079b559933634ebdb6467fbd7e1a01865d307585b40",
+      "new_objects_only": true,
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/product-a1/build-record.json",
+        "sha256": "25b47d96ca20f77b574d7e7fdca5f9e5b7070050a19c25f2a6205b926b4e529f",
+        "bytes": 4665904
+      }
+    },
+    "uwvm2-ros": {
+      "source_id": "sha256:ff68e598da424ca95c7af82d05f80bc19ea624eee6b59b7807053c020b43e188",
+      "binary": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2-ros/product-a1/uwvm2-main",
+      "binary_sha256": "1129ba24fa58c73dd026f6477a564e35eb011a92e6205d74bec6aded8376d735",
+      "SDK_record_sha256": "4a77c7e05578fd7ca4085079b559933634ebdb6467fbd7e1a01865d307585b40",
+      "new_objects_only": true,
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2-ros/product-a1/build-record.json",
+        "sha256": "599d3e34ae85dedaf1b722ac20d91cc12e5456112a6b584a66761ca804d2bdf3",
+        "bytes": 4676651
+      }
+    }
+  },
+  "supervision": {
+    "control-products-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-products-a1/receipts.json",
+        "sha256": "3cc9e903bf67b4668b87cfc38027d814d421c3fb13c4291ea446348b90844d65",
+        "bytes": 317882
+      },
+      "rows": [
+        {
+          "label": "uwvm2-product-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 7073140736,
+          "wall_seconds": 321.8910542409999,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "d91edb1cb66e46ec127b7ae9699a8882efe0402ee2d4a281e12585f8acc60efc",
+          "log_sha256": "888455c4b6a52b6ef67c64a963298f31df0b0541464411734314ccf1cfbff1ec",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 56050,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 6
+        },
+        {
+          "label": "uwvm2-ros-product-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 5691244544,
+          "wall_seconds": 218.8346131300002,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "d91edb1cb66e46ec127b7ae9699a8882efe0402ee2d4a281e12585f8acc60efc",
+          "log_sha256": "b1bc5c90daed4dc2895b4bf26f9ea4ed30c85ac070a8bedef2dec1a4cf0f653f",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 83041,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 6
+        }
+      ]
+    },
+    "control-x86-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-x86-a1/receipts.json",
+        "sha256": "a10cf0908dbe5661abe1a4fd46da8ccc96ccb6a9b9129d9d5eddf0d45dc5bc44",
+        "bytes": 197777
+      },
+      "rows": [
+        {
+          "label": "sizeof-x8664-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 739090432,
+          "wall_seconds": 140.641377315,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "2adac6b7b4ff6dff3d50a06956f4306677a94e684039fb36118285e7d7082cf5",
+          "log_sha256": "72a03367aa9e41a7c76f443fb4a69f704eaf2d604166ccd424270e3fdf9c79e8",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 37756,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 20
+        }
+      ]
+    },
+    "control-qemu-a": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-qemu-a/receipts.json",
+        "sha256": "e57d0591744d9e0c66967a7469a94d8359f828373694d97215fb9013907aa2be",
+        "bytes": 1314821
+      },
+      "rows": [
+        {
+          "label": "sizeof-qemu-aarch64-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 741163008,
+          "wall_seconds": 129.39093581199995,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "78a8e93bff2e1e54a853c54b396cab51f04849e8c68ff60a96207d77506b3d12",
+          "log_sha256": "2a2a1606245589651db83199898d8b77036dd4acfb1352548db02d6266d2eca4",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 53690,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 18
+        },
+        {
+          "label": "sizeof-qemu-i686-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 738074624,
+          "wall_seconds": 113.79045015299994,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "78a8e93bff2e1e54a853c54b396cab51f04849e8c68ff60a96207d77506b3d12",
+          "log_sha256": "6f6e0434097fe1375e2b2dcb3ea60da5cae5c78552c6630df7837322bd8041b1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 65799,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 17
+        },
+        {
+          "label": "sizeof-qemu-riscv64-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 739000320,
+          "wall_seconds": 113.06907044000013,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "78a8e93bff2e1e54a853c54b396cab51f04849e8c68ff60a96207d77506b3d12",
+          "log_sha256": "1a48f162377b28916880959649b202a578045b8402aef080a2cecb3db1235303",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 78345,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 20
+        },
+        {
+          "label": "sizeof-qemu-ppc64-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 743460864,
+          "wall_seconds": 100.5292023720001,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "78a8e93bff2e1e54a853c54b396cab51f04849e8c68ff60a96207d77506b3d12",
+          "log_sha256": "b94da2b3068f4b5a2df07a07e5c8c0f6ae931a88677a20cefebaefeb91f8f5bd",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 81630,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 20
+        },
+        {
+          "label": "sizeof-qemu-ppc64le-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 735875072,
+          "wall_seconds": 90.23369757599994,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "78a8e93bff2e1e54a853c54b396cab51f04849e8c68ff60a96207d77506b3d12",
+          "log_sha256": "9600b4993de6f6c3154392f0333c572402c6b2371228f084c8e4ffb91d93fcd0",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 84480,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 16
+        },
+        {
+          "label": "sizeof-qemu-ppc32-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 732495872,
+          "wall_seconds": 90.84043863599982,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "78a8e93bff2e1e54a853c54b396cab51f04849e8c68ff60a96207d77506b3d12",
+          "log_sha256": "e948dc8ac5a8d019fe538cfc738dde55769ee2a086470f93695d71a8b424547f",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 89316,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 16
+        },
+        {
+          "label": "sizeof-qemu-mips64-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 732803072,
+          "wall_seconds": 84.3804246740001,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "78a8e93bff2e1e54a853c54b396cab51f04849e8c68ff60a96207d77506b3d12",
+          "log_sha256": "c020623bbe0b3737c87c3131f61e51aff860d9de674296dbfce7df2414d90395",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 92030,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 17
+        },
+        {
+          "label": "sizeof-qemu-mips64el-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 732839936,
+          "wall_seconds": 84.37115235600004,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "78a8e93bff2e1e54a853c54b396cab51f04849e8c68ff60a96207d77506b3d12",
+          "log_sha256": "9860e7cf7b598fc8a44dd89441682096561654cb60394a3f5fa4f87967ec82af",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 95577,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 16
+        }
+      ]
+    },
+    "control-qemu-b": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-qemu-b/receipts.json",
+        "sha256": "5ed0959c13f80e6c35ceaa2f2fd363697cd9315c0f57290e66bb2b6951f1afd4",
+        "bytes": 1087745
+      },
+      "rows": [
+        {
+          "label": "sizeof-qemu-mips32-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 728076288,
+          "wall_seconds": 114.25235251499998,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "a707b2d2c9dd37fa80ea0d553030fb752b9345adab9d37546c38fbf252a3dba8",
+          "log_sha256": "c6e264058824731328e15fa591f71fe57465703a19304c3ca5732644e0e3a740",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 53691,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 18
+        },
+        {
+          "label": "sizeof-qemu-mips32el-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 728342528,
+          "wall_seconds": 108.84713992100001,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "a707b2d2c9dd37fa80ea0d553030fb752b9345adab9d37546c38fbf252a3dba8",
+          "log_sha256": "788698d3fb041d6f046a591cc1ff1fe8a1b2bfe444ae8a4f75b465e595eb6a3b",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 65264,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 19
+        },
+        {
+          "label": "sizeof-qemu-sparc64-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 736370688,
+          "wall_seconds": 111.036040921,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "a707b2d2c9dd37fa80ea0d553030fb752b9345adab9d37546c38fbf252a3dba8",
+          "log_sha256": "d4a8e9ec2d3514da54f33bac0b78b1d782c9b60c9c84185c5a8ec6a9a413dd42",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 77417,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 22
+        },
+        {
+          "label": "sizeof-qemu-loongarch64-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 737484800,
+          "wall_seconds": 102.4810353989999,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "a707b2d2c9dd37fa80ea0d553030fb752b9345adab9d37546c38fbf252a3dba8",
+          "log_sha256": "017c25e2180546e780905a3d94e38dc1223e9c8c4112e7be0745c59f96449e61",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 80973,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 18
+        },
+        {
+          "label": "sizeof-qemu-s390x-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 744927232,
+          "wall_seconds": 90.86195787499992,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "a707b2d2c9dd37fa80ea0d553030fb752b9345adab9d37546c38fbf252a3dba8",
+          "log_sha256": "71da821a902788092444dbd4754ff58615300a46f9c5b9a6802c6fd61090858c",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 83676,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 18
+        },
+        {
+          "label": "sizeof-qemu-armhf-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 730148864,
+          "wall_seconds": 89.43717642300021,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "a707b2d2c9dd37fa80ea0d553030fb752b9345adab9d37546c38fbf252a3dba8",
+          "log_sha256": "bdd2e19b8287eedaa4573bdef1f6bae5e6c9e24c673f3ff7283261a836ff30a3",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 88583,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 17
+        },
+        {
+          "label": "sizeof-qemu-armel-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 728821760,
+          "wall_seconds": 87.47263343500026,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "a707b2d2c9dd37fa80ea0d553030fb752b9345adab9d37546c38fbf252a3dba8",
+          "log_sha256": "5d3eae826bdccab32d0b92d1e062962acf8a506ed0331b7430e6be3e42a199e3",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 91544,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 16
+        }
+      ]
+    },
+    "control-dap-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-dap-a1/receipts.json",
+        "sha256": "4355a4c61da9f87adc15def93df462638052032d73ee08077526babf2fecef39",
+        "bytes": 16260
+      },
+      "rows": [
+        {
+          "label": "uwvm2-dap-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 42577920,
+          "wall_seconds": 0.7816578849999587,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "8cc5fc1fbc759fac3c6ce923a77a89a196127932b205f2efe52b17e47a7ec851",
+          "log_sha256": "2686d8d62539aeaa1bdf4f8a1b58b5ffaa9ac0732ef022b73ddca3a9d5fd2815",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 37990,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-ros-dap-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 42541056,
+          "wall_seconds": 0.791733387000022,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "8cc5fc1fbc759fac3c6ce923a77a89a196127932b205f2efe52b17e47a7ec851",
+          "log_sha256": "25e9f4d75a329060409ccb185fb8854b4f89b0162a3672096f376aceb37af646",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 38098,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        }
+      ]
+    },
+    "control-uwvm2-numeric-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-uwvm2-numeric-a1/receipts.json",
+        "sha256": "9fc985fb391ac2e1d9811426f4122570be443e73e14c5022e499d6501d27d109",
+        "bytes": 165790
+      },
+      "rows": [
+        {
+          "label": "uwvm2-c-32-instruction-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 205185024,
+          "wall_seconds": 0.9760810349998792,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1d87ee95dea05a5ab5ac377c89f69ae3567d745989646ff976195e366a929467",
+          "log_sha256": "6a47ceda4a2dc51265b7df1dc188fb7500b4e9a2344af04aec175739366a248f",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 87479,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-c-32-unwind-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 200220672,
+          "wall_seconds": 0.8781642349999856,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1d87ee95dea05a5ab5ac377c89f69ae3567d745989646ff976195e366a929467",
+          "log_sha256": "6a47ceda4a2dc51265b7df1dc188fb7500b4e9a2344af04aec175739366a248f",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 87587,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-c-64-instruction-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204726272,
+          "wall_seconds": 0.9789741540000705,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1d87ee95dea05a5ab5ac377c89f69ae3567d745989646ff976195e366a929467",
+          "log_sha256": "6a47ceda4a2dc51265b7df1dc188fb7500b4e9a2344af04aec175739366a248f",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 87739,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-c-64-unwind-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204726272,
+          "wall_seconds": 0.9816171980000945,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1d87ee95dea05a5ab5ac377c89f69ae3567d745989646ff976195e366a929467",
+          "log_sha256": "6a47ceda4a2dc51265b7df1dc188fb7500b4e9a2344af04aec175739366a248f",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 87850,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-cpp-32-instruction-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 165376000,
+          "wall_seconds": 0.9801162979999845,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1d87ee95dea05a5ab5ac377c89f69ae3567d745989646ff976195e366a929467",
+          "log_sha256": "563175b47f142112289d6b9a3d96a79830a739f005b85b9f818ab3fcee521603",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 88115,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-cpp-32-unwind-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 164397056,
+          "wall_seconds": 0.9760881839999911,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1d87ee95dea05a5ab5ac377c89f69ae3567d745989646ff976195e366a929467",
+          "log_sha256": "563175b47f142112289d6b9a3d96a79830a739f005b85b9f818ab3fcee521603",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 88229,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-cpp-64-instruction-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204742656,
+          "wall_seconds": 0.9772369780000645,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1d87ee95dea05a5ab5ac377c89f69ae3567d745989646ff976195e366a929467",
+          "log_sha256": "563175b47f142112289d6b9a3d96a79830a739f005b85b9f818ab3fcee521603",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 88345,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-cpp-64-unwind-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204689408,
+          "wall_seconds": 0.9782214169999861,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1d87ee95dea05a5ab5ac377c89f69ae3567d745989646ff976195e366a929467",
+          "log_sha256": "563175b47f142112289d6b9a3d96a79830a739f005b85b9f818ab3fcee521603",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 88477,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-objc-32-instruction-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204689408,
+          "wall_seconds": 2.094102239999984,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1d87ee95dea05a5ab5ac377c89f69ae3567d745989646ff976195e366a929467",
+          "log_sha256": "768e71a8c816a8efaccfb28532aa3f20206fe8ed3935e0224dc7dc3654a6b601",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 88695,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-objc-32-unwind-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204681216,
+          "wall_seconds": 2.095466432999956,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1d87ee95dea05a5ab5ac377c89f69ae3567d745989646ff976195e366a929467",
+          "log_sha256": "768e71a8c816a8efaccfb28532aa3f20206fe8ed3935e0224dc7dc3654a6b601",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 88816,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-rust-32-instruction-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 205402112,
+          "wall_seconds": 2.398470687999861,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1d87ee95dea05a5ab5ac377c89f69ae3567d745989646ff976195e366a929467",
+          "log_sha256": "112acb0aa33ed277944212fb0559387c7935d4ac92f44e0594fa81cafd4dc2c4",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 88951,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-rust-32-unwind-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 205393920,
+          "wall_seconds": 2.408376199000031,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1d87ee95dea05a5ab5ac377c89f69ae3567d745989646ff976195e366a929467",
+          "log_sha256": "112acb0aa33ed277944212fb0559387c7935d4ac92f44e0594fa81cafd4dc2c4",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 89071,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        }
+      ]
+    },
+    "control-uwvm2-ros-numeric-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-uwvm2-ros-numeric-a1/receipts.json",
+        "sha256": "4ebaeb5d76da6a7e8f5981aa0307ce5bdb769444d8ff507e503245db66765499",
+        "bytes": 165561
+      },
+      "rows": [
+        {
+          "label": "uwvm2-ros-c-32-instruction-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 171241472,
+          "wall_seconds": 0.9225481369999216,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "a510647c037fe0e79032d609b85d590281c6fff485ab5e93c644114ca8237b2f",
+          "log_sha256": "6a47ceda4a2dc51265b7df1dc188fb7500b4e9a2344af04aec175739366a248f",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 92375,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-c-32-unwind-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 170299392,
+          "wall_seconds": 0.8748443690001295,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "a510647c037fe0e79032d609b85d590281c6fff485ab5e93c644114ca8237b2f",
+          "log_sha256": "6a47ceda4a2dc51265b7df1dc188fb7500b4e9a2344af04aec175739366a248f",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 92644,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-c-64-instruction-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 161353728,
+          "wall_seconds": 0.8748746209998899,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "a510647c037fe0e79032d609b85d590281c6fff485ab5e93c644114ca8237b2f",
+          "log_sha256": "6a47ceda4a2dc51265b7df1dc188fb7500b4e9a2344af04aec175739366a248f",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 92791,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-c-64-unwind-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 156680192,
+          "wall_seconds": 0.8755476440001075,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "a510647c037fe0e79032d609b85d590281c6fff485ab5e93c644114ca8237b2f",
+          "log_sha256": "6a47ceda4a2dc51265b7df1dc188fb7500b4e9a2344af04aec175739366a248f",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 92904,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-cpp-32-instruction-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 170299392,
+          "wall_seconds": 0.8728531949996068,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "a510647c037fe0e79032d609b85d590281c6fff485ab5e93c644114ca8237b2f",
+          "log_sha256": "563175b47f142112289d6b9a3d96a79830a739f005b85b9f818ab3fcee521603",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 93010,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-cpp-32-unwind-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 170307584,
+          "wall_seconds": 0.8761411750001571,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "a510647c037fe0e79032d609b85d590281c6fff485ab5e93c644114ca8237b2f",
+          "log_sha256": "563175b47f142112289d6b9a3d96a79830a739f005b85b9f818ab3fcee521603",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 93126,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-cpp-64-instruction-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 158507008,
+          "wall_seconds": 0.8745365469999342,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "a510647c037fe0e79032d609b85d590281c6fff485ab5e93c644114ca8237b2f",
+          "log_sha256": "563175b47f142112289d6b9a3d96a79830a739f005b85b9f818ab3fcee521603",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 93261,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-cpp-64-unwind-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 166440960,
+          "wall_seconds": 0.8771792769998683,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "a510647c037fe0e79032d609b85d590281c6fff485ab5e93c644114ca8237b2f",
+          "log_sha256": "563175b47f142112289d6b9a3d96a79830a739f005b85b9f818ab3fcee521603",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 93382,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-objc-32-instruction-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 143224832,
+          "wall_seconds": 1.8895984609998777,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "a510647c037fe0e79032d609b85d590281c6fff485ab5e93c644114ca8237b2f",
+          "log_sha256": "768e71a8c816a8efaccfb28532aa3f20206fe8ed3935e0224dc7dc3654a6b601",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 93489,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-objc-32-unwind-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 127217664,
+          "wall_seconds": 1.894666695000069,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "a510647c037fe0e79032d609b85d590281c6fff485ab5e93c644114ca8237b2f",
+          "log_sha256": "768e71a8c816a8efaccfb28532aa3f20206fe8ed3935e0224dc7dc3654a6b601",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 93632,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-rust-32-instruction-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 136364032,
+          "wall_seconds": 2.2930709779998324,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "a510647c037fe0e79032d609b85d590281c6fff485ab5e93c644114ca8237b2f",
+          "log_sha256": "112acb0aa33ed277944212fb0559387c7935d4ac92f44e0594fa81cafd4dc2c4",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 93744,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-rust-32-unwind-numeric-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 155017216,
+          "wall_seconds": 2.2919946580000214,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "a510647c037fe0e79032d609b85d590281c6fff485ab5e93c644114ca8237b2f",
+          "log_sha256": "112acb0aa33ed277944212fb0559387c7935d4ac92f44e0594fa81cafd4dc2c4",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 93884,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        }
+      ]
+    },
+    "control-break-seed-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-break-seed-a1/receipts.json",
+        "sha256": "b6a3bb6d0fee9d28883407c59bf103b3d6ed2e38a695eaf83029d2364469e3ad",
+        "bytes": 105875
+      },
+      "rows": [
+        {
+          "label": "uwvm2-c-32-instruction-source-break-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 203689984,
+          "wall_seconds": 0.9251158649999525,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "140e98b89000a224e5c61c2e2d3aced5c51274a0f2c4fbd6eabe9d70e83ec93f",
+          "log_sha256": "1a76504c44315b6452889bfef1bdaacfd310f8f99093e4a6972711280e756a49",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 94335,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-c-32-unwind-source-break-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204173312,
+          "wall_seconds": 0.9254711569997198,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "140e98b89000a224e5c61c2e2d3aced5c51274a0f2c4fbd6eabe9d70e83ec93f",
+          "log_sha256": "1a76504c44315b6452889bfef1bdaacfd310f8f99093e4a6972711280e756a49",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 94446,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-cpp-32-instruction-source-break-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204169216,
+          "wall_seconds": 0.8768688800000746,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "140e98b89000a224e5c61c2e2d3aced5c51274a0f2c4fbd6eabe9d70e83ec93f",
+          "log_sha256": "af553d3495ce0612a6d2edb3676a367bda58060d7265e7ef83152b5b610d39cb",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 94558,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-cpp-32-unwind-source-break-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 203694080,
+          "wall_seconds": 0.876328010999714,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "140e98b89000a224e5c61c2e2d3aced5c51274a0f2c4fbd6eabe9d70e83ec93f",
+          "log_sha256": "af553d3495ce0612a6d2edb3676a367bda58060d7265e7ef83152b5b610d39cb",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 94670,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-c-32-instruction-source-break-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 169738240,
+          "wall_seconds": 0.8754269799997019,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "140e98b89000a224e5c61c2e2d3aced5c51274a0f2c4fbd6eabe9d70e83ec93f",
+          "log_sha256": "1a76504c44315b6452889bfef1bdaacfd310f8f99093e4a6972711280e756a49",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 94785,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-c-32-unwind-source-break-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 169684992,
+          "wall_seconds": 0.8763710700000047,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "140e98b89000a224e5c61c2e2d3aced5c51274a0f2c4fbd6eabe9d70e83ec93f",
+          "log_sha256": "1a76504c44315b6452889bfef1bdaacfd310f8f99093e4a6972711280e756a49",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 94891,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-cpp-32-instruction-source-break-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 169725952,
+          "wall_seconds": 0.8744284889999108,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "140e98b89000a224e5c61c2e2d3aced5c51274a0f2c4fbd6eabe9d70e83ec93f",
+          "log_sha256": "af553d3495ce0612a6d2edb3676a367bda58060d7265e7ef83152b5b610d39cb",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 95005,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-cpp-32-unwind-source-break-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 169717760,
+          "wall_seconds": 0.8778873850001219,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "140e98b89000a224e5c61c2e2d3aced5c51274a0f2c4fbd6eabe9d70e83ec93f",
+          "log_sha256": "af553d3495ce0612a6d2edb3676a367bda58060d7265e7ef83152b5b610d39cb",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 95120,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        }
+      ]
+    },
+    "control-run-to-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-run-to-a1/receipts.json",
+        "sha256": "d95761c8a6e7d773fbdbcc20bb071d911eadbe781f21ffa225a276b1a488d942",
+        "bytes": 858855
+      },
+      "rows": [
+        {
+          "label": "uwvm2-restored-run-to-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 175579136,
+          "wall_seconds": 27.293261420999897,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "f8e685d01ae1a821ca272b4cc0a1a4325456ef79aa3a03553e7f141ed7af9ce9",
+          "log_sha256": "94378378123d1a189efaac1445e1b5e1e129dee4aa153b46d2af6ff76056e5ec",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 105218,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 138
+        },
+        {
+          "label": "uwvm2-ros-restored-run-to-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 125624320,
+          "wall_seconds": 27.510781644000417,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "f8e685d01ae1a821ca272b4cc0a1a4325456ef79aa3a03553e7f141ed7af9ce9",
+          "log_sha256": "94378378123d1a189efaac1445e1b5e1e129dee4aa153b46d2af6ff76056e5ec",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 107214,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 137
+        }
+      ]
+    },
+    "control-soak-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-soak-a1/receipts.json",
+        "sha256": "903d96b57efd641786f67ed2d6434960265200fe62b6638ce30d819c21561291",
+        "bytes": 13789837
+      },
+      "rows": [
+        {
+          "label": "conditional-real-soak32-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 230121472,
+          "wall_seconds": 1832.9312337929996,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "aa997b7f44f0e8c0e3cccfe51609f93d9c2ebe0a25bc32e92cd3c2225db2e3e9",
+          "log_sha256": "8e6b54b42854b8c4686c2cf0965453ba16fe5a488aba4d7379a9e02b2c312ac0",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 96639,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 3959
+        }
+      ]
+    },
+    "control-restored-language-cli-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-language-cli-a1/receipts.json",
+        "sha256": "bab1bee9479aa3ebfc77016f046cdf781f4040adb95c4b0319e70aedc348541a",
+        "bytes": 176809
+      },
+      "rows": [
+        {
+          "label": "uwvm2-restored-tinygo-instruction-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 199815168,
+          "wall_seconds": 4.1752358749999985,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1b23f2d0fe3cee7fb74d2fc16499001cdfcaedaf59468e369cd783aefc996e74",
+          "log_sha256": "0c477dcb9bf786f73b4bb9697bc82c661f885975fce70a8cad697e7514d2c69d",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 150034,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-restored-tinygo-unwind-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204070912,
+          "wall_seconds": 4.12881727299964,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1b23f2d0fe3cee7fb74d2fc16499001cdfcaedaf59468e369cd783aefc996e74",
+          "log_sha256": "0c477dcb9bf786f73b4bb9697bc82c661f885975fce70a8cad697e7514d2c69d",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 150496,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-restored-go-instruction-a1",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 15715733504,
+          "wall_seconds": 181.53886510999973,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1b23f2d0fe3cee7fb74d2fc16499001cdfcaedaf59468e369cd783aefc996e74",
+          "log_sha256": "963e27afe731c2647d1664f57320ef2f8bbb3512e08d6c20f47d4cd615aafef4",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 150715,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 2
+        }
+      ]
+    },
+    "control-restored-language-cli-a2": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-language-cli-a2/receipts.json",
+        "sha256": "286d63c6dd55589d407c9fb4a8ea54868cdc6ef84ee0e8fe09a6f472e48bc938",
+        "bytes": 38591
+      },
+      "rows": [
+        {
+          "label": "uwvm2-restored-zig-instruction-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204337152,
+          "wall_seconds": 1.3853992660001495,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "4458112094d3e308d1352b54f07608e05b12aad1040a2496991d5b3a7dece7e0",
+          "log_sha256": "27a85daa764ee7f712adba5a3b174c83134bbf0ba5696c39e5fab2f4d54e238b",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 163565,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-restored-zig-unwind-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204443648,
+          "wall_seconds": 1.384517474000404,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "4458112094d3e308d1352b54f07608e05b12aad1040a2496991d5b3a7dece7e0",
+          "log_sha256": "27a85daa764ee7f712adba5a3b174c83134bbf0ba5696c39e5fab2f4d54e238b",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 163711,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-restored-assemblyscript-instruction-a1",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204156928,
+          "wall_seconds": 0.8237061220002033,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "4458112094d3e308d1352b54f07608e05b12aad1040a2496991d5b3a7dece7e0",
+          "log_sha256": "dfd43c23e60944616c9606ec5e38d99683b60b6bd56ab9fd7394aa0a69c00458",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 163857,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 1
+        }
+      ]
+    },
+    "control-restored-language-cli-a3": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-language-cli-a3/receipts.json",
+        "sha256": "d0889dd8a57ff2a8951416db2a558dfc3c764cd97d1590a89feff673913a4239",
+        "bytes": 10946
+      },
+      "rows": [
+        {
+          "label": "uwvm2-restored-assemblyscript-instruction-a2",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 203976704,
+          "wall_seconds": 0.8246090430002369,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "04aa1bc98f44b31e4d2628dae53a723f1c8b416f9fcab2c4cc22907a5a5bb667",
+          "log_sha256": "42b702fcdd075b1be5fd7580781e7860decda75069adb4249fe365fd5981ce94",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 176853,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 1
+        }
+      ]
+    },
+    "control-restored-language-cli-a4": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-language-cli-a4/receipts.json",
+        "sha256": "d07ad47137ef2f4f2c8d25c8a878ef71c5b96f038c6de87f1f1ed06cef71f362",
+        "bytes": 110553
+      },
+      "rows": [
+        {
+          "label": "uwvm2-restored-assemblyscript-instruction-a3",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204738560,
+          "wall_seconds": 2.5957236840004043,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "34b833c672e1954a4f3cbf8286accacfdc64cc4ad3a467bab5416eab133cb673",
+          "log_sha256": "6fbd99f81714a7a560d9066c50ac8caa7361a2c3ef1d789b6050ef5d3ae1f008",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 204338,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-restored-assemblyscript-unwind-a3",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204722176,
+          "wall_seconds": 2.9042824730004213,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "34b833c672e1954a4f3cbf8286accacfdc64cc4ad3a467bab5416eab133cb673",
+          "log_sha256": "6fbd99f81714a7a560d9066c50ac8caa7361a2c3ef1d789b6050ef5d3ae1f008",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 204985,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-restored-tinygo-instruction-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 169615360,
+          "wall_seconds": 5.159817026999917,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "34b833c672e1954a4f3cbf8286accacfdc64cc4ad3a467bab5416eab133cb673",
+          "log_sha256": "0c477dcb9bf786f73b4bb9697bc82c661f885975fce70a8cad697e7514d2c69d",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 205157,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-restored-tinygo-unwind-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 171044864,
+          "wall_seconds": 5.106975127000624,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "34b833c672e1954a4f3cbf8286accacfdc64cc4ad3a467bab5416eab133cb673",
+          "log_sha256": "0c477dcb9bf786f73b4bb9697bc82c661f885975fce70a8cad697e7514d2c69d",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 205436,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-restored-zig-instruction-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 170016768,
+          "wall_seconds": 1.5557261809999545,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "34b833c672e1954a4f3cbf8286accacfdc64cc4ad3a467bab5416eab133cb673",
+          "log_sha256": "27a85daa764ee7f712adba5a3b174c83134bbf0ba5696c39e5fab2f4d54e238b",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 206448,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-restored-zig-unwind-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 170020864,
+          "wall_seconds": 1.5196689479998895,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "34b833c672e1954a4f3cbf8286accacfdc64cc4ad3a467bab5416eab133cb673",
+          "log_sha256": "27a85daa764ee7f712adba5a3b174c83134bbf0ba5696c39e5fab2f4d54e238b",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 206611,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-restored-assemblyscript-instruction-a3",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 137580544,
+          "wall_seconds": 2.22197345099994,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "34b833c672e1954a4f3cbf8286accacfdc64cc4ad3a467bab5416eab133cb673",
+          "log_sha256": "6fbd99f81714a7a560d9066c50ac8caa7361a2c3ef1d789b6050ef5d3ae1f008",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 206770,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-ros-restored-assemblyscript-unwind-a3",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 170217472,
+          "wall_seconds": 2.3733042390003902,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "34b833c672e1954a4f3cbf8286accacfdc64cc4ad3a467bab5416eab133cb673",
+          "log_sha256": "6fbd99f81714a7a560d9066c50ac8caa7361a2c3ef1d789b6050ef5d3ae1f008",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 206949,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        }
+      ]
+    },
+    "control-go-optimized-cli-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-go-optimized-cli-a1/receipts.json",
+        "sha256": "7258d5dd1ede6027b51c7d769740c1ece81edb50b6dc547aec4cf6beb84d4186",
+        "bytes": 166082
+      },
+      "rows": [
+        {
+          "label": "uwvm2-restored-go-instruction-optimized-a1",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 16261992448,
+          "wall_seconds": 181.68168013100012,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "e733b77b0037e752760a42108152aee23981bc509694de92bb3a67d26a41c0d4",
+          "log_sha256": "963e27afe731c2647d1664f57320ef2f8bbb3512e08d6c20f47d4cd615aafef4",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 174760,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 2
+        }
+      ]
+    },
+    "control-go-int-baseline-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-go-int-baseline-a1/receipts.json",
+        "sha256": "f43eebfd1b0194f13ea2635fd028b6ea8e761e34eea77a0756d058aaf8560e61",
+        "bytes": 31137
+      },
+      "rows": [
+        {
+          "label": "uwvm2-gcgo-int-baseline-optimized-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 57552896,
+          "wall_seconds": 0.523122594000597,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "078968279c285734f07936796675b1eed0f443c2685fdd33d0eab9d47afeff5e",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 204337,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-gcgo-int-baseline-unoptimized-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 61333504,
+          "wall_seconds": 0.47579931000018405,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "078968279c285734f07936796675b1eed0f443c2685fdd33d0eab9d47afeff5e",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 204573,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-ros-gcgo-int-baseline-optimized-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 55857152,
+          "wall_seconds": 0.48000181400038855,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "078968279c285734f07936796675b1eed0f443c2685fdd33d0eab9d47afeff5e",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 204692,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-ros-gcgo-int-baseline-unoptimized-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 59396096,
+          "wall_seconds": 0.5938832269994236,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "078968279c285734f07936796675b1eed0f443c2685fdd33d0eab9d47afeff5e",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 204815,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        }
+      ]
+    },
+    "control-backends-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-backends-a1/receipts.json",
+        "sha256": "9fa0aea37948f1acddb5ab784b550785c59c41e39bc14eda0abb7891f5041e79",
+        "bytes": 66692
+      },
+      "rows": [
+        {
+          "label": "uwvm2-restored-help",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 4096,
+          "wall_seconds": 0.3719370680000793,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "328da866bfb236d23538b88ad4533e8c0b4ade8204ffb206be0dc433dde5e395",
+          "log_sha256": "43a4df88dd008d83e5a3ea8157cf14566d1fcfb61bab82826b9ccbb8944d696e",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 177162,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-int-full-c-32",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 4096,
+          "wall_seconds": 0.3676162269998713,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "328da866bfb236d23538b88ad4533e8c0b4ade8204ffb206be0dc433dde5e395",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 177310,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-int-full-c-64",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 4096,
+          "wall_seconds": 0.36943182699997124,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "328da866bfb236d23538b88ad4533e8c0b4ade8204ffb206be0dc433dde5e395",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 177507,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-int-full-cpp-32",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 4096,
+          "wall_seconds": 0.36795354500009125,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "328da866bfb236d23538b88ad4533e8c0b4ade8204ffb206be0dc433dde5e395",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 177721,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-int-full-cpp-64",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 4096,
+          "wall_seconds": 0.367839909000395,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "328da866bfb236d23538b88ad4533e8c0b4ade8204ffb206be0dc433dde5e395",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 177948,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-ros-restored-help",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 4096,
+          "wall_seconds": 0.3699240229998395,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "328da866bfb236d23538b88ad4533e8c0b4ade8204ffb206be0dc433dde5e395",
+          "log_sha256": "42e8b3b2e32e0d27178c218b7ad49640ac761272c0c566331da56784da02f0c2",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 178162,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-ros-int-full-c-32",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 4096,
+          "wall_seconds": 0.3698647629998959,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "328da866bfb236d23538b88ad4533e8c0b4ade8204ffb206be0dc433dde5e395",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 178270,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-ros-int-full-c-64",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 4096,
+          "wall_seconds": 0.36807884900008503,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "328da866bfb236d23538b88ad4533e8c0b4ade8204ffb206be0dc433dde5e395",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 178371,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-ros-int-full-cpp-32",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 4096,
+          "wall_seconds": 0.42279464900002495,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "328da866bfb236d23538b88ad4533e8c0b4ade8204ffb206be0dc433dde5e395",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 178478,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-ros-int-full-cpp-64",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 4096,
+          "wall_seconds": 0.4185735300002307,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "328da866bfb236d23538b88ad4533e8c0b4ade8204ffb206be0dc433dde5e395",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 178586,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        }
+      ]
+    },
+    "control-runtime-help-a1": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-runtime-help-a1/receipts.json",
+        "sha256": "2eab2d5020c54f882ed41587e1761bff77821dc2aa21938089acefa46e529326",
+        "bytes": 28551
+      },
+      "rows": [
+        {
+          "label": "uwvm2-help-runtime-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 8925184,
+          "wall_seconds": 0.4330999419998989,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "915ea632ea85af3a2ddbf8939073f4cafb64615007872e75f2a12d9ac4bf1107",
+          "log_sha256": "393e41e33290ba2dd48ec42ad28d3564fe5ce57e2d3f3c2fbc4f481610ebf756",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 213483,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-help-debug-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 1925120,
+          "wall_seconds": 0.3727805550006451,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "915ea632ea85af3a2ddbf8939073f4cafb64615007872e75f2a12d9ac4bf1107",
+          "log_sha256": "da789307e5b09352e8ba3d795271e19bc101c4912ff1f71a3ea7dcffe0bd23aa",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 213622,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-ros-help-runtime-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 0,
+          "wall_seconds": 0.2791375099996003,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "915ea632ea85af3a2ddbf8939073f4cafb64615007872e75f2a12d9ac4bf1107",
+          "log_sha256": "a6a1dd910851aa4840f44021f22ad711936c3e987c9032893d9ea26ac90e62cc",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 213744,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        },
+        {
+          "label": "uwvm2-ros-help-debug-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 1904640,
+          "wall_seconds": 0.37043108200032293,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "915ea632ea85af3a2ddbf8939073f4cafb64615007872e75f2a12d9ac4bf1107",
+          "log_sha256": "da789307e5b09352e8ba3d795271e19bc101c4912ff1f71a3ea7dcffe0bd23aa",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 213867,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 1
+        }
+      ]
+    }
+  },
+  "failures_preserved": {
+    "/tmp/uwvm2-language-resume-20261005-a1/control-sdk-a1/receipts.json": {
+      "record": {
+        "path": "/tmp/uwvm2-language-resume-20261005-a1/control-sdk-a1/receipts.json",
+        "sha256": "6d153b0fd154e29afbe9ea22aa3fa061ead654e8128b60a464e43ff17525a03e",
+        "bytes": 7491
+      },
+      "rows": [
+        {
+          "label": "resume-sdk-ros11-a1",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 34938880,
+          "wall_seconds": 1.8783606719999852,
+          "supervisor_sha256": "c6976c9fc935ecb8d7644649f7308e802b22be84c77e7ee8df15a204449da12d",
+          "command_file_sha256": "ba662b5a6da4af935c9e5714fcea3fefbc54885fa820a8ab087729a86f64cab5",
+          "log_sha256": "86df83e7c5fc33a80149cf066d79c2b9c2aee8faa27889b187fc7d18b84cfe82",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 12099,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 1
+        }
+      ]
+    },
+    "/tmp/uwvm2-language-resume-20261005-a1/control-sdk-a2/receipts.json": {
+      "record": {
+        "path": "/tmp/uwvm2-language-resume-20261005-a1/control-sdk-a2/receipts.json",
+        "sha256": "69cc58d2551374d2d3b89d600acce67d5ff7c34b61685e27cdf170bf30127842",
+        "bytes": 7584
+      },
+      "rows": [
+        {
+          "label": "resume-sdk-ros11-a2",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 34672640,
+          "wall_seconds": 1.8787071169999763,
+          "supervisor_sha256": "c6976c9fc935ecb8d7644649f7308e802b22be84c77e7ee8df15a204449da12d",
+          "command_file_sha256": "ca9269ce3c274bbf3100a5c2741a27b0ef23d0acb760cf8c3d7e96d048d35ab8",
+          "log_sha256": "d31a486338b2c0d2ee4ffcb271172c69b7768eb2a38bb3d324481a1b3d0c1d49",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 12806,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 1
+        }
+      ]
+    },
+    "/tmp/uwvm2-language-resume-20261005-a1/control-x86-a1/receipts.json": {
+      "record": {
+        "path": "/tmp/uwvm2-language-resume-20261005-a1/control-x86-a1/receipts.json",
+        "sha256": "f80b6f7b36ab6f3ae74cbf6f55e07643e210361c24f6a931a4214a4cab6f1cc6",
+        "bytes": 92711
+      },
+      "rows": [
+        {
+          "label": "conditional-x8664-resume-a1",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 735977472,
+          "wall_seconds": 85.43644116499996,
+          "supervisor_sha256": "42667169785c5dae78dbff34a24f2748848f88a48d1866dce3366b535182e8aa",
+          "command_file_sha256": "bb6c56202ff20013d7bb74090dc55fd3f7a85316942eabb1bc5af8922ec13a08",
+          "log_sha256": "58d28ade17e6393bfee7879ddc43ac0a5527ed313815a91323464e83a27221c6",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 11139,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 13
+        }
+      ]
+    },
+    "/tmp/uwvm2-language-sizeof-20261005-a1/control-as-basename-a2/receipts.json": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-as-basename-a2/receipts.json",
+        "sha256": "0fc544042e22372b34f0a3898f6832c8e97164607ca7aaf4f1575e60c85a9271",
+        "bytes": 7230
+      },
+      "rows": [
+        {
+          "label": "restored-as-basename-a2",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 10100736,
+          "wall_seconds": 0.41875258599975496,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "2b1d3c9b72a38a340a4c1815ab56f7d45a0a5779cf009815c3f5ab146f84f920",
+          "log_sha256": "97393659c9086aa01034fd142a2375a8687a1c81c093143bb22af01eff83413a",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 171560,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 1
+        }
+      ]
+    },
+    "/tmp/uwvm2-language-sizeof-20261005-a1/control-go-optimized-cli-a1/receipts.json": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-go-optimized-cli-a1/receipts.json",
+        "sha256": "7258d5dd1ede6027b51c7d769740c1ece81edb50b6dc547aec4cf6beb84d4186",
+        "bytes": 166082
+      },
+      "rows": [
+        {
+          "label": "uwvm2-restored-go-instruction-optimized-a1",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 16261992448,
+          "wall_seconds": 181.68168013100012,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "e733b77b0037e752760a42108152aee23981bc509694de92bb3a67d26a41c0d4",
+          "log_sha256": "963e27afe731c2647d1664f57320ef2f8bbb3512e08d6c20f47d4cd615aafef4",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 174760,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 2
+        }
+      ]
+    },
+    "/tmp/uwvm2-language-sizeof-20261005-a1/control-guests-a1/receipts.json": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-guests-a1/receipts.json",
+        "sha256": "bcb96f717598dbcbfbef75bcf6beded825719c2959b7c4593c2fc85d2dac8588",
+        "bytes": 14309
+      },
+      "rows": [
+        {
+          "label": "sizeof-guests-a1",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 67502080,
+          "wall_seconds": 1.1567089810000653,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "e6f66434231a3ccf451d29d6bab5038755b4f4ec6acdf37a7bc0331cc5c69066",
+          "log_sha256": "e6cbd6a4ebffc0c2d54520550ed5851d37f411b5bc03efb5f899ff8f32ace01b",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 47257,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 3
+        }
+      ]
+    },
+    "/tmp/uwvm2-language-sizeof-20261005-a1/control-guests-a2/receipts.json": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-guests-a2/receipts.json",
+        "sha256": "521f873c5b3f073849e1476f476f07a8eee722d659f5604c4f3f543b7e16260b",
+        "bytes": 20584
+      },
+      "rows": [
+        {
+          "label": "sizeof-guests-a2",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 101781504,
+          "wall_seconds": 1.1416917750000266,
+          "supervisor_sha256": "e39a4146701b55960a0d0112a9338ff217b9ac43b48e64488bcb6f4d717efaa0",
+          "command_file_sha256": "3120bc3744ad4b8caa024e0993544ee83c457330e36eb10411a7fffdd3f1663a",
+          "log_sha256": "01079120d0b35947f9f02da53078f90417ddedf8bd2929933f0466b4b8a2f35a",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 49903,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 6
+        }
+      ]
+    },
+    "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-guests-a1/receipts.json": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-guests-a1/receipts.json",
+        "sha256": "85374a58385e714dac9352f60ff337ccae25ffa2c4401975b8b4a89980e37108",
+        "bytes": 16962
+      },
+      "rows": [
+        {
+          "label": "restored-language-guests-a1",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 225075200,
+          "wall_seconds": 1.7992115110000668,
+          "supervisor_sha256": "a8b84f0d8bc1e41f680c991884d7e16552d7995bd62f8a6afc700870aa4c3d11",
+          "command_file_sha256": "4578fda148d60732199c52e95a9c9ff76c214e9a9b4157e5a13496c489d6a2f2",
+          "log_sha256": "b18d2b4419593814b13045f22e000b06622f593f489c5b466daf1fe0e9172930",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 129684,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 4
+        }
+      ]
+    },
+    "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-guests-a2/receipts.json": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-guests-a2/receipts.json",
+        "sha256": "2bfc5ceb850f77bc2ded723645bae59fd504e44dbdb07b7fc5c1766f4ac9fdb6",
+        "bytes": 16916
+      },
+      "rows": [
+        {
+          "label": "restored-language-guests-a2",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 201654272,
+          "wall_seconds": 1.5489661520000482,
+          "supervisor_sha256": "a8b84f0d8bc1e41f680c991884d7e16552d7995bd62f8a6afc700870aa4c3d11",
+          "command_file_sha256": "c5fc9943d2fc65e97aa8a30b2672ba70c2954f851ddf7a692fe0682334d89f28",
+          "log_sha256": "a14be082c0cbcca3e46d0cc00b9b5e9b0d1fb38ae0dc4c01aa1ffd965e565aa2",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 136592,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 4
+        }
+      ]
+    },
+    "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-language-cli-a1/receipts.json": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-language-cli-a1/receipts.json",
+        "sha256": "bab1bee9479aa3ebfc77016f046cdf781f4040adb95c4b0319e70aedc348541a",
+        "bytes": 176809
+      },
+      "rows": [
+        {
+          "label": "uwvm2-restored-tinygo-instruction-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 199815168,
+          "wall_seconds": 4.1752358749999985,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1b23f2d0fe3cee7fb74d2fc16499001cdfcaedaf59468e369cd783aefc996e74",
+          "log_sha256": "0c477dcb9bf786f73b4bb9697bc82c661f885975fce70a8cad697e7514d2c69d",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 150034,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-restored-tinygo-unwind-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204070912,
+          "wall_seconds": 4.12881727299964,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1b23f2d0fe3cee7fb74d2fc16499001cdfcaedaf59468e369cd783aefc996e74",
+          "log_sha256": "0c477dcb9bf786f73b4bb9697bc82c661f885975fce70a8cad697e7514d2c69d",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 150496,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-restored-go-instruction-a1",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 15715733504,
+          "wall_seconds": 181.53886510999973,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "1b23f2d0fe3cee7fb74d2fc16499001cdfcaedaf59468e369cd783aefc996e74",
+          "log_sha256": "963e27afe731c2647d1664f57320ef2f8bbb3512e08d6c20f47d4cd615aafef4",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 150715,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 2
+        }
+      ]
+    },
+    "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-language-cli-a2/receipts.json": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-language-cli-a2/receipts.json",
+        "sha256": "286d63c6dd55589d407c9fb4a8ea54868cdc6ef84ee0e8fe09a6f472e48bc938",
+        "bytes": 38591
+      },
+      "rows": [
+        {
+          "label": "uwvm2-restored-zig-instruction-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204337152,
+          "wall_seconds": 1.3853992660001495,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "4458112094d3e308d1352b54f07608e05b12aad1040a2496991d5b3a7dece7e0",
+          "log_sha256": "27a85daa764ee7f712adba5a3b174c83134bbf0ba5696c39e5fab2f4d54e238b",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 163565,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-restored-zig-unwind-a1",
+          "passed": true,
+          "returncode": 0,
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204443648,
+          "wall_seconds": 1.384517474000404,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "4458112094d3e308d1352b54f07608e05b12aad1040a2496991d5b3a7dece7e0",
+          "log_sha256": "27a85daa764ee7f712adba5a3b174c83134bbf0ba5696c39e5fab2f4d54e238b",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 163711,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "owned_retirements": 2
+        },
+        {
+          "label": "uwvm2-restored-assemblyscript-instruction-a1",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 204156928,
+          "wall_seconds": 0.8237061220002033,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "4458112094d3e308d1352b54f07608e05b12aad1040a2496991d5b3a7dece7e0",
+          "log_sha256": "dfd43c23e60944616c9606ec5e38d99683b60b6bd56ab9fd7394aa0a69c00458",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 163857,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 1
+        }
+      ]
+    },
+    "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-language-cli-a3/receipts.json": {
+      "record": {
+        "path": "/tmp/uwvm2-language-sizeof-20261005-a1/control-restored-language-cli-a3/receipts.json",
+        "sha256": "d0889dd8a57ff2a8951416db2a558dfc3c764cd97d1590a89feff673913a4239",
+        "bytes": 10946
+      },
+      "rows": [
+        {
+          "label": "uwvm2-restored-assemblyscript-instruction-a2",
+          "passed": false,
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "aggregate_owned_rss_peak_bytes": 203976704,
+          "wall_seconds": 0.8246090430002369,
+          "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+          "command_file_sha256": "04aa1bc98f44b31e4d2628dae53a723f1c8b416f9fcab2c4cc22907a5a5bb667",
+          "log_sha256": "42b702fcdd075b1be5fd7580781e7860decda75069adb4249fe365fd5981ce94",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "root_launched": true,
+          "root_retirement": {
+            "pid": 176853,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 1
+          },
+          "owned_retirements": 1
+        }
+      ]
+    }
+  },
+  "LLVM_SDK": {
+    "record": {
+      "path": "/tmp/uwvm2-language-resume-20261005-a1/out-uwvm2-ros/sdk-ros11-a3/results.json",
+      "sha256": "4a77c7e05578fd7ca4085079b559933634ebdb6467fbd7e1a01865d307585b40",
+      "bytes": 2416490
+    },
+    "version": "23.1.1-uwvm-ros.11",
+    "fresh_build": true,
+    "vendored_source_manifest_verified": true,
+    "static_archive_count": 64,
+    "CMake_FileAPI_consumer_dependency_closure_verified": true
+  },
+  "QEMU": {
+    "passed": true,
+    "profiles": [
+      {
+        "profile": "x86_64",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-x86_64-a1/results.json",
+          "sha256": "f0329565269cf64dbcba7038ad36b6910a40e4a48956a79956b9cb34f0f69670",
+          "bytes": 821429
+        }
+      },
+      {
+        "profile": "aarch64",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-aarch64-a1/results.json",
+          "sha256": "a6c6ee74550bb2da2997b47cc04f373d826fdf366216fb6f39c5018875990114",
+          "bytes": 978362
+        }
+      },
+      {
+        "profile": "i686",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-i686-a1/results.json",
+          "sha256": "cced03fc7e65e241772bb6308b89e5f84a66b5dabd033a41e88c189c61f5054d",
+          "bytes": 962107
+        }
+      },
+      {
+        "profile": "riscv64",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-riscv64-a1/results.json",
+          "sha256": "69f03140e58df7ee121ad05d8996b037dab88cbdfd25dc340a6e89a32741ae8e",
+          "bytes": 970195
+        }
+      },
+      {
+        "profile": "ppc64",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-ppc64-a1/results.json",
+          "sha256": "dee66432706d1abbbd10aa60ed935c3dc8f3a8816b217a10e4f2c976eadab0c5",
+          "bytes": 977997
+        }
+      },
+      {
+        "profile": "ppc64le",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-ppc64le-a1/results.json",
+          "sha256": "f64824fd0ef0295b2cca65b12d174092a6706d1e2263c72adddfc72c48a23c9f",
+          "bytes": 986331
+        }
+      },
+      {
+        "profile": "ppc32",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-ppc32-a1/results.json",
+          "sha256": "cfb6ff1f3b283824b524a36483e4896751f6f0f155e3d5e960e8e8a55e77b021",
+          "bytes": 968595
+        }
+      },
+      {
+        "profile": "mips64",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-mips64-a1/results.json",
+          "sha256": "da067d506ac68749eec9ce82073c500fcd9577046f9ec95faea0b6474b10d75b",
+          "bytes": 977000
+        }
+      },
+      {
+        "profile": "mips64el",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-mips64el-a1/results.json",
+          "sha256": "e7a50e8ed4362a6efe72ee1e8ab04961974d01a00a7efb55ce21ad0305c3db39",
+          "bytes": 982113
+        }
+      },
+      {
+        "profile": "mips32",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-mips32-a1/results.json",
+          "sha256": "52f512bb248b78402301cb9dfeec72ad37ff91ce349804f55130a001a4d69298",
+          "bytes": 961911
+        }
+      },
+      {
+        "profile": "mips32el",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-mips32el-a1/results.json",
+          "sha256": "58b18ea46c59adbf91c2a3723f988acd6463b86642bff1319d7d9950daf4e90c",
+          "bytes": 963673
+        }
+      },
+      {
+        "profile": "sparc64",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-sparc64-a1/results.json",
+          "sha256": "6f29c02e99a12a17b28b2f503badb3ee0fd3fe34635dda7c25a41b4bf9d69aa5",
+          "bytes": 966758
+        }
+      },
+      {
+        "profile": "loongarch64",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-loongarch64-a1/results.json",
+          "sha256": "6dff197cf2a44fc87d5f8e5d2599e9c370e231602ee347cb0669be5285e92a76",
+          "bytes": 981494
+        }
+      },
+      {
+        "profile": "s390x",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-s390x-a1/results.json",
+          "sha256": "c8774f2b94d3284b61907fa9d68f12f7e9650135f8b6ef9a3bb6cd65face2f3b",
+          "bytes": 964855
+        }
+      },
+      {
+        "profile": "armhf",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-armhf-a1/results.json",
+          "sha256": "2c48238f9aa64e7c6e49de3f75360e94955ec44196275f22fb0037e6f305587c",
+          "bytes": 973803
+        }
+      },
+      {
+        "profile": "armel",
+        "passed": true,
+        "combinations": 6,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/sizeof-armel-a1/results.json",
+          "sha256": "57c2862be5a6ee8b1fbeef8c3be6a963056f44e4318b2599db9dec88b5ec8608",
+          "bytes": 968860
+        }
+      }
+    ],
+    "combinations": 96,
+    "components": [
+      "debug_source_conditional_expression",
+      "debug_source_scalar_expression",
+      "debug_source_dap_expression"
+    ],
+    "scope": "Actual target ELF/component DATA and native x86_64 baseline comparison. Not full cross-architecture uwvm CLI/JIT parity or native hardware."
+  },
+  "DAP_protocol": {
+    "tests_each_repository": 234,
+    "tests_total": 468,
+    "passed": true,
+    "scope": "Protocol/corpus regressions; independent mocked broker envelopes, not a live native IDE parity claim."
+  },
+  "actual_stopped_numeric": {
+    "cases": 24,
+    "conditional_cases": 20,
+    "rust_regression_cases": 4,
+    "passed": true,
+    "languages": [
+      "C",
+      "C++",
+      "Objective-C",
+      "Rust"
+    ],
+    "guest_ABI_bits": [
+      32,
+      64
+    ],
+    "policies": [
+      "instruction",
+      "unwind"
+    ],
+    "both_repositories": true
+  },
+  "source_break_seed": {
+    "cases": 8,
+    "passed": true,
+    "both_repositories": true
+  },
+  "source_run_to": {
+    "cases": 256,
+    "passed": true,
+    "repositories": [
+      {
+        "repository": "uwvm2",
+        "cases": 128,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/restored-run-to-a1/results.json",
+          "sha256": "b003238cd6c511e82d63b7f52c06dbed31115f94d475e3bef2b49dd87f9bf181",
+          "bytes": 4895752
+        }
+      },
+      {
+        "repository": "uwvm2-ros",
+        "cases": 128,
+        "record": {
+          "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2-ros/restored-run-to-a1/results.json",
+          "sha256": "5afbcd5b5592a8c852f866b2ecce7040073af9b7b8f40f74166e7de62b0b0cfd",
+          "bytes": 4902032
+        }
+      }
+    ],
+    "scope": "Actual C/C++/Objective-C frontend/Rust DWARF4/5 instruction/unwind until/advance/refusal/replacement cases."
+  },
+  "active_soak": {
+    "requested_active_seconds": 1800,
+    "completed_rounds": 60,
+    "wall_seconds": 1829.552839473,
+    "total_controller_actions": 379920,
+    "total_actual_source_positions": 54720,
+    "host_expression_execution": false,
+    "guest_memory_modified_by_debugger": false,
+    "passed": true,
+    "runs": 1920,
+    "runs_each_repository": 960,
+    "record": {
+      "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/conditional-real-soak32-a1/summary.json",
+      "sha256": "ca21d96f6147fc18e6c046d4339767c7bc7276dce700418f7911ab3a758be812",
+      "bytes": 1163960
+    },
+    "real_guest_exit_and_worker_join_each_run": true,
+    "inputs_after_unchanged": true
+  },
+  "restored_language_routes": {
+    "TinyGo": "0.42.0",
+    "Zig": "0.17.0",
+    "AssemblyScript": "0.28.20",
+    "Go_gc": "1.27.1",
+    "TinyGo_numeric_cases": 4,
+    "Zig_numeric_cases": 4,
+    "AssemblyScript_source_map_and_into_over_out_cases": 4,
+    "passed_finite_cases": 12,
+    "both_repositories": true,
+    "policy_instruction_and_unwind": true,
+    "original_guest_or_DWARF_or_source_map_bytes_patched": false,
+    "AssemblyScript_typed_values_available": false,
+    "producer_record": {
+      "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/restored-language-guests-a3/results.json",
+      "sha256": "7a9b546c54beafed80ccc83d0c65fe880f4481df8318806307157df1005d1a2d",
+      "bytes": 13524
+    },
+    "AssemblyScript_corrected_original_recipe": {
+      "path": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/restored-as-guests-a4/results.json",
+      "sha256": "fb4a959ba8bf3b6f406db0ec4633c005e6586a69bd80a1e8e87e96305425bf38",
+      "bytes": 2297
+    },
+    "producer_recipe_corrections": [
+      "TinyGo explicit -buildmode=default",
+      "AssemblyScript basename sourceMappingURL and --use abort=; strict zero-import oracle retained"
+    ]
+  },
+  "standard_Go": {
+    "language_level_status": "UNAVAILABLE",
+    "genuine_current_producer_has_no_DWARF": true,
+    "ordinary_LLVM_debug_startup_passed": false,
+    "startup_failures": [
+      {
+        "label": "uwvm2-restored-go-instruction-a1",
+        "passed": false,
+        "returncode": 1,
+        "error": "RuntimeError: Build command failed: 1",
+        "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+        "memory_max_bytes": 68719476736,
+        "swap_max_bytes": 0,
+        "aggregate_owned_rss_budget_bytes": 17179869184,
+        "aggregate_owned_rss_peak_bytes": 15715733504,
+        "wall_seconds": 181.53886510999973,
+        "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+        "command_file_sha256": "1b23f2d0fe3cee7fb74d2fc16499001cdfcaedaf59468e369cd783aefc996e74",
+        "log_sha256": "963e27afe731c2647d1664f57320ef2f8bbb3512e08d6c20f47d4cd615aafef4",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "root_launched": true,
+        "root_retirement": {
+          "pid": 150715,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 1
+        },
+        "owned_retirements": 2,
+        "producer_optimization": "unoptimized"
+      },
+      {
+        "label": "uwvm2-restored-go-instruction-optimized-a1",
+        "passed": false,
+        "returncode": 1,
+        "error": "RuntimeError: Build command failed: 1",
+        "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+        "memory_max_bytes": 68719476736,
+        "swap_max_bytes": 0,
+        "aggregate_owned_rss_budget_bytes": 17179869184,
+        "aggregate_owned_rss_peak_bytes": 16261992448,
+        "wall_seconds": 181.68168013100012,
+        "supervisor_sha256": "de17bc0a734ff311e9cccf599862755604f3c6a682f3151993b90091e04a87de",
+        "command_file_sha256": "e733b77b0037e752760a42108152aee23981bc509694de92bb3a67d26a41c0d4",
+        "log_sha256": "963e27afe731c2647d1664f57320ef2f8bbb3512e08d6c20f47d4cd615aafef4",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "root_launched": true,
+        "root_retirement": {
+          "pid": 174760,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 1
+        },
+        "owned_retirements": 2,
+        "producer_optimization": "optimized"
+      }
+    ],
+    "ROS_LLVM_debug_startup_not_reached_by_fail_first_queue": true,
+    "interpreter_full_runtime_baseline_cases": 4,
+    "interpreter_runtime_baseline_passed": true,
+    "interpreter_runtime_baseline_does_not_qualify_Rdbg": true,
+    "timeout_seconds": 180,
+    "guards_relaxed": false
+  },
+  "ROS_modes": {
+    "only_full_interpreter_and_full_LLVM": true,
+    "runtime_help_checked": true,
+    "interpreter_baseline_C_CPP_guest32_and_guest64_passed": true,
+    "Raot_full_name": "--runtime-aot",
+    "Rint_full_name": "--runtime-int",
+    "Rdbg_LLVM_full_only": true
+  },
+  "sizeof_fix": {
+    "metadata_extent_separate_from_operand_numeric_type": true,
+    "guest_ABI_bits": [
+      32,
+      64
+    ],
+    "complete_aggregate_and_pointer_size_allowed": true,
+    "sizeof_null_pointer_target_no_value_read": true,
+    "bit_field_size_rejected": true,
+    "missing_or_incomplete_type_rejected": true,
+    "current_real_frame_binding_preserved": true,
+    "no_new_pointer_or_aggregate_value_arithmetic": true,
+    "legacy_two_argument_type_callback_preserved": true
+  },
+  "remaining": [
+    "Complete native expression/value categories and language semantics remain partial.",
+    "AssemblyScript source-map alone supplies no typed value/variable DWARF.",
+    "Standard gc Go producer supplies no DWARF and current LLVM debug startup exceeded 180 seconds.",
+    "Other architectures qualified component semantics only; full product/JIT/native experience not yet qualified."
+  ],
+  "corpus": {
+    "positive_syntax_rows": 163,
+    "expected_value_rows": 142,
+    "expected_evaluation_refusals": 21,
+    "negative_syntax_rows": 60,
+    "explicit_zero_value_resolver_rows": 99
+  },
+  "local_evidence": {
+    "archive": "/tmp/uwvm2-language-sizeof-20261005-a1/completion-evidence-a1.tar.gz",
+    "archive_sha256": "004d5a64e8803db7a359ef422427b1ffe1566f69dd04770074e3066007397916",
+    "archive_bytes": 108941789,
+    "members_manifest": "/tmp/uwvm2-language-sizeof-20261005-a1/completion-evidence-members-a1.json",
+    "members_manifest_sha256": "005bbb1a0cd4da6f8c4d6843d6fe8c61f576f6d055a91134158e4a5d45d7fa9f",
+    "member_count": 8115,
+    "uncompressed_bytes": 677567172,
+    "all_members_byte_verified": true,
+    "foreign_files_removed": false,
+    "originals_removed": false,
+    "source_freeze_archive_note": "Two current source cuts and original ROS.11 vendored source archive are already preserved separately on the local task host.",
+    "local_archive": "/tmp/uwvm2-language-sizeof-20261005/completion-evidence-a1.tar.gz",
+    "local_members_manifest": "/tmp/uwvm2-language-sizeof-20261005/completion-evidence-members-a1.json",
+    "local_all_members_byte_verified": true
+  },
+  "latest_local_snapshot": {
+    "uwvm2": {
+      "production_changed_paths": [
+        "src/uwvm2/runtime/compiler/llvm_jit/mcjit_target_support.h",
+        "src/uwvm2/utils/control/session.h",
+        "src/uwvm2/uwvm/debugger/NATIVE_HOST_CALL_CONTINUATION.md",
+        "src/uwvm2/uwvm/debugger/console.h",
+        "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+      ],
+      "other_changed_paths": [
+        "test/0017.runtime/README.debug-native-closed-call-continuation.md",
+        "test/0017.runtime/README.debug-source-language-expressions.md",
+        "test/0017.runtime/debug_native_closed_call_continuation_runtime.cc",
+        "test/0017.runtime/debug_native_linux_runtime.cc",
+        "test/0017.runtime/debug_native_public_registers_runtime.cc",
+        "test/0017.runtime/native_mcjit_numeric_execution.cc",
+        "test/0017.runtime/native_owned_instruction_semantics.cc",
+        "test/0017.runtime/native_provenance_numeric_mcjit.cc",
+        "test/0017.runtime/run_debug_native_closed_call_continuation.py"
+      ],
+      "whole_current_workspace_qualified": false
+    },
+    "uwvm2-ros": {
+      "production_changed_paths": [
+        "src/uwvm2/runtime/compiler/llvm_jit/mcjit_target_support.h",
+        "src/uwvm2/utils/control/session.h",
+        "src/uwvm2/uwvm/debugger/NATIVE_HOST_CALL_CONTINUATION.md",
+        "src/uwvm2/uwvm/debugger/console.h",
+        "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+      ],
+      "other_changed_paths": [
+        "test/0017.runtime/README.debug-native-closed-call-continuation.md",
+        "test/0017.runtime/README.debug-source-language-expressions.md",
+        "test/0017.runtime/debug_native_closed_call_continuation_runtime.cc",
+        "test/0017.runtime/debug_native_linux_runtime.cc",
+        "test/0017.runtime/debug_native_public_registers_runtime.cc",
+        "test/0017.runtime/native_mcjit_numeric_execution.cc",
+        "test/0017.runtime/native_owned_instruction_semantics.cc",
+        "test/0017.runtime/native_provenance_numeric_mcjit.cc",
+        "test/0017.runtime/run_debug_native_closed_call_continuation.py"
+      ],
+      "whole_current_workspace_qualified": false
+    }
+  },
+  "qualified_cut_does_not_include_later_parallel_edits": true,
+  "current_paired_code_hashes": {
+    "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "97bbf7b2a748a19e51356324d9e5e3d4b19b83191c47cc5ccde072dd123e4308",
+    "src/uwvm2/uwvm/debugger/controller.h": "6cd0c279ffc90bcaaeec0af36990c323a50d34738b090baf563443bab3dcdb2d",
+    "test/0017.runtime/debug_source_conditional_expression.cc": "48e2091b15c01ba8e2bb36ec9fb3a99d659cefba5144ff2ca18f3257b8c064f5",
+    "test/0017.runtime/debug_source_dap_expression.cc": "1a42bb359f8aa28a633e36104737df526dce7c368905069013242714d3005c9a",
+    "test/0017.runtime/run_debug_language_numeric_cli.py": "f3c70dd3a2a2098e14b015fb32fe929947e5d3e24efcbed35bfe4c706ed6801d",
+    "test/0017.runtime/fixtures/debug_language_numeric_c.c": "009e50bc61faeb0ed86a3effce81532767a554482f5e352acb6cedc8287d6acb",
+    "test/0017.runtime/fixtures/debug_language_numeric_cpp.cc": "009e50bc61faeb0ed86a3effce81532767a554482f5e352acb6cedc8287d6acb",
+    "test/0018.debugger/dap_source_expression_cases.json": "fb9e66da1cd9ebbde201214e0bf2043ec5586fdf3868651007c1ed806900d35e",
+    "tools/debug/dap_adapter.py": "af3e193941a2a3d96414558522b74ed37e0f47981e4d3f8a6e8bb5cf499eeabc",
+    "test/0018.debugger/test_dap_source_frames.py": "f902c2e37560146321ec342af88882005bb9e5bb19e8f5621dc0c041ca66155b"
+  },
+  "local_source_archives": {
+    "uwvm2": {
+      "path": "/tmp/uwvm2-language-sizeof-20261005/uwvm2-current.tar.gz",
+      "sha256": "653ce8660b5679564e55b207bb11626b028ee329dd1bddbde766cb3ecb66d6e1",
+      "bytes": 17760338,
+      "source_id": "sha256:769f70f26c95663c86db398a9a4dfe9f92c3a8e0e3c40898bf0531c9429844bd"
+    },
+    "uwvm2-ros": {
+      "path": "/tmp/uwvm2-language-sizeof-20261005/uwvm2-ros-current.tar.gz",
+      "sha256": "d4d019389b4ebd513cce6acc2b5a46dc7f57ce63b658fb217b6930ac79454642",
+      "bytes": 17504375,
+      "source_id": "sha256:ff68e598da424ca95c7af82d05f80bc19ea624eee6b59b7807053c020b43e188"
+    }
+  },
+  "inventory_status_counts": {
+    "implemented": 14,
+    "partial": 38,
+    "missing": 34,
+    "separate_level": 1,
+    "prohibited_by_scope": 1
+  }
+}

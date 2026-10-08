@@ -1,0 +1,822 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/local-r28-r33-large-metadata.tar.gz",
+  "archive_bytes": 16328421,
+  "archive_sha256": "6f2e325455bca909b0fe59378ab277dcad02c6dfa1b12949be3835c15fc749e7",
+  "request_sha256": "c28a5ba6486a4a417b8a1a46aafeca336d711192b0b46e1664468047ebaa4300",
+  "rows": [
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/uwvm2-ros-macos-native-evidence.tar.gz",
+      "member": "wasip1-world-install-r28-work/uwvm2-ros-macos-native-evidence.tar.gz",
+      "bytes": 281673,
+      "mode": 420,
+      "sha256": "7d0aca656e82650ef4fd6e419778abd23b8d2221b542d406eff0708d4562c495",
+      "local_device": 16777231,
+      "local_inode": 82568750
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/active-init-before-inputs.json",
+      "member": "wasip1-world-install-r28-work/active-init-before-inputs.json",
+      "bytes": 1213826,
+      "mode": 420,
+      "sha256": "a2342908dcb39ce757459f60941aa4999b87ff3c5c703b51b4276b80f872d61e",
+      "local_device": 16777231,
+      "local_inode": 82435814
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/vendor-fixed-inputs.json",
+      "member": "wasip1-world-install-r28-work/vendor-fixed-inputs.json",
+      "bytes": 1213826,
+      "mode": 420,
+      "sha256": "3b1f0f16027327e679dcc34583980b8a9fab0ba578d1f42a9ab9a08fadc48891",
+      "local_device": 16777231,
+      "local_inode": 82364561
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/delivery-metadata.tar.gz",
+      "member": "wasip1-world-install-r28-work/delivery-metadata.tar.gz",
+      "bytes": 447066,
+      "mode": 420,
+      "sha256": "818464a66427ea27d99b4ce103788baa1ed8c380b0c2597b00d3b56c2be543f3",
+      "local_device": 16777231,
+      "local_inode": 82569957
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/declaration-failed-inputs.json",
+      "member": "wasip1-world-install-r28-work/declaration-failed-inputs.json",
+      "bytes": 1213826,
+      "mode": 420,
+      "sha256": "3c242f284cc5309aac2adb6043e93b9b57b6784a772b120964790d4fe7a1f45c",
+      "local_device": 16777231,
+      "local_inode": 82365958
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/world-install-final-qualified.json",
+      "member": "wasip1-world-install-r28-work/world-install-final-qualified.json",
+      "bytes": 51171,
+      "mode": 420,
+      "sha256": "697c2b7815d00aba0ecade3c9ecd0b1e2859c509fa7857957e448f445c2ecc93",
+      "local_device": 16777231,
+      "local_inode": 82569122
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/initial-inputs.json",
+      "member": "wasip1-world-install-r28-work/initial-inputs.json",
+      "bytes": 1180496,
+      "mode": 420,
+      "sha256": "2b687a3b1b2d31d3490a2ff2dfcefd4ca69979e70e7a1e9b6f4e3e3dab3f789c",
+      "local_device": 16777231,
+      "local_inode": 82358553
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/inputs.json",
+      "member": "wasip1-world-install-r28-work/inputs.json",
+      "bytes": 1213826,
+      "mode": 420,
+      "sha256": "4a46be13165404991f29fc8e32843e05fe88e84d13bf910336e8ef950ec9d371",
+      "local_device": 16777231,
+      "local_inode": 82569445
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/capture-diagnostic-before-inputs.json",
+      "member": "wasip1-world-install-r28-work/capture-diagnostic-before-inputs.json",
+      "bytes": 1213826,
+      "mode": 420,
+      "sha256": "aaa1bd283b4ec5ca0cefd28229083a609c9284fcf33fe84650ff2441f4a86f85",
+      "local_device": 16777231,
+      "local_inode": 82400821
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/uwvm2-macos-native-evidence.tar.gz",
+      "member": "wasip1-world-install-r28-work/uwvm2-macos-native-evidence.tar.gz",
+      "bytes": 276392,
+      "mode": 420,
+      "sha256": "27c7b6e6cb4a6142be1ed376dd483f4d65c576e9fccbfdede3b840f60919da42",
+      "local_device": 16777231,
+      "local_inode": 82566187
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/__pycache__/macos_monitor.cpython-314.pyc",
+      "member": "wasip1-world-install-r28-work/__pycache__/macos_monitor.cpython-314.pyc",
+      "bytes": 82426,
+      "mode": 420,
+      "sha256": "591016a9fa53436d5fa1991fb82e7e4f4422f1ee7baf2e95720a8c82558513e5",
+      "local_device": 16777231,
+      "local_inode": 82565268
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/delivery/wasip1_private_world_install_r28_source_manifest.json",
+      "member": "wasip1-world-install-r28-work/delivery/wasip1_private_world_install_r28_source_manifest.json",
+      "bytes": 1213826,
+      "mode": 420,
+      "sha256": "4a46be13165404991f29fc8e32843e05fe88e84d13bf910336e8ef950ec9d371",
+      "local_device": 16777231,
+      "local_inode": 82569445
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/delivery/wasip1_private_world_install_r28_test_report.json",
+      "member": "wasip1-world-install-r28-work/delivery/wasip1_private_world_install_r28_test_report.json",
+      "bytes": 51171,
+      "mode": 420,
+      "sha256": "697c2b7815d00aba0ecade3c9ecd0b1e2859c509fa7857957e448f445c2ecc93",
+      "local_device": 16777231,
+      "local_inode": 82569441
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+      "member": "wasip1-world-install-r28-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+      "bytes": 88023,
+      "mode": 420,
+      "sha256": "bb74aa87b6209b4def9edb2d69e32723e24ab107ece682161c22fdeeec17ce38",
+      "local_device": 16777231,
+      "local_inode": 82355977
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "member": "wasip1-world-install-r28-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "bytes": 1006826,
+      "mode": 420,
+      "sha256": "775bc6531bd40500fe8e7f23a82b0442e2222b016a1bb9817634dd380601e238",
+      "local_device": 16777231,
+      "local_inode": 82400797
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "member": "wasip1-world-install-r28-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "bytes": 84529,
+      "mode": 420,
+      "sha256": "f3d366c6f8e9af52635a7aef6e804a8d9a019f803751b27f34d50592ad0087cd",
+      "local_device": 16777231,
+      "local_inode": 82355976
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/before/uwvm2-ros/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "member": "wasip1-world-install-r28-work/before/uwvm2-ros/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "bytes": 35411,
+      "mode": 420,
+      "sha256": "0f91a6d27cc79bb770e3169074441581e9ff998649833e1b5d25182270f643d9",
+      "local_device": 16777231,
+      "local_inode": 82355981
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+      "member": "wasip1-world-install-r28-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+      "bytes": 88023,
+      "mode": 420,
+      "sha256": "bb74aa87b6209b4def9edb2d69e32723e24ab107ece682161c22fdeeec17ce38",
+      "local_device": 16777231,
+      "local_inode": 82355964
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "member": "wasip1-world-install-r28-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "bytes": 1411969,
+      "mode": 420,
+      "sha256": "b6e46e6f7bfcd4cff5f1ef7a522bec257700319d2de8f89d66a095493f614648",
+      "local_device": 16777231,
+      "local_inode": 82400795
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "member": "wasip1-world-install-r28-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "bytes": 84529,
+      "mode": 420,
+      "sha256": "f3d366c6f8e9af52635a7aef6e804a8d9a019f803751b27f34d50592ad0087cd",
+      "local_device": 16777231,
+      "local_inode": 82355963
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/before/uwvm2/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "member": "wasip1-world-install-r28-work/before/uwvm2/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "bytes": 35411,
+      "mode": 420,
+      "sha256": "0f91a6d27cc79bb770e3169074441581e9ff998649833e1b5d25182270f643d9",
+      "local_device": 16777231,
+      "local_inode": 82355968
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/qualified.json",
+      "member": "wasip1-world-install-r28-work/macos/uwvm2/qualified.json",
+      "bytes": 658883,
+      "mode": 420,
+      "sha256": "9f76e0547ed7e9f36f092d7a187814652fb4ac2e33dcb39037e1a62d5a08cb90",
+      "local_device": 16777231,
+      "local_inode": 82565373
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2/environment-group-qualified.json",
+      "member": "wasip1-world-install-r28-work/macos/uwvm2/environment-group-qualified.json",
+      "bytes": 657354,
+      "mode": 420,
+      "sha256": "1c143f27b8822d7519e71bece6f2356e8f9cda56ede58b8f8ae51361988a3d39",
+      "local_device": 16777231,
+      "local_inode": 82565374
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/qualified.json",
+      "member": "wasip1-world-install-r28-work/macos/uwvm2-ros/qualified.json",
+      "bytes": 661105,
+      "mode": 420,
+      "sha256": "7027a83dcee722a3012b13bf68a65bd005101a2fc28b1bed43ef0ac2262baede",
+      "local_device": 16777231,
+      "local_inode": 82568419
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/macos/uwvm2-ros/environment-group-qualified.json",
+      "member": "wasip1-world-install-r28-work/macos/uwvm2-ros/environment-group-qualified.json",
+      "bytes": 659564,
+      "mode": 420,
+      "sha256": "5d639a110766aa94ad8c78344e71f867c0e4d5157a947dd8ac0cee986ac39753",
+      "local_device": 16777231,
+      "local_inode": 82568420
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/uwvm2-ros-macos-native-evidence.tar.gz",
+      "member": "wasip1-dispatch-r29-work/uwvm2-ros-macos-native-evidence.tar.gz",
+      "bytes": 281589,
+      "mode": 420,
+      "sha256": "284e00ba395d0187949ab9027bcf9086d822a093af37db86fa40b1c66a9aaebe",
+      "local_device": 16777231,
+      "local_inode": 82611433
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/historical-products-transfer.json",
+      "member": "wasip1-dispatch-r29-work/historical-products-transfer.json",
+      "bytes": 56028,
+      "mode": 420,
+      "sha256": "962ab6d2c5900b28ab9c2c210739daacf4a0187e270be7cf1507c27faf7dcf04",
+      "local_device": 16777231,
+      "local_inode": 82572308
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/delivery-metadata.tar.gz",
+      "member": "wasip1-dispatch-r29-work/delivery-metadata.tar.gz",
+      "bytes": 473790,
+      "mode": 420,
+      "sha256": "49f707d2d0cd1cf44352d94563730505091b152e6537877b75b9de0abbc3bd0c",
+      "local_device": 16777231,
+      "local_inode": 82611943
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/world-install-final-qualified.json",
+      "member": "wasip1-dispatch-r29-work/world-install-final-qualified.json",
+      "bytes": 51487,
+      "mode": 420,
+      "sha256": "32c0a145bdc9ba1844d3b19820b59c4558a43a11613d3fe06c56f779f52f6e75",
+      "local_device": 16777231,
+      "local_inode": 82611855
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/initial-inputs.json",
+      "member": "wasip1-dispatch-r29-work/initial-inputs.json",
+      "bytes": 1232331,
+      "mode": 420,
+      "sha256": "cb46d7e0f26793ea778558149d8b80fdda50b9786694f383aa15e8bc6c56a149",
+      "local_device": 16777231,
+      "local_inode": 82572045
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/inputs.json",
+      "member": "wasip1-dispatch-r29-work/inputs.json",
+      "bytes": 1232331,
+      "mode": 420,
+      "sha256": "194ff28bd7ea121fa338698e9cff6ba427c52fb7522e2fca9ae066ff1433b9be",
+      "local_device": 16777231,
+      "local_inode": 82611883
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/uwvm2-macos-native-evidence.tar.gz",
+      "member": "wasip1-dispatch-r29-work/uwvm2-macos-native-evidence.tar.gz",
+      "bytes": 282469,
+      "mode": 420,
+      "sha256": "c255943f1e0272c034447b776cbed6e4ac46cdc1175c76cc29531e62d2d77404",
+      "local_device": 16777231,
+      "local_inode": 82610925
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/__pycache__/macos_monitor.cpython-314.pyc",
+      "member": "wasip1-dispatch-r29-work/__pycache__/macos_monitor.cpython-314.pyc",
+      "bytes": 82421,
+      "mode": 420,
+      "sha256": "4e64ba2d379850827897f5475bd9df923f4781f2b875c2a82750d0b1d22fd7a3",
+      "local_device": 16777231,
+      "local_inode": 82610703
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/delivery/wasip1_private_dispatch_r29_source_manifest.json",
+      "member": "wasip1-dispatch-r29-work/delivery/wasip1_private_dispatch_r29_source_manifest.json",
+      "bytes": 1232331,
+      "mode": 420,
+      "sha256": "194ff28bd7ea121fa338698e9cff6ba427c52fb7522e2fca9ae066ff1433b9be",
+      "local_device": 16777231,
+      "local_inode": 82611883
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/delivery/wasip1_private_dispatch_r29_test_report.json",
+      "member": "wasip1-dispatch-r29-work/delivery/wasip1_private_dispatch_r29_test_report.json",
+      "bytes": 51487,
+      "mode": 420,
+      "sha256": "32c0a145bdc9ba1844d3b19820b59c4558a43a11613d3fe06c56f779f52f6e75",
+      "local_device": 16777231,
+      "local_inode": 82611879
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/delivery/wasip1_private_dispatch_r29_historical_storage.json",
+      "member": "wasip1-dispatch-r29-work/delivery/wasip1_private_dispatch_r29_historical_storage.json",
+      "bytes": 68011,
+      "mode": 420,
+      "sha256": "41831be5d3e0a88f0394d9e28528ab24c368e0762ea78afa32996a3a619ee7a8",
+      "local_device": 16777231,
+      "local_inode": 82611915
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "member": "wasip1-dispatch-r29-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "bytes": 1008103,
+      "mode": 420,
+      "sha256": "faa97e7880bbd50918fd27a35e2b3c881f49039dc2883a65e3c2e7e363243ab2",
+      "local_device": 16777231,
+      "local_inode": 82571099
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "member": "wasip1-dispatch-r29-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "bytes": 85334,
+      "mode": 420,
+      "sha256": "0002154cbe3162064c7e4982531c5393ccf99503502a2fd10a5b7fe5b8d4aaed",
+      "local_device": 16777231,
+      "local_inode": 82571100
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/before/uwvm2-ros/test/0017.runtime/debug_wasip1_environment_group_runtime.cc",
+      "member": "wasip1-dispatch-r29-work/before/uwvm2-ros/test/0017.runtime/debug_wasip1_environment_group_runtime.cc",
+      "bytes": 34144,
+      "mode": 420,
+      "sha256": "55f3b4cba1f078bd1aa38e32d962b0d3a16c1ee9da59cb1536e31a09c2fe1d49",
+      "local_device": 16777231,
+      "local_inode": 82571105
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/before/uwvm2-ros/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "member": "wasip1-dispatch-r29-work/before/uwvm2-ros/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "bytes": 37323,
+      "mode": 420,
+      "sha256": "4301d33c58548feecf7cf5887eb8a1af7e4bcf4bca7413e6a9c7d3fb7f4e426a",
+      "local_device": 16777231,
+      "local_inode": 82571104
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "member": "wasip1-dispatch-r29-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+      "bytes": 1413246,
+      "mode": 420,
+      "sha256": "c904a3c210d5660ef3f934863a2784a2e4878fd8de2efdfd94af6dc27549335f",
+      "local_device": 16777231,
+      "local_inode": 82571085
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "member": "wasip1-dispatch-r29-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "bytes": 85334,
+      "mode": 420,
+      "sha256": "0002154cbe3162064c7e4982531c5393ccf99503502a2fd10a5b7fe5b8d4aaed",
+      "local_device": 16777231,
+      "local_inode": 82571086
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/before/uwvm2/test/0017.runtime/debug_wasip1_environment_group_runtime.cc",
+      "member": "wasip1-dispatch-r29-work/before/uwvm2/test/0017.runtime/debug_wasip1_environment_group_runtime.cc",
+      "bytes": 34144,
+      "mode": 420,
+      "sha256": "55f3b4cba1f078bd1aa38e32d962b0d3a16c1ee9da59cb1536e31a09c2fe1d49",
+      "local_device": 16777231,
+      "local_inode": 82571091
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/before/uwvm2/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "member": "wasip1-dispatch-r29-work/before/uwvm2/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "bytes": 37323,
+      "mode": 420,
+      "sha256": "4301d33c58548feecf7cf5887eb8a1af7e4bcf4bca7413e6a9c7d3fb7f4e426a",
+      "local_device": 16777231,
+      "local_inode": 82571090
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/macos/uwvm2/qualified.json",
+      "member": "wasip1-dispatch-r29-work/macos/uwvm2/qualified.json",
+      "bytes": 652403,
+      "mode": 420,
+      "sha256": "83444124ac4d522569ba251b40b2b888f6df5ffe510b3dd6a00771b4693a63db",
+      "local_device": 16777231,
+      "local_inode": 82610699
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/macos/uwvm2/environment-group-qualified.json",
+      "member": "wasip1-dispatch-r29-work/macos/uwvm2/environment-group-qualified.json",
+      "bytes": 650879,
+      "mode": 420,
+      "sha256": "0b6c093cd0c6194b6665b5615a08aa05f196562952b1933dc827cef327577468",
+      "local_device": 16777231,
+      "local_inode": 82610700
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/macos/uwvm2-ros/qualified.json",
+      "member": "wasip1-dispatch-r29-work/macos/uwvm2-ros/qualified.json",
+      "bytes": 654680,
+      "mode": 420,
+      "sha256": "8cd7232631ad9b36b3585f3cb4892259cdd1daec5fdfbf7fc8d47d1283b45f91",
+      "local_device": 16777231,
+      "local_inode": 82611203
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/macos/uwvm2-ros/environment-group-qualified.json",
+      "member": "wasip1-dispatch-r29-work/macos/uwvm2-ros/environment-group-qualified.json",
+      "bytes": 653144,
+      "mode": 420,
+      "sha256": "4f846e5eb1eba4df4a08441c54591ff98a1e8bddd91d5167fd999728176b94c7",
+      "local_device": 16777231,
+      "local_inode": 82611204
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/uwvm2-ros-macos-native-evidence.tar.gz",
+      "member": "wasip1-context-workers-r30-work/uwvm2-ros-macos-native-evidence.tar.gz",
+      "bytes": 281674,
+      "mode": 420,
+      "sha256": "949d6b7c484209bc12e912e6fcb0af883a151d58e8403416f06f221b5819af60",
+      "local_device": 16777231,
+      "local_inode": 82663030
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/delivery-metadata.tar.gz",
+      "member": "wasip1-context-workers-r30-work/delivery-metadata.tar.gz",
+      "bytes": 452521,
+      "mode": 420,
+      "sha256": "213d517a5b5ad76aadc4f1db0fb91203d654cdf7788d97464f205bc1ba8605a3",
+      "local_device": 16777231,
+      "local_inode": 82663437
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/world-install-final-qualified.json",
+      "member": "wasip1-context-workers-r30-work/world-install-final-qualified.json",
+      "bytes": 54992,
+      "mode": 420,
+      "sha256": "cfc12097c2e3af36f2776cadaeb1f890b709e2bc11134bc69aae1a7c764faa29",
+      "local_device": 16777231,
+      "local_inode": 82663350
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/inputs.json",
+      "member": "wasip1-context-workers-r30-work/inputs.json",
+      "bytes": 1232927,
+      "mode": 420,
+      "sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848",
+      "local_device": 16777231,
+      "local_inode": 82663450
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/uwvm2-macos-native-evidence.tar.gz",
+      "member": "wasip1-context-workers-r30-work/uwvm2-macos-native-evidence.tar.gz",
+      "bytes": 282724,
+      "mode": 420,
+      "sha256": "d8764e7a1c162b074dc1496a56855d3076e61313918c7c930efa81e0bd26a095",
+      "local_device": 16777231,
+      "local_inode": 82655299
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/__pycache__/macos_monitor.cpython-314.pyc",
+      "member": "wasip1-context-workers-r30-work/__pycache__/macos_monitor.cpython-314.pyc",
+      "bytes": 82428,
+      "mode": 420,
+      "sha256": "834cc813a0c8728226332ca3b58c6886a27c652e98deecdc30127e2b04a62a88",
+      "local_device": 16777231,
+      "local_inode": 82654820
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/delivery/wasip1_private_dispatch_r30_test_report.json",
+      "member": "wasip1-context-workers-r30-work/delivery/wasip1_private_dispatch_r30_test_report.json",
+      "bytes": 54992,
+      "mode": 420,
+      "sha256": "cfc12097c2e3af36f2776cadaeb1f890b709e2bc11134bc69aae1a7c764faa29",
+      "local_device": 16777231,
+      "local_inode": 82663394
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/delivery/wasip1_private_dispatch_r30_source_inputs.json",
+      "member": "wasip1-context-workers-r30-work/delivery/wasip1_private_dispatch_r30_source_inputs.json",
+      "bytes": 1232927,
+      "mode": 420,
+      "sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848",
+      "local_device": 16777231,
+      "local_inode": 82663450
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "member": "wasip1-context-workers-r30-work/before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "bytes": 86072,
+      "mode": 420,
+      "sha256": "fa3a85269e691329584eba3fd897f707418c19cd6bb2ebebd1d5cc23a5ac440f",
+      "local_device": 16777231,
+      "local_inode": 82613027
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/before/uwvm2-ros/test/0017.runtime/debug_wasip1_environment_group_runtime.cc",
+      "member": "wasip1-context-workers-r30-work/before/uwvm2-ros/test/0017.runtime/debug_wasip1_environment_group_runtime.cc",
+      "bytes": 34388,
+      "mode": 420,
+      "sha256": "3e56513d653327b2b7f071d1930114fd352a07bf495510609391a87ef65ac3d1",
+      "local_device": 16777231,
+      "local_inode": 82613032
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/before/uwvm2-ros/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "member": "wasip1-context-workers-r30-work/before/uwvm2-ros/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "bytes": 40879,
+      "mode": 420,
+      "sha256": "ea473f1f8de9ecc758360d9a87f0c58b10ccc26701b50a1c7835b5e24738ddb2",
+      "local_device": 16777231,
+      "local_inode": 82613031
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "member": "wasip1-context-workers-r30-work/before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "bytes": 86072,
+      "mode": 420,
+      "sha256": "fa3a85269e691329584eba3fd897f707418c19cd6bb2ebebd1d5cc23a5ac440f",
+      "local_device": 16777231,
+      "local_inode": 82613014
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/before/uwvm2/test/0017.runtime/debug_wasip1_environment_group_runtime.cc",
+      "member": "wasip1-context-workers-r30-work/before/uwvm2/test/0017.runtime/debug_wasip1_environment_group_runtime.cc",
+      "bytes": 34388,
+      "mode": 420,
+      "sha256": "3e56513d653327b2b7f071d1930114fd352a07bf495510609391a87ef65ac3d1",
+      "local_device": 16777231,
+      "local_inode": 82613019
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/before/uwvm2/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "member": "wasip1-context-workers-r30-work/before/uwvm2/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc",
+      "bytes": 40879,
+      "mode": 420,
+      "sha256": "ea473f1f8de9ecc758360d9a87f0c58b10ccc26701b50a1c7835b5e24738ddb2",
+      "local_device": 16777231,
+      "local_inode": 82613018
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/qualified.json",
+      "member": "wasip1-context-workers-r30-work/macos/uwvm2/qualified.json",
+      "bytes": 661475,
+      "mode": 420,
+      "sha256": "d1055d7a1a9c59a2750279109220e3276f1cf6e8dcf57c8e58cef2c348bf22b9",
+      "local_device": 16777231,
+      "local_inode": 82654815
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/environment-group-qualified.json",
+      "member": "wasip1-context-workers-r30-work/macos/uwvm2/environment-group-qualified.json",
+      "bytes": 659944,
+      "mode": 420,
+      "sha256": "639ff1f4754e77e6c422fe09a6625c001d2549b1ee024c3d2518ba6209a3affd",
+      "local_device": 16777231,
+      "local_inode": 82654816
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/qualified.json",
+      "member": "wasip1-context-workers-r30-work/macos/uwvm2-ros/qualified.json",
+      "bytes": 663675,
+      "mode": 420,
+      "sha256": "10d784f00738b40a47736c8c3fd04a94233c5491a101cd2b68c75533c530a78c",
+      "local_device": 16777231,
+      "local_inode": 82662371
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/environment-group-qualified.json",
+      "member": "wasip1-context-workers-r30-work/macos/uwvm2-ros/environment-group-qualified.json",
+      "bytes": 662132,
+      "mode": 420,
+      "sha256": "3e68b07233e80952b9685d926260acbdb0669d7906376a38072cf7331760ec1b",
+      "local_device": 16777231,
+      "local_inode": 82662372
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r31-work/inputs.json",
+      "member": "wasip1-joint-worker-contexts-r31-work/inputs.json",
+      "bytes": 1234189,
+      "mode": 420,
+      "sha256": "d81d0f6d08c1fc699031e859ce4135fc8e207094ecfb2acbc40e98161bfd5a9c",
+      "local_device": 16777231,
+      "local_inode": 82665123
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r32-work/inputs.json",
+      "member": "wasip1-joint-worker-contexts-r32-work/inputs.json",
+      "bytes": 1234777,
+      "mode": 420,
+      "sha256": "ea1734aea48d131bc0edaef08c0f2fcdcf952de686e35232154554fb29f2309b",
+      "local_device": 16777231,
+      "local_inode": 82667327
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/uwvm2-ros-macos-native-evidence.tar.gz",
+      "member": "wasip1-joint-worker-contexts-r33-work/uwvm2-ros-macos-native-evidence.tar.gz",
+      "bytes": 283623,
+      "mode": 420,
+      "sha256": "138a42f0621546fc9e8635e4fe84d0f1c38c97eedf8b4d4d4c5a6cbbc979240f",
+      "local_device": 16777231,
+      "local_inode": 82806159
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/ros-repaired-inputs.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/ros-repaired-inputs.json",
+      "bytes": 1234777,
+      "mode": 420,
+      "sha256": "15fa0a34d3bf1c27e6744969a79e2e04f69846882ab1137a4114f2f6f789ecde",
+      "local_device": 16777231,
+      "local_inode": 82688596
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/first-failed-guard.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/first-failed-guard.json",
+      "bytes": 69825,
+      "mode": 420,
+      "sha256": "1d0eafdcfc7ddd1d3c17b997cc67fc420bfeb5c0d4d1db211a5d99f6f4711155",
+      "local_device": 16777231,
+      "local_inode": 82815254
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/delivery-metadata.tar.gz",
+      "member": "wasip1-joint-worker-contexts-r33-work/delivery-metadata.tar.gz",
+      "bytes": 903643,
+      "mode": 420,
+      "sha256": "465219dd99337be05af85193c7944cdf7150855f1765c5a29cee89b785b19137",
+      "local_device": 16777231,
+      "local_inode": 82815303
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/world-install-final-qualified.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/world-install-final-qualified.json",
+      "bytes": 73342,
+      "mode": 420,
+      "sha256": "6777d5bb6dd0df7e4460256d388a17d603bc372ddb1ef969445fa9a9ee140626",
+      "local_device": 16777231,
+      "local_inode": 82815249
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/second-failed-guard.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/second-failed-guard.json",
+      "bytes": 148475,
+      "mode": 420,
+      "sha256": "c2c3fc15221657331a9bf65bc0da39e842a8da6a1a4a39dae2662b2d4a5cf46c",
+      "local_device": 16777231,
+      "local_inode": 82815259
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/inputs.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/inputs.json",
+      "bytes": 1234777,
+      "mode": 420,
+      "sha256": "b22ea661b18400b72dd73a7c4a80f717a56449fd3575f95b8830641edd3dd15d",
+      "local_device": 16777231,
+      "local_inode": 82669789
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/negative-baseline.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/negative-baseline.json",
+      "bytes": 153015,
+      "mode": 420,
+      "sha256": "cea6333512348564605d2e582f39f2e15f61e28056684689de05755a47473fab",
+      "local_device": 16777231,
+      "local_inode": 82815266
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/uwvm2-macos-native-evidence.tar.gz",
+      "member": "wasip1-joint-worker-contexts-r33-work/uwvm2-macos-native-evidence.tar.gz",
+      "bytes": 284626,
+      "mode": 420,
+      "sha256": "68d5678ee41227bc52547af5e956aed1b546095ce320cd01ba6bb931320b13b0",
+      "local_device": 16777231,
+      "local_inode": 82802604
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/delivery-source-inputs.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/delivery-source-inputs.json",
+      "bytes": 2504925,
+      "mode": 420,
+      "sha256": "e6591cb8bb951a33328e6fe9ae8dffc24b3cb1f78f0b74714e29173b03b5ebf2",
+      "local_device": 16777231,
+      "local_inode": 82815314
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/macos-evidence-uwvm2/qualified.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/macos-evidence-uwvm2/qualified.json",
+      "bytes": 669441,
+      "mode": 420,
+      "sha256": "f5639fdf9a02743f8f5c8ee7c0057e50ae113398743744b82799b0e8eefc8dc0",
+      "local_device": 16777231,
+      "local_inode": 82803123
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/macos-evidence-uwvm2/environment-group-qualified.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/macos-evidence-uwvm2/environment-group-qualified.json",
+      "bytes": 667714,
+      "mode": 420,
+      "sha256": "2e1c720198284bc6af2ce711dcdeed4528d70ea4a56cc0e062ac22d356751613",
+      "local_device": 16777231,
+      "local_inode": 82803114
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/__pycache__/macos_monitor.cpython-314.pyc",
+      "member": "wasip1-joint-worker-contexts-r33-work/__pycache__/macos_monitor.cpython-314.pyc",
+      "bytes": 82434,
+      "mode": 420,
+      "sha256": "e37e1874faeecc805a5de7fa09365172aef721165d71045ac653a9f580e02e7b",
+      "local_device": 16777231,
+      "local_inode": 82802367
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/__pycache__/guard-joint-object-cache-retire-r33.cpython-314.pyc",
+      "member": "wasip1-joint-worker-contexts-r33-work/__pycache__/guard-joint-object-cache-retire-r33.cpython-314.pyc",
+      "bytes": 33372,
+      "mode": 420,
+      "sha256": "b325a2e7bcecfb0ecadb3b6ec8a012f2374c4057497a420a355c7dce2e166ac2",
+      "local_device": 16777231,
+      "local_inode": 82796707
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/__pycache__/guard-joint-bundle-macos-r33.cpython-314.pyc",
+      "member": "wasip1-joint-worker-contexts-r33-work/__pycache__/guard-joint-bundle-macos-r33.cpython-314.pyc",
+      "bytes": 33091,
+      "mode": 420,
+      "sha256": "3b820e2f0f9659056b7f9430b0ffe321a0234b1bd2de48af7855a308460f2b7a",
+      "local_device": 16777231,
+      "local_inode": 82799851
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/__pycache__/guard-joint-reorder-macos-r33.cpython-314.pyc",
+      "member": "wasip1-joint-worker-contexts-r33-work/__pycache__/guard-joint-reorder-macos-r33.cpython-314.pyc",
+      "bytes": 33101,
+      "mode": 420,
+      "sha256": "4b043e528ca5bb0da2c2cf3f2923c46e4c5456de07d66c95049911af8a67330c",
+      "local_device": 16777231,
+      "local_inode": 82811692
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/__pycache__/finish.cpython-314.pyc",
+      "member": "wasip1-joint-worker-contexts-r33-work/__pycache__/finish.cpython-314.pyc",
+      "bytes": 33906,
+      "mode": 420,
+      "sha256": "f6bb2760d7fd7cd4db3bb9dcca39fced22489eedc73b4bf3742ccb843622e5ec",
+      "local_device": 16777231,
+      "local_inode": 82809303
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/delivery/wasip1_joint_worker_contexts_r33_source_inputs.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/delivery/wasip1_joint_worker_contexts_r33_source_inputs.json",
+      "bytes": 2504925,
+      "mode": 420,
+      "sha256": "e6591cb8bb951a33328e6fe9ae8dffc24b3cb1f78f0b74714e29173b03b5ebf2",
+      "local_device": 16777231,
+      "local_inode": 82815314
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/delivery/wasip1_joint_worker_contexts_r33_test_report.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/delivery/wasip1_joint_worker_contexts_r33_test_report.json",
+      "bytes": 73342,
+      "mode": 420,
+      "sha256": "6777d5bb6dd0df7e4460256d388a17d603bc372ddb1ef969445fa9a9ee140626",
+      "local_device": 16777231,
+      "local_inode": 82815283
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/delivery/wasip1_joint_worker_contexts_r33_negative_baseline.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/delivery/wasip1_joint_worker_contexts_r33_negative_baseline.json",
+      "bytes": 153015,
+      "mode": 420,
+      "sha256": "cea6333512348564605d2e582f39f2e15f61e28056684689de05755a47473fab",
+      "local_device": 16777231,
+      "local_inode": 82815290
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/macos-evidence-uwvm2-ros/qualified.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/macos-evidence-uwvm2-ros/qualified.json",
+      "bytes": 688267,
+      "mode": 420,
+      "sha256": "0c1184f0018890fb198eb473367ef7b6f511b3b92e00e74252e824c65da87e8c",
+      "local_device": 16777231,
+      "local_inode": 82808942
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/macos-evidence-uwvm2-ros/environment-group-qualified.json",
+      "member": "wasip1-joint-worker-contexts-r33-work/macos-evidence-uwvm2-ros/environment-group-qualified.json",
+      "bytes": 686528,
+      "mode": 420,
+      "sha256": "01be70a2ac8ed8e42f5288d4f34f563b43b0e053b50dbe782ae8488bacee6c31",
+      "local_device": 16777231,
+      "local_inode": 82808933
+    }
+  ],
+  "all_payloads_sizes_modes_read_back": true,
+  "native_execution_claimed": false,
+  "current_sources_and_cold_regions_untouched": true
+}

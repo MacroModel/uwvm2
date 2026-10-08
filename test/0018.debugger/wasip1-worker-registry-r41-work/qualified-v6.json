@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "fresh_native_cases": 24,
+  "expected_pre_fix_native_failure_cases": 1,
+  "frontend_checks": 16,
+  "source_manifest_sha256": "c3e7223723f68cc7ac0a93cdfd3797d4d0a54be22e7ad697cc50bce903589a62",
+  "source_equivalence_sha256": "413203bcb1eb8b03062d44d6dec79722377176f46df431f830215b1b4b29bba2",
+  "results_sha256": "764db261000807f35389baf14f61aa1cc08c1cf26610ac5a905d80beaac5453b",
+  "controller_sha256": "b89d16544bf9b8e7eb6aca27f250ada2024cb30263a74aa1cc32de9cd896aeab",
+  "original_live_native_limit": 256,
+  "live_capacity_reused_only_after_actual_os_tls_join": true,
+  "canonical_completed_retry_preserved": true,
+  "stress_native_workers": 2340,
+  "stress_actual_guest_returns_42": 1316,
+  "world_publication": false,
+  "restored_worker_startup": false,
+  "new_world_replay": false
+}

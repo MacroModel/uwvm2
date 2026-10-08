@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "checks": [
+    "old cached-stage bug reproduced",
+    "cached return is actual completed stage",
+    "cached compile command is correct",
+    "cached rows preserved",
+    "cached argument mismatch rejected",
+    "cached log mismatch rejected",
+    "fresh stage returned",
+    "fresh stage command and log authenticated",
+    "fresh completed stage persisted",
+    "qualifications use returned stage",
+    "historical controller preserved",
+    "fixed controller matches reviewed bytes"
+  ],
+  "checks_passed": 12,
+  "old_controller_sha256": "d88a547dca1e53c7926a424d005fd9a715483cdea41fc8d90dc6e2e65dced223",
+  "fixed_controller_sha256": "7ec270f3c9b42617f57417b717183d59447b05802ea2cd2ac49d0b72a434210b",
+  "test_sha256": "0174c6b2baf6a829b1bb90df34dbd49ff82b8f273853e05b4c6496a69eb1fdbf",
+  "actual_native_runtime_execution": false
+}

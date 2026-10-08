@@ -1,0 +1,80 @@
+{
+  "passed": true,
+  "source_manifest_sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848",
+  "paths": {
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h": {
+      "qualified_sha256": "160e3600b6229698e00ecaec479127f76b1263c29790190d94c110193263a218",
+      "current_sha256": "160e3600b6229698e00ecaec479127f76b1263c29790190d94c110193263a218",
+      "matches_qualified_cut": true,
+      "r30_changes_present": true
+    },
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h": {
+      "qualified_sha256": "b398f131eaa555e69bd7ea5995ebf6d4bc62cbf370bfde654d39d85a00807267",
+      "current_sha256": "b398f131eaa555e69bd7ea5995ebf6d4bc62cbf370bfde654d39d85a00807267",
+      "matches_qualified_cut": true,
+      "r30_changes_present": true
+    },
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": {
+      "qualified_sha256": "c7aa7de3da6d81a79e29605628cecd0cdd01c0334a42b6e612e1b050038c1cf9",
+      "current_sha256": "c7aa7de3da6d81a79e29605628cecd0cdd01c0334a42b6e612e1b050038c1cf9",
+      "matches_qualified_cut": true,
+      "r30_changes_present": true
+    },
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "qualified_sha256": "fec84e14354bad1d870bc95a1846b8d530ff70f0109a22895aadfa28c9b7d752",
+      "current_sha256": "5183e02752ba3a776b3538c3cff4bb5a259fdf127bc1d788203c61871744f2a6",
+      "matches_qualified_cut": false,
+      "r30_changes_present": true
+    },
+    "uwvm2/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc": {
+      "qualified_sha256": "5691c8a025b9d1fad837f725fc9cabf44710e906c12a67b4334501e8a7c626c7",
+      "current_sha256": "5691c8a025b9d1fad837f725fc9cabf44710e906c12a67b4334501e8a7c626c7",
+      "matches_qualified_cut": true,
+      "r30_changes_present": true
+    },
+    "uwvm2/test/0017.runtime/debug_wasip1_environment_group_runtime.cc": {
+      "qualified_sha256": "62d5221e0acd0c4d00ce0274785f4114b5d66661aeed6e9b2b5e6ec0de429c4c",
+      "current_sha256": "62d5221e0acd0c4d00ce0274785f4114b5d66661aeed6e9b2b5e6ec0de429c4c",
+      "matches_qualified_cut": true,
+      "r30_changes_present": true
+    },
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h": {
+      "qualified_sha256": "160e3600b6229698e00ecaec479127f76b1263c29790190d94c110193263a218",
+      "current_sha256": "160e3600b6229698e00ecaec479127f76b1263c29790190d94c110193263a218",
+      "matches_qualified_cut": true,
+      "r30_changes_present": true
+    },
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h": {
+      "qualified_sha256": "b398f131eaa555e69bd7ea5995ebf6d4bc62cbf370bfde654d39d85a00807267",
+      "current_sha256": "b398f131eaa555e69bd7ea5995ebf6d4bc62cbf370bfde654d39d85a00807267",
+      "matches_qualified_cut": true,
+      "r30_changes_present": true
+    },
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": {
+      "qualified_sha256": "c7aa7de3da6d81a79e29605628cecd0cdd01c0334a42b6e612e1b050038c1cf9",
+      "current_sha256": "c7aa7de3da6d81a79e29605628cecd0cdd01c0334a42b6e612e1b050038c1cf9",
+      "matches_qualified_cut": true,
+      "r30_changes_present": true
+    },
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "qualified_sha256": "fec84e14354bad1d870bc95a1846b8d530ff70f0109a22895aadfa28c9b7d752",
+      "current_sha256": "5183e02752ba3a776b3538c3cff4bb5a259fdf127bc1d788203c61871744f2a6",
+      "matches_qualified_cut": false,
+      "r30_changes_present": true
+    },
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc": {
+      "qualified_sha256": "5691c8a025b9d1fad837f725fc9cabf44710e906c12a67b4334501e8a7c626c7",
+      "current_sha256": "5691c8a025b9d1fad837f725fc9cabf44710e906c12a67b4334501e8a7c626c7",
+      "matches_qualified_cut": true,
+      "r30_changes_present": true
+    },
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_environment_group_runtime.cc": {
+      "qualified_sha256": "62d5221e0acd0c4d00ce0274785f4114b5d66661aeed6e9b2b5e6ec0de429c4c",
+      "current_sha256": "62d5221e0acd0c4d00ce0274785f4114b5d66661aeed6e9b2b5e6ec0de429c4c",
+      "matches_qualified_cut": true,
+      "r30_changes_present": true
+    }
+  },
+  "source_cut_only": true,
+  "peer_changes_preserved": true
+}

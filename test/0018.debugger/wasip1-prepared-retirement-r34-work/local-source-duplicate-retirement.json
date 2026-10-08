@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/inputs.tar.gz",
+      "sha256": "01e359df5dc0c18dd83e1986c84a862abf8c7fe1ee01da45817e79cd3056fc04",
+      "bytes": 18286650
+    },
+    {
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/vendor-fixed-inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/vendor-fixed-inputs.tar.gz",
+      "sha256": "4b06aaa4293e786528ea8b4e03715a09307569cc6439e9f6de97638ff8f11f92",
+      "bytes": 18553712
+    },
+    {
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/active-init-before-inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/active-init-before-inputs.tar.gz",
+      "sha256": "1c1fd12b135b3fad5e6e8de2c18098649d0aa86dfe1c44c2a9538d52808c508b",
+      "bytes": 18286404
+    },
+    {
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/capture-diagnostic-before-inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/capture-diagnostic-before-inputs.tar.gz",
+      "sha256": "65404cbb938dafdf06b6e447ecf4b91355f063c5495ffbfb7d894fb7c863d89a",
+      "bytes": 18286131
+    },
+    {
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/declaration-failed-inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/declaration-failed-inputs.tar.gz",
+      "sha256": "5b6e858b6bc7583bc5088053da9cdad09955a4948b49c2fc4bfaec2059233473",
+      "bytes": 18555700
+    },
+    {
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/initial-inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/initial-inputs.tar.gz",
+      "sha256": "1f307b2c0940bddafdcf751234ee4a6ceca6f81e7e4d0f099ca52a63de5c9dcf",
+      "bytes": 18272970
+    },
+    {
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/inputs.tar.gz",
+      "sha256": "c994dd6c8d89318e9b2578353cb2981bb634ca325bdc2cc07533bbe2501db6db",
+      "bytes": 19135375
+    },
+    {
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/initial-inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/initial-inputs.tar.gz",
+      "sha256": "aacced5aed49beb9242829dba71874eeeccc9d3f82ef387d071b2a87376dcf9f",
+      "bytes": 19135357
+    },
+    {
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/inputs.tar.gz",
+      "sha256": "bcbfba7bfe80b841676d35c9dbbd294ac00497faab9ccad1432ac6cddf54a1e9",
+      "bytes": 18725340
+    },
+    {
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r33/inputs.tar.gz",
+      "sha256": "78bb5a430914decaf9e275ca0bd8d06fb076759ad1f0fd10c2b5132b176cb0e0",
+      "bytes": 19199391
+    },
+    {
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/inputs.tar.gz",
+      "sha256": "a3140ed721b8769e0e94d58013f1e230a58e79041a01c2025955b9554806a1c0",
+      "bytes": 19234168
+    }
+  ],
+  "all_original_archive_bytes_authenticated": true,
+  "recoverability": "exact original archives retained in bounded original Linux task volume",
+  "local_native_products_unchanged": true,
+  "local_cold_aggregate_limit_unchanged": true,
+  "free_before_bytes": 253530112,
+  "memory_upper_bytes": 155516928,
+  "limit_bytes": 2147483648
+}

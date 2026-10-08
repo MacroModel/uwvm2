@@ -1,0 +1,485 @@
+{
+  "round": 37,
+  "files": {
+    "analysis-compile-qualified-v1.json": {
+      "sha256": "d32d5862ff4de18a959d2acd62c9774d3cc15a032ad19701846578ee2bf34d3f",
+      "size": 49812,
+      "archive_mode": "0444"
+    },
+    "analysis-compile-qualified-v2.json": {
+      "sha256": "06730bb9cc73e1bcbeb6bb491161fd44222a1bf4c8ba0ed2cd01eed42f12302a",
+      "size": 49839,
+      "archive_mode": "0444"
+    },
+    "analysis-compile-results-v1.json": {
+      "sha256": "2a630d42bad8399af4132db1c4fd0ad4ecdb2342057f4ef0b4fbaae4d3f8f568",
+      "size": 40019,
+      "archive_mode": "0444"
+    },
+    "analysis-compile-results-v2.json": {
+      "sha256": "c31fbac2e5d76fa72bb0187fa9829fd790960de04251c2770618ba43b758a619",
+      "size": 40019,
+      "archive_mode": "0444"
+    },
+    "analysis_compile_matrix-final.py": {
+      "sha256": "d523ceef686f11b9eb486e6d5d2328adcc29e2332b0c44f68effa330c4b8149d",
+      "size": 6552,
+      "archive_mode": "0444"
+    },
+    "analysis_compile_matrix.py": {
+      "sha256": "ec5f69dadd31bbb9def6d717f910405ae9b1d365fabbfe627961de527f48ab32",
+      "size": 6543,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "sha256": "947b3993ebea3013272f5351ebfc3672bd89a15dd2e27e4025b335d737afff56",
+      "size": 90333,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h": {
+      "sha256": "783c091edb198a220caeb7d24c404fd9e4e5ba4ce4ad3c730cba99b4c038fd31",
+      "size": 28640,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": {
+      "sha256": "fc478a28d78edb20d9291254e03205a5b3ccc1ac10980bff960545af2e7d7990",
+      "size": 11034,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": {
+      "sha256": "d047553689659ec40b03d3058884919a4556abb261bda6276aaeaac889666d11",
+      "size": 88304,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h": {
+      "sha256": "869b0d20cdae5f0e0a1954ebf10d368b992a3597979bc431717a0374b030c1f5",
+      "size": 15626,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": {
+      "sha256": "92c3cfe48481933f28892abeb73c1f418548a67478fbe8dac9a21dc9ed50fb24",
+      "size": 51538,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": {
+      "sha256": "1a8ac51a2d080c38405df1d6dffd442d828550755416768745f3fcc92a50a1ca",
+      "size": 34708,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": {
+      "sha256": "969f38e413be5861eea744f0b59768e69ffab1351a18a8a9a44d598c181aea03",
+      "size": 17496,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "sha256": "947b3993ebea3013272f5351ebfc3672bd89a15dd2e27e4025b335d737afff56",
+      "size": 90333,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h": {
+      "sha256": "94f4f729ea6e0bb61ebeb9bb20570f1aa9d113e9df10beaacd8bd306fadec40c",
+      "size": 28563,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": {
+      "sha256": "fc478a28d78edb20d9291254e03205a5b3ccc1ac10980bff960545af2e7d7990",
+      "size": 11034,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": {
+      "sha256": "d047553689659ec40b03d3058884919a4556abb261bda6276aaeaac889666d11",
+      "size": 88304,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h": {
+      "sha256": "869b0d20cdae5f0e0a1954ebf10d368b992a3597979bc431717a0374b030c1f5",
+      "size": 15626,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": {
+      "sha256": "92c3cfe48481933f28892abeb73c1f418548a67478fbe8dac9a21dc9ed50fb24",
+      "size": 51538,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": {
+      "sha256": "1a8ac51a2d080c38405df1d6dffd442d828550755416768745f3fcc92a50a1ca",
+      "size": 34708,
+      "archive_mode": "0444"
+    },
+    "before/uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": {
+      "sha256": "969f38e413be5861eea744f0b59768e69ffab1351a18a8a9a44d598c181aea03",
+      "size": 17496,
+      "archive_mode": "0444"
+    },
+    "before-cfi/uwvm2/uwvm_runtime_checkpoint_staged_llvm_full_engine.h": {
+      "sha256": "6b6f0f84b1385000447a559a5157b98bc5fce0355768ca2e6e84414cdb69404e",
+      "size": 30261,
+      "archive_mode": "0444"
+    },
+    "before-cfi/uwvm2/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h": {
+      "sha256": "ea65651c3ff86f9974d520c6a468daa06771496541f3ced60e20afe50ae7c820",
+      "size": 8232,
+      "archive_mode": "0444"
+    },
+    "before-cfi/uwvm2-ros/uwvm_runtime_checkpoint_staged_llvm_full_engine.h": {
+      "sha256": "8611bec3f395e2eeef6d503f827fe3891952abd20f0beb4a59a39731ffc52b4c",
+      "size": 30184,
+      "archive_mode": "0444"
+    },
+    "before-cfi/uwvm2-ros/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h": {
+      "sha256": "ea65651c3ff86f9974d520c6a468daa06771496541f3ced60e20afe50ae7c820",
+      "size": 8232,
+      "archive_mode": "0444"
+    },
+    "before-edit-sha256.json": {
+      "sha256": "432d685ec628d6eb3183d680aa27a0b1bb05e67a3ddf0cb7d6d9802a4955362c",
+      "size": 2265,
+      "archive_mode": "0444"
+    },
+    "guard-analysis-compile-v1.json": {
+      "sha256": "a25a5188ef6f7cd883d388e96158dad3dce4fafc940aa395d51abddc6ae0d280",
+      "size": 36980,
+      "archive_mode": "0444"
+    },
+    "guard-analysis-compile-v2.json": {
+      "sha256": "e3352029250f16f089576652898e9016c1a653f53e5bf1dcc22631e5a69baf52",
+      "size": 38020,
+      "archive_mode": "0444"
+    },
+    "guard_analysis_compile-final.py": {
+      "sha256": "cdb85e29e7826ee7adf5ee3df2b75b81436aaf2e13be96ed109103e41aef2109",
+      "size": 6666,
+      "archive_mode": "0444"
+    },
+    "guard_analysis_compile.py": {
+      "sha256": "15c82cca0d5833a38ee1d58957264816d9c3985ff5e7c08508b92df6b94cad6e",
+      "size": 6660,
+      "archive_mode": "0444"
+    },
+    "measure_storage.py": {
+      "sha256": "3722301c92c4b904403941b48b6080a4ecf82d96946677c7b450b04f5b9a3170",
+      "size": 4802,
+      "archive_mode": "0444"
+    },
+    "owned-source-changes.patch": {
+      "sha256": "72d746eecd3de2a0ee64d14fafa716f6af3442e8c21403c4652a71624c0b475c",
+      "size": 81250,
+      "archive_mode": "0444"
+    },
+    "pending-native-endpoint-cases.json": {
+      "sha256": "c6f81871b385948fbc2f19eea4e2ae739412f22ca3134f905b94b9a025a4a0ac",
+      "size": 14806,
+      "archive_mode": "0444"
+    },
+    "r37-storage-final.json": {
+      "sha256": "7c7788dd4eadac6811645877218e629305803c4decb89b87ad0e3ccd808e0ee3",
+      "size": 3204,
+      "archive_mode": "0444"
+    },
+    "syntax-overlay-v1.json": {
+      "sha256": "35942e4bad22e18f8ffccc0be1ad89227428375dfd5db4e4a3a46977248fb924",
+      "size": 4133,
+      "archive_mode": "0444"
+    },
+    "syntax-overlay-v1.tar.gz": {
+      "sha256": "93df63e1b2cf06c711c68e81e6d8f9789a527fa3721dc5eea3ae7dce5404767f",
+      "size": 181416,
+      "archive_mode": "0444"
+    },
+    "syntax-overlay-v2.json": {
+      "sha256": "ee1fd572b12dcd6f3597e0f2e8ae46965782668d260920953be26222a72843dd",
+      "size": 4133,
+      "archive_mode": "0444"
+    },
+    "syntax-overlay-v2.tar.gz": {
+      "sha256": "3849f1cb6c20e4abad069e37593975c3287ac0688a5f6edc0d7e6ce94c8a0c37",
+      "size": 181549,
+      "archive_mode": "0444"
+    },
+    "uwvm2-debug_checkpoint_indirect_retirement_cohort-assemble-v2.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-debug_checkpoint_indirect_retirement_cohort-assemble.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-debug_checkpoint_indirect_retirement_cohort-v2.wasm": {
+      "sha256": "6d6bad55cde4c1930bf3db6e4b886ed764a7befb5625709628a49a0b50296664",
+      "size": 1018,
+      "archive_mode": "0444"
+    },
+    "uwvm2-debug_checkpoint_indirect_retirement_cohort-validate-v2.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-debug_checkpoint_indirect_retirement_cohort-validate.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-debug_checkpoint_indirect_retirement_cohort.wasm": {
+      "sha256": "6d6bad55cde4c1930bf3db6e4b886ed764a7befb5625709628a49a0b50296664",
+      "size": 1018,
+      "archive_mode": "0444"
+    },
+    "uwvm2-debug_wasip1_indirect_prepared_retirement-assemble-v2.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-debug_wasip1_indirect_prepared_retirement-assemble.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-debug_wasip1_indirect_prepared_retirement-v2.wasm": {
+      "sha256": "c66c3919fface88a493566ca9ddec3c514d8489b27bbc5daf1b53b7b94f90426",
+      "size": 823,
+      "archive_mode": "0444"
+    },
+    "uwvm2-debug_wasip1_indirect_prepared_retirement-validate-v2.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-debug_wasip1_indirect_prepared_retirement-validate.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-debug_wasip1_indirect_prepared_retirement.wasm": {
+      "sha256": "c66c3919fface88a493566ca9ddec3c514d8489b27bbc5daf1b53b7b94f90426",
+      "size": 823,
+      "archive_mode": "0444"
+    },
+    "uwvm2-freebsd-runtime-v1.log": {
+      "sha256": "a857339f5be7ca8311667fd730463e0c3ac67bed5852e086d36d5e338db8cb97",
+      "size": 4334,
+      "archive_mode": "0444"
+    },
+    "uwvm2-freebsd-runtime-v2.log": {
+      "sha256": "af2763efdfc4dc8711e0794ef7170477f0a6bbc4a3375e929adccaea04aee9df",
+      "size": 4334,
+      "archive_mode": "0444"
+    },
+    "uwvm2-linux-core-v1.log": {
+      "sha256": "05e0a73b91b78f341663b193154825d6a77ac434e1928e7693cc4f814719d7c5",
+      "size": 2663,
+      "archive_mode": "0444"
+    },
+    "uwvm2-linux-core-v2.log": {
+      "sha256": "8226553d28d94c91bdad189ebf9533ac866bf05d3bb3f2deed57ecb7607f41b2",
+      "size": 2663,
+      "archive_mode": "0444"
+    },
+    "uwvm2-linux-runtime-v1.log": {
+      "sha256": "d16988d43a194581f24d20787b11114ce014f2910860678fc116d30e02ba4950",
+      "size": 4230,
+      "archive_mode": "0444"
+    },
+    "uwvm2-linux-runtime-v2.log": {
+      "sha256": "306ecb379d87fcd3da2e1af12aafb028cc635fc133ca2bfc6eeae7aae9998c4b",
+      "size": 4230,
+      "archive_mode": "0444"
+    },
+    "uwvm2-linux-wasip1-v1.log": {
+      "sha256": "9c60d72a637e81575fe08172a8eee8b53e0256beb6a22cb06ee7f95df756205a",
+      "size": 2659,
+      "archive_mode": "0444"
+    },
+    "uwvm2-linux-wasip1-v2.log": {
+      "sha256": "befbd92167b36f1f0ea49fc9b45e1431f306e7b02d92d08ba205417f44f4a02c",
+      "size": 2659,
+      "archive_mode": "0444"
+    },
+    "uwvm2-macos-runtime-v1.log": {
+      "sha256": "d16988d43a194581f24d20787b11114ce014f2910860678fc116d30e02ba4950",
+      "size": 4230,
+      "archive_mode": "0444"
+    },
+    "uwvm2-macos-runtime-v2.log": {
+      "sha256": "306ecb379d87fcd3da2e1af12aafb028cc635fc133ca2bfc6eeae7aae9998c4b",
+      "size": 4230,
+      "archive_mode": "0444"
+    },
+    "uwvm2-report.json": {
+      "sha256": "a756a00c8f1af90761ee9d5880cc958368258f4458e492a18bc2838e15f862d5",
+      "size": 98170,
+      "archive_mode": "0444"
+    },
+    "uwvm2-report.md": {
+      "sha256": "adcde3959fd259dbead26242284cd56d60c67fea773472750fe6c169aefd5baa",
+      "size": 3377,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-assemble-v2.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-assemble.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-v2.wasm": {
+      "sha256": "6d6bad55cde4c1930bf3db6e4b886ed764a7befb5625709628a49a0b50296664",
+      "size": 1018,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-validate-v2.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-debug_checkpoint_indirect_retirement_cohort-validate.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-debug_checkpoint_indirect_retirement_cohort.wasm": {
+      "sha256": "6d6bad55cde4c1930bf3db6e4b886ed764a7befb5625709628a49a0b50296664",
+      "size": 1018,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-debug_wasip1_indirect_prepared_retirement-assemble-v2.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-debug_wasip1_indirect_prepared_retirement-assemble.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-debug_wasip1_indirect_prepared_retirement-v2.wasm": {
+      "sha256": "c66c3919fface88a493566ca9ddec3c514d8489b27bbc5daf1b53b7b94f90426",
+      "size": 823,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-debug_wasip1_indirect_prepared_retirement-validate-v2.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-debug_wasip1_indirect_prepared_retirement-validate.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-debug_wasip1_indirect_prepared_retirement.wasm": {
+      "sha256": "c66c3919fface88a493566ca9ddec3c514d8489b27bbc5daf1b53b7b94f90426",
+      "size": 823,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-freebsd-runtime-v1.log": {
+      "sha256": "7a3caa2a80c73ba09b0bf76ed06cba01a6c00cf89abd770cfb8fa942501423d7",
+      "size": 3027,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-freebsd-runtime-v2.log": {
+      "sha256": "4ee51397abe94cec7bd6b0a5683a0a160d1614633121e55fb6026fa9865dda0a",
+      "size": 3027,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-linux-core-v1.log": {
+      "sha256": "dbfd04b944879d62398e00ce9e847278ed6960464d86b9e5b2ae6e89bf5c8260",
+      "size": 2695,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-linux-core-v2.log": {
+      "sha256": "779ab290831a2c6218012d9355c71216163a6770a805ff97c72806a90f762e1b",
+      "size": 2695,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-linux-runtime-v1.log": {
+      "sha256": "103e4497a2c6715dfcc041c76db384105398a86d6220b610c3854e179049ed92",
+      "size": 2923,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-linux-runtime-v2.log": {
+      "sha256": "57e01cca2147d0c336a2fd540c7239e8ed89c8f719ff97944e086a0d464185d0",
+      "size": 2923,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-linux-wasip1-v1.log": {
+      "sha256": "d090fa606dd3c36c270a87e1df15dc8d5637a7dac587389faa4c263df93d5cd4",
+      "size": 2691,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-linux-wasip1-v2.log": {
+      "sha256": "c76141c36bc7948549444793ba646eaf91924d07d171c51482b182f9548851b5",
+      "size": 2691,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-macos-runtime-v1.log": {
+      "sha256": "103e4497a2c6715dfcc041c76db384105398a86d6220b610c3854e179049ed92",
+      "size": 2923,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-macos-runtime-v2.log": {
+      "sha256": "57e01cca2147d0c336a2fd540c7239e8ed89c8f719ff97944e086a0d464185d0",
+      "size": 2923,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-report.json": {
+      "sha256": "a756a00c8f1af90761ee9d5880cc958368258f4458e492a18bc2838e15f862d5",
+      "size": 98170,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-report.md": {
+      "sha256": "adcde3959fd259dbead26242284cd56d60c67fea773472750fe6c169aefd5baa",
+      "size": 3377,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-windows-runtime-v1.log": {
+      "sha256": "913cf808932172429fec3fa1b6de6039c44a621d0385b457f9d07caf50ef0670",
+      "size": 3237,
+      "archive_mode": "0444"
+    },
+    "uwvm2-ros-windows-runtime-v2.log": {
+      "sha256": "a8b96842ecb2963816570f5423114fd218907fd2a4053cd7533abf4000e2b53b",
+      "size": 3237,
+      "archive_mode": "0444"
+    },
+    "uwvm2-windows-runtime-v1.log": {
+      "sha256": "2c622225e4e974798401a02c5013129066ab3a9d92a93ca44887f5bca7d7e696",
+      "size": 4544,
+      "archive_mode": "0444"
+    },
+    "uwvm2-windows-runtime-v2.log": {
+      "sha256": "d6d0c981dfae64da207b19948fadb3cca16d4e4f9092338d0931f6408d0e7893",
+      "size": 4544,
+      "archive_mode": "0444"
+    },
+    "verify_and_record_delivery.py": {
+      "sha256": "9270b26ca085a27c4a9d8e103f805e25ac1cb6f1d68f7564224afcd7ad0174bd",
+      "size": 7285,
+      "archive_mode": "0444"
+    },
+    "wasm-fixture-validation-v2.json": {
+      "sha256": "97099042750f775674b229a7bc8753dd819d67a5fb5a4e9af7bc40809f30fd1e",
+      "size": 7660,
+      "archive_mode": "0444"
+    },
+    "wasm-fixture-validation.json": {
+      "sha256": "71d5e76ee27055c097b7a46b1136b521d7eaf76a5248cafdb3f50118c23cf582",
+      "size": 7633,
+      "archive_mode": "0444"
+    },
+    "write_report.py": {
+      "sha256": "d5cec416ee8efa5dfb17803687d29c1d503e24e0dd83b3be8e269c784caae981",
+      "size": 6186,
+      "archive_mode": "0444"
+    }
+  },
+  "source_manifest_sha256": "ee1fd572b12dcd6f3597e0f2e8ae46965782668d260920953be26222a72843dd",
+  "source_inputs": 28,
+  "final_source_analysis_only": true,
+  "actual_native_runs": 0,
+  "archive_sha256": "0d18ef5eda4a45ac33494849102e384d71bcaf4f7af6bb8fff3d9cb35a570da4"
+}

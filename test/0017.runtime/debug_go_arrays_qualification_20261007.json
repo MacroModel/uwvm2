@@ -1,0 +1,2624 @@
+{
+  "passed": true,
+  "date": "2026-10-07",
+  "round": "R34",
+  "scope": "Finite Go/TinyGo array and pointer-array len/cap; paired freshly built x86_64 full LLVM products and original O0 compiler-oracle live stops/10-minute soaks; 16-profile real QEMU DATA component qualification, not full VM/JIT/native language equivalence or whole concurrent workspace",
+  "repositories": [
+    {
+      "repository": "uwvm2",
+      "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+      "manifest": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/uwvm2-current-manifest.json",
+        "sha256": "7f2f146ba546e69ba7fee4740efdec50e3a557e293ea4696c151cd43b74ff49f"
+      },
+      "build": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/out-uwvm2/product-a1/results.json",
+        "sha256": "d911a34d0083bf16f68e151a2585392f1e7e4f9b37b355dfe3c547e4a67ede5f"
+      },
+      "all_TUs_fresh": true,
+      "product_sha256": "46df7c5603a2fd5df2ec2c58665d3d092a35b2e7085a2035ccfd724c476a6fa4",
+      "product_bytes": 178643912,
+      "native": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/out-uwvm2/native-a1/results.json",
+        "sha256": "78e75fceefe88b82a7b4a817b90ffd44d4d9d420ec2d3f8b1e480a01c6f053e5"
+      },
+      "Go_array_assertions": 450,
+      "Go_descriptor_assertions": 145,
+      "DAP_tests": 4,
+      "DAP_positive": 595,
+      "DAP_negative": 330,
+      "CPP_value_rows": 595,
+      "producer": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/out-uwvm2/producer-a1/results.json",
+        "sha256": "be11d3151d54b7862c381a94a764256cde035e31a2ba67470c22bab3b4b976c6"
+      },
+      "producer_tool_tree_id": "sha256:6f1b439b3d4b8035ded6d57a5de20690b9ea42770019b2516bc853c53fd455ae",
+      "original_wasm": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/out-uwvm2/producer-a1/tinygo-O0.wasm",
+          "sha256": "d6e6dd1c99dc4787e43313c9387e0935871a0a0a6e76179c362e219a9d1a573b",
+          "optimization": "0"
+        }
+      ],
+      "phases": {
+        "baseline": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2/baseline-a1/results.json",
+            "sha256": "5770160e1987bf0c9ff64b575294dad9769f1a6356bedbc24711de8564d3d0e0"
+          },
+          "sessions": 2,
+          "compiler_comparisons": 60
+        },
+        "live": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2/live-a1/results.json",
+            "sha256": "bfb58467a0be7e288e5b1a0dc9f670cf90c617192c19c035b230dc3c1d96507f"
+          },
+          "sessions": 2,
+          "compiler_comparisons": 60
+        },
+        "regression": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2/regression-a1/results.json",
+            "sha256": "c5640be5837d218c8beddce55527ca9c893e98a6ab5954c573222c4d5dac4493"
+          },
+          "sessions": 2,
+          "compiler_comparisons": 18
+        },
+        "names": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2/names-a1/results.json",
+            "sha256": "8bd6213e58eecbb579b6f2158a1f9beed4ec8604d66f86a24b1ff6bf64e88aa7"
+          },
+          "sessions": 2,
+          "compiler_comparisons": 16
+        },
+        "c-family": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2/c-family-a1/results.json",
+            "sha256": "f9eb31e2147dab8a359b99e98939bfe33bc50a804c4e2e168bb7702f26d9f674"
+          },
+          "sessions": 40,
+          "compiler_comparisons": 720
+        },
+        "soak": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2/soak-a1/results.json",
+            "sha256": "7592d4455399ee393ab8af9272806e1ff6050798c02c20af31840a4f9a4d0c87"
+          },
+          "sessions": 88,
+          "compiler_comparisons": 2640,
+          "session_record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2/soak-a1/sessions/results.json",
+            "sha256": "67249897361706235b53d87d06ac7be158614584f3c311063518460f3bc27d71"
+          },
+          "elapsed_seconds": 603.8321754330027
+        }
+      },
+      "QEMU_components": [
+        {
+          "profile": "x86_64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/out-uwvm2/qemu-x86_64/results.json",
+            "sha256": "69d3839dd9120907ffb4d34f1b803dabe14b26f5411790e2bf3e1b31923aa624"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 62,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 250440,
+              "sha256": "11d19da19ca3eeb4e914ea32e8d3ff26ed3984204d75b45aac0b504a295da1db",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 62,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 240704,
+              "sha256": "c92cc3afa5ef8e6af1e3a1a3bb81bbfe0882afdb0169d8faaf7fc2444a55a4c3",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "aarch64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/out-uwvm2/qemu-aarch64/results.json",
+            "sha256": "3b61be30ed6bc7d5ccc6b84e5bcc82a7629b8422b72430c9057a90440f0725a0"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 183,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 232464,
+              "sha256": "8e1f89ad3de97480657184baf759cb7fdb91b3958372b68d8cef6b2a8561dbad",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 183,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 219960,
+              "sha256": "e9bb2486472d955836f66e13b853c8cd53c6b7680709e3986c140570a7f691e5",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/aarch64-a1/provider-a1/out-sdk/providers-arm64-a1",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "ppc64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/out-uwvm2/qemu-ppc64/results.json",
+            "sha256": "a8d290d38c02b70e357a5d49c55faa1afed12637de94d974218dd93c4c364cd4"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 306016,
+              "sha256": "6532012ca4a8e3e8566e73479b14ad9d263b02b828121a1cba4584e38a7ba310",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 302096,
+              "sha256": "a9cae639aff47a0101a32f9d2a29769dc0ac36f533958d7e868ce5b135eb6bbf",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "riscv64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/out-uwvm2/qemu-riscv64/results.json",
+            "sha256": "d2f789dc04a48be566f59288b3c728d1f60f6002a4cea5329ded9554726dcaf5"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 243,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 214600,
+              "sha256": "bc0d76d73de8f6ca780083dc676965f4f0fd54e0b9d9c17b5dbf5228b9b9f2f6",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 243,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 203216,
+              "sha256": "55af74eb3c6edce332370ec3e8ebdb114cd668ee60ce6f548c023a9853e084e8",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "i686",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-extra-a1/out-uwvm2/qemu-i686/results.json",
+            "sha256": "2c75f7358838beedf90c183509e9aea22d74c8312c96a68c568c1d177478c510"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 3,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 285084,
+              "sha256": "e35df614d95a216c49145873ba9a413161a5da2ca4d1edb829bbff057b66283a",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 3,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 271060,
+              "sha256": "20c7dd2a82987e30a10d1508ad1729471585ddad9059df23d162bd4413eac1ae",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "sparc64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-extra-a1/out-uwvm2/qemu-sparc64/results.json",
+            "sha256": "744a004ea550be52ff7e924af3f6a104225927983357b1789b44c398ec9419ab"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 43,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 1092720,
+              "sha256": "4f867874961a9e6b20b3747370a4aef1a06cc50bbe6b538452a88ab8a0ea485f",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 43,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 1088936,
+              "sha256": "278e96aff628bf313d50f154cb14e285f49d6d640802ac43eace8f56650448fa",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "loongarch64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-extra-a1/out-uwvm2/qemu-loongarch64/results.json",
+            "sha256": "3404458653dea32b8d92ce3812e1ed5a7384ceb42900a26d7faa29d2b4700dea"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 258,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 239744,
+              "sha256": "1dd2babf329e96a59c8b97f3bd2105a0286b6ab54d9f4f3e31206965843fb619",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 258,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 228008,
+              "sha256": "e022e659a8f163417071520d2842f27a693ac053b00ea5ae2e246cce3646f1c2",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "ppc64le",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/out-uwvm2/qemu-ppc64le/results.json",
+            "sha256": "c45f1c9ec6016446fb7835cd7b59dadae8549dd366ce8c06a1ae031852f3fcc9"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 258584,
+              "sha256": "cb535ad507f7c257c0bb17cba9201d5c481642e22f9034668ea91a08df96c26f",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 244424,
+              "sha256": "e8067c4a8740a58257d4397a8e675a1ecf0bdd5c3c8f28feaf0c9e898a7038bf",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "ppc32",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/out-uwvm2/qemu-ppc32/results.json",
+            "sha256": "a551709982af5b677a06a50a65c005b1dcbf5ca2d9e3208fb97fec2d3809ea0f"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 20,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 299828,
+              "sha256": "af6890bfb5f6e1897bb5c18a693b4b5e37731c26ab26ad54258ad29e06be88d1",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 20,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 296080,
+              "sha256": "6aa742fe91c4173f23505cb7190c282940e80d3a0c654a1828c89498b228dec9",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "s390x",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/out-uwvm2/qemu-s390x/results.json",
+            "sha256": "0cf4c472b3814c26a3359172f700a9bdf818ff55edc5dea47e77df35a1b6cfa2"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 22,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 260760,
+              "sha256": "7c37f08697a11a2f828640187759a9590e55ebfea913046fbc861713ae113818",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 22,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 246832,
+              "sha256": "130300b0e31e114a443038206d02fe82db31ac73d5b540cc05fba998680961da",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "armhf",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/out-uwvm2/qemu-armhf/results.json",
+            "sha256": "108222ac9c1a0d26e2c173920dc1f8461753044869a1729befe814e6c4eacd5f"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 255532,
+              "sha256": "b4b84e4af9794373531a7329848d19900a1cea8b2a3cdf4403b1ab970634ec25",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 247524,
+              "sha256": "42787fba2e0ff5f275a03d3f4f53d6229cbaea52281b764cd3acace3c552cfed",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "armel",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/out-uwvm2/qemu-armel/results.json",
+            "sha256": "02a667534776606e721c1d3eefc3da30bbce5b90c8e1e014598ae816f62e6b30"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 260228,
+              "sha256": "54e52890964cb1d660efb623e9592350e047c91cdfe175e21164d5069261fe6d",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 252548,
+              "sha256": "d2b847b567d7924fedb0b42336c7cc2c5b583f21f5a209c7b8ad74243da9a981",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "mips64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/out-uwvm2/qemu-mips64/results.json",
+            "sha256": "e960d50a3e617e8b8ed73f234e21ee2d5ae300c3e7e9601ce4e23f9e57531b49"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 293448,
+              "sha256": "f40251f27255e08e114a63daefcba2cf3bb705e3350806bdb6abba30312efc0a",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 278120,
+              "sha256": "a0917f3a4c7022aa54c4106f00b12188bc751e19ef3e8f3cdd4341d6c9d16c2e",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "mips64el",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/out-uwvm2/qemu-mips64el/results.json",
+            "sha256": "2c5e758e49455b6d8f2930c5018ea0c765c22233f74df21af0e598cf515efc97"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 292840,
+              "sha256": "b871e2ceda757fc5ca82af0473da404fe5bccddf4437f73a8b7e0d52df0f003c",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 277448,
+              "sha256": "b1bb6d416fbd5bca8e729f8ae1749c7374882677fa6ae32c02cd049707dc98e5",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "mips32",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/out-uwvm2/qemu-mips32/results.json",
+            "sha256": "1478ab7e84e497a85e5b0854625c564ee450d30f91a2b4eae4a54a62093e7603"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 317156,
+              "sha256": "548e820d4e46b017a23ade3296e7ee743d8f01ed27ac5c8537a12e460a4f4932",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 301404,
+              "sha256": "5d523ec0e1fbecdb4e273edcdf72e6339345d035a72af6ef3ef9d261ba621f5a",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "mips32el",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/out-uwvm2/qemu-mips32el/results.json",
+            "sha256": "a34578eaf976a24f194a306af4dae8f143b82c49d621785dc5f8b1e380a92ecd"
+          },
+          "source_id": "sha256:387b7b36f5ca23e5b2eb5267dc6a76cda025049e253d44eb7b3009e075f17d87",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 316964,
+              "sha256": "7ea8d29dd810174b0804d327080af6ecee50ad4504016c90678bdf0cafad2355",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 301196,
+              "sha256": "a38a727d6dd4dccb382cdeee7f89f5e7d61825344161f64793a8d26b3e2c4d37",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+      "manifest": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/uwvm2-ros-current-manifest.json",
+        "sha256": "6ffc9ff0a0d17580ef152d59373c8dc763c5d33f48eb54020082e08c11e9ccc4"
+      },
+      "build": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/out-uwvm2-ros/product-a1/results.json",
+        "sha256": "ec01c5b4f3f2d8afe65aeb7b089aa449017e8ed72dd1abec35085e2c64413711"
+      },
+      "all_TUs_fresh": true,
+      "product_sha256": "892ae8d70d51d444fff554ddb4aff2fd75e41fbf7a662fe3a5b13b427ee4b061",
+      "product_bytes": 144198280,
+      "native": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/out-uwvm2-ros/native-a1/results.json",
+        "sha256": "391a442347652eb04b337290437e1d6a209628ac5f6d228b1d93bb3cf4b3b866"
+      },
+      "Go_array_assertions": 450,
+      "Go_descriptor_assertions": 145,
+      "DAP_tests": 4,
+      "DAP_positive": 595,
+      "DAP_negative": 330,
+      "CPP_value_rows": 595,
+      "producer": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/out-uwvm2-ros/producer-a1/results.json",
+        "sha256": "edd65c21050ae2ff746ed2935e2f44c5b21270a88a77c3bff57247895959f2e4"
+      },
+      "producer_tool_tree_id": "sha256:6f1b439b3d4b8035ded6d57a5de20690b9ea42770019b2516bc853c53fd455ae",
+      "original_wasm": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/out-uwvm2-ros/producer-a1/tinygo-O0.wasm",
+          "sha256": "8e6bce4eed8ef2736f593208f003a2995fdee8f6919544086e09402d05bd71f6",
+          "optimization": "0"
+        }
+      ],
+      "phases": {
+        "baseline": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2-ros/baseline-a1/results.json",
+            "sha256": "4c1ddaa661a34b57e35f8223089fcf9c4c0a97b5bb91d7adf51ad73fc5d35c7b"
+          },
+          "sessions": 2,
+          "compiler_comparisons": 60
+        },
+        "live": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2-ros/live-a1/results.json",
+            "sha256": "d8f9b0c65dcc744edf4ab7346c26813aba409d8bfad49b17b1a304af23441876"
+          },
+          "sessions": 2,
+          "compiler_comparisons": 60
+        },
+        "regression": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2-ros/regression-a1/results.json",
+            "sha256": "1385349dcdb461e49d6e3d225d0f08d447890b5087f72916a1bdc84ac4d10305"
+          },
+          "sessions": 2,
+          "compiler_comparisons": 18
+        },
+        "names": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2-ros/names-a1/results.json",
+            "sha256": "68ab06648e65ce28607095eae48d407c786eb2762129d4f7b725cdb06cecc3f4"
+          },
+          "sessions": 2,
+          "compiler_comparisons": 16
+        },
+        "c-family": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2-ros/c-family-a1/results.json",
+            "sha256": "b5e6f8af8fc3a4bf2ea2fe1f7a8c287a89ba35bc8777299165d432c203fab785"
+          },
+          "sessions": 40,
+          "compiler_comparisons": 720
+        },
+        "soak": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2-ros/soak-a1/results.json",
+            "sha256": "5ab2992baf0cd5eefe79a8d0f9eb199da6b5c22a30c4395b3301422e33ef6bbb"
+          },
+          "sessions": 89,
+          "compiler_comparisons": 2670,
+          "session_record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/out-uwvm2-ros/soak-a1/sessions/results.json",
+            "sha256": "677f11ec3c42c3ac65561dcbe51d6cb9c7e7c973d8402e06b2376c4730e2db9a"
+          },
+          "elapsed_seconds": 603.1821695959952
+        }
+      },
+      "QEMU_components": [
+        {
+          "profile": "x86_64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/out-uwvm2-ros/qemu-x86_64/results.json",
+            "sha256": "e199f140b387a8e4f1cf1eadedc79919b1515c826a11525e5db9ceeb1acc0117"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 62,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 250440,
+              "sha256": "11d19da19ca3eeb4e914ea32e8d3ff26ed3984204d75b45aac0b504a295da1db",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 62,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 240704,
+              "sha256": "c92cc3afa5ef8e6af1e3a1a3bb81bbfe0882afdb0169d8faaf7fc2444a55a4c3",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "aarch64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/out-uwvm2-ros/qemu-aarch64/results.json",
+            "sha256": "c9e1733a22157c5585c7dc33349b555f08e60aea01f499d630b4e7da3ea1e07f"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 183,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 232464,
+              "sha256": "8e1f89ad3de97480657184baf759cb7fdb91b3958372b68d8cef6b2a8561dbad",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 183,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 219960,
+              "sha256": "e9bb2486472d955836f66e13b853c8cd53c6b7680709e3986c140570a7f691e5",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/aarch64-a1/provider-a1/out-sdk/providers-arm64-a1",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "ppc64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/out-uwvm2-ros/qemu-ppc64/results.json",
+            "sha256": "10536e38f56b027d833e22b78fb0a6298ce60851aa96151105327664684b557f"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 306016,
+              "sha256": "6532012ca4a8e3e8566e73479b14ad9d263b02b828121a1cba4584e38a7ba310",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 302096,
+              "sha256": "a9cae639aff47a0101a32f9d2a29769dc0ac36f533958d7e868ce5b135eb6bbf",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "riscv64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/out-uwvm2-ros/qemu-riscv64/results.json",
+            "sha256": "8572b8269a5e3fc64b1a3f947342984948358efce333a55fbd9a320b64290b80"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 243,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 214600,
+              "sha256": "bc0d76d73de8f6ca780083dc676965f4f0fd54e0b9d9c17b5dbf5228b9b9f2f6",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 243,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 203216,
+              "sha256": "55af74eb3c6edce332370ec3e8ebdb114cd668ee60ce6f548c023a9853e084e8",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "i686",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-extra-a1/out-uwvm2-ros/qemu-i686/results.json",
+            "sha256": "4eda689b39c774e91f0a0c5b0d09170c4d20a8995285876ec60f770b020bdba4"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 3,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 285084,
+              "sha256": "e35df614d95a216c49145873ba9a413161a5da2ca4d1edb829bbff057b66283a",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 3,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 271060,
+              "sha256": "20c7dd2a82987e30a10d1508ad1729471585ddad9059df23d162bd4413eac1ae",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "sparc64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-extra-a1/out-uwvm2-ros/qemu-sparc64/results.json",
+            "sha256": "4000c03ca4307c418fac9e6dd23b231deb9fda8af0b86e9fc6e0e6949c55605e"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 43,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 1092720,
+              "sha256": "4f867874961a9e6b20b3747370a4aef1a06cc50bbe6b538452a88ab8a0ea485f",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 43,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 1088936,
+              "sha256": "278e96aff628bf313d50f154cb14e285f49d6d640802ac43eace8f56650448fa",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "loongarch64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-extra-a1/out-uwvm2-ros/qemu-loongarch64/results.json",
+            "sha256": "5f546afa1ae80316a455dd8ac98d625213aca09d22d677b887f3a7015b9ae054"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 258,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 239744,
+              "sha256": "1dd2babf329e96a59c8b97f3bd2105a0286b6ab54d9f4f3e31206965843fb619",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 258,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 228008,
+              "sha256": "e022e659a8f163417071520d2842f27a693ac053b00ea5ae2e246cce3646f1c2",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "ppc64le",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/out-uwvm2-ros/qemu-ppc64le/results.json",
+            "sha256": "8b63ddd0a2fd2186f040bb0681be6be093cba5bacdc53e18b87afb6fc07a60b6"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 258584,
+              "sha256": "cb535ad507f7c257c0bb17cba9201d5c481642e22f9034668ea91a08df96c26f",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 244424,
+              "sha256": "e8067c4a8740a58257d4397a8e675a1ecf0bdd5c3c8f28feaf0c9e898a7038bf",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "ppc32",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/out-uwvm2-ros/qemu-ppc32/results.json",
+            "sha256": "39962eb5ebe738435d603958038bed510bdc81da5c052be2d1938f61de815764"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 20,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 299828,
+              "sha256": "af6890bfb5f6e1897bb5c18a693b4b5e37731c26ab26ad54258ad29e06be88d1",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 20,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 296080,
+              "sha256": "6aa742fe91c4173f23505cb7190c282940e80d3a0c654a1828c89498b228dec9",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "s390x",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/out-uwvm2-ros/qemu-s390x/results.json",
+            "sha256": "0225698e3ef21b2fed2cac8de12306e54465f39ae6f17f3866893fa16f8cd031"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 22,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 260760,
+              "sha256": "7c37f08697a11a2f828640187759a9590e55ebfea913046fbc861713ae113818",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 22,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 246832,
+              "sha256": "130300b0e31e114a443038206d02fe82db31ac73d5b540cc05fba998680961da",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "armhf",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/out-uwvm2-ros/qemu-armhf/results.json",
+            "sha256": "ec387a813ec5bb0f7a6057769f509dc5ed0ec3292d94852eaf4bbf62f82a1c35"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 255532,
+              "sha256": "b4b84e4af9794373531a7329848d19900a1cea8b2a3cdf4403b1ab970634ec25",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 247524,
+              "sha256": "42787fba2e0ff5f275a03d3f4f53d6229cbaea52281b764cd3acace3c552cfed",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "armel",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/out-uwvm2-ros/qemu-armel/results.json",
+            "sha256": "029b13a61511c3d2f097b23126f439f81c5f287aceec556d53f67a225a33f3c4"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 260228,
+              "sha256": "54e52890964cb1d660efb623e9592350e047c91cdfe175e21164d5069261fe6d",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 252548,
+              "sha256": "d2b847b567d7924fedb0b42336c7cc2c5b583f21f5a209c7b8ad74243da9a981",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "mips64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/out-uwvm2-ros/qemu-mips64/results.json",
+            "sha256": "f6cdf639a12f6aed8049d890ea5f7739af0da92a936d5478fa22c10c3a68ba62"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 293448,
+              "sha256": "f40251f27255e08e114a63daefcba2cf3bb705e3350806bdb6abba30312efc0a",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 278120,
+              "sha256": "a0917f3a4c7022aa54c4106f00b12188bc751e19ef3e8f3cdd4341d6c9d16c2e",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "mips64el",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/out-uwvm2-ros/qemu-mips64el/results.json",
+            "sha256": "eed209ca54cd97757ccda5c504b867635cf55b4e906c319ecf9e90144471a72b"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 292840,
+              "sha256": "b871e2ceda757fc5ca82af0473da404fe5bccddf4437f73a8b7e0d52df0f003c",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 277448,
+              "sha256": "b1bb6d416fbd5bca8e729f8ae1749c7374882677fa6ae32c02cd049707dc98e5",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "mips32",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/out-uwvm2-ros/qemu-mips32/results.json",
+            "sha256": "79c0b8e29c3f815d0a297c8592c51f328960daad2977c1d98a2531e33bb7f408"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 317156,
+              "sha256": "548e820d4e46b017a23ade3296e7ee743d8f01ed27ac5c8537a12e460a4f4932",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 301404,
+              "sha256": "5d523ec0e1fbecdb4e273edcdf72e6339345d035a72af6ef3ef9d261ba621f5a",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        },
+        {
+          "profile": "mips32el",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/out-uwvm2-ros/qemu-mips32el/results.json",
+            "sha256": "fc1fd58e6e7f42f8e89a6e6fe021a91e2454c096ddbc908db2237205e0953d62"
+          },
+          "source_id": "sha256:a50450635e5ba15c570af32c2f222dacc3e28766de836f2b484c63cab6767805",
+          "array_assertions": 450,
+          "descriptor_assertions": 145,
+          "ELFs": [
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 316964,
+              "sha256": "7ea8d29dd810174b0804d327080af6ecee50ad4504016c90678bdf0cafad2355",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 301196,
+              "sha256": "a38a727d6dd4dccb382cdeee7f89f5e7d61825344161f64793a8d26b3e2c4d37",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          }
+        }
+      ]
+    }
+  ],
+  "guards": [
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/guard-uwvm2-baseline-a1/receipts.json",
+        "sha256": "f1ec8ecefaf65224595c37e0b85e8916788d31950c0a7603319db32dacc8c18a"
+      },
+      "label": "uwvm2-baseline",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 12.822433745997841,
+      "RSS_peak": 265154560,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9655898112,
+      "minimum_host_free": 72820805632
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/guard-uwvm2-c-family-a1/receipts.json",
+        "sha256": "2160a26effc08411546938be877302b8a525ac5b35bed3d538f167bb24c5d611"
+      },
+      "label": "uwvm2-c-family",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 20.027251709005213,
+      "RSS_peak": 132689920,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9640439808,
+      "minimum_host_free": 71658668032
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/guard-uwvm2-live-a1/receipts.json",
+        "sha256": "badec12bd596808e2f9bf252253511f6343906e9badbfd34a61a7a552518bbb2"
+      },
+      "label": "uwvm2-live",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 16.119143684001756,
+      "RSS_peak": 265080832,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9640964096,
+      "minimum_host_free": 72036958208
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/guard-uwvm2-names-a1/receipts.json",
+        "sha256": "86972347e6618e8b2459f119fbde2fe5ea5bedfd1f8cd2a4c5f1c8f55266dd49"
+      },
+      "label": "uwvm2-names",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 2.1140715400033514,
+      "RSS_peak": 112656384,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9643413504,
+      "minimum_host_free": 72191762432
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/guard-uwvm2-regression-a1/receipts.json",
+        "sha256": "e6c2c61ceef5d0d27af0dccdf859c5958111d5ea8e5fdaf9680ba215fde2b4ba"
+      },
+      "label": "uwvm2-regression",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 16.122746618995734,
+      "RSS_peak": 265502720,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9641033728,
+      "minimum_host_free": 72037085184
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/guard-uwvm2-ros-baseline-a1/receipts.json",
+        "sha256": "31d543c4c8b6ec14ba9650adacdbaa89c9e86d0bdcc515248f9d60ea02e7e0c9"
+      },
+      "label": "uwvm2-ros-baseline",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 12.489537474000826,
+      "RSS_peak": 265035776,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9655947264,
+      "minimum_host_free": 72820805632
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/guard-uwvm2-ros-c-family-a1/receipts.json",
+        "sha256": "678aa6d08cf42396f4ce4959bf201f727630c1f7f58cbc8fdffa37e3f0cd4cb6"
+      },
+      "label": "uwvm2-ros-c-family",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 20.249231941998005,
+      "RSS_peak": 131715072,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9640235008,
+      "minimum_host_free": 71657947136
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/guard-uwvm2-ros-live-a1/receipts.json",
+        "sha256": "d9bd2feb93f3eef611e03e809a504ffa4088a717a5a352cc75e07210e11f7582"
+      },
+      "label": "uwvm2-ros-live",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 15.798559271002887,
+      "RSS_peak": 264237056,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9641209856,
+      "minimum_host_free": 72038772736
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/guard-uwvm2-ros-names-a1/receipts.json",
+        "sha256": "9d7f84dcba776ae4d00c64fabb3c75cd9cf9322a60a7d61bd5165fe6755c3857"
+      },
+      "label": "uwvm2-ros-names",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 1.9587631300018984,
+      "RSS_peak": 54095872,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9643470848,
+      "minimum_host_free": 72191995904
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/guard-uwvm2-ros-regression-a1/receipts.json",
+        "sha256": "b12362e929f5f142f6930878b454d63afae6ce6f38647d52506abc022682da17"
+      },
+      "label": "uwvm2-ros-regression",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 15.801121206000971,
+      "RSS_peak": 265216000,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9641181184,
+      "minimum_host_free": 72042561536
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/guard-uwvm2-ros-soak-a1/receipts.json",
+        "sha256": "673b829de31c541b362eaaf4a98127fc2cde43cfe586588a49d97c9ac4469604"
+      },
+      "label": "uwvm2-ros-soak",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 604.1620692889992,
+      "RSS_peak": 289214464,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9570349056,
+      "minimum_host_free": 69893693440
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cli-a1/guard-uwvm2-soak-a1/receipts.json",
+        "sha256": "48effb37c28708bc957805952c1d19b55153955cede03515b3030d556ce66301"
+      },
+      "label": "uwvm2-soak",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 604.8605121479995,
+      "RSS_peak": 290177024,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9569611776,
+      "minimum_host_free": 69892722688
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-extra-a1/guard-uwvm2-i686-a1/receipts.json",
+        "sha256": "2efe175d9aee843166615b6747f65fcf09fb95b010a195a60b217c1fd5fc6c29"
+      },
+      "label": "uwvm2-i686",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 46.94041397899855,
+      "RSS_peak": 624779264,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9590087680,
+      "minimum_host_free": 71417720832
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-extra-a1/guard-uwvm2-loongarch64-a1/receipts.json",
+        "sha256": "170dfff0f0346b951868312391add563c4db286855148fb9e4fd45e6f74d7fc4"
+      },
+      "label": "uwvm2-loongarch64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 45.46496774700063,
+      "RSS_peak": 630382592,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9603334144,
+      "minimum_host_free": 71417724928
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-extra-a1/guard-uwvm2-ros-i686-a1/receipts.json",
+        "sha256": "6e4f11a6f32b8caf7a5cb3165dbcb6aa9c1f9891844125279f0fb589c7f0fff7"
+      },
+      "label": "uwvm2-ros-i686",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 45.597847580000234,
+      "RSS_peak": 624541696,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9600389120,
+      "minimum_host_free": 71417724928
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-extra-a1/guard-uwvm2-ros-loongarch64-a1/receipts.json",
+        "sha256": "6100c7ea2ca2dc0cb03a60aa99b34d31bca28fe437ffea4e5821211c5a536302"
+      },
+      "label": "uwvm2-ros-loongarch64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 45.182567971001845,
+      "RSS_peak": 630300672,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9606676480,
+      "minimum_host_free": 71417724928
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-extra-a1/guard-uwvm2-ros-sparc64-a1/receipts.json",
+        "sha256": "bd3607494f76d4d1ee0f9da26e810e5882429eb63b03952df3ec27c84f15de22"
+      },
+      "label": "uwvm2-ros-sparc64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 43.9171133130003,
+      "RSS_peak": 628736000,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9613959168,
+      "minimum_host_free": 71417724928
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-extra-a1/guard-uwvm2-sparc64-a1/receipts.json",
+        "sha256": "28e6313dd8ddac43e56d385e3714aba80e7d2001c039e651fc24fdf1ea612254"
+      },
+      "label": "uwvm2-sparc64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 43.26757689999795,
+      "RSS_peak": 629157888,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9620586496,
+      "minimum_host_free": 71420014592
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a1/guard-uwvm2-mips32-a1/receipts.json",
+        "sha256": "7483b27140b9b363bf689798561e8dcf231e97a23f4cc80aa3937592bc487233"
+      },
+      "label": "uwvm2-mips32",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 11.723535821998667,
+      "RSS_peak": 282841088,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9578528768,
+      "minimum_host_free": 70069653504
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a1/guard-uwvm2-mips32el-a1/receipts.json",
+        "sha256": "6706f6e3091411d8c9af8d4f4e7100872e88c153344376350e1e432554f32a88"
+      },
+      "label": "uwvm2-mips32el",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 10.548212957000942,
+      "RSS_peak": 282271744,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9578708992,
+      "minimum_host_free": 70069919744
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a1/guard-uwvm2-mips64-a1/receipts.json",
+        "sha256": "b3e3c547db49f050de230c42a035a2c0d9e4ac6b2aeb7d76d4bbd18676add241"
+      },
+      "label": "uwvm2-mips64",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 12.034765532000165,
+      "RSS_peak": 285724672,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9578414080,
+      "minimum_host_free": 70069391360
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a1/guard-uwvm2-mips64el-a1/receipts.json",
+        "sha256": "e6a7fdd456c8f0531279ba614b011c647ff2b564eced8fbd53de412a066be5eb"
+      },
+      "label": "uwvm2-mips64el",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 10.601841328003502,
+      "RSS_peak": 287625216,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9578651648,
+      "minimum_host_free": 70069919744
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a1/guard-uwvm2-ros-mips32-a1/receipts.json",
+        "sha256": "607e09ad64ff1f7959e14d5470ef89d231cf60cea6d8453607504de8927e1596"
+      },
+      "label": "uwvm2-ros-mips32",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 10.867404735996388,
+      "RSS_peak": 280272896,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9578594304,
+      "minimum_host_free": 70069919744
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a1/guard-uwvm2-ros-mips32el-a1/receipts.json",
+        "sha256": "35f9a5acf0e6ab06806d9d4d8c5163f914864472b1b16ec44ba898f44e9c6fe1"
+      },
+      "label": "uwvm2-ros-mips32el",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 10.345897270999558,
+      "RSS_peak": 283246592,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9578762240,
+      "minimum_host_free": 70070190080
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a1/guard-uwvm2-ros-mips64-a1/receipts.json",
+        "sha256": "aacf53822da7fa549f7e7b64861b441fb3d2784f0e2d0741000ced934981390c"
+      },
+      "label": "uwvm2-ros-mips64",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 11.87101003099815,
+      "RSS_peak": 286896128,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9578467328,
+      "minimum_host_free": 70069653504
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a1/guard-uwvm2-ros-mips64el-a1/receipts.json",
+        "sha256": "b8d20c64d20fda54346ea22553469c4224bba5981b758140d550689938983e7c"
+      },
+      "label": "uwvm2-ros-mips64el",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 12.66233949099842,
+      "RSS_peak": 286965760,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9578352640,
+      "minimum_host_free": 70069125120
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/guard-uwvm2-mips32-a2/receipts.json",
+        "sha256": "43a55de3abd555c1b106a47ab06af3d4ab9cd7f2fac792bae11749e69a7974b3"
+      },
+      "label": "uwvm2-mips32",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 33.08412227900408,
+      "RSS_peak": 619053056,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9495343104,
+      "minimum_host_free": 69179006976
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/guard-uwvm2-mips32el-a2/receipts.json",
+        "sha256": "e1e586446a43f22c0376b834a914701a00817603ebd29cf37ea440294a7954ed"
+      },
+      "label": "uwvm2-mips32el",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 33.033852710002975,
+      "RSS_peak": 618881024,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9498345472,
+      "minimum_host_free": 69180170240
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/guard-uwvm2-mips64-a2/receipts.json",
+        "sha256": "95eacbde475220a78fad9e1b328b82604926a3607aa16b35f831de25b3547aca"
+      },
+      "label": "uwvm2-mips64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 32.65476898599445,
+      "RSS_peak": 626835456,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9510363136,
+      "minimum_host_free": 69184839680
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/guard-uwvm2-mips64el-a2/receipts.json",
+        "sha256": "8776823446d23100f58cf5e89dacb5ec041c5f8a865d0d5607626f5b885a42df"
+      },
+      "label": "uwvm2-mips64el",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 32.5878744379952,
+      "RSS_peak": 626642944,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9513365504,
+      "minimum_host_free": 69186011136
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/guard-uwvm2-ros-mips32-a2/receipts.json",
+        "sha256": "70c0d7f36ed58deeb538553050bea68174ccfeb69463aa7367cdb6030229f4f5"
+      },
+      "label": "uwvm2-ros-mips32",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 32.90032443000382,
+      "RSS_peak": 619081728,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9501401088,
+      "minimum_host_free": 69181337600
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/guard-uwvm2-ros-mips32el-a2/receipts.json",
+        "sha256": "0866bf72dd0ca895cc6e9782aea5df1f242a40329b939ee33355064b437c3d74"
+      },
+      "label": "uwvm2-ros-mips32el",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 33.25770135800121,
+      "RSS_peak": 616484864,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9492344832,
+      "minimum_host_free": 69177851904
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/guard-uwvm2-ros-mips64-a2/receipts.json",
+        "sha256": "a587d05681bb432de946b3c91c599e00e071499d21e0397fbbef46d9205b1bf3"
+      },
+      "label": "uwvm2-ros-mips64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 32.83820863900473,
+      "RSS_peak": 629989376,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9504403456,
+      "minimum_host_free": 69182504960
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-mips-a2/guard-uwvm2-ros-mips64el-a2/receipts.json",
+        "sha256": "accbdfc3947c8489b692acf20b3d41a07f6b13aea116408018dd79901bf73d3f"
+      },
+      "label": "uwvm2-ros-mips64el",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 32.93286269700184,
+      "RSS_peak": 627965952,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9501396992,
+      "minimum_host_free": 69181337600
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/guard-uwvm2-armel-a1/receipts.json",
+        "sha256": "af853df832d2f1f39cc7a9b47060b0ad300602921c0d670d716be8054b3fd003"
+      },
+      "label": "uwvm2-armel",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 31.281683114997577,
+      "RSS_peak": 614694912,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9550585856,
+      "minimum_host_free": 69481508864
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/guard-uwvm2-armhf-a1/receipts.json",
+        "sha256": "747cee52561721564535f980489a8f1f98f64258488976c1191c5a075e0ce538"
+      },
+      "label": "uwvm2-armhf",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 31.557811390994175,
+      "RSS_peak": 618090496,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9533095936,
+      "minimum_host_free": 69480644608
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/guard-uwvm2-ppc32-a1/receipts.json",
+        "sha256": "1f80228a4ebe303a7a91c753bf65194b0cd2a68e6dae5a3909655705799911ba"
+      },
+      "label": "uwvm2-ppc32",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 31.98531592800282,
+      "RSS_peak": 619081728,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9530056704,
+      "minimum_host_free": 69480640512
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/guard-uwvm2-ppc64le-a1/receipts.json",
+        "sha256": "c616226176ff04209ecbb8307cd286dde8dbc6bffdd90e9c9a06a0b729fd3e94"
+      },
+      "label": "uwvm2-ppc64le",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 31.593514608997793,
+      "RSS_peak": 627191808,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9533091840,
+      "minimum_host_free": 69480644608
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/guard-uwvm2-ros-armel-a1/receipts.json",
+        "sha256": "117fb3f705b65240e79a19bbf6200f1aa60ec02c8b7ba452955d58f7aaa9bb01"
+      },
+      "label": "uwvm2-ros-armel",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 31.328901515000325,
+      "RSS_peak": 614191104,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9544699904,
+      "minimum_host_free": 69480644608
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/guard-uwvm2-ros-armhf-a1/receipts.json",
+        "sha256": "16c6a0c7072598763704df0f119e5980193bc0c70922dc4645c8336145c11941"
+      },
+      "label": "uwvm2-ros-armhf",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 31.44941434499924,
+      "RSS_peak": 618901504,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9536024576,
+      "minimum_host_free": 69480644608
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/guard-uwvm2-ros-ppc32-a1/receipts.json",
+        "sha256": "23ee551c2a3d04086cbddd2253db415b272fdb297670afd92ddee587fa6e9bd8"
+      },
+      "label": "uwvm2-ros-ppc32",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 32.06296463099716,
+      "RSS_peak": 616341504,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9527091200,
+      "minimum_host_free": 69480640512
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/guard-uwvm2-ros-ppc64le-a1/receipts.json",
+        "sha256": "9302c86dd128c7dfb5abd001847d5668bfd923e6e8c94ea96884b66a3eb33471"
+      },
+      "label": "uwvm2-ros-ppc64le",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 31.290908920003858,
+      "RSS_peak": 626167808,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9544876032,
+      "minimum_host_free": 69480644608
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/guard-uwvm2-ros-s390x-a1/receipts.json",
+        "sha256": "ec835fa58de3e8618304275d585596e890edc7bf8928396a01dd0f8401023731"
+      },
+      "label": "uwvm2-ros-s390x",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 31.274490019997756,
+      "RSS_peak": 626708480,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9550589952,
+      "minimum_host_free": 69481508864
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-more-a1/guard-uwvm2-s390x-a1/receipts.json",
+        "sha256": "d03bd276d76c15d7b8c3d5e9d2c6df8d243cd86bf756716b2cdcae89a0b352b4"
+      },
+      "label": "uwvm2-s390x",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 31.350641979996,
+      "RSS_peak": 628887552,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9541849088,
+      "minimum_host_free": 69480644608
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/guard-uwvm2-aarch64-a1/receipts.json",
+        "sha256": "4da076d1c418644b6dd4da7a2d41e1c2280decb1ea481b9b57e5d6ba761e0073"
+      },
+      "label": "uwvm2-aarch64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 45.47503124600189,
+      "RSS_peak": 635674624,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9617551360,
+      "minimum_host_free": 71418773504
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/guard-uwvm2-ppc64-a1/receipts.json",
+        "sha256": "c8a84b750677e9d651d96f756514e81df1405958c39dc57c32eb1d051ceb2aed"
+      },
+      "label": "uwvm2-ppc64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 49.95105910299753,
+      "RSS_peak": 629653504,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9586876416,
+      "minimum_host_free": 71416475648
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/guard-uwvm2-riscv64-a1/receipts.json",
+        "sha256": "2710b5f43cdad235dc3cd6c4c59fef7d353affc3adb03577a92173ddaa1a225d"
+      },
+      "label": "uwvm2-riscv64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 46.55379485100275,
+      "RSS_peak": 632692736,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9609875456,
+      "minimum_host_free": 71417724928
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/guard-uwvm2-ros-aarch64-a1/receipts.json",
+        "sha256": "71525bbce4cd47302240980eec57472291687f95486d3195a7e70972f560038c"
+      },
+      "label": "uwvm2-ros-aarch64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 48.320075992000056,
+      "RSS_peak": 635355136,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9594306560,
+      "minimum_host_free": 71417720832
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/guard-uwvm2-ros-ppc64-a1/receipts.json",
+        "sha256": "c232dd6a0728a99f66d734e73696b0a02f4af5fd625e89096ad3ec8624c05309"
+      },
+      "label": "uwvm2-ros-ppc64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 50.40851825199934,
+      "RSS_peak": 630775808,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9583751168,
+      "minimum_host_free": 71415627776
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/guard-uwvm2-ros-riscv64-a1/receipts.json",
+        "sha256": "796dc9c490eca7b98e8dbcf7ca937b9f57ea404981c0e78315ee0955b0c520f2"
+      },
+      "label": "uwvm2-ros-riscv64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 48.30420784300077,
+      "RSS_peak": 632360960,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9594310656,
+      "minimum_host_free": 71417720832
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/guard-uwvm2-ros-x86-64-a2/receipts.json",
+        "sha256": "ff2092bff37326fa84d86aa404852b4dc2efbfdecf140c11afa0920da7d0089c"
+      },
+      "label": "uwvm2-ros-x86-64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 34.71548278500268,
+      "RSS_peak": 631492608,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9571201024,
+      "minimum_host_free": 69985239040
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/cross-old-a1/guard-uwvm2-x86-64-a2/receipts.json",
+        "sha256": "b73263e4ded0aa28554a4a71dc72aa8377aa564d62580775becb1c9e9dd890c2"
+      },
+      "label": "uwvm2-x86-64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 34.005044757002906,
+      "RSS_peak": 631537664,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9573568512,
+      "minimum_host_free": 69985079296
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/guard-uwvm2-build-a1/receipts.json",
+        "sha256": "fabd15e075b47e93b177ba3a22db630e287273a31fc63fcfb3bba7d7c1cf9046"
+      },
+      "label": "uwvm2-build",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 228.39797582599567,
+      "RSS_peak": 7285727232,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9289965568,
+      "minimum_host_free": 72804876288
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/guard-uwvm2-native-a1/receipts.json",
+        "sha256": "29300913d88a0f127d4aef6deb68ca73c8665bb347d2b918923d372a0cb3a884"
+      },
+      "label": "uwvm2-native",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 50.56122610299644,
+      "RSS_peak": 749400064,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9656381440,
+      "minimum_host_free": 72966057984
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/guard-uwvm2-producer-a1/receipts.json",
+        "sha256": "28061becb868b992f98459c3b87cc18619b3b8a062ad53b7b36197f093c0acfa"
+      },
+      "label": "uwvm2-producer",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 4.715865603000566,
+      "RSS_peak": 233521152,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9666502656,
+      "minimum_host_free": 72966365184
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/guard-uwvm2-ros-build-a1/receipts.json",
+        "sha256": "b27f090d68b9c2df0175a5ab4e9146366b0c178a7becd87cfd7002ee29e59236"
+      },
+      "label": "uwvm2-ros-build",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 191.40621198400186,
+      "RSS_peak": 5928501248,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9518198784,
+      "minimum_host_free": 72804786176
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/guard-uwvm2-ros-native-a1/receipts.json",
+        "sha256": "0fac832a0587372f2234ef832d2926f86290d455fe37d7face1e1c0671be455f"
+      },
+      "label": "uwvm2-ros-native",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 50.40774042499834,
+      "RSS_peak": 744738816,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9655889920,
+      "minimum_host_free": 72966057984
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/guard-uwvm2-ros-producer-a1/receipts.json",
+        "sha256": "929e0fb8775b79b60661e3c599ef38383afb8d74300921f2a4430ecaaf6d0996"
+      },
+      "label": "uwvm2-ros-producer",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 4.647672668994346,
+      "RSS_peak": 232296448,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9666506752,
+      "minimum_host_free": 72966365184
+    }
+  ],
+  "passed_guard_jobs": 50,
+  "failed_guard_jobs_retained": 8,
+  "preflight_label_failures": 2,
+  "failed_job_reason": "Initial four MIPS profiles in both repos lacked common linux-libc-dev headers; independent a2 provider added the exact official package; failed receipts/logs retained",
+  "kernel_memory_max": 68719476736,
+  "kernel_swap_max": 0,
+  "boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8",
+  "keeper_pid_birth": [
+    9769,
+    16929
+  ],
+  "FSID": "12191019222208619510",
+  "original_memory_events_unchanged": true,
+  "all_started_roots_reaped_and_PIDFDs_retired": true,
+  "original_arena_floor_bytes": 9288400896,
+  "host_floor_bytes": 26843545600,
+  "free_after": {
+    "arena": 9492275200,
+    "host": 69106847744
+  },
+  "provider_recovery_proofs": [
+    {
+      "file": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/provider-proof.json",
+      "sha256": "a5fe6082594ae978d2bc680f1c473968a27e67e79876016235fc600e61515263"
+    },
+    {
+      "file": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/provider-proof.json",
+      "sha256": "e0b8fa5b414552bc90bab3a35f235f6e220c57bc0e3a1f23d118f53debe78197"
+    },
+    {
+      "file": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a1/provider-proof.json",
+      "sha256": "de5b01479f0da605be6b62482e73b91cef3147ef9131e65d74e551da114676b0"
+    },
+    {
+      "file": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/provider-proof.json",
+      "sha256": "1689d6ffccd45cd411b64a4c262c905e685bd6947f44f540d67a6133d9744cc1"
+    }
+  ],
+  "short_fresh_sessions_pair": 92,
+  "short_fresh_compiler_comparisons_pair": 1628,
+  "old_refusal_sessions_pair": 4,
+  "old_refusal_expressions_pair": 120,
+  "soak_sessions_pair": 177,
+  "soak_comparisons_pair": 5310,
+  "QEMU_profiles": 16,
+  "QEMU_repository_profile_jobs": 32,
+  "QEMU_target_ELFs": 64,
+  "QEMU_component_assertions": 19040,
+  "array_constant_query_reader_calls": 0,
+  "reader_claim_scope": "component evaluator only; controller still authenticates stop/frame/root and may capture guest root bytes",
+  "CXX_IO_and_owned_strings": "fast_io; no new host read/guest memory authority",
+  "ASM_scope_changed": false,
+  "external_latest_ROS_LLVM_provider_parity_qualified": false,
+  "full_cross_architecture_VM_parity": false,
+  "all_native_capabilities_implemented": false,
+  "object_retention": {
+    "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/object-retention.json",
+    "sha256": "d009355573e3575bab27aa72a78ca349fc1128ffc4f9ef56bf91ab76b7ddfacb"
+  },
+  "prior_R33_product_retirement": {
+    "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/retired-r33-products.json",
+    "sha256": "293a033034a453c9fab2955ede2425281e1347de46d81cf56ed88cebc52b1fde"
+  },
+  "remaining": [
+    "Go map/channel len/cap",
+    "general native Go grammar/precedence/untyped constants and builtin shadowing",
+    "all producer/type alias variants and flattened multidimension DWARF",
+    "standard gc Go live debugger qualification",
+    "Rust slice .len native semantics",
+    "TinyGo O1 strict upstream inline-range DWARF verification",
+    "full live Go DAP broker/IDE qualification",
+    "goroutine/runtime support",
+    "remaining language native parity and full architecture VM/JIT parity",
+    "latest full ROS LLVM provider parity"
+  ],
+  "current_workspace_owned_review": {
+    "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/workspace-review-r34.json",
+    "sha256": "ef5b3509bd95fdb5f0f99317d2963067692dc884de57519b7e0fd6f0953ce139"
+  },
+  "main_archive": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/retained-go-arrays-r34-final/go-arrays-r34-evidence.tar.xz",
+    "bytes": 97578804,
+    "sha256": "ce4cfca6c51e6135140782e5e532f770af0158d3efb7578bc87e40aa6802d844",
+    "linux_fsync": true,
+    "all_members_verified": true,
+    "members": 9163,
+    "input_files_before_after_unchanged": true,
+    "snapshot_roots": [
+      {
+        "prefix": "r34",
+        "root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1"
+      },
+      {
+        "prefix": "objects",
+        "root": "/home/macromodel/Documents/uwvm3-implementation/retained-go-arrays-r34-objects-a1"
+      }
+    ],
+    "SDK_and_QEMU_external_providers_exactly_pinned_not_bundled": true,
+    "retained_frozen_source_cuts_products_objects_success_and_failed_logs": true,
+    "prior_R33_archives_preserved": true,
+    "seconds": 54.65521439800068
+  },
+  "duplicate_raw_object_retirement": {
+    "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-arrays-r34-a1/retired-r34-objects.json",
+    "sha256": "9af831410e55fc06cd1c8193889e8be2a9bed55d102a069b420059576b10111e",
+    "bytes": 353879400
+  }
+}

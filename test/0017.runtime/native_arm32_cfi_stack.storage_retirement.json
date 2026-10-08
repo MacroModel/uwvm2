@@ -1,0 +1,148 @@
+{
+  "passed": true,
+  "scope": "Recoverable owned historical source721 and cold-verified ELF retirement only; current source722 retained",
+  "cold": {
+    "archive": "/dev/shm/uwvm-asm-6313e263-current727/build-meta/work/ARM32-source-and-evidence.tar.xz",
+    "archive_bytes": 24618596,
+    "archive_sha256": "c52e4a115ec1f9f66f0e82608c1febcdffc373cee38f678d99ec91298c337f48"
+  },
+  "ack": {
+    "local_path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/BE727-ARM32-source-and-evidence.tar.xz",
+    "local_bytes": 24618596,
+    "local_sha256": "c52e4a115ec1f9f66f0e82608c1febcdffc373cee38f678d99ec91298c337f48",
+    "archive_sha256": "c52e4a115ec1f9f66f0e82608c1febcdffc373cee38f678d99ec91298c337f48",
+    "independent_local_exact_byte_hash_verified": true
+  },
+  "raw_file_count": 8263,
+  "raw_bytes_retired": 123937388,
+  "source_file_count": 8230,
+  "native_image_count": 32,
+  "online_bundle_retired": true,
+  "retirement_supervisor_receipt": {
+    "schema": "uwvm-shared-original-cgroup-owned-pidfd-v1",
+    "argv": [
+      "python3",
+      "/dev/shm/uwvm-asm-6313e263-current728/build-meta/landlock.py",
+      "/dev/shm/uwvm-asm-6313e263-current728",
+      "python3",
+      "/dev/shm/uwvm-asm-6313e263-current728/build-meta/driver.py"
+    ],
+    "source_root": "/dev/shm/uwvm-asm-6313e263-current722/build-meta/work/source",
+    "source_manifest_sha256": "109b689166d694483d7e6e59648a1eea5fcf438da5cdbd3360a9fdb2aa9a0c9a",
+    "supervisor_sha256": "1d793ae31e1570683a0829681c933cc89eaa542db769ff49df8c6d8599fc5760",
+    "commands_sha256": "00a753b1f9952d1d7d564ac3bdface5227c7abdfe1705ce7631821651e881b76",
+    "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+    "memory_max": 68719476736,
+    "swap_max": 0,
+    "all_test_outputs_in_tmpfs": true,
+    "original_exclusive_disk_floor_qualified": false,
+    "owned_rss_budget": 6442450944,
+    "rss_peak": 34054144,
+    "resource_peak": {
+      "own_folder": 1179824128,
+      "shared_folder": 46988410880,
+      "group_memory": 18977267712
+    },
+    "resource_policy_sha256": "88051893c54e43e3bc2e0bb0a139527432368f0cedf27d9e5d6de327fedf484c",
+    "elapsed": 12.234818462000476,
+    "foreign_roster_before": [
+      10079,
+      76851,
+      76998,
+      77506,
+      79478,
+      80022
+    ],
+    "foreign_roster_after": [
+      10079,
+      76851,
+      76998,
+      77506,
+      79478,
+      80227
+    ],
+    "admissions": [
+      {
+        "pid": 80024,
+        "birth": 436065,
+        "ppid": 79885,
+        "state": "R",
+        "uid": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "rss": 2514944,
+        "cgroup": "0::/user.slice/user-1000.slice/session-450.scope\n",
+        "affinity": [
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ]
+      }
+    ],
+    "executable_history": [
+      {
+        "pid": 80024,
+        "birth": 436065,
+        "exe": "/usr/bin/python3.14",
+        "sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700"
+      }
+    ],
+    "retirement": [
+      {
+        "pid": 80024,
+        "birth": 436065,
+        "pidfd_readable": true
+      }
+    ],
+    "memory_events_before": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "memory_events_after": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "returncode": 0,
+    "error": null,
+    "passed": true,
+    "log_sha256": "cc1487454c77c4859bdbb93954135d72d91b37de3ad33daa82084f20b50d8b1b"
+  },
+  "cold_retirement_map": {
+    "local_path": "/Users/liyinan/Documents/MacroModel/uwvm-asm-retained-20261007/arm728-retirement.json.xz",
+    "xz_sha256": "322dff5b2ae757f7d7890b8cd0f2935ff42c9047417940b21c24bafa1e17cc9e",
+    "xz_bytes": 290944,
+    "json_sha256": "90b6c7b4adbeb9752f9e0f3ba61b30931d2b0a94c5e83993bf16cab2e52afa23",
+    "json_bytes": 3094420,
+    "exact_lossless_metadata_roundtrip_verified": true
+  },
+  "post_retirement_observation": {
+    "own_tmpfs_allocated_bytes": 363376640,
+    "all_owned_tmpfs_limit_bytes": 536870912,
+    "current_source722_preserved": true,
+    "memory_events_all_zero": true
+  }
+}

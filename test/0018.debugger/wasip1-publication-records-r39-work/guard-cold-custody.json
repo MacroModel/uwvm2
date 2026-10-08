@@ -1,0 +1,138 @@
+{
+  "passed": true,
+  "error": null,
+  "exit": 0,
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "boot_id": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+  "owned_peak_aggregate_rss_upper_bytes": 568197120,
+  "cgroup_peak_bytes": 45848625152,
+  "processes": [
+    {
+      "pid": 1834670,
+      "birth": 8771994,
+      "ppid": 1834669,
+      "uid": 1000,
+      "cgroup": "0::/user.slice/user-1000.slice/session-13142.scope\n",
+      "argv": [
+        "/usr/bin/python3",
+        "-u",
+        "-c",
+        "import os,sys,signal;os.sched_setaffinity(0,set(range(16,32)));os.kill(os.getpid(),signal.SIGSTOP);os.execvpe(sys.argv[1],sys.argv[1:],os.environ)",
+        "/usr/bin/python3",
+        "-u",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-publication-records-20261008-r39/verify_cold_custody.py"
+      ],
+      "pidfd_retired": true
+    },
+    {
+      "pid": 1834772,
+      "birth": 8772023,
+      "ppid": 1834670,
+      "uid": 1000,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "argv": [
+        "/usr/bin/zstd",
+        "-q",
+        "-d",
+        "--long=29",
+        "--memory=512MB",
+        "-c",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/cold-relocated-r39/uwvm2-ros-windows-qualified-products.tar.zst"
+      ],
+      "pidfd_retired": true
+    },
+    {
+      "pid": 1834775,
+      "birth": 8772100,
+      "ppid": 1834670,
+      "uid": 1000,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "argv": [
+        "/usr/bin/zstd",
+        "-q",
+        "-d",
+        "--long=29",
+        "--memory=512MB",
+        "-c",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/cold-relocated-r39/uwvm2-freebsd-qualified-products.tar.zst"
+      ],
+      "pidfd_retired": true
+    },
+    {
+      "pid": 1834778,
+      "birth": 8772186,
+      "ppid": 1834670,
+      "uid": 1000,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "argv": [
+        "/usr/bin/zstd",
+        "-q",
+        "-d",
+        "--long=29",
+        "--memory=512MB",
+        "-c",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/cold-relocated-r39/uwvm2-linux-integrated-qualified-products.tar.zst"
+      ],
+      "pidfd_retired": true
+    },
+    {
+      "pid": 1834785,
+      "birth": 8772341,
+      "ppid": 1834670,
+      "uid": 1000,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "argv": [
+        "/usr/bin/zstd",
+        "-q",
+        "-d",
+        "--long=29",
+        "--memory=512MB",
+        "-c",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/cold-relocated-r39/uwvm2-ros-freebsd-qualified-products.tar.zst"
+      ],
+      "pidfd_retired": true
+    },
+    {
+      "pid": 1834788,
+      "birth": 8772410,
+      "ppid": 1834670,
+      "uid": 1000,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "argv": [
+        "/usr/bin/zstd",
+        "-q",
+        "-d",
+        "--long=29",
+        "--memory=512MB",
+        "-c",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/cold-relocated-r39/uwvm2-ros-linux-integrated-qualified-products.tar.zst"
+      ],
+      "pidfd_retired": true
+    },
+    {
+      "pid": 1834791,
+      "birth": 8772533,
+      "ppid": 1834670,
+      "uid": 1000,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "argv": [
+        "/usr/bin/zstd",
+        "-q",
+        "-d",
+        "--long=29",
+        "--memory=512MB",
+        "-c",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/cold-relocated-r39/uwvm2-windows-qualified-products.tar.zst"
+      ],
+      "pidfd_retired": true
+    }
+  ],
+  "parent_events_unchanged": true,
+  "validation_kind": "independent read-only R33 cold archive custody full readback",
+  "actual_native_runtime_execution": false,
+  "original_native_storage_policy_unchanged": true,
+  "original_native_suite_admission_still_refused": true,
+  "new_analysis_file_ceiling_bytes": 16777216,
+  "host_available_bytes": 27481239552,
+  "guard_sha256": "034e713c128fca34c794fff14c2484715125208c8423dd6edb34e5c317d14e1b"
+}

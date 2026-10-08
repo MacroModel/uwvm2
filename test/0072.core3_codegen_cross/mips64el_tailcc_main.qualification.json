@@ -1,0 +1,142 @@
+{
+  "schema": 1,
+  "passed": true,
+  "status": "main-R12-VM-and-signed-cache-qualified",
+  "target": "Linux MIPS64EL N64 R2 / QEMU MIPS64R2-generic",
+  "source_identities": {
+    "uwvm2": "sha256:f70fc4362027a604068b35b5319c35dfa9ec24d0f2cc0b580926994b462e191a",
+    "uwvm2-ros": "sha256:08304e0ad25dabb67c33fdaf91b55ebefa90f75f46226b7c3fe0c1d5797c2e70"
+  },
+  "product_sha256": "1e6dbcb6b69b317ee4738695a385e5960b35088fd5d72173b2939b3a762db615",
+  "llvm_core_version": "23.1.1-uwvm-ros.11 genuine core with the fully rebuilt qualified static N64EL R2 MIPS backend",
+  "explicit_backport_opt_in": true,
+  "semantic_processes": 1116,
+  "semantic_profiles": {
+    "int-full-compiled-default-delay-1": 124,
+    "int-lazy-compiled-default-delay-1": 124,
+    "int-lazy+verification-compiled-default-delay-1": 124,
+    "llvm-full-O1": 124,
+    "llvm-full-O2": 124,
+    "llvm-full-O3": 124,
+    "llvm-lazy-debug": 124,
+    "llvm-lazy-light": 124,
+    "llvm-lazy-balanced": 124
+  },
+  "validated_fixture_count": 124,
+  "long_tail_case_names": [
+    "tail-cold-fresh-locals-2m",
+    "tail-different-prototype-2m",
+    "tail-direct-2m",
+    "tail-indirect-2m",
+    "tail-stack-parameters-2m",
+    "tail-tuple-direct-2m",
+    "tail-tuple-indirect-2m",
+    "tail-typed-ref-2m",
+    "tail-vector-parameters-2m"
+  ],
+  "signed_cache_processes": 504,
+  "cold_processes": 168,
+  "authenticated_warm_processes": 336,
+  "cache_profiles": [
+    "llvm-full-O1",
+    "llvm-full-O2",
+    "llvm-full-O3",
+    "llvm-lazy-balanced",
+    "llvm-lazy-debug",
+    "llvm-lazy-light"
+  ],
+  "default_and_explicit_paths": true,
+  "actual_signed_object_inspections": 84,
+  "complete_function_extents": 138,
+  "complete_long_tail_function_extents": 108,
+  "unfused_mul_add_complete_extents": 6,
+  "linkless_transfer_in_every_selected_long_tail_extent": true,
+  "tail_extents_containing_other_link_calls": 75,
+  "floating_point_and_SIMD_scope": "124 targeted FP/SIMD/Core3 fixtures; exact oracle outcomes and separate mul.s/add.s for all six JIT policies; allowed NaNs checked according to fixture protocol",
+  "cgroup_receipts": [
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-full-build-r7/cgopt-mips64el-full-build-r7-evidence/002-uwvm2-main/receipts.json",
+      "sha256": "9fe2499793cbb0722aa170385d5df426e4d23101bb34d4c66a4038abab9936b8",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "foreign_processes_signalled": false
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-full-build-r7/cgopt-mips64el-full-build-r7-evidence/001-uwvm2-host/receipts.json",
+      "sha256": "04b60f614abff72a0a7aad9d178f3fb8ec5adeb359f72b628cd8807682d7521b",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "foreign_processes_signalled": false
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-full-build-r7/cgopt-mips64el-full-build-r7-evidence/000-uwvm2-runtime/receipts.json",
+      "sha256": "fb9494610f22da8f73cd7e5a38b5de550f4e5497c916c86c3c16bd2dca4034ea",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "foreign_processes_signalled": false
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-full-build-r7/cgopt-mips64el-full-build-r7-evidence/003-uwvm2-link/receipts.json",
+      "sha256": "4124936ee52b8870148925298a62c1fdac4b8eda8e37dfe46255021ce1f8fa71",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "foreign_processes_signalled": false
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tailcc-test-r3/cgopt-mips64el-tailcc-main-semantics-r3-evidence/000-uwvm2-genuine-MIPS64EL/receipts.json",
+      "sha256": "bdd50afb74b0c6adcfa44b1d504bc0b44f0ed1173a00c7b0782329e62283ba20",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "foreign_processes_signalled": false
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tailcc-signed-cache-r1/cgopt-mips64el-tailcc-signed-cache-r1-evidence/000-uwvm2-signed-cache/receipts.json",
+      "sha256": "d2d21e274cac639e5f9c2b1e72e847701d0f94f35ea9416a0e36e2e9fa7eab7b",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "foreign_processes_signalled": false
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tailcc-signed-asm-r1/cgopt-mips64el-tailcc-signed-asm-r1-evidence/000-uwvm2-authenticated-objects/receipts.json",
+      "sha256": "d9e54e956de998abd434719ccacc7122008d1d6234a7b041cefe66e13f6f8154",
+      "commands": 1,
+      "memory_max_bytes": 68719476736,
+      "swap_max_bytes": 0,
+      "foreign_processes_signalled": false
+    }
+  ],
+  "evidence": {
+    "semantics": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tailcc-test-r3/uwvm2/semantics/qualification.json",
+      "sha256": "bae39a96b9dc371992e770d06262b34a05a68af2b86ba572cbe1ab5eca54e8ca"
+    },
+    "cache": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tailcc-signed-cache-r1/uwvm2-results/qualification.json",
+      "sha256": "2a7d2cf12c6263bea74b9318777347806e6df1b126ff048edd1f9e1473c5a35d"
+    },
+    "assembly": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-tailcc-signed-asm-r1/uwvm2-results/summary.json",
+      "sha256": "7f87ea4a05e8c87ae6a2481288d7b2cba8598ce01ca2d466ea05c74235b21987"
+    },
+    "SDK12": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-producer-r1/sdk-qualification.json",
+      "sha256": "49405996d6bfaac05fc86ec4c9595069eba1fd8bc464d54313a08cd486d12fe9"
+    }
+  },
+  "scope": {
+    "ROS12_SDK_archive_closure_qualified": true,
+    "ROS12_main_and_ROS_VM_qualified": false,
+    "actual_T2_on_this_source_qualified": false,
+    "all_Core3_threads_qualified": false,
+    "twelve_exact_MIPS_interpreter_builds_qualified": false,
+    "other_ISA_ABI_qualified": false,
+    "hardware_speed_qualified": false
+  },
+  "pending": "Current ROS .12 and main are being compiled against the genuine .12 SDK with automatic provider capability selection; these products have no semantic/cache credit yet."
+}

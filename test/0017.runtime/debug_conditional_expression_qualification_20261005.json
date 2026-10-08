@@ -1,0 +1,585 @@
+{
+  "date": "2026-10-05",
+  "scope": "finite readonly C-style numeric conditional expression in synchronized ordinary and ROS debugger; full native parity incomplete",
+  "feature": "conditional_expr",
+  "source_status": "partial",
+  "both_repositories_patched": true,
+  "compiled_current_change": true,
+  "current_runtime_qualified": true,
+  "full_native_parity": false,
+  "inventory_source_counts": {
+    "uwvm2": {
+      "implemented": 14,
+      "partial": 38,
+      "missing": 34,
+      "separate_level": 1,
+      "prohibited_by_scope": 1
+    },
+    "uwvm2-ros": {
+      "implemented": 14,
+      "partial": 38,
+      "missing": 34,
+      "separate_level": 1,
+      "prohibited_by_scope": 1
+    }
+  },
+  "implementation": {
+    "right_associative": true,
+    "below_logical_or_precedence": true,
+    "both_arms_syntax_checked": true,
+    "both_arms_type_metadata_queried": true,
+    "selected_arm_only_evaluated": true,
+    "missing_type_no_value_fallback": true,
+    "selected_type_mismatch_rejected": true,
+    "captured_locals_and_memory_transaction_paths": true,
+    "guest_ABI_bits": [
+      32,
+      64
+    ],
+    "type_node_visit_budget": 4096,
+    "ASM_host_permissions_added": false,
+    "sizeof_aggregate_and_pointer_metadata_in_dead_arm": true,
+    "sizeof_bit_field_rejected": true
+  },
+  "not_implemented": [
+    "same narrow/C++ bool result category",
+    "enum, pointer, aggregate, bitfield result",
+    "class and overloaded conversion",
+    "C++ glvalue/reference result category",
+    "void/throw",
+    "full ptype arbitrary expression inference",
+    "native Rust/Go conditional syntax"
+  ],
+  "attempts": {
+    "control-x86-a1": {
+      "attempt": "control-x86-a1",
+      "root_launched": false,
+      "cause": "administrative command label contained underscore, refused by original label grammar",
+      "guards_relaxed": false,
+      "fixed_command": "commands-x86-a2.json"
+    },
+    "control-x86-a2": [
+      {
+        "label": "conditional-x8664-a2",
+        "argv": [
+          "python3",
+          "/tmp/uwvm2-language-fix-20261004/debug-conditional-r22/uwvm2/test/0017.runtime/run_debug_linux_qemu_components.py",
+          "--root",
+          "/tmp/uwvm2-language-fix-20261004/debug-conditional-r22",
+          "--out",
+          "/tmp/uwvm2-language-fix-20261004/debug-conditional-r22/out-uwvm2/conditional-x86_64-a2",
+          "--profiles",
+          "x86_64",
+          "--cases",
+          "debug_source_conditional_expression,debug_source_scalar_expression,debug_source_dap_expression"
+        ],
+        "argv_sha256": "05d127cfdde021bc5fa74b4296b36867f2805d0d5f8f95fc25468a7405b18574",
+        "command_file_sha256": "9f4ea85d58cb8fb208764e77b97e6ea4782674ff51bdcb8cee1b02b28a858579",
+        "source_root": "/tmp/uwvm2-language-fix-20261004/debug-conditional-r22/uwvm2",
+        "supervisor_sha256": "f6956dc94da5e0400f11ff4aaaa86eff1b7194af31d2d37b29061267c37f4569",
+        "memory_max_bytes": 68719476736,
+        "swap_max_bytes": 0,
+        "aggregate_owned_rss_budget_bytes": 17179869184,
+        "build_output_file_limit_bytes": 536870912,
+        "log_limit_bytes": 33554432,
+        "deadline_seconds": 600,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 774378,
+          "oom": 63,
+          "oom_kill": 15,
+          "oom_group_kill": 0
+        },
+        "admission_wait_seconds": 3.025998012162745e-05,
+        "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+        "init": {
+          "pid": 11866,
+          "birth": 58402,
+          "ppid": 11837,
+          "state": "S",
+          "uid": [
+            1000,
+            1000,
+            1000,
+            1000
+          ],
+          "rss_bytes": 106496,
+          "argv": [
+            "sleep",
+            "infinity"
+          ],
+          "exe": "/usr/bin/sleep",
+          "cg": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+          "affinity": [
+            0,
+            2,
+            4,
+            6,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ]
+        },
+        "init_exe_sha256": "83c0db85657e2cd1799b5e113317252d7865dd78157148d8757fab0ede52b1db",
+        "process_history": [],
+        "retirement": [],
+        "maximum_observed_shared_memory_bytes": 62526394368,
+        "shared_memory_abort_threshold_bytes": 67645734912,
+        "minimum_free_inodes": 34646,
+        "required_actual_free_inodes": 4096,
+        "original_disk_floor_bytes": 9126805504,
+        "ROS_known_ALL3_reserved_bytes": 153206784,
+        "ROS_minimum_growth_reserved_bytes": 8388608,
+        "required_actual_free_bytes": 9288400896,
+        "minimum_observed_actual_free_bytes": 8872923136,
+        "error": "AssertionError: ('Original disk floor plus ROS known ALL3 and 8MiB growth reserve crossed', 8872923136, 9288400896)",
+        "error_traceback": "Traceback (most recent call last):\n  File \"/tmp/uwvm2-language-fix-20261004/debug-conditional-r22/supervisor-components.py\", line 416, in main\n    check_reserved_disk()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/tmp/uwvm2-language-fix-20261004/debug-conditional-r22/supervisor-components.py\", line 413, in check_reserved_disk\n    assert free>=9288400896,('Original disk floor plus ROS known ALL3 and 8MiB growth reserve crossed',free,9288400896)\n           ^^^^^^^^^^^^^^^^\nAssertionError: ('Original disk floor plus ROS known ALL3 and 8MiB growth reserve crossed', 8872923136, 9288400896)\n",
+        "cancelled": false,
+        "unowned_cgroup_pids_observed": [
+          1528277,
+          2586770,
+          2624620,
+          2624779,
+          2645810,
+          2645923,
+          2645969,
+          2674101,
+          2674102,
+          2674103,
+          2692526,
+          2696462,
+          2696608,
+          2702902,
+          2702908,
+          2703328
+        ],
+        "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+        "remaining_roster": [
+          11866,
+          1528277,
+          2586770,
+          2624620,
+          2624779,
+          2645810,
+          2645923,
+          2645969,
+          2674101,
+          2674102,
+          2674103,
+          2692526,
+          2696462,
+          2696608,
+          2702902,
+          2702908,
+          2703328
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 774378,
+          "oom": 63,
+          "oom_kill": 15,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 0,
+        "memory_current_after_observation": 62526889984,
+        "wall_seconds": 0.026946683996357024,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "passed": false
+      }
+    ]
+  },
+  "no_test_compiler_or_target_launched_in_these_attempts": true,
+  "historical_qualification_not_inherited": [
+    "R15 DAP/components/properties",
+    "R20 source-until runtime/soak",
+    "R21 source-until/LINE completion"
+  ],
+  "test_protection": "original SSH Linux cgroup; unchanged CPU/memory/swap/disk/inode guards and PIDFD ownership/retirement/reap rules",
+  "older_task_output_archive": {
+    "passed": true,
+    "archive": "/tmp/uwvm2-conditional-expression-20261005/retired-old-products-20261005.tar.gz",
+    "archive_bytes": 179789789,
+    "archive_sha256": "c24b5b76fc8d69544e1d2e66b04d7f3f9bc74b5cdaa1d4a780020f638787e30b",
+    "members_verified": 19,
+    "regular_files_only": true,
+    "total_uncompressed_bytes": 937245056,
+    "plan_sha256": "c04f66a4833821bcb5105914322210235e27a565148af0c8858f4e21b8afb7cc",
+    "members": {
+      "debug-complete-r17/out-uwvm2/jit-linked-a5/uwvm2-main": {
+        "sha256": "54d783ee0dfd8e0c9e7c9696c2ee6f2e2966a273929966fbd56883a0ebe5929c",
+        "bytes": 116424112
+      },
+      "debug-complete-r17/out-uwvm2/jit-product-a3/uwvm2-host-api.o": {
+        "sha256": "f73bb4b977f52e30b8f5af6663fe37657430b0bebbce9c438d744661a9213379",
+        "bytes": 6844168
+      },
+      "debug-complete-r17/out-uwvm2/jit-product-a3/uwvm2-main.o": {
+        "sha256": "654f59b244ee2e3560bbe3a33dbaaf31f038bd5ee3b97ede7c3af67fcbb094a0",
+        "bytes": 47261344
+      },
+      "debug-complete-r17/out-uwvm2/jit-product-a3/uwvm2-runtime.o": {
+        "sha256": "6f85aaf005b12b43753261f547a2897583ff33b846c6c6a826ad5ead48b000f6",
+        "bytes": 43122408
+      },
+      "debug-complete-r17/out-uwvm2/live-product-a1/uwvm2-main.o": {
+        "sha256": "08f4a126a6f402a4f1fb6963ce0fc80feb57f35da20167663ad75fe597e38f0c",
+        "bytes": 47599672
+      },
+      "debug-complete-r17/out-uwvm2/live-product-a1/uwvm2-runtime-9d8388d3.o.tmp": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "debug-complete-r20/out-uwvm2/product-jit-a1/uwvm2-host-api.o": {
+        "sha256": "24247dd29a3ff4554e20542b339c09384e0caffe30a043d691c0f9b858b5714e",
+        "bytes": 6844168
+      },
+      "debug-complete-r20/out-uwvm2/product-jit-a1/uwvm2-main": {
+        "sha256": "a029db56fa9dcfae3c0b54c9d4474131e51ea81095a6a86f62055fe0f23c14e0",
+        "bytes": 115233296
+      },
+      "debug-complete-r20/out-uwvm2/product-jit-a1/uwvm2-main.o": {
+        "sha256": "2d0b762bb348b6da12c01c80e5f89a64071c2c62dc1ac18570fb0c29e9ab4d00",
+        "bytes": 47284792
+      },
+      "debug-complete-r20/out-uwvm2/product-jit-a1/uwvm2-runtime.o": {
+        "sha256": "f7f74726aad60c133ea0009415e0169a687d1e4a5bd4b2a4511cace76444c92f",
+        "bytes": 43145056
+      },
+      "debug-complete-r20/out-uwvm2-ros/product-jit-a1/uwvm2-host-api.o": {
+        "sha256": "7db66b6584b08b712c16704e91ec9f26ce5991909e0546cfad8768ea1acd3497",
+        "bytes": 6842408
+      },
+      "debug-complete-r20/out-uwvm2-ros/product-jit-a1/uwvm2-main": {
+        "sha256": "b8c7f8b415e1ef5aefc9019ca140125325f28a8c20670c62a2e702222440b463",
+        "bytes": 114160080
+      },
+      "debug-complete-r20/out-uwvm2-ros/product-jit-a1/uwvm2-main.o": {
+        "sha256": "d8cc3762cddf33d943e5f8eb35ea5c38fb025cb811a54a62316b58c15de5f8f6",
+        "bytes": 46859872
+      },
+      "debug-complete-r20/out-uwvm2-ros/product-jit-a1/uwvm2-runtime.o": {
+        "sha256": "560c27f50196d9f1daae84ab824a1d44734d76467a250ad04196be1380ee5116",
+        "bytes": 41729352
+      },
+      "debug-complete-r21/out-uwvm2/product-jit-a2/uwvm2-main-5d5d6114.o.tmp": {
+        "sha256": "e50a4fa3263621d04c70fb68f3154a7cfff380734cbd2a5810bd33227b90819c",
+        "bytes": 44199936
+      },
+      "debug-complete-r21/out-uwvm2-ros/product-jit-a2/uwvm2-host-api.o": {
+        "sha256": "39a3a3718a4d232b216bcad7a8d22dfc72506615f56c00105b9a7df822fea10d",
+        "bytes": 6842408
+      },
+      "debug-complete-r21/out-uwvm2-ros/product-jit-a2/uwvm2-main": {
+        "sha256": "83559a5d1efd2e77f9cf5db1b4a5a4254a205667c22d3684b64379289ee65ac1",
+        "bytes": 114197032
+      },
+      "debug-complete-r21/out-uwvm2-ros/product-jit-a2/uwvm2-main.o": {
+        "sha256": "f9375eecfe2a305e988297fb582dab934a2d2cad96945ae0a6f3b444c0d1a668",
+        "bytes": 46862912
+      },
+      "debug-complete-r21/out-uwvm2-ros/product-jit-a2/uwvm2-runtime.o": {
+        "sha256": "cd28783bb582206e0134373d8caa9d541e4f55a7006b40c51568a3ebace53b8e",
+        "bytes": 41792040
+      }
+    },
+    "originals_removed": false
+  },
+  "older_task_output_retirement": {
+    "archive_local": "/tmp/uwvm2-conditional-expression-20261005/retired-old-products-20261005.tar.gz",
+    "archive_sha256": "c24b5b76fc8d69544e1d2e66b04d7f3f9bc74b5cdaa1d4a780020f638787e30b",
+    "verified_members": 19,
+    "bytes_retired": 937245056,
+    "owned_uid_original_cgroup_processes_checked": 20,
+    "other_group_argv_checks": 33,
+    "original_test_roots_verified_retired": [
+      {
+        "root": "debug-complete-r17/control-jit-a3",
+        "receipt_sha256": "9c84d3a2ff8f59fe29a91cefc4a9d3c237ef38c461b698ae25124b03c1594701",
+        "rows": 1,
+        "all_original_pidfds_retired_and_roots_reaped": true
+      },
+      {
+        "root": "debug-complete-r17/control-link-a5",
+        "receipt_sha256": "9cfe72ac2438a9bc70d8ca8000624d1642ca390731832a6bf431764afa48b694",
+        "rows": 1,
+        "all_original_pidfds_retired_and_roots_reaped": true
+      },
+      {
+        "root": "debug-complete-r17/control-live-a1",
+        "receipt_sha256": "adfd91af4770356973b91b839e8be1252b2235cf528076b8e0df758d86a9f609",
+        "rows": 1,
+        "all_original_pidfds_retired_and_roots_reaped": true
+      },
+      {
+        "root": "debug-complete-r20/control-products-a1",
+        "receipt_sha256": "f2ce183546af39637aadc5e1a5e3ac3892bd1572058bc2da80a6bb419d501e03",
+        "rows": 2,
+        "all_original_pidfds_retired_and_roots_reaped": true
+      },
+      {
+        "root": "debug-complete-r21/control-products-a2",
+        "receipt_sha256": "d94aa15cf92d04e2a65b0bfb1477e8160d0132573aef22a1585fcc7731677fa4",
+        "rows": 2,
+        "all_original_pidfds_retired_and_roots_reaped": true
+      }
+    ],
+    "active_uses_found": 0,
+    "foreign_processes_signalled": false,
+    "files_removed": [
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r17/out-uwvm2/jit-linked-a5/uwvm2-main",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r17/out-uwvm2/jit-product-a3/uwvm2-host-api.o",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r17/out-uwvm2/jit-product-a3/uwvm2-main.o",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r17/out-uwvm2/jit-product-a3/uwvm2-runtime.o",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r17/out-uwvm2/live-product-a1/uwvm2-main.o",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r17/out-uwvm2/live-product-a1/uwvm2-runtime-9d8388d3.o.tmp",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r20/out-uwvm2/product-jit-a1/uwvm2-host-api.o",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r20/out-uwvm2/product-jit-a1/uwvm2-main",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r20/out-uwvm2/product-jit-a1/uwvm2-main.o",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r20/out-uwvm2/product-jit-a1/uwvm2-runtime.o",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r20/out-uwvm2-ros/product-jit-a1/uwvm2-host-api.o",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r20/out-uwvm2-ros/product-jit-a1/uwvm2-main",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r20/out-uwvm2-ros/product-jit-a1/uwvm2-main.o",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r20/out-uwvm2-ros/product-jit-a1/uwvm2-runtime.o",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r21/out-uwvm2/product-jit-a2/uwvm2-main-5d5d6114.o.tmp",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r21/out-uwvm2-ros/product-jit-a2/uwvm2-host-api.o",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r21/out-uwvm2-ros/product-jit-a2/uwvm2-main",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r21/out-uwvm2-ros/product-jit-a2/uwvm2-main.o",
+      "/tmp/uwvm2-language-fix-20261004/debug-complete-r21/out-uwvm2-ros/product-jit-a2/uwvm2-runtime.o"
+    ]
+  },
+  "references": {
+    "cpp_conditional": "https://eel.is/c++draft/expr.cond",
+    "gdb_operator": "https://sourceware.org/gdb/current/onlinedocs/gdb.html/C-Operators.html"
+  },
+  "remaining_native_categories": {
+    "implemented": 14,
+    "partial": 38,
+    "missing": 34,
+    "separate_level": 1,
+    "prohibited_by_scope": 1
+  },
+  "all_native_capabilities_implemented": false,
+  "concurrent_changes_in_owned_files": {
+    "tools/debug/dap_adapter.py": {
+      "was": "baa01a556cbc0e0fc750ec32264d3dfad9c439311d4e504d47514bc53de2536f",
+      "now": "af3e193941a2a3d96414558522b74ed37e0f47981e4d3f8a6e8bb5cf499eeabc",
+      "paired": true
+    }
+  },
+  "conditional_parser_region_preserved_after_concurrent_DAP_changes": true,
+  "frozen_paired_conditional_code_hashes": {
+    "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "1257db923c1012fb840d08dc6722cc72fb85a7930f109be41680b82a0cddd146",
+    "src/uwvm2/uwvm/debugger/controller.h": "b4ab313bc9dc2055ef01dceb5bf25570eee695f6969c83236f45de34e7f49d47",
+    "tools/debug/dap_adapter.py": "baa01a556cbc0e0fc750ec32264d3dfad9c439311d4e504d47514bc53de2536f",
+    "test/0017.runtime/debug_source_conditional_expression.cc": "4781fe23f6a231462e1c7d3a5572fef7e33cf86f218b6304fa48c975d073cf10",
+    "test/0017.runtime/debug_source_dap_expression.cc": "a84ba4fc0ea502fcb38b4b78ed146bf933e48238485855c05dc93688b792ad63",
+    "test/0017.runtime/run_debug_linux_qemu_components.py": "1df904c8e07764691f4b19e8b0db10bd3a61d33be0edc4f57b73c6c929948770",
+    "test/0017.runtime/run_debug_language_numeric_cli.py": "cd92a86eaa373a8696f56c788db0cc2ff4b913c4e5c3316b39668cd1e1a6c6fc",
+    "test/0018.debugger/test_dap_source_frames.py": "f902c2e37560146321ec342af88882005bb9e5bb19e8f5621dc0c041ca66155b",
+    "test/0018.debugger/dap_source_expression_cases.json": "333493080d1251b722c923d3e7495e7c2df3150531622608c4d0bb49874e82b6"
+  },
+  "other_agents_changes_preserved": true,
+  "component_and_product_source_cut_is_R22_not_all_current_files": true,
+  "review_patch": {
+    "path": "/tmp/uwvm2-conditional-expression-20261005/conditional-expression.patch",
+    "sha256": "1ebadc597fdd4222e21642dec907f3dc8758ed97d24d2ae3fddf413025cb92f4",
+    "paired_changed_files": 9
+  },
+  "pre_reboot_source_cuts": {
+    "uwvm2": {
+      "source_id": "sha256:1343ddb65ac43d5d79093f6e23d180ca66414f4fef1dfa7a8906e3f9249e35c0",
+      "source_files": 3137,
+      "all_files": 4330,
+      "archive_bytes": 13303807,
+      "archive_sha256": "033582048408c4e4c5f62610e789590c532739b6b5456b5a7160edfd5dabcd6b"
+    },
+    "uwvm2-ros": {
+      "source_id": "sha256:3f76e096a77aafb96be4c326770b6d23851594627c4b7897a319130ea9d1b665",
+      "source_files": 3076,
+      "all_files": 4241,
+      "archive_bytes": 13049041,
+      "archive_sha256": "edaaa061cedb7eff395a3d0139fc12d2891662db780afa6ca56c4f3b43ae7750"
+    }
+  },
+  "pre_reboot_current_paired_code_hashes": {
+    "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "1257db923c1012fb840d08dc6722cc72fb85a7930f109be41680b82a0cddd146",
+    "src/uwvm2/uwvm/debugger/controller.h": "b4ab313bc9dc2055ef01dceb5bf25570eee695f6969c83236f45de34e7f49d47",
+    "tools/debug/dap_adapter.py": "af3e193941a2a3d96414558522b74ed37e0f47981e4d3f8a6e8bb5cf499eeabc",
+    "test/0017.runtime/debug_source_conditional_expression.cc": "4781fe23f6a231462e1c7d3a5572fef7e33cf86f218b6304fa48c975d073cf10",
+    "test/0017.runtime/run_debug_language_numeric_cli.py": "cd92a86eaa373a8696f56c788db0cc2ff4b913c4e5c3316b39668cd1e1a6c6fc",
+    "test/0018.debugger/test_dap_source_frames.py": "f902c2e37560146321ec342af88882005bb9e5bb19e8f5621dc0c041ca66155b",
+    "test/0017.runtime/debug_source_dap_expression.cc": "a84ba4fc0ea502fcb38b4b78ed146bf933e48238485855c05dc93688b792ad63",
+    "test/0017.runtime/run_debug_linux_qemu_components.py": "1df904c8e07764691f4b19e8b0db10bd3a61d33be0edc4f57b73c6c929948770",
+    "test/0018.debugger/dap_source_expression_cases.json": "333493080d1251b722c923d3e7495e7c2df3150531622608c4d0bb49874e82b6"
+  },
+  "pre_reboot_corpus": {
+    "positive_syntax_rows": 158,
+    "expected_value_rows": 138,
+    "expected_evaluation_refusals": 20,
+    "negative_syntax_rows": 60
+  },
+  "pre_reboot_written_but_not_executed_tests": {
+    "cpp_component": "test/0017.runtime/debug_source_conditional_expression.cc",
+    "other_cpp_regressions": [
+      "debug_source_scalar_expression",
+      "debug_source_dap_expression"
+    ],
+    "DAP_protocol": "test/0018.debugger/test_dap_source_frames.py",
+    "actual_current_stop": "test/0017.runtime/run_debug_language_numeric_cli.py --conditional-subset",
+    "actual_stop_languages": [
+      "c",
+      "cpp",
+      "objc"
+    ],
+    "qemu_profiles": [
+      "x86_64",
+      "aarch64",
+      "i686",
+      "riscv64",
+      "ppc64",
+      "ppc64le",
+      "ppc32",
+      "mips64",
+      "mips64el",
+      "mips32",
+      "mips32el",
+      "sparc64",
+      "loongarch64",
+      "s390x",
+      "armhf",
+      "armel"
+    ]
+  },
+  "pre_reboot_resource_block": {
+    "utc": "2026-10-05T09:34:21.167710+00:00",
+    "free_bytes": 8799985664,
+    "free_inodes": 28166,
+    "memory_current": 60721123328,
+    "original_disk_floor": 9288400896,
+    "original_component_admission_threshold": 65498251264,
+    "original_abort_threshold": 67645734912,
+    "memory_events": {
+      "low": "0",
+      "high": "0",
+      "max": "774378",
+      "oom": "63",
+      "oom_kill": "15",
+      "oom_group_kill": "0"
+    }
+  },
+  "pre_reboot_production_changed_after_freeze": {
+    "uwvm2": {
+      "frozen_production_files_unchanged": false,
+      "changed_paths": [
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/section_memory_manager.h",
+        "src/uwvm2/runtime/compiler/llvm_jit/native_provenance.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h",
+        "src/uwvm2/uwvm/debugger/console.h",
+        "src/uwvm2/uwvm/debugger/controller_wasip1_portable.h",
+        "src/uwvm2/uwvm/debugger/wasip1_portable_checkpoint.h",
+        "src/uwvm2/uwvm/debugger/wasip1_state.h"
+      ]
+    },
+    "uwvm2-ros": {
+      "frozen_production_files_unchanged": false,
+      "changed_paths": [
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/section_memory_manager.h",
+        "src/uwvm2/runtime/compiler/llvm_jit/native_provenance.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h",
+        "src/uwvm2/uwvm/debugger/console.h",
+        "src/uwvm2/uwvm/debugger/controller_wasip1_portable.h",
+        "src/uwvm2/uwvm/debugger/wasip1_portable_checkpoint.h",
+        "src/uwvm2/uwvm/debugger/wasip1_state.h"
+      ]
+    }
+  },
+  "source_cuts": {
+    "uwvm2": {
+      "source_id": "sha256:769f70f26c95663c86db398a9a4dfe9f92c3a8e0e3c40898bf0531c9429844bd",
+      "frozen_production_include_files_after_unchanged": true,
+      "pinned_production_include_file_count": 3138,
+      "frozen_all_files_after_unchanged": true,
+      "pinned_all_file_count": 4337
+    },
+    "uwvm2-ros": {
+      "source_id": "sha256:ff68e598da424ca95c7af82d05f80bc19ea624eee6b59b7807053c020b43e188",
+      "frozen_production_include_files_after_unchanged": true,
+      "pinned_production_include_file_count": 3077,
+      "frozen_all_files_after_unchanged": true,
+      "pinned_all_file_count": 4248
+    }
+  },
+  "current_paired_code_hashes": {
+    "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "97bbf7b2a748a19e51356324d9e5e3d4b19b83191c47cc5ccde072dd123e4308",
+    "src/uwvm2/uwvm/debugger/controller.h": "6cd0c279ffc90bcaaeec0af36990c323a50d34738b090baf563443bab3dcdb2d",
+    "test/0017.runtime/debug_source_conditional_expression.cc": "48e2091b15c01ba8e2bb36ec9fb3a99d659cefba5144ff2ca18f3257b8c064f5",
+    "test/0017.runtime/debug_source_dap_expression.cc": "1a42bb359f8aa28a633e36104737df526dce7c368905069013242714d3005c9a",
+    "test/0017.runtime/run_debug_language_numeric_cli.py": "f3c70dd3a2a2098e14b015fb32fe929947e5d3e24efcbed35bfe4c706ed6801d",
+    "test/0017.runtime/fixtures/debug_language_numeric_c.c": "009e50bc61faeb0ed86a3effce81532767a554482f5e352acb6cedc8287d6acb",
+    "test/0017.runtime/fixtures/debug_language_numeric_cpp.cc": "009e50bc61faeb0ed86a3effce81532767a554482f5e352acb6cedc8287d6acb",
+    "test/0018.debugger/dap_source_expression_cases.json": "fb9e66da1cd9ebbde201214e0bf2043ec5586fdf3868651007c1ed806900d35e",
+    "tools/debug/dap_adapter.py": "af3e193941a2a3d96414558522b74ed37e0f47981e4d3f8a6e8bb5cf499eeabc",
+    "test/0018.debugger/test_dap_source_frames.py": "f902c2e37560146321ec342af88882005bb9e5bb19e8f5621dc0c041ca66155b"
+  },
+  "corpus": {
+    "positive_syntax_rows": 163,
+    "expected_value_rows": 142,
+    "expected_evaluation_refusals": 21,
+    "negative_syntax_rows": 60,
+    "explicit_zero_value_resolver_rows": 99
+  },
+  "current_qualification_report": "debug_linux_reboot_sizeof_qualification_20261005.json",
+  "current_qualification": {
+    "QEMU_components": 96,
+    "DAP_protocol_tests": 468,
+    "actual_numeric_cases": 24,
+    "actual_conditional_cases": 20,
+    "source_run_to_cases": 256,
+    "soak_runs": 1920,
+    "soak_seconds": 1829.552839473,
+    "controller_actions": 379920,
+    "source_positions": 54720
+  },
+  "latest_local_parallel_edits": {
+    "production_changed_paths": [
+      "src/uwvm2/runtime/compiler/llvm_jit/mcjit_target_support.h",
+      "src/uwvm2/utils/control/session.h",
+      "src/uwvm2/uwvm/debugger/NATIVE_HOST_CALL_CONTINUATION.md",
+      "src/uwvm2/uwvm/debugger/console.h",
+      "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+    ],
+    "other_changed_paths": [
+      "test/0017.runtime/README.debug-native-closed-call-continuation.md",
+      "test/0017.runtime/README.debug-source-language-expressions.md",
+      "test/0017.runtime/debug_native_closed_call_continuation_runtime.cc",
+      "test/0017.runtime/debug_native_linux_runtime.cc",
+      "test/0017.runtime/debug_native_public_registers_runtime.cc",
+      "test/0017.runtime/native_mcjit_numeric_execution.cc",
+      "test/0017.runtime/native_owned_instruction_semantics.cc",
+      "test/0017.runtime/native_provenance_numeric_mcjit.cc",
+      "test/0017.runtime/run_debug_native_closed_call_continuation.py"
+    ],
+    "whole_current_workspace_qualified": false
+  }
+}

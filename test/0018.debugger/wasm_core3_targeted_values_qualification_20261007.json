@@ -1,0 +1,38 @@
+{
+  "scope": "Current paired source135 native x86_64 full LLVM / interpreter products, Wasm feature smoke and exact typed values; immutable source111 RV64 products with new atomic/SIMD fixture matrices",
+  "source_identities": {
+    "uwvm2": "sha256:13fa70f6833babb41beb436870bd60f07a00ea7cea7ec5e5f73f3a71eacf568d",
+    "uwvm2-ros": "sha256:7e1f474e3720e9b5dc4f43d57eb33f4a8c94f6b4cc31f3dc00b80b6bd5181bbb"
+  },
+  "source_manifest_sha256": "b2cf55fe543694732be154b59366b5d0fd109508a19806b97df0dd9fd9e88aad",
+  "parent_qualification_sha256": "619411dbd8623b31aa25d4b4bb03d63f98238d6b87d3f5a62a5fba79054f33c6",
+  "successful_commands": 60,
+  "actual_VM_sessions": 304,
+  "typed_pause_observations": 9772,
+  "negative_harness_VM_normal_exit_sessions": 8,
+  "actual_two_participant_episodes": 32,
+  "actual_atomic_two_participant_episodes": 16,
+  "sampled_owned_rss_peak_bytes": 6891909120,
+  "folder_peak_bytes": 16946155520,
+  "memory_events": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "disk_free_bytes": 97396686848,
+  "ROS_basic_modes_added": false,
+  "limits": [
+    "Entry-stop smoke is not exhaustive feature-state support.",
+    "Wait mismatch and zero-timeout plus notify without waiters do not prove blocked wait/notify debugging.",
+    "The real two-participant test qualifies atomic RMW locals and GC/exn/value queries, not arbitrary thread schedules or world restore.",
+    "Relaxed SIMD inputs have a unique permitted result; unconstrained-result alternatives are outside this matrix.",
+    "Later concurrent source edits and other ISAs are not qualified by this cut."
+  ],
+  "full_proof": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/QUALIFIED153.json",
+  "full_proof_sha256": "aab56b33e7ea236efae332c899bc5248ae18127ea40adb0860af42b2b52301cc",
+  "whole_world_restore_qualified": false,
+  "production_files_modified_by_this_task": 0
+}

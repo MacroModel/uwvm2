@@ -1,0 +1,1540 @@
+{
+  "passed": true,
+  "created_utc_epoch": 1791422962.786126,
+  "scope": "Completed targeted high memory64, retained-cell regressions, exact native interpreter macros and authenticated T2 objects on explicitly pinned source cuts; not complete Core3/all Linux architectures/current live source.",
+  "high_memory": {
+    "completed": 676,
+    "negative_runs": 624,
+    "high_address_runs": 52,
+    "products": [
+      {
+        "arch": "x86_64",
+        "repo": "uwvm2",
+        "completed": 117,
+        "negative_runs": 108,
+        "high_address_runs": 9,
+        "profiles": [
+          "int-full-compiled-default-delay-1",
+          "int-lazy+verification-compiled-default-delay-1",
+          "int-lazy-compiled-default-delay-1",
+          "llvm-full-O1",
+          "llvm-full-O2",
+          "llvm-full-O3",
+          "llvm-lazy-balanced",
+          "llvm-lazy-debug",
+          "llvm-lazy-light"
+        ],
+        "product_sha256": "02de99c104f42b97de246cfae9130f0558cac4e42442103682e2a7cb9ca6659a",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+        },
+        "source_identity": null,
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-r3/x86_64-uwvm2/qualification.json",
+          "sha256": "0199f444ab96ba48af2e8dfa0a6cd569e45bf6bb3be7e319e9fa95489057baf8"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-r3/cgopt-memory64-high-r3-evidence/001-x86_64-uwvm2/receipts.json",
+          "sha256": "527c60b39ff91ec643841a48fce185175fa3e59a903dd6eaab3b3c28875125bc"
+        },
+        "provider": "original pinned QEMU/native"
+      },
+      {
+        "arch": "x86_64",
+        "repo": "uwvm2-ros",
+        "completed": 52,
+        "negative_runs": 48,
+        "high_address_runs": 4,
+        "profiles": [
+          "int-full-compiled-default-delay-1",
+          "llvm-full-O1",
+          "llvm-full-O2",
+          "llvm-full-O3"
+        ],
+        "product_sha256": "e1462e925922f1c65eeed08df0daaef5a424eb4c9b2f0571210f2581a7f6d1ec",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+        },
+        "source_identity": null,
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-r3/x86_64-uwvm2-ros/qualification.json",
+          "sha256": "ef0fa40a5394aab250e85e498ed8d19f1f2d25405af9881162ef75d26e6fc370"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-r3/cgopt-memory64-high-r3-evidence/002-x86_64-uwvm2-ros/receipts.json",
+          "sha256": "002015a118caa951b3ad9c012d8e91b1a1ade3032453890acbccf4587a3979fe"
+        },
+        "provider": "original pinned QEMU/native"
+      },
+      {
+        "arch": "aarch64",
+        "repo": "uwvm2",
+        "completed": 117,
+        "negative_runs": 108,
+        "high_address_runs": 9,
+        "profiles": [
+          "int-full-compiled-default-delay-1",
+          "int-lazy+verification-compiled-default-delay-1",
+          "int-lazy-compiled-default-delay-1",
+          "llvm-full-O1",
+          "llvm-full-O2",
+          "llvm-full-O3",
+          "llvm-lazy-balanced",
+          "llvm-lazy-debug",
+          "llvm-lazy-light"
+        ],
+        "product_sha256": "0c2d20ad3be6c5ed56cb39f6c511d8eae8df49c41477b72da7c24d68bcff2dcf",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+        },
+        "source_identity": null,
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-r3/aarch64-uwvm2/qualification.json",
+          "sha256": "d2e4a6165c20687ef9c3ba023b864f5398871e46206a5cb67fdb4d29e33455dd"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-r3/cgopt-memory64-high-r3-evidence/003-aarch64-uwvm2/receipts.json",
+          "sha256": "6638462d89906911a4df586ff00af900251b6dc29f026bb1fb90fa05cb09276b"
+        },
+        "provider": "original pinned QEMU/native"
+      },
+      {
+        "arch": "aarch64",
+        "repo": "uwvm2-ros",
+        "completed": 52,
+        "negative_runs": 48,
+        "high_address_runs": 4,
+        "profiles": [
+          "int-full-compiled-default-delay-1",
+          "llvm-full-O1",
+          "llvm-full-O2",
+          "llvm-full-O3"
+        ],
+        "product_sha256": "6332d3c5512cfd6e8c1618a6d7219c978e1b6802284b80130fde75cab288d5f9",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+        },
+        "source_identity": null,
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-r3/aarch64-uwvm2-ros/qualification.json",
+          "sha256": "39b249d05743bfed9fdc77c4f11a5352260c68763a1206629ca0761d65ee966d"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-r3/cgopt-memory64-high-r3-evidence/004-aarch64-uwvm2-ros/receipts.json",
+          "sha256": "a27a95b905573698de40fc90cec0c8b035864fdf7b23085b6fe6ab284b615b71"
+        },
+        "provider": "original pinned QEMU/native"
+      },
+      {
+        "arch": "riscv64",
+        "repo": "uwvm2",
+        "completed": 117,
+        "negative_runs": 108,
+        "high_address_runs": 9,
+        "profiles": [
+          "int-full-compiled-default-delay-1",
+          "int-lazy+verification-compiled-default-delay-1",
+          "int-lazy-compiled-default-delay-1",
+          "llvm-full-O1",
+          "llvm-full-O2",
+          "llvm-full-O3",
+          "llvm-lazy-balanced",
+          "llvm-lazy-debug",
+          "llvm-lazy-light"
+        ],
+        "product_sha256": "d190fc0cab00d3f6d7cff32853540fc0c8228f24ee0e5ad6b5756e563615fcde",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+        },
+        "source_identity": null,
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-r3/riscv64-uwvm2/qualification.json",
+          "sha256": "6dc5f70faaf389e15d507fab9b1e1b98c672ddaf4088ee4f0b332899ec52e7f2"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-r3/cgopt-memory64-high-r3-evidence/005-riscv64-uwvm2/receipts.json",
+          "sha256": "4f5700ddcee1f4042a3f14a0592d4c8ed4cf73e038a4e9df738ab1da820f9ee1"
+        },
+        "provider": "original pinned QEMU/native"
+      },
+      {
+        "arch": "riscv64",
+        "repo": "uwvm2-ros",
+        "completed": 52,
+        "negative_runs": 48,
+        "high_address_runs": 4,
+        "profiles": [
+          "int-full-compiled-default-delay-1",
+          "llvm-full-O1",
+          "llvm-full-O2",
+          "llvm-full-O3"
+        ],
+        "product_sha256": "c9a11a2aa3aee288f85ecb76aeb31020ca189b1fc6f4a14233c08a6416ebfed8",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+        },
+        "source_identity": null,
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-r3/riscv64-uwvm2-ros/qualification.json",
+          "sha256": "d12f9a421d1bcafa502a29ec4554ba8e944ebe4087d44dbb433640ad2cdc49c0"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-r3/cgopt-memory64-high-r3-evidence/006-riscv64-uwvm2-ros/receipts.json",
+          "sha256": "d63455857c40413146417dbbaabf884b0d90751745ba8cd7b6f63104df3251a7"
+        },
+        "provider": "original pinned QEMU/native"
+      },
+      {
+        "arch": "loongarch64",
+        "repo": "uwvm2",
+        "completed": 117,
+        "negative_runs": 108,
+        "high_address_runs": 9,
+        "profiles": [
+          "int-full-compiled-default-delay-1",
+          "int-lazy+verification-compiled-default-delay-1",
+          "int-lazy-compiled-default-delay-1",
+          "llvm-full-O1",
+          "llvm-full-O2",
+          "llvm-full-O3",
+          "llvm-lazy-balanced",
+          "llvm-lazy-debug",
+          "llvm-lazy-light"
+        ],
+        "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+        "source_identities": {
+          "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+          "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+        },
+        "source_identity": null,
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-loong-vdso-r2/loongarch64-uwvm2/qualification.json",
+          "sha256": "cdaea8339bf203c23f10f91c5bd29dddb66975981e493de6efd481e0118d740a"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-loong-vdso-r2/cgopt-memory64-high-loong-vdso-r2-evidence/000-loongarch64-uwvm2/receipts.json",
+          "sha256": "1c794c4f9f4e85cb8218df485842dff14b5634ca0537a4fcaed318e51255cbad"
+        },
+        "provider": "private LoongArch signal CFI repaired QEMU"
+      },
+      {
+        "arch": "loongarch64",
+        "repo": "uwvm2-ros",
+        "completed": 52,
+        "negative_runs": 48,
+        "high_address_runs": 4,
+        "profiles": [
+          "int-full-compiled-default-delay-1",
+          "llvm-full-O1",
+          "llvm-full-O2",
+          "llvm-full-O3"
+        ],
+        "product_sha256": "dbfeecb0ff1ad294bd20d3d5999d88bf504c9cf7516ee6e33e22ed1656a86f9b",
+        "source_identities": {
+          "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+          "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+        },
+        "source_identity": null,
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-loong-vdso-r2/loongarch64-uwvm2-ros/qualification.json",
+          "sha256": "07505e1676632f1b48c35364e68d552730784d0f89b40758fdd8a038c8500190"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-high-loong-vdso-r2/cgopt-memory64-high-loong-vdso-r2-evidence/001-loongarch64-uwvm2-ros/receipts.json",
+          "sha256": "68e1959dd1862e35a2ba4768a9435c6b727918c57c3a49c75ff2fdb91f0f2835"
+        },
+        "provider": "private LoongArch signal CFI repaired QEMU"
+      }
+    ]
+  },
+  "signed_cache": {
+    "processes": 96,
+    "cold": 32,
+    "authenticated_warm_processes": 64,
+    "paths": [
+      "default",
+      "explicit"
+    ],
+    "stack_policies": [
+      "unwind",
+      "instruction"
+    ],
+    "optimization": 3,
+    "products": [
+      {
+        "arch": "x86_64",
+        "repo": "uwvm2",
+        "completed": 12,
+        "cold": 4,
+        "authenticated_hits": 8,
+        "product_sha256": "02de99c104f42b97de246cfae9130f0558cac4e42442103682e2a7cb9ca6659a",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+        },
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/x86_64-uwvm2-results/summary.json",
+          "sha256": "0fd1f017d3ea2e7f499b5042fee0358e5a6b3da0de1174967f449bddd446b43a"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/cgopt-memory64-cache-r1-evidence/000-x86_64-uwvm2/receipts.json",
+          "sha256": "d6704a5709a2587c21efc6b6fc319ec561394ea60db5b16b254bb04c6d2426fb"
+        }
+      },
+      {
+        "arch": "x86_64",
+        "repo": "uwvm2-ros",
+        "completed": 12,
+        "cold": 4,
+        "authenticated_hits": 8,
+        "product_sha256": "e1462e925922f1c65eeed08df0daaef5a424eb4c9b2f0571210f2581a7f6d1ec",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+        },
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/x86_64-uwvm2-ros-results/summary.json",
+          "sha256": "7cf6011589788466664d75356d15ade5796b43a2458530ae769e4f32b070d489"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/cgopt-memory64-cache-r1-evidence/001-x86_64-uwvm2-ros/receipts.json",
+          "sha256": "1b9fcf5b3450578b457ec52cea9d053678145ad2332ce1f0887c46cb370aeb9e"
+        }
+      },
+      {
+        "arch": "aarch64",
+        "repo": "uwvm2",
+        "completed": 12,
+        "cold": 4,
+        "authenticated_hits": 8,
+        "product_sha256": "0c2d20ad3be6c5ed56cb39f6c511d8eae8df49c41477b72da7c24d68bcff2dcf",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+        },
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/aarch64-uwvm2-results/summary.json",
+          "sha256": "76afbc02e8465a60a7ec2853f59963a8f3244d475b89deeb2426b7fe23815031"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/cgopt-memory64-cache-r1-evidence/002-aarch64-uwvm2/receipts.json",
+          "sha256": "7da07f112465410fe8829a4ec1d04cddf6f3b3c12a3837fc89363a4d1f0c2c48"
+        }
+      },
+      {
+        "arch": "aarch64",
+        "repo": "uwvm2-ros",
+        "completed": 12,
+        "cold": 4,
+        "authenticated_hits": 8,
+        "product_sha256": "6332d3c5512cfd6e8c1618a6d7219c978e1b6802284b80130fde75cab288d5f9",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+        },
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/aarch64-uwvm2-ros-results/summary.json",
+          "sha256": "719683a3c9f8eacbc249d37f3e2b778e219565df8d22a4cabbb253a95bafae19"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/cgopt-memory64-cache-r1-evidence/003-aarch64-uwvm2-ros/receipts.json",
+          "sha256": "efeb54ccaae47c9ca0a64c4d1197c59c7b0e5148bdcfcab0517e4ad8e2861a39"
+        }
+      },
+      {
+        "arch": "riscv64",
+        "repo": "uwvm2",
+        "completed": 12,
+        "cold": 4,
+        "authenticated_hits": 8,
+        "product_sha256": "d190fc0cab00d3f6d7cff32853540fc0c8228f24ee0e5ad6b5756e563615fcde",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+        },
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/riscv64-uwvm2-results/summary.json",
+          "sha256": "ad5fe58b96bf98be83e9b994ceb1ba3822a721a1b06fddd0b7887cedfe55326c"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/cgopt-memory64-cache-r1-evidence/004-riscv64-uwvm2/receipts.json",
+          "sha256": "2cae8fffcfaa87972fe6214b02379e591b577e57437cbb8fc65f4346dc4bcf4f"
+        }
+      },
+      {
+        "arch": "riscv64",
+        "repo": "uwvm2-ros",
+        "completed": 12,
+        "cold": 4,
+        "authenticated_hits": 8,
+        "product_sha256": "c9a11a2aa3aee288f85ecb76aeb31020ca189b1fc6f4a14233c08a6416ebfed8",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:6ea7c50f045150ece281ce875e967682385e73cb17b3b306cab79016dd77a100"
+        },
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/riscv64-uwvm2-ros-results/summary.json",
+          "sha256": "38fdef92f6408c2c0787aa781c7d4c0db342210c01f23636eb87c05eba50ea14"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/cgopt-memory64-cache-r1-evidence/005-riscv64-uwvm2-ros/receipts.json",
+          "sha256": "285deab6920bf83773642e58faaffa2d4fcdecb467e4c3e84f81ce8e232af6d6"
+        }
+      },
+      {
+        "arch": "loongarch64",
+        "repo": "uwvm2",
+        "completed": 12,
+        "cold": 4,
+        "authenticated_hits": 8,
+        "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+        "source_identities": {
+          "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+          "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+        },
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/loongarch64-uwvm2-results/summary.json",
+          "sha256": "f828ef7d6f663d23839aef3f2b7978ab4afd5dda69cbbb88efd994641ad52393"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/cgopt-memory64-cache-r1-evidence/006-loongarch64-uwvm2/receipts.json",
+          "sha256": "5d8e9365a9b5c3667471eea5fe354a3d93c2c4323d415ad1e1b924cdba36e178"
+        }
+      },
+      {
+        "arch": "loongarch64",
+        "repo": "uwvm2-ros",
+        "completed": 12,
+        "cold": 4,
+        "authenticated_hits": 8,
+        "product_sha256": "dbfeecb0ff1ad294bd20d3d5999d88bf504c9cf7516ee6e33e22ed1656a86f9b",
+        "source_identities": {
+          "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+          "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+        },
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/loongarch64-uwvm2-ros-results/summary.json",
+          "sha256": "043db66cdef5ff0947cc72ee4e86e1315da9a8700876c60cdba23bdb97336059"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-cache-r1/cgopt-memory64-cache-r1-evidence/007-loongarch64-uwvm2-ros/receipts.json",
+          "sha256": "6b2c77fbf293f177f069543658f2b09699d4e0e677b7de6733fb331e4bd30404"
+        }
+      }
+    ]
+  },
+  "assembly": {
+    "rows": 16,
+    "complete_function_extents": 32,
+    "products": [
+      {
+        "arch": "x86_64",
+        "repo": "uwvm2",
+        "rows": 2,
+        "complete_function_extents": 4,
+        "product_sha256": "02de99c104f42b97de246cfae9130f0558cac4e42442103682e2a7cb9ca6659a",
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/x86_64-uwvm2-results/summary.json",
+          "sha256": "026166e6c842a8e524c3fadec5aa7e3400f81c1835ae2ea14ef5cc948b803997"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/cgopt-memory64-asm-r1-evidence/000-x86_64-uwvm2/receipts.json",
+          "sha256": "312274b37b1d1099ea249ab0b513d81bcbffe9dc53fb34afd84bfae115b914d7"
+        }
+      },
+      {
+        "arch": "x86_64",
+        "repo": "uwvm2-ros",
+        "rows": 2,
+        "complete_function_extents": 4,
+        "product_sha256": "e1462e925922f1c65eeed08df0daaef5a424eb4c9b2f0571210f2581a7f6d1ec",
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/x86_64-uwvm2-ros-results/summary.json",
+          "sha256": "7dbbca01ede870402d7dca4409d129338998dce2eaa9eb217fd8c0dd7d3ae3dd"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/cgopt-memory64-asm-r1-evidence/001-x86_64-uwvm2-ros/receipts.json",
+          "sha256": "c8184e874b6146812f8c4b46b7168a4c993c59085106ad311e41d0e706cda9fe"
+        }
+      },
+      {
+        "arch": "aarch64",
+        "repo": "uwvm2",
+        "rows": 2,
+        "complete_function_extents": 4,
+        "product_sha256": "0c2d20ad3be6c5ed56cb39f6c511d8eae8df49c41477b72da7c24d68bcff2dcf",
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/aarch64-uwvm2-results/summary.json",
+          "sha256": "95e85de2cd07bee4d3d6b38c28a14b1f63b8cf5c55d720d484ddb3baaf526050"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/cgopt-memory64-asm-r1-evidence/002-aarch64-uwvm2/receipts.json",
+          "sha256": "df46a5dc546a7a1a6841e88b511c4f13a0ad5b27fe224d6f573a0616796ecd96"
+        }
+      },
+      {
+        "arch": "aarch64",
+        "repo": "uwvm2-ros",
+        "rows": 2,
+        "complete_function_extents": 4,
+        "product_sha256": "6332d3c5512cfd6e8c1618a6d7219c978e1b6802284b80130fde75cab288d5f9",
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/aarch64-uwvm2-ros-results/summary.json",
+          "sha256": "7074f386fda6cd0201c842cfbb44667f10f79615c5d0724d748151fe81d39117"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/cgopt-memory64-asm-r1-evidence/003-aarch64-uwvm2-ros/receipts.json",
+          "sha256": "ba88dbe8d71cb70083747c37bab8328e640dc796cd6caaead5d5b6fd11731b88"
+        }
+      },
+      {
+        "arch": "riscv64",
+        "repo": "uwvm2",
+        "rows": 2,
+        "complete_function_extents": 4,
+        "product_sha256": "d190fc0cab00d3f6d7cff32853540fc0c8228f24ee0e5ad6b5756e563615fcde",
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/riscv64-uwvm2-results/summary.json",
+          "sha256": "a43746914c3fc0fa6a6de258ad588d338014ad6d91f3e0fd113c0e7ecf22eb8b"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/cgopt-memory64-asm-r1-evidence/004-riscv64-uwvm2/receipts.json",
+          "sha256": "ca472c47717729189ec866202dcbb91d43e65ab1ec9dae5ad64a58b5d40a7eb6"
+        }
+      },
+      {
+        "arch": "riscv64",
+        "repo": "uwvm2-ros",
+        "rows": 2,
+        "complete_function_extents": 4,
+        "product_sha256": "c9a11a2aa3aee288f85ecb76aeb31020ca189b1fc6f4a14233c08a6416ebfed8",
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/riscv64-uwvm2-ros-results/summary.json",
+          "sha256": "e1edaf413e5357d8383af0ca21fba28b008170c3f33fc8de3909a569e8ffc56a"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/cgopt-memory64-asm-r1-evidence/005-riscv64-uwvm2-ros/receipts.json",
+          "sha256": "fb46ba9b31f8ae66478efabc5d1a7dd1bbc2f6be154d907b2c7646c794bf422f"
+        }
+      },
+      {
+        "arch": "loongarch64",
+        "repo": "uwvm2",
+        "rows": 2,
+        "complete_function_extents": 4,
+        "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/loongarch64-uwvm2-results/summary.json",
+          "sha256": "8ffb73820042eabeee043b0c790d181baadc71286ae59eae12b3dce596d8e87d"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/cgopt-memory64-asm-r1-evidence/006-loongarch64-uwvm2/receipts.json",
+          "sha256": "956067f36570d6b5cedaf54db15e3f49da36b7bb1d6e673b14bdb02dec593e11"
+        }
+      },
+      {
+        "arch": "loongarch64",
+        "repo": "uwvm2-ros",
+        "rows": 2,
+        "complete_function_extents": 4,
+        "product_sha256": "dbfeecb0ff1ad294bd20d3d5999d88bf504c9cf7516ee6e33e22ed1656a86f9b",
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/loongarch64-uwvm2-ros-results/summary.json",
+          "sha256": "c91cb39a234871347484c4e78f298c9f228131260ebd745975e1e53d20da9586"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-asm-r1/cgopt-memory64-asm-r1-evidence/007-loongarch64-uwvm2-ros/receipts.json",
+          "sha256": "cfc2d6842d84422f7e43371ea3ab7e3657bb98200395162671a5427777f545f8"
+        }
+      }
+    ],
+    "hardware_efficiency_qualified": false
+  },
+  "high_memory_T2": {
+    "processes": 12,
+    "products": [
+      {
+        "arch": "x86_64",
+        "repo": "uwvm2",
+        "processes": 6,
+        "checked_calls_per_process": 4000000,
+        "checks_per_call": 6,
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+        },
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-r2/x86_64-uwvm2/qualification.json",
+          "sha256": "390d4439e29269270eda57e49409ec1ffa65962e11fde3ca29f8be8d4c45adce"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-r2/cgopt-memory64-t2-r2-evidence/000-x86_64-uwvm2/receipts.json",
+          "sha256": "0ef511cedd47658e0aeed702ff30a211482564891c23de260f1f66294500fb65"
+        }
+      },
+      {
+        "arch": "loongarch64",
+        "repo": "uwvm2",
+        "processes": 6,
+        "checked_calls_per_process": 4000000,
+        "checks_per_call": 6,
+        "source_identities": {
+          "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+          "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+        },
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-loongarch64-r3/loongarch64-uwvm2/qualification.json",
+          "sha256": "284bfc5242a7ec8b9375a5e1cc4bd1b1bd09f4f9feb5698e011b11ddb848505e"
+        },
+        "admission": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-loongarch64-r3/cgopt-memory64-t2-loongarch64-r3-evidence/000-loongarch64-uwvm2/receipts.json",
+          "sha256": "012bc24320db5385f5b8942138e0629195aead3c52f6f6d000f602b15772cdd6"
+        }
+      }
+    ],
+    "ROS_supports_tiered": false
+  },
+  "qemu_signal_provider": {
+    "receipt": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-qemu-loong-signal-provider-r1/qemu-loongarch64.repair.json",
+      "sha256": "2d3cfa032829519c6321f677c312133d60bb1f0548ac10dc00b237b35a0ab14e"
+    },
+    "source_untouched": true,
+    "original_sha256": "81f4c16209845ee604f00615f39d0d782a896c04d86c90850ccf966635c3227e",
+    "repaired_sha256": "40b53194ea3de96601347c4abdfb5a65af4ebdb4e43eddd22de0f3ccf15335af",
+    "changed_byte_offsets": [
+      2649503,
+      2649507,
+      2649511
+    ],
+    "guest_text_sha256": "ebe31c56f25da9881a1ce3b2fdf381655d494ea81d5ebb117dd3cea4758f73de",
+    "admission": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-qemu-loong-signal-provider-r1/cgopt-qemu-loong-signal-provider-r1-evidence/000-repair-provider/receipts.json",
+      "sha256": "8330d6f8bf90bf988fac88bceb5677c216b88cd8db431012a822ecb3916f2ac0"
+    },
+    "default_unwind_regression_runs": 169
+  },
+  "exclusions": [
+    "Original LoongArch QEMU default-unwind SIGSEGV earns no credit",
+    "T1 fallback in old AArch64/RISC-V64 products earns no T2 credit",
+    "Incomplete/failing supervisor/fixture/build attempts earn no credit",
+    "Instruction-policy LoongArch 169 runs remain separately scoped"
+  ],
+  "historical_fixture_metadata_note": "checks field in original frozen positive fixture is a conservative upper bound overcounted by one; current paired source corrects metadata without changing WAT bytes. No total assertion count is claimed.",
+  "resources": {
+    "cgroup": "/sys/fs/cgroup/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope",
+    "memory_max_bytes": 68719476736,
+    "swap_max_bytes": 0,
+    "owned_RSS_limit_bytes": 7516192768,
+    "admission_headroom_bytes": 9663676416,
+    "runtime_VA_limit_bytes": 2199023255552
+  },
+  "all_architecture_qualification_complete": false,
+  "complete_Core3_qualified": false,
+  "parent_completed_report": {
+    "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-completed-summary-r1.json",
+    "sha256": "27ff5c456e51bb428e0beff2acc7fe31c7dc6626496b0243860d863dd126c4db",
+    "bytes": 31971
+  },
+  "new_stage_receipts": {
+    "cgopt-memory64-t2-current-test-r3": {
+      "status": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-current-test-r3/cgopt-memory64-t2-current-test-r3-status.json",
+        "sha256": "30dee397b742c6a22c3442074085adcfe5145ce469b75eab7c303080b823e005",
+        "bytes": 166
+      },
+      "receipts": [
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-current-test-r3/cgopt-memory64-t2-current-test-r3-evidence/000-aarch64-regression/receipts.json",
+          "sha256": "62f760279e6a0c551ece5eb2c4b250239485b75735ec969dfc531a82d91c0fbf",
+          "bytes": 5480505
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-current-test-r3/cgopt-memory64-t2-current-test-r3-evidence/001-riscv64-regression/receipts.json",
+          "sha256": "3383919eebf2fe5149ea44d7771f7dd049df11d8694b811cc8f27af50207dc43",
+          "bytes": 5468097
+        }
+      ],
+      "commands": 2
+    },
+    "cgopt-memory64-macros-r2": {
+      "status": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-status.json",
+        "sha256": "f80ab71763211ffd1e14238836991e4c03a682fa72eafd9437413d07bf21291d",
+        "bytes": 157
+      },
+      "receipts": [
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/000-extra-heavy-uwvm2/receipts.json",
+          "sha256": "3e08b96bc3a894c53c5ba09c786192b9cea2c68d1876e3d5253586bc24a24805",
+          "bytes": 121482
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/001-extra-heavy-uwvm2-ros/receipts.json",
+          "sha256": "986a04b0d640341b5a228f07f68156bfebf986a5f8509197b0651f5f0aabd1ea",
+          "bytes": 46545
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/002-extra-none-uwvm2/receipts.json",
+          "sha256": "57a02674ce0d1ffc023df062c5cb6e17037607c6d14ff21ca986032b6c228d23",
+          "bytes": 121330
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/003-extra-none-uwvm2-ros/receipts.json",
+          "sha256": "ff00fe51f15dfbd7911b69dc9097729791b7fb2bfe39ba53964755629280116b",
+          "bytes": 46426
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/004-extra-soft-uwvm2/receipts.json",
+          "sha256": "7ac5746ffd3a640af8dd9728813b516c2aaf24b317b017448fc83b5ead8c8a28",
+          "bytes": 121329
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/005-extra-soft-uwvm2-ros/receipts.json",
+          "sha256": "a887d16287682a78c9a45eadf259b720fe761d4f32d86e036f94bc5333d42c9d",
+          "bytes": 46608
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/006-heavy-heavy-uwvm2/receipts.json",
+          "sha256": "978796a0002ac5c239726d1474c5f2d5c5d5f2378c55dde71d424c16bb82b363",
+          "bytes": 121453
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/007-heavy-heavy-uwvm2-ros/receipts.json",
+          "sha256": "171fa60d3fff3b4b7e9b8cf27f82f11ee40b65f6f02fb5c88846073bca37521e",
+          "bytes": 46570
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/008-heavy-none-uwvm2/receipts.json",
+          "sha256": "defe211f14cf4edb002a66d4ba608334041f6f6f067d94d08ee632cecee786f2",
+          "bytes": 123535
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/009-heavy-none-uwvm2-ros/receipts.json",
+          "sha256": "b5f8032b12ef1739c67b6ef33b005b4b5d2b9b40861c980a1cea4671211cc53e",
+          "bytes": 46429
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/010-heavy-soft-uwvm2/receipts.json",
+          "sha256": "0eb7873a1b3abb3386ddfd371750ac4e7924fd81e0b150f046b59dd9abcd2d36",
+          "bytes": 121299
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/011-heavy-soft-uwvm2-ros/receipts.json",
+          "sha256": "2d2668cf63807f3d102fb4c36fb81eb892d854926cc4b08d76e323f3492913bf",
+          "bytes": 46458
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/012-none-heavy-uwvm2/receipts.json",
+          "sha256": "44bfcfdb394077036a436766f715c91ba32aceeb3ac96db7b592def2b6fb96f7",
+          "bytes": 121299
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/013-none-heavy-uwvm2-ros/receipts.json",
+          "sha256": "8909e2ef09365437012a3930a6c922688b59ad182e3865f3f0910dfb62b2300f",
+          "bytes": 46458
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/014-none-none-uwvm2/receipts.json",
+          "sha256": "0916c2c30e365eb007659323e620bb5ab494c1be17a9b28b50928d653b2dc27d",
+          "bytes": 121179
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/015-none-none-uwvm2-ros/receipts.json",
+          "sha256": "31cf9188e653f668f94dbf984cbc0e77f4cd12ca7b8b38e8b991b3b5bdec2f33",
+          "bytes": 46431
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/016-none-soft-uwvm2/receipts.json",
+          "sha256": "83af1b7e093fc725c4fcf0221011d19c2658eba02ac7b1297dc5728a855c7fdc",
+          "bytes": 122348
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/017-none-soft-uwvm2-ros/receipts.json",
+          "sha256": "c212669ad296f675461d99729d7d0a24e2be6cc81410471cbc78f1588ab8c03c",
+          "bytes": 46427
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/018-soft-heavy-uwvm2/receipts.json",
+          "sha256": "6fa0704b5e5f3cb93fa40417f2583aafe5a6fbdf140cb1ee8b8fee9c6cc367d5",
+          "bytes": 121329
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/019-soft-heavy-uwvm2-ros/receipts.json",
+          "sha256": "ff71b35ea6f47e114ceb2e235aa55a0c8009fe6c367cf0c4e5ab011267925be1",
+          "bytes": 46398
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/020-soft-none-uwvm2/receipts.json",
+          "sha256": "9018a6a85d2470f5d9bc69819562e9bfef3616a2bbe34d585e3620f80e31e161",
+          "bytes": 121110
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/021-soft-none-uwvm2-ros/receipts.json",
+          "sha256": "780f411d499913e7738e814279d6274ca5ce301c1450dd302723104f585b7982",
+          "bytes": 47361
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/022-soft-soft-uwvm2/receipts.json",
+          "sha256": "3878490e4b26094d9f2bf3526da1b2ef65c5c25fcb86a2986bc27036383977e1",
+          "bytes": 120191
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/cgopt-memory64-macros-r2-evidence/023-soft-soft-uwvm2-ros/receipts.json",
+          "sha256": "beb94463913c02c3993289f293d57436e78a2e2d33c2f7e85028cd7ef3d90b72",
+          "bytes": 45269
+        }
+      ],
+      "commands": 24
+    },
+    "cgopt-memory64-t2-cache-r2": {
+      "status": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-cache-r2/cgopt-memory64-t2-cache-r2-status.json",
+        "sha256": "4bf0bf77362a80e2f78b64f4d4f83b6489d3d43224faabc0b07b127125665de9",
+        "bytes": 158
+      },
+      "receipts": [
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-cache-r2/cgopt-memory64-t2-cache-r2-evidence/000-x86_64-high-T2-cache/receipts.json",
+          "sha256": "4b84b9da5d8dad73264b06313aa0bc66102953e849bf1010b0ad62e08a365d9b",
+          "bytes": 148649
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-cache-r2/cgopt-memory64-t2-cache-r2-evidence/001-loongarch64-high-T2-cache/receipts.json",
+          "sha256": "77efd50368ef5ba694bf7f2804fb404872c4360e2e0f41df3b6f1fb3678b182a",
+          "bytes": 237681
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-cache-r2/cgopt-memory64-t2-cache-r2-evidence/002-aarch64-high-T2-cache/receipts.json",
+          "sha256": "8cf04abe9cd2e3a81ad01eec1875096bd7af4c4f3931b7cb34757d05da33dd17",
+          "bytes": 232944
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-cache-r2/cgopt-memory64-t2-cache-r2-evidence/003-riscv64-high-T2-cache/receipts.json",
+          "sha256": "da681f1a0f0fb448ae7fa40f5189212fbde89ed777c2dd69f2ae9209abeb9161",
+          "bytes": 226581
+        }
+      ],
+      "commands": 4
+    },
+    "cgopt-memory64-t2-auth-asm-r2": {
+      "status": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-auth-asm-r2/cgopt-memory64-t2-auth-asm-r2-status.json",
+        "sha256": "7caa83371a73c12166f2c030798fdf9b767bec09bd8a0679600b0a2c71da554e",
+        "bytes": 162
+      },
+      "receipts": [
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-auth-asm-r2/cgopt-memory64-t2-auth-asm-r2-evidence/000-x86_64-authenticated-T2-asm/receipts.json",
+          "sha256": "4bae4d4b154f0a8053ac2d6620df55b7be5bbace472e2f7a0055eacfde720d2c",
+          "bytes": 14389
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-auth-asm-r2/cgopt-memory64-t2-auth-asm-r2-evidence/001-loongarch64-authenticated-T2-asm/receipts.json",
+          "sha256": "c3b7eca872ae7c564409ce3c035e9357898ef8e38b6944bc788986ecb8360aae",
+          "bytes": 16725
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-auth-asm-r2/cgopt-memory64-t2-auth-asm-r2-evidence/002-aarch64-authenticated-T2-asm/receipts.json",
+          "sha256": "066d50f4b5f0b36343f69cbb12a75fc6d9597ce6029ac1e77500e156e34e78ac",
+          "bytes": 17448
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-auth-asm-r2/cgopt-memory64-t2-auth-asm-r2-evidence/003-riscv64-authenticated-T2-asm/receipts.json",
+          "sha256": "69195073dbfe8791c723e58ba41fbfffa725f85b42268a930e0c8f90955ff49b",
+          "bytes": 17818
+        }
+      ],
+      "commands": 4
+    }
+  },
+  "exact_macro_high_memory": {
+    "products": 24,
+    "variants_per_repository": 12,
+    "completed": 624,
+    "negative_runs": 576,
+    "products_receipts": [
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/extra-heavy-uwvm2/qualification.json",
+        "sha256": "51d0fb419595b2bd60015b72ebcfed2bc9760a332555a61bb20146b745934b4b",
+        "bytes": 786458,
+        "repo": "uwvm2",
+        "variant": "extra-heavy",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+        ],
+        "completed": 39,
+        "negative_runs": 36,
+        "source_identity": "sha256:4580e91a92f42008dca2eecd3714b63cd91dfa9d2d9b4b1e7873056b4115dcd4",
+        "source_identities": null,
+        "product_sha256": "46f239dedd3248978acf4ebae203e564eabeb664007a5f32c72d6934f54581a0",
+        "prior_product_qualification_sha256": "cc3ac9bf40ecba521bf50754f2fd1270d4fa1a0751e5e025c679a8eab8b99415"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/extra-heavy-uwvm2-ros/qualification.json",
+        "sha256": "88fb5d87822a7f14a45c5486d2b67e9fda16db1d9b465c6840435ce0019d83de",
+        "bytes": 668669,
+        "repo": "uwvm2-ros",
+        "variant": "extra-heavy",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+        ],
+        "completed": 13,
+        "negative_runs": 12,
+        "source_identity": "sha256:1f4bddbff23cd6e03e80a2c755eea8add0e6b1b5d652adb7a727bdac60a66926",
+        "source_identities": null,
+        "product_sha256": "13200a3beb799928e34e7412a9f5ecc1c214b5b209a3b1e5e1f73bba0cd7aea2",
+        "prior_product_qualification_sha256": "e3ea2cf0843bab1f2e691832250f90010d6d8670389a5e6d3b4b238caae54a26"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/extra-none-uwvm2/qualification.json",
+        "sha256": "32c1f2d4fe835b8851a69b18dc6e5ba88c528cef25afa84412365c2f9ea04221",
+        "bytes": 786290,
+        "repo": "uwvm2",
+        "variant": "extra-none",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS"
+        ],
+        "completed": 39,
+        "negative_runs": 36,
+        "source_identity": "sha256:4580e91a92f42008dca2eecd3714b63cd91dfa9d2d9b4b1e7873056b4115dcd4",
+        "source_identities": null,
+        "product_sha256": "815c1d1232049e9fa0a94ded17e046848013d6e0dff5ad69f07c7eb6a34ee0ac",
+        "prior_product_qualification_sha256": "4e97caaa0b1886125bb909ccbb3630f116345ec190d049d1c84728791ea06e78"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/extra-none-uwvm2-ros/qualification.json",
+        "sha256": "a519fed68f9b48ed98da1ac6651c2cef5cdee0387e0f2f22f4e5a170dc92c213",
+        "bytes": 668552,
+        "repo": "uwvm2-ros",
+        "variant": "extra-none",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS"
+        ],
+        "completed": 13,
+        "negative_runs": 12,
+        "source_identity": "sha256:1f4bddbff23cd6e03e80a2c755eea8add0e6b1b5d652adb7a727bdac60a66926",
+        "source_identities": null,
+        "product_sha256": "83f15e258071e0d5399da2bab226a8faedc8d8c6d5e71ab33f455132df764054",
+        "prior_product_qualification_sha256": "c46d3bb1ba8dc5df1de16728ae1f6842fa46d37ef092e29ac92eb9fdee7b9c6a"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/extra-soft-uwvm2/qualification.json",
+        "sha256": "1c122e6a1951d927072e25e27c1fbce251c318bbe4d780bce79ad0611694b3f0",
+        "bytes": 786341,
+        "repo": "uwvm2",
+        "variant": "extra-soft",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+        ],
+        "completed": 39,
+        "negative_runs": 36,
+        "source_identity": "sha256:4580e91a92f42008dca2eecd3714b63cd91dfa9d2d9b4b1e7873056b4115dcd4",
+        "source_identities": null,
+        "product_sha256": "7e7df15e0efe76a1989817c153acfbacb2386db2c8ced853f0ef7b476425e1d6",
+        "prior_product_qualification_sha256": "fd2f3875703943b1ff841470a7c2cd3ccf09bcb03a024630879f11338c37f7cf"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/extra-soft-uwvm2-ros/qualification.json",
+        "sha256": "5582eb8f9ef8c7f3f514b395a22c083e0b8ef8bfcfd27f0c4a99696a86614d86",
+        "bytes": 668594,
+        "repo": "uwvm2-ros",
+        "variant": "extra-soft",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+        ],
+        "completed": 13,
+        "negative_runs": 12,
+        "source_identity": "sha256:1f4bddbff23cd6e03e80a2c755eea8add0e6b1b5d652adb7a727bdac60a66926",
+        "source_identities": null,
+        "product_sha256": "a47fb64ca9fba6de79698b04cc871928452e625eb03d0b90c9a846f4e8d1780f",
+        "prior_product_qualification_sha256": "85406814ef97d306912b9a0a8a7e237e2684a9f9fb3adabe026edd0360d0afd8"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/heavy-heavy-uwvm2/qualification.json",
+        "sha256": "6c931c024de3939f2539fbd8ff0abf4c5b7c1fe8145e72d6dcabad28cf9a0a9a",
+        "bytes": 786409,
+        "repo": "uwvm2",
+        "variant": "heavy-heavy",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+        ],
+        "completed": 39,
+        "negative_runs": 36,
+        "source_identity": "sha256:4580e91a92f42008dca2eecd3714b63cd91dfa9d2d9b4b1e7873056b4115dcd4",
+        "source_identities": null,
+        "product_sha256": "fac3d40c749048bb1116703203b2eef61b9bda077e932d8cf1212c67368c6b62",
+        "prior_product_qualification_sha256": "1b539643146a93550d569fca14d034aab4a40bc7917c0aaa40eedcfa2aec94de"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/heavy-heavy-uwvm2-ros/qualification.json",
+        "sha256": "316016e60f2ec6ceb447832138660de3a4cd095490dc3b73f6f10857e6e7c239",
+        "bytes": 668616,
+        "repo": "uwvm2-ros",
+        "variant": "heavy-heavy",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+        ],
+        "completed": 13,
+        "negative_runs": 12,
+        "source_identity": "sha256:1f4bddbff23cd6e03e80a2c755eea8add0e6b1b5d652adb7a727bdac60a66926",
+        "source_identities": null,
+        "product_sha256": "c754ac2fa1d633c29784f0759d5eb70fc33a5314a9bafc248817c6431f089a9c",
+        "prior_product_qualification_sha256": "bb3e0cad305d5358917e58925eae1f989074665c339e9fbca71408a904cd4860"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/heavy-none-uwvm2/qualification.json",
+        "sha256": "e65932040ad0cb3ad849c61b99eb34b20dea012cc8f76ca9e41dd2851e14481b",
+        "bytes": 786234,
+        "repo": "uwvm2",
+        "variant": "heavy-none",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS"
+        ],
+        "completed": 39,
+        "negative_runs": 36,
+        "source_identity": "sha256:4580e91a92f42008dca2eecd3714b63cd91dfa9d2d9b4b1e7873056b4115dcd4",
+        "source_identities": null,
+        "product_sha256": "914607837c02154b676c4581e2fe3bcdfb5ce3dda481bf9f054785096fd162e4",
+        "prior_product_qualification_sha256": "2c268e57e9997b62396e0e0b511218521485e78a8c512051c39328256c43942a"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/heavy-none-uwvm2-ros/qualification.json",
+        "sha256": "4b04309d3ed51eae0f7cb2ad4c786e09c61436e12e7993afabd2c3382b149da1",
+        "bytes": 668498,
+        "repo": "uwvm2-ros",
+        "variant": "heavy-none",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS"
+        ],
+        "completed": 13,
+        "negative_runs": 12,
+        "source_identity": "sha256:1f4bddbff23cd6e03e80a2c755eea8add0e6b1b5d652adb7a727bdac60a66926",
+        "source_identities": null,
+        "product_sha256": "71f1ce1a47f6fc6df26d371c695bc4b068d90ce8aa79452c2029efa877836b17",
+        "prior_product_qualification_sha256": "2f7070a201c83a723b0d9a7494f64cb18f9d8549e071dcb2cfa9a150de1f6b0f"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/heavy-soft-uwvm2/qualification.json",
+        "sha256": "8cd7d44d8ee4ce4452d5aba8214265147416ff8b28df556aa86acb855f28dff8",
+        "bytes": 786284,
+        "repo": "uwvm2",
+        "variant": "heavy-soft",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+        ],
+        "completed": 39,
+        "negative_runs": 36,
+        "source_identity": "sha256:4580e91a92f42008dca2eecd3714b63cd91dfa9d2d9b4b1e7873056b4115dcd4",
+        "source_identities": null,
+        "product_sha256": "010153d7a6eeab0f6efc69c94051a1894cb5fad09b8f626917b7e9ce886747a2",
+        "prior_product_qualification_sha256": "f39f051c2ec3e97cb23eaf0220094029740e4dc0486076a759527f5f2061cf9c"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/heavy-soft-uwvm2-ros/qualification.json",
+        "sha256": "42500bef8ef6de71e65dfa4e7636a28457a1cad43f4f4a7f27befdc46588478a",
+        "bytes": 668542,
+        "repo": "uwvm2-ros",
+        "variant": "heavy-soft",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+        ],
+        "completed": 13,
+        "negative_runs": 12,
+        "source_identity": "sha256:1f4bddbff23cd6e03e80a2c755eea8add0e6b1b5d652adb7a727bdac60a66926",
+        "source_identities": null,
+        "product_sha256": "238cb35116a9469e101887342388b78e8a9486a3b67a030b67e43f4f65a41ec0",
+        "prior_product_qualification_sha256": "bf436f2adb61a45edec615085d4767e1563494d3b4d73ad6e2263530d30a067b"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/none-heavy-uwvm2/qualification.json",
+        "sha256": "89509b455766c4cd12c4cd0c30bb1987fa55c010e88b5bb15e9c73bf62c2e3c6",
+        "bytes": 786243,
+        "repo": "uwvm2",
+        "variant": "none-heavy",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+        ],
+        "completed": 39,
+        "negative_runs": 36,
+        "source_identity": "sha256:4580e91a92f42008dca2eecd3714b63cd91dfa9d2d9b4b1e7873056b4115dcd4",
+        "source_identities": null,
+        "product_sha256": "63e3edb0dc6bbfaa4f0d65122df554788213b2b3a86a408ce456d6d93132a4f5",
+        "prior_product_qualification_sha256": "c5f0bce1065e8d8e38ba9a0be0fecb61e1308d4a22877cc116b56f11566e828a"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/none-heavy-uwvm2-ros/qualification.json",
+        "sha256": "abfd0fd3868d6012c365574ddb47e898fb1a27398dff0ecca21db8e571d7a093",
+        "bytes": 668500,
+        "repo": "uwvm2-ros",
+        "variant": "none-heavy",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+        ],
+        "completed": 13,
+        "negative_runs": 12,
+        "source_identity": "sha256:1f4bddbff23cd6e03e80a2c755eea8add0e6b1b5d652adb7a727bdac60a66926",
+        "source_identities": null,
+        "product_sha256": "ec2012bf2bcf6249aaf6f20f5c96504a2264d2653422c6ea95811f7735470d80",
+        "prior_product_qualification_sha256": "15f2a3e6b68f19308655b686f16c1d020026186caeced4d7b0fa48317442fd25"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/none-none-uwvm2/qualification.json",
+        "sha256": "ebfe12ac29d8780cef823945051cf870389a3ac3108c3ca9f7121ab759e40a55",
+        "bytes": 786071,
+        "repo": "uwvm2",
+        "variant": "none-none",
+        "macros": [],
+        "completed": 39,
+        "negative_runs": 36,
+        "source_identity": "sha256:4580e91a92f42008dca2eecd3714b63cd91dfa9d2d9b4b1e7873056b4115dcd4",
+        "source_identities": null,
+        "product_sha256": "02eb088ba879090e2779644bc0125d9ed29fd3d3aee1fda46bfb92950b592c27",
+        "prior_product_qualification_sha256": "e19723ce941d97c4f95e1e97de62905a7720a4127acdf08f2505a29612766192"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/none-none-uwvm2-ros/qualification.json",
+        "sha256": "e3c312142392631dabba93d395810cb70106cf2defa2982789efc39268018b18",
+        "bytes": 668382,
+        "repo": "uwvm2-ros",
+        "variant": "none-none",
+        "macros": [],
+        "completed": 13,
+        "negative_runs": 12,
+        "source_identity": "sha256:1f4bddbff23cd6e03e80a2c755eea8add0e6b1b5d652adb7a727bdac60a66926",
+        "source_identities": null,
+        "product_sha256": "0e5e1e4724040051ac0035753d156ba0c7dae8521fa4991cead258fae0a34305",
+        "prior_product_qualification_sha256": "35c7ece4c87da3b2083a93b68c0ec807a10922b43e4f20316aca79eceba8ccf8"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/none-soft-uwvm2/qualification.json",
+        "sha256": "ea6a2731718e0a118cf74ceeccc765014fc2ec234859dfc2325fc51db37aa542",
+        "bytes": 786115,
+        "repo": "uwvm2",
+        "variant": "none-soft",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+        ],
+        "completed": 39,
+        "negative_runs": 36,
+        "source_identity": "sha256:4580e91a92f42008dca2eecd3714b63cd91dfa9d2d9b4b1e7873056b4115dcd4",
+        "source_identities": null,
+        "product_sha256": "584dd7ece36e3aed1cbc00525095b7fae5d68effba0785860d7a4705c9a13ac1",
+        "prior_product_qualification_sha256": "f3c52e768ea3adbee4d18f7acc54cf093530c941fc6ec3e8dc2ddce178e8935b"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/none-soft-uwvm2-ros/qualification.json",
+        "sha256": "29445151ac18ddcf19ec4cb734cdd3e8c5c3dad4a538134d5c251486d7b0f7e7",
+        "bytes": 668428,
+        "repo": "uwvm2-ros",
+        "variant": "none-soft",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+        ],
+        "completed": 13,
+        "negative_runs": 12,
+        "source_identity": "sha256:1f4bddbff23cd6e03e80a2c755eea8add0e6b1b5d652adb7a727bdac60a66926",
+        "source_identities": null,
+        "product_sha256": "01bc02e16f9acc7a9f2501d9043ea150e9b4bc088249ed599b045c5074f82847",
+        "prior_product_qualification_sha256": "ad1f56e071b77a0c4794be2b018de1edcc1db10feaacdb32bd4471ef53af7abb"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/soft-heavy-uwvm2/qualification.json",
+        "sha256": "ff7208cb74c55934f052867729067b3d0772a1a2de0881ef5ee1abb5e182ab91",
+        "bytes": 786283,
+        "repo": "uwvm2",
+        "variant": "soft-heavy",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+        ],
+        "completed": 39,
+        "negative_runs": 36,
+        "source_identity": "sha256:4580e91a92f42008dca2eecd3714b63cd91dfa9d2d9b4b1e7873056b4115dcd4",
+        "source_identities": null,
+        "product_sha256": "e75618c233c2bb16dba73f42032e8d2ec729d4af60a6503b40f860d576cffff3",
+        "prior_product_qualification_sha256": "3e65ea312d05de6d9569809891e9aa9ab180cc7311115eb05bd9519b8f885659"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/soft-heavy-uwvm2-ros/qualification.json",
+        "sha256": "472f0def7829d2d245bcd8658159b327a8ecdd94a13c9f5eed8a8cb200b87a83",
+        "bytes": 668545,
+        "repo": "uwvm2-ros",
+        "variant": "soft-heavy",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+        ],
+        "completed": 13,
+        "negative_runs": 12,
+        "source_identity": "sha256:1f4bddbff23cd6e03e80a2c755eea8add0e6b1b5d652adb7a727bdac60a66926",
+        "source_identities": null,
+        "product_sha256": "70cf4a70008eaf60b681c547e3c95e52ed011b89e1437ae2f1399328bb265299",
+        "prior_product_qualification_sha256": "943d2cfc3c121bcaf905af498cb573504c56f1a3b14ad8ba5ef8a288dd06ec3c"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/soft-none-uwvm2/qualification.json",
+        "sha256": "488ea681087c358cceac6460aad3998ff47ca9f75157ab8fe0ff0b27129dfa57",
+        "bytes": 786111,
+        "repo": "uwvm2",
+        "variant": "soft-none",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS"
+        ],
+        "completed": 39,
+        "negative_runs": 36,
+        "source_identity": "sha256:4580e91a92f42008dca2eecd3714b63cd91dfa9d2d9b4b1e7873056b4115dcd4",
+        "source_identities": null,
+        "product_sha256": "42160fc52294b4d37f6e13c104e87a28889069b0af6c46e13b34437e6eed84b2",
+        "prior_product_qualification_sha256": "4db559ededeb20b4a678aef2922cf7bcdb429eedebccbd732af9d54fd4e0593d"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/soft-none-uwvm2-ros/qualification.json",
+        "sha256": "949da9d2d3f760aafd4889f6d90b400bfbfe03cf4e8ed1bc93e1e78e58d03d5f",
+        "bytes": 668424,
+        "repo": "uwvm2-ros",
+        "variant": "soft-none",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS"
+        ],
+        "completed": 13,
+        "negative_runs": 12,
+        "source_identity": "sha256:1f4bddbff23cd6e03e80a2c755eea8add0e6b1b5d652adb7a727bdac60a66926",
+        "source_identities": null,
+        "product_sha256": "223c31fbe918fc459491acf6bd0412b649555fd90c5bf40f39013d9b402dc44e",
+        "prior_product_qualification_sha256": "5f424fb8c294e2726284ae5d231bf58c1133eec6a50c9561b7e1a491d9809520"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/soft-soft-uwvm2/qualification.json",
+        "sha256": "ad563efda6d0f286385b4ebd795ef558f24b00e61a1e28bbda40e4a716174144",
+        "bytes": 786154,
+        "repo": "uwvm2",
+        "variant": "soft-soft",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+        ],
+        "completed": 39,
+        "negative_runs": 36,
+        "source_identity": "sha256:4580e91a92f42008dca2eecd3714b63cd91dfa9d2d9b4b1e7873056b4115dcd4",
+        "source_identities": null,
+        "product_sha256": "4f0cb68951000e18c404d45ec3ca1d6c1e606e0774864b03db3df036f069faac",
+        "prior_product_qualification_sha256": "ab198a5c33005379df9898399c00365fa306eacdc8cbdeb562df6cc6ac5bc14a"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-macros-r2/soft-soft-uwvm2-ros/qualification.json",
+        "sha256": "75c06fd226c1f0800f13debf0a622b5272901d881a7b3e7870b122cb45f90ebc",
+        "bytes": 668466,
+        "repo": "uwvm2-ros",
+        "variant": "soft-soft",
+        "macros": [
+          "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+          "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+        ],
+        "completed": 13,
+        "negative_runs": 12,
+        "source_identity": "sha256:1f4bddbff23cd6e03e80a2c755eea8add0e6b1b5d652adb7a727bdac60a66926",
+        "source_identities": null,
+        "product_sha256": "80273453bdcc74fc8e5319068452fb992bd8ed673d340c0f9917d7799f749130",
+        "prior_product_qualification_sha256": "8881d2237c6f7dc1f8b83926178af244de11a3511454c44cd099254f0e46599a"
+      }
+    ],
+    "targets": [
+      "native-x86_64"
+    ],
+    "ROS_tiered_supported": false
+  },
+  "retained_cells_R8_main_regression": {
+    "products": [
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-current-test-r3/aarch64/qualification.json",
+        "sha256": "ec89f510a924718dce938978a6e7952ee55afc1a24ae4d9ed401c0b65f77c6a5",
+        "bytes": 692314,
+        "arch": "aarch64",
+        "source_identities": {
+          "uwvm2": "sha256:444b4e1f85d709a30be63b8e07169f9a293a59331dd500836e8bcd1bc04a92f8",
+          "uwvm2-ros": "sha256:39ccf05b888232473136b44f7790f1f61d595a0c9087e00b8c9f426420a6640f"
+        },
+        "product_sha256": "6080fcedc7bd928d698d240297b048a54d563594dbd342ee217272d9d90aa338",
+        "semantic_runs": 1116,
+        "high_memory_runs": 117,
+        "numeric_T2_runs": 6,
+        "high_memory_T2_runs": 6,
+        "T2_receipts": {
+          "numeric-t2": {
+            "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-current-test-r3/aarch64/numeric-t2/summary.json",
+            "sha256": "6fd9a8958d8a1eb771bd3a370484052ec473fdc66b9b1861852ae7f4331f2ace",
+            "bytes": 21575
+          },
+          "memory64-high-t2": {
+            "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-current-test-r3/aarch64/memory64-high-t2/summary.json",
+            "sha256": "2491fed5a4911099749ab778e4d68469622f1330c003688778931f8fb8a68ed2",
+            "bytes": 22189
+          }
+        }
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-current-test-r3/riscv64/qualification.json",
+        "sha256": "bd9ba763cedb3f7bca6ae4d42160e4ddfaa2ff46e8cc96e82bc6eedcb6c6034f",
+        "bytes": 676666,
+        "arch": "riscv64",
+        "source_identities": {
+          "uwvm2": "sha256:444b4e1f85d709a30be63b8e07169f9a293a59331dd500836e8bcd1bc04a92f8",
+          "uwvm2-ros": "sha256:39ccf05b888232473136b44f7790f1f61d595a0c9087e00b8c9f426420a6640f"
+        },
+        "product_sha256": "674ac4dd75997832fcccfaf739177496ba13b750328afbf3a8862c97ac809acb",
+        "semantic_runs": 1116,
+        "high_memory_runs": 117,
+        "numeric_T2_runs": 6,
+        "high_memory_T2_runs": 6,
+        "T2_receipts": {
+          "numeric-t2": {
+            "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-current-test-r3/riscv64/numeric-t2/summary.json",
+            "sha256": "7611b49470e9bfcf36dfd6a7fd260cdf612e74819afebb61fe0429b3d953f07e",
+            "bytes": 21712
+          },
+          "memory64-high-t2": {
+            "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-current-test-r3/riscv64/memory64-high-t2/summary.json",
+            "sha256": "69b5d18de3fd781d280b00e76207652e4ea788d7884dca7103bce76b30a64ec0",
+            "bytes": 22324
+          }
+        }
+      }
+    ],
+    "semantic_runs": 2232,
+    "high_memory_runs": 234,
+    "numeric_T2_runs": 12,
+    "high_memory_T2_runs": 12,
+    "scope": "R8 frozen successor: current retained-cell header, not whole live source and not R9 unwind/cache delta"
+  },
+  "high_memory_T2_signed_cache": {
+    "processes": 144,
+    "cold": 48,
+    "authenticated_warm_processes": 96,
+    "products": [
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-cache-r2/x86_64-results/qualification.json",
+        "sha256": "e982060c4674586b8aff0cf993bb899854312d11dfc4ff8946207a16397e772b",
+        "bytes": 944596,
+        "arch": "x86_64",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+        },
+        "product_sha256": "02de99c104f42b97de246cfae9130f0558cac4e42442103682e2a7cb9ca6659a",
+        "processes": 36,
+        "cold": 12,
+        "authenticated_warm_processes": 24,
+        "signed_object_hits": 48,
+        "prior_product_qualification_sha256": "390d4439e29269270eda57e49409ec1ffa65962e11fde3ca29f8be8d4c45adce"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-cache-r2/loongarch64-results/qualification.json",
+        "sha256": "e3aebad5f284aebd638c1e5726ebc591032935fa85bedcf5107ce09df8ece6df",
+        "bytes": 837890,
+        "arch": "loongarch64",
+        "source_identities": {
+          "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+          "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+        },
+        "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+        "processes": 36,
+        "cold": 12,
+        "authenticated_warm_processes": 24,
+        "signed_object_hits": 48,
+        "prior_product_qualification_sha256": "284bfc5242a7ec8b9375a5e1cc4bd1b1bd09f4f9feb5698e011b11ddb848505e"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-cache-r2/aarch64-results/qualification.json",
+        "sha256": "f976fa02f5da3c26b53ff41a4858072801bf0ee33edc65c2f4ce83640a462a3d",
+        "bytes": 836883,
+        "arch": "aarch64",
+        "source_identities": {
+          "uwvm2": "sha256:444b4e1f85d709a30be63b8e07169f9a293a59331dd500836e8bcd1bc04a92f8",
+          "uwvm2-ros": "sha256:39ccf05b888232473136b44f7790f1f61d595a0c9087e00b8c9f426420a6640f"
+        },
+        "product_sha256": "6080fcedc7bd928d698d240297b048a54d563594dbd342ee217272d9d90aa338",
+        "processes": 36,
+        "cold": 12,
+        "authenticated_warm_processes": 24,
+        "signed_object_hits": 48,
+        "prior_product_qualification_sha256": "ec89f510a924718dce938978a6e7952ee55afc1a24ae4d9ed401c0b65f77c6a5"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-cache-r2/riscv64-results/qualification.json",
+        "sha256": "3d9a29e911e50eb670f99fc4b5d36e4db6df7211744cde67b23d927fc4246359",
+        "bytes": 822041,
+        "arch": "riscv64",
+        "source_identities": {
+          "uwvm2": "sha256:444b4e1f85d709a30be63b8e07169f9a293a59331dd500836e8bcd1bc04a92f8",
+          "uwvm2-ros": "sha256:39ccf05b888232473136b44f7790f1f61d595a0c9087e00b8c9f426420a6640f"
+        },
+        "product_sha256": "674ac4dd75997832fcccfaf739177496ba13b750328afbf3a8862c97ac809acb",
+        "processes": 36,
+        "cold": 12,
+        "authenticated_warm_processes": 24,
+        "signed_object_hits": 48,
+        "prior_product_qualification_sha256": "bd9ba763cedb3f7bca6ae4d42160e4ddfaa2ff46e8cc96e82bc6eedcb6c6034f"
+      }
+    ],
+    "default_and_explicit_paths": true,
+    "optimization": [
+      "O1",
+      "O2",
+      "O3"
+    ],
+    "runtime_modes": [
+      "lazy",
+      "lazy+verification"
+    ],
+    "stack_policy": "instruction",
+    "ROS_supports_tiered": false
+  },
+  "high_memory_T2_assembly": {
+    "rows": 24,
+    "complete_function_extents": 72,
+    "products": [
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-auth-asm-r2/x86_64-results/summary.json",
+        "sha256": "6667a70c33698dd8af78043db266357b0739798a8d5438a92fd18f099d82d1bf",
+        "bytes": 24612,
+        "arch": "x86_64",
+        "source_identities": {
+          "uwvm2": "sha256:3917c6eda0fd29866df5b181cd0ccda720e53ebe0de531db64bf28ee9dac7784",
+          "uwvm2-ros": "sha256:a1863e1d11c743599a57414018507f21b0af0dbdd8d0f296b1985b103b808859"
+        },
+        "product_sha256": "02de99c104f42b97de246cfae9130f0558cac4e42442103682e2a7cb9ca6659a",
+        "rows": 6,
+        "complete_function_extents": 18,
+        "signed_execution_summary_sha256": "e982060c4674586b8aff0cf993bb899854312d11dfc4ff8946207a16397e772b",
+        "hot_function_instruction_counts": [
+          307,
+          307,
+          307,
+          307,
+          307,
+          307
+        ]
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-auth-asm-r2/loongarch64-results/summary.json",
+        "sha256": "4fd0b7844a31f5e006aee448319d4be71e0d12dcb3b46cd56fff19385df41fe4",
+        "bytes": 26822,
+        "arch": "loongarch64",
+        "source_identities": {
+          "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+          "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+        },
+        "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+        "rows": 6,
+        "complete_function_extents": 18,
+        "signed_execution_summary_sha256": "e3aebad5f284aebd638c1e5726ebc591032935fa85bedcf5107ce09df8ece6df",
+        "hot_function_instruction_counts": [
+          302,
+          302,
+          302,
+          302,
+          302,
+          302
+        ]
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-auth-asm-r2/aarch64-results/summary.json",
+        "sha256": "061b39674edbda74c9993816328747954da34a71c63c59b0d8b076d04abd7c71",
+        "bytes": 26596,
+        "arch": "aarch64",
+        "source_identities": {
+          "uwvm2": "sha256:444b4e1f85d709a30be63b8e07169f9a293a59331dd500836e8bcd1bc04a92f8",
+          "uwvm2-ros": "sha256:39ccf05b888232473136b44f7790f1f61d595a0c9087e00b8c9f426420a6640f"
+        },
+        "product_sha256": "6080fcedc7bd928d698d240297b048a54d563594dbd342ee217272d9d90aa338",
+        "rows": 6,
+        "complete_function_extents": 18,
+        "signed_execution_summary_sha256": "f976fa02f5da3c26b53ff41a4858072801bf0ee33edc65c2f4ce83640a462a3d",
+        "hot_function_instruction_counts": [
+          355,
+          355,
+          354,
+          355,
+          355,
+          354
+        ]
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-memory64-t2-auth-asm-r2/riscv64-results/summary.json",
+        "sha256": "c6b1a032f6aa8110b6f02b94987b03e17e52c52a033ead963ce3e2dbd77c5cba",
+        "bytes": 26600,
+        "arch": "riscv64",
+        "source_identities": {
+          "uwvm2": "sha256:444b4e1f85d709a30be63b8e07169f9a293a59331dd500836e8bcd1bc04a92f8",
+          "uwvm2-ros": "sha256:39ccf05b888232473136b44f7790f1f61d595a0c9087e00b8c9f426420a6640f"
+        },
+        "product_sha256": "674ac4dd75997832fcccfaf739177496ba13b750328afbf3a8862c97ac809acb",
+        "rows": 6,
+        "complete_function_extents": 18,
+        "signed_execution_summary_sha256": "3d9a29e911e50eb670f99fc4b5d36e4db6df7211744cde67b23d927fc4246359",
+        "hot_function_instruction_counts": [
+          459,
+          459,
+          459,
+          459,
+          459,
+          459
+        ]
+      }
+    ],
+    "scope": "Actual authenticated full T2 objects from default-cache executions; three complete core functions per profile",
+    "hardware_efficiency_qualified": false
+  },
+  "pending_MIPS64EL": {
+    "source_manifest": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cache-source-r9-manifest.json",
+      "sha256": "8704170b19a41fe830124648ce288140cb613583c0b15d4f153df87a5b99689d",
+      "bytes": 6120108
+    },
+    "build_stage": "cgopt-mips64el-full-build-r3",
+    "sanity_stage": "cgopt-mips64el-sanity-r2",
+    "old_default_unwind_bug": "R8 repeated recursive CFI row; timeout300s; excluded",
+    "fix": "Current N64 async-CFI target policy captured; paired bounded probe and independent CFI cache identity added; qualification pending"
+  }
+}

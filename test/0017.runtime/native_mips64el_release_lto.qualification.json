@@ -1,0 +1,135 @@
+{
+  "schema": "uwvm-native-mips64el-release-lto-independent-v1",
+  "qualification": true,
+  "date": "2026-10-08",
+  "scope": "Current paired actual Lua release rules plus target gold/native C++ FastIO link and QEMU regression; not a full current xmake product or a new Wasm runtime qualification",
+  "actual_Lua_syntax_files": 6,
+  "actual_Lua_release_rule_callbacks": 156,
+  "actual_old_default_LTO_link_rejections": 2,
+  "actual_target_gold_CPP_links": 6,
+  "actual_target_QEMU_CPP_executions": 6,
+  "actual_new_Wasm_VM_sessions": 0,
+  "actual_new_compile_or_QEMU_in_this_audit": 0,
+  "full_current_xmake_product_qualified": false,
+  "source_inputs": {
+    "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/source/uwvm2/xmake.lua": "da6f23b542bba4c6f0059b9fb4c166ad4a599ebd40b32e9c4bb2ba0f4b9a2b05",
+    "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/source/uwvm2/xmake/rule.lua": "0c5676c443c6666e2b9add1e26c23712f9bd546db3f5e97caa489a65b12dc083",
+    "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/source/uwvm2/xmake/platform/linux.lua": "c0d2652fb942ffc8ece4e2071f0120f0657ff1abb5a49e12cfc872b85c595953",
+    "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/source/uwvm2-ros/xmake.lua": "42ac6208d816ba47155930c3bb71b239e01419d1f4cf5f5512eaf28bc5327317",
+    "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/source/uwvm2-ros/xmake/rule.lua": "0c5676c443c6666e2b9add1e26c23712f9bd546db3f5e97caa489a65b12dc083",
+    "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/source/uwvm2-ros/xmake/platform/linux.lua": "c0d2652fb942ffc8ece4e2071f0120f0657ff1abb5a49e12cfc872b85c595953"
+  },
+  "producer_qualification": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/qualification.json",
+  "producer_qualification_sha256": "2a25269c75d241d74dac86a7e433b118dbef2b0f3e1531764660c14a284661e9",
+  "producer_retirement": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/complete-evidence/receipt.json",
+  "producer_retirement_sha256": "1b8fc83dd03b056d35face06390a0eb1469c9cbb5cef1ba50c681e000dbb0f9e",
+  "producer_recorded_PIDFD_handles_retired": 12,
+  "Landlock_probes": {
+    "passed": true,
+    "ABI": 7,
+    "probes": [
+      {
+        "operation": "existing certified persistent input write-open",
+        "errno": 13,
+        "denied": true
+      },
+      {
+        "operation": "owned persistent canary create",
+        "errno": 13,
+        "denied": true
+      },
+      {
+        "operation": "actual child exec inherited persistent write-open denial",
+        "returncode": 0,
+        "denied": true
+      }
+    ],
+    "owned_tmpfs_positive_write_read_delete": true,
+    "all_probes_original_cgroup": true,
+    "actual_cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+    "pid": 1519456,
+    "birth": 6801694
+  },
+  "Landlock_probes_sha256": "a0365664dd79b3b7b25db1b5ff6dfa79d2a0a89924430dcd5d08ee01401b71e8",
+  "all_qualified_native_ELF_stack_flags": 6,
+  "images": [
+    {
+      "repository": "uwvm2",
+      "mode": "release",
+      "path": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-release",
+      "sha256": "a7e9bb9eee931a1e385b099a99e2d36696d514daf3dbdc446eed63cdc667968d",
+      "bytes": 71640,
+      "ELF_machine": 8,
+      "ELF_class": 2,
+      "little_endian": true,
+      "GNU_stack_flags": 6
+    },
+    {
+      "repository": "uwvm2",
+      "mode": "releasedbg",
+      "path": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-releasedbg",
+      "sha256": "d0d11c98f8d12eb374d78633e06cfe13ff71bba19d18eaaba02abcbee8822b51",
+      "bytes": 135640,
+      "ELF_machine": 8,
+      "ELF_class": 2,
+      "little_endian": true,
+      "GNU_stack_flags": 6
+    },
+    {
+      "repository": "uwvm2",
+      "mode": "minsizerel",
+      "path": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-minsizerel",
+      "sha256": "e7e22ec9af4f961b5e46a871f14de0302650ddc21176879f52f0774d1abd73e7",
+      "bytes": 71640,
+      "ELF_machine": 8,
+      "ELF_class": 2,
+      "little_endian": true,
+      "GNU_stack_flags": 6
+    },
+    {
+      "repository": "uwvm2-ros",
+      "mode": "release",
+      "path": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-release",
+      "sha256": "a7e9bb9eee931a1e385b099a99e2d36696d514daf3dbdc446eed63cdc667968d",
+      "bytes": 71640,
+      "ELF_machine": 8,
+      "ELF_class": 2,
+      "little_endian": true,
+      "GNU_stack_flags": 6
+    },
+    {
+      "repository": "uwvm2-ros",
+      "mode": "releasedbg",
+      "path": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-releasedbg",
+      "sha256": "9c1d19f72c46b56b628a5d4d876db63cff836ba05267127229f53b3611e962dd",
+      "bytes": 135704,
+      "ELF_machine": 8,
+      "ELF_class": 2,
+      "little_endian": true,
+      "GNU_stack_flags": 6
+    },
+    {
+      "repository": "uwvm2-ros",
+      "mode": "minsizerel",
+      "path": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-minsizerel",
+      "sha256": "e7e22ec9af4f961b5e46a871f14de0302650ddc21176879f52f0774d1abd73e7",
+      "bytes": 71640,
+      "ELF_machine": 8,
+      "ELF_class": 2,
+      "little_endian": true,
+      "GNU_stack_flags": 6
+    }
+  ],
+  "source574_runtime_record_relabelled_as_current_product": false,
+  "original_disk_floor_and_shared_ceiling_qualified": false,
+  "storage_profile": "Dedicated tmpfs-only regression; actual kernel Landlock denies persistent test-file write/create, inherited across child exec. Original607/608 failure records unchanged. Existing persistent occupancy observed; no new persistent test products. Original64GiB/swap0,52GiB memory,ownRSS6GiB and512MiB tmpfs bounds remain enforced.",
+  "producer_resource_peak": {
+    "own_folder": 1179824128,
+    "shared_folder": 45092343808,
+    "group_memory": 48543039488,
+    "persistent_disk_min_free": 31636717568
+  },
+  "producer_RSS_peak": 353021952,
+  "source_dependency_count": 1146,
+  "all_input_file_hashes_reverified": true
+}

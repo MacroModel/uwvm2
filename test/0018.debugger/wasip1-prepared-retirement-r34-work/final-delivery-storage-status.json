@@ -1,0 +1,62 @@
+{
+  "native_qualification_preserved": true,
+  "native_execution_claimed": false,
+  "original_48_native_qualification": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/final-native-matrix-qualified.json",
+  "original_48_native_qualification_sha256": "558e27c3f12059d23a808d5faa0926bcd5ae937439598dab748b727878429f21",
+  "optional_historical_freebsd_consolidation_completed": false,
+  "original_freebsd_archives_preserved": true,
+  "failed_compression_prefix_retired_after_actual_pidfd_death": true,
+  "new_native_suite_admitted": false,
+  "admission_refusal_reasons": [
+    "owned_directory_above_original_6GiB_admission",
+    "host_disk_below_original_32GiB_reserve"
+  ],
+  "current_storage": {
+    "allocated_bytes": 6504579072,
+    "logical_bytes": 8044512172,
+    "files": 158973,
+    "host_available_bytes": 34035888128,
+    "volume_available_bytes": 1919864832
+  },
+  "original_storage_policy": {
+    "owned_directory": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17",
+    "directory_admission_bytes": 6442450944,
+    "directory_stop_bytes": 7516192768,
+    "directory_logical_stop_bytes": 17179869184,
+    "temporary_stop_bytes": 2147483648,
+    "filesystem_free_reserve_bytes": 34359738368,
+    "file_size_hard_limit_bytes": 1073741824,
+    "shared_cgroup_admission_bytes": 57982058496,
+    "shared_cgroup_stop_bytes": 64424509440,
+    "own_components_rss_stop_bytes": 2147483648,
+    "host_memory_admission_reserve_bytes": 8589934592,
+    "host_memory_running_reserve_bytes": 4294967296,
+    "tmpdir": "owned_directory/tmp",
+    "monitor_interval_seconds": 1,
+    "concurrency": "one suite under task-owned flock",
+    "limit_kind": "8 GiB private ext4 loop image provides a hard filesystem capacity; sampled guards keep additional reserves; RLIMIT_FSIZE enforces each file limit. Thin image allocation grows only with actual use.",
+    "cleanup": "Only explicitly owned disposable artifacts; retain inputs, dependency hashes, logs and reports. VM overlays one at a time, retired on completion after receipt validation. No full history extraction or private toolchain duplication.",
+    "volume_capacity_bytes": 8589934592,
+    "volume_free_reserve_bytes": 536870912,
+    "volume_image_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17.ext4",
+    "volume_inode_admission_reserve": 8192,
+    "volume_inode_running_reserve": 2048
+  },
+  "original_limits_unchanged": true,
+  "cgroup": "/sys/fs/cgroup/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope",
+  "boot_id": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+  "anchor_pid": 11166,
+  "anchor_birth": 22661,
+  "latest_own_volume_trim": {
+    "receipt": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/trim-own-ext4-qualified.json",
+    "receipt_sha256": "e80f5783b5fe885bd1cc17c63f3d5951861e15be620ea13166c7c3b48d4a0afb"
+  },
+  "failed_maintenance_guard": {
+    "receipt": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-historical-r29-freebsd-products-consolidate-r34-freebsd-all.json",
+    "receipt_sha256": "e80d4b78fb926fb7dd13d7742840e493cbb63333160604d4fb0c34b1d5b43477"
+  },
+  "failed_compression_disposal": {
+    "receipt": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/failed-final-freebsd-consolidation-disposal.json",
+    "receipt_sha256": "95f51c729fbc656a3fd93d4bc2934d1c3b7fbe17a7729436052df84d9225edfb"
+  }
+}

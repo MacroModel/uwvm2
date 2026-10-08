@@ -1,0 +1,1169 @@
+{
+  "passed": true,
+  "complete_members_read_back": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-source-initializer-20261008-r38/retired-v2-overlay-full-read.tar.gz",
+  "archive_sha256": "0634add7aaa551fbcfb2615d168449be51457be86aef3c52b9c1714c9fc4fa34",
+  "records": {
+    "syntax-overlay-v2": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2/src": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/README.checkpoint-host-gate.md": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/README.checkpoint-host-gate.md"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/native_activation.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/native_activation.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/native_dwarf_register_location.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/native_dwarf_register_location.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_numeric_bridge.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_numeric_bridge.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_decl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_decl.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_impl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_impl.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/pending_numeric_fused_bind.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/pending_numeric_fused_bind.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/pending_numeric_memory_bind.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/pending_numeric_memory_bind.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/source_exception_cold_publication.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/source_exception_cold_publication.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/source_exception_guest_bridge.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/source_exception_guest_bridge.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.cppm": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.cppm"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp": {
+      "kind": "file",
+      "sha256": "0b4c68ffbf9d759f0a9237fa81db726ea5269da6ccded796f50344e250351f3e",
+      "size": 1415661
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "kind": "file",
+      "sha256": "1ebfe34c8c0002bc5258720191390f450bca00133dda42ba2adb7b53fd0dad56",
+      "size": 91270
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.module.cpp": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.module.cpp"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_activation_cleanup.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_activation_cleanup.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_call_indirect_table_views.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_call_indirect_table_views.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checked_size.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checked_size.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checked_tiered_aliases.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checked_tiered_aliases.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_dynamic_materialization.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_dynamic_materialization.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_effect_hooks.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_effect_hooks.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_execution_entry.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_execution_entry.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_gc_state_borrow.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_gc_state_borrow.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_hooks.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_hooks.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_frames.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_frames.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_references.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_references.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_resources.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_resources.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_materialization_identity.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_materialization_identity.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h": {
+      "kind": "file",
+      "sha256": "68a8fc6cb3cabddc9c0a5bb15d4fb363cc57fac9eb686fa064600a412d316eac",
+      "size": 14958
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_resource_inputs.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_resource_inputs.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h": {
+      "kind": "file",
+      "sha256": "ee4ee3630e1f6039b7da7e19e25712f15bbabe831649be91e29c149f45e93f7d",
+      "size": 30529
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h": {
+      "kind": "file",
+      "sha256": "e93f3bd70e384abc39d64fab81b429be203fb65e6cd2c39610244c7e9b5c8180",
+      "size": 8312
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h": {
+      "kind": "file",
+      "sha256": "91f7ceb0bc5cc6ff5171fb3ae9c36509720aa314c3114246e256b5407ffb6b18",
+      "size": 2721
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_thread_capture.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_thread_capture.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_function_bindings.h": {
+      "kind": "file",
+      "sha256": "5b2ee5e08bbfd5ceda1c5c4d62832e136b5d4fd02815812e08b0df0528e8781c",
+      "size": 12956
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_indirect_bindings.h": {
+      "kind": "file",
+      "sha256": "c3aca81c2b2a9d32d03601ecee48753f5e00ac74eb12141016a6769453b537c9",
+      "size": 14687
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": {
+      "kind": "file",
+      "sha256": "77c79f3631b1d90550eb7e24c5233bd6556be60c36255b2419ec03e20a62e3ae",
+      "size": 12493
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": {
+      "kind": "file",
+      "sha256": "cfb72b9b7065ed632795dd35872f5bba6d7b35bf1ed9a2d075060736e4fdcf57",
+      "size": 90025
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_roots.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_roots.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h": {
+      "kind": "file",
+      "sha256": "24beb4f86b3d823ca0f01e2fdb6b9b69f512c5a7bbd583a706319c9aca7d38cc",
+      "size": 9242
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_call_continuation_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_call_continuation_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_operand_workspace.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_operand_workspace.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown_impl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown_impl.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_binding.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_binding.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_caller_frame.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_caller_frame.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_memory_transaction.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_memory_transaction.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_object.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_object.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_uncaught.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_uncaught.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_borrow.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_borrow.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_reader.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_reader.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_execution_entry.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_execution_entry.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generation.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generation.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_guest_exception_diagnostics.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_guest_exception_diagnostics.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_imported_function_lookup.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_imported_function_lookup.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_llvm_expanded_lane_unroll_policy.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_llvm_expanded_lane_unroll_policy.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_llvm_lazy_worker_policy.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_llvm_lazy_worker_policy.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_loaded_function_ranges.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_loaded_function_ranges.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_local_imported_provider_callbacks.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_local_imported_provider_callbacks.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_logical_activation_overlap.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_logical_activation_overlap.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_arm_mapping.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_arm_mapping.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_exception_host.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_exception_host.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_function_address.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_function_address.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_debug_permission.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_debug_permission.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h": {
+      "kind": "file",
+      "sha256": "8fa616e13317ea634c6a7773944d2ee026ac4200cb0f77a5d80ee381a168274e",
+      "size": 18038
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_decl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_decl.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_impl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_impl.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_format.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_format.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_object_graph.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_object_graph.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_stack_guard.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_stack_guard.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_target_metadata.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_target_metadata.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind_execution_gate.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind_execution_gate.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_posix_abi.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_posix_abi.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_posix_unwind_probe.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_posix_unwind_probe.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_ppc64_elfv1_loaded_function_range.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_ppc64_elfv1_loaded_function_range.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_state_signature.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_state_signature.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_tiered_entry_sampling.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_tiered_entry_sampling.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_tiered_publication.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_tiered_publication.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule_api.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_restore.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_restore.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_aux_environment.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_aux_environment.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_environment.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_environment.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_native_control.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_native_control.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_win64_unwind_probe.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_win64_unwind_probe.h"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_stub_runtime.default.cpp": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_stub_runtime.default.cpp"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_stub_runtime.module.cpp": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/runtime/lib/uwvm_stub_runtime.module.cpp"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/uwvm": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/uwvm/debugger": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": {
+      "kind": "file",
+      "sha256": "1308d2283a4b6f5c97d7e4e7f866ccbbd454cb547039cd8c6517c59a5ddd6e8e",
+      "size": 53759
+    },
+    "syntax-overlay-v2/uwvm2/test": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2/test/0017.runtime": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc": {
+      "kind": "file",
+      "sha256": "cc6d3322b1bd3e7eca13da2064873d876035cbb94fd2e7c614f5d25d67f36d3a",
+      "size": 41124
+    },
+    "syntax-overlay-v2/uwvm2/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc": {
+      "kind": "file",
+      "sha256": "791f610ae3f86ae80f74876fb273528774f6d8fc967a2dba65f8450fa2351965",
+      "size": 44793
+    },
+    "syntax-overlay-v2/uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": {
+      "kind": "file",
+      "sha256": "929115e45365a0beb4b36d87ca6a5783d69ebdae7b18def28c04489198dc1ab6",
+      "size": 37026
+    },
+    "syntax-overlay-v2/uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": {
+      "kind": "file",
+      "sha256": "4f30857cb790013952c3caf4528c18edf049830a2f89685a1143dc64ca75fadb",
+      "size": 20365
+    },
+    "syntax-overlay-v2/uwvm2/test/0017.runtime/fixtures": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2/test/0017.runtime/fixtures/debug_checkpoint_indirect_retirement_cohort.wat": {
+      "kind": "file",
+      "sha256": "e13454143892be962ddd8d20bf9de1be47b4975b3c10a3241f70cb68e7b83eb2",
+      "size": 4967
+    },
+    "syntax-overlay-v2/uwvm2/test/0017.runtime/fixtures/debug_wasip1_indirect_prepared_retirement.wat": {
+      "kind": "file",
+      "sha256": "0e7418438b787d62a7d855296d375e6b13497c8b9c973eb6b06c10a92f8dd6ab",
+      "size": 3288
+    },
+    "syntax-overlay-v2/uwvm2-ros": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/README.checkpoint-host-gate.md": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/README.checkpoint-host-gate.md"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/native_activation.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/native_activation.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/native_dwarf_register_location.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/native_dwarf_register_location.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_numeric_bridge.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_numeric_bridge.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_decl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_decl.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_impl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/native_eh_private_leaf_publication_impl.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/pending_numeric_fused_bind.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/pending_numeric_fused_bind.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/pending_numeric_memory_bind.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/pending_numeric_memory_bind.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/source_exception_cold_publication.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/source_exception_cold_publication.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/source_exception_guest_bridge.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/source_exception_guest_bridge.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.cppm": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.cppm"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp": {
+      "kind": "file",
+      "sha256": "49cda58c81c9e8e6a309c6ea816deaab80858717f67f6473a5ef5212a5214bf8",
+      "size": 1010401
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "kind": "file",
+      "sha256": "1ebfe34c8c0002bc5258720191390f450bca00133dda42ba2adb7b53fd0dad56",
+      "size": 91270
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.module.cpp": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.module.cpp"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_activation_cleanup.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_activation_cleanup.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_call_indirect_table_views.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_call_indirect_table_views.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checked_size.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checked_size.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_continuation_dispatcher.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_dynamic_materialization.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_dynamic_materialization.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_effect_hooks.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_effect_hooks.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_execution_entry.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_execution_entry.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_gc_state_borrow.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_gc_state_borrow.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_hooks.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_hooks.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_host_admission_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_frames.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_frames.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_references.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_references.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_resources.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_instance_census_resources.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_materialization_identity.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_materialization_identity.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h": {
+      "kind": "file",
+      "sha256": "42714bc1e2022a0508183690e4ef0bd14cf5a906309803b2a4929584e7e362a9",
+      "size": 14953
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_resource_inputs.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_resource_inputs.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_retirement_impl.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h": {
+      "kind": "file",
+      "sha256": "dcf890eec3c4dc705d629b39810bac446a63887ba262a2c475796cf1deb36e0e",
+      "size": 30452
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h": {
+      "kind": "file",
+      "sha256": "e93f3bd70e384abc39d64fab81b429be203fb65e6cd2c39610244c7e9b5c8180",
+      "size": 8312
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h": {
+      "kind": "file",
+      "sha256": "91f7ceb0bc5cc6ff5171fb3ae9c36509720aa314c3114246e256b5407ffb6b18",
+      "size": 2721
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_thread_capture.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_thread_capture.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_builtin_wasip1.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_frames.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_function_bindings.h": {
+      "kind": "file",
+      "sha256": "5b2ee5e08bbfd5ceda1c5c4d62832e136b5d4fd02815812e08b0df0528e8781c",
+      "size": 12956
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_indirect_bindings.h": {
+      "kind": "file",
+      "sha256": "c3aca81c2b2a9d32d03601ecee48753f5e00ac74eb12141016a6769453b537c9",
+      "size": 14687
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": {
+      "kind": "file",
+      "sha256": "77c79f3631b1d90550eb7e24c5233bd6556be60c36255b2419ec03e20a62e3ae",
+      "size": 12493
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": {
+      "kind": "file",
+      "sha256": "cfb72b9b7065ed632795dd35872f5bba6d7b35bf1ed9a2d075060736e4fdcf57",
+      "size": 90025
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_roots.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_roots.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_source_initializer.h": {
+      "kind": "file",
+      "sha256": "24beb4f86b3d823ca0f01e2fdb6b9b69f512c5a7bbd583a706319c9aca7d38cc",
+      "size": 9242
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_wasip1_workers.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_activation_capture.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_call_continuation_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_call_continuation_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_code_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_provenance_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_operand_workspace.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_operand_workspace.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown_impl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_shutdown_impl.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_binding.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_binding.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_caller_frame.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_caller_frame.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_memory_transaction.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_memory_transaction.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_object.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_source_object.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_uncaught.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_uncaught.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_borrow.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_mutation_borrow.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_reader.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_wasm_state_reader.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_execution_entry.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_execution_entry.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generation.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generation.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_guest_exception_diagnostics.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_guest_exception_diagnostics.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_imported_function_lookup.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_imported_function_lookup.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_llvm_expanded_lane_unroll_policy.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_llvm_expanded_lane_unroll_policy.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_loaded_function_ranges.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_loaded_function_ranges.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_local_imported_provider_callbacks.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_local_imported_provider_callbacks.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_arm_mapping.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_arm_mapping.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_exception_host.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_exception_host.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_function_address.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_function_address.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_debug_permission.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_debug_permission.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_function_claims.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h": {
+      "kind": "file",
+      "sha256": "8fa616e13317ea634c6a7773944d2ee026ac4200cb0f77a5d80ee381a168274e",
+      "size": 18038
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_decl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_decl.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_impl.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_publication_impl.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_format.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_format.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_object_graph.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_owner_table_object_graph.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_provenance_rows.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_stack_guard.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_stack_guard.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_target_metadata.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_target_metadata.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind_execution_gate.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_native_unwind_execution_gate.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_posix_abi.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_posix_abi.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_posix_unwind_probe.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_posix_unwind_probe.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_ppc64_elfv1_loaded_function_range.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_ppc64_elfv1_loaded_function_range.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_state_signature.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_state_signature.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_debug_environment.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule_api.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_capsule_api.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_restore.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_environment_restore.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_managed_files.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_memory_bindings.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_native_file.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_resource_identity.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_aux_environment.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_aux_environment.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_environment.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_environment.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_native_control.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasm_fp_native_control.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_win64_unwind_probe.h": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_win64_unwind_probe.h"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_stub_runtime.default.cpp": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_stub_runtime.default.cpp"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_stub_runtime.module.cpp": {
+      "kind": "symlink",
+      "target": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_stub_runtime.module.cpp"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/uwvm": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/uwvm/debugger": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": {
+      "kind": "file",
+      "sha256": "1308d2283a4b6f5c97d7e4e7f866ccbbd454cb547039cd8c6517c59a5ddd6e8e",
+      "size": 53759
+    },
+    "syntax-overlay-v2/uwvm2-ros/test": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2-ros/test/0017.runtime": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc": {
+      "kind": "file",
+      "sha256": "cc6d3322b1bd3e7eca13da2064873d876035cbb94fd2e7c614f5d25d67f36d3a",
+      "size": 41124
+    },
+    "syntax-overlay-v2/uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc": {
+      "kind": "file",
+      "sha256": "791f610ae3f86ae80f74876fb273528774f6d8fc967a2dba65f8450fa2351965",
+      "size": 44793
+    },
+    "syntax-overlay-v2/uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": {
+      "kind": "file",
+      "sha256": "929115e45365a0beb4b36d87ca6a5783d69ebdae7b18def28c04489198dc1ab6",
+      "size": 37026
+    },
+    "syntax-overlay-v2/uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": {
+      "kind": "file",
+      "sha256": "4f30857cb790013952c3caf4528c18edf049830a2f89685a1143dc64ca75fadb",
+      "size": 20365
+    },
+    "syntax-overlay-v2/uwvm2-ros/test/0017.runtime/fixtures": {
+      "kind": "directory"
+    },
+    "syntax-overlay-v2/uwvm2-ros/test/0017.runtime/fixtures/debug_checkpoint_indirect_retirement_cohort.wat": {
+      "kind": "file",
+      "sha256": "e13454143892be962ddd8d20bf9de1be47b4975b3c10a3241f70cb68e7b83eb2",
+      "size": 4967
+    },
+    "syntax-overlay-v2/uwvm2-ros/test/0017.runtime/fixtures/debug_wasip1_indirect_prepared_retirement.wat": {
+      "kind": "file",
+      "sha256": "0e7418438b787d62a7d855296d375e6b13497c8b9c973eb6b06c10a92f8dd6ab",
+      "size": 3288
+    }
+  }
+}

@@ -1,0 +1,983 @@
+{
+  "passed": true,
+  "round": "R49",
+  "verified_utc": "2026-10-07T18:11:56.511140+00:00",
+  "scope": "primitive source expression DATA components on actual Linux target ELF/QEMU; no full VM/JIT/DAP/native parity",
+  "source_cuts": {
+    "uwvm2": "sha256:dfeb3ea077517a749a9ac795d66ae402db90a03ae01bf9520f51a0f57fc0e5a4",
+    "uwvm2-ros": "sha256:0a37477321b282fcfbd66cc4e22793f19423ddd9845f84dfdf0705d996372605"
+  },
+  "public_runner_file_sha256": "f1857cd3ed4a91a07d2a93ad1e0de646d0f1fd14d042d4776b3849ce0835e7d6",
+  "public_runner_paired_bytes_equal": true,
+  "provider_roots": {
+    "dependencies": "/home/macromodel/Documents/uwvm3-implementation/deps",
+    "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu",
+    "by_profile": {
+      "ppc64le": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+      "ppc32": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+      "s390x": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+      "armhf": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+      "armel": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+      "i686": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+      "sparc64": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+      "loongarch64": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+      "mips64": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+      "mips64el": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+      "mips32": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+      "mips32el": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+      "x86_64": "/",
+      "aarch64": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/aarch64-a1/provider-a1/out-sdk/providers-arm64-a1",
+      "riscv64": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/sysroot",
+      "ppc64": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1"
+    }
+  },
+  "provider_inventory": [
+    {
+      "profile": "x86_64",
+      "provider_root": "/",
+      "available": true,
+      "machine": 62,
+      "bits": 64,
+      "byte_order": "little"
+    },
+    {
+      "profile": "aarch64",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/aarch64-a1/provider-a1/out-sdk/providers-arm64-a1",
+      "available": true,
+      "machine": 183,
+      "bits": 64,
+      "byte_order": "little"
+    },
+    {
+      "profile": "i686",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+      "available": true,
+      "machine": 3,
+      "bits": 32,
+      "byte_order": "little"
+    },
+    {
+      "profile": "riscv64",
+      "provider_root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/sysroot",
+      "available": true,
+      "machine": 243,
+      "bits": 64,
+      "byte_order": "little"
+    },
+    {
+      "profile": "ppc64",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1",
+      "available": true,
+      "machine": 21,
+      "bits": 64,
+      "byte_order": "big"
+    },
+    {
+      "profile": "ppc64le",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+      "available": true,
+      "machine": 21,
+      "bits": 64,
+      "byte_order": "little"
+    },
+    {
+      "profile": "ppc32",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+      "available": true,
+      "machine": 20,
+      "bits": 32,
+      "byte_order": "big"
+    },
+    {
+      "profile": "mips64",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+      "available": true,
+      "machine": 8,
+      "bits": 64,
+      "byte_order": "big"
+    },
+    {
+      "profile": "mips64el",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+      "available": true,
+      "machine": 8,
+      "bits": 64,
+      "byte_order": "little"
+    },
+    {
+      "profile": "mips32",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+      "available": true,
+      "machine": 8,
+      "bits": 32,
+      "byte_order": "big"
+    },
+    {
+      "profile": "mips32el",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+      "available": true,
+      "machine": 8,
+      "bits": 32,
+      "byte_order": "little"
+    },
+    {
+      "profile": "sparc64",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+      "available": true,
+      "machine": 43,
+      "bits": 64,
+      "byte_order": "big"
+    },
+    {
+      "profile": "loongarch64",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+      "available": true,
+      "machine": 258,
+      "bits": 64,
+      "byte_order": "little"
+    },
+    {
+      "profile": "s390x",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+      "available": true,
+      "machine": 22,
+      "bits": 64,
+      "byte_order": "big"
+    },
+    {
+      "profile": "armhf",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+      "available": true,
+      "machine": 40,
+      "bits": 32,
+      "byte_order": "little"
+    },
+    {
+      "profile": "armel",
+      "provider_root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+      "available": true,
+      "machine": 40,
+      "bits": 32,
+      "byte_order": "little"
+    }
+  ],
+  "recovered_provider_proofs": [
+    {
+      "proof": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/provider-proof.json",
+      "proof_sha256": "e0b8fa5b414552bc90bab3a35f235f6e220c57bc0e3a1f23d118f53debe78197",
+      "root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+      "regular_file_hashes_verified": 12767
+    },
+    {
+      "proof": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/provider-proof.json",
+      "proof_sha256": "a5fe6082594ae978d2bc680f1c473968a27e67e79876016235fc600e61515263",
+      "root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+      "regular_file_hashes_verified": 7755
+    },
+    {
+      "proof": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/provider-proof.json",
+      "proof_sha256": "1689d6ffccd45cd411b64a4c262c905e685bd6947f44f540d67a6133d9744cc1",
+      "root": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+      "regular_file_hashes_verified": 12596
+    },
+    {
+      "proof": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/sdk-restoration-a1.json",
+      "proof_sha256": "96b5a09dee0677aa0bac031ade169678d7bcfdb2608a07b95a9581ebc9a5d93b",
+      "root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1",
+      "regular_file_hashes_verified": 2777
+    },
+    {
+      "proof": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/aarch64-a1/provider-a1/sdk-restoration-a1.json",
+      "proof_sha256": "3a43a96da6c6fb755e91bb4ed3be2ed0c277a0713fdb6785f089c0aa9cfeb45e",
+      "root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/aarch64-a1/provider-a1/out-sdk/providers-arm64-a1",
+      "regular_file_hashes_verified": 2453
+    },
+    {
+      "proof": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/sysroot-manifest-link67.json",
+      "proof_sha256": "24b88ddec28ebee688626efe7add272bb2e3626fe46d9ddc1a102535a6f6b204",
+      "root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/sysroot",
+      "regular_file_hashes_verified": 2673
+    }
+  ],
+  "profiles": [
+    "x86_64",
+    "aarch64",
+    "i686",
+    "riscv64",
+    "ppc64",
+    "ppc64le",
+    "ppc32",
+    "mips64",
+    "mips64el",
+    "mips32",
+    "mips32el",
+    "sparc64",
+    "loongarch64",
+    "s390x",
+    "armhf",
+    "armel"
+  ],
+  "rows": [
+    {
+      "profile": "x86_64",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 176968,
+        "sha256": "1ab6326533756169dea9e8ae8bed54a76e636ca7765cb82e7c88e663ee4c9632",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 11.38908724400244,
+      "QEMU_seconds": 3.120081201996072,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 819,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "x86_64",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 62,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 176968,
+        "sha256": "1ab6326533756169dea9e8ae8bed54a76e636ca7765cb82e7c88e663ee4c9632",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 11.739384491003875,
+      "QEMU_seconds": 3.0703812229985488,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 819,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "aarch64",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 183,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 162864,
+        "sha256": "fee4ca8781796829e16a428949108ed416d5244968392b6a517620c221c318e6",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.788712142995792,
+      "QEMU_seconds": 3.621748599995044,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 826,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "aarch64",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 183,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 162864,
+        "sha256": "fee4ca8781796829e16a428949108ed416d5244968392b6a517620c221c318e6",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.789732545999868,
+      "QEMU_seconds": 3.7724750170018524,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 826,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "i686",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 3,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 205556,
+        "sha256": "36c4c157c134e56f7e0407386781463615cae802ebad6475c1cf7c68d4c706a8",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 11.690401342006226,
+      "QEMU_seconds": 3.822941123995406,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 818,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "i686",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 3,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 205556,
+        "sha256": "36c4c157c134e56f7e0407386781463615cae802ebad6475c1cf7c68d4c706a8",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 11.59166153499973,
+      "QEMU_seconds": 3.6725304670035257,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 818,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "riscv64",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 243,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 158952,
+        "sha256": "46d4a2a0ab583f461de3289966f2c4bc96f0ebf2b01d78cb15bdc7e0e2e68816",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.739068795999628,
+      "QEMU_seconds": 3.4217685449984856,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 818,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "riscv64",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 243,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 158952,
+        "sha256": "46d4a2a0ab583f461de3289966f2c4bc96f0ebf2b01d78cb15bdc7e0e2e68816",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.788169845000084,
+      "QEMU_seconds": 3.2707858579960885,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 818,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "ppc64",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 224376,
+        "sha256": "e5d934db1ed315dd67c15902058fa79f153d558e4aae38976fa5467d49685fb9",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.688946258000215,
+      "QEMU_seconds": 3.427230385997973,
+      "native_linker_library_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/x86_64-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 821,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "ppc64",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 224376,
+        "sha256": "e5d934db1ed315dd67c15902058fa79f153d558e4aae38976fa5467d49685fb9",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.688932315002603,
+      "QEMU_seconds": 3.4242457630025456,
+      "native_linker_library_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1/usr/lib/x86_64-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 821,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "ppc64le",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 178344,
+        "sha256": "bf816797f4c69c575a0e68bb5aaedf2332bbaf5ca400bc53fd78a109e7ae529f",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.792341877000581,
+      "QEMU_seconds": 3.5710155299966573,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 824,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "ppc64le",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 21,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 178344,
+        "sha256": "bf816797f4c69c575a0e68bb5aaedf2332bbaf5ca400bc53fd78a109e7ae529f",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.648387392000586,
+      "QEMU_seconds": 3.526026986997749,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 824,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "ppc32",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 20,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 219956,
+        "sha256": "5088904bd480f4a1aae2eb57b8fccee91ede5fc4584a1538819a4f3a938ad146",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.989470122003695,
+      "QEMU_seconds": 24.620854815999337,
+      "native_linker_library_path": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot/usr/lib/x86_64-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 817,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "ppc32",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 20,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 219956,
+        "sha256": "5088904bd480f4a1aae2eb57b8fccee91ede5fc4584a1538819a4f3a938ad146",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.993579244997818,
+      "QEMU_seconds": 24.305500596005004,
+      "native_linker_library_path": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot/usr/lib/x86_64-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 817,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "mips64",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 208944,
+        "sha256": "37ea5340d5cf42513a41fed7c35ca689801a40635d7a77ae9ca606ea02e583a7",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "compile_seconds": 10.53990501500084,
+      "QEMU_seconds": 3.4274024680053117,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 816,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "mips64",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 208944,
+        "sha256": "37ea5340d5cf42513a41fed7c35ca689801a40635d7a77ae9ca606ea02e583a7",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "compile_seconds": 10.488466429000255,
+      "QEMU_seconds": 3.271557311003562,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 816,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "mips64el",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 208400,
+        "sha256": "21bf956af29ea17bb5a3603cde8cc0dc88579d7c85d1a317855406f708ac4439",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "compile_seconds": 10.48652471099922,
+      "QEMU_seconds": 3.4715912269966793,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 816,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "mips64el",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 8,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 208400,
+        "sha256": "21bf956af29ea17bb5a3603cde8cc0dc88579d7c85d1a317855406f708ac4439",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "compile_seconds": 10.538110389999929,
+      "QEMU_seconds": 3.4713582059994224,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 816,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "mips32",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 232572,
+        "sha256": "ed35b8421e6cf1d3d2f5d068b46b8ddac317810dac5f28667931f018d4325fbc",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "compile_seconds": 10.687633536006615,
+      "QEMU_seconds": 2.922027631000674,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 818,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "mips32",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "big",
+        "bytes": 232572,
+        "sha256": "ed35b8421e6cf1d3d2f5d068b46b8ddac317810dac5f28667931f018d4325fbc",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "compile_seconds": 10.737874458995066,
+      "QEMU_seconds": 2.9200543580009253,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 818,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "mips32el",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 232444,
+        "sha256": "40bd15862816483adea58bdbca1d8f3593e3092925f5d4a954bc919b91b909c4",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "compile_seconds": 10.688567839002644,
+      "QEMU_seconds": 2.9212243419970036,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 815,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "mips32el",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 8,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 232444,
+        "sha256": "40bd15862816483adea58bdbca1d8f3593e3092925f5d4a954bc919b91b909c4",
+        "GNU_STACK_flags": [
+          7
+        ]
+      },
+      "compile_seconds": 10.791194907003955,
+      "QEMU_seconds": 2.921814584005915,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 815,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "sparc64",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 43,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 1077496,
+        "sha256": "e6d586c44370a7db4204f19be7c3ee41afb7c34b5ca2024fdd835092d2502175",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.489942784995947,
+      "QEMU_seconds": 35.242418992995226,
+      "native_linker_library_path": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot/usr/lib/x86_64-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 815,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "sparc64",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 43,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 1077496,
+        "sha256": "e6d586c44370a7db4204f19be7c3ee41afb7c34b5ca2024fdd835092d2502175",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.48882459300512,
+      "QEMU_seconds": 35.24437489399861,
+      "native_linker_library_path": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot/usr/lib/x86_64-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 815,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "loongarch64",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 258,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 171760,
+        "sha256": "134f023a74498e2a840f34a70eddbca336a3346f2a460a94662d50c4e7395bc6",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.487682232000225,
+      "QEMU_seconds": 3.371906885993667,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 819,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "loongarch64",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 258,
+        "bits": 64,
+        "byte_order": "little",
+        "bytes": 171760,
+        "sha256": "134f023a74498e2a840f34a70eddbca336a3346f2a460a94662d50c4e7395bc6",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.540360931998293,
+      "QEMU_seconds": 3.3218164819991216,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 819,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "s390x",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 22,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 227544,
+        "sha256": "29a252a38274a5661292cc50c6360d25f1698f601566dd4c0b839d4a85aa6f07",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 11.191384336998453,
+      "QEMU_seconds": 4.773012829995423,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 818,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "s390x",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 22,
+        "bits": 64,
+        "byte_order": "big",
+        "bytes": 227544,
+        "sha256": "29a252a38274a5661292cc50c6360d25f1698f601566dd4c0b839d4a85aa6f07",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 11.140196084001218,
+      "QEMU_seconds": 4.674500471999636,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 818,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "armhf",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 194408,
+        "sha256": "ccc6b9901d5f9eece6fb469b1a3e37bec231ec8f3c1e6d97d022811b885f981d",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.940312247999827,
+      "QEMU_seconds": 3.6727071720015374,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 817,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "armhf",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 194408,
+        "sha256": "ccc6b9901d5f9eece6fb469b1a3e37bec231ec8f3c1e6d97d022811b885f981d",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 11.04031177899742,
+      "QEMU_seconds": 3.6215321559939184,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 817,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "armel",
+      "repository": "uwvm2",
+      "checks": 721385,
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 198924,
+        "sha256": "652add8abd453cbe765b5f7af0ff227895768224b46b9a0aa0502dc78c09de17",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.788793136001914,
+      "QEMU_seconds": 4.273150493994763,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 817,
+      "all_output_equal_pinned_native_x86_64": true
+    },
+    {
+      "profile": "armel",
+      "repository": "uwvm2-ros",
+      "checks": 721385,
+      "ELF": {
+        "machine": 40,
+        "bits": 32,
+        "byte_order": "little",
+        "bytes": 198924,
+        "sha256": "652add8abd453cbe765b5f7af0ff227895768224b46b9a0aa0502dc78c09de17",
+        "GNU_STACK_flags": [
+          6
+        ]
+      },
+      "compile_seconds": 10.789425048002158,
+      "QEMU_seconds": 4.274411101003352,
+      "native_linker_library_path": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu:/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib",
+      "actual_dependency_count": 817,
+      "all_output_equal_pinned_native_x86_64": true
+    }
+  ],
+  "actual_QEMU_target_runs": 32,
+  "checks_per_target": 721385,
+  "total_primitive_checks": 23084320,
+  "unit_tests": [
+    {
+      "repository": "uwvm2",
+      "tests": 11,
+      "log_sha256": "a403b031ca53505b1068c5c1262f30475f8ef294ae83636c47835f0a12e632af"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "tests": 11,
+      "log_sha256": "53ec6bfd32b426a23950e2fbbff5aba6e95df6d3ed7324d3edb40dd8151e63f8"
+    }
+  ],
+  "final_guard_jobs": 1,
+  "all_final_guard_jobs_passed": true,
+  "guards": [
+    {
+      "cut": "predicate-cross-a1-r49",
+      "passed": false,
+      "cancelled": false,
+      "receipt_sha256": "edf56ed1d012bff0549d310a5b51312aa74b8a601adc8eba0b61f4ffe777fbd3",
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1,
+      "wall_seconds": 16.961273995999363,
+      "owned_rss_peak_bytes": 83636224,
+      "owned_output_bytes": 10928781,
+      "all_owned_PIDFD_retired_and_root_reaped": true
+    },
+    {
+      "cut": "predicate-cross-a2-r49",
+      "passed": false,
+      "cancelled": true,
+      "receipt_sha256": "515531de72a3d036211be4adfbc534514188ca4911312b845807311529b6e773",
+      "error": "KeyboardInterrupt: Controlled cancellation signal 15",
+      "returncode": null,
+      "wall_seconds": 110.95494889100519,
+      "owned_rss_peak_bytes": 613044224,
+      "owned_output_bytes": 12035334,
+      "all_owned_PIDFD_retired_and_root_reaped": true
+    },
+    {
+      "cut": "predicate-cross-a3-r49",
+      "passed": false,
+      "cancelled": true,
+      "receipt_sha256": "fa17bc4cc53e4573b8ee2180340c327ee8fdef39773a581e0a2de0a834bf0d17",
+      "error": "KeyboardInterrupt: Controlled cancellation signal 15",
+      "returncode": null,
+      "wall_seconds": 86.83134814500227,
+      "owned_rss_peak_bytes": 612978688,
+      "owned_output_bytes": 11747774,
+      "all_owned_PIDFD_retired_and_root_reaped": true
+    },
+    {
+      "cut": "predicate-cross-a4-r49",
+      "passed": false,
+      "cancelled": true,
+      "receipt_sha256": "60626701bca6e23ef8d7b249a78581291a3ef682552af59cca60812df76dbaba",
+      "error": "KeyboardInterrupt: Controlled cancellation signal 15",
+      "returncode": null,
+      "wall_seconds": 59.42663319699932,
+      "owned_rss_peak_bytes": 613122048,
+      "owned_output_bytes": 11909929,
+      "all_owned_PIDFD_retired_and_root_reaped": true
+    },
+    {
+      "cut": "predicate-cross-a5-r49",
+      "passed": true,
+      "cancelled": false,
+      "receipt_sha256": "4134521de76091016a0840e1f4f9f3dde04d433afd1b739693ce8692f46e5b15",
+      "error": null,
+      "returncode": 0,
+      "wall_seconds": 607.8815730529968,
+      "owned_rss_peak_bytes": 612585472,
+      "owned_output_bytes": 29518863,
+      "all_owned_PIDFD_retired_and_root_reaped": true
+    }
+  ],
+  "original_64GiB_cgroup_only": true,
+  "OOM_events": 0,
+  "public_entry_wall_seconds": 585.8915415059964,
+  "inputs_before_manifest_count": 14,
+  "all_actual_inputs_pinned_before_and_unchanged_after": true,
+  "all_ELF_machine_bits_byte_order_verified": true,
+  "all_QEMU_output_equal_pinned_native_x86_64": true,
+  "full_VM_JIT_DAP_parity": false,
+  "whole_current_dirty_workspace_qualified": false,
+  "latest_ROS_LLVM_provider_qualified": false,
+  "debugger_core_changed": false,
+  "IO_change": "No C++ or production IO change; Python test-provider configuration only",
+  "ASM_guest_context_boundary_unchanged": true,
+  "source_status_counts": {
+    "implemented": 14,
+    "partial": 39,
+    "missing": 33,
+    "separate_level": 1,
+    "prohibited_by_scope": 1
+  },
+  "host_free_bytes": 47290175488,
+  "arena_free_bytes": 9303220224,
+  "limits": {
+    "memory_max_bytes": 68719476736,
+    "swap": 0,
+    "owned_RSS": 1073741824,
+    "owned_output": 67108864,
+    "file": 8388608,
+    "log": 1048576,
+    "arena_free_floor_bytes": 9288400896,
+    "host_reserve_bytes": 26843545600
+  },
+  "unqualified": [
+    "full QEMU VM/JIT/DAP",
+    "current entire dirty workspace",
+    "latest ROS external LLVM provider",
+    "live Zig producer",
+    "standard Go complete runtime/named Boolean identity",
+    "AssemblyScript full expression support",
+    "complete native GDB/IDE GUI experience"
+  ],
+  "setup_failures_retained": "a1 required CPU env preflight rejection; a2 missing LLVM native library path; a3 omitted target-triple native DSO directory; a4 LLD classified as GNU linker under map root /; a2-a4 original supervisors controlled-cancelled and all owned children retired; final a5 only counted"
+}

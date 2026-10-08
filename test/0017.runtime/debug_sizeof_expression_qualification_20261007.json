@@ -1,0 +1,2031 @@
+{
+  "qualification": {
+    "passed": true,
+    "scope": "Unevaluated sizeof on supported fixed-size compound scalar syntax with metadata-only type inference, authenticated guest ABI and original bounds. Native C/C++ witnesses, actual LLVM/DWARF Wasm32 producers, production controller frontend and PPC64/x86_64/aarch64 QEMU components. No fresh full product/live -Rdbg or complete native language parity.",
+    "source_cuts": {
+      "uwvm2": "sha256:ffbba9035cd7a142f8bf21347db056e9ed04830dab134605ff493e3486f51f3d",
+      "uwvm2-ros": "sha256:fe581d89fbd8b0b65a840db0ca6d9c53a2ec9054b41bd903857a7280cff44897"
+    },
+    "implementation_hashes": {
+      "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "b8ec31695c1e8f43efbfa78c6b3ce2569f8f04dc369f00f15ce72f06a611560a",
+      "tools/debug/dap_adapter.py": "938ae0269d252a3ef083a6908d37b4418aaf49feba1d2efce7686356892f3981",
+      "test/0018.debugger/dap_source_expression_cases.json": "d72a412f8a3fa96678d829aa03d7843e5458b165e27728f0ae55646554c1d002",
+      "test/0018.debugger/test_dap_source_frames.py": "d7fe26618212c279ddbc30af233ab4c7d4112c9d534607d2d8e8d3fb51ba4759",
+      "test/0017.runtime/run_debug_linux_qemu_components.py": "47cbb7f69d30f0b5675b03bb241d97f3555aef24168e77c7e637b8beccb8b50e",
+      "test/0017.runtime/fixtures/debug_source_language_numeric_producer.c": "f7aac096a7bf346e5ad651748409635580b91d54768d9344ad3cba36c4cb5eb6",
+      "test/0017.runtime/debug_source_language_index.cc": "b241e3978176eab38d6939a0b0262c86313623dd9d8fc2c0874d0d38c7d82306",
+      "test/0017.runtime/debug_source_sizeof_expression.cc": "cd44b4d2b82b559b857aa4a16c42626e05b80a9f3f7011a0fd591b91f35870bd",
+      "test/0017.runtime/debug_source_sizeof_expression_before.cc": "74f58ff84791480799fb02230ac2e07e5980c3acfaa32622674253e4067242ec",
+      "test/0017.runtime/debug_source_sizeof_expression_c.c": "da34ac9e4f6e3a8b422748bdd5cb42aed99180985a5c8bbc450409da29c2cb5a"
+    },
+    "rows": [
+      {
+        "repository": "uwvm2",
+        "profile": "native",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/native-a2/out-uwvm2/sizeof-native-a1/results.json",
+        "record_sha256": "2ad3298ea250a4615f7f08fb40c46bf6a811e0a62707c40652bd4ac2b1f24e11",
+        "passed": true,
+        "phases": 40,
+        "sizeof_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623,
+        "DAP_frame_tests": 33,
+        "old_parser_refusals_reproduced_and_fixed": 6
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "actual-LLVM-metadata",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/out-uwvm2/sizeof-index-a1/results.json",
+        "record_sha256": "92715f1b0cfdcec4c586960f63a7d3bbcc3c3cc907c54b6bcf71dcc8b6e29a80",
+        "passed": true,
+        "phases": 24,
+        "fresh_Wasm_producers": 20,
+        "actual_parser_assertions": 4020,
+        "real_unevaluated_sizeof_proofs": 420,
+        "real_standard_wide_proofs": 140,
+        "independent_Wasm_sizeof_static_assertions": 240,
+        "guest_ABI": "Wasm32",
+        "languages": [
+          "C17",
+          "C23",
+          "C++20",
+          "Objective-C",
+          "Objective-C++"
+        ],
+        "DWARF": [
+          4,
+          5
+        ],
+        "optimization": [
+          0,
+          2
+        ]
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "controller-frontend",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/frontend-a1/out-uwvm2/controller-frontend-a1/results.json",
+        "record_sha256": "9a1d40e121e70cfd1729aeb17e7a3e19e84daf65ef870d8346f243808836348d",
+        "passed": true,
+        "phases": 2,
+        "modes": [
+          "uwvm-int",
+          "LLVM-JIT"
+        ],
+        "full_product_qualified": false
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "ppc64",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/cross-a1/out-uwvm2/sizeof-cross-a1-ppc64/results.json",
+        "record_sha256": "d8e65e6b7c3c37bee257056f9a5e4c8c794a573b0801351ee2d25f51a1c3a6e3",
+        "passed": true,
+        "QEMU_components": 12,
+        "target_outputs_equal_native": true,
+        "sizeof_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "x86_64",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/cross-a1/out-uwvm2/sizeof-cross-a1-x86_64/results.json",
+        "record_sha256": "708fe2724de5fbd0459f8aa75d9ec5d5a6c75137ac0f73699126853faae6eb25",
+        "passed": true,
+        "QEMU_components": 12,
+        "target_outputs_equal_native": true,
+        "sizeof_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623
+      },
+      {
+        "repository": "uwvm2",
+        "profile": "aarch64",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/cross-a1/out-uwvm2/sizeof-cross-a1-aarch64/results.json",
+        "record_sha256": "ef2f271e297af856d12cd5790106636699bfc299668c2e9f8d1f298846771654",
+        "passed": true,
+        "QEMU_components": 12,
+        "target_outputs_equal_native": true,
+        "sizeof_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "native",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/native-a2/out-uwvm2-ros/sizeof-native-a1/results.json",
+        "record_sha256": "7b0887ddc04d49ed13da94c5a139f07f1cdc519c0c030d794778c4759121cfe2",
+        "passed": true,
+        "phases": 40,
+        "sizeof_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623,
+        "DAP_frame_tests": 33,
+        "old_parser_refusals_reproduced_and_fixed": 6
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "actual-LLVM-metadata",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/out-uwvm2-ros/sizeof-index-a1/results.json",
+        "record_sha256": "070a7303db9cd3bb884568e4e2bf3e546303061501ea5c4b804811de230521e6",
+        "passed": true,
+        "phases": 24,
+        "fresh_Wasm_producers": 20,
+        "actual_parser_assertions": 4020,
+        "real_unevaluated_sizeof_proofs": 420,
+        "real_standard_wide_proofs": 140,
+        "independent_Wasm_sizeof_static_assertions": 240,
+        "guest_ABI": "Wasm32",
+        "languages": [
+          "C17",
+          "C23",
+          "C++20",
+          "Objective-C",
+          "Objective-C++"
+        ],
+        "DWARF": [
+          4,
+          5
+        ],
+        "optimization": [
+          0,
+          2
+        ]
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "controller-frontend",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/frontend-a1/out-uwvm2-ros/controller-frontend-a1/results.json",
+        "record_sha256": "52202e147a01c3e20ab2d109e7bb9ca2ba7b9b7334c9f7ea926a77a3b102eff5",
+        "passed": true,
+        "phases": 2,
+        "modes": [
+          "uwvm-int",
+          "LLVM-JIT"
+        ],
+        "full_product_qualified": false
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "ppc64",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/cross-a1/out-uwvm2-ros/sizeof-cross-a1-ppc64/results.json",
+        "record_sha256": "4180aea271b712d61fe2d27827a55c498380f1bae260e659209ebe2e242bb933",
+        "passed": true,
+        "QEMU_components": 12,
+        "target_outputs_equal_native": true,
+        "sizeof_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "x86_64",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/cross-a1/out-uwvm2-ros/sizeof-cross-a1-x86_64/results.json",
+        "record_sha256": "a5521500ecf69e9761c976091e24f52d53e0b4a7fb1b39c7aca572dee427d7e7",
+        "passed": true,
+        "QEMU_components": 12,
+        "target_outputs_equal_native": true,
+        "sizeof_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623
+      },
+      {
+        "repository": "uwvm2-ros",
+        "profile": "aarch64",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/cross-a1/out-uwvm2-ros/sizeof-cross-a1-aarch64/results.json",
+        "record_sha256": "a3f93162dc0a8f8166b378e8a7b3e39ce02533051773a4ca782c66991f1c2fed",
+        "passed": true,
+        "QEMU_components": 12,
+        "target_outputs_equal_native": true,
+        "sizeof_assertions": 6325,
+        "rank_assertions": 106985,
+        "primitive_assertions": 60293,
+        "exact_assertions": 17623
+      }
+    ],
+    "counts": {
+      "successful_current_cut_jobs": 12,
+      "retained_earlier_passed_jobs": 4,
+      "retained_failed_test_attempts": 2,
+      "native_numeric_protocol_phases": 80,
+      "actual_LLVM_metadata_and_producer_phases": 48,
+      "controller_frontend_phases": 4,
+      "QEMU_components": 72,
+      "fresh_Wasm_producers": 40,
+      "unevaluated_sizeof_assertions": 50600,
+      "real_unevaluated_sizeof_metadata_proofs": 840,
+      "independent_Wasm_sizeof_static_assertions": 480,
+      "C_sizeof_static_assertions": 56,
+      "C_sizeof_runtime_checks": 8,
+      "rank_regression_assertions": 855880,
+      "primitive_regression_assertions": 482344,
+      "exact_narrow_regression_assertions": 140984,
+      "actual_parser_assertions": 8040,
+      "old_parser_refusals_reproduced_and_fixed": 12,
+      "DAP_frame_tests": 66,
+      "DAP_positive": 279,
+      "DAP_negative": 231,
+      "scalar_property_checks": 1360000,
+      "input_hash_checks": 151108
+    },
+    "resources": {
+      "boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8",
+      "keeper_pid": 9769,
+      "keeper_birth": 16929,
+      "cgroup_bytes": 68719476736,
+      "swap_bytes": 0,
+      "DATA_owned_RSS_budget_bytes": 1073741824,
+      "DATA_owned_RSS_peak_bytes": 811425792,
+      "frontend_owned_RSS_budget_bytes": 17179869184,
+      "frontend_owned_RSS_peak_bytes": 2195095552,
+      "successful_current_cut_job_seconds": 1626.007276514998,
+      "earlier_attempt_job_seconds": 364.1452729790017,
+      "all_job_seconds": 1990.1525494939997,
+      "each_class_own_output_budget_bytes": 67108864,
+      "maximum_observed_DATA_output_bytes": 50381756,
+      "maximum_observed_frontend_output_bytes": 5182536,
+      "hard_image_bytes": 17179869184,
+      "allocated_image_bytes_before_archive": 3668336640,
+      "arena_free_bytes": 13425852416,
+      "filesystem_id": "12191019222208619510",
+      "no_OOM_events": true
+    },
+    "guards": [
+      {
+        "label": "uwvm2-sizeof-native",
+        "passed": true,
+        "seconds": 180.4716651380004,
+        "owned_RSS_peak_bytes": 742375424,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 243887,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-sizeof-native",
+        "passed": true,
+        "seconds": 190.93089457600036,
+        "owned_RSS_peak_bytes": 740483072,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 247941,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-sizeof-index",
+        "passed": true,
+        "seconds": 32.327278258999286,
+        "owned_RSS_peak_bytes": 706875392,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 233632,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-sizeof-index",
+        "passed": true,
+        "seconds": 33.23928187599995,
+        "owned_RSS_peak_bytes": 713818112,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 235454,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ppc64-sizeof-cross",
+        "passed": true,
+        "seconds": 178.60661013499885,
+        "owned_RSS_peak_bytes": 797990912,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 253140,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-ppc64-sizeof-cross",
+        "passed": true,
+        "seconds": 175.92997286699938,
+        "owned_RSS_peak_bytes": 798027776,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 258442,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-x8664-sizeof-cross",
+        "passed": true,
+        "seconds": 179.7088118970005,
+        "owned_RSS_peak_bytes": 801820672,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 255162,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-x8664-sizeof-cross",
+        "passed": true,
+        "seconds": 175.04018109900062,
+        "owned_RSS_peak_bytes": 801898496,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 259740,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-aarch64-sizeof-cross",
+        "passed": true,
+        "seconds": 187.05409266599963,
+        "owned_RSS_peak_bytes": 811425792,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 253139,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-aarch64-sizeof-cross",
+        "passed": true,
+        "seconds": 184.16006400399965,
+        "owned_RSS_peak_bytes": 810721280,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 258643,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-sizeof-frontend",
+        "passed": true,
+        "seconds": 53.446904676000486,
+        "owned_RSS_peak_bytes": 2195095552,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 233600,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      },
+      {
+        "label": "uwvm2-ros-sizeof-frontend",
+        "passed": true,
+        "seconds": 55.09151932199893,
+        "owned_RSS_peak_bytes": 2193838080,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "retirement": {
+          "pid": 236317,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        }
+      }
+    ],
+    "retained_earlier_attempts": [
+      {
+        "label": "uwvm2-sizeof-native",
+        "passed": false,
+        "seconds": 9.398648516000321,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a1/native-a1/guard-native-a1/receipts.json",
+        "record_sha256": "95e5d580958b64fa7c717a908cabb547a51013a1759a79e021c334e75cde9607",
+        "returncode": 1,
+        "error": "RuntimeError: Build command failed: 1",
+        "owned_RSS_peak_bytes": 518803456
+      },
+      {
+        "label": "uwvm2-sizeof-index",
+        "passed": true,
+        "seconds": 32.36622806699961,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a1/guard-index-a1/receipts.json",
+        "record_sha256": "8f3f7813e6a1f93a31b9cdedd5e660a58874cefb8196652d91dec027d9ebeead",
+        "returncode": 0,
+        "error": null,
+        "owned_RSS_peak_bytes": 709787648
+      },
+      {
+        "label": "uwvm2-ros-sizeof-index",
+        "passed": true,
+        "seconds": 34.70863833000112,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a1/guard-index-a1/receipts.json",
+        "record_sha256": "8f3f7813e6a1f93a31b9cdedd5e660a58874cefb8196652d91dec027d9ebeead",
+        "returncode": 0,
+        "error": null,
+        "owned_RSS_peak_bytes": 713588736
+      },
+      {
+        "label": "uwvm2-sizeof-frontend",
+        "passed": true,
+        "seconds": 54.310170176999236,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a1/frontend-a1/guard-frontend-a1/receipts.json",
+        "record_sha256": "bc8f703e1193f8dfbe8d0df6f2f4b3342c127ab9722125af815f987fc84b588f",
+        "returncode": 0,
+        "error": null,
+        "owned_RSS_peak_bytes": 2194718720
+      },
+      {
+        "label": "uwvm2-ros-sizeof-frontend",
+        "passed": true,
+        "seconds": 55.59736478100058,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a1/frontend-a1/guard-frontend-a1/receipts.json",
+        "record_sha256": "bc8f703e1193f8dfbe8d0df6f2f4b3342c127ab9722125af815f987fc84b588f",
+        "returncode": 0,
+        "error": null,
+        "owned_RSS_peak_bytes": 2196529152
+      },
+      {
+        "label": "uwvm2-sizeof-native",
+        "passed": false,
+        "seconds": 171.51202341700082,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/native-a1/guard-native-a1/receipts.json",
+        "record_sha256": "3bf2327cfe009861dbe9b3066a5dfa9b614be60f4d3dfc574dd4cf53f11524b8",
+        "returncode": 1,
+        "error": "RuntimeError: Build command failed: 1",
+        "owned_RSS_peak_bytes": 738656256
+      },
+      {
+        "label": "paired-sizeof-expression-collect",
+        "passed": false,
+        "seconds": 6.252199690999987,
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/guard-collect-a2/receipts.json",
+        "record_sha256": "962afb0b29848d1cf31b35d96868252a1ffdb528f5e96ad9e8c6ae86980f6dc8",
+        "returncode": 1,
+        "error": "RuntimeError: Build command failed: 1",
+        "owned_RSS_peak_bytes": 44859392,
+        "collector_verification_only": true
+      }
+    ],
+    "failure_explanation": [
+      "A1 new fixture concat used a raw dynamic C string; changed to bounded string_view before creating A2 cut.",
+      "A2 verifier assumed unsupported enum value 3; actual retained header and baseline produce 2. Corrected recipe, no implementation change, new native-a2 role."
+    ],
+    "administrative_staging_records": [
+      "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/staging-failed-attempt-a1.json",
+      "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/stream-upload-proof-a1.json",
+      "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/staging-resume-proof-a2.json",
+      "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/local-large-archive-retirement-a1.json"
+    ],
+    "remaining": "Exact size_t identity; complete native ptype/alias/CV/reference/glvalue and user-type/VLA/function/incomplete-type sizeof; producer language-version selection; full other-language semantics and live runtimes; fresh full -Rdbg and other-architecture product parity.",
+    "fresh_full_product_qualified": false,
+    "all_native_debugger_capabilities_implemented": false,
+    "sizeof_size_t_native_identity_implemented": false,
+    "sizeof_compound_fixed_scalar_implemented": true,
+    "all_inputs_after_unchanged": true,
+    "fresh_metadata_guest_bits": [
+      32
+    ],
+    "finite_numeric_model_guest_bits": [
+      32,
+      64
+    ],
+    "references": {
+      "CPP_sizeof": "https://eel.is/c++draft/expr.sizeof",
+      "C23_sizeof": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf"
+    }
+  },
+  "current_adapter_followup": {
+    "passed": true,
+    "scope": "Current peer-updated DAP adapter protocol DATA and scalar syntax corpus followup, after original cut; no live/full-product test and no ownership claim for peer WASIp1 fix",
+    "original_qualification_record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/sizeof-expression-qualification-a2.json",
+    "original_qualification_sha256": "2419fe513f1d4ea17b64802b955929512b5b95b5c3a11f1836577806b145ccf0",
+    "original_qualified_adapter_sha256": "938ae0269d252a3ef083a6908d37b4418aaf49feba1d2efce7686356892f3981",
+    "current_adapter_sha256": "1d06d5d6c8d6c9d514edbc4e06695403c5e21c44af3fec1e23b2dff13ee3c7f4",
+    "implementation_hash_override": {
+      "tools/debug/dap_adapter.py": "1d06d5d6c8d6c9d514edbc4e06695403c5e21c44af3fec1e23b2dff13ee3c7f4"
+    },
+    "rows": [
+      {
+        "repository": "uwvm2",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/out-uwvm2/results.json",
+        "record_sha256": "45d533568c1e6c49bb9b870e2a5acba9a863fb7958e676b8f130789f1cbec1e4",
+        "passed": true,
+        "rows": [
+          {
+            "label": "source-frames",
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2/test/0018.debugger/test_dap_source_frames.py"
+            ],
+            "returncode": 0,
+            "passed": true,
+            "seconds": 0.21482973599995603,
+            "tests": 33,
+            "log_sha256": "d5d80b1fb2368fce2161d009437c1b11ccaae9a55a3bc2453cb7954a04575373"
+          },
+          {
+            "label": "WASIp1-state",
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2/test/0018.debugger/test_dap_wasip1_state.py"
+            ],
+            "returncode": 0,
+            "passed": true,
+            "seconds": 0.11428770699967572,
+            "tests": 28,
+            "log_sha256": "e2fa3b5a9362b9ae3eab05e3c8beac15b9736072d59dad26f539f437b5f6c0b0"
+          },
+          {
+            "label": "WASIp1-commit-observation",
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2/test/0018.debugger/test_dap_wasip1_commit_observation.py"
+            ],
+            "returncode": 0,
+            "passed": true,
+            "seconds": 0.11425394500110997,
+            "tests": 13,
+            "log_sha256": "d034ab39354c2f034fa02526bcbb2b25197c79369aa9fb04ff68ee72fc6a232f"
+          }
+        ],
+        "corpus": {
+          "positive": 279,
+          "negative": 231
+        }
+      },
+      {
+        "repository": "uwvm2-ros",
+        "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/out-uwvm2-ros/results.json",
+        "record_sha256": "26a89888462e508e09122d9014ff1b2e6b600f6bac6ed6d735ce4acaaeae7de8",
+        "passed": true,
+        "rows": [
+          {
+            "label": "source-frames",
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2-ros/test/0018.debugger/test_dap_source_frames.py"
+            ],
+            "returncode": 0,
+            "passed": true,
+            "seconds": 0.21477531200071098,
+            "tests": 33,
+            "log_sha256": "1d50b9ed12b058c099986f7bb26f531dc8ebf8e7e99a740020a25152f461c535"
+          },
+          {
+            "label": "WASIp1-state",
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2-ros/test/0018.debugger/test_dap_wasip1_state.py"
+            ],
+            "returncode": 0,
+            "passed": true,
+            "seconds": 0.11430309000024863,
+            "tests": 28,
+            "log_sha256": "e2fa3b5a9362b9ae3eab05e3c8beac15b9736072d59dad26f539f437b5f6c0b0"
+          },
+          {
+            "label": "WASIp1-commit-observation",
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2-ros/test/0018.debugger/test_dap_wasip1_commit_observation.py"
+            ],
+            "returncode": 0,
+            "passed": true,
+            "seconds": 0.16421828999955324,
+            "tests": 13,
+            "log_sha256": "d034ab39354c2f034fa02526bcbb2b25197c79369aa9fb04ff68ee72fc6a232f"
+          }
+        ],
+        "corpus": {
+          "positive": 279,
+          "negative": 231
+        }
+      }
+    ],
+    "guards": [
+      {
+        "bounded_component_admission_disk_free_required_bytes": 1140850688,
+        "label": "uwvm2-current-DAP-regression",
+        "argv": [
+          "python3",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/test_dap_postqualification_a1.py",
+          "--repository",
+          "uwvm2"
+        ],
+        "argv_sha256": "41d9ba82ff1f2c0657be96ce89e8dda8edabdcb3aabecfac7165fdf4d3dc1c4b",
+        "command_file_sha256": "ff2d6be929e7c1d2a2f982ba5cbfb537e5e23f14b43f81edcef17475ad92d54d",
+        "source_root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2",
+        "supervisor_sha256": "d8aab3b433090c2e9e787f41fb80f04a49deac43692f1ac362552894308047db",
+        "memory_max_bytes": 68719476736,
+        "swap_max_bytes": 0,
+        "aggregate_owned_rss_budget_bytes": 1073741824,
+        "build_output_file_limit_bytes": 8388608,
+        "log_limit_bytes": 1048576,
+        "deadline_seconds": 300,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "admission_wait_seconds": 3.4338998375460505e-05,
+        "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+        "init": {
+          "pid": 9769,
+          "birth": 16929,
+          "ppid": 9746,
+          "state": "S",
+          "uid": [
+            1000,
+            1000,
+            1000,
+            1000
+          ],
+          "rss_bytes": 6950912,
+          "argv": [
+            "sleep",
+            "infinity"
+          ],
+          "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+          "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "affinity": [
+            0,
+            2,
+            4,
+            6,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ]
+        },
+        "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+        "process_history": [
+          {
+            "pid": 274328,
+            "birth": 1358965,
+            "ppid": 274321,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 16384,
+            "argv": [
+              "/usr/bin/python3",
+              "-c",
+              "import os,signal,sys;os.sched_setaffinity(0,set(range(16,32)));os.kill(os.getpid(),signal.SIGSTOP);os.execvpe(sys.argv[1],sys.argv[1:],os.environ)",
+              "python3",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/test_dap_postqualification_a1.py",
+              "--repository",
+              "uwvm2"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/user.slice/user-1000.slice/session-1882.scope\n",
+            "affinity": [
+              16
+            ],
+            "parent_authority": {
+              "reason": "actual direct child / adopted child of birth-bound subreaper",
+              "pid": 274321,
+              "birth": 1358958
+            }
+          },
+          {
+            "pid": 274328,
+            "birth": 1358965,
+            "ppid": 274321,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 10211328,
+            "argv": [
+              "/usr/bin/python3",
+              "-c",
+              "import os,signal,sys;os.sched_setaffinity(0,set(range(16,32)));os.kill(os.getpid(),signal.SIGSTOP);os.execvpe(sys.argv[1],sys.argv[1:],os.environ)",
+              "python3",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/test_dap_postqualification_a1.py",
+              "--repository",
+              "uwvm2"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "argv_sha256": "b8518f009c43f173bc5e7e1a4277ba3b4d64d916093412ff7077a7cc99674429"
+          },
+          {
+            "pid": 274328,
+            "birth": 1358965,
+            "ppid": 274321,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 39215104,
+            "argv": [
+              "python3",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/test_dap_postqualification_a1.py",
+              "--repository",
+              "uwvm2"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "argv_sha256": "41d9ba82ff1f2c0657be96ce89e8dda8edabdcb3aabecfac7165fdf4d3dc1c4b"
+          },
+          {
+            "pid": 274431,
+            "birth": 1359002,
+            "ppid": 274328,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 36163584,
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2/test/0018.debugger/test_dap_source_frames.py"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "parent_authority": {
+              "reason": "actual active PIDFD-bound parent",
+              "pid": 274328,
+              "birth": 1358965
+            }
+          },
+          {
+            "pid": 274431,
+            "birth": 1359002,
+            "ppid": 274328,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 35209216,
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2/test/0018.debugger/test_dap_source_frames.py"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "argv_sha256": "533d49860e5b41509be2a5e39b2a91b540d54dc2b5abdcfc10624eb8b3d85b34"
+          },
+          {
+            "pid": 274432,
+            "birth": 1359024,
+            "ppid": 274328,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 33214464,
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2/test/0018.debugger/test_dap_wasip1_state.py"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "parent_authority": {
+              "reason": "actual active PIDFD-bound parent",
+              "pid": 274328,
+              "birth": 1358965
+            }
+          },
+          {
+            "pid": 274432,
+            "birth": 1359024,
+            "ppid": 274328,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 33484800,
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2/test/0018.debugger/test_dap_wasip1_state.py"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "argv_sha256": "311a2c4897eff8a7b2095508a1e4ca8bce58b7ec89649d6f31e502175b9b58ef"
+          },
+          {
+            "pid": 274433,
+            "birth": 1359035,
+            "ppid": 274328,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 26460160,
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2/test/0018.debugger/test_dap_wasip1_commit_observation.py"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "parent_authority": {
+              "reason": "actual active PIDFD-bound parent",
+              "pid": 274328,
+              "birth": 1358965
+            }
+          },
+          {
+            "pid": 274433,
+            "birth": 1359035,
+            "ppid": 274328,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 27140096,
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2/test/0018.debugger/test_dap_wasip1_commit_observation.py"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "argv_sha256": "280dce7c3c4bcd5dc01f82d5c9bd98e1d038031e00a4c35249ba2add9ccea148"
+          }
+        ],
+        "retirement": [
+          {
+            "pid": 274431,
+            "birth": 1359002,
+            "pidfd_readable": true,
+            "reaped_returncode": null,
+            "retired_during_command": true,
+            "terminal": {
+              "original_pidfd_ready": true,
+              "retired_proc_stat_read_errno": 2,
+              "proc_stat_absent": true
+            }
+          },
+          {
+            "pid": 274432,
+            "birth": 1359024,
+            "pidfd_readable": true,
+            "reaped_returncode": null,
+            "retired_during_command": true,
+            "terminal": {
+              "original_pidfd_ready": true,
+              "retired_proc_stat_read_errno": 2,
+              "proc_stat_absent": true
+            }
+          },
+          {
+            "pid": 274433,
+            "birth": 1359035,
+            "pidfd_readable": true,
+            "reaped_returncode": null,
+            "retired_during_command": true,
+            "terminal": {
+              "original_pidfd_ready": true,
+              "retired_proc_stat_read_errno": 2,
+              "proc_stat_absent": true
+            }
+          },
+          {
+            "pid": 274328,
+            "birth": 1358965,
+            "pidfd_readable": true,
+            "reaped_returncode": 0
+          }
+        ],
+        "maximum_observed_shared_memory_bytes": 33042370560,
+        "shared_memory_abort_threshold_bytes": 67645734912,
+        "host_disk_free_reserve_bytes": 26843545600,
+        "minimum_observed_host_disk_free_bytes": 95990452224,
+        "minimum_free_inodes": 936613,
+        "required_actual_free_inodes": 4096,
+        "bounded_component_disk_reserve_bytes": 1073741824,
+        "required_actual_free_bytes": 1073741824,
+        "minimum_observed_actual_free_bytes": 13424889856,
+        "maximum_observed_own_output_bytes": 3573,
+        "bounded_component_output_budget_bytes": 67108864,
+        "actual_writable_filesystem": {
+          "fsid": 12191019222208619510,
+          "mount": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+          "root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2",
+          "hard_max_bytes": 17179869184,
+          "free_bytes_before": 13533966336
+        },
+        "Popen_child_environment": {
+          "sha256": "72aa3cebc3be8bd9ca9d180379b15817aa9022330ae655733ce33e2b193776a6",
+          "capture_keys_cleared": [
+            "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT"
+          ],
+          "capture_keys_removed": [],
+          "capture_after_clear": {
+            "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": null
+          }
+        },
+        "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1",
+        "Popen_root_pidfd_creation": {
+          "pid": 274328,
+          "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+        },
+        "actual_stopped_child_cwd": {
+          "pid": 274328,
+          "birth": 1358965,
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1"
+        },
+        "actual_stopped_child_environment": {
+          "sha256": "89abfca1136445d70e8aee5645777dd9191aa82307988b61b162590645235e83",
+          "capture_presence": {
+            "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+          },
+          "pid": 274328,
+          "birth": 1358965,
+          "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+        },
+        "unowned_cgroup_pids_observed": [
+          243444,
+          265015,
+          268354,
+          269440,
+          269721,
+          270623,
+          270993,
+          274040,
+          274041,
+          274042,
+          274048,
+          274049
+        ],
+        "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+        "maximum_live_pidfds": 2,
+        "returncode": 0,
+        "Popen_root_pidfd_retirement": {
+          "pid": 274328,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        },
+        "remaining_roster": [
+          9769,
+          243444,
+          265015,
+          268354,
+          269440,
+          269721,
+          270623,
+          270993,
+          274040,
+          274041,
+          274042,
+          274048,
+          274049
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 76079104,
+        "memory_current_after_observation": 32988033024,
+        "wall_seconds": 0.8820630850004818,
+        "log_sha256": "a60ef8fa1fdfda6c9dc1b0fd681b853453dbfd16436aa1c330c617feaae7230a",
+        "passed": true
+      },
+      {
+        "bounded_component_admission_disk_free_required_bytes": 1140850688,
+        "label": "uwvm2-ros-current-DAP-regression",
+        "argv": [
+          "python3",
+          "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/test_dap_postqualification_a1.py",
+          "--repository",
+          "uwvm2-ros"
+        ],
+        "argv_sha256": "b3b9e7f9e532d42ba53ae556e1be72ab6e4450c49673d95312ea655751743345",
+        "command_file_sha256": "ff2d6be929e7c1d2a2f982ba5cbfb537e5e23f14b43f81edcef17475ad92d54d",
+        "source_root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2",
+        "supervisor_sha256": "d8aab3b433090c2e9e787f41fb80f04a49deac43692f1ac362552894308047db",
+        "memory_max_bytes": 68719476736,
+        "swap_max_bytes": 0,
+        "aggregate_owned_rss_budget_bytes": 1073741824,
+        "build_output_file_limit_bytes": 8388608,
+        "log_limit_bytes": 1048576,
+        "deadline_seconds": 300,
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "admission_wait_seconds": 4.27289996878244e-05,
+        "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+        "init": {
+          "pid": 9769,
+          "birth": 16929,
+          "ppid": 9746,
+          "state": "S",
+          "uid": [
+            1000,
+            1000,
+            1000,
+            1000
+          ],
+          "rss_bytes": 6950912,
+          "argv": [
+            "sleep",
+            "infinity"
+          ],
+          "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+          "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "affinity": [
+            0,
+            2,
+            4,
+            6,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ]
+        },
+        "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+        "process_history": [
+          {
+            "pid": 274434,
+            "birth": 1359053,
+            "ppid": 274321,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 4022272,
+            "argv": [
+              "/usr/bin/python3",
+              "-c",
+              "import os,signal,sys;os.sched_setaffinity(0,set(range(16,32)));os.kill(os.getpid(),signal.SIGSTOP);os.execvpe(sys.argv[1],sys.argv[1:],os.environ)",
+              "python3",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/test_dap_postqualification_a1.py",
+              "--repository",
+              "uwvm2-ros"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/user.slice/user-1000.slice/session-1882.scope\n",
+            "affinity": [
+              16
+            ],
+            "parent_authority": {
+              "reason": "actual direct child / adopted child of birth-bound subreaper",
+              "pid": 274321,
+              "birth": 1358958
+            }
+          },
+          {
+            "pid": 274434,
+            "birth": 1359053,
+            "ppid": 274321,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 10227712,
+            "argv": [
+              "/usr/bin/python3",
+              "-c",
+              "import os,signal,sys;os.sched_setaffinity(0,set(range(16,32)));os.kill(os.getpid(),signal.SIGSTOP);os.execvpe(sys.argv[1],sys.argv[1:],os.environ)",
+              "python3",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/test_dap_postqualification_a1.py",
+              "--repository",
+              "uwvm2-ros"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "argv_sha256": "c54560d279ad54d7a9d305961de90f9892497e16c94c9ff465ba4aef5b752969"
+          },
+          {
+            "pid": 274434,
+            "birth": 1359053,
+            "ppid": 274321,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 39309312,
+            "argv": [
+              "python3",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/test_dap_postqualification_a1.py",
+              "--repository",
+              "uwvm2-ros"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "argv_sha256": "b3b9e7f9e532d42ba53ae556e1be72ab6e4450c49673d95312ea655751743345"
+          },
+          {
+            "pid": 274540,
+            "birth": 1359090,
+            "ppid": 274434,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 34811904,
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2-ros/test/0018.debugger/test_dap_source_frames.py"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "parent_authority": {
+              "reason": "actual active PIDFD-bound parent",
+              "pid": 274434,
+              "birth": 1359053
+            }
+          },
+          {
+            "pid": 274540,
+            "birth": 1359090,
+            "ppid": 274434,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 34820096,
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2-ros/test/0018.debugger/test_dap_source_frames.py"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "argv_sha256": "68428865712a430680ed8ea80fd05fe9e187b58ebe25f2a16b7f74c7fe9529a9"
+          },
+          {
+            "pid": 274541,
+            "birth": 1359111,
+            "ppid": 274434,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 33804288,
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2-ros/test/0018.debugger/test_dap_wasip1_state.py"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "parent_authority": {
+              "reason": "actual active PIDFD-bound parent",
+              "pid": 274434,
+              "birth": 1359053
+            }
+          },
+          {
+            "pid": 274541,
+            "birth": 1359111,
+            "ppid": 274434,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 34521088,
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2-ros/test/0018.debugger/test_dap_wasip1_state.py"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "argv_sha256": "998b94bd1302dddc45402984330813c419e2258e0724ac488be8808443c6a244"
+          },
+          {
+            "pid": 274542,
+            "birth": 1359123,
+            "ppid": 274434,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 31780864,
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2-ros/test/0018.debugger/test_dap_wasip1_commit_observation.py"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "parent_authority": {
+              "reason": "actual active PIDFD-bound parent",
+              "pid": 274434,
+              "birth": 1359053
+            }
+          },
+          {
+            "pid": 274542,
+            "birth": 1359123,
+            "ppid": 274434,
+            "state": "R",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 32587776,
+            "argv": [
+              "python3",
+              "-B",
+              "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/uwvm2-ros/test/0018.debugger/test_dap_wasip1_commit_observation.py"
+            ],
+            "exe": "/usr/bin/python3.14",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "argv_sha256": "3020767ed38f445cd42a6b84f1754f76b17d8659ef4e9bc44837bd9bf79ffeaf"
+          }
+        ],
+        "retirement": [
+          {
+            "pid": 274540,
+            "birth": 1359090,
+            "pidfd_readable": true,
+            "reaped_returncode": null,
+            "retired_during_command": true,
+            "terminal": {
+              "original_pidfd_ready": true,
+              "retired_proc_stat_read_errno": 2,
+              "proc_stat_absent": true
+            }
+          },
+          {
+            "pid": 274541,
+            "birth": 1359111,
+            "pidfd_readable": true,
+            "reaped_returncode": null,
+            "retired_during_command": true,
+            "terminal": {
+              "original_pidfd_ready": true,
+              "retired_proc_stat_read_errno": 2,
+              "proc_stat_absent": true
+            }
+          },
+          {
+            "pid": 274542,
+            "birth": 1359123,
+            "pidfd_readable": true,
+            "reaped_returncode": null,
+            "retired_during_command": true,
+            "terminal": {
+              "original_pidfd_ready": true,
+              "observed_birth": 1359123,
+              "observed_state": "Z",
+              "raw_stat": "274542 (python3) Z 274434 274434 274434 0 -1 4227084 7379 0 0 0 10 1 0 0 20 0 1 0 1359123 0 0 18446744073709551615 0 0 0 0 0 0 0 16781312 0 1 0 0 17 21 0 0 0 0 0 0 0 0 0 0 0 0 0\n"
+            }
+          },
+          {
+            "pid": 274434,
+            "birth": 1359053,
+            "pidfd_readable": true,
+            "reaped_returncode": 0
+          }
+        ],
+        "maximum_observed_shared_memory_bytes": 33044377600,
+        "shared_memory_abort_threshold_bytes": 67645734912,
+        "host_disk_free_reserve_bytes": 26843545600,
+        "minimum_observed_host_disk_free_bytes": 95990423552,
+        "minimum_free_inodes": 936606,
+        "required_actual_free_inodes": 4096,
+        "bounded_component_disk_reserve_bytes": 1073741824,
+        "required_actual_free_bytes": 1073741824,
+        "minimum_observed_actual_free_bytes": 13424848896,
+        "maximum_observed_own_output_bytes": 7186,
+        "bounded_component_output_budget_bytes": 67108864,
+        "actual_writable_filesystem": {
+          "fsid": 12191019222208619510,
+          "mount": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+          "root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2",
+          "hard_max_bytes": 17179869184,
+          "free_bytes_before": 13533966336
+        },
+        "Popen_child_environment": {
+          "sha256": "72aa3cebc3be8bd9ca9d180379b15817aa9022330ae655733ce33e2b193776a6",
+          "capture_keys_cleared": [
+            "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT"
+          ],
+          "capture_keys_removed": [],
+          "capture_after_clear": {
+            "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": null
+          }
+        },
+        "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1",
+        "Popen_root_pidfd_creation": {
+          "pid": 274434,
+          "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+        },
+        "actual_stopped_child_cwd": {
+          "pid": 274434,
+          "birth": 1359053,
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1"
+        },
+        "actual_stopped_child_environment": {
+          "sha256": "89abfca1136445d70e8aee5645777dd9191aa82307988b61b162590645235e83",
+          "capture_presence": {
+            "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+          },
+          "pid": 274434,
+          "birth": 1359053,
+          "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+        },
+        "unowned_cgroup_pids_observed": [
+          243444,
+          265015,
+          268354,
+          269440,
+          269721,
+          270623,
+          270993,
+          274040,
+          274041,
+          274042,
+          274048,
+          274049
+        ],
+        "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+        "maximum_live_pidfds": 2,
+        "returncode": 0,
+        "Popen_root_pidfd_retirement": {
+          "pid": 274434,
+          "pidfd_readable": true,
+          "actual_reaped_returncode": 0
+        },
+        "remaining_roster": [
+          9769,
+          243444,
+          265015,
+          268354,
+          269440,
+          269721,
+          270623,
+          270993,
+          274040,
+          274041,
+          274042,
+          274048,
+          274049
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 76177408,
+        "memory_current_after_observation": 32991252480,
+        "wall_seconds": 0.9833640449996892,
+        "log_sha256": "d09a4775b1c253ca89dea1692b5c1d0443eade83c88316a4e1c5d83ec6aa64c9",
+        "passed": true
+      }
+    ],
+    "counts": {
+      "successful_followup_jobs": 2,
+      "protocol_tests": 148,
+      "source_frame_tests": 66,
+      "WASIp1_state_tests": 56,
+      "WASIp1_commit_observation_tests": 26,
+      "corpus_positive_per_repository": 279,
+      "corpus_negative_per_repository": 231
+    },
+    "resources": {
+      "boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8",
+      "keeper_pid": 9769,
+      "keeper_birth": 16929,
+      "owned_RSS_peak_bytes": 76177408,
+      "successful_followup_job_seconds": 1.865427130000171,
+      "no_OOM_events": true
+    },
+    "peer_changes_record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/postqualification-changes-a2.json",
+    "peer_changes_record_sha256": "350bfa752b1619c4e19be58b4ee460bba504e543be17ee0e3d818a2382ccc7c2",
+    "peer_changes_patch": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/adapter-followup-a1/postqualification-changes-a2.patch",
+    "peer_changes_patch_sha256": "ac986904eef1d24031b3f0f41d1933388544cd1c015418efdc0d930b73bbb04b",
+    "original_cut_records_unchanged": true,
+    "all_followup_inputs_after_unchanged": true
+  },
+  "archive": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/sizeof-expression-evidence-a2.tar.xz",
+    "bytes": 56671112,
+    "sha256": "1030eedd7288fa20df7bdfe904b67946dfa4f2debf6202a33e1f4748e798bc11",
+    "regular_members": 7813,
+    "all_member_hashes_verified_linux": true,
+    "linux_archive_fsync_completed": true,
+    "inputs_after_unchanged": true,
+    "earlier_source_cuts_reconstructible_from_retained_members": true,
+    "image_allocated_bytes_after_archive": 3694510080,
+    "arena_free_bytes": 13349720064,
+    "filesystem_id": "12191019222208619510",
+    "large_archive_retained_on_linux_for_local_disk_control": true,
+    "large_archive_local_copy_claimed": false
+  },
+  "local_small_evidence": {
+    "passed": true,
+    "scope": "Large original evidence stays in its verified fsynced Linux archive to avoid filling local disk. Local qualification/admin/proof summaries match archived member identities. Final paired source/documents will be dual-copy small sidecars.",
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/sizeof-expression-a2/sizeof-expression-evidence-a2.tar.xz",
+    "archive_sha256": "1030eedd7288fa20df7bdfe904b67946dfa4f2debf6202a33e1f4748e798bc11",
+    "archive_bytes": 56671112,
+    "large_local_archive_created": false,
+    "local_summary_members_verified_against_linux_archive": {
+      "sizeof-expression-qualification-a2.json": {
+        "bytes": 23165,
+        "sha256": "2419fe513f1d4ea17b64802b955929512b5b95b5c3a11f1836577806b145ccf0"
+      },
+      "adapter-followup-summary-a1.json": {
+        "bytes": 40159,
+        "sha256": "49ee94cdf0b51ceed337c06b43a76a192f1e66a5d708c80a08859b6267bdf5bd"
+      },
+      "native-retry-preparation-a2.json": {
+        "bytes": 827,
+        "sha256": "801c7c32af3a3f3abeda917917574c57d5c002c064fe8ded3549c879b6872cee"
+      },
+      "staging-resume-proof-a2.json": {
+        "bytes": 391,
+        "sha256": "9d3c644ea6a67175a93f5d7cc99b8beb99cca85bb1d8c30d2711f651d393ac94"
+      },
+      "local-large-archive-retirement-a1.json": {
+        "bytes": 1658,
+        "sha256": "b6d9b18e6f55309bbbd63f70cda50cbd33335593ec6fdcec837e31f9f33cfcbd"
+      },
+      "local-large-archive-retirement-a2.json": {
+        "bytes": 3183,
+        "sha256": "49ab95f442e1054f7b87216bda401e695b3532c925e97c61485b643c41208490"
+      }
+    },
+    "local_free_bytes": 366702592
+  }
+}

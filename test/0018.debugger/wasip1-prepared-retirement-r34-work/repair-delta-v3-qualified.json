@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "base_manifest_sha256": "27535550e6e1f6f41316ebdf7f75a457b2b6e89222c2fb7282bf5c8742148ad7",
+  "overlay_manifest_sha256": "6b009a46a35696fd68a9827676d5287d5010eb323b69316734f21e75900e747b",
+  "delta_archive_sha256": "0099f3133277770861d0a6418e501d27501c42eb826a221aac2043d2a0fabc4a",
+  "changed_files": {
+    "uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": "3d19c1d567f3e93a5e16c9f88442fd1069c8a4366e8dbc515ab5fe42d570898d",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": "3d19c1d567f3e93a5e16c9f88442fd1069c8a4366e8dbc515ab5fe42d570898d"
+  },
+  "reason": "Preserve exact negative preparation diagnostics in real native fixture"
+}

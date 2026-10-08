@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "source_manifest_sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848",
+  "retired": [
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/fixture.exe",
+      "bytes": 281257840,
+      "sha256": "b37d197ff814dba34573d3c12dcbb65f442a2bcac0718345f53e0f3dfb09ff28",
+      "archive_member": "fixture.exe"
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/environment-group.exe",
+      "bytes": 281700064,
+      "sha256": "257cb24bd1290e199cb6f16cfec81d59007deeeafec21192f06700daeb4af3ec",
+      "archive_member": "environment-group.exe"
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/fixture.exe",
+      "bytes": 200745136,
+      "sha256": "3a14133b5926bc43c836f71c788b8517524e87bd46897e3acb57b3ffcec24ef7"
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/environment-group.exe",
+      "bytes": 201211984,
+      "sha256": "6138aaf0dd6bcd7124ea2e3b5b2c00f31d623e4f1e0c77f86964c2ed2f61053b"
+    }
+  ],
+  "local_cold_read_back": true
+}

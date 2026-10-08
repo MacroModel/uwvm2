@@ -1,0 +1,53 @@
+{
+  "passed": false,
+  "error": null,
+  "exit": 1,
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "boot_id": "b5e7a71f-8b40-4f39-8a41-fdce3f8fd2cb",
+  "owned_peak_aggregate_rss_upper_bytes": 2204098560,
+  "cgroup_peak_bytes": 18504384512,
+  "processes": [
+    {
+      "pid": 123806,
+      "birth": 602132,
+      "ppid": 123805,
+      "uid": 1000,
+      "cgroup": "0::/user.slice/user-1000.slice/session-822.scope\n",
+      "argv": [
+        "/usr/bin/python3",
+        "-u",
+        "-c",
+        "import os,sys,signal;os.sched_setaffinity(0,set(range(16,32)));os.kill(os.getpid(),signal.SIGSTOP);os.execvpe(sys.argv[1],sys.argv[1:],os.environ)",
+        "/usr/bin/python3",
+        "-u",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-worker-registry-20261008-r41/run_matrix-v3.py"
+      ],
+      "pidfd_retired": true
+    },
+    {
+      "pid": 123908,
+      "birth": 602172,
+      "ppid": 123806,
+      "uid": 1000,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "argv": [
+        "/usr/bin/python3",
+        "-u",
+        "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-worker-registry-20261008-r41/run_matrix-v3.py"
+      ],
+      "pidfd_retired": true
+    }
+  ],
+  "parent_events_unchanged": true,
+  "validation_kind": "bounded tmpfs actual canonical worker-registry reuse regression and existing checkpoint regressions",
+  "actual_native_runtime_execution": true,
+  "original_native_storage_policy_unchanged": true,
+  "original_persistent_native_suite_admission_still_refused": true,
+  "new_analysis_file_ceiling_bytes": 16777216,
+  "host_available_bytes": 30958546944,
+  "ram_peak_allocated_bytes": 0,
+  "ram_ceiling_bytes": 805306368,
+  "ram_disposable_products_retired": true,
+  "ram_final_inventory": [],
+  "guard_sha256": "5552224f1d30fb2b715bf5f7aed7ba34fb00ac51805e8094595178a859da9f58"
+}

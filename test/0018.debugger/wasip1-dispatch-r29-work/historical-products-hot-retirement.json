@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "timestamp_ns": 1791365056874437867,
+  "scope": "Only six owned R26 compressed product archives, fully recovered and read back on native macOS; source, SDK archives, logs and historical receipts untouched",
+  "retired": [
+    {
+      "original_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/uwvm2-linux-products.tar.gz",
+      "local_recovery_path": "/Users/liyinan/Documents/MacroModel/wasip1-r29-owned-cold-evidence/uwvm2-linux-products.tar.gz",
+      "archive_sha256": "f5911543cc5e3aeb4b8dade965ef940bbf603b024fe6d4da2eada3bc04ec360c",
+      "bytes": 115874208,
+      "prior_retirement": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/uwvm2-product-retirement.json",
+      "all_local_payloads_read_back": true
+    },
+    {
+      "original_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/uwvm2-windows-products.tar.gz",
+      "local_recovery_path": "/Users/liyinan/Documents/MacroModel/wasip1-r29-owned-cold-evidence/uwvm2-windows-products.tar.gz",
+      "archive_sha256": "9152aad33edce0a710d94539762094ee81af8c328fb199005c6ba254eed5f982",
+      "bytes": 124971813,
+      "prior_retirement": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/uwvm2-windows-product-retirement.json",
+      "all_local_payloads_read_back": true
+    },
+    {
+      "original_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/uwvm2-freebsd-products.tar.gz",
+      "local_recovery_path": "/Users/liyinan/Documents/MacroModel/wasip1-r29-owned-cold-evidence/uwvm2-freebsd-products.tar.gz",
+      "archive_sha256": "9bd889a600b83a96d89185c3d20392409ce90b7531daca19cbe26ca917a05192",
+      "bytes": 129017886,
+      "prior_retirement": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/uwvm2-freebsd-product-retirement.json",
+      "all_local_payloads_read_back": true
+    },
+    {
+      "original_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/uwvm2-ros-linux-products.tar.gz",
+      "local_recovery_path": "/Users/liyinan/Documents/MacroModel/wasip1-r29-owned-cold-evidence/uwvm2-ros-linux-products.tar.gz",
+      "archive_sha256": "edd05ca552326989d948962aa5c48c5252fb180bb5c5a79c8371b9552f389487",
+      "bytes": 106361957,
+      "prior_retirement": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/uwvm2-ros-product-retirement.json",
+      "all_local_payloads_read_back": true
+    },
+    {
+      "original_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/uwvm2-ros-windows-products.tar.gz",
+      "local_recovery_path": "/Users/liyinan/Documents/MacroModel/wasip1-r29-owned-cold-evidence/uwvm2-ros-windows-products.tar.gz",
+      "archive_sha256": "b62a13978c4f64527dd9ef744a701afaae9a421515cf6ddd4c04227cb2977e7a",
+      "bytes": 174500218,
+      "prior_retirement": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/uwvm2-ros-windows-product-retirement.json",
+      "all_local_payloads_read_back": true
+    },
+    {
+      "original_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/uwvm2-ros-freebsd-products.tar.gz",
+      "local_recovery_path": "/Users/liyinan/Documents/MacroModel/wasip1-r29-owned-cold-evidence/uwvm2-ros-freebsd-products.tar.gz",
+      "archive_sha256": "50f6232d78f24067dfd7137083dc19d93b2783004fb03a4f7d2e73d2d537c418",
+      "bytes": 119467194,
+      "prior_retirement": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-cross-jit-20261007-r26/uwvm2-ros-freebsd-product-retirement.json",
+      "all_local_payloads_read_back": true
+    }
+  ],
+  "retired_bytes": 770193276,
+  "local_qualification_sha256": "374c7065d9359f5333f52bb2de9b7371f53f8342e992a3e40bc6933236f8320e",
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "foreign_processes_signalled": false
+}

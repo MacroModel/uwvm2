@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "appended_key": "r39_checkpoint_full_publication_records",
+  "original_fields_preserved": 44,
+  "before_sha256": "7cd504430f2728acadb4bfb5e0666b5a3ef1aae50465826f14d7fadcd855dfe0",
+  "after_sha256": "a12b129f99a9f64579232a8167f78c8ae6f50c9e65c21f02f75c8671cba617e0",
+  "evidence_archive_sha256": "0b41eee42e05f372bdbcd6b5c16e7ef48e3f12f65337f650495d14bfbd0713f6",
+  "original_storage_policy_unchanged": true
+}

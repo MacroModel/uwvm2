@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "round": "R29",
+  "retired_bytes": 964799120,
+  "rows": [
+    {
+      "repo": "uwvm2",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/macos/uwvm2/fixture.exe",
+      "bytes": 281307424,
+      "sha256": "2398e9e55301e4a0e5bd7f4bb0b633601aabdc034581a49b8434b56db6468154",
+      "qualified_recovery_archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/uwvm2-macos-qualified-products.tar.gz",
+      "archive_sha256": "5ba193b65e7d06749856eddb21210ac419b7df0aa4d6caf042f01e23029f4d55",
+      "all_payloads_read_back": true
+    },
+    {
+      "repo": "uwvm2",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/macos/uwvm2/environment-group.exe",
+      "bytes": 281591744,
+      "sha256": "2d0335f6e037b2fab6c2012044f70973253fdfdeb99df3c7046559dc164a35cf",
+      "qualified_recovery_archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/uwvm2-macos-qualified-products.tar.gz",
+      "archive_sha256": "5ba193b65e7d06749856eddb21210ac419b7df0aa4d6caf042f01e23029f4d55",
+      "all_payloads_read_back": true
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/macos/uwvm2-ros/fixture.exe",
+      "bytes": 200813440,
+      "sha256": "c93804001b4d545d926f9a11f5d2c6e71ac1dc8cb329ea8dcc9552e1a870cf20",
+      "qualified_recovery_archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/uwvm2-ros-macos-qualified-products.tar.gz",
+      "archive_sha256": "26c1ce337d89579e334c80f94c9a0be2cdcdedbf3abb796de244a7684757b81a",
+      "all_payloads_read_back": true
+    },
+    {
+      "repo": "uwvm2-ros",
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/macos/uwvm2-ros/environment-group.exe",
+      "bytes": 201086512,
+      "sha256": "88ff91f5964a840400a9c676139e7fa1fd07c24efe7ca47221aa5a7b2c7b5d04",
+      "qualified_recovery_archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-dispatch-20261007-r29/uwvm2-ros-macos-qualified-products.tar.gz",
+      "archive_sha256": "26c1ce337d89579e334c80f94c9a0be2cdcdedbf3abb796de244a7684757b81a",
+      "all_payloads_read_back": true
+    }
+  ],
+  "foreign_file_cleanup_performed": false,
+  "native_qualification_sha256": "32c0a145bdc9ba1844d3b19820b59c4558a43a11613d3fe06c56f779f52f6e75"
+}

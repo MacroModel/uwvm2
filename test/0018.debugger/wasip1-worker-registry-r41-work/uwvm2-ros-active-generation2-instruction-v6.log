@@ -1,0 +1,5 @@
+WORLD_GENERATION2_PREPARATION status=0 resource=3 engine=0 functions=8 threads=1 frames=2 roots=1 payload=2571937 root_scopes=1 root_frames=5 roots_restored=1 workers_started=1 workers_enrolled=1 workers_joined=1 workers_held=1 worker_roots_restored=1 debug_prepared=1 debug_enrolled=1 debug_held=1 debug_tls_restored=1
+ACTIVE_GENERATION2 private_effective_body_owners=1 active_native_frames=2
+WORLD_GENERATION2_PREPARATION status=0 resource=3 engine=0 functions=8 threads=1 frames=2 roots=1 payload=2571937 root_scopes=1 root_frames=5 roots_restored=1 workers_started=1 workers_enrolled=1 workers_joined=1 workers_held=1 worker_roots_restored=1 debug_prepared=1 debug_enrolled=1 debug_held=1 debug_tls_restored=1
+ACTIVE_GENERATION2 private_effective_body_owners=1 active_native_frames=2
+checkpoint_actual_generation2_nested_continuation: PASS actual restored native parent+child, recheckpoint, double cleanup/drain and second resume; complete_instance_restore=false

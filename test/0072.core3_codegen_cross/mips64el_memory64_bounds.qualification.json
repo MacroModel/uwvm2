@@ -1,0 +1,457 @@
+{
+  "schema": "uwvm-mips64el-memory64-bounds-postfix-qualification-v2",
+  "selected_evidence_passed": true,
+  "source_cut": "R13 frozen paired mmap policy and universal cache-key repair",
+  "source_identities": {
+    "uwvm2": "sha256:d68895f7c34545ab78b7ef53470e9cb6062a97c027904897105d00e536156746",
+    "uwvm2-ros": "sha256:a5298a08a9a22327fc8cc474ff67ad1f303994ecf67bba40b2679bd5e194b90b"
+  },
+  "source_manifest": {
+    "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-cache-source-r13-manifest.json",
+    "sha256": "1c5c39c88e080227c91af19bd21a48736a680f097c65291d4e6d1717c30811e0",
+    "bytes": 6147252
+  },
+  "architecture": "Linux static N64EL R2 / QEMU MIPS64R2-generic",
+  "SDK": {
+    "qualification": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-producer-r1/sdk-qualification.json",
+      "sha256": "49405996d6bfaac05fc86ec4c9595069eba1fd8bc464d54313a08cd486d12fe9",
+      "bytes": 1472054
+    },
+    "archives": 64,
+    "actual_compiled_objects": 1639,
+    "actual_capability_auto_selected": true,
+    "explicit_backport_macro": false
+  },
+  "repair": "Finite Memory64 maximum selects dynamic bounds before translation; cache memory64-reservation-bounds=declared-maximum-v1 retires older generated checks on all platforms",
+  "products": {
+    "uwvm2": {
+      "product": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/uwvm2/uwvm",
+        "sha256": "6a6354aa953a9cdabbbe957450f145f79dfc685291390b87c51b644452e43c62",
+        "bytes": 95593784
+      },
+      "build_metadata": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/uwvm2/build.json",
+        "sha256": "23260b2572a8f04dc0c1ae2a35c24734d275037f716ed967d971ad767644d4dd",
+        "bytes": 18680
+      },
+      "positive_semantic_processes": 1152,
+      "positive_and_expected_OOB_processes": 117,
+      "semantic_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-test-r2/uwvm2/semantics/qualification.json",
+        "sha256": "55a2e3a75602fb948239ccacdabf9ac7b615d0348593e8e01d94903fac0bfc57",
+        "bytes": 3671450
+      },
+      "high_memory_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-high-r2/uwvm2-results/qualification.json",
+        "sha256": "d59fdb1c1bc28134ffa3300b43487a3025006870dea7e903ee391d559259adef",
+        "bytes": 1039649
+      },
+      "signed_cache_processes": 684,
+      "authenticated_fresh_process_hits": 456,
+      "signed_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-cache-r1/uwvm2-results/qualification.json",
+        "sha256": "4687cb9df090d23d53cc88ba8a52ef815f9c935f70e4c0889e7fd3b6c628d35f",
+        "bytes": 3164828
+      },
+      "assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-asm-r1/uwvm2-results/summary.json",
+        "sha256": "c3dbaccd4d53e7266e6c4940b76e89ddfd258a076884d940345c547513318c3e",
+        "bytes": 284524
+      },
+      "complete_function_extents": 198,
+      "long_tail_function_extents": 156,
+      "tail_extents_with_other_helper_link_calls": 120,
+      "high_address_complete_function_extents": 12,
+      "unfused_mul_add_functions": 6,
+      "signed_expected_trap_cache_processes": 432,
+      "authenticated_expected_trap_cache_hits": 288,
+      "signed_expected_trap_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-trap-cache-r1/uwvm2-results/summary.json",
+        "sha256": "f36c78ecaad9878059daeeb4c9b7f0b0ef6a3bfefcb597ab73899ef95f6772c5",
+        "bytes": 2478362
+      }
+    },
+    "uwvm2-ros": {
+      "product": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/uwvm2-ros/uwvm",
+        "sha256": "a0bfd890169f115e2263de3d7ecbb24f04a0d00e7b311b1b7dc3526b4cfa058f",
+        "bytes": 88517680
+      },
+      "build_metadata": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/uwvm2-ros/build.json",
+        "sha256": "10573e30761aaba62814405f508df71d95c08a173d95e83f87bd0ede36a7bba5",
+        "bytes": 18812
+      },
+      "positive_semantic_processes": 512,
+      "positive_and_expected_OOB_processes": 52,
+      "semantic_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-test-r2/uwvm2-ros/semantics/qualification.json",
+        "sha256": "48649cbd9e2bc069cecd8b9b853735cab8732b5970ded6dd194d706d4204fb6d",
+        "bytes": 1972125
+      },
+      "high_memory_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-high-r2/uwvm2-ros-results/qualification.json",
+        "sha256": "a6febfaccfa21700effa88dc035937f8940ca66b434e576c80196fe62f7b3547",
+        "bytes": 850741
+      },
+      "signed_cache_processes": 342,
+      "authenticated_fresh_process_hits": 228,
+      "signed_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-cache-r1/uwvm2-ros-results/qualification.json",
+        "sha256": "1e3ceb33cdda89401ed132ac8ff565ea483ec572c7af7771b84b1e813c843ade",
+        "bytes": 1930716
+      },
+      "assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-asm-r1/uwvm2-ros-results/summary.json",
+        "sha256": "7b5831cde0d4b60486c6aceeac2a5d789021d00c7839a99a82be5b7747f8036a",
+        "bytes": 143319
+      },
+      "complete_function_extents": 99,
+      "long_tail_function_extents": 78,
+      "tail_extents_with_other_helper_link_calls": 42,
+      "high_address_complete_function_extents": 6,
+      "unfused_mul_add_functions": 3,
+      "signed_expected_trap_cache_processes": 216,
+      "authenticated_expected_trap_cache_hits": 144,
+      "signed_expected_trap_cache_qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-trap-cache-r1/uwvm2-ros-results/summary.json",
+        "sha256": "3b515cc08d95aaa3b07bab0fde81af304813b94f8d12c236b3feb3b8b62a6aac",
+        "bytes": 1590330
+      }
+    }
+  },
+  "actual_T2": {
+    "numeric": {
+      "semantic_processes": 6,
+      "signed_cache_processes": 36,
+      "authenticated_fresh_process_hits": 24,
+      "semantic": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-test-r1/numeric-results/qualification.json",
+        "sha256": "e9e9c3fa1f05026c9a1592ad8027358ceb4688d12598fbe0cba8f57ff34b4c73",
+        "bytes": 729292
+      },
+      "signed_cache": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-cache-r1/numeric-results/qualification.json",
+        "sha256": "8117e66392273976c6fd359950dacb861d30799a488b152f8920948219829c19",
+        "bytes": 855417
+      },
+      "unique_full_object_hot_and_loop_entry_assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-asm-r1/numeric-results/summary.json",
+        "sha256": "87b73fe5436bbdec5fe8a85f62171354d7797ede61ff5ba21816792c4aa9b165",
+        "bytes": 24714
+      },
+      "complete_function_extents": 12
+    },
+    "memory64-high": {
+      "semantic_processes": 6,
+      "signed_cache_processes": 36,
+      "authenticated_fresh_process_hits": 24,
+      "semantic": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-test-r1/memory64-high-results/qualification.json",
+        "sha256": "57d541f1c6c3aae8f2219c2fba6569b36ec32425a12389ae99bc4947a44bfffe",
+        "bytes": 729905
+      },
+      "signed_cache": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-cache-r1/memory64-high-results/qualification.json",
+        "sha256": "5729f44532d79af0cd24e794b11fa4739d717d3e43f1b0573d16cd4c8569f151",
+        "bytes": 859815
+      },
+      "unique_full_object_hot_and_loop_entry_assembly": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-asm-r1/memory64-high-results/summary.json",
+        "sha256": "3df364f5a5d125c64a3ad33d5a97e24150b5e1ec3cffecf9e78949a95fa88f30",
+        "bytes": 23088
+      },
+      "complete_function_extents": 12
+    }
+  },
+  "stages": {
+    "cgopt-mips64el-sdk12-bounds-build-r2": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/cgopt-mips64el-sdk12-bounds-build-r2-status.json",
+      "sha256": "39703e26a45251ccbccaaa339bb6a075dbbe8d0b547e09e74a5629e954bfa6f9",
+      "bytes": 169
+    },
+    "cgopt-mips64el-sdk12-bounds-test-r2": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-test-r2/cgopt-mips64el-sdk12-bounds-test-r2-status.json",
+      "sha256": "dae2640460cb4102fa4536515e318c56108a8fd0d4fa6ef285454aa7a3e57570",
+      "bytes": 168
+    },
+    "cgopt-mips64el-sdk12-bounds-high-r2": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-high-r2/cgopt-mips64el-sdk12-bounds-high-r2-status.json",
+      "sha256": "08cf345f7b8ef20dc7976d5d177d52165e2f36df883e6993755d0926284cbf55",
+      "bytes": 166
+    },
+    "cgopt-mips64el-sdk12-bounds-cache-r1": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-cache-r1/cgopt-mips64el-sdk12-bounds-cache-r1-status.json",
+      "sha256": "759f17aff79f3f9279d5c2d93dc94c3a3866aa7410124bf44200879017e3b997",
+      "bytes": 169
+    },
+    "cgopt-mips64el-sdk12-bounds-asm-r1": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-asm-r1/cgopt-mips64el-sdk12-bounds-asm-r1-status.json",
+      "sha256": "af0a97fd97c5dce3f7663c1946f571b9799f2051d129af2620ec26707ccc0263",
+      "bytes": 166
+    },
+    "cgopt-mips64el-sdk12-bounds-t2-test-r1": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-test-r1/cgopt-mips64el-sdk12-bounds-t2-test-r1-status.json",
+      "sha256": "f1194cd71addada42596e23f9f40c1604dc3c3ec0e9a881ee5d9eecd02ba3555",
+      "bytes": 171
+    },
+    "cgopt-mips64el-sdk12-bounds-t2-cache-r1": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-cache-r1/cgopt-mips64el-sdk12-bounds-t2-cache-r1-status.json",
+      "sha256": "b4e7c5e8d6eb9bc5abf0e519cccbccb842e0777f3f4db085b246fda08044f2e3",
+      "bytes": 171
+    },
+    "cgopt-mips64el-sdk12-bounds-t2-asm-r1": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-asm-r1/cgopt-mips64el-sdk12-bounds-t2-asm-r1-status.json",
+      "sha256": "887da2379eade50c11cf39ac9acb85c20d92598946bdb6338a3a29a3ea1dda20",
+      "bytes": 169
+    },
+    "cgopt-mips64el-sdk12-bounds-trap-cache-r1": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-trap-cache-r1/cgopt-mips64el-sdk12-bounds-trap-cache-r1-status.json",
+      "sha256": "a77604b1a24cebb01cde151b1c12998930fa7135eedca501bde6091498787e3a",
+      "bytes": 173
+    },
+    "cgopt-mips64el-r13-simd-unary-r1": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/cgopt-mips64el-r13-simd-unary-r1-status.json",
+      "sha256": "c04779f20cebf4ecc7dce5ffa0ab04eeb9a960e6f2a8d2a74ac85d2cec205adb",
+      "bytes": 165
+    }
+  },
+  "all_current_working_tree_qualified": false,
+  "all_memory64_qualified": false,
+  "all_Core3_requested_threads_qualified": false,
+  "all_architectures_ABIs_qualified": false,
+  "twelve_exact_MIPS_interpreter_variants_qualified": false,
+  "hardware_throughput_qualified": false,
+  "SIMD_float_unary": {
+    "generator_qualification": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/fixtures/qualification.json",
+      "sha256": "b8ba9945fd2d52d027496526095d190623b9bc91f8aca4c330a987242fb94e84",
+      "bytes": 9207
+    },
+    "fixtures_manifest": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/fixtures/fixtures.json",
+      "sha256": "3a5e2b4472eaba88a0764c303fd9e41c03263eecd91cb99709741e69b0c75a56",
+      "bytes": 13334
+    },
+    "fixtures": 10,
+    "operations": [
+      "abs",
+      "neg",
+      "ceil",
+      "floor",
+      "trunc"
+    ],
+    "lane_types": [
+      "f32x4",
+      "f64x2"
+    ],
+    "lane_checks_per_runtime_profile": 720,
+    "runtime_profiles": 13,
+    "lane_checks": 9360,
+    "oracle": "Integer/rational IEEE model with exact abs/neg payload/sign bits and permitted arithmetic NaNs for rounding",
+    "complete_SIMD_qualified": false,
+    "assembly_efficiency_qualified": false,
+    "products": {
+      "uwvm2": {
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/uwvm2/semantics/qualification.json",
+          "sha256": "9e90f9f15a0b50820f79da38544292f9e8fbf8e4a511dcfd50897ae637c33671",
+          "bytes": 950918
+        },
+        "runtime_processes": 90,
+        "profiles": 9,
+        "actual_dependency_count": 2759
+      },
+      "uwvm2-ros": {
+        "qualification": {
+          "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/uwvm2-ros/semantics/qualification.json",
+          "sha256": "2c20c363357e2b9e0a5fd639e6a73394f0a2b61bfa88e197979ae8d11df4ea21",
+          "bytes": 813608
+        },
+        "runtime_processes": 40,
+        "profiles": 4,
+        "actual_dependency_count": 2724
+      }
+    }
+  },
+  "counts": {
+    "runtime_processes": 3721,
+    "positive_semantic_processes": 1664,
+    "high_memory_positive_and_OOB_processes": 169,
+    "signed_cache_processes": 1746,
+    "authenticated_fresh_process_hits": 1164,
+    "signed_expected_OOB_cache_processes": 648,
+    "authenticated_expected_OOB_cache_hits": 432,
+    "actual_T2_noncached_processes": 12,
+    "SIMD_float_unary_processes": 130,
+    "SIMD_float_unary_lane_checks": 9360,
+    "complete_function_extents": 321,
+    "long_tail_function_extents": 234,
+    "tail_extents_with_other_helper_link_calls": 162,
+    "high_address_complete_function_extents": 18,
+    "actual_T2_hot_and_loop_entry_extents": 24,
+    "unfused_mul_add_complete_functions": 9,
+    "successful_cgroup_command_receipts": 27
+  },
+  "paired_policy_unit": {
+    "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-bounds-policy-unit-r1/qualification.json",
+    "sha256": "17942a7a9e3b124261f528db8e54e2b22a618b030c9a522b0980eb13a8469ffd",
+    "bytes": 653501
+  },
+  "prior_R12_failed_memory64_extension": {
+    "evidence": {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-scoped-summary-r1.json",
+      "sha256": "58466b2c6db8379a00b941e22d0d01774394707e0297ce9c82f3808162b8f579",
+      "bytes": 25788
+    },
+    "retained_as_failed": true,
+    "scope": "Historical R12 high extension failed with SIGSEGV; these are separate R13 source-bound reruns."
+  },
+  "successful_cgroup_command_receipts": [
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/cgopt-mips64el-sdk12-bounds-build-r2-evidence/000-uwvm2-runtime/receipts.json",
+      "sha256": "81cd18c0b2e8916042295f3062726fab065a38e81d71c8843aee17286cf4e539",
+      "bytes": 45504
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/cgopt-mips64el-sdk12-bounds-build-r2-evidence/001-uwvm2-host/receipts.json",
+      "sha256": "101b25aa9fd797ee17ad0846bb9a403b5bf0de09271a04d4d3b0fe0e7cbd448d",
+      "bytes": 20210
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/cgopt-mips64el-sdk12-bounds-build-r2-evidence/002-uwvm2-main/receipts.json",
+      "sha256": "1bcea64b0f712cb4a81ede99334ce73fa96c36201f35fd600596969ff8143fb8",
+      "bytes": 45755
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/cgopt-mips64el-sdk12-bounds-build-r2-evidence/003-uwvm2-link/receipts.json",
+      "sha256": "da84de7f3de15e2844eb67488175e1e15f4ef1c28a73a848db188822994c93de",
+      "bytes": 58571
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/cgopt-mips64el-sdk12-bounds-build-r2-evidence/004-uwvm2-ros-runtime/receipts.json",
+      "sha256": "c1d3f3d4bd5c193524a6f7f9b83fdce4080d3fb75cddab40bcee2e9216888ba9",
+      "bytes": 45904
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/cgopt-mips64el-sdk12-bounds-build-r2-evidence/005-uwvm2-ros-host/receipts.json",
+      "sha256": "76ca5c7e79ef8311ae6b6cf69ea39c11c983ca1a9868e74a595cec44f2c70343",
+      "bytes": 20224
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/cgopt-mips64el-sdk12-bounds-build-r2-evidence/006-uwvm2-ros-main/receipts.json",
+      "sha256": "31df62ffeee6a402765081a8c8c99cb34fb862a1e76bb226d0532204123c3d3a",
+      "bytes": 31363
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-build-r2/cgopt-mips64el-sdk12-bounds-build-r2-evidence/007-uwvm2-ros-link/receipts.json",
+      "sha256": "d4898e0005ba1284289ab2dff0fb62c5bd388c396fe6e3413769486dca4ad75e",
+      "bytes": 58613
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-test-r2/cgopt-mips64el-sdk12-bounds-test-r2-evidence/000-uwvm2-genuine-MIPS64EL/receipts.json",
+      "sha256": "2d4d060460393680e7ca3091cef3336e21d20bfc32fa908da561a7e33048dc7b",
+      "bytes": 5111040
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-test-r2/cgopt-mips64el-sdk12-bounds-test-r2-evidence/001-uwvm2-ros-genuine-MIPS64EL/receipts.json",
+      "sha256": "94b5073750d71f876ec66580fdcc38e20019d756e9f52dbddddfb531c0774d7a",
+      "bytes": 2236082
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-high-r2/cgopt-mips64el-sdk12-bounds-high-r2-evidence/000-uwvm2-high-memory64/receipts.json",
+      "sha256": "8fbaa467d34e5c580d893657e6b2ebfc840e144ae98b053750348ca5b89c37a3",
+      "bytes": 551286
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-high-r2/cgopt-mips64el-sdk12-bounds-high-r2-evidence/001-uwvm2-ros-high-memory64/receipts.json",
+      "sha256": "e413fb31dbadfe3dd9c41cad9fbf2fa35a446341475c1144b7db75af4decbe4e",
+      "bytes": 246132
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-cache-r1/cgopt-mips64el-sdk12-bounds-cache-r1-evidence/000-uwvm2-signed-postfix-cache/receipts.json",
+      "sha256": "f9f63ac2cfaf7523631bcf2a1c99fda0b29dd40d0b6349f13b22dd31807741cf",
+      "bytes": 4140854
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-cache-r1/cgopt-mips64el-sdk12-bounds-cache-r1-evidence/001-uwvm2-ros-signed-postfix-cache/receipts.json",
+      "sha256": "7fe37b4087f881e3fc4f9800f1a6d0195a51d7f6059d58bf055c4bda30c6ab2e",
+      "bytes": 2047931
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-asm-r1/cgopt-mips64el-sdk12-bounds-asm-r1-evidence/000-uwvm2-authenticated-postfix-objects/receipts.json",
+      "sha256": "e2d2fab67919a5d494879e107265c889cc49bebbb4e00e63d92568ac4f585466",
+      "bytes": 64627
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-asm-r1/cgopt-mips64el-sdk12-bounds-asm-r1-evidence/001-uwvm2-ros-authenticated-postfix-objects/receipts.json",
+      "sha256": "6ec7401331601b134cedfd3459a9923b3aeaa15784c04587472b502a91099003",
+      "bytes": 34962
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-test-r1/cgopt-mips64el-sdk12-bounds-t2-test-r1-evidence/000-uwvm2-actual-T2-numeric/receipts.json",
+      "sha256": "ca07c1a1c195f40598fda87c049eca50ad6dd5739860d9b2bc8ed5ec14b24a9e",
+      "bytes": 41763
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-test-r1/cgopt-mips64el-sdk12-bounds-t2-test-r1-evidence/001-uwvm2-actual-T2-memory64-high/receipts.json",
+      "sha256": "6786533a1a8b2402bd2dd71c354ad4a808c78b8566ca9a1251878a85dbca0896",
+      "bytes": 42967
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-cache-r1/cgopt-mips64el-sdk12-bounds-t2-cache-r1-evidence/000-uwvm2-authenticated-T2-numeric/receipts.json",
+      "sha256": "cc7da05d9f247bed9f8cd5a5ebbc2e621043415313c06d7c4dbc88fbf7e26596",
+      "bytes": 221759
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-cache-r1/cgopt-mips64el-sdk12-bounds-t2-cache-r1-evidence/001-uwvm2-authenticated-T2-memory64-high/receipts.json",
+      "sha256": "2aa26b72d78cd19061c4fd1d56bc728b1a8dab4f937ede15985fc61649b66665",
+      "bytes": 229179
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-asm-r1/cgopt-mips64el-sdk12-bounds-t2-asm-r1-evidence/000-uwvm2-authenticated-T2-objects-numeric/receipts.json",
+      "sha256": "dfeed767ef0dc552376ba26dd5d9d349d6976da04af93f1cd899c5cdd65f81e4",
+      "bytes": 14038
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-t2-asm-r1/cgopt-mips64el-sdk12-bounds-t2-asm-r1-evidence/001-uwvm2-authenticated-T2-objects-memory64-high/receipts.json",
+      "sha256": "09e1ff36139946cb6c52ac31435d5a3f114a0c3ada58eefc1d5228548d509590",
+      "bytes": 13979
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-trap-cache-r1/cgopt-mips64el-sdk12-bounds-trap-cache-r1-evidence/000-uwvm2-signed-memory64-traps/receipts.json",
+      "sha256": "3d0d4c1663c8e912ec1a4436f2a93ef1366eb7ffe1a754e72a90aac41704b2a6",
+      "bytes": 2732781
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-sdk12-bounds-trap-cache-r1/cgopt-mips64el-sdk12-bounds-trap-cache-r1-evidence/001-uwvm2-ros-signed-memory64-traps/receipts.json",
+      "sha256": "011ca22456ec6f2f5e8fd1703a562affdd87e122d2b172705981d84b38eba4b3",
+      "bytes": 1354625
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/cgopt-mips64el-r13-simd-unary-r1-evidence/000-simd-unary-parse-validate/receipts.json",
+      "sha256": "7e3d770c265dc71c55396aacca4cb9ece86c8346a3a83df1206db05150f45fc1",
+      "bytes": 8894
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/cgopt-mips64el-r13-simd-unary-r1-evidence/001-uwvm2-simd-unary-special-bits/receipts.json",
+      "sha256": "e52b9552974cbf9aad6abce6c8fa600640a22e2cf864f779f41ff4abafc08840",
+      "bytes": 414166
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-simd-unary-r1/cgopt-mips64el-r13-simd-unary-r1-evidence/002-uwvm2-ros-simd-unary-special-bits/receipts.json",
+      "sha256": "32b8471890d95817874b575aebf4b6be7440592f270b5dcb2c119d944ee3f506",
+      "bytes": 187440
+    }
+  ],
+  "remaining_qualification": [
+    "All twelve exact interpreter build variants; running 24-product matrix has no whole-matrix credit until its actual runs complete.",
+    "Ten new SIMD float unary witnesses across all twelve exact interpreter macro products; active base matrix predates these fixtures.",
+    "Other MIPS revisions/endianness/O32/N32/PIC/varargs/byval.",
+    "Remaining LLVM-supported Linux ISA/ABI profiles.",
+    "Complete Wasm Core3 and requested thread concurrency/coverage.",
+    "Physical hardware throughput and complete current live working tree."
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "passed": true,
+  "source_manifest_sha256": "b22ea661b18400b72dd73a7c4a80f717a56449fd3575f95b8830641edd3dd15d",
+  "ros_repaired_source_manifest_sha256": "15fa0a34d3bf1c27e6744969a79e2e04f69846882ab1137a4114f2f6f789ecde",
+  "paths": {
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h": {
+      "qualified_sha256": "6ca5f83bdf27d182be9d728f37c4b1495ab8794e4a81046622160b888184d010",
+      "current_sha256": "6ca5f83bdf27d182be9d728f37c4b1495ab8794e4a81046622160b888184d010",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h": {
+      "qualified_sha256": "81b2448bb1c472f8ec98302e5cdbca6cc9718eeb0f8396ba46ef6f99e1502e6e",
+      "current_sha256": "81b2448bb1c472f8ec98302e5cdbca6cc9718eeb0f8396ba46ef6f99e1502e6e",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h": {
+      "qualified_sha256": "75baf4bd4fb3ec635972c858e18fa1cffd8542ed0283f7ece15517507ef9e985",
+      "current_sha256": "75baf4bd4fb3ec635972c858e18fa1cffd8542ed0283f7ece15517507ef9e985",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h": {
+      "qualified_sha256": "e168c84a1108897cad00d12cc7a7b8efc573acdb10cd8d9f542ff11b841f13df",
+      "current_sha256": "e168c84a1108897cad00d12cc7a7b8efc573acdb10cd8d9f542ff11b841f13df",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "qualified_sha256": "eb1119b43dfabefe3484b8be8901809709bedf07a1cb83fed9416c66f09cf1f2",
+      "current_sha256": "eb1119b43dfabefe3484b8be8901809709bedf07a1cb83fed9416c66f09cf1f2",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp": {
+      "qualified_sha256": "c3ad32edb37c3bae1cc8eb26dd844dd5e05113864e6164c34e052d96dcae7d9d",
+      "current_sha256": "c3ad32edb37c3bae1cc8eb26dd844dd5e05113864e6164c34e052d96dcae7d9d",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_debug_host_bridge.h": {
+      "qualified_sha256": "38b80bc771bcd0d0400f7f5ef5d8a66b54b013a86e720c02410294d7f167bfcb",
+      "current_sha256": "38b80bc771bcd0d0400f7f5ef5d8a66b54b013a86e720c02410294d7f167bfcb",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h": {
+      "qualified_sha256": "85c2d32d467d9b568237503eab54d4bc17a9153805e47f83ea888caad16b4c07",
+      "current_sha256": "85c2d32d467d9b568237503eab54d4bc17a9153805e47f83ea888caad16b4c07",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc": {
+      "qualified_sha256": "6de02505b5f61b4557b94d44aee9a5f438b221865b315bcd02b34c4b1c0d119d",
+      "current_sha256": "6de02505b5f61b4557b94d44aee9a5f438b221865b315bcd02b34c4b1c0d119d",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/test/0017.runtime/debug_wasip1_environment_group_runtime.cc": {
+      "qualified_sha256": "2c2b9321a2c930e80e6efe5a925aed84aa2a42c2f063a1bfdeae4e9968b0d62a",
+      "current_sha256": "2c2b9321a2c930e80e6efe5a925aed84aa2a42c2f063a1bfdeae4e9968b0d62a",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/test/0017.runtime/debug_checkpoint_observation_foreign_runtime.cc": {
+      "qualified_sha256": "269fe72502eb6de3623f691338bab51a6b511e312749fe56f81e840b8066173e",
+      "current_sha256": "269fe72502eb6de3623f691338bab51a6b511e312749fe56f81e840b8066173e",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/test/0017.runtime/debug_checkpoint_host_effects_runtime.cc": {
+      "qualified_sha256": "5afb285c47bf3a2c2605a66333c78478ad056502b13cc4d90859e5bfb9bc0e04",
+      "current_sha256": "5afb285c47bf3a2c2605a66333c78478ad056502b13cc4d90859e5bfb9bc0e04",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/test/0017.runtime/fixtures/debug_wasip1_worker_environment_main.wat": {
+      "qualified_sha256": "b131d38fe4c54731d597434d03cce7fd7e3b216fca5d8d74990ba893480882f0",
+      "current_sha256": "b131d38fe4c54731d597434d03cce7fd7e3b216fca5d8d74990ba893480882f0",
+      "matches_qualified_cut": true
+    },
+    "uwvm2/test/0017.runtime/fixtures/debug_wasip1_worker_environment_provider.wat": {
+      "qualified_sha256": "739ca3ab032fc4442d5b3776ef503de08bb9d9c87c7e6866a524d042e88c4ca5",
+      "current_sha256": "739ca3ab032fc4442d5b3776ef503de08bb9d9c87c7e6866a524d042e88c4ca5",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_worker_wasip1.h": {
+      "qualified_sha256": "6ca5f83bdf27d182be9d728f37c4b1495ab8794e4a81046622160b888184d010",
+      "current_sha256": "6ca5f83bdf27d182be9d728f37c4b1495ab8794e4a81046622160b888184d010",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_root_workers.h": {
+      "qualified_sha256": "81b2448bb1c472f8ec98302e5cdbca6cc9718eeb0f8396ba46ef6f99e1502e6e",
+      "current_sha256": "81b2448bb1c472f8ec98302e5cdbca6cc9718eeb0f8396ba46ef6f99e1502e6e",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_observation_calls.h": {
+      "qualified_sha256": "7dee15276c8b7db51d5acbb3a1b0cf12d5c3eb78a91ec87a155edc62260e3fa1",
+      "current_sha256": "7dee15276c8b7db51d5acbb3a1b0cf12d5c3eb78a91ec87a155edc62260e3fa1",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_generated_wasm_bridge.h": {
+      "qualified_sha256": "e168c84a1108897cad00d12cc7a7b8efc573acdb10cd8d9f542ff11b841f13df",
+      "current_sha256": "e168c84a1108897cad00d12cc7a7b8efc573acdb10cd8d9f542ff11b841f13df",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "qualified_sha256": "eb1119b43dfabefe3484b8be8901809709bedf07a1cb83fed9416c66f09cf1f2",
+      "current_sha256": "eb1119b43dfabefe3484b8be8901809709bedf07a1cb83fed9416c66f09cf1f2",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp": {
+      "qualified_sha256": "45b7a46efaf133ffccadd3062339d27bd5764111e392dc07af8648be9b487a96",
+      "current_sha256": "45b7a46efaf133ffccadd3062339d27bd5764111e392dc07af8648be9b487a96",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_debug_host_bridge.h": {
+      "qualified_sha256": "38b80bc771bcd0d0400f7f5ef5d8a66b54b013a86e720c02410294d7f167bfcb",
+      "current_sha256": "38b80bc771bcd0d0400f7f5ef5d8a66b54b013a86e720c02410294d7f167bfcb",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h": {
+      "qualified_sha256": "b7108c609ed5bbac5e9691c24704aad9310dc19ca24dc2768b14fe5403c28a8e",
+      "current_sha256": "b7108c609ed5bbac5e9691c24704aad9310dc19ca24dc2768b14fe5403c28a8e",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc": {
+      "qualified_sha256": "6de02505b5f61b4557b94d44aee9a5f438b221865b315bcd02b34c4b1c0d119d",
+      "current_sha256": "6de02505b5f61b4557b94d44aee9a5f438b221865b315bcd02b34c4b1c0d119d",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_environment_group_runtime.cc": {
+      "qualified_sha256": "2c2b9321a2c930e80e6efe5a925aed84aa2a42c2f063a1bfdeae4e9968b0d62a",
+      "current_sha256": "2c2b9321a2c930e80e6efe5a925aed84aa2a42c2f063a1bfdeae4e9968b0d62a",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_observation_foreign_runtime.cc": {
+      "qualified_sha256": "269fe72502eb6de3623f691338bab51a6b511e312749fe56f81e840b8066173e",
+      "current_sha256": "269fe72502eb6de3623f691338bab51a6b511e312749fe56f81e840b8066173e",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_host_effects_runtime.cc": {
+      "qualified_sha256": "5afb285c47bf3a2c2605a66333c78478ad056502b13cc4d90859e5bfb9bc0e04",
+      "current_sha256": "5afb285c47bf3a2c2605a66333c78478ad056502b13cc4d90859e5bfb9bc0e04",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/test/0017.runtime/fixtures/debug_wasip1_worker_environment_main.wat": {
+      "qualified_sha256": "b131d38fe4c54731d597434d03cce7fd7e3b216fca5d8d74990ba893480882f0",
+      "current_sha256": "b131d38fe4c54731d597434d03cce7fd7e3b216fca5d8d74990ba893480882f0",
+      "matches_qualified_cut": true
+    },
+    "uwvm2-ros/test/0017.runtime/fixtures/debug_wasip1_worker_environment_provider.wat": {
+      "qualified_sha256": "739ca3ab032fc4442d5b3776ef503de08bb9d9c87c7e6866a524d042e88c4ca5",
+      "current_sha256": "739ca3ab032fc4442d5b3776ef503de08bb9d9c87c7e6866a524d042e88c4ca5",
+      "matches_qualified_cut": true
+    }
+  },
+  "source_cut_only": true,
+  "peer_changes_preserved": true
+}

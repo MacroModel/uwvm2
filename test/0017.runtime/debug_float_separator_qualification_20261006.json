@@ -1,0 +1,469 @@
+{
+  "passed": true,
+  "scope": "Owned decimal float literal/scalar/type/DAP DATA. Current-frame authority, live language producers, full CLI/module-build/native-debugger parity and other architecture acceptance are not qualified.",
+  "source_cuts": {
+    "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a1/uwvm2": {
+      "source_id": "sha256:1f73d445893dd93e628ff51a6c67231d5fd93a9fe0c2dcefb8ebbb1ad9161786",
+      "pinned_files": 3166,
+      "manifest_sha256": "759fac209dfc3f238ba3bde966d13224faa2b8a22cdafe1b8b83281bb6fc421e"
+    },
+    "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a1/uwvm2-ros": {
+      "source_id": "sha256:5b0e2b2e823c60652c69dfaec43b2c4f74ce26112ee005d1adb7af5ce69a4a06",
+      "pinned_files": 3105,
+      "manifest_sha256": "084860aab2bfb99c3024a96e951d1ff30b1eee71d9b1202b12fa2b9a20f10df5"
+    },
+    "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a2/uwvm2": {
+      "source_id": "sha256:1f73d445893dd93e628ff51a6c67231d5fd93a9fe0c2dcefb8ebbb1ad9161786",
+      "pinned_files": 3166,
+      "manifest_sha256": "775e7a0f955b4dc0616f06cd210d738e266d2e8f1fd101a3d97b60c6b9759d8c"
+    },
+    "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a2/uwvm2-ros": {
+      "source_id": "sha256:5b0e2b2e823c60652c69dfaec43b2c4f74ce26112ee005d1adb7af5ce69a4a06",
+      "pinned_files": 3105,
+      "manifest_sha256": "91484e539c36776d723699395f96a4366568b5b0e6d678a2cc6fee8a1e086594"
+    },
+    "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a3/uwvm2": {
+      "source_id": "sha256:1f73d445893dd93e628ff51a6c67231d5fd93a9fe0c2dcefb8ebbb1ad9161786",
+      "pinned_files": 3166,
+      "manifest_sha256": "333e96f0ae1683590a537b013f747e8c91cc5951b6ad6bccd8499f072c3be0ab"
+    },
+    "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a3/uwvm2-ros": {
+      "source_id": "sha256:5b0e2b2e823c60652c69dfaec43b2c4f74ce26112ee005d1adb7af5ce69a4a06",
+      "pinned_files": 3105,
+      "manifest_sha256": "7f868a5c1f0cbbd963ab02dc49dfb7c552f3b611e11de7d23df324e2e5498f0c"
+    }
+  },
+  "rows": [
+    {
+      "repository": "uwvm2",
+      "profile": "x86_64-native",
+      "passed": true,
+      "phase_rows": 29,
+      "float_separator_checks": 657984,
+      "dap_positive": 221,
+      "dap_negative": 132,
+      "old_header_refusals": 4,
+      "old_dap_refusals": 19,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a2/out-uwvm2/float-separator-native-a2/results.json",
+      "results_sha256": "3d68115b2553d43049b78cce3387cd2990384588ef54037e7e70b388abfa226f"
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64",
+      "passed": true,
+      "component_rows": 7,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a3/out-uwvm2/float-separator-cross-a3-ppc64/results.json",
+      "results_sha256": "5ebc8a4ec200d22569e07cc5400088694b7e79c29735c3b89506415b03dbbc25",
+      "all_outputs_equal_same_repo_native_reference": true
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "x86_64",
+      "passed": true,
+      "component_rows": 7,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a3/out-uwvm2/float-separator-cross-a3-x86_64/results.json",
+      "results_sha256": "82f16bed122d33c41968a99e0190e819fc3b6f18a98c330a5cc62fcfdb7d4e13",
+      "all_outputs_equal_same_repo_native_reference": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "x86_64-native",
+      "passed": true,
+      "phase_rows": 29,
+      "float_separator_checks": 657984,
+      "dap_positive": 221,
+      "dap_negative": 132,
+      "old_header_refusals": 4,
+      "old_dap_refusals": 19,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a2/out-uwvm2-ros/float-separator-native-a2/results.json",
+      "results_sha256": "f6b0cd07515b9fce162e5bf0c54c83516d64a2fb2de9c585312c9a55f292a4b8"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64",
+      "passed": true,
+      "component_rows": 7,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a3/out-uwvm2-ros/float-separator-cross-a3-ppc64/results.json",
+      "results_sha256": "178a278adc9df44967887ffce523858d5c9ca8ddc93d59d628dd2d1264a09537",
+      "all_outputs_equal_same_repo_native_reference": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "x86_64",
+      "passed": true,
+      "component_rows": 7,
+      "results": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a3/out-uwvm2-ros/float-separator-cross-a3-x86_64/results.json",
+      "results_sha256": "2241c4b2aa2a8a7a5c4ae267c2c435bbaa935197635cc2fcdde65094faf6ab95",
+      "all_outputs_equal_same_repo_native_reference": true
+    }
+  ],
+  "counts": {
+    "passed_jobs": 6,
+    "native_phase_rows": 58,
+    "qemu_component_rows": 28,
+    "all_phase_rows_including_expected_refusals": 128,
+    "separator_checks_across_six_primary_executions": 3947904,
+    "old_header_expected_refusals": 8,
+    "old_dap_expected_refusals": 38,
+    "dap_corpus_positive": 221,
+    "dap_corpus_negative": 132,
+    "new_dap_positive": 19,
+    "new_dap_negative": 72,
+    "input_hash_verifications": 73493
+  },
+  "guards": [
+    {
+      "label": "uwvm2-float-separator-native-a3",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 721145856,
+      "wall_seconds": 165.8530417359998,
+      "maximum_observed_own_output_bytes": 17545056,
+      "minimum_observed_actual_free_bytes": 16151560192,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "cf3dd2d9170b6e1076b49170cebd6c3bf928943acb94b3f223063643c6c76232",
+      "Popen_root_pidfd_retirement": {
+        "pid": 121973,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-float-separator-native-a3",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 719712256,
+      "wall_seconds": 166.85075865999988,
+      "maximum_observed_own_output_bytes": 29793930,
+      "minimum_observed_actual_free_bytes": 16138194944,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "cf3dd2d9170b6e1076b49170cebd6c3bf928943acb94b3f223063643c6c76232",
+      "Popen_root_pidfd_retirement": {
+        "pid": 126565,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ppc64-float-separator-cross-a4",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 769224704,
+      "wall_seconds": 100.12416231099996,
+      "maximum_observed_own_output_bytes": 4700027,
+      "minimum_observed_actual_free_bytes": 16127504384,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "b9344d98c2649ac72242e04aae07104826f2971abde2347e1318dc2ee0b8bd9d",
+      "Popen_root_pidfd_retirement": {
+        "pid": 137580,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-ppc64-float-separator-cross-a4",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 769966080,
+      "wall_seconds": 98.9128814300002,
+      "maximum_observed_own_output_bytes": 9426400,
+      "minimum_observed_actual_free_bytes": 16122621952,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "b9344d98c2649ac72242e04aae07104826f2971abde2347e1318dc2ee0b8bd9d",
+      "Popen_root_pidfd_retirement": {
+        "pid": 140678,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-x86-64-float-separator-cross-a4",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 772268032,
+      "wall_seconds": 96.55261870399954,
+      "maximum_observed_own_output_bytes": 12955602,
+      "minimum_observed_actual_free_bytes": 16118673408,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "b9344d98c2649ac72242e04aae07104826f2971abde2347e1318dc2ee0b8bd9d",
+      "Popen_root_pidfd_retirement": {
+        "pid": 145022,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-x86-64-float-separator-cross-a4",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "aggregate_owned_rss_peak_bytes": 772313088,
+      "wall_seconds": 96.75855603800028,
+      "maximum_observed_own_output_bytes": 16511265,
+      "minimum_observed_actual_free_bytes": 16114020352,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "b9344d98c2649ac72242e04aae07104826f2971abde2347e1318dc2ee0b8bd9d",
+      "Popen_root_pidfd_retirement": {
+        "pid": 147920,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    }
+  ],
+  "retained_failed_guard_attempts": [
+    {
+      "label": "uwvm2-float-separator-native-a1",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "aggregate_owned_rss_peak_bytes": 501215232,
+      "wall_seconds": 9.193878493000739,
+      "maximum_observed_own_output_bytes": 2844847,
+      "minimum_observed_actual_free_bytes": 16175824896,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "da73f6c1d42fabbb30d5f662380a7486a92b828c353336ee3a1bdeefee947338",
+      "Popen_root_pidfd_retirement": {
+        "pid": 119612,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 1
+      }
+    },
+    {
+      "label": "uwvm2-float-separator-native-a2",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "aggregate_owned_rss_peak_bytes": 604200960,
+      "wall_seconds": 53.849238732999765,
+      "maximum_observed_own_output_bytes": 5342982,
+      "minimum_observed_actual_free_bytes": 16164233216,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "c5759b910975b1e50b763f8459cb3e0aa659a909204f13aef2ce8daa9d056517",
+      "Popen_root_pidfd_retirement": {
+        "pid": 121128,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 1
+      }
+    },
+    {
+      "label": "uwvm2-ppc64-float-separator-cross-a3",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "aggregate_owned_rss_peak_bytes": 34508800,
+      "wall_seconds": 0.5936544520000098,
+      "maximum_observed_own_output_bytes": 29793930,
+      "minimum_observed_actual_free_bytes": 16137953280,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "supervisor_sha256": "cf3dd2d9170b6e1076b49170cebd6c3bf928943acb94b3f223063643c6c76232",
+      "Popen_root_pidfd_retirement": {
+        "pid": 132716,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 1
+      }
+    }
+  ],
+  "resources": {
+    "memory_max_bytes": 68719476736,
+    "swap_max_bytes": 0,
+    "owned_rss_budget_bytes": 1073741824,
+    "output_budget_bytes": 67108864,
+    "file_budget_bytes": 8388608,
+    "log_budget_bytes": 1048576,
+    "filesystem_reserve_bytes": 1073741824,
+    "inode_reserve": 4096,
+    "host_reserve_bytes": 26843545600,
+    "DATA_admission_headroom_bytes": 6442450944,
+    "full_product_admission_headroom_bytes": 9663676416,
+    "peak_owned_rss_bytes": 772313088,
+    "maximum_observed_own_output_bytes": 29793930,
+    "guard_wall_seconds": 725.0520188789997,
+    "hard_image_bytes": 17179869184,
+    "allocated_image_bytes": 798650368,
+    "actual_filesystem_free_bytes": 16113950720,
+    "fsid": "12191019222208619510"
+  },
+  "implementation_hashes": {
+    "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "c512c7602fbc58275e837c83eb9c81cc2f335f9532c80aa7d2a5026207e46ecb",
+    "tools/debug/dap_adapter.py": "0e32e3410530bbcb77d0505c72e30701f1abefe411cc7ef967ade5a732eb69ca",
+    "test/0017.runtime/debug_source_float_separator.cc": "2269f27eefe72baa36a32c4bf98ba150e147c0f7f04726013b994bea2de5e1f0",
+    "test/0017.runtime/run_debug_linux_qemu_components.py": "e519acc2465149f29ea7fee1dd2c48ef3e7b8a6ef070bc2d148a8cbba9252e76",
+    "test/0018.debugger/dap_source_expression_cases.json": "9b1c7e3bf75c1487c2ccfe1322ca678f0c315e1a7f2c49ff126001ce4c49b7d3"
+  },
+  "prior_source_hashes": {
+    "scalar": "fdce64b36041d88e109591eb7680f05c321b8c9e9089658a12b2fdc2b4768c5e",
+    "dap": "6ae024e286c7066446d2e9a5338db5076e815e6063fa9322a0a006de7680319d"
+  },
+  "IO": "Owned buffers and fast_io::string/concat_fast_io/parse_by_scan; no new stream/filesystem/guest-access interface",
+  "input_hashes_after_unchanged": true,
+  "references": [
+    {
+      "title": "C++ working draft floating-point literals",
+      "url": "https://eel.is/c++draft/lex.fcon"
+    },
+    {
+      "title": "Go specification floating-point literals",
+      "url": "https://go.dev/ref/spec#Floating-point_literals"
+    }
+  ],
+  "archive": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/float-separator-a3/float-separator-evidence-a1.tar.xz",
+    "bytes": 44957744,
+    "sha256": "18dea54e9f0a6701ef8561a7f4df248f63ed587988531fd0cb8d8c031e026abc",
+    "regular_members": 19453,
+    "verified_linux_member_hashes": true,
+    "input_files_after_unchanged": true,
+    "wall_seconds": 20.77275189899956,
+    "quota_bytes": 17179869184,
+    "filesystem_free_bytes": 16068972544
+  },
+  "local_copy": {
+    "passed": true,
+    "local_archive": "/Users/liyinan/.codex/artifacts/uwvm2-float-separator-evidence-20261006-a1/float-separator-evidence-a1.tar.xz",
+    "sha256": "18dea54e9f0a6701ef8561a7f4df248f63ed587988531fd0cb8d8c031e026abc",
+    "bytes": 44957744,
+    "regular_members": 19453,
+    "all_member_hashes_verified": true
+  }
+}

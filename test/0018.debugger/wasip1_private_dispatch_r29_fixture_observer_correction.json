@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "old_manifest_sha256": "cb46d7e0f26793ea778558149d8b80fdda50b9786694f383aa15e8bc6c56a149",
+  "new_manifest_sha256": "194ff28bd7ea121fa338698e9cff6ba427c52fb7522e2fca9ae066ff1433b9be",
+  "new_archive_sha256": "c994dd6c8d89318e9b2578353cb2981bb634ca325bdc2cc07533bbe2501db6db",
+  "changes": {
+    "uwvm2/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc": {
+      "before": "df587b384a4921f35a5dbb3f1a0e14b8465c62a1e9d0b0ce3478b2da82577eee",
+      "after": "ea473f1f8de9ecc758360d9a87f0c58b10ccc26701b50a1c7835b5e24738ddb2"
+    },
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_checkpoint_runtime.cc": {
+      "before": "df587b384a4921f35a5dbb3f1a0e14b8465c62a1e9d0b0ce3478b2da82577eee",
+      "after": "ea473f1f8de9ecc758360d9a87f0c58b10ccc26701b50a1c7835b5e24738ddb2"
+    }
+  },
+  "unrelated_concurrent_workspace_changes_not_imported": true
+}

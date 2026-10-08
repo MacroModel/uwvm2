@@ -1,0 +1,1568 @@
+{
+  "scope": "Paired exact full Linux Lua platform callbacks and four actual pre-fix controls; not whole xmake product, compiler link, public BE continuation or Wasm runtime",
+  "source_projection": {
+    "uwvm2": "e0f4f6b0ac01ea22b0a6539f9a46eb40e14578c283f417fef4e286d7ec8f02ca",
+    "uwvm2-ros": "e0f4f6b0ac01ea22b0a6539f9a46eb40e14578c283f417fef4e286d7ec8f02ca"
+  },
+  "source_before_sha256": "c0d2652fb942ffc8ece4e2071f0120f0657ff1abb5a49e12cfc872b85c595953",
+  "cases": [
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mipsel",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "mips64el",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "x86_64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "aarch64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "aarch64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "aarch64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "aarch64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "aarch64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "aarch64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "aarch64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "aarch64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "aarch64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "aarch64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "aarch64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "aarch64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "riscv64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "arch": "ppc64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mipsel",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "mips64el",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "x86_64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "aarch64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "aarch64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "aarch64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "aarch64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "aarch64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "aarch64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "aarch64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "aarch64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "aarch64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "aarch64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "aarch64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "aarch64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "riscv64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "llvm": false,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "llvm": false,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "llvm": true,
+      "native_debug": false,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "release",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "releasedbg",
+      "actual_Lua_platform_callbacks_passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "arch": "ppc64",
+      "llvm": true,
+      "native_debug": true,
+      "mode": "minsizerel",
+      "actual_Lua_platform_callbacks_passed": true
+    }
+  ],
+  "actual_callback_cases": 192,
+  "actual_old_source_alias_negative_controls": 4,
+  "Lua_library_sha256": "369a4e42cf61e4bea7ac784ffc4ff5ca731f81a11f3fb5cc88943e8c1a2c7441",
+  "actual_Wasm_VM_sessions": 0,
+  "schema": "uwvm-paired-linux-MIPS-alias-independent-v1",
+  "passed": true,
+  "source_qualified_only_if_projection_matches": true,
+  "producer": "/dev/shm/uwvm-asm-6313e263-current636/build-meta",
+  "producer_qualification_sha256": "fea6e04189758d0dfa35ef4a67795b310bd4bb1a9c5adff259de82bddd6b1cc4",
+  "producer_receipt_sha256": "e55b937b3f621ba0e748fb767c228e7d7cc71da8d763ae0c81963bf903d804fc",
+  "producer_driver_sha256": "3d52afa095c8c2a0fc1bf9f09f25c8d7ef77c12130ebb818b65ec6998a505494",
+  "producer_source_manifest_sha256": "855523dcdc79f2f9e54db87100374e722b178c180029432915ab260913f21fb9",
+  "source_bindings": {
+    "/dev/shm/uwvm-asm-6313e263-current636/build-meta/work/uwvm2-linux.lua": "e0f4f6b0ac01ea22b0a6539f9a46eb40e14578c283f417fef4e286d7ec8f02ca",
+    "/dev/shm/uwvm-asm-6313e263-current636/build-meta/work/uwvm2-ros-linux.lua": "e0f4f6b0ac01ea22b0a6539f9a46eb40e14578c283f417fef4e286d7ec8f02ca"
+  },
+  "producer_owned_PIDFD_handles_retired": 1,
+  "producer_oom_delta": 0,
+  "independent_audit_stage": "/dev/shm/uwvm-asm-6313e263-current639/build-meta",
+  "new_public_native_memory_or_VM_permission": false,
+  "actual_whole_xmake_product_builds": 0,
+  "actual_target_compiles_or_QEMU_sessions": 0
+}

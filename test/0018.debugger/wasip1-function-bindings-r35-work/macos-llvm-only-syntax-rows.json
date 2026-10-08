@@ -1,0 +1,26 @@
+[
+  {
+    "label": "llvm-only-v2-syntax-nofork-probe",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-c",
+      "import os; os.fork()"
+    ],
+    "exit": 1,
+    "log_sha256": "06f08929938554e862d37fc43cbf78ef4692f32f849c69b49b9260d8ea6d8ef5",
+    "aggregate_peak_upper_bytes": 177700864,
+    "limit_bytes": 2147483648,
+    "controller_reserve_bytes": 134217728,
+    "owned_ramdisk_capacity_bytes": 0,
+    "pid_reaped": true,
+    "identity": {
+      "pid": 95518,
+      "seconds": 1791423304,
+      "microseconds": 207228,
+      "uid": 501,
+      "pgid": 95518
+    },
+    "seconds": 0.031875832995865494,
+    "validation_kind": "compiler frontend syntax only; no native fixture execution claimed"
+  }
+]

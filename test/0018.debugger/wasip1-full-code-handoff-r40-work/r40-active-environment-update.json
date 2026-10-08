@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "appended_key": "r40_checkpoint_full_code_handoff",
+  "original_fields_preserved": 46,
+  "before_sha256": "d93b7b534790023ce8fbe784f5e1c0a58af45cacff190609e8fe567d7e8f2442",
+  "after_sha256": "622a4410f9eeb610fb17f06896fad19b2241344915a94fe3a82bfc0000b73893",
+  "evidence_archive_sha256": "8ca0e86929842e688dc104b1e60f79470e5201ece7225d0e8d129ff6e07eb974",
+  "original_storage_policy_unchanged": true
+}

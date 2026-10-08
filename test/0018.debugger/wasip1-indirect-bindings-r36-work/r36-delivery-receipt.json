@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "all_evidence_payloads_read_back": true,
+  "payloads_verified": 62,
+  "source_manifest_sha256": "2579e98c54ca9e9b5d4e3822d0421ad0b8b34ab03415a4c9127dfa65ee224d2b",
+  "source_inputs_verified": 20,
+  "evidence_archive_sha256": "7ea5a056565c76f4004fb8279b9bfb40889523cffcc40c86b57eb11ae4d445cb",
+  "compiler_frontend_checks": 12,
+  "wasm_data_fixture_checks": 8,
+  "registered_processes_physically_retired": 14,
+  "owned_peak_aggregate_rss_upper_bytes": 4567965696,
+  "r36_delivery_allocated_bytes": 4485120,
+  "new_file_ceiling_bytes": 16777216,
+  "actual_native_runtime_runs": 0,
+  "old_qualified_native_environment_fields_preserved": true,
+  "active_environment_before_sha256": "f025a93db0705d6b02a2ce47a44de04605da04f0e29901351117e7c52d0fa9a9",
+  "active_environment_after_sha256": "a941bb19fd89b2865905f082e01f2fb8a9477dd59e0810b8bd9084709f889f48",
+  "timestamp_ns": 1791427458506817382
+}

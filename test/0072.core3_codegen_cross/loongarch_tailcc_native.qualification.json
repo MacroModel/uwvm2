@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "captured_at_utc": "2026-10-07T22:21:38.502125+00:00",
+  "architecture": "loongarch64",
+  "native_tailcc_runs": 135,
+  "typed_eh_and_return_runs": 81,
+  "reported_function_extents": 594,
+  "reports": [
+    {
+      "kind": "native-run-r1",
+      "feature": "scalar",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-tailcc-provider-r5/native-run-r1/scalar/qualification.json",
+      "sha256": "cccf9df7c3c1ed1263d8573bb24c6a0b4ffc0e0c19946fe63d59ff3b33f726d9",
+      "completed": 45,
+      "product_sha256": "d3b1a0940d3372ba3b995c73d17a3dc72d63e82995b0d8e84a73969d2bfef708",
+      "function_extents": 90,
+      "scope": "Native LoongArch TailCC ABI through actual MCJIT: guaranteed no-link edges, parameter/result checks and bounded stack; no Wasm emitter, signed cache, public debugger or hardware-speed qualification"
+    },
+    {
+      "kind": "native-run-r1",
+      "feature": "lsx",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-tailcc-provider-r5/native-run-r1/lsx/qualification.json",
+      "sha256": "af97ddae4b71bd97b68e4381a55f39fa67c036c618dffeed046d278dc96e5ea0",
+      "completed": 45,
+      "product_sha256": "d3b1a0940d3372ba3b995c73d17a3dc72d63e82995b0d8e84a73969d2bfef708",
+      "function_extents": 90,
+      "scope": "Native LoongArch TailCC ABI through actual MCJIT: guaranteed no-link edges, parameter/result checks and bounded stack; no Wasm emitter, signed cache, public debugger or hardware-speed qualification"
+    },
+    {
+      "kind": "native-run-r1",
+      "feature": "lasx",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-tailcc-provider-r5/native-run-r1/lasx/qualification.json",
+      "sha256": "2b8c2a8103119d2470cd960c103d396401252b67021dd9f6e6248d8820f84761",
+      "completed": 45,
+      "product_sha256": "d3b1a0940d3372ba3b995c73d17a3dc72d63e82995b0d8e84a73969d2bfef708",
+      "function_extents": 90,
+      "scope": "Native LoongArch TailCC ABI through actual MCJIT: guaranteed no-link edges, parameter/result checks and bounded stack; no Wasm emitter, signed cache, public debugger or hardware-speed qualification"
+    },
+    {
+      "kind": "native-eh-r1",
+      "feature": "scalar",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-tailcc-provider-r5/native-eh-r1/scalar/qualification.json",
+      "sha256": "1901c9cd0e1d7dc2bd9a38f2e88f823cfc157b067459819d43ac13ba89eebe65",
+      "completed": 27,
+      "product_sha256": "d3b1a0940d3372ba3b995c73d17a3dc72d63e82995b0d8e84a73969d2bfef708",
+      "function_extents": 108,
+      "scope": "Native LoongArch typed exception and ordinary TailCC callee-pop controls: actual registered CFI, typed catch, caller canaries, call after catch and restored SP. Wasm emitter/cache/debugger/hardware speed remain separate."
+    },
+    {
+      "kind": "native-eh-r1",
+      "feature": "lsx",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-tailcc-provider-r5/native-eh-r1/lsx/qualification.json",
+      "sha256": "e888b0ede604d4681622f58c8eae40f2d20851d745ea49bca949b82fe7bc96ba",
+      "completed": 27,
+      "product_sha256": "d3b1a0940d3372ba3b995c73d17a3dc72d63e82995b0d8e84a73969d2bfef708",
+      "function_extents": 108,
+      "scope": "Native LoongArch typed exception and ordinary TailCC callee-pop controls: actual registered CFI, typed catch, caller canaries, call after catch and restored SP. Wasm emitter/cache/debugger/hardware speed remain separate."
+    },
+    {
+      "kind": "native-eh-r1",
+      "feature": "lasx",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-tailcc-provider-r5/native-eh-r1/lasx/qualification.json",
+      "sha256": "64518a07ba9733d27cc6788cc784e7ecf0a0d0660e242160ad6783f71016aabb",
+      "completed": 27,
+      "product_sha256": "d3b1a0940d3372ba3b995c73d17a3dc72d63e82995b0d8e84a73969d2bfef708",
+      "function_extents": 108,
+      "scope": "Native LoongArch typed exception and ordinary TailCC callee-pop controls: actual registered CFI, typed catch, caller canaries, call after catch and restored SP. Wasm emitter/cache/debugger/hardware speed remain separate."
+    }
+  ],
+  "backend_source_sha256": {
+    "LoongArchMachineFunctionInfo.h": "baa38ba4fd719fd28fbf1ec66602f68bde55715e1288d8742f6539bb7e360667",
+    "LoongArchISelLowering.cpp": "43f1e84dd35ce7cce254516bb29858470c7b090f559fc3ce63039f66a14ca2f1",
+    "LoongArchInstrInfo.td": "d2c9008f9e4059bc7fb8d4f7d40cbd455e71521d8f2341ff88fa6fc7a189f165",
+    "LoongArchFrameLowering.cpp": "e0609d1f65376537f9b90fe7464131157e061337cc9f6f8b2e2abbcf471644a6",
+    "LoongArchExpandPseudoInsts.cpp": "e1bf987eac5b9f8028871446a7f7e5177fff5f0ea267116a7d721c4049914202"
+  },
+  "all_five_archive_sha256": {
+    "libLLVMLoongArchCodeGen.a": "7437c106694e38b578d4a274c2ac8bcf07734158a9ac2d094b1331a1f8603b31",
+    "libLLVMLoongArchDesc.a": "36358cd6fc68d01c9f40230b3103926b65fe29b05d6d6f6b35a30b8d3a148b10",
+    "libLLVMLoongArchInfo.a": "da0c8ab4a008a57ee7ad82bce1aee94e9b5c3ca1705fe06e5a2c50f79306f572",
+    "libLLVMLoongArchAsmParser.a": "b2e75718471f37bac1bad35f7a3024cbc350b43d70d9edae6f4e4538d3be0645",
+    "libLLVMLoongArchDisassembler.a": "6fc25ba3cc644f1676b03e7ada59f9c7e7497bdbdea20a8d203b5edf17502287"
+  },
+  "test_sources": {
+    "generate_tailcc_eh_ir.py": "8e1ee37e62b9837ca9fc8c6bd28e1fe8bd38efd6481985c69f002b2d7e8beffc",
+    "generate_tailcc_ir.py": "275f15a0b7de4988a6fd87247e83851dbd641db67c1a757686c58cacdeedd913",
+    "tailcc_native.cc": "3e99c9351680c583a8550cc6f81b3ced3a8a4b51c53c70337dd9a48b277fb222"
+  },
+  "patch_sha256": "19a961622d7a4db412753f38039564a7ad707f639910bbaf2ad35b5c02b33999",
+  "scope": "Actual QEMU native backend component evidence only. No Wasm frontend/signed-cache/public-debugger/hardware-speed/LoongArch32 qualification.",
+  "cgroup": "64 GiB/swap-zero shared Linux cgroup with owned process retirement and no OOM events"
+}

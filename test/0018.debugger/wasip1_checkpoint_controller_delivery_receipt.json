@@ -1,0 +1,135 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-checkpoint-controller-20261006-r22/evidence.tar.gz",
+  "archive_bytes": 33841219,
+  "archive_sha256": "dadb6529eedcb7650f2fbebe1994758b5b94fb9e548fdbd3ce7a4050dbe3ed2c",
+  "payload_files": 12597,
+  "archive_payloads_read_back": true,
+  "report_sha256": "b0e4ec3c3615612555f6426b9bbce27ac4ee4407a90007eb7445538b5d202a8d",
+  "results_sha256": "97d1ab901b94d9cb309d378765ca58938fd88c532220a6f15f1f4328a0753365",
+  "checks": 19096,
+  "scope": "Exact product checkpoint controller branch with private-namespace API-result doubles and authentic product formatter compiled/executed natively on Linux, macOS, Windows and FreeBSD. Real DAP adapter with transport doubles. Full product controller header typechecked against actual LLVM runtime declarations on Linux. No full CLI/JIT link or live Wasm/WASIp1 restore; allocation failures are injected API results, not real OS OOM.",
+  "archive_streamed_without_local_duplicate": true,
+  "local_archive_payloads_read_back": true,
+  "local_payload_count": 12597,
+  "report_guard_sha256": "855eba2dafbd256cbfd57e069200014e7f19778c3a125215dde5e71e444efa92",
+  "report_guard_all_owned_pidfds_retired": true,
+  "source_hashes": {
+    "uwvm2/src/uwvm2/uwvm/debugger/controller.h": "e09192817a2b191cddbaca1931832a37280759f740c6448d81acbe530c948d1d",
+    "uwvm2/tools/debug/dap_adapter.py": "eb7eac7ab6b2aa2808f325ecd902fc8f75b4bc24ca72b2edef95fa6992d80bb7",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "e61b4aea01c2e2f6982d0ecc69f6157c98d7ae6d282a15d6d10f3807f78dd7b8",
+    "uwvm2/test/0013.debugger/wasip1_checkpoint_controller.cc": "d6672ccd3d6b911a5a714cd4291c7eeeba79847a7972c37e7be1a0c0ddf39ffb",
+    "uwvm2/test/0018.debugger/checkpoint_controller_fragment.py": "6604144b75aeaeb7a17bd133d62cdcb743b09bc2bc86bcd649ede7d0dd112afa",
+    "uwvm2/test/0018.debugger/test_dap_wasip1_checkpoint_controller.py": "6274e926fb7c3908e5226e0fb6c2b3fb3362aac813b92341635f63f7522bcd1e",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/controller.h": "e09192817a2b191cddbaca1931832a37280759f740c6448d81acbe530c948d1d",
+    "uwvm2-ros/tools/debug/dap_adapter.py": "eb7eac7ab6b2aa2808f325ecd902fc8f75b4bc24ca72b2edef95fa6992d80bb7",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "e61b4aea01c2e2f6982d0ecc69f6157c98d7ae6d282a15d6d10f3807f78dd7b8",
+    "uwvm2-ros/test/0013.debugger/wasip1_checkpoint_controller.cc": "d6672ccd3d6b911a5a714cd4291c7eeeba79847a7972c37e7be1a0c0ddf39ffb",
+    "uwvm2-ros/test/0018.debugger/checkpoint_controller_fragment.py": "6604144b75aeaeb7a17bd133d62cdcb743b09bc2bc86bcd649ede7d0dd112afa",
+    "uwvm2-ros/test/0018.debugger/test_dap_wasip1_checkpoint_controller.py": "6274e926fb7c3908e5226e0fb6c2b3fb3362aac813b92341635f63f7522bcd1e"
+  },
+  "initial_four_os_source_hashes": {
+    "uwvm2/src/uwvm2/uwvm/debugger/controller.h": "e09192817a2b191cddbaca1931832a37280759f740c6448d81acbe530c948d1d",
+    "uwvm2/tools/debug/dap_adapter.py": "ed2cbfd83c6466551cc3efe6afd62ab0ed97115f6497f7148fbadada264d5105",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "e61b4aea01c2e2f6982d0ecc69f6157c98d7ae6d282a15d6d10f3807f78dd7b8",
+    "uwvm2/test/0013.debugger/wasip1_checkpoint_controller.cc": "d6672ccd3d6b911a5a714cd4291c7eeeba79847a7972c37e7be1a0c0ddf39ffb",
+    "uwvm2/test/0018.debugger/checkpoint_controller_fragment.py": "6604144b75aeaeb7a17bd133d62cdcb743b09bc2bc86bcd649ede7d0dd112afa",
+    "uwvm2/test/0018.debugger/test_dap_wasip1_checkpoint_controller.py": "6274e926fb7c3908e5226e0fb6c2b3fb3362aac813b92341635f63f7522bcd1e",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/controller.h": "e09192817a2b191cddbaca1931832a37280759f740c6448d81acbe530c948d1d",
+    "uwvm2-ros/tools/debug/dap_adapter.py": "ed2cbfd83c6466551cc3efe6afd62ab0ed97115f6497f7148fbadada264d5105",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "e61b4aea01c2e2f6982d0ecc69f6157c98d7ae6d282a15d6d10f3807f78dd7b8",
+    "uwvm2-ros/test/0013.debugger/wasip1_checkpoint_controller.cc": "d6672ccd3d6b911a5a714cd4291c7eeeba79847a7972c37e7be1a0c0ddf39ffb",
+    "uwvm2-ros/test/0018.debugger/checkpoint_controller_fragment.py": "6604144b75aeaeb7a17bd133d62cdcb743b09bc2bc86bcd649ede7d0dd112afa",
+    "uwvm2-ros/test/0018.debugger/test_dap_wasip1_checkpoint_controller.py": "6274e926fb7c3908e5226e0fb6c2b3fb3362aac813b92341635f63f7522bcd1e"
+  },
+  "concurrent_adapter_integration_checks": 3656,
+  "delivery_scope_bridge": {
+    "passed": true,
+    "protocol_validated_source": {
+      "uwvm2/src/uwvm2/uwvm/debugger/controller.h": "e09192817a2b191cddbaca1931832a37280759f740c6448d81acbe530c948d1d",
+      "uwvm2/tools/debug/dap_adapter.py": "74b0b0b47c8d64ae73a2357de61a6c60cd5b34f953d5ae6ab79ede0a4d96403d",
+      "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "e61b4aea01c2e2f6982d0ecc69f6157c98d7ae6d282a15d6d10f3807f78dd7b8",
+      "uwvm2/test/0013.debugger/wasip1_checkpoint_controller.cc": "d6672ccd3d6b911a5a714cd4291c7eeeba79847a7972c37e7be1a0c0ddf39ffb",
+      "uwvm2/test/0018.debugger/checkpoint_controller_fragment.py": "6604144b75aeaeb7a17bd133d62cdcb743b09bc2bc86bcd649ede7d0dd112afa",
+      "uwvm2/test/0018.debugger/test_dap_wasip1_checkpoint_controller.py": "6274e926fb7c3908e5226e0fb6c2b3fb3362aac813b92341635f63f7522bcd1e",
+      "uwvm2-ros/src/uwvm2/uwvm/debugger/controller.h": "e09192817a2b191cddbaca1931832a37280759f740c6448d81acbe530c948d1d",
+      "uwvm2-ros/tools/debug/dap_adapter.py": "74b0b0b47c8d64ae73a2357de61a6c60cd5b34f953d5ae6ab79ede0a4d96403d",
+      "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "e61b4aea01c2e2f6982d0ecc69f6157c98d7ae6d282a15d6d10f3807f78dd7b8",
+      "uwvm2-ros/test/0013.debugger/wasip1_checkpoint_controller.cc": "d6672ccd3d6b911a5a714cd4291c7eeeba79847a7972c37e7be1a0c0ddf39ffb",
+      "uwvm2-ros/test/0018.debugger/checkpoint_controller_fragment.py": "6604144b75aeaeb7a17bd133d62cdcb743b09bc2bc86bcd649ede7d0dd112afa",
+      "uwvm2-ros/test/0018.debugger/test_dap_wasip1_checkpoint_controller.py": "6274e926fb7c3908e5226e0fb6c2b3fb3362aac813b92341635f63f7522bcd1e"
+    },
+    "delivery_source": {
+      "uwvm2/src/uwvm2/uwvm/debugger/controller.h": "e09192817a2b191cddbaca1931832a37280759f740c6448d81acbe530c948d1d",
+      "uwvm2/tools/debug/dap_adapter.py": "eb7eac7ab6b2aa2808f325ecd902fc8f75b4bc24ca72b2edef95fa6992d80bb7",
+      "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "e61b4aea01c2e2f6982d0ecc69f6157c98d7ae6d282a15d6d10f3807f78dd7b8",
+      "uwvm2/test/0013.debugger/wasip1_checkpoint_controller.cc": "d6672ccd3d6b911a5a714cd4291c7eeeba79847a7972c37e7be1a0c0ddf39ffb",
+      "uwvm2/test/0018.debugger/checkpoint_controller_fragment.py": "6604144b75aeaeb7a17bd133d62cdcb743b09bc2bc86bcd649ede7d0dd112afa",
+      "uwvm2/test/0018.debugger/test_dap_wasip1_checkpoint_controller.py": "6274e926fb7c3908e5226e0fb6c2b3fb3362aac813b92341635f63f7522bcd1e",
+      "uwvm2-ros/src/uwvm2/uwvm/debugger/controller.h": "e09192817a2b191cddbaca1931832a37280759f740c6448d81acbe530c948d1d",
+      "uwvm2-ros/tools/debug/dap_adapter.py": "eb7eac7ab6b2aa2808f325ecd902fc8f75b4bc24ca72b2edef95fa6992d80bb7",
+      "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "e61b4aea01c2e2f6982d0ecc69f6157c98d7ae6d282a15d6d10f3807f78dd7b8",
+      "uwvm2-ros/test/0013.debugger/wasip1_checkpoint_controller.cc": "d6672ccd3d6b911a5a714cd4291c7eeeba79847a7972c37e7be1a0c0ddf39ffb",
+      "uwvm2-ros/test/0018.debugger/checkpoint_controller_fragment.py": "6604144b75aeaeb7a17bd133d62cdcb743b09bc2bc86bcd649ede7d0dd112afa",
+      "uwvm2-ros/test/0018.debugger/test_dap_wasip1_checkpoint_controller.py": "6274e926fb7c3908e5226e0fb6c2b3fb3362aac813b92341635f63f7522bcd1e"
+    },
+    "rows": [
+      {
+        "repository": "uwvm2",
+        "validated_sha256": "74b0b0b47c8d64ae73a2357de61a6c60cd5b34f953d5ae6ab79ede0a4d96403d",
+        "delivery_sha256": "eb7eac7ab6b2aa2808f325ecd902fc8f75b4bc24ca72b2edef95fa6992d80bb7",
+        "unchanged_outside_function_sha256": "a26c6d8d18b31f5b4eb1811031acfdf3a2bbd5312f48e88bc2a0ceac1d3f33ce",
+        "excluded_function": "validate_source_evaluation_expression",
+        "excluded_function_signature_unchanged": true,
+        "all_other_module_bytes_unchanged": true
+      },
+      {
+        "repository": "uwvm2-ros",
+        "validated_sha256": "74b0b0b47c8d64ae73a2357de61a6c60cd5b34f953d5ae6ab79ede0a4d96403d",
+        "delivery_sha256": "eb7eac7ab6b2aa2808f325ecd902fc8f75b4bc24ca72b2edef95fa6992d80bb7",
+        "unchanged_outside_function_sha256": "a26c6d8d18b31f5b4eb1811031acfdf3a2bbd5312f48e88bc2a0ceac1d3f33ce",
+        "excluded_function": "validate_source_evaluation_expression",
+        "excluded_function_signature_unchanged": true,
+        "all_other_module_bytes_unchanged": true
+      }
+    ],
+    "scope": "Byte-for-byte equality of all module code outside the unrelated language expression validator; WASIp1 path is identical to the integration-qualified version. The later language-validator change is not tested or credited here."
+  },
+  "delivery_storage_recovery": {
+    "local_delivery_enospc": true,
+    "remote_archive_fully_read_back": true,
+    "retired_only_own_verified_local_copies": true,
+    "production_sources_unchanged": true
+  },
+  "destinations": {
+    "uwvm2": {
+      "wasip1_checkpoint_controller_test_report.md": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_controller_test_report.md",
+      "wasip1_checkpoint_controller_test_results.json": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_controller_test_results.json",
+      "wasip1_checkpoint_controller_delivery_receipt.json": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_controller_delivery_receipt.json"
+    },
+    "uwvm2-ros": {
+      "wasip1_checkpoint_controller_test_report.md": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_controller_test_report.md",
+      "wasip1_checkpoint_controller_test_results.json": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_controller_test_results.json",
+      "wasip1_checkpoint_controller_delivery_receipt.json": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_controller_delivery_receipt.json"
+    }
+  },
+  "activated_environment": {
+    "passed": true,
+    "latest_round": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-checkpoint-controller-20261006-r22",
+    "volume_used_bytes": 4226506752,
+    "volume_available_bytes": 4258009088,
+    "image_allocated_bytes": 5211635712,
+    "image_hard_capacity_bytes": 8589934592,
+    "active_environment_sha256": "4814f580c0680f4567f84ef6c34d4501485b91d9d9255fb8c1e402840fc2060d",
+    "all_private_overlays_retired": true
+  },
+  "own_live_files_match_archived_delivery_snapshot": true,
+  "own_wasip1_paths_match_protocol_qualified_snapshot": true,
+  "later_language_validator_change_not_tested_or_credited": true,
+  "additional_own_local_retirement": {
+    "round": "wasip1-path-admission-20261006-r18",
+    "remote_archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-path-admission-20261006-r18/evidence.tar.gz",
+    "remote_sha256": "91df2e8b3919df7d0f46b4faf1bb9f0eb38e133a811a578cbb77a43efff76c8e",
+    "source_snapshots_matched_archived_payloads_before_removal": true
+  }
+}

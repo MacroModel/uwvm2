@@ -1,0 +1,543 @@
+{
+  "schema": "uwvm-native-mips64el-release-lto-evidence-retention-v1",
+  "qualification": true,
+  "scope": "Byte-exact archival only. Successful609 producer and611 audit retained, failed607/608/610 unchanged. Zero new compiler, QEMU or Wasm execution.",
+  "archive": "/dev/shm/uwvm-asm-6313e263-current612/build-meta/work/native-mips64el-release-lto-evidence612.tar.xz",
+  "archive_sha256": "5e3b3e44d7a0f04558fe13ea7dc286ceedc9dece9a5f6cece9c56a470f163542",
+  "archive_bytes": 295720,
+  "all_members_byte_exact_verified": true,
+  "members": {
+    "current607/allowed-executables.json": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/allowed-executables.json",
+      "sha256": "088c7489aa494dfb291584123fbf8922358f1be387303fd74b51057c39942c78",
+      "bytes": 373
+    },
+    "current607/commands.json": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/commands.json",
+      "sha256": "25f755c40e768bea5edb81e8599c49010ffc5466a48f78728632273909c9532c",
+      "bytes": 200
+    },
+    "current607/initial-admission-failure.json": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/initial-admission-failure.json",
+      "sha256": "89db6797ad0cb16fc5037a4786503ffec5ba7492b176a21501bb8c93d9e0ae96",
+      "bytes": 304
+    },
+    "current607/pending.json": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/pending.json",
+      "sha256": "7d16b96961a4cc7f29ce99d6dbd8df6f2a8192a0f24e71493bddd7eac11c3c4d",
+      "bytes": 3335
+    },
+    "current607/release-lto.py": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/release-lto.py",
+      "sha256": "fbf25a36b6df0c561c3ff15daf3a4c6a354ee3d18a419973c87b4f27e88ecb5c",
+      "bytes": 10593
+    },
+    "current607/resource-policy.json": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/resource-policy.json",
+      "sha256": "5567e9eb3ea094ca22310c31cc4739ded77c9d95ca82a8ade5f5c0329716c555",
+      "bytes": 2413
+    },
+    "current607/source-inputs.json": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/source-inputs.json",
+      "sha256": "1913cc6aa9f6c351cec82007a1fa94e927cb31589be9c1177d95a5c17c246f14",
+      "bytes": 1296
+    },
+    "current607/source-manifest.json": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/source-manifest.json",
+      "sha256": "0974ef98538f20dcd465a6d86ff60b8c8bda205a54245c48ed1944517d18db9b",
+      "bytes": 1155624
+    },
+    "current607/supervisor.py": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/supervisor.py",
+      "sha256": "9aa61d989492349806d6051f5b2fae54cb7c88f4081091ee6d9edf64541613f1",
+      "bytes": 12114
+    },
+    "current607/work/source/uwvm2/xmake/platform/linux.lua": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/work/source/uwvm2/xmake/platform/linux.lua",
+      "sha256": "c0d2652fb942ffc8ece4e2071f0120f0657ff1abb5a49e12cfc872b85c595953",
+      "bytes": 6580
+    },
+    "current607/work/source/uwvm2/xmake/rule.lua": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/work/source/uwvm2/xmake/rule.lua",
+      "sha256": "0c5676c443c6666e2b9add1e26c23712f9bd546db3f5e97caa489a65b12dc083",
+      "bytes": 5031
+    },
+    "current607/work/source/uwvm2/xmake.lua": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/work/source/uwvm2/xmake.lua",
+      "sha256": "da6f23b542bba4c6f0059b9fb4c166ad4a599ebd40b32e9c4bb2ba0f4b9a2b05",
+      "bytes": 52297
+    },
+    "current607/work/source/uwvm2-ros/xmake/platform/linux.lua": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/work/source/uwvm2-ros/xmake/platform/linux.lua",
+      "sha256": "c0d2652fb942ffc8ece4e2071f0120f0657ff1abb5a49e12cfc872b85c595953",
+      "bytes": 6580
+    },
+    "current607/work/source/uwvm2-ros/xmake/rule.lua": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/work/source/uwvm2-ros/xmake/rule.lua",
+      "sha256": "0c5676c443c6666e2b9add1e26c23712f9bd546db3f5e97caa489a65b12dc083",
+      "bytes": 5031
+    },
+    "current607/work/source/uwvm2-ros/xmake.lua": {
+      "source": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/batches/current607/build-meta/work/source/uwvm2-ros/xmake.lua",
+      "sha256": "42ac6208d816ba47155930c3bb71b239e01419d1f4cf5f5512eaf28bc5327317",
+      "bytes": 50788
+    },
+    "current608/allowed-executables.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/allowed-executables.json",
+      "sha256": "088c7489aa494dfb291584123fbf8922358f1be387303fd74b51057c39942c78",
+      "bytes": 373
+    },
+    "current608/commands.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/commands.json",
+      "sha256": "9d98ee31121eb07634dacd680623608febceabee2d9876e7ca33205012375d12",
+      "bytes": 143
+    },
+    "current608/initial-admission-failure.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/initial-admission-failure.json",
+      "sha256": "d14d920ebdb463e02efea903e251bda81d8e7a92b204deea54e0b783472ac00a",
+      "bytes": 401
+    },
+    "current608/landlock-exec.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/landlock-exec.py",
+      "sha256": "7e2f0d1a034490f6530fe9acb764e0d2bb98b04f50a071a161049537aa2ab67c",
+      "bytes": 3740
+    },
+    "current608/preparation.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/preparation.json",
+      "sha256": "78ae4dcbe5ceda3288b65bf175fcabe66e6be938e471862a76f482906d2eeeb0",
+      "bytes": 1219
+    },
+    "current608/release-lto.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/release-lto.py",
+      "sha256": "404fe3db0bea9db9bddf911f5cdf0b3a166a8314a6ef0e42d4d6177d71f63df3",
+      "bytes": 10684
+    },
+    "current608/resource-policy.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/resource-policy.json",
+      "sha256": "0461570ad85edd2d3ec3057e71c7b0aeab4d7d31b64b85ced719f5732bfdaa43",
+      "bytes": 2779
+    },
+    "current608/source-inputs.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/source-inputs.json",
+      "sha256": "17c58e6708a59184469831be95a0ea011659bdef4439b2483a187ab053231e07",
+      "bytes": 954
+    },
+    "current608/source-manifest.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/source-manifest.json",
+      "sha256": "0974ef98538f20dcd465a6d86ff60b8c8bda205a54245c48ed1944517d18db9b",
+      "bytes": 1155624
+    },
+    "current608/supervisor.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/supervisor.py",
+      "sha256": "988693e4312bea3512fb0dea326e3221d1647cf175245175d5fcb22bec5d8139",
+      "bytes": 13285
+    },
+    "current608/work/source/uwvm2/xmake/platform/linux.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/work/source/uwvm2/xmake/platform/linux.lua",
+      "sha256": "c0d2652fb942ffc8ece4e2071f0120f0657ff1abb5a49e12cfc872b85c595953",
+      "bytes": 6580
+    },
+    "current608/work/source/uwvm2/xmake/rule.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/work/source/uwvm2/xmake/rule.lua",
+      "sha256": "0c5676c443c6666e2b9add1e26c23712f9bd546db3f5e97caa489a65b12dc083",
+      "bytes": 5031
+    },
+    "current608/work/source/uwvm2/xmake.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/work/source/uwvm2/xmake.lua",
+      "sha256": "da6f23b542bba4c6f0059b9fb4c166ad4a599ebd40b32e9c4bb2ba0f4b9a2b05",
+      "bytes": 52297
+    },
+    "current608/work/source/uwvm2-ros/xmake/platform/linux.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/work/source/uwvm2-ros/xmake/platform/linux.lua",
+      "sha256": "c0d2652fb942ffc8ece4e2071f0120f0657ff1abb5a49e12cfc872b85c595953",
+      "bytes": 6580
+    },
+    "current608/work/source/uwvm2-ros/xmake/rule.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/work/source/uwvm2-ros/xmake/rule.lua",
+      "sha256": "0c5676c443c6666e2b9add1e26c23712f9bd546db3f5e97caa489a65b12dc083",
+      "bytes": 5031
+    },
+    "current608/work/source/uwvm2-ros/xmake.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current608/build-meta/work/source/uwvm2-ros/xmake.lua",
+      "sha256": "42ac6208d816ba47155930c3bb71b239e01419d1f4cf5f5512eaf28bc5327317",
+      "bytes": 50788
+    },
+    "current609/admission-helper-record.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/admission-helper-record.json",
+      "sha256": "6b672cf9d3ac8a399caa3c2f32f24ee7dffc0511207142458704785e781e5fd1",
+      "bytes": 709
+    },
+    "current609/allowed-executables.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/allowed-executables.json",
+      "sha256": "088c7489aa494dfb291584123fbf8922358f1be387303fd74b51057c39942c78",
+      "bytes": 373
+    },
+    "current609/commands.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/commands.json",
+      "sha256": "b0a0c527c46908f123b01aa48085c084f5fccca165375622b37658bd855ce2f0",
+      "bytes": 143
+    },
+    "current609/complete-evidence/MIPS64EL-release-LTO609.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/complete-evidence/MIPS64EL-release-LTO609.log",
+      "sha256": "8db846f7c2c9732feca7af75c5131127b9feff5eebed1f8c94acf4ccfa1bb0a9",
+      "bytes": 559
+    },
+    "current609/complete-evidence/receipt.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/complete-evidence/receipt.json",
+      "sha256": "1b8fc83dd03b056d35face06390a0eb1469c9cbb5cef1ba50c681e000dbb0f9e",
+      "bytes": 12353
+    },
+    "current609/input-hashes.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/input-hashes.json",
+      "sha256": "3817479cf89b61798b553949cf5c03918e57f74251dbbf20c79d91049f1ad899",
+      "bytes": 279542
+    },
+    "current609/landlock-exec.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/landlock-exec.py",
+      "sha256": "173238036c3e93630beedcbf6a21ebd99dc879d6b96a11125f08185d674fd3b0",
+      "bytes": 3740
+    },
+    "current609/landlock-probes.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/landlock-probes.json",
+      "sha256": "a0365664dd79b3b7b25db1b5ff6dfa79d2a0a89924430dcd5d08ee01401b71e8",
+      "bytes": 659
+    },
+    "current609/landlock-ready.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/landlock-ready.json",
+      "sha256": "6ce3f5b872c5dd657f83965e74717be73c40a3af203375990416dec2065b218c",
+      "bytes": 208
+    },
+    "current609/preparation.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/preparation.json",
+      "sha256": "81543e3b60496b299b62c41ce7960020bd5d82b67eca76c74c95c78aaf6eb1fc",
+      "bytes": 1219
+    },
+    "current609/qualification.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/qualification.json",
+      "sha256": "2a25269c75d241d74dac86a7e433b118dbef2b0f3e1531764660c14a284661e9",
+      "bytes": 378781
+    },
+    "current609/release-lto.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/release-lto.py",
+      "sha256": "53723c65443b094190fcfae07e898a2038f9c1e77ba7358721b5aee3bc958cb0",
+      "bytes": 10684
+    },
+    "current609/resource-policy.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/resource-policy.json",
+      "sha256": "439f1846cebd1fd4ea141c99d0d0a0777b13fb9af86cd9b1bfe01528fe6f5c33",
+      "bytes": 3085
+    },
+    "current609/results.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/results.json",
+      "sha256": "4fe803fc36e74d7324fec63746fdba75ef6ea77b64063a39ca1879a22bcacb49",
+      "bytes": 21826
+    },
+    "current609/source-inputs.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/source-inputs.json",
+      "sha256": "fc09a521e54e33f5f19485f32b39649e113822bdd1bc69a3ffc42b7724da30e0",
+      "bytes": 954
+    },
+    "current609/source-manifest.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/source-manifest.json",
+      "sha256": "0974ef98538f20dcd465a6d86ff60b8c8bda205a54245c48ed1944517d18db9b",
+      "bytes": 1155624
+    },
+    "current609/supervisor.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/supervisor.py",
+      "sha256": "064c5f878bc17f5559bd34a9c117774b050b1d91f9e12d1ca966043e54840b26",
+      "bytes": 13552
+    },
+    "current609/work/release-link.cc": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/release-link.cc",
+      "sha256": "91bea33dac806cab4f3310ccff47affe97d09ba274ad80463f19ae3e86972912",
+      "bytes": 195
+    },
+    "current609/work/source/uwvm2/xmake/platform/linux.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/source/uwvm2/xmake/platform/linux.lua",
+      "sha256": "c0d2652fb942ffc8ece4e2071f0120f0657ff1abb5a49e12cfc872b85c595953",
+      "bytes": 6580
+    },
+    "current609/work/source/uwvm2/xmake/rule.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/source/uwvm2/xmake/rule.lua",
+      "sha256": "0c5676c443c6666e2b9add1e26c23712f9bd546db3f5e97caa489a65b12dc083",
+      "bytes": 5031
+    },
+    "current609/work/source/uwvm2/xmake.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/source/uwvm2/xmake.lua",
+      "sha256": "da6f23b542bba4c6f0059b9fb4c166ad4a599ebd40b32e9c4bb2ba0f4b9a2b05",
+      "bytes": 52297
+    },
+    "current609/work/source/uwvm2-ros/xmake/platform/linux.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/source/uwvm2-ros/xmake/platform/linux.lua",
+      "sha256": "c0d2652fb942ffc8ece4e2071f0120f0657ff1abb5a49e12cfc872b85c595953",
+      "bytes": 6580
+    },
+    "current609/work/source/uwvm2-ros/xmake/rule.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/source/uwvm2-ros/xmake/rule.lua",
+      "sha256": "0c5676c443c6666e2b9add1e26c23712f9bd546db3f5e97caa489a65b12dc083",
+      "bytes": 5031
+    },
+    "current609/work/source/uwvm2-ros/xmake.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/source/uwvm2-ros/xmake.lua",
+      "sha256": "42ac6208d816ba47155930c3bb71b239e01419d1f4cf5f5512eaf28bc5327317",
+      "bytes": 50788
+    },
+    "current609/work/uwvm2-minsizerel": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-minsizerel",
+      "sha256": "e7e22ec9af4f961b5e46a871f14de0302650ddc21176879f52f0774d1abd73e7",
+      "bytes": 71640
+    },
+    "current609/work/uwvm2-minsizerel-link.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-minsizerel-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current609/work/uwvm2-minsizerel-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-minsizerel-real-QEMU.log",
+      "sha256": "d353b22f468b3a894fd2cc430876d29ac8ced9b48e66fc329cbe53237cc85b89",
+      "bytes": 40
+    },
+    "current609/work/uwvm2-minsizerel.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-minsizerel.d",
+      "sha256": "d2965409e7a678905cfafc2994342982a4f29fb77106d33bdf8f7f1886e6cbe2",
+      "bytes": 154143
+    },
+    "current609/work/uwvm2-old-default-LTO-rejected.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-old-default-LTO-rejected.log",
+      "sha256": "ea9062df7276423c337aee5a00ac3b92d7d2fd19f6ada20ec8a92c4d7f9b04ad",
+      "bytes": 1533
+    },
+    "current609/work/uwvm2-release": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-release",
+      "sha256": "a7e9bb9eee931a1e385b099a99e2d36696d514daf3dbdc446eed63cdc667968d",
+      "bytes": 71640
+    },
+    "current609/work/uwvm2-release-link.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-release-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current609/work/uwvm2-release-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-release-real-QEMU.log",
+      "sha256": "d353b22f468b3a894fd2cc430876d29ac8ced9b48e66fc329cbe53237cc85b89",
+      "bytes": 40
+    },
+    "current609/work/uwvm2-release.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-release.d",
+      "sha256": "b1b3ad9a691445c95d13d05cf31315c8aa4f5a4cf75e545c08fdac4027f7c567",
+      "bytes": 154593
+    },
+    "current609/work/uwvm2-releasedbg": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-releasedbg",
+      "sha256": "d0d11c98f8d12eb374d78633e06cfe13ff71bba19d18eaaba02abcbee8822b51",
+      "bytes": 135640
+    },
+    "current609/work/uwvm2-releasedbg-link.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-releasedbg-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current609/work/uwvm2-releasedbg-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-releasedbg-real-QEMU.log",
+      "sha256": "d353b22f468b3a894fd2cc430876d29ac8ced9b48e66fc329cbe53237cc85b89",
+      "bytes": 40
+    },
+    "current609/work/uwvm2-releasedbg.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-releasedbg.d",
+      "sha256": "ce27f0b8baa47163388c40a1aa5e3f5858eac4cc17a34b99777d38533773f9ec",
+      "bytes": 154596
+    },
+    "current609/work/uwvm2-ros-minsizerel": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-minsizerel",
+      "sha256": "e7e22ec9af4f961b5e46a871f14de0302650ddc21176879f52f0774d1abd73e7",
+      "bytes": 71640
+    },
+    "current609/work/uwvm2-ros-minsizerel-link.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-minsizerel-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current609/work/uwvm2-ros-minsizerel-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-minsizerel-real-QEMU.log",
+      "sha256": "d353b22f468b3a894fd2cc430876d29ac8ced9b48e66fc329cbe53237cc85b89",
+      "bytes": 40
+    },
+    "current609/work/uwvm2-ros-minsizerel.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-minsizerel.d",
+      "sha256": "5376eea77d9b96168cee4a10b6cc10074988fbe77891cd3646bbcc138ab3fd98",
+      "bytes": 155667
+    },
+    "current609/work/uwvm2-ros-old-default-LTO-rejected.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-old-default-LTO-rejected.log",
+      "sha256": "4bbf586a3a2ac9c28c4516a490caabf8dfe3915d9842cfb6ca3afd8cbc05d6f6",
+      "bytes": 1533
+    },
+    "current609/work/uwvm2-ros-release": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-release",
+      "sha256": "a7e9bb9eee931a1e385b099a99e2d36696d514daf3dbdc446eed63cdc667968d",
+      "bytes": 71640
+    },
+    "current609/work/uwvm2-ros-release-link.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-release-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current609/work/uwvm2-ros-release-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-release-real-QEMU.log",
+      "sha256": "d353b22f468b3a894fd2cc430876d29ac8ced9b48e66fc329cbe53237cc85b89",
+      "bytes": 40
+    },
+    "current609/work/uwvm2-ros-release.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-release.d",
+      "sha256": "3295ee47acf7791ccf2195d1d885af8786f9068d2f9be778a5da195b8497750e",
+      "bytes": 156117
+    },
+    "current609/work/uwvm2-ros-releasedbg": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-releasedbg",
+      "sha256": "9c1d19f72c46b56b628a5d4d876db63cff836ba05267127229f53b3611e962dd",
+      "bytes": 135704
+    },
+    "current609/work/uwvm2-ros-releasedbg-link.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-releasedbg-link.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current609/work/uwvm2-ros-releasedbg-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-releasedbg-real-QEMU.log",
+      "sha256": "d353b22f468b3a894fd2cc430876d29ac8ced9b48e66fc329cbe53237cc85b89",
+      "bytes": 40
+    },
+    "current609/work/uwvm2-ros-releasedbg.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current609/build-meta/work/uwvm2-ros-releasedbg.d",
+      "sha256": "444ef0b360309014115423386eb7d041ecd2b1c681fe9ca76e54614f52c5185d",
+      "bytes": 156120
+    },
+    "current610/admission-helper-record.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current610/build-meta/admission-helper-record.json",
+      "sha256": "44ac799bd4c47cc3bd86eae54c557d35cbfd2b327ac95e77770e8507bf61d2f1",
+      "bytes": 709
+    },
+    "current610/allowed-executables.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current610/build-meta/allowed-executables.json",
+      "sha256": "088c7489aa494dfb291584123fbf8922358f1be387303fd74b51057c39942c78",
+      "bytes": 373
+    },
+    "current610/audit.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current610/build-meta/audit.py",
+      "sha256": "46175073d9e47ea53fbd611731cad2993c49547bccbc24ce1c59e15500350b09",
+      "bytes": 5325
+    },
+    "current610/commands.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current610/build-meta/commands.json",
+      "sha256": "a3d7ceeec895f75dae49269126ea8a8b53b2eb8daa520ab2cbf03cb1e7ba112a",
+      "bytes": 141
+    },
+    "current610/complete-evidence/MIPS64EL-independent-LTO610.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current610/build-meta/complete-evidence/MIPS64EL-independent-LTO610.log",
+      "sha256": "83974c838159c46ea500483c6fe2a894338ed22a3767c6747d9ee646634c929e",
+      "bytes": 745
+    },
+    "current610/complete-evidence/receipt.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current610/build-meta/complete-evidence/receipt.json",
+      "sha256": "898910ce8ef24a5b502b6b648e3dbf53c2bf35795ec19952355fbde783d1957a",
+      "bytes": 3752
+    },
+    "current610/landlock-exec.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current610/build-meta/landlock-exec.py",
+      "sha256": "8cdb7c1027c5fbc8d495d8422a83e8fcea0e3e2b6b9e52954c7ea8588f621214",
+      "bytes": 3740
+    },
+    "current610/landlock-probes.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current610/build-meta/landlock-probes.json",
+      "sha256": "de7ad49921d7d2f919041d1e5fab02331c64c3f541b0baedf0395f1d7812ce9d",
+      "bytes": 659
+    },
+    "current610/landlock-ready.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current610/build-meta/landlock-ready.json",
+      "sha256": "33f3617b5d79dc189e6a93539ad25587f5deb46020c0c4ea7ec93560637af871",
+      "bytes": 208
+    },
+    "current610/resource-policy.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current610/build-meta/resource-policy.json",
+      "sha256": "f1bfc7d770ea6d20da798ccb6c3ce338cb5a6c9361854f9d422d22efa0240bea",
+      "bytes": 3056
+    },
+    "current610/source-manifest.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current610/build-meta/source-manifest.json",
+      "sha256": "0974ef98538f20dcd465a6d86ff60b8c8bda205a54245c48ed1944517d18db9b",
+      "bytes": 1155624
+    },
+    "current610/supervisor.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current610/build-meta/supervisor.py",
+      "sha256": "9f183db6b88d60c8dd4c9fa388df82925973bcd2bee4386e6a33b6dcf92746dd",
+      "bytes": 13552
+    },
+    "current611/admission-helper-record.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/admission-helper-record.json",
+      "sha256": "4ac35e08e201ca29e98ee38a1dd5aa7fe075a7b7c77c6f3c77d1b8db2ef7e621",
+      "bytes": 709
+    },
+    "current611/allowed-executables.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/allowed-executables.json",
+      "sha256": "088c7489aa494dfb291584123fbf8922358f1be387303fd74b51057c39942c78",
+      "bytes": 373
+    },
+    "current611/audit.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/audit.py",
+      "sha256": "4b71031a1cbb4fda191b34d1fd1ed4d621d27ec8c130ae09f873354682eee6e9",
+      "bytes": 5342
+    },
+    "current611/commands.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/commands.json",
+      "sha256": "afdfb039e360b08e41756ce1cce41fe1d49f3c7f8f4c82a06fb4356c8468e1b2",
+      "bytes": 141
+    },
+    "current611/complete-evidence/MIPS64EL-independent-LTO611.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/complete-evidence/MIPS64EL-independent-LTO611.log",
+      "sha256": "7d45e98a93871994c863e37995067e8a06e2dccc4ea1f27792fd102b3edd7fb9",
+      "bytes": 241
+    },
+    "current611/complete-evidence/receipt.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/complete-evidence/receipt.json",
+      "sha256": "cf4a98ee20f8faf6cca8aaab64080c90abe37ac44ae508121ff9810dd5bf0d58",
+      "bytes": 3803
+    },
+    "current611/landlock-exec.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/landlock-exec.py",
+      "sha256": "69817512e963ce7f6c1e6b9f73e2be6b5d42a6dc1a0561d0184fbf883d41b9a7",
+      "bytes": 3755
+    },
+    "current611/landlock-probes.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/landlock-probes.json",
+      "sha256": "64ce3ff5f18339240d79ef506d86ae61978a35474c11dedffdf2a0924a49e375",
+      "bytes": 659
+    },
+    "current611/landlock-ready.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/landlock-ready.json",
+      "sha256": "e1695bf5741b0995d2745d239a3b6837234f74897d25dfe14583773f3e4a3949",
+      "bytes": 208
+    },
+    "current611/qualification.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/qualification.json",
+      "sha256": "a6b4c06a029c1ba933462c8d9319cd1557d5b3f59dc5672b6121d3a5ccf86411",
+      "bytes": 5951
+    },
+    "current611/resource-policy.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/resource-policy.json",
+      "sha256": "09367fd956dc54fdb3c10114b391e40aa6719aabbe831b6374a38639774ca6d3",
+      "bytes": 3056
+    },
+    "current611/source-manifest.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/source-manifest.json",
+      "sha256": "0974ef98538f20dcd465a6d86ff60b8c8bda205a54245c48ed1944517d18db9b",
+      "bytes": 1155624
+    },
+    "current611/supervisor.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current611/build-meta/supervisor.py",
+      "sha256": "dbc79f0fc886855cf459401f7d830ca3aceae3dd73e087c1a65539d3403ebc0e",
+      "bytes": 13552
+    }
+  },
+  "raw_outputs_deleted": false,
+  "local_offload_and_raw_retirement_pending": true
+}

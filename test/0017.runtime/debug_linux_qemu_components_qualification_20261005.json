@@ -1,0 +1,600 @@
+{
+  "schema": "uwvm-linux-qemu-component-test-summary-v1",
+  "date": "2026-10-05 Asia/Shanghai",
+  "repositories": [
+    "uwvm2",
+    "uwvm2-ros"
+  ],
+  "source_cuts": {
+    "uwvm2": "sha256:d6dadeaf682b1686e475fc342d0b3f10ee2b88d1fe7913c5f6f4fec9ceec987b",
+    "uwvm2-ros": "sha256:724b9d876da10ef387c011cf055fe0a23979e03b2437c62a94cda6c8835bc9a0"
+  },
+  "sparx_interpretation": "SPARC64",
+  "result": {
+    "core_source_component_assertions_passed": 160,
+    "core_source_component_assertions_required": 160,
+    "component_assertions_passed": 376,
+    "component_assertions_required": 382,
+    "original_QEMU_native_kernel_assertion_failures": 6,
+    "separate_ARM_soft_float_GPR_diagnostics_passed": 2,
+    "all_architecture_full_dbg_CLI_parity_qualified": false
+  },
+  "execution": {
+    "host": "ssh linux",
+    "all_actual_compilers_QEMU_native_controls_probes_and_postflight_runs_in_original_cgroup": true,
+    "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+    "cpu_affinity": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "OOM_counters_after": {
+      "low": 0,
+      "high": 0,
+      "max": 463599,
+      "oom": 60,
+      "oom_kill": 12,
+      "oom_group_kill": 0
+    },
+    "all_owned_test_roots_and_descendants_retired": true,
+    "frozen_source_recorded_input_ELF_and_log_hashes_verified": true,
+    "matching_component_outputs_and_canonical_checkpoint_bytes_compared_to_native_x86_64_controls": true,
+    "scope": "component DATA and isolated kernel fixtures; no actual Wasm native context or full CLI qualification"
+  },
+  "architectures": [
+    {
+      "profile": "x86_64",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 10,
+          "component_assertions_required": 11,
+          "original_failed_cases": [
+            "native_kernel_step"
+          ],
+          "native_kernel_fixture_status": "QEMU SIGTRAP; same ELF native Linux controls passed",
+          "positive_isolated_GPR_backend_fixture_passed": false,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 10,
+          "component_assertions_required": 11,
+          "original_failed_cases": [
+            "native_kernel_step"
+          ],
+          "native_kernel_fixture_status": "QEMU SIGTRAP; same ELF native Linux controls passed",
+          "positive_isolated_GPR_backend_fixture_passed": false,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "aarch64",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "i686",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "riscv64",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "ppc64",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 11,
+          "component_assertions_required": 12,
+          "original_failed_cases": [
+            "native_kernel_step"
+          ],
+          "native_kernel_fixture_status": "O1 ELFv1 fixture SIGSEGV; ordinary-repository O0 diagnostic passed",
+          "positive_isolated_GPR_backend_fixture_passed": false,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 11,
+          "component_assertions_required": 12,
+          "original_failed_cases": [
+            "native_kernel_step"
+          ],
+          "native_kernel_fixture_status": "O1 ELFv1 fixture SIGSEGV; ordinary-repository O0 diagnostic passed",
+          "positive_isolated_GPR_backend_fixture_passed": false,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "ppc64le",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "ppc32",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "mips64",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "mips64el",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "mips32",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "native_backend_unavailable; refusal assertions passed",
+          "positive_isolated_GPR_backend_fixture_passed": false,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "native_backend_unavailable; refusal assertions passed",
+          "positive_isolated_GPR_backend_fixture_passed": false,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "mips32el",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "native_backend_unavailable; refusal assertions passed",
+          "positive_isolated_GPR_backend_fixture_passed": false,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "native_backend_unavailable; refusal assertions passed",
+          "positive_isolated_GPR_backend_fixture_passed": false,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "sparc64",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "loongarch64",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "s390x",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "armhf",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 12,
+          "component_assertions_required": 12,
+          "original_failed_cases": [],
+          "native_kernel_fixture_status": "isolated kernel fixture passed; 3 stops, 2 instructions, GPR 42/43, f64 42.0",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    },
+    {
+      "profile": "armel",
+      "repositories": {
+        "uwvm2": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 11,
+          "component_assertions_required": 12,
+          "original_failed_cases": [
+            "native_kernel_step"
+          ],
+          "native_kernel_fixture_status": "original f64 register-seed assertion failed; separate genuine GPR fixture passed",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        },
+        "uwvm2-ros": {
+          "core_source_component_assertions_passed": 5,
+          "core_source_component_assertions_required": 5,
+          "component_assertions_passed": 11,
+          "component_assertions_required": 12,
+          "original_failed_cases": [
+            "native_kernel_step"
+          ],
+          "native_kernel_fixture_status": "original f64 register-seed assertion failed; separate genuine GPR fixture passed",
+          "positive_isolated_GPR_backend_fixture_passed": true,
+          "actual_Wasm_context_ASM_CLI_qualified": false,
+          "full_Rdbg_language_Wasm_ASM_WASIp1_parity_qualified": false
+        }
+      }
+    }
+  ],
+  "scope_limits": [
+    "All compiler, native control, QEMU target and probe executions were inside the original SSH Linux cgroup.",
+    "Partial collector roots aborted by shared memory remain failed; only their completed zero-exit assertion rows receive this separate postflight byte audit.",
+    "Finite language/DWARF/console models are not compiler-produced real Wasm language variable/frame leases.",
+    "Generated isolated kernel leaf fixtures are not actual Wasm issuer or full ASM CLI integration.",
+    "MIPS32/EL ASM native backend is unavailable; passing refusal tests do not mean positive stepping.",
+    "Full current ROS .11 target LLVM plus matching runtime ABI dependencies are not available for a full product qualification.",
+    "No actual target hot replacement, whole checkpoint restore, all languages, all Wasm 3.0 features or WASIp1 runtime/CLI qualification is implied.",
+    "No VM/host debugging authority was exposed and no production source or guest-boundary guard was changed.",
+    "QEMU user execution does not qualify native hardware or performance parity."
+  ],
+  "current_local_worktree_metadata": {
+    "uwvm2": {
+      "observed_at_unix": 1791164651.279069,
+      "changed_paths": [
+        "src/uwvm2/imported/wasi/wasip1/fd_manager/fd.h",
+        "src/uwvm2/imported/wasi/wasip1/func/fd_fdstat_set_flags.h",
+        "src/uwvm2/imported/wasi/wasip1/func/path_open.h",
+        "src/uwvm2/imported/wasi/wasip1/func/path_open_wasm64.h",
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate.cppm",
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate.h",
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_resume_entry_emit.h",
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h",
+        "src/uwvm2/runtime/lib/native_activation.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h",
+        "src/uwvm2/uwvm/cmdline/callback/runtime_compile_threads.h",
+        "src/uwvm2/uwvm/debugger/controller.h",
+        "src/uwvm2/uwvm/debugger/native_branch_destination.h",
+        "src/uwvm2/uwvm/debugger/native_owned_instruction_semantics.h",
+        "src/uwvm2/uwvm/debugger/native_step_linux.h",
+        "src/uwvm2/uwvm/debugger/native_wasm_step_boundary.cppm",
+        "src/uwvm2/uwvm/debugger/native_wasm_step_boundary.h",
+        "src/uwvm2/uwvm/debugger/wasip1_portable_checkpoint.h",
+        "src/uwvm2/uwvm_predefine/utils/ansies/no_color.h"
+      ],
+      "metadata_observation_only": true
+    },
+    "uwvm2-ros": {
+      "observed_at_unix": 1791164651.745033,
+      "changed_paths": [
+        "src/uwvm2/imported/wasi/wasip1/fd_manager/fd.h",
+        "src/uwvm2/imported/wasi/wasip1/func/fd_fdstat_set_flags.h",
+        "src/uwvm2/imported/wasi/wasip1/func/path_open.h",
+        "src/uwvm2/imported/wasi/wasip1/func/path_open_wasm64.h",
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate.cppm",
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate.h",
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_resume_entry_emit.h",
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h",
+        "src/uwvm2/runtime/lib/native_activation.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+        "src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h",
+        "src/uwvm2/uwvm/cmdline/callback/runtime_compile_threads.h",
+        "src/uwvm2/uwvm/debugger/controller.h",
+        "src/uwvm2/uwvm/debugger/native_branch_destination.h",
+        "src/uwvm2/uwvm/debugger/native_owned_instruction_semantics.h",
+        "src/uwvm2/uwvm/debugger/native_step_linux.h",
+        "src/uwvm2/uwvm/debugger/native_wasm_step_boundary.cppm",
+        "src/uwvm2/uwvm/debugger/native_wasm_step_boundary.h",
+        "src/uwvm2/uwvm/debugger/wasip1_portable_checkpoint.h",
+        "src/uwvm2/uwvm_predefine/utils/ansies/no_color.h"
+      ],
+      "metadata_observation_only": true
+    }
+  },
+  "separate_diagnostic_interpretation": {
+    "PPC64": "Both original O1 target fixtures crashed before the first trap. Only the ordinary repository was used for O0/optimizer diagnostic variants; O0 passed. Root cause is not attributed to production code.",
+    "ARM_soft_float": "The original fixture assumes an f64 argument resides in a VFP register. Base AAPCS uses core-register/stack argument passing. The separate fixture tests genuine GPR stepping and clearing of unqualified FP bytes, without claiming positive f64 evidence.",
+    "MIPS32": "Both 12-case component groups passed, including refusal-only native cases. No positive ASM native backend support is claimed.",
+    "ROS_provider": "Actual AArch64/i686/RISC-V compiler probes rejected unchanged .ros.9 headers against the frozen .ros.11 guard. This is negative provider admission evidence, not a target SDK qualification."
+  },
+  "primary_reference_urls": {
+    "ARM_AAPCS32": "https://github.com/ARM-software/abi-aa/blob/main/aapcs32/aapcs32.rst",
+    "QEMU_user_mode": "https://www.qemu.org/docs/master/user/main.html",
+    "QEMU_11_1_1_i386_signal_mapping": "https://raw.githubusercontent.com/qemu/qemu/v11.1.1/linux-user/i386/cpu_loop.c"
+  },
+  "evidence": {
+    "audited_raw_report": {
+      "path": "/tmp/uwvm2-language-capability-20261004/qemu-linux-r1/debug-linux-qemu-qualification-final.json",
+      "sha256": "bd0d0e56f074855bc3c58b4e69df7b79ca71a7548f1eef831fcf0de2ddd1ddbb"
+    },
+    "compressed_records": {
+      "path": "/tmp/uwvm2-language-capability-20261004/qemu-linux-r1/qemu-evidence-a23.tar.gz",
+      "sha256": "ebfe9f7827826b6a12bf6ea4108d239c754e3e3adafc5b29c5d65ccc5687b7a6"
+    },
+    "archive_member_manifest": {
+      "path": "/tmp/uwvm2-language-capability-20261004/qemu-linux-r1/qemu-evidence-a23.tar.members.json",
+      "sha256": "73731bdaa33b555c40bc1c7d3a4d57b74eb9f71fd14b6949720d8900f6c7f819"
+    },
+    "finished_archive_controller_receipt": {
+      "path": "/tmp/uwvm2-language-capability-20261004/qemu-linux-r1/evidence-archive-control-a23-receipts.json",
+      "sha256": "8bf4c95dd14837c2902816d734c0e8c861be0f773707405a6ae9f7d3f6812915"
+    },
+    "original_native_ELFs": "Retained in the private SSH Linux evidence directory; not replaced or relabelled."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "base_manifest_sha256": "6b009a46a35696fd68a9827676d5287d5010eb323b69316734f21e75900e747b",
+  "overlay_manifest_sha256": "352482281b0da11a598a53d546ab4826a1f68e2188cee07a934f092bdf76031b",
+  "delta_archive_sha256": "73918cddf4dc6e224df480e4f1e2b9aefc90ba85d93d6df5c291ef794248d7c6",
+  "changed_files": {
+    "uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": "df63ee263999c070b6b416a750e30d9d80fc12dba0592f4eb5abc312bf710e9c",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": "df63ee263999c070b6b416a750e30d9d80fc12dba0592f4eb5abc312bf710e9c"
+  },
+  "reason": "Core fixture explicitly disables WASIp1 import visibility; visible WASIp1 omission remains forbidden and independently tested"
+}

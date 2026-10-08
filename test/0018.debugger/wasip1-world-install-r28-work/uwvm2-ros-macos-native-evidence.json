@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "archive_sha256": "7d0aca656e82650ef4fd6e419778abd23b8d2221b542d406eff0708d4562c495",
+  "payloads": {
+    "macos_monitor.py": "e3f40b6c12239ba136e550671df54f58999e496a9d7287f1fc639db8080d1000",
+    "spec.json": "c8f1e6c2b906aa02fb4908dbf3c1affc38bc0ed9420c75b08f85d7e2a1c49ebc",
+    "group-provider.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+    "macos_native.py": "d76c5b380eddbe74dfa99f1461e96c6e5e32c541b10cb497ab30dac731487e54",
+    "checkpoint-instruction.log": "ae95a03517afa9f3dcc5cf655971904688158c50e5b06dc09d116cd7c28ebdd3",
+    "checkpoint-unwind.log": "2b5069e65d1c163e71bcd374bceab19b90cbf8f87176b16eb83803c97acb305f",
+    "environment-group-instruction.log": "610c025356dad4b03ce40fa2792efbb4f08a698c7a7fdca8dbb535a2478feef4",
+    "nofork-probe.log": "06f08929938554e862d37fc43cbf78ef4692f32f849c69b49b9260d8ea6d8ef5",
+    "native-execution.json": "6003b55bfe384632322ba2062b117ad01411a6560023d268b807435db72d5505",
+    "nofork-probe.json": "6b9fc854803bac94e38e653cbd20ef44e110f32cc996640ed8a1907162a73159",
+    "aliases-unwind.log": "fff3a0752d2014ec2853f06e72c4f210fac9214d16d99487f35de70f1d1f8b6b",
+    "group-main.wasm": "ee9f33ae640a967785531c581e4baf7f639979669969307c0abefd0c224d1e3a",
+    "qualified.json": "7027a83dcee722a3012b13bf68a65bd005101a2fc28b1bed43ef0ac2262baede",
+    "aliases-instruction.log": "e29561d75e6438e33a60a6be3892f9c77a2393fea99622b1a97105b53aebc90c",
+    "environment-group-unwind.log": "054ea44208f4c1398e669862e3e961811c4d02b40789da927d409e354b08ba16",
+    "checkpoint.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+    "aliases.wasm": "ab1da939b0029bbc718d0af9e81fc88d5a7a5271a46b3c25f92e85e3dfe8a7ca",
+    "environment-group-qualified.json": "5d639a110766aa94ad8c78344e71f867c0e4d5157a947dd8ac0cee986ac39753",
+    "receipt.json": "705ba609d6369f18109b6563e41b46a011f4fa4974444f13705f5fd879184408",
+    "environment-group-instruction/group-provider.uwp": "ae5d4b3a4f96aa932e1402861a4a10fe18e570e58b6bbe5aa11ba648e21262d8",
+    "environment-group-instruction/group.uwpg": "fdac20101f62af1b932d02607eeb5dafcb31cbdf3f7ec11bc40a8ed7499d95e2",
+    "environment-group-instruction/group-main.uwp": "e21cafdffcecd573a55bc920ca7ce204ba44aac047115c3c276c337079f521c3",
+    "environment-group-unwind/group-provider.uwp": "ae5d4b3a4f96aa932e1402861a4a10fe18e570e58b6bbe5aa11ba648e21262d8",
+    "environment-group-unwind/group.uwpg": "fdac20101f62af1b932d02607eeb5dafcb31cbdf3f7ec11bc40a8ed7499d95e2",
+    "environment-group-unwind/group-main.uwp": "e21cafdffcecd573a55bc920ca7ce204ba44aac047115c3c276c337079f521c3"
+  }
+}

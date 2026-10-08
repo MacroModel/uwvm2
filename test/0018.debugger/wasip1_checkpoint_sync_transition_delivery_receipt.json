@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "final_checks": 83516,
+  "baseline_checks": 32484,
+  "old_false_successes": 256,
+  "final_false_successes": 0,
+  "own_source_sha256": {
+    "uwvm2/src/uwvm2/imported/wasi/wasip1/func/fd_fdstat_set_flags.h": "b44454d496e36c6f2ef82497bf45e49a0c07785a5d0ecaf9f936612fc005b813",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "d9ed1108177ea96ce20c43b626a2f92ea9cae8e2d9536e0c17c8a36eef77d999",
+    "uwvm2/test/0013.debugger/wasip1_sync_transition.cc": "e137298e769b096c25a40dec63aaaba66891ca511fc1c78da8d543bff540ea26",
+    "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/fd_fdstat_set_flags.h": "b44454d496e36c6f2ef82497bf45e49a0c07785a5d0ecaf9f936612fc005b813",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "d9ed1108177ea96ce20c43b626a2f92ea9cae8e2d9536e0c17c8a36eef77d999",
+    "uwvm2-ros/test/0013.debugger/wasip1_sync_transition.cc": "e137298e769b096c25a40dec63aaaba66891ca511fc1c78da8d543bff540ea26"
+  },
+  "selected_source_dependency_count": 1796,
+  "selected_current_source_dependencies_verified": true,
+  "preserved_concurrent_updates": [
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h",
+    "uwvm2/src/uwvm2/runtime/lib/native_activation.h",
+    "uwvm2/src/uwvm2/uwvm/debugger/native_step.h",
+    "uwvm2/src/uwvm2/uwvm/debugger/native_execution_plan.md",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h",
+    "uwvm2-ros/src/uwvm2/runtime/lib/native_activation.h",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/native_step.h",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/native_execution_plan.md"
+  ],
+  "archive": {
+    "local_path": "/Users/liyinan/Documents/MacroModel/builds/wasip1-sync-transition-20261006-r10/test-inputs-evidence-1791233070644217140.tar.gz",
+    "linux_backup": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-sync-transition-20261006-r10-private-vm/evidence/source-evidence.tar.gz",
+    "sha256": "58a699b66ba73cfb554edbffcad117435958eae50d486aaa133b8031a35fffc7",
+    "payload_count": 12696,
+    "every_payload_verified": true
+  },
+  "results_sha256": "55c5049259af7fde1d7b1c96c24ddc1cdfdb0e3571d485e8bd7d9957f6004900",
+  "report_sha256": "6cf4251e0a24e9a7c2a8989088568d3cb9d8d38257aaf20cbcff1ccbc13f9fb0",
+  "raw_collect_guard_sha256": "6a2d5ce7b443e559e085efbd082be9c2348343cf64090a628ef8983148d3125a",
+  "raw_archive_guard_sha256": "5be9149e1eb2767f3be99c93dd2095fd9e465c6708b91ce0b90cba5911791b2c",
+  "all_owned_test_processes_retired": true,
+  "scope": "Original WASIp1 setter via both native wasm32 and wasm64 ABI wrappers; genuine native OS execution, not a new full JIT/debugger run"
+}

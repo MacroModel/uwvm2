@@ -1,0 +1,3711 @@
+{
+  "passed": true,
+  "date": "2026-10-07",
+  "round": "R35",
+  "scope": "finite TinyGo runtime-backed map len and no-scheduler channel len/cap; original Wasm32 producer live CLI and same-product 10-minute soaks; synthetic guest32/64 and 16 Linux-profile real QEMU DATA components; not full native Go/runtime/IDE/architecture parity or whole current workspace",
+  "repositories": [
+    {
+      "repository": "uwvm2",
+      "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+      "manifest": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/uwvm2-current-manifest.json",
+        "sha256": "2bd6e3fd84a9d471053dd948b8a9f5d0a0f10edfc320de7f3f3838ea692345c2"
+      },
+      "build": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/out-uwvm2/product-a4/results.json",
+        "sha256": "de4f946a68c19127c19443f6699a53c0b8f6f02d69e132acb75a9fe7dc5f13a2"
+      },
+      "all_TUs_fresh": true,
+      "product_sha256": "731c33be5994826e48319bff699cf569eab8e8262bfb406f74878e3d9fc0ada3",
+      "product_bytes": 178660872,
+      "native": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/out-uwvm2/native-a1/results.json",
+        "sha256": "535c7bdd964c4ac04e692e79b70c7dee9d77d26c459366c9b3eec893b715b3b2"
+      },
+      "collection_assertions": 1402,
+      "array_assertions": 450,
+      "descriptor_assertions": 145,
+      "DAP_tests": 4,
+      "DAP_positive": 595,
+      "DAP_negative": 330,
+      "CPP_value_rows": 595,
+      "producer": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/out-uwvm2/producer-a1/results.json",
+        "sha256": "63efead6ea8438351cca39c34b72a5785ae713908174ea59ff38b633a4b7cba1"
+      },
+      "producer_tool_tree_id": "sha256:6f1b439b3d4b8035ded6d57a5de20690b9ea42770019b2516bc853c53fd455ae",
+      "original_wasm": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/out-uwvm2/producer-a1/tinygo-O0.wasm",
+          "sha256": "3839b332f8f73f547bec44a785a7cae66a81c39fbab170fb3413ad4f19be8079",
+          "optimization": "0"
+        }
+      ],
+      "phases": {
+        "baseline": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2/baseline-a1/results.json",
+            "sha256": "3a711c8fb37b998ffc63eb491b526ff9b2e974bac23cf28388f2446d37aa2703"
+          },
+          "sessions": 2,
+          "value_comparisons": 60,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices"
+        },
+        "live": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2/live-a1/results.json",
+            "sha256": "40391b477ed91a281810476a6135237bf14fa52a4ae59e21e941c918c7eed451"
+          },
+          "sessions": 2,
+          "value_comparisons": 60,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices"
+        },
+        "regression": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2/regression-a1/results.json",
+            "sha256": "e1af644d863c9fc011c58bef6a2205e8a7540de8efe32d28d532cbb934efeb4c"
+          },
+          "sessions": 2,
+          "value_comparisons": 18,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices"
+        },
+        "names": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2/names-a1/results.json",
+            "sha256": "e03319b532572d9f781808f9a670109517c7653865fa8ee7b634aa3bb4a94d45"
+          },
+          "sessions": 2,
+          "value_comparisons": 16,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices"
+        },
+        "arrays": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2/arrays-a1/results.json",
+            "sha256": "6340ef75457a988dc3f7a0df82b5eaf82cdd1d9eeaf88afb163d1353420510b9"
+          },
+          "sessions": 2,
+          "value_comparisons": 60,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices"
+        },
+        "c-family": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2/c-family-a1/results.json",
+            "sha256": "3b5e1454531c0099ad1fbe806280feca002c2a31d78f60f0854b495627d0cf8e"
+          },
+          "sessions": 40,
+          "value_comparisons": 720,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices"
+        },
+        "soak": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2/soak-a1/results.json",
+            "sha256": "167b7040a5cf95e8947fedbc11c988f6aff110eff1d8fa7473a4c8242a100b2c"
+          },
+          "sessions": 65,
+          "value_comparisons": 1950,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices",
+          "session_record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2/soak-a1/sessions/results.json",
+            "sha256": "6ccc5afbcc2984f1b90c68214b62bfc7ed5150a3fdfbc2a9c7d45ad1982d8714"
+          },
+          "elapsed_seconds": 605.8461288069999
+        }
+      },
+      "QEMU_components": [
+        {
+          "profile": "x86_64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/x86_64/uwvm2-results.json",
+            "sha256": "ff94f81ada01629cdf20aaf3ba7a61fef23bc6561f1a2862f9c40cdde78883d9"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/x86_64/retirement-proof.json",
+            "sha256": "b01da076cd4c054dbc75b4b780e96b72cb7864459c53b346655879c31134ea27"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/x86_64/qemu-output.tar.xz",
+            "sha256": "84066461dc32b3acf91bb4d877a9dd4dba2a201b6c1168982e055b91149dad0b",
+            "bytes": 818804
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 62,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 145368,
+              "sha256": "2ac553d9700dc3c1b50d94ed7619e048eff680be10438b1236c43d3a5d6b3ad9",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 62,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 256600,
+              "sha256": "9007b4e27c3718e918af8f255944382129bdd1406f487ed1eb22e28689a09261",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 62,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 246680,
+              "sha256": "c6f02a1b8ab9dbc83fd22ce2041108f345904a30ac4b08935cc1e62061251014",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "aarch64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/aarch64/uwvm2-results.json",
+            "sha256": "b0b7f04e1f3af7b6823667cace69bd8388fd2113b503ec3828d1bc86366762a7"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/aarch64/retirement-proof.json",
+            "sha256": "b3f1cc019bfdfd030400554d514be49805a8d3844cbf99a8b18b19cdf154fd1c"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/aarch64/qemu-output.tar.xz",
+            "sha256": "43fb27ca38dbeeb06aceb210f5c907667f9dc10099ff5a80ec6a259c624e1c2c",
+            "bytes": 1457488
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 183,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 137136,
+              "sha256": "9d5517e1cb60f1cfc8ccbddc9b23fc020450b0047aa0278fd79482b4f2f3cec4",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 183,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 237504,
+              "sha256": "293a1c752dc56b26891b623f4397dac382e790f3dd51b8eb82c68fbc53bc9577",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 183,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 225008,
+              "sha256": "9c834daa7ccf5487a8355e893b7913f50de900529c0820b0b9176d7602ef3bc8",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/aarch64-a1/provider-a1/out-sdk/providers-arm64-a1",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "riscv64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/riscv64/uwvm2-results.json",
+            "sha256": "d216254b2bd4e0273e4bd6ec4435c437e88f3907fa33f68011b4035153ad7154"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/riscv64/retirement-proof.json",
+            "sha256": "388832996ca8d0ca0d9b18c701ac6042e17cd8962309ca83b0123a97d7725d08"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/riscv64/qemu-output.tar.xz",
+            "sha256": "b645527e9b7aea2befdecffac7acd5eb9bd79a98895a035f8eddbedb88047588",
+            "bytes": 1400960
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 243,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 120288,
+              "sha256": "079cca818308107db9460013bba7315d85b5098e44998afa10211928f87931bf",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 243,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 218760,
+              "sha256": "58d7c900dd4ecc51be17081be297de249bcfd9d43b65b4c593f8331a53ef9300",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 243,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 207224,
+              "sha256": "d00dda2ebbd60d9ea728f70098bde1d86bd32ee2c9f253f74ff80f97cf402ade",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "i686",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/i686/uwvm2-results.json",
+            "sha256": "3891f928615f4244accf8d1d3b7110f7ebeee73bccad50b756a757a4a8bbb4d9"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/i686/retirement-proof.json",
+            "sha256": "4c03f6fd668f6ea42658271bd8c2c719c2d5941abea01060bca3ab7f7346bd1d"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/i686/qemu-output.tar.xz",
+            "sha256": "d1a5f53f3ef963f2f608f96c53214d930d0fe889637fa0ed56fda2f59a5a3813",
+            "bytes": 1490348
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 3,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 159068,
+              "sha256": "9e101a30683fcff859b3caef4cae1f4f712a5f0adb2fb402d7a26edf33fcbb54",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 3,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 292180,
+              "sha256": "826b46edd66cb983bfe27b6533949f7bd85cebdb04aecf0a45981a87d88af98b",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 3,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 278168,
+              "sha256": "c1352c5370c9614157dead0b0f98e6cf6fb0f28acf61d7fcba0762c6600d4c49",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "sparc64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/sparc64/uwvm2-results.json",
+            "sha256": "7e7d01f621e5a459f076d5648640352ed52894c910f76341f998242dee910e6c"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/sparc64/retirement-proof.json",
+            "sha256": "fb2d6e1c64fcbcff6ce42bd5873945bf561e1b799c15a35905e5a5eb0f26408a"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/sparc64/qemu-output.tar.xz",
+            "sha256": "9912d4fbcd31cc3d46a61bb3f69deb399970c7008a98760ef22acab69bf13180",
+            "bytes": 1602952
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 43,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 1080376,
+              "sha256": "5bb5e9cff52f82e9836aa33b7da18bc59c19ae39072d2963fb87d571a76f34b0",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 43,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 1093944,
+              "sha256": "1f966aa0f4dd1b307d32191efae84f2143ca8cc7365901b3bbb14777b4c9a5c3",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 43,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 1090112,
+              "sha256": "876ceb583da671a6ef4c44ea3be322d5341cd4b9f32c32f92dce481ab04153b4",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "loongarch64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/loongarch64/uwvm2-results.json",
+            "sha256": "21b860b5d794b5bb130eb6c276fcfe6e1258e490008ea06e1b6560f68cdf9eeb"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/loongarch64/retirement-proof.json",
+            "sha256": "07dc39346999a499d905fa579076cca97506ffc5cbff69fecb4e8a80d841ab94"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/loongarch64/qemu-output.tar.xz",
+            "sha256": "66fed55ec9958c93a79592eae6da719b7150f45201e43fd0916a23c711bd9277",
+            "bytes": 1374024
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 258,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 135968,
+              "sha256": "13abee99d80805c9082bbcda660f496711a42474f4b4c236d00e5bdc9a99ebf2",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 258,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 245056,
+              "sha256": "30fc80707178813abacd7f70c7f084595d24474187827da29c901fe6d7742c5c",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 258,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 233120,
+              "sha256": "11dcccbd2c63c9ab3343d334736f2ce33bc5f5e8491fc7ab004a45b434ca4620",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "ppc64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc64/uwvm2-results.json",
+            "sha256": "7d309b47c022562982f7f00a7a40f554af8329774a2dd5e7016b9e3da2ed8e4b"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc64/retirement-proof.json",
+            "sha256": "117b3ec702e978b476f12d8e570f8aed8627a5866e2c8dee68906fc3b3cf45e4"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc64/qemu-output.tar.xz",
+            "sha256": "344770f6ad032e095ca6f4272900589018b1092518dc20e8eb6d7e237f4f65f8",
+            "bytes": 1533908
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 229344,
+              "sha256": "cf7989ba6fdb2022b2d7eef26e5b98110567cd3a8f956208478e9ed8db0e33ef",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 306976,
+              "sha256": "33b3031e2e07f0cc988e5d3a7d029526af4c6931af61c0c262799fb82dcc7ba5",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 303024,
+              "sha256": "75e170e46b4d30408e834e63f6eacb1d813ae728c5bf8ee8dfa03e362a9b3041",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "ppc64le",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc64le/uwvm2-results.json",
+            "sha256": "ae547d6bdf8c8651e46b6d8cfa268e4e70359f0409eedea6d82f7bd98d2cf3c3"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc64le/retirement-proof.json",
+            "sha256": "3ec25bff9805ebb891687f1d35b6a7dea733c9409ca94ed484327d9fa01d0a07"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc64le/qemu-output.tar.xz",
+            "sha256": "2aae14fe3c6ea2c0914faa9d4f9c6722feed64094bed95ec0f85d6ed56f3fbac",
+            "bytes": 1457008
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 154776,
+              "sha256": "18bd0e770f1b0f4a3a3f43cf91d0beb6790af1fab555024cb7a4d6ddc462b07c",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 264096,
+              "sha256": "9e4a6efc0d36dcd5f351f09ddf8e14d61ff8cb9c51e57bb857f75e1dd844c971",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 249824,
+              "sha256": "9db562448c6b3100de11ad48c4334b155d39ee6f58493da483868a07d7b6d792",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "ppc32",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc32/uwvm2-results.json",
+            "sha256": "ae5863eaf9828485022221bd9ffacdfd4783f518549e2c5f88433a35b3070519"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc32/retirement-proof.json",
+            "sha256": "ca533f83dd2f880b5984b652ef3df296fb6e4322a7afa25ff59c4ef3e8ef22be"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc32/qemu-output.tar.xz",
+            "sha256": "0fb3365d0fc13123623a9cf59c17f3a50c8cfbe1bc06e5f32c85a0e881b3f165",
+            "bytes": 1523392
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 20,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 157640,
+              "sha256": "f342d52adb1ef54fab75b0f0ae8da3be50bd15ea9780bf2af60ccb0f1d501448",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 20,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 300700,
+              "sha256": "0c327fb41cb555eeb5649f1d8f969ab4dcbb33904635689e19875e8627ddabd6",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 20,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 296920,
+              "sha256": "88672775cf10eb74d0395bc8969866dce7f15fc51cda7112cb4528319050b78d",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "s390x",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/s390x/uwvm2-results.json",
+            "sha256": "5b4647284cad7c66b0c34ede7280963e6b59197be32139ac191d4b7f44906edc"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/s390x/retirement-proof.json",
+            "sha256": "935d40f97723a14c28c0c30541fd416d7024f0fc3d80b441dbb889437941bb70"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/s390x/qemu-output.tar.xz",
+            "sha256": "7697d64dff9023b6165c2c0ef62b3e0f45605314faf4823bcb5062135bb063b2",
+            "bytes": 1388032
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 22,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 150480,
+              "sha256": "ec9d36975ed3c0e825b471feb6986ae5a95d1d7e0611061aa590d7da0b50ab8d",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 22,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 267016,
+              "sha256": "e4cb285f49da5d81e12278295c09bdced37faf509f0002efd274da8b155b2567",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 22,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 253288,
+              "sha256": "df0ce1f41cf7e880d985d88a7d81508bcb4af46b3498424cb8e2d0a030c1a8b4",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "armhf",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/armhf/uwvm2-results.json",
+            "sha256": "263db21e317ef1b0049669d0e1d9251c337c01a47476f04ff22d493144b35a1a"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/armhf/retirement-proof.json",
+            "sha256": "f32210b66275adb8f510a9c44cf4aa53e445df2e9745565afdd8b1bcc5b7ab32"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/armhf/qemu-output.tar.xz",
+            "sha256": "6c44a0e06c882c9897bf4ece4368f14b292ccf88c5bd40ba93f2005b64f54861",
+            "bytes": 1392480
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 137384,
+              "sha256": "d8203de2d420ca85469ede173baaaf741f0881bd4118dd1b88cc85f7ed290472",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 261280,
+              "sha256": "7c8c97b5cc3607dd8afeb7c0a9f4734ec8ece7e8bd2b76cf4bf0456ac4f2f679",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 252984,
+              "sha256": "5a4a2bfc80651b1d3e45b6643a4a1e0f63ca19156dfb82bb465fc199629aa9f0",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "armel",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/armel/uwvm2-results.json",
+            "sha256": "a740b90d4b4eac01dbd5241e1aabf4b33db7462d48836df482e31de506defb02"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/armel/retirement-proof.json",
+            "sha256": "efdb5e36e126dd22b25a711c179e2e5ff9aa605ba271c8171480bae30fd396bb"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/armel/qemu-output.tar.xz",
+            "sha256": "841ea5cd4b8be2dcf572f89ebdcb6ddf43cffe3575f572363c272ffaee94c4a3",
+            "bytes": 1393600
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 138664,
+              "sha256": "6ffa31cf005992291dad78ec27e74ad20166a732901c92e7ee7bd971a0ee3922",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 266080,
+              "sha256": "afb111e67bf9c3e1c0ed7b6309c35a0a98b94da4b662544034303a276557019d",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 258156,
+              "sha256": "4fa73c736e0c31e132e5dce7594e36ae8175df132c8fed11a21a98a53cf1a066",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "mips64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips64/uwvm2-results.json",
+            "sha256": "7fd92b22175ecaa92e3e4974e7a913f37d10c9f0019f8fd5f41a79715ebb8fab"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips64/retirement-proof.json",
+            "sha256": "1f73e2373800e4e7ef9cf8ca4988d62e8aa415a7256a5757a36c4ee8df6b9892"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips64/qemu-output.tar.xz",
+            "sha256": "7dd4f31c82f3ac83595707bee83a1be160daddf3025cc1e1555af75f4639c215",
+            "bytes": 1569228
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 171192,
+              "sha256": "f396863a11a687278bed6c7f135aab2447dfc0fb183f81cab44b2af9b0b8157f",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 300000,
+              "sha256": "96f832fbf74e6a5df256e757eda99de3f066b641abcc562585608eb0f1466cef",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 284528,
+              "sha256": "07a39a2cdc215fe4b3f82814bdafbe3645438b560f6df5a22ef457b57adc8089",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "mips64el",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips64el/uwvm2-results.json",
+            "sha256": "deab609f49e6fa9f5bd53662cb2b119524d5307cc14f48b7161dedb0bdc86e32"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips64el/retirement-proof.json",
+            "sha256": "633300ca11e93e5274fc438c103be339a3dba75710b15dab716f1f48bcd8080c"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips64el/qemu-output.tar.xz",
+            "sha256": "7f280fcfa91d5dcb2729fed518d16d3ccf1957f25e8d680d422732d947578285",
+            "bytes": 1571892
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 171032,
+              "sha256": "070f7d405f985a603384eceea2e72328386bb75cf41f135cd2ddc23fb8e7167b",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 299384,
+              "sha256": "3ecc93b0b236bc4dc1713a2b90c82d9950882507fa11672331663ba14eda7d05",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 283872,
+              "sha256": "00d6b99dc4c863b847c85dbd3f21b485c62cda95ce3fc4f35e8a9d016fc554f0",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "mips32",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips32/uwvm2-results.json",
+            "sha256": "1cdc034a659cf662ea7ba4cc5721380abb60fb481c9fb8557a6bfbf43bae95fc"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips32/retirement-proof.json",
+            "sha256": "0ff858a0abce4ae906e4c99de7a9dacea24fc790c643557a70a6819c8efbf9b3"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips32/qemu-output.tar.xz",
+            "sha256": "7850d687df81c0c1b412310f32efde948253c131c9a609964d280c03bbf3c752",
+            "bytes": 1601060
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 177060,
+              "sha256": "412f031a7527af5facea002a1c5fb35e440c7ed5651cdcccaf2da43f487e5d7d",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 324712,
+              "sha256": "500021aae7aa57dcb69707d0a07590b00064ae7f814721f25c21b48c456c24f3",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 308824,
+              "sha256": "3a8d021af27445bb6ac875d52b21ebb00110997d7e53adc93ef095aeb94335d5",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "mips32el",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips32el/uwvm2-results.json",
+            "sha256": "b8afd073d24de1eb1b6ee63168c0fd58fdfdebb390268413753ddd5410f679f5"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips32el/retirement-proof.json",
+            "sha256": "fc3ba390e828bb8e6d3747b8eac17d4c6ec7e72942491dea32d22808f786aee2"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips32el/qemu-output.tar.xz",
+            "sha256": "ca91c6575edd0928c44d09be49c9757408b82332eff8aeb3ea403e9eb776e746",
+            "bytes": 1603212
+          },
+          "source_id": "sha256:236c37b428d0a9f17c158ed52b8097dd9a449693ebd6a9890623e1b4676175cc",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 176964,
+              "sha256": "4b584ee44c3b1e40e662ec36078944f41f6fb459368d94f7bad73a4f0e4fa7e4",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 324520,
+              "sha256": "afb81250dc52c727bf90f215edcfd97fe6db81f9eeee77c64e8415d214baccd3",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 308616,
+              "sha256": "511be7fe1df6c773f5cf1340459d252b483ac7ce7b5f5bc785291a86d5dcce41",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        }
+      ],
+      "object_retention": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/uwvm2-object-retention.json",
+        "sha256": "ad6dfb667b30534467ce4bfad5ac927657cb6b5ad198ef175abcc224cd2230a3"
+      }
+    },
+    {
+      "repository": "uwvm2-ros",
+      "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+      "manifest": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/uwvm2-ros-current-manifest.json",
+        "sha256": "47507dec422c829ac2f4355d15a16958e3449f72296a0950aff2e8f0512b13cb"
+      },
+      "build": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/out-uwvm2-ros/product-a4/results.json",
+        "sha256": "7ac99960c689f5ed83f908c62f83daa9a15efde45f10cd48a3120e3f4b005675"
+      },
+      "all_TUs_fresh": true,
+      "product_sha256": "23315624053e752e67a397fb48881044640fbe61e5e5149291d1e3fd539e0af0",
+      "product_bytes": 144215176,
+      "native": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/out-uwvm2-ros/native-a1/results.json",
+        "sha256": "bc93d29eb7e84d906fa4727c7e6e1c0b9e10d326a49ef99a12fcd3df8e9aa7f0"
+      },
+      "collection_assertions": 1402,
+      "array_assertions": 450,
+      "descriptor_assertions": 145,
+      "DAP_tests": 4,
+      "DAP_positive": 595,
+      "DAP_negative": 330,
+      "CPP_value_rows": 595,
+      "producer": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/out-uwvm2-ros/producer-a1/results.json",
+        "sha256": "19b1e590d066f6094961673f6faa263bf7ffee151637726b6cb4e3112bb3cc7a"
+      },
+      "producer_tool_tree_id": "sha256:6f1b439b3d4b8035ded6d57a5de20690b9ea42770019b2516bc853c53fd455ae",
+      "original_wasm": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/out-uwvm2-ros/producer-a1/tinygo-O0.wasm",
+          "sha256": "bb8095aec760edaa73f3b5a94d63259a5cab7f53b84d9e49dbde0043d8559045",
+          "optimization": "0"
+        }
+      ],
+      "phases": {
+        "baseline": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2-ros/baseline-a1/results.json",
+            "sha256": "65297f5346f15e3f1349b5f8b396a8c1b01ea7c825d958d1267ee2170e8c40cf"
+          },
+          "sessions": 2,
+          "value_comparisons": 60,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices"
+        },
+        "live": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2-ros/live-a1/results.json",
+            "sha256": "78f5c9a9481ce938e546fb1f29e2b7a2f82dac06a3683bd442c0637378f431ba"
+          },
+          "sessions": 2,
+          "value_comparisons": 60,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices"
+        },
+        "regression": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2-ros/regression-a1/results.json",
+            "sha256": "922aee85e502f3cd92f5445cbb4cbe31d8975b38518a62918c6208f81656a594"
+          },
+          "sessions": 2,
+          "value_comparisons": 18,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices"
+        },
+        "names": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2-ros/names-a1/results.json",
+            "sha256": "51c0525646060d18003d178d46898586f4591865a43fc977ceb514ff7be46999"
+          },
+          "sessions": 2,
+          "value_comparisons": 16,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices"
+        },
+        "arrays": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2-ros/arrays-a1/results.json",
+            "sha256": "e8f6e0d69d9b23cebdf7e4d8cddaeaeaa0e672452858442bcd730c08d9f76ad3"
+          },
+          "sessions": 2,
+          "value_comparisons": 60,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices"
+        },
+        "c-family": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2-ros/c-family-a1/results.json",
+            "sha256": "55f001439f17688a37f38eb2ea11994d2b7ec3912c9be8b1b2e108400c830f92"
+          },
+          "sessions": 40,
+          "value_comparisons": 720,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices"
+        },
+        "soak": {
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2-ros/soak-a1/results.json",
+            "sha256": "dd600b664465395da8dc44fa638ee15bc721581b8a829a025938405c21b605d2"
+          },
+          "sessions": 66,
+          "value_comparisons": 1980,
+          "oracle_scope": "six original compiler-produced arguments plus derived/fixture/Go-spec invariants for collections; existing finite compiler oracles for regression matrices",
+          "session_record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/out-uwvm2-ros/soak-a1/sessions/results.json",
+            "sha256": "ae1970686984ba4a1edcadd1a94169b55dabc932ef5274d423e1162d5c685641"
+          },
+          "elapsed_seconds": 601.2182124420001
+        }
+      },
+      "QEMU_components": [
+        {
+          "profile": "x86_64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/x86_64/uwvm2-ros-results.json",
+            "sha256": "64d31f0d72c15079733310a6925c48685b7173e9b9f68c9fb9aa9760fa1b7c47"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/x86_64/retirement-proof.json",
+            "sha256": "b01da076cd4c054dbc75b4b780e96b72cb7864459c53b346655879c31134ea27"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/x86_64/qemu-output.tar.xz",
+            "sha256": "84066461dc32b3acf91bb4d877a9dd4dba2a201b6c1168982e055b91149dad0b",
+            "bytes": 818804
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 62,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 145368,
+              "sha256": "2ac553d9700dc3c1b50d94ed7619e048eff680be10438b1236c43d3a5d6b3ad9",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 62,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 256600,
+              "sha256": "9007b4e27c3718e918af8f255944382129bdd1406f487ed1eb22e28689a09261",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 62,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 246680,
+              "sha256": "c6f02a1b8ab9dbc83fd22ce2041108f345904a30ac4b08935cc1e62061251014",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "aarch64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/aarch64/uwvm2-ros-results.json",
+            "sha256": "d8997dca3e34d93dc44b8ac84fa1fa3300fd6c8c8b424d8bb541a3a89a7ba024"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/aarch64/retirement-proof.json",
+            "sha256": "b3f1cc019bfdfd030400554d514be49805a8d3844cbf99a8b18b19cdf154fd1c"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/aarch64/qemu-output.tar.xz",
+            "sha256": "43fb27ca38dbeeb06aceb210f5c907667f9dc10099ff5a80ec6a259c624e1c2c",
+            "bytes": 1457488
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 183,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 137136,
+              "sha256": "9d5517e1cb60f1cfc8ccbddc9b23fc020450b0047aa0278fd79482b4f2f3cec4",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 183,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 237504,
+              "sha256": "293a1c752dc56b26891b623f4397dac382e790f3dd51b8eb82c68fbc53bc9577",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 183,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 225008,
+              "sha256": "9c834daa7ccf5487a8355e893b7913f50de900529c0820b0b9176d7602ef3bc8",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/integer-rank-a1/aarch64-a1/provider-a1/out-sdk/providers-arm64-a1",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "riscv64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/riscv64/uwvm2-ros-results.json",
+            "sha256": "b596e9b65ff745370fb92d0c31aef487bcbced98d64d0c868d004e7efa528e1c"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/riscv64/retirement-proof.json",
+            "sha256": "388832996ca8d0ca0d9b18c701ac6042e17cd8962309ca83b0123a97d7725d08"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/riscv64/qemu-output.tar.xz",
+            "sha256": "b645527e9b7aea2befdecffac7acd5eb9bd79a98895a035f8eddbedb88047588",
+            "bytes": 1400960
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 243,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 120288,
+              "sha256": "079cca818308107db9460013bba7315d85b5098e44998afa10211928f87931bf",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 243,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 218760,
+              "sha256": "58d7c900dd4ecc51be17081be297de249bcfd9d43b65b4c593f8331a53ef9300",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 243,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 207224,
+              "sha256": "d00dda2ebbd60d9ea728f70098bde1d86bd32ee2c9f253f74ff80f97cf402ade",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/riscv61/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "i686",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/i686/uwvm2-ros-results.json",
+            "sha256": "6313969099674d403b14e494fbaf30dfd0f0c90f7e6c46f9f3ff713228b69b09"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/i686/retirement-proof.json",
+            "sha256": "4c03f6fd668f6ea42658271bd8c2c719c2d5941abea01060bca3ab7f7346bd1d"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/i686/qemu-output.tar.xz",
+            "sha256": "d1a5f53f3ef963f2f608f96c53214d930d0fe889637fa0ed56fda2f59a5a3813",
+            "bytes": 1490348
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 3,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 159068,
+              "sha256": "9e101a30683fcff859b3caef4cae1f4f712a5f0adb2fb402d7a26edf33fcbb54",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 3,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 292180,
+              "sha256": "826b46edd66cb983bfe27b6533949f7bd85cebdb04aecf0a45981a87d88af98b",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 3,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 278168,
+              "sha256": "c1352c5370c9614157dead0b0f98e6cf6fb0f28acf61d7fcba0762c6600d4c49",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "sparc64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/sparc64/uwvm2-ros-results.json",
+            "sha256": "242a5d270b601b054333c3342432e9b47e7b35e67be83999eab076313b47a941"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/sparc64/retirement-proof.json",
+            "sha256": "fb2d6e1c64fcbcff6ce42bd5873945bf561e1b799c15a35905e5a5eb0f26408a"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/sparc64/qemu-output.tar.xz",
+            "sha256": "9912d4fbcd31cc3d46a61bb3f69deb399970c7008a98760ef22acab69bf13180",
+            "bytes": 1602952
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 43,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 1080376,
+              "sha256": "5bb5e9cff52f82e9836aa33b7da18bc59c19ae39072d2963fb87d571a76f34b0",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 43,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 1093944,
+              "sha256": "1f966aa0f4dd1b307d32191efae84f2143ca8cc7365901b3bbb14777b4c9a5c3",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 43,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 1090112,
+              "sha256": "876ceb583da671a6ef4c44ea3be322d5341cd4b9f32c32f92dce481ab04153b4",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "loongarch64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/loongarch64/uwvm2-ros-results.json",
+            "sha256": "e5cfd619d90990735276ca3dc91b693bdbd4bd3a3d73056ded48af725ab0a5e4"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/loongarch64/retirement-proof.json",
+            "sha256": "07dc39346999a499d905fa579076cca97506ffc5cbff69fecb4e8a80d841ab94"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/loongarch64/qemu-output.tar.xz",
+            "sha256": "66fed55ec9958c93a79592eae6da719b7150f45201e43fd0916a23c711bd9277",
+            "bytes": 1374024
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 258,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 135968,
+              "sha256": "13abee99d80805c9082bbcda660f496711a42474f4b4c236d00e5bdc9a99ebf2",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 258,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 245056,
+              "sha256": "30fc80707178813abacd7f70c7f084595d24474187827da29c901fe6d7742c5c",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 258,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 233120,
+              "sha256": "11dcccbd2c63c9ab3343d334736f2ce33bc5f5e8491fc7ab004a45b434ca4620",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-cross-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "ppc64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc64/uwvm2-ros-results.json",
+            "sha256": "e06790edb200a04dc255a80dbf31095ea4671d4d7111fa3645b8fae9642ec3f6"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc64/retirement-proof.json",
+            "sha256": "117b3ec702e978b476f12d8e570f8aed8627a5866e2c8dee68906fc3b3cf45e4"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc64/qemu-output.tar.xz",
+            "sha256": "344770f6ad032e095ca6f4272900589018b1092518dc20e8eb6d7e237f4f65f8",
+            "bytes": 1533908
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 229344,
+              "sha256": "cf7989ba6fdb2022b2d7eef26e5b98110567cd3a8f956208478e9ed8db0e33ef",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 306976,
+              "sha256": "33b3031e2e07f0cc988e5d3a7d029526af4c6931af61c0c262799fb82dcc7ba5",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 303024,
+              "sha256": "75e170e46b4d30408e834e63f6eacb1d813ae728c5bf8ee8dfa03e362a9b3041",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/cross-provider-recovery-a1/providers-ppc64-a1",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "ppc64le",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc64le/uwvm2-ros-results.json",
+            "sha256": "f1373cea57e6695b9faf9213cf55e5ffb70cd950556b0368181113d8286a6082"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc64le/retirement-proof.json",
+            "sha256": "3ec25bff9805ebb891687f1d35b6a7dea733c9409ca94ed484327d9fa01d0a07"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc64le/qemu-output.tar.xz",
+            "sha256": "2aae14fe3c6ea2c0914faa9d4f9c6722feed64094bed95ec0f85d6ed56f3fbac",
+            "bytes": 1457008
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 154776,
+              "sha256": "18bd0e770f1b0f4a3a3f43cf91d0beb6790af1fab555024cb7a4d6ddc462b07c",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 264096,
+              "sha256": "9e4a6efc0d36dcd5f351f09ddf8e14d61ff8cb9c51e57bb857f75e1dd844c971",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 21,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 249824,
+              "sha256": "9db562448c6b3100de11ad48c4334b155d39ee6f58493da483868a07d7b6d792",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "ppc32",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc32/uwvm2-ros-results.json",
+            "sha256": "ac553cf266588a95822981c026fe005499c11e097b17c4aa1b6a0a2bab7eea76"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc32/retirement-proof.json",
+            "sha256": "ca533f83dd2f880b5984b652ef3df296fb6e4322a7afa25ff59c4ef3e8ef22be"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/ppc32/qemu-output.tar.xz",
+            "sha256": "0fb3365d0fc13123623a9cf59c17f3a50c8cfbe1bc06e5f32c85a0e881b3f165",
+            "bytes": 1523392
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 20,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 157640,
+              "sha256": "f342d52adb1ef54fab75b0f0ae8da3be50bd15ea9780bf2af60ccb0f1d501448",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 20,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 300700,
+              "sha256": "0c327fb41cb555eeb5649f1d8f969ab4dcbb33904635689e19875e8627ddabd6",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 20,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 296920,
+              "sha256": "88672775cf10eb74d0395bc8969866dce7f15fc51cda7112cb4528319050b78d",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "s390x",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/s390x/uwvm2-ros-results.json",
+            "sha256": "5e5ad9df1c28f13f6c843ae52afc8e00ff5c6cc7f04de20664a894ce1b83ee44"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/s390x/retirement-proof.json",
+            "sha256": "935d40f97723a14c28c0c30541fd416d7024f0fc3d80b441dbb889437941bb70"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/s390x/qemu-output.tar.xz",
+            "sha256": "7697d64dff9023b6165c2c0ef62b3e0f45605314faf4823bcb5062135bb063b2",
+            "bytes": 1388032
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 22,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 150480,
+              "sha256": "ec9d36975ed3c0e825b471feb6986ae5a95d1d7e0611061aa590d7da0b50ab8d",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 22,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 267016,
+              "sha256": "e4cb285f49da5d81e12278295c09bdced37faf509f0002efd274da8b155b2567",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 22,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 253288,
+              "sha256": "df0ce1f41cf7e880d985d88a7d81508bcb4af46b3498424cb8e2d0a030c1a8b4",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "armhf",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/armhf/uwvm2-ros-results.json",
+            "sha256": "a5b9aa66f00005d7906f3af75de59b94a9a485ca38848ba52635a818833be479"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/armhf/retirement-proof.json",
+            "sha256": "f32210b66275adb8f510a9c44cf4aa53e445df2e9745565afdd8b1bcc5b7ab32"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/armhf/qemu-output.tar.xz",
+            "sha256": "6c44a0e06c882c9897bf4ece4368f14b292ccf88c5bd40ba93f2005b64f54861",
+            "bytes": 1392480
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 137384,
+              "sha256": "d8203de2d420ca85469ede173baaaf741f0881bd4118dd1b88cc85f7ed290472",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 261280,
+              "sha256": "7c8c97b5cc3607dd8afeb7c0a9f4734ec8ece7e8bd2b76cf4bf0456ac4f2f679",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 252984,
+              "sha256": "5a4a2bfc80651b1d3e45b6643a4a1e0f63ca19156dfb82bb465fc199629aa9f0",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "armel",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/armel/uwvm2-ros-results.json",
+            "sha256": "41f6ed1699a936519a2e16b6b3f764f266abd71969c58fafaeb0ff14f4bbb07a"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/armel/retirement-proof.json",
+            "sha256": "efdb5e36e126dd22b25a711c179e2e5ff9aa605ba271c8171480bae30fd396bb"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/armel/qemu-output.tar.xz",
+            "sha256": "841ea5cd4b8be2dcf572f89ebdcb6ddf43cffe3575f572363c272ffaee94c4a3",
+            "bytes": 1393600
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 138664,
+              "sha256": "6ffa31cf005992291dad78ec27e74ad20166a732901c92e7ee7bd971a0ee3922",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 266080,
+              "sha256": "afb111e67bf9c3e1c0ed7b6309c35a0a98b94da4b662544034303a276557019d",
+              "GNU_STACK_flags": [
+                6
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 40,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 258156,
+              "sha256": "4fa73c736e0c31e132e5dce7594e36ae8175df132c8fed11a21a98a53cf1a066",
+              "GNU_STACK_flags": [
+                6
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-more-providers-a1/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "mips64",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips64/uwvm2-ros-results.json",
+            "sha256": "2a373344155a54765b62ffa1c43aed88df14438cb58765178f965d7c3536b3ad"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips64/retirement-proof.json",
+            "sha256": "1f73e2373800e4e7ef9cf8ca4988d62e8aa415a7256a5757a36c4ee8df6b9892"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips64/qemu-output.tar.xz",
+            "sha256": "7dd4f31c82f3ac83595707bee83a1be160daddf3025cc1e1555af75f4639c215",
+            "bytes": 1569228
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 171192,
+              "sha256": "f396863a11a687278bed6c7f135aab2447dfc0fb183f81cab44b2af9b0b8157f",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 300000,
+              "sha256": "96f832fbf74e6a5df256e757eda99de3f066b641abcc562585608eb0f1466cef",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "big",
+              "bytes": 284528,
+              "sha256": "07a39a2cdc215fe4b3f82814bdafbe3645438b560f6df5a22ef457b57adc8089",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "mips64el",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips64el/uwvm2-ros-results.json",
+            "sha256": "c8331d63a259cf15679ecd7763b7e6d4277a17412644f3a8ed80bdc745cd33f1"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips64el/retirement-proof.json",
+            "sha256": "633300ca11e93e5274fc438c103be339a3dba75710b15dab716f1f48bcd8080c"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips64el/qemu-output.tar.xz",
+            "sha256": "7f280fcfa91d5dcb2729fed518d16d3ccf1957f25e8d680d422732d947578285",
+            "bytes": 1571892
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 171032,
+              "sha256": "070f7d405f985a603384eceea2e72328386bb75cf41f135cd2ddc23fb8e7167b",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 299384,
+              "sha256": "3ecc93b0b236bc4dc1713a2b90c82d9950882507fa11672331663ba14eda7d05",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 64,
+              "byte_order": "little",
+              "bytes": 283872,
+              "sha256": "00d6b99dc4c863b847c85dbd3f21b485c62cda95ce3fc4f35e8a9d016fc554f0",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "mips32",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips32/uwvm2-ros-results.json",
+            "sha256": "bb06cecd043a0453c32506659171d87b792d2cdade5de4ddf7a9651f8f7eff2b"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips32/retirement-proof.json",
+            "sha256": "0ff858a0abce4ae906e4c99de7a9dacea24fc790c643557a70a6819c8efbf9b3"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips32/qemu-output.tar.xz",
+            "sha256": "7850d687df81c0c1b412310f32efde948253c131c9a609964d280c03bbf3c752",
+            "bytes": 1601060
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 177060,
+              "sha256": "412f031a7527af5facea002a1c5fb35e440c7ed5651cdcccaf2da43f487e5d7d",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 324712,
+              "sha256": "500021aae7aa57dcb69707d0a07590b00064ae7f814721f25c21b48c456c24f3",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "big",
+              "bytes": 308824,
+              "sha256": "3a8d021af27445bb6ac875d52b21ebb00110997d7e53adc93ef095aeb94335d5",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        },
+        {
+          "profile": "mips32el",
+          "record": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips32el/uwvm2-ros-results.json",
+            "sha256": "d5b86c9eff6d278d3640f9b00d9fcd7289680ac9a4ed454853d1cdd399662bc5"
+          },
+          "archive_proof": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips32el/retirement-proof.json",
+            "sha256": "fc3ba390e828bb8e6d3747b8eac17d4c6ec7e72942491dea32d22808f786aee2"
+          },
+          "archive": {
+            "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1/mips32el/qemu-output.tar.xz",
+            "sha256": "ca91c6575edd0928c44d09be49c9757408b82332eff8aeb3ea403e9eb776e746",
+            "bytes": 1603212
+          },
+          "source_id": "sha256:7ab8b0026feec0fcf33f4586335e2f56fb2c3911bdece88b884dbbf62461bc20",
+          "ELFs": [
+            {
+              "case": "debug_source_go_collections",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 176964,
+              "sha256": "4b584ee44c3b1e40e662ec36078944f41f6fb459368d94f7bad73a4f0e4fa7e4",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_arrays",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 324520,
+              "sha256": "afb81250dc52c727bf90f215edcfd97fe6db81f9eeee77c64e8415d214baccd3",
+              "GNU_STACK_flags": [
+                7
+              ]
+            },
+            {
+              "case": "debug_source_go_builtins",
+              "machine": 8,
+              "bits": 32,
+              "byte_order": "little",
+              "bytes": 308616,
+              "sha256": "511be7fe1df6c773f5cf1340459d252b483ac7ce7b5f5bc785291a86d5dcce41",
+              "GNU_STACK_flags": [
+                7
+              ]
+            }
+          ],
+          "providers": {
+            "dependencies": "/home/macromodel/Documents/uwvm3-implementation/go-arrays-r34-mips-provider-a2/sysroot",
+            "qemu": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/assets/qemu"
+          },
+          "collection_assertions": 1402,
+          "array_assertions": 450,
+          "descriptor_assertions": 145
+        }
+      ],
+      "object_retention": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/uwvm2-ros-object-retention.json",
+        "sha256": "4413636232ce02b198fa53f3f6fe7272fb29140fe332b4439b3bce291d06ff09"
+      }
+    }
+  ],
+  "guards": [
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-baseline-a1/receipts.json",
+        "sha256": "6941a8b56a6c89e93a95de96ada946f0772b1552e196c44caef0fbca64438dac"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-baseline",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 18.153725188000067,
+      "RSS_peak": 346841088,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9838059520,
+      "minimum_host_free": 68642504704
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-live-a1/receipts.json",
+        "sha256": "224ede9a593e41966229f4adb227042ce3b9456b28ec0ea64076b2cdc5bbce6e"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-live",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 18.822273978999988,
+      "RSS_peak": 355971072,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9648443392,
+      "minimum_host_free": 69649768448
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-regressions-a1/receipts.json",
+        "sha256": "006e29b34ccd9e508ba6acea21dd1e06ece49d54fa8e2cda9d8211fa82e59e0a"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-regression",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 12.906634466000014,
+      "RSS_peak": 266280960,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9548464128,
+      "minimum_host_free": 69574127616
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-regressions-a1/receipts.json",
+        "sha256": "006e29b34ccd9e508ba6acea21dd1e06ece49d54fa8e2cda9d8211fa82e59e0a"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-names",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 1.9274531449999586,
+      "RSS_peak": 153063424,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9548365824,
+      "minimum_host_free": 69574127616
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-regressions-a1/receipts.json",
+        "sha256": "006e29b34ccd9e508ba6acea21dd1e06ece49d54fa8e2cda9d8211fa82e59e0a"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-arrays",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 13.068412041999977,
+      "RSS_peak": 267911168,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9546551296,
+      "minimum_host_free": 69573799936
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-regressions-a1/receipts.json",
+        "sha256": "006e29b34ccd9e508ba6acea21dd1e06ece49d54fa8e2cda9d8211fa82e59e0a"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-c-family",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 17.017742989,
+      "RSS_peak": 153735168,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9539100672,
+      "minimum_host_free": 69486530560
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-ros-baseline-a1/receipts.json",
+        "sha256": "4795b3a92708f0265a40d02f8db508b61e252500af96baca89dccc9f8be9f48c"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-baseline",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 17.975729257000012,
+      "RSS_peak": 345296896,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9837924352,
+      "minimum_host_free": 70056689664
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-ros-live-a1/receipts.json",
+        "sha256": "2a04b63125088bd6960b66c9719edfa247cebb20456cf42bd15074a531fb5d16"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-live",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 19.473461545999953,
+      "RSS_peak": 346947584,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9476583424,
+      "minimum_host_free": 68957913088
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-ros-regressions-a1/receipts.json",
+        "sha256": "c9e5914d0b1dd83a027b52c0566beb64610348eab260f3d7c9e0505c7268dd8f"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-regression",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 13.43465356500019,
+      "RSS_peak": 266838016,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9491906560,
+      "minimum_host_free": 68931104768
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-ros-regressions-a1/receipts.json",
+        "sha256": "c9e5914d0b1dd83a027b52c0566beb64610348eab260f3d7c9e0505c7268dd8f"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-names",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 1.506483247999995,
+      "RSS_peak": 108158976,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9491759104,
+      "minimum_host_free": 68930990080
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-ros-regressions-a1/receipts.json",
+        "sha256": "c9e5914d0b1dd83a027b52c0566beb64610348eab260f3d7c9e0505c7268dd8f"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-arrays",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 13.403212318000215,
+      "RSS_peak": 266432512,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9490800640,
+      "minimum_host_free": 68930859008
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-ros-regressions-a1/receipts.json",
+        "sha256": "c9e5914d0b1dd83a027b52c0566beb64610348eab260f3d7c9e0505c7268dd8f"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-c-family",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 16.31218393900008,
+      "RSS_peak": 193474560,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9485647872,
+      "minimum_host_free": 68851937280
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-ros-soak-a1/receipts.json",
+        "sha256": "9ec37bdfc6d16b7a065539c4190d67c47f1e85ebcf71ef02867bd2bd4a020bdf"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-soak",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 601.9869028389999,
+      "RSS_peak": 369725440,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9454768128,
+      "minimum_host_free": 68325609472
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cli-a1/guard-uwvm2-soak-a1/receipts.json",
+        "sha256": "cd310dea0a9c9aba94bb029cf3fd9effa5aed2c91e8dec77934829bdb6088b33"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-soak",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 606.612503708,
+      "RSS_peak": 378580992,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9326960640,
+      "minimum_host_free": 68731203584
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-aarch64-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "07a27a88db23522af49350647a36334c080057564a6043372f41918dedfcb36c"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-aarch64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 41.03424470800019,
+      "RSS_peak": 633540608,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9332883456,
+      "minimum_host_free": 69254012928
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-aarch64-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "8ce6166c88402ed76187d47a024a5fd8be06b7a4a68823123a79dcb5446862a3"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-aarch64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 40.84138966799992,
+      "RSS_peak": 632639488,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9327734784,
+      "minimum_host_free": 69250580480
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-armel-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "e0ee965bdae796e3bf14acc03be0b33054756d1d26dd58a596656db7c83608f4"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-armel",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 40.51451540800008,
+      "RSS_peak": 618090496,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9473273856,
+      "minimum_host_free": 68323966976
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-armel-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "4a56ab75b88a3e9c7ad1b0462c2a0e0ad51190f6824308bc3dc2809b8c2842fd"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-armel",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 39.51912844699996,
+      "RSS_peak": 617975808,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9468563456,
+      "minimum_host_free": 68323999744
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-armhf-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "06944f275574e788ca339c07bd392ad9cc9a29110de327fff65b4f43750b2225"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-armhf",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 42.07373207600017,
+      "RSS_peak": 619589632,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9474228224,
+      "minimum_host_free": 68342759424
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-armhf-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "c27849e5c225566d42d83a71dedc61a65b4b365e82041416c2f700d5eef767cf"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-armhf",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 41.55805403599993,
+      "RSS_peak": 619339776,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9474048000,
+      "minimum_host_free": 68325302272
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-i686-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "2ca6e6c3946407b6a358592896cbb499d1218ec37527638f801bdf0b78e36142"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-i686",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 43.0231957200001,
+      "RSS_peak": 621625344,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9470140416,
+      "minimum_host_free": 68933394432
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-i686-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "f841acfaa21e596d2be52f293fab820fc125583d19146f587238e93e9745839e"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-i686",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 44.18682349100004,
+      "RSS_peak": 621621248,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9486782464,
+      "minimum_host_free": 68930215936
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-loongarch64-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "a1c206a3b7d320d7e4b8ecf3dc144d4e50f620348701a74831b5bb3b1b155edb"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-loongarch64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 40.346777804999874,
+      "RSS_peak": 627871744,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9469870080,
+      "minimum_host_free": 68797689856
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-loongarch64-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "42892e3d705d6499de931a04fa97ed591f9b59c9c35f95bc299dd10f3f67d578"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-loongarch64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 39.93360634800001,
+      "RSS_peak": 627941376,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9464598528,
+      "minimum_host_free": 68791808000
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-mips32-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "38391d14c8a8a02a8acc7bdf63e8563a867a8761bb81d0d33d9f7785954d7434"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-mips32",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 40.79830314400033,
+      "RSS_peak": 617828352,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9462419456,
+      "minimum_host_free": 67442356224
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-mips32-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "798b810cbddb9370d45b1de1ac27e9686a7a0de49d4a1787551ae4a67164ec8b"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-mips32",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 39.70015105199991,
+      "RSS_peak": 617496576,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9457491968,
+      "minimum_host_free": 67441246208
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-mips32el-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "b48cb439379313de0caeb8602dfc2c7aa3263396dc007d736e0149a59cd80979"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-mips32el",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 40.419157984999856,
+      "RSS_peak": 617779200,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9456164864,
+      "minimum_host_free": 67408179200
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-mips32el-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "c1e3380f1784a87d7f5d2fa650dfc07384650d9e654738ce5f65101b2daecc4c"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-mips32el",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 39.92160510700023,
+      "RSS_peak": 617861120,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9476583424,
+      "minimum_host_free": 67401027584
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-mips64-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "23a8d553925f92f61de431affe63b14d66dc7ce169a63bc91c6f7c7774022560"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-mips64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 39.82514597800014,
+      "RSS_peak": 628420608,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9463652352,
+      "minimum_host_free": 68327071744
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-mips64-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "03ce7edb3dd1f914fc9840ebe1fe4794ae2bc244f5f17a23ee81df3beb8c009f"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-mips64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 39.25159269500023,
+      "RSS_peak": 628129792,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9463021568,
+      "minimum_host_free": 68310441984
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-mips64el-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "254ab98eba10a0bef4d3038ab9f4733dc1c77fadbd1961c0af4a1e232d3a4260"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-mips64el",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 40.08279462599967,
+      "RSS_peak": 628391936,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9472274432,
+      "minimum_host_free": 68311314432
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-mips64el-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "8669ab14beb0d1fc96ac904d2d0eedc7b41fa6f97f4af149036c9686806fac56"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-mips64el",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 40.23295596199978,
+      "RSS_peak": 628432896,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9467346944,
+      "minimum_host_free": 67468156928
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-ppc32-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "e50e50c7be677d4e72ddff2766ae54d81710bb0cfaab2dd31bfee2317c911ab2"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ppc32",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 41.9792827629999,
+      "RSS_peak": 616652800,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9465618432,
+      "minimum_host_free": 68823769088
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-ppc32-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "78d7addd74548d97138fbf542fe91e777cc6e15855cc19cfebb4db962e41c859"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-ppc32",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 41.17479546699997,
+      "RSS_peak": 616525824,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9460518912,
+      "minimum_host_free": 68669501440
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-ppc64-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "118c35546f64ce8be260b64a76279c9fb7ffea9e4a6b1d2e3275803486698e29"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ppc64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 41.56942418699987,
+      "RSS_peak": 627867648,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9459023872,
+      "minimum_host_free": 68762349568
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-ppc64-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "d81d0044417ae7b521eb88d90f7f5eeb2ad7893f69a6e23b5b8705f2a24876fe"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-ppc64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 41.05300012600014,
+      "RSS_peak": 627884032,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9458896896,
+      "minimum_host_free": 68731215872
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-ppc64le-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "49cc9ca1ccb88005377d72dcc753fb2013e0c74e8544c7351c29fc95525f7772"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ppc64le",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 40.72333125,
+      "RSS_peak": 627044352,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9475813376,
+      "minimum_host_free": 68846411776
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-ppc64le-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "13c0c0e18ebb7e15d7b2a79a81d4474e4a38c12fa75470dc9d2861f1f7699041"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-ppc64le",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 40.25742928599993,
+      "RSS_peak": 626966528,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9470754816,
+      "minimum_host_free": 68831170560
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-riscv64-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "ed1e5f81c3d6b02f6d4ca21d82f37fa09759163e0e589ed8909c9ab983daf7cb"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-riscv64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 42.3710536210001,
+      "RSS_peak": 630022144,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9326960640,
+      "minimum_host_free": 68957917184
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-riscv64-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "ba9ad76dcc28ed7bd133fa57db7862ffbd32bc34e93e50bffd6e8c1b4ffe68c1"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-riscv64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 39.88193406999994,
+      "RSS_peak": 629952512,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9471832064,
+      "minimum_host_free": 68956749824
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-s390x-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "114f5d77c0987666fab28685d13b7afb6fa6cf73cf03ffd196bc707486b0ec11"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-s390x",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 41.316721518999884,
+      "RSS_peak": 628846592,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9455501312,
+      "minimum_host_free": 68639330304
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-s390x-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "56144346b4dedff4fedc3cff40223fefadbddf77791cd9838268a8c009ab0b81"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-s390x",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 41.544452069000045,
+      "RSS_peak": 628797440,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9454768128,
+      "minimum_host_free": 68493201408
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-sparc64-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "88f50d11ab48763aa6449f50ddcf5d4a47749d293ee300c7c238ea80f5db2401"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-sparc64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 41.030808940999805,
+      "RSS_peak": 626692096,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9480433664,
+      "minimum_host_free": 68842942464
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-sparc64-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "29aad738f69bec050eb264b1966bc02cfbdbd4724a611cd0bd5400ed1fa4a457"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-sparc64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 40.64433278999991,
+      "RSS_peak": 626503680,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9475100672,
+      "minimum_host_free": 68835344384
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-x86_64-a1/guard-uwvm2-a1/receipts.json",
+        "sha256": "e16934341df5bb0605997fef74edaa74b7c243c8a2ba3bcf33b70c06fa80aa0a"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-x86-64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 43.4087193150001,
+      "RSS_peak": 631410688,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9535410176,
+      "minimum_host_free": 69474881536
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/cross-x86_64-a1/guard-uwvm2-ros-a1/receipts.json",
+        "sha256": "f37b801322e2d10dd203a498c71bfb53ea36399138ad81ef91597aaf22f7d7c7"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-x86-64",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 40.91178473299988,
+      "RSS_peak": 631418880,
+      "RSS_budget": 1073741824,
+      "output_budget": 67108864,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9338077184,
+      "minimum_host_free": 69473288192
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/guard-uwvm2-build-a1/receipts.json",
+        "sha256": "08e00ec8009fa6b8f148fcd513c5e494abd85dee053c00306087732ad4577529"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-build",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 0.47370014800253557,
+      "RSS_peak": 27176960,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        9769,
+        16929
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9846902784,
+      "minimum_host_free": 68017623040
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/guard-uwvm2-build-a2/receipts.json",
+        "sha256": "c6cd64da0b7bfe1e7657cf19948488636777a8730fa0ee8de01ffa531cc22ffd"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-build",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 2.472707465996791,
+      "RSS_peak": 70746112,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        9769,
+        16929
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9842769920,
+      "minimum_host_free": 69028306944
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/guard-uwvm2-build-a3-run1/receipts.json",
+        "sha256": "a6ba9c6685940d92b99ddec9cc14bbdf586504cf96c0eb06c5279d5d6490b3b4"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-build",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 0.4738428290000911,
+      "RSS_peak": 27566080,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9842585600,
+      "minimum_host_free": 68643385344
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/guard-uwvm2-build-a4/receipts.json",
+        "sha256": "d5fe1a6e622a45ca3520e71581b51b027734bc80455b7954f445f8a932ca692e"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-build",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 231.199831033,
+      "RSS_peak": 7284928512,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9452908544,
+      "minimum_host_free": 68642496512
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/guard-uwvm2-native-a1/receipts.json",
+        "sha256": "31581c7a80bf49bcdd107317534d26183fc136b1935f8d0bf5569600692915ec"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-native",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 60.36877536300017,
+      "RSS_peak": 744775680,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        9769,
+        16929
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9397219328,
+      "minimum_host_free": 68018114560
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/guard-uwvm2-producer-a1/receipts.json",
+        "sha256": "dcfd0afba19d7f9da58b5e81bdac8ce24393eea39baff1e23c9905a3eb4e9181"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-producer",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 4.289988502001506,
+      "RSS_peak": 237330432,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        9769,
+        16929
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9404866560,
+      "minimum_host_free": 68427309056
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/guard-uwvm2-ros-build-a4/receipts.json",
+        "sha256": "899611abb075c82572b4b0499bc119dceb98f510688506a7d2000c488f8db24e"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-build",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 199.279889711,
+      "RSS_peak": 5927669760,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        11166,
+        22661
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9341116416,
+      "minimum_host_free": 69474074624
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/guard-uwvm2-ros-native-a1/receipts.json",
+        "sha256": "ed95998e457949b5415fec290b61b8813ce0b0e50ee0de6840537d73eed7e66b"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-native",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 60.34568093899725,
+      "RSS_peak": 752635904,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        9769,
+        16929
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9397219328,
+      "minimum_host_free": 68018114560
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/guard-uwvm2-ros-producer-a1/receipts.json",
+        "sha256": "e1a8d56411b7a0647cb18c4c668e24b3df801a6f7c811f49da48f6e35f6e2189"
+      },
+      "cut": "go-collections-r35-a3",
+      "label": "uwvm2-ros-producer",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 4.527916320002987,
+      "RSS_peak": 235606016,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        9769,
+        16929
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9404837888,
+      "minimum_host_free": 68427300864
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a1/guard-uwvm2-producer-a1/receipts.json",
+        "sha256": "4a89a4f5317972f0293ffb1c09f67c95e7e00b7628d5fcc23e59340d94156ed0"
+      },
+      "cut": "go-collections-r35-a1",
+      "label": "uwvm2-producer",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 4.29874484299944,
+      "RSS_peak": 240328704,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        9769,
+        16929
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9458274304,
+      "minimum_host_free": 68683386880
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a1/guard-uwvm2-ros-producer-a1/receipts.json",
+        "sha256": "89f1cd2a70d26d8b1302c54d438cf59d06893ea3fefd88176c60e8c6daf784e5"
+      },
+      "cut": "go-collections-r35-a1",
+      "label": "uwvm2-ros-producer",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 4.470946984001785,
+      "RSS_peak": 239702016,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        9769,
+        16929
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9458278400,
+      "minimum_host_free": 68683386880
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a2/guard-uwvm2-native-a1/receipts.json",
+        "sha256": "67d3380d74b9d913526b2ea87fa0e081947e8e6e6636da1f99c5a992541bd71c"
+      },
+      "cut": "go-collections-r35-a2",
+      "label": "uwvm2-native",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 10.759351799999422,
+      "RSS_peak": 516509696,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        9769,
+        16929
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9431465984,
+      "minimum_host_free": 68520628224
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a2/guard-uwvm2-producer-a1/receipts.json",
+        "sha256": "eca77969b02d8e6238533b11b7bc9854360a73f090c9f0e1888c70b2479c7331"
+      },
+      "cut": "go-collections-r35-a2",
+      "label": "uwvm2-producer",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 4.53518747700582,
+      "RSS_peak": 237424640,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        9769,
+        16929
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9431687168,
+      "minimum_host_free": 68522287104
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a2/guard-uwvm2-ros-native-a1/receipts.json",
+        "sha256": "78ece9950d36035282c4bdbe965246bb1b3693707720b0e1fb1a47fb4de5359e"
+      },
+      "cut": "go-collections-r35-a2",
+      "label": "uwvm2-ros-native",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 10.763313758005097,
+      "RSS_peak": 516960256,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        9769,
+        16929
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9431474176,
+      "minimum_host_free": 68520628224
+    },
+    {
+      "record": {
+        "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a2/guard-uwvm2-ros-producer-a1/receipts.json",
+        "sha256": "cc7c412f3204aa775f32a5ad74dd36ca27511137f919c4ea35ceeb369f0247e2"
+      },
+      "cut": "go-collections-r35-a2",
+      "label": "uwvm2-ros-producer",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 4.524118614994222,
+      "RSS_peak": 235565056,
+      "RSS_budget": 17179869184,
+      "output_budget": 2147483648,
+      "init_pid_birth": [
+        9769,
+        16929
+      ],
+      "root_reaped": true,
+      "descendant_PIDFDs_retired": true,
+      "memory_events_unchanged": true,
+      "minimum_arena_free": 9431691264,
+      "minimum_host_free": 68522287104
+    }
+  ],
+  "passed_guard_jobs": 56,
+  "failed_guard_jobs_retained": 5,
+  "final_cut_passed_guard_jobs": 52,
+  "preflight_failed_empty_guard_directory": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/guard-uwvm2-build-a3",
+  "failed_jobs_scope": "preserved initial fast_io component compile failures and private build-entry/JSON configuration failures before target execution; current final jobs independently pass",
+  "kernel_memory_max": 68719476736,
+  "kernel_swap_max": 0,
+  "current_boot": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+  "earlier_component_boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8",
+  "current_keeper_pid_birth": [
+    11166,
+    22661
+  ],
+  "FSID": "12191019222208619510",
+  "original_memory_events_unchanged": true,
+  "all_started_roots_reaped_and_PIDFDs_retired": true,
+  "original_arena_floor_bytes": 9288400896,
+  "host_floor_bytes": 26843545600,
+  "free_after": {
+    "arena": 9486192640,
+    "host": 67374653440
+  },
+  "short_fresh_sessions_pair": 96,
+  "short_fresh_value_comparisons_pair": 1748,
+  "old_refusal_sessions_pair": 4,
+  "old_refusal_expressions_pair": 120,
+  "soak_sessions_pair": 131,
+  "soak_value_comparisons_pair": 3930,
+  "QEMU_profiles": 16,
+  "QEMU_repository_profile_jobs": 32,
+  "QEMU_target_ELFs": 96,
+  "QEMU_component_assertions": 63904,
+  "collection_nil_query_reader_calls": 0,
+  "nonnull_collection_component_header_copies_per_query": 1,
+  "reader_claim_scope": "component evaluator; existing controller may additionally capture qualified root bytes in a real stop/frame/cohort transaction",
+  "CXX_IO_and_owned_strings": "fast_io; bounded ordinary guest-pointer copy only",
+  "ASM_scope_changed": false,
+  "source_core_and_auxiliary_pins": {
+    "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/owned-pins.json",
+    "sha256": "2645c55f28e0e859e081aa9efd1d40447918bb7f2d7468a341f99c0cc29ffc59"
+  },
+  "auxiliary_helpers_not_in_original_core_manifest": {
+    "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/auxiliary-pins.json",
+    "sha256": "87779a0d6f70fbc4db0459a154b5bce05e305650aed4a8b93b348d1cfff888b8"
+  },
+  "workspace_review": {
+    "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/workspace-review-r35.json",
+    "sha256": "dd58bcc8c1c23172e2e7ccb3aff43043ba16e490de538406e9e8b7d251e0b8a5"
+  },
+  "preparation_archive_proof": {
+    "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-preparation-a1/retirement-proof.json",
+    "sha256": "d9f9f0d85a9d7e8cc607480120bc4d53775677dab9a1a80ade6d8eea30962fa3"
+  },
+  "prior_R34_migration_proof": {
+    "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-arrays-r34-final/r35-arena-retirement-proof.json",
+    "sha256": "0144d2d5e9819db1ba4ffd2f5cc4e374ea5a4541de32b2b2bdc8468abfc2ed39"
+  },
+  "external_latest_ROS_LLVM_provider_parity_qualified": false,
+  "full_cross_architecture_VM_parity": false,
+  "full_live_Go_DAP_IDE_qualified": false,
+  "all_native_capabilities_implemented": false,
+  "remaining": [
+    "other TinyGo scheduler/mutex/runtime layouts and all producer/type aliases",
+    "general Go grammar/precedence/untyped constants and builtin shadowing",
+    "map entry indexing/iteration and goroutine/runtime execution support",
+    "standard gc Go live debugger qualification",
+    "Rust slice .len native semantics",
+    "TinyGo O1 strict upstream inline-range DWARF verification",
+    "full live Go DAP broker/IDE qualification",
+    "other languages complete native experience and full architecture VM/JIT parity",
+    "latest full ROS LLVM provider parity"
+  ],
+  "evidence_archive": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-final/go-collections-r35-evidence.tar.xz",
+    "bytes": 117157428,
+    "sha256": "f8df629445df01ed8134484d83b5460f29c299d37496017f088592e7d0053250",
+    "linux_fsync": true,
+    "all_members_verified": true,
+    "members": 9204,
+    "input_files_before_after_unchanged": true,
+    "snapshot_roots": [
+      {
+        "prefix": "r35",
+        "root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3"
+      },
+      {
+        "prefix": "objects",
+        "root": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-objects-a1"
+      },
+      {
+        "prefix": "cross",
+        "root": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-cross-a1"
+      }
+    ],
+    "retained_frozen_source_products_six_objects_success_and_failed_logs": true,
+    "cross_target_ELFs_preserved_in_verified_nested_archives": true,
+    "separate_preparation_archive": {
+      "file": "/home/macromodel/Documents/uwvm3-implementation/retained-go-collections-r35-preparation-a1/retirement-proof.json",
+      "sha256": "d9f9f0d85a9d7e8cc607480120bc4d53775677dab9a1a80ade6d8eea30962fa3"
+    },
+    "SDK_QEMU_and_historical_LLVM_providers_external_exact_pins": true,
+    "prior_archives_preserved": true,
+    "seconds": 43.637994761999835
+  },
+  "raw_object_duplicate_retirement": {
+    "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/retired-r35-objects.json",
+    "sha256": "2b85e9e87209a37bc9f9d211208dd464b118ce22b1e6f4e3aa3055d588bccdc1",
+    "retired_logical_file_bytes": 353941512
+  },
+  "current_workspace_final_owned_review": {
+    "file": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/go-collections-r35-a3/workspace-review-final-r35.json",
+    "sha256": "054d27a3f89fb6a2519965349e39332f2122676b6a446fff085626bcfdcaf7fc"
+  },
+  "whole_current_workspace_qualified": false,
+  "free_after_retention": {
+    "arena": 9486020608,
+    "host": 67408707584
+  },
+  "main_archive_contains_prior_qualification_snapshot": true,
+  "final_qualification_is_post_archive_sidecar": true
+}

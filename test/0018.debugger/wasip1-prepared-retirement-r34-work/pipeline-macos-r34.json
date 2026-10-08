@@ -1,0 +1,311 @@
+[
+  {
+    "label": "format-own-ramdisk-uwvm2",
+    "argv": [
+      "/usr/sbin/diskutil",
+      "eraseVolume",
+      "HFS+",
+      "UWVM_R34_uwvm2",
+      "/dev/disk4"
+    ],
+    "exit": 0,
+    "seconds": 1.80706462499802
+  },
+  {
+    "label": "unmount-own-ramdisk-uwvm2",
+    "argv": [
+      "/usr/sbin/diskutil",
+      "unmount",
+      "/dev/disk4"
+    ],
+    "exit": 0,
+    "seconds": 0.1952640000017709
+  },
+  {
+    "label": "mount-own-ramdisk-uwvm2",
+    "argv": [
+      "/usr/sbin/diskutil",
+      "mount",
+      "-mountPoint",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos",
+      "/dev/disk4"
+    ],
+    "exit": 0,
+    "seconds": 0.1640899170015473
+  },
+  {
+    "label": "transfer-uwvm2-debug_wasip1_prepared_retirement.exe",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2/debug_wasip1_prepared_retirement.exe",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_wasip1_prepared_retirement.exe"
+    ],
+    "exit": 0,
+    "seconds": 8.104123249999247
+  },
+  {
+    "label": "transfer-uwvm2-debug_checkpoint_prepared_retirement.exe",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2/debug_checkpoint_prepared_retirement.exe",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_prepared_retirement.exe"
+    ],
+    "exit": 0,
+    "seconds": 8.000978165997367
+  },
+  {
+    "label": "transfer-uwvm2-debug_checkpoint_native_cohort_retirement.exe",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2/debug_checkpoint_native_cohort_retirement.exe",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_native_cohort_retirement.exe"
+    ],
+    "exit": 0,
+    "seconds": 7.990662541000347
+  },
+  {
+    "label": "transfer-uwvm2-debug_wasip1_checkpoint.wasm",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2/debug_wasip1_checkpoint.wasm",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_wasip1_checkpoint.wasm"
+    ],
+    "exit": 0,
+    "seconds": 0.1584070419994532
+  },
+  {
+    "label": "transfer-uwvm2-qualified.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2/qualified.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/qualified.json"
+    ],
+    "exit": 0,
+    "seconds": 0.19535362500027986
+  },
+  {
+    "label": "transfer-uwvm2-debug_checkpoint_retirement_cohort.wasm",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2/debug_checkpoint_retirement_cohort.wasm",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2/debug_checkpoint_retirement_cohort.wasm"
+    ],
+    "exit": 0,
+    "seconds": 0.1661229169985745
+  },
+  {
+    "label": "native-uwvm2",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos_native.py",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 66.4991268340018
+  },
+  {
+    "label": "native-evidence-transfer-uwvm2",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/uwvm2-macos-native-evidence.tar.gz",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/uwvm2-macos-native-evidence.json",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/"
+    ],
+    "exit": 0,
+    "seconds": 0.18932608400064055
+  },
+  {
+    "label": "archive-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r34.py",
+      "joint-archive-r34",
+      "macos",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 244.68615762500121
+  },
+  {
+    "label": "recovery-receipt-uwvm2",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/uwvm2-macos-v8-product-retirement.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/uwvm2-macos-v8-product-retirement.json"
+    ],
+    "exit": 0,
+    "seconds": 0.18719541699829279
+  },
+  {
+    "label": "detach-own-ramdisk-uwvm2",
+    "argv": [
+      "/usr/bin/hdiutil",
+      "detach",
+      "/dev/disk4"
+    ],
+    "exit": 0,
+    "seconds": 0.16263070799323032
+  },
+  {
+    "label": "format-own-ramdisk-uwvm2-ros",
+    "argv": [
+      "/usr/sbin/diskutil",
+      "eraseVolume",
+      "HFS+",
+      "UWVM_R34_uwvm2_ros",
+      "/dev/disk4"
+    ],
+    "exit": 0,
+    "seconds": 1.8037228329994832
+  },
+  {
+    "label": "unmount-own-ramdisk-uwvm2-ros",
+    "argv": [
+      "/usr/sbin/diskutil",
+      "unmount",
+      "/dev/disk4"
+    ],
+    "exit": 0,
+    "seconds": 0.19169924999732757
+  },
+  {
+    "label": "mount-own-ramdisk-uwvm2-ros",
+    "argv": [
+      "/usr/sbin/diskutil",
+      "mount",
+      "-mountPoint",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos",
+      "/dev/disk4"
+    ],
+    "exit": 0,
+    "seconds": 0.1711436670011608
+  },
+  {
+    "label": "transfer-uwvm2-ros-debug_checkpoint_prepared_retirement.exe",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2-ros/debug_checkpoint_prepared_retirement.exe",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2-ros/debug_checkpoint_prepared_retirement.exe"
+    ],
+    "exit": 0,
+    "seconds": 5.748276541999076
+  },
+  {
+    "label": "transfer-uwvm2-ros-debug_checkpoint_native_cohort_retirement.exe",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2-ros/debug_checkpoint_native_cohort_retirement.exe",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2-ros/debug_checkpoint_native_cohort_retirement.exe"
+    ],
+    "exit": 0,
+    "seconds": 5.716853207995882
+  },
+  {
+    "label": "transfer-uwvm2-ros-debug_wasip1_checkpoint.wasm",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2-ros/debug_wasip1_checkpoint.wasm",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2-ros/debug_wasip1_checkpoint.wasm"
+    ],
+    "exit": 0,
+    "seconds": 0.16773337500490015
+  },
+  {
+    "label": "transfer-uwvm2-ros-qualified.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2-ros/qualified.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2-ros/qualified.json"
+    ],
+    "exit": 0,
+    "seconds": 0.18210624999483116
+  },
+  {
+    "label": "transfer-uwvm2-ros-debug_wasip1_prepared_retirement.exe",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2-ros/debug_wasip1_prepared_retirement.exe",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2-ros/debug_wasip1_prepared_retirement.exe"
+    ],
+    "exit": 0,
+    "seconds": 5.837260749998677
+  },
+  {
+    "label": "transfer-uwvm2-ros-debug_checkpoint_retirement_cohort.wasm",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2-ros/debug_checkpoint_retirement_cohort.wasm",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos/uwvm2-ros/debug_checkpoint_retirement_cohort.wasm"
+    ],
+    "exit": 0,
+    "seconds": 0.16171095900062937
+  },
+  {
+    "label": "native-uwvm2-ros",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/macos_native.py",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 63.08077483299712
+  },
+  {
+    "label": "native-evidence-transfer-uwvm2-ros",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/uwvm2-ros-macos-native-evidence.tar.gz",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/uwvm2-ros-macos-native-evidence.json",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/"
+    ],
+    "exit": 0,
+    "seconds": 0.1713820420045522
+  },
+  {
+    "label": "detach-own-ramdisk-uwvm2-ros",
+    "argv": [
+      "/usr/bin/hdiutil",
+      "detach",
+      "/dev/disk4"
+    ],
+    "exit": 0,
+    "seconds": 0.16981783299706876
+  }
+]

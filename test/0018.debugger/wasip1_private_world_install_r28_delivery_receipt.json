@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-world-install-20261007-r28/delivery-metadata.tar.gz",
+  "archive_bytes": 447066,
+  "archive_sha256": "818464a66427ea27d99b4ce103788baa1ed8c380b0c2597b00d3b56c2be543f3",
+  "files": {
+    "wasip1_private_world_install_r28_active_environment.json": {
+      "sha256": "abcc8e05bb502f388a3ff2af2e21a1311443c257c7e87fc57397a4d049dc4337",
+      "bytes": 16090
+    },
+    "wasip1_private_world_install_r28_cold_storage_state.json": {
+      "sha256": "45516fa9199efc91d41cd480189209351aa1fd63740136c9cad8f91260ae90cb",
+      "bytes": 5672
+    },
+    "wasip1_private_world_install_r28_delivery_inputs.json": {
+      "sha256": "de70ed0b67b6179c16ad4a65a3e956fbe08571c8dd4cda846ff371fca3276a24",
+      "bytes": 2184
+    },
+    "wasip1_private_world_install_r28_local_transport_retirement.json": {
+      "sha256": "b32153e733750bfa23ade122ed00bed7045388bd1ed2a887843996b999afc3c4",
+      "bytes": 3318
+    },
+    "wasip1_private_world_install_r28_native_macos_evidence.json": {
+      "sha256": "c26104cb5cb78cf0defb7d1f7f394d59d8bbef8b61867df1644ce8cc831d36ad",
+      "bytes": 21514
+    },
+    "wasip1_private_world_install_r28_post_reboot_guard.json": {
+      "sha256": "1111b79ced8c8be58530cde4b699999aecafe6e471dabb652c7bfedc53221f33",
+      "bytes": 3879
+    },
+    "wasip1_private_world_install_r28_post_reboot_state.json": {
+      "sha256": "a83048dafb41e841d5825637e9ffc0e488b813a776da30c4f4865c5a678b524e",
+      "bytes": 1229
+    },
+    "wasip1_private_world_install_r28_qualification_guard.json": {
+      "sha256": "159c53ffda97bfc16446ece942393d7a739a2d304d3b738c264af359acd1432f",
+      "bytes": 3878
+    },
+    "wasip1_private_world_install_r28_source_freeze.json": {
+      "sha256": "94e804e7738c1ccd8c7cfd3b31da5131338181fcbd413406d7e472da0bd6310c",
+      "bytes": 420
+    },
+    "wasip1_private_world_install_r28_source_manifest.json": {
+      "sha256": "4a46be13165404991f29fc8e32843e05fe88e84d13bf910336e8ef950ec9d371",
+      "bytes": 1213826
+    },
+    "wasip1_private_world_install_r28_storage_policy.json": {
+      "sha256": "fc24a09a9b5f83e2722b72249e06de39e6cd495a7988cea9d88f1ca67f2f95fc",
+      "bytes": 1460
+    },
+    "wasip1_private_world_install_r28_test_report.json": {
+      "sha256": "697c2b7815d00aba0ecade3c9ecd0b1e2859c509fa7857957e448f445c2ecc93",
+      "bytes": 51171
+    },
+    "wasip1_private_world_install_r28_test_report.md": {
+      "sha256": "e53cbabc17c52236c8f0f885314adbc8ab26bf78ef3a6e38a99dab876c44fb08",
+      "bytes": 7630
+    },
+    "wasip1_private_world_install_r28_workspace_scope.json": {
+      "sha256": "c79957d36b5749c7455e0f731bc68493b4f264c188d52e7f8816ca5c292a9dc4",
+      "bytes": 6003
+    }
+  },
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "inputs_preserved": true,
+  "native_test_results_changed": false,
+  "no_large_product_or_sdk_duplicate": true
+}

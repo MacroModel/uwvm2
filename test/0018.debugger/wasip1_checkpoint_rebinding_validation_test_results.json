@@ -1,0 +1,1806 @@
+{
+  "passed": true,
+  "scope": "Rebinding request/CLI/codec validation and native FastIO persistent metadata; controller header syntax under uwvm-int/LLVM-enabled header configuration. No fresh all-OS live-VM restoration claim.",
+  "totals": {
+    "positive_checks": 5598,
+    "linux_positive_checks": 4614,
+    "four_os_rebinding_checks": 1312,
+    "old_implementation_checks": 328,
+    "positive_native_processes": 12,
+    "old_implementation_processes": 2,
+    "controller_syntax_compiles": 2
+  },
+  "own_source": {
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_state.h": "271667e3b14a9192249f0ee7d985badbc153df6ff44a768c131eb18c3f02661d",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_portable_checkpoint.h": "92b0d43c0ea43ef2460c32e983a05cd3b96b2a2e8b8aabd5e3bc3efbd232f96f",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_portable_checkpoint.cppm": "71e07f01a257017d360ceea0647d7aca79f90224e685471f0c48eff04861c05d",
+    "uwvm2/src/uwvm2/uwvm/debugger/controller_wasip1_portable.h": "f0cf321c4ac1efc60f497cc866092cd017c817592ae520659c5a7a832a8489a2",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "7f377c900ac30a924c76db07da181cc4bd2424da7944c6782c88f04c8be18802",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_state.h": "271667e3b14a9192249f0ee7d985badbc153df6ff44a768c131eb18c3f02661d",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_portable_checkpoint.h": "92b0d43c0ea43ef2460c32e983a05cd3b96b2a2e8b8aabd5e3bc3efbd232f96f",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_portable_checkpoint.cppm": "71e07f01a257017d360ceea0647d7aca79f90224e685471f0c48eff04861c05d",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/controller_wasip1_portable.h": "f0cf321c4ac1efc60f497cc866092cd017c817592ae520659c5a7a832a8489a2",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "7f377c900ac30a924c76db07da181cc4bd2424da7944c6782c88f04c8be18802",
+    "uwvm2/test/0013.debugger/wasip1_rebinding_validation.cc": "75f36a6a45c4e7ccb4afb3970eabf6412224bc18a033bddf03668aedaf7331fb",
+    "uwvm2-ros/test/0013.debugger/wasip1_rebinding_validation.cc": "75f36a6a45c4e7ccb4afb3970eabf6412224bc18a033bddf03668aedaf7331fb"
+  },
+  "linux_before": [
+    {
+      "repository": "uwvm2",
+      "target": "linux",
+      "stage": "before",
+      "test": "wasip1_rebinding_validation",
+      "checks": 164,
+      "passed": true,
+      "exit": 0,
+      "runargv": [
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-before/wasip1_rebinding_validation",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-before/wasip1_rebinding_validation-files-1791257865582188951",
+        "before"
+      ],
+      "log": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-before/wasip1_rebinding_validation-verified.log",
+      "log_sha256": "1856848495ac7bebe822286418623b9da9e9195b772f55f1bd374e219e90e33e",
+      "compiled": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-before/wasip1_rebinding_validation-compiled.json",
+      "compiled_sha256": "c8614e6dab8dc8ed2e0cde320e246b37f2db00a6261eb317c5f527ee22183a32"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "linux",
+      "stage": "before",
+      "test": "wasip1_rebinding_validation",
+      "checks": 164,
+      "passed": true,
+      "exit": 0,
+      "runargv": [
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-before/wasip1_rebinding_validation",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-before/wasip1_rebinding_validation-files-1791257876662387138",
+        "before"
+      ],
+      "log": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-before/wasip1_rebinding_validation-verified.log",
+      "log_sha256": "1856848495ac7bebe822286418623b9da9e9195b772f55f1bd374e219e90e33e",
+      "compiled": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-before/wasip1_rebinding_validation-compiled.json",
+      "compiled_sha256": "dcca62697dca35f000ad3d05a3e06dec738755ff1be1f6d1f650a9a07e64d8cf"
+    }
+  ],
+  "linux_post": [
+    {
+      "repository": "uwvm2",
+      "target": "linux",
+      "stage": "post",
+      "test": "wasip1_rebinding_validation",
+      "checks": 164,
+      "passed": true,
+      "exit": 0,
+      "runargv": [
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_rebinding_validation",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_rebinding_validation-files-1791257899953024576"
+      ],
+      "log": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_rebinding_validation-verified.log",
+      "log_sha256": "e6336b3001ecfe302bcf9ce4b8101896a8c890a307df434d51339694880a1694",
+      "compiled": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_rebinding_validation-compiled.json",
+      "compiled_sha256": "3665db8b34b7df88333ff9a12e192b330ccc87cd10ef3f009173ea280d1e3b0d"
+    },
+    {
+      "repository": "uwvm2",
+      "target": "linux",
+      "stage": "post",
+      "test": "wasip1_portable_checkpoint",
+      "checks": 2126,
+      "passed": true,
+      "exit": 0,
+      "runargv": [
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_portable_checkpoint",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_portable_checkpoint-files-1791257908055528713"
+      ],
+      "log": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_portable_checkpoint-verified.log",
+      "log_sha256": "7988f6569178a5b63ff8621e6a88ecac846d3099c5b00b2178440d7fc6eb2fd4",
+      "compiled": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_portable_checkpoint-compiled.json",
+      "compiled_sha256": "12dc3533b4c6aaf707de8e92dc198c184ceed594139c91c426b0c4d19a5956a1"
+    },
+    {
+      "repository": "uwvm2",
+      "target": "linux",
+      "stage": "post",
+      "test": "wasip1_checkpoint_commands",
+      "checks": 17,
+      "passed": true,
+      "exit": 0,
+      "runargv": [
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_checkpoint_commands",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_checkpoint_commands-files-1791257917549802569"
+      ],
+      "log": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_checkpoint_commands-verified.log",
+      "log_sha256": "82149356e920d169c2cea043f17dd2a8c7e9ca06281f5aa1d5db0940cff4589f",
+      "compiled": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_checkpoint_commands-compiled.json",
+      "compiled_sha256": "88e8f7b9d6b133780275f7cb85be384221918f6cda2af02486b8562e6930167b"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "linux",
+      "stage": "post",
+      "test": "wasip1_rebinding_validation",
+      "checks": 164,
+      "passed": true,
+      "exit": 0,
+      "runargv": [
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_rebinding_validation",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_rebinding_validation-files-1791257927435099435"
+      ],
+      "log": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_rebinding_validation-verified.log",
+      "log_sha256": "e6336b3001ecfe302bcf9ce4b8101896a8c890a307df434d51339694880a1694",
+      "compiled": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_rebinding_validation-compiled.json",
+      "compiled_sha256": "eeb8db1b0dcbfc444b0f200cb976dc07c8efff2ea0569e5236900e7fc55a0af4"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "linux",
+      "stage": "post",
+      "test": "wasip1_portable_checkpoint",
+      "checks": 2126,
+      "passed": true,
+      "exit": 0,
+      "runargv": [
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_portable_checkpoint",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_portable_checkpoint-files-1791257935675767911"
+      ],
+      "log": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_portable_checkpoint-verified.log",
+      "log_sha256": "7988f6569178a5b63ff8621e6a88ecac846d3099c5b00b2178440d7fc6eb2fd4",
+      "compiled": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_portable_checkpoint-compiled.json",
+      "compiled_sha256": "87a65b0369e828ed3ba12d5e4ffa5d598785eff40d0a4e5a435bbab9533f7075"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "linux",
+      "stage": "post",
+      "test": "wasip1_checkpoint_commands",
+      "checks": 17,
+      "passed": true,
+      "exit": 0,
+      "runargv": [
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_checkpoint_commands",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_checkpoint_commands-files-1791257944572211638"
+      ],
+      "log": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_checkpoint_commands-verified.log",
+      "log_sha256": "82149356e920d169c2cea043f17dd2a8c7e9ca06281f5aa1d5db0940cff4589f",
+      "compiled": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_checkpoint_commands-compiled.json",
+      "compiled_sha256": "a749040f09ba4c258ad3939797fac5e49bb65e6908b9a6ec51f90b520d5cd927"
+    }
+  ],
+  "macos": [
+    {
+      "argv": [
+        "/usr/bin/sandbox-exec",
+        "-p",
+        "(version 1)(allow default)(deny process-fork)",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-macos/codec",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-macos/codec-files-1791258318842613000"
+      ],
+      "exit": 0,
+      "seconds": 0.010414833028335124,
+      "sampled_aggregate_peak_rss_bytes": 114688,
+      "aggregate_peak_upper_bytes": 30064640,
+      "limit_bytes": 2147483648,
+      "identities": [
+        {
+          "pid": 6605,
+          "seconds": 1791258318,
+          "microseconds": 842825,
+          "uid": 501,
+          "pgid": 6605
+        }
+      ],
+      "log": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-macos/verified.log",
+      "log_sha256": "e6336b3001ecfe302bcf9ce4b8101896a8c890a307df434d51339694880a1694",
+      "repository": "uwvm2",
+      "target": "macos",
+      "checks": 164,
+      "cases": 1,
+      "unsupported": 0,
+      "passed": true,
+      "compiled": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-macos/codec-compiled.json"
+    },
+    {
+      "argv": [
+        "/usr/bin/sandbox-exec",
+        "-p",
+        "(version 1)(allow default)(deny process-fork)",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-macos/codec",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-macos/codec-files-1791258323282772000"
+      ],
+      "exit": 0,
+      "seconds": 0.1729797919979319,
+      "sampled_aggregate_peak_rss_bytes": 4194304,
+      "aggregate_peak_upper_bytes": 32342016,
+      "limit_bytes": 2147483648,
+      "identities": [
+        {
+          "pid": 6609,
+          "seconds": 1791258323,
+          "microseconds": 283013,
+          "uid": 501,
+          "pgid": 6609
+        }
+      ],
+      "log": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-macos/verified.log",
+      "log_sha256": "e6336b3001ecfe302bcf9ce4b8101896a8c890a307df434d51339694880a1694",
+      "repository": "uwvm2-ros",
+      "target": "macos",
+      "checks": 164,
+      "cases": 1,
+      "unsupported": 0,
+      "passed": true,
+      "compiled": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-macos/codec-compiled.json"
+    }
+  ],
+  "vm_receipts": [
+    {
+      "os": "windows",
+      "nonce": "53a2d5b811fa39dfc79f118932b75460",
+      "mode": "component",
+      "argv": [
+        "/home/macromodel/.local/opt/qemu-10.2.1/usr/bin/qemu-system-x86_64",
+        "-name",
+        "uwvm-portable-windows-53a2d5b8",
+        "-machine",
+        "q35,dump-guest-core=off,mem-merge=off",
+        "-accel",
+        "kvm,device=/dev/fdset/1",
+        "-cpu",
+        "host",
+        "-smp",
+        "2",
+        "-m",
+        "2048",
+        "-no-user-config",
+        "-nodefaults",
+        "-display",
+        "none",
+        "-vga",
+        "none",
+        "-nic",
+        "none",
+        "-monitor",
+        "none",
+        "-parallel",
+        "none",
+        "-L",
+        "/home/macromodel/.local/opt/qemu-10.2.1/usr/share/qemu",
+        "-device",
+        "VGA,romfile=/home/macromodel/.local/opt/qemu-10.2.1/usr/share/seabios/vgabios-stdvga.bin",
+        "-drive",
+        "if=pflash,unit=0,format=raw,readonly=on,file=/home/macromodel/Documents/qemu/uwvm2-win11-storage/windows.rom",
+        "-drive",
+        "if=pflash,unit=1,format=raw,file=/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/vm-windows-codec-53a2d5b8/windows.vars",
+        "-device",
+        "virtio-scsi-pci,id=scsi0,addr=0xa",
+        "-drive",
+        "if=none,id=osdisk,format=qcow2,file=/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-directory-flags-20261006-r11-private-vm/r16-53a2d5b811fa39dfc79f118932b75460/disk.qcow2,cache=none",
+        "-device",
+        "scsi-hd,drive=osdisk,bus=scsi0.0,bootindex=1",
+        "-drive",
+        "if=none,id=inputs,media=cdrom,format=raw,readonly=on,file=/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/vm-windows-codec-53a2d5b8/inputs.iso",
+        "-device",
+        "scsi-cd,drive=inputs,bus=scsi0.0",
+        "-serial",
+        "file:/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/vm-windows-codec-53a2d5b8/serial.log",
+        "-qmp",
+        "unix:/tmp/uwp-53a2d5b811fa/qmp.sock,server=on,wait=off",
+        "-S",
+        "-add-fd",
+        "fd=7,set=1,opaque=owned-kvm-53a2d5b811fa39dfc79f118932b75460"
+      ],
+      "input_sha256": {
+        "uwvm2-codec.exe": "30436364943e8e44429415988b03ddd05c25d1d1c83acd9532d1da1b9694180a",
+        "uwvm2-ros-codec.exe": "d81e77db3a5672f4a0c5ffbcd465d068a991fce04ee75e0821a32578872f2576"
+      },
+      "base_before": {
+        "dev": 66307,
+        "ino": 17474400,
+        "bytes": 68719476736,
+        "mtime": 1782128758864382284,
+        "ctime": 1782128758864382284,
+        "mode": 33188
+      },
+      "base_path": "/home/macromodel/Documents/qemu/uwvm2-win11-storage/data.img",
+      "tests": [
+        {
+          "label": "uwvm2-native-codec",
+          "binary": "uwvm2-codec.exe",
+          "args": [
+            "DIR:uwvm2-native-codec"
+          ],
+          "checks": "164",
+          "repo": "uwvm2"
+        },
+        {
+          "label": "uwvm2-ros-native-codec",
+          "binary": "uwvm2-ros-codec.exe",
+          "args": [
+            "DIR:uwvm2-ros-native-codec"
+          ],
+          "checks": "164",
+          "repo": "uwvm2-ros"
+        }
+      ],
+      "passed": true,
+      "compiled_inputs": {
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/vm-windows-codec-53a2d5b8/uwvm2-codec-compiled.json": "ba73e2f481690c5565b99b3bb3400b66ff0fc5c95db26f33ebe0b733d3c4016a",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/vm-windows-codec-53a2d5b8/uwvm2-ros-codec-compiled.json": "0cac62310d28f4736c47639d433f380dbf85a7fa5dce2c71c47fb67c6541539d"
+      },
+      "source_hashes": {
+        "uwvm2": {
+          "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_open.h": "8f8c2e026448a7b9282038aea927d3488c51afa298a6d979564953fcd2c46b3a",
+          "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_open_wasm64.h": "b5c560d406b59005391a3cb6c9a3fa46542b6a5a05f295e13abcc3d41f720f36",
+          "uwvm2/test/0013.debugger/wasip1_rebinding_validation.cc": "75f36a6a45c4e7ccb4afb3970eabf6412224bc18a033bddf03668aedaf7331fb"
+        },
+        "uwvm2-ros": {
+          "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_open.h": "8f8c2e026448a7b9282038aea927d3488c51afa298a6d979564953fcd2c46b3a",
+          "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_open_wasm64.h": "b5c560d406b59005391a3cb6c9a3fa46542b6a5a05f295e13abcc3d41f720f36",
+          "uwvm2-ros/test/0013.debugger/wasip1_rebinding_validation.cc": "75f36a6a45c4e7ccb4afb3970eabf6412224bc18a033bddf03668aedaf7331fb"
+        }
+      },
+      "private_disk_storage": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-directory-flags-20261006-r11-private-vm/r16-53a2d5b811fa39dfc79f118932b75460/disk.qcow2",
+        "allocation": {
+          "bytes": 197632,
+          "sha256": "1ec45f920d3065c10a5e2679a813fce12f8caa30b8ec4da4b4da7819a65c1a57",
+          "preallocated_bytes": 2147483648,
+          "keep_size": true
+        },
+        "private_only": true,
+        "cache": "none",
+        "filesystem_reserve_policy_changed": false,
+        "physical_free_after": 24243511296,
+        "max_preallocated_bytes": 2147483648
+      },
+      "kvm_descriptor_provider": {
+        "helper_argv": [
+          "docker",
+          "run",
+          "--rm",
+          "--user=1000:1000",
+          "--group-add=992",
+          "--cap-drop=ALL",
+          "--network=none",
+          "--read-only",
+          "--security-opt=no-new-privileges",
+          "--device=/dev/kvm:/dev/kvm:rw",
+          "--cpuset-cpus=16",
+          "--memory=33554432",
+          "--memory-swap=33554432",
+          "-v",
+          "/tmp/uwp-53a2d5b811fa:/ipc:rw",
+          "--entrypoint",
+          "python3",
+          "uwvm3-implementation-checkpoint:20261002-kvm-r1",
+          "-c",
+          "import socket,os,array; s=socket.socket(socket.AF_UNIX); s.connect('/ipc/kvm.sock'); f=os.open('/dev/kvm',os.O_RDWR); s.sendmsg([b'3b261e711c157e9f2f335189fb138cb48f121a234d4b2706364201bf3f4cf372'],[(socket.SOL_SOCKET,socket.SCM_RIGHTS,array.array('i',[f]))]); os.close(f); s.close()"
+        ],
+        "image_id": "sha256:e41bf4e36f52d6d614bd9513858ed740b982116b61e7549c1e9b7bda5eb31d86"
+      },
+      "host_kvm_acl_sha256": "ba856fedb903086c8beead25fada4853fc194ac4d74a19379907d61572494346",
+      "host_kvm_permissions_unchanged": true,
+      "qmp_last_request": {
+        "execute": "screendump",
+        "id": 114,
+        "arguments": {
+          "filename": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/vm-windows-codec-53a2d5b8/after-command.png",
+          "format": "png"
+        }
+      },
+      "qmp_last_request_started": 184.25278820600215,
+      "qmp_successful_requests": 114,
+      "kvm": {
+        "enabled": true,
+        "present": true
+      },
+      "serial_sha256": "38c71e14386b2611c9ba7b16b37db6c0bc72b30c99bd21c39ee56a05deb879ed",
+      "base_after": {
+        "dev": 66307,
+        "ino": 17474400,
+        "bytes": 68719476736,
+        "mtime": 1782128758864382284,
+        "ctime": 1782128758864382284,
+        "mode": 33188
+      },
+      "test_statuses": {
+        "uwvm2-native-codec": true,
+        "uwvm2-ros-native-codec": true
+      },
+      "test_pass_checks": {
+        "uwvm2-native-codec": 164,
+        "uwvm2-ros-native-codec": 164
+      },
+      "qemu_exit": 0
+    },
+    {
+      "os": "freebsd",
+      "nonce": "1703ddeb475f48694ad0a6713489dcc0",
+      "mode": "component",
+      "argv": [
+        "/home/macromodel/.local/opt/qemu-10.2.1/usr/bin/qemu-system-x86_64",
+        "-name",
+        "uwvm-portable-freebsd-1703ddeb",
+        "-machine",
+        "q35,dump-guest-core=off,mem-merge=off",
+        "-accel",
+        "kvm,device=/dev/fdset/1",
+        "-cpu",
+        "host",
+        "-smp",
+        "2",
+        "-m",
+        "2048",
+        "-no-user-config",
+        "-nodefaults",
+        "-display",
+        "none",
+        "-vga",
+        "none",
+        "-nic",
+        "none",
+        "-monitor",
+        "none",
+        "-parallel",
+        "none",
+        "-L",
+        "/home/macromodel/.local/opt/qemu-10.2.1/usr/share/qemu",
+        "-bios",
+        "/home/macromodel/.local/opt/qemu-10.2.1/usr/share/seabios/bios-256k.bin",
+        "-device",
+        "virtio-scsi-pci,id=scsi0,addr=0xa",
+        "-drive",
+        "if=none,id=osdisk,format=qcow2,file=/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/vm-freebsd-codec-1703ddeb/disk.qcow2",
+        "-device",
+        "scsi-hd,drive=osdisk,bus=scsi0.0,bootindex=1",
+        "-drive",
+        "if=none,id=inputs,media=cdrom,format=raw,readonly=on,file=/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/vm-freebsd-codec-1703ddeb/inputs.iso",
+        "-device",
+        "scsi-cd,drive=inputs,bus=scsi0.0",
+        "-serial",
+        "file:/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/vm-freebsd-codec-1703ddeb/serial.log",
+        "-qmp",
+        "unix:/tmp/uwp-1703ddeb475f/qmp.sock,server=on,wait=off",
+        "-S",
+        "-add-fd",
+        "fd=7,set=1,opaque=owned-kvm-1703ddeb475f48694ad0a6713489dcc0"
+      ],
+      "input_sha256": {
+        "uwvm2-codec": "4991c8e2096165c0f5e3a6e7df27606a5487b544d62d4260917c0683b0d3af90",
+        "uwvm2-ros-codec": "4991c8e2096165c0f5e3a6e7df27606a5487b544d62d4260917c0683b0d3af90"
+      },
+      "base_before": {
+        "dev": 66307,
+        "ino": 24434894,
+        "bytes": 2671443968,
+        "mtime": 1790999091295607063,
+        "ctime": 1790999091628612454,
+        "mode": 33060
+      },
+      "base_path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/qemu-platform-tests/freebsd-clean-image-actual-20261003-r2/FreeBSD-15.1-clean.qcow2",
+      "tests": [
+        {
+          "label": "uwvm2-native-codec",
+          "binary": "uwvm2-codec",
+          "args": [
+            "DIR:uwvm2-native-codec"
+          ],
+          "checks": "164",
+          "repo": "uwvm2"
+        },
+        {
+          "label": "uwvm2-ros-native-codec",
+          "binary": "uwvm2-ros-codec",
+          "args": [
+            "DIR:uwvm2-ros-native-codec"
+          ],
+          "checks": "164",
+          "repo": "uwvm2-ros"
+        }
+      ],
+      "passed": true,
+      "compiled_inputs": {
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/vm-freebsd-codec-1703ddeb/uwvm2-codec-compiled.json": "b32fa290d0efd0e416a1bf851c36cb187eea49e320135a2340ab2081a72eb4cf",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/vm-freebsd-codec-1703ddeb/uwvm2-ros-codec-compiled.json": "23feb631b675731ac9ac3db006d1015d75ce6e9c8d145c522bd1b4b200b90ecf"
+      },
+      "source_hashes": {
+        "uwvm2": {
+          "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_open.h": "8f8c2e026448a7b9282038aea927d3488c51afa298a6d979564953fcd2c46b3a",
+          "uwvm2/src/uwvm2/imported/wasi/wasip1/func/path_open_wasm64.h": "b5c560d406b59005391a3cb6c9a3fa46542b6a5a05f295e13abcc3d41f720f36",
+          "uwvm2/test/0013.debugger/wasip1_rebinding_validation.cc": "75f36a6a45c4e7ccb4afb3970eabf6412224bc18a033bddf03668aedaf7331fb"
+        },
+        "uwvm2-ros": {
+          "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_open.h": "8f8c2e026448a7b9282038aea927d3488c51afa298a6d979564953fcd2c46b3a",
+          "uwvm2-ros/src/uwvm2/imported/wasi/wasip1/func/path_open_wasm64.h": "b5c560d406b59005391a3cb6c9a3fa46542b6a5a05f295e13abcc3d41f720f36",
+          "uwvm2-ros/test/0013.debugger/wasip1_rebinding_validation.cc": "75f36a6a45c4e7ccb4afb3970eabf6412224bc18a033bddf03668aedaf7331fb"
+        }
+      },
+      "private_disk_storage": null,
+      "kvm_descriptor_provider": {
+        "helper_argv": [
+          "docker",
+          "run",
+          "--rm",
+          "--user=1000:1000",
+          "--group-add=992",
+          "--cap-drop=ALL",
+          "--network=none",
+          "--read-only",
+          "--security-opt=no-new-privileges",
+          "--device=/dev/kvm:/dev/kvm:rw",
+          "--cpuset-cpus=16",
+          "--memory=33554432",
+          "--memory-swap=33554432",
+          "-v",
+          "/tmp/uwp-1703ddeb475f:/ipc:rw",
+          "--entrypoint",
+          "python3",
+          "uwvm3-implementation-checkpoint:20261002-kvm-r1",
+          "-c",
+          "import socket,os,array; s=socket.socket(socket.AF_UNIX); s.connect('/ipc/kvm.sock'); f=os.open('/dev/kvm',os.O_RDWR); s.sendmsg([b'893d2968b50af0f2f16b5a09299b394c0a57f28fdce4ee9e17a142875772ab25'],[(socket.SOL_SOCKET,socket.SCM_RIGHTS,array.array('i',[f]))]); os.close(f); s.close()"
+        ],
+        "image_id": "sha256:e41bf4e36f52d6d614bd9513858ed740b982116b61e7549c1e9b7bda5eb31d86"
+      },
+      "host_kvm_acl_sha256": "ba856fedb903086c8beead25fada4853fc194ac4d74a19379907d61572494346",
+      "host_kvm_permissions_unchanged": true,
+      "qmp_last_request": {
+        "execute": "cont",
+        "id": 3
+      },
+      "qmp_last_request_started": 0.3024155780003639,
+      "qmp_successful_requests": 3,
+      "kvm": {
+        "enabled": true,
+        "present": true
+      },
+      "serial_sha256": "9e66bece78460b39564522bb9dfe82c621b0bfa1d2ef8c564b76d330d64fa5de",
+      "base_after": {
+        "dev": 66307,
+        "ino": 24434894,
+        "bytes": 2671443968,
+        "mtime": 1790999091295607063,
+        "ctime": 1790999091628612454,
+        "mode": 33060
+      },
+      "test_statuses": {
+        "uwvm2-native-codec": true,
+        "uwvm2-ros-native-codec": true
+      },
+      "test_pass_checks": {
+        "uwvm2-native-codec": 164,
+        "uwvm2-ros-native-codec": 164
+      },
+      "qemu_exit": 0
+    }
+  ],
+  "controller_syntax": [
+    {
+      "repository": "uwvm2",
+      "passed": true,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "-fsyntax-only",
+        "-I/tmp/uwvm-wasip1-checkpoint-reboot-20261005-r3/llvm11-linux/include",
+        "-I/tmp/uwvm-wasip1-checkpoint-reboot-20261005-r3/llvm11-source/llvm/include",
+        "-pthread",
+        "-DUWVM_USE_UWVM_INT",
+        "-DUWVM_USE_LLVM_JIT",
+        "-DUWVM_SUPPORT_UWVM_INT_FULL",
+        "-DUWVM_SUPPORT_LLVM_JIT_FULL",
+        "-DUWVM=2",
+        "-DUWVM_VERSION_X=2",
+        "-DUWVM_VERSION_Y=0",
+        "-DUWVM_VERSION_Z=4",
+        "-DUWVM_VERSION_S=0",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-controller-syntax/controller.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-controller-syntax/controller.cc"
+      ],
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "dependency_count": 2448
+    },
+    {
+      "repository": "uwvm2-ros",
+      "passed": true,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "-fsyntax-only",
+        "-I/tmp/uwvm-wasip1-checkpoint-reboot-20261005-r3/llvm11-linux/include",
+        "-I/tmp/uwvm-wasip1-checkpoint-reboot-20261005-r3/llvm11-source/llvm/include",
+        "-pthread",
+        "-DUWVM_USE_UWVM_INT",
+        "-DUWVM_USE_LLVM_JIT",
+        "-DUWVM_SUPPORT_UWVM_INT_FULL",
+        "-DUWVM_SUPPORT_LLVM_JIT_FULL",
+        "-DUWVM=2",
+        "-DUWVM_VERSION_X=2",
+        "-DUWVM_VERSION_Y=0",
+        "-DUWVM_VERSION_Z=4",
+        "-DUWVM_VERSION_S=0",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-controller-syntax/controller.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-controller-syntax/controller.cc"
+      ],
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "dependency_count": 2448
+    }
+  ],
+  "guards": {
+    "guard-components-before.json": {
+      "proof_sha256": "136c1b9df60ac0711214de175828fb3cc9d94455d2021758b0cf7cc74f2f0145",
+      "proof": {
+        "passed": true,
+        "error": null,
+        "actual_root_exit": 0,
+        "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+        "limits": {
+          "owned_rss_limit_bytes": 2147483648,
+          "memory.max": "68719476736",
+          "memory.swap.max": "0",
+          "cpuset": "0,2,4,6,16-31"
+        },
+        "owned_peak_aggregate_rss_upper_bytes": 695017472,
+        "parent_peak_memory_current_bytes": 63130836992,
+        "parent_events_unchanged": true,
+        "memory_events_before": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "memory_events_after": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "retirement": [
+          {
+            "pid": 1314774,
+            "birth": 5089820,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1314875,
+            "birth": 5089850,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1314876,
+            "birth": 5089864,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1314877,
+            "birth": 5089865,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1315106,
+            "birth": 5090843,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1315125,
+            "birth": 5090869,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1315126,
+            "birth": 5090870,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1315655,
+            "birth": 5091926,
+            "pidfd_retired": true
+          }
+        ],
+        "guard_sha256": "244f4869e96cca396b3c902e3664bf76aa8bf85753d4754a19f8fd1ec6005794",
+        "owned_identity_count": 8,
+        "foreign_processes_observed_untouched": 59
+      }
+    },
+    "guard-components-post.json": {
+      "proof_sha256": "39f3146516fe5bbf9829f129e2f35d4602ce4af7387fe7405dd9b47e59ea76b3",
+      "proof": {
+        "passed": true,
+        "error": null,
+        "actual_root_exit": 0,
+        "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+        "limits": {
+          "owned_rss_limit_bytes": 2147483648,
+          "memory.max": "68719476736",
+          "memory.swap.max": "0",
+          "cpuset": "0,2,4,6,16-31"
+        },
+        "owned_peak_aggregate_rss_upper_bytes": 692858880,
+        "parent_peak_memory_current_bytes": 62948876288,
+        "parent_events_unchanged": true,
+        "memory_events_before": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "memory_events_after": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "retirement": [
+          {
+            "pid": 1316071,
+            "birth": 5093284,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316173,
+            "birth": 5093309,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316174,
+            "birth": 5093323,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316175,
+            "birth": 5093332,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316267,
+            "birth": 5094281,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316285,
+            "birth": 5094294,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316286,
+            "birth": 5094295,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316318,
+            "birth": 5095099,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316321,
+            "birth": 5095156,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316322,
+            "birth": 5095157,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316532,
+            "birth": 5096041,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316550,
+            "birth": 5096066,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316551,
+            "birth": 5096067,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316587,
+            "birth": 5097043,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316588,
+            "birth": 5097044,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316612,
+            "birth": 5097852,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316629,
+            "birth": 5097861,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316630,
+            "birth": 5097916,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316631,
+            "birth": 5097917,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1316740,
+            "birth": 5098743,
+            "pidfd_retired": true
+          }
+        ],
+        "guard_sha256": "244f4869e96cca396b3c902e3664bf76aa8bf85753d4754a19f8fd1ec6005794",
+        "owned_identity_count": 20,
+        "foreign_processes_observed_untouched": 82
+      }
+    },
+    "guard-cross-windows-component.json": {
+      "proof_sha256": "8ef40b2669c7891d34f83b7df22b67f10d61583f6f5fba6128fc78f4269c42a8",
+      "proof": {
+        "passed": true,
+        "error": null,
+        "actual_root_exit": 0,
+        "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+        "limits": {
+          "owned_rss_limit_bytes": 6442450944,
+          "memory.max": "68719476736",
+          "memory.swap.max": "0",
+          "cpuset": "0,2,4,6,16-31"
+        },
+        "owned_peak_aggregate_rss_upper_bytes": 735424512,
+        "parent_peak_memory_current_bytes": 63141695488,
+        "parent_events_unchanged": true,
+        "memory_events_before": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "memory_events_after": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "retirement": [
+          {
+            "pid": 1316990,
+            "birth": 5100380,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317093,
+            "birth": 5100406,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317094,
+            "birth": 5100422,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317095,
+            "birth": 5100424,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317194,
+            "birth": 5101544,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317273,
+            "birth": 5101706,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317274,
+            "birth": 5101707,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317332,
+            "birth": 5102773,
+            "pidfd_retired": true
+          }
+        ],
+        "guard_sha256": "244f4869e96cca396b3c902e3664bf76aa8bf85753d4754a19f8fd1ec6005794",
+        "owned_identity_count": 8,
+        "foreign_processes_observed_untouched": 49
+      }
+    },
+    "guard-cross-freebsd-component.json": {
+      "proof_sha256": "dd7cde78ed48bcecf3c49a78b0d447507440193c37acf407cb80180806bd76fb",
+      "proof": {
+        "passed": true,
+        "error": null,
+        "actual_root_exit": 0,
+        "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+        "limits": {
+          "owned_rss_limit_bytes": 6442450944,
+          "memory.max": "68719476736",
+          "memory.swap.max": "0",
+          "cpuset": "0,2,4,6,16-31"
+        },
+        "owned_peak_aggregate_rss_upper_bytes": 698957824,
+        "parent_peak_memory_current_bytes": 63103741952,
+        "parent_events_unchanged": true,
+        "memory_events_before": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "memory_events_after": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "retirement": [
+          {
+            "pid": 1317626,
+            "birth": 5104803,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317728,
+            "birth": 5104832,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317729,
+            "birth": 5104848,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317730,
+            "birth": 5104850,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317738,
+            "birth": 5105838,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317757,
+            "birth": 5105869,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1317758,
+            "birth": 5105870,
+            "pidfd_retired": true
+          }
+        ],
+        "guard_sha256": "244f4869e96cca396b3c902e3664bf76aa8bf85753d4754a19f8fd1ec6005794",
+        "owned_identity_count": 7,
+        "foreign_processes_observed_untouched": 39
+      }
+    },
+    "guard-vm-windows-component.json": {
+      "proof_sha256": "9eb61ff219e452f684eaf5a8803a1c8cc32b287758cbd9b942d1df6473df42eb",
+      "proof": {
+        "passed": true,
+        "error": null,
+        "actual_root_exit": 0,
+        "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+        "limits": {
+          "owned_rss_limit_bytes": 6442450944,
+          "memory.max": "68719476736",
+          "memory.swap.max": "0",
+          "cpuset": "0,2,4,6,16-31"
+        },
+        "owned_peak_aggregate_rss_upper_bytes": 2238910464,
+        "parent_peak_memory_current_bytes": 64266645504,
+        "parent_events_unchanged": true,
+        "memory_events_before": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "memory_events_after": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "retirement": [
+          {
+            "pid": 1330932,
+            "birth": 5150001,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1331037,
+            "birth": 5150032,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1331041,
+            "birth": 5150078,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1331137,
+            "birth": 5150100,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1331234,
+            "birth": 5150136,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1331340,
+            "birth": 5150155,
+            "pidfd_retired": true
+          }
+        ],
+        "guard_sha256": "244f4869e96cca396b3c902e3664bf76aa8bf85753d4754a19f8fd1ec6005794",
+        "owned_identity_count": 6,
+        "foreign_processes_observed_untouched": 231
+      }
+    },
+    "guard-vm-freebsd-component.json": {
+      "proof_sha256": "601ba7c91b14d26c5db29f157b8576d25115e3ba9da5504ceb19e443ac87be2b",
+      "proof": {
+        "passed": true,
+        "error": null,
+        "actual_root_exit": 0,
+        "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+        "limits": {
+          "owned_rss_limit_bytes": 6442450944,
+          "memory.max": "68719476736",
+          "memory.swap.max": "0",
+          "cpuset": "0,2,4,6,16-31"
+        },
+        "owned_peak_aggregate_rss_upper_bytes": 1335222272,
+        "parent_peak_memory_current_bytes": 64395902976,
+        "parent_events_unchanged": true,
+        "memory_events_before": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "memory_events_after": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "retirement": [
+          {
+            "pid": 1328810,
+            "birth": 5145375,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1328915,
+            "birth": 5145405,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1328916,
+            "birth": 5145439,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1328921,
+            "birth": 5145457,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1329049,
+            "birth": 5145479,
+            "pidfd_retired": true
+          }
+        ],
+        "guard_sha256": "244f4869e96cca396b3c902e3664bf76aa8bf85753d4754a19f8fd1ec6005794",
+        "owned_identity_count": 5,
+        "foreign_processes_observed_untouched": 28
+      }
+    },
+    "guard-syntax.json": {
+      "proof_sha256": "7cb42da23265247b834cb22ec06a50f80bbb4a93368f6299420dd6054df0c362",
+      "proof": {
+        "passed": true,
+        "error": null,
+        "actual_root_exit": 0,
+        "cgroup": "0::/system.slice/docker-bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45.scope\n",
+        "limits": {
+          "owned_rss_limit_bytes": 6442450944,
+          "memory.max": "68719476736",
+          "memory.swap.max": "0",
+          "cpuset": "0,2,4,6,16-31"
+        },
+        "owned_peak_aggregate_rss_upper_bytes": 2203394048,
+        "parent_peak_memory_current_bytes": 64043036672,
+        "parent_events_unchanged": true,
+        "memory_events_before": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "memory_events_after": "low 0\nhigh 0\nmax 166695\noom 3\noom_kill 1\noom_group_kill 0\n",
+        "retirement": [
+          {
+            "pid": 1339777,
+            "birth": 5185756,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1339884,
+            "birth": 5185785,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1339885,
+            "birth": 5185801,
+            "pidfd_retired": true
+          },
+          {
+            "pid": 1340513,
+            "birth": 5188994,
+            "pidfd_retired": true
+          }
+        ],
+        "guard_sha256": "244f4869e96cca396b3c902e3664bf76aa8bf85753d4754a19f8fd1ec6005794",
+        "owned_identity_count": 4,
+        "foreign_processes_observed_untouched": 107
+      }
+    }
+  },
+  "compiled": {
+    "uwvm2-ros-macos/codec-compiled.json": {
+      "sha256": "c0decbf326439e34ec7fa156c896de9f7780484a5a692aec59a5ff92fcb12486",
+      "compiler_sha256": "3e9ebe563ac60c496bcd4f5618aa3291c35b78b52d407d36b3296c5f59f0cb5d",
+      "binary_sha256": "89e7c5bbee09c89a5d7f070a2648348c494e42a0cef05062f3d37a96b8d56ac9",
+      "dependency_count": 1709,
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/tool-chain/tools/aarch64-apple-darwin-llvm/llvm/bin/clang++",
+        "--target=arm64-apple-macosx15.0",
+        "-fuse-ld=lld",
+        "-v",
+        "-DUWVM=2",
+        "-DUWVM_VERSION_X=2",
+        "-DUWVM_VERSION_Y=0",
+        "-DUWVM_VERSION_Z=4",
+        "-DUWVM_VERSION_S=0",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "--ld-path=/Users/liyinan/Documents/MacroModel/tool-chain/tools/aarch64-apple-darwin-llvm/llvm/bin/ld64.lld",
+        "-isysroot",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/macos-inputs/uwvm2-ros/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/macos-inputs/uwvm2-ros/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/macos-inputs/uwvm2-ros/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/macos-inputs/uwvm2-ros/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-macos/codec.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/macos-inputs/uwvm2-ros/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-macos/codec"
+      ]
+    },
+    "uwvm2-macos/codec-compiled.json": {
+      "sha256": "7b85b001c086e8ddb555fc1e6b856efb53a76925d7b28367ae0187a259da047d",
+      "compiler_sha256": "3e9ebe563ac60c496bcd4f5618aa3291c35b78b52d407d36b3296c5f59f0cb5d",
+      "binary_sha256": "89e7c5bbee09c89a5d7f070a2648348c494e42a0cef05062f3d37a96b8d56ac9",
+      "dependency_count": 1709,
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/tool-chain/tools/aarch64-apple-darwin-llvm/llvm/bin/clang++",
+        "--target=arm64-apple-macosx15.0",
+        "-fuse-ld=lld",
+        "-v",
+        "-DUWVM=2",
+        "-DUWVM_VERSION_X=2",
+        "-DUWVM_VERSION_Y=0",
+        "-DUWVM_VERSION_Z=4",
+        "-DUWVM_VERSION_S=0",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "--ld-path=/Users/liyinan/Documents/MacroModel/tool-chain/tools/aarch64-apple-darwin-llvm/llvm/bin/ld64.lld",
+        "-isysroot",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/macos-inputs/uwvm2/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/macos-inputs/uwvm2/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/macos-inputs/uwvm2/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/macos-inputs/uwvm2/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-macos/codec.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/macos-inputs/uwvm2/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-macos/codec"
+      ]
+    },
+    "vm-windows-codec-53a2d5b8/uwvm2-ros-codec-compiled.json": {
+      "sha256": "0cac62310d28f4736c47639d433f380dbf85a7fa5dce2c71c47fb67c6541539d",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "d81e77db3a5672f4a0c5ffbcd465d068a991fce04ee75e0821a32578872f2576",
+      "dependency_count": 1446,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "--target=x86_64-w64-windows-gnu",
+        "--sysroot=/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk",
+        "-nostdinc++",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/include/c++/v1",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/x86_64-w64-mingw32/include",
+        "-rtlib=libgcc",
+        "-unwindlib=libgcc",
+        "-static",
+        "-L/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/x86_64-w64-mingw32/lib",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "--ld-path=/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/ld.lld",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-windows/codec.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-lntdll",
+        "-lws2_32",
+        "-Wl,-verbose",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-windows/codec.exe"
+      ]
+    },
+    "vm-windows-codec-53a2d5b8/uwvm2-codec-compiled.json": {
+      "sha256": "ba73e2f481690c5565b99b3bb3400b66ff0fc5c95db26f33ebe0b733d3c4016a",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "30436364943e8e44429415988b03ddd05c25d1d1c83acd9532d1da1b9694180a",
+      "dependency_count": 1446,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "--target=x86_64-w64-windows-gnu",
+        "--sysroot=/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk",
+        "-nostdinc++",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/include/c++/v1",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/x86_64-w64-mingw32/include",
+        "-rtlib=libgcc",
+        "-unwindlib=libgcc",
+        "-static",
+        "-L/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/x86_64-w64-mingw32/lib",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "--ld-path=/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/ld.lld",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-windows/codec.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-lntdll",
+        "-lws2_32",
+        "-Wl,-verbose",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-windows/codec.exe"
+      ]
+    },
+    "vm-freebsd-codec-1703ddeb/uwvm2-ros-codec-compiled.json": {
+      "sha256": "23feb631b675731ac9ac3db006d1015d75ce6e9c8d145c522bd1b4b200b90ecf",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "4991c8e2096165c0f5e3a6e7df27606a5487b544d62d4260917c0683b0d3af90",
+      "dependency_count": 1466,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "--target=x86_64-unknown-freebsd15.1",
+        "--sysroot=/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/qemu-platform-tests/freebsd-sdk-actual-20261003-r3/sysroot",
+        "-nostdinc++",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/qemu-platform-tests/freebsd-sdk-actual-20261003-r3/sysroot/usr/include/c++/v1",
+        "-fexperimental-library",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "--ld-path=/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/ld.lld",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-freebsd/codec.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-pthread",
+        "-Wl,--trace",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-freebsd/codec"
+      ]
+    },
+    "vm-freebsd-codec-1703ddeb/uwvm2-codec-compiled.json": {
+      "sha256": "b32fa290d0efd0e416a1bf851c36cb187eea49e320135a2340ab2081a72eb4cf",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "4991c8e2096165c0f5e3a6e7df27606a5487b544d62d4260917c0683b0d3af90",
+      "dependency_count": 1466,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "--target=x86_64-unknown-freebsd15.1",
+        "--sysroot=/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/qemu-platform-tests/freebsd-sdk-actual-20261003-r3/sysroot",
+        "-nostdinc++",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/qemu-platform-tests/freebsd-sdk-actual-20261003-r3/sysroot/usr/include/c++/v1",
+        "-fexperimental-library",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "--ld-path=/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/ld.lld",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-freebsd/codec.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-pthread",
+        "-Wl,--trace",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-freebsd/codec"
+      ]
+    },
+    "vm-windows-codec-2c92fd42/uwvm2-ros-codec-compiled.json": {
+      "sha256": "0cac62310d28f4736c47639d433f380dbf85a7fa5dce2c71c47fb67c6541539d",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "d81e77db3a5672f4a0c5ffbcd465d068a991fce04ee75e0821a32578872f2576",
+      "dependency_count": 1446,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "--target=x86_64-w64-windows-gnu",
+        "--sysroot=/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk",
+        "-nostdinc++",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/include/c++/v1",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/x86_64-w64-mingw32/include",
+        "-rtlib=libgcc",
+        "-unwindlib=libgcc",
+        "-static",
+        "-L/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/x86_64-w64-mingw32/lib",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "--ld-path=/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/ld.lld",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-windows/codec.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-lntdll",
+        "-lws2_32",
+        "-Wl,-verbose",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-windows/codec.exe"
+      ]
+    },
+    "vm-windows-codec-2c92fd42/uwvm2-codec-compiled.json": {
+      "sha256": "ba73e2f481690c5565b99b3bb3400b66ff0fc5c95db26f33ebe0b733d3c4016a",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "30436364943e8e44429415988b03ddd05c25d1d1c83acd9532d1da1b9694180a",
+      "dependency_count": 1446,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "--target=x86_64-w64-windows-gnu",
+        "--sysroot=/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk",
+        "-nostdinc++",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/include/c++/v1",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/x86_64-w64-mingw32/include",
+        "-rtlib=libgcc",
+        "-unwindlib=libgcc",
+        "-static",
+        "-L/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/x86_64-w64-mingw32/lib",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "--ld-path=/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/ld.lld",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-windows/codec.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-lntdll",
+        "-lws2_32",
+        "-Wl,-verbose",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-windows/codec.exe"
+      ]
+    },
+    "uwvm2-ros-freebsd/codec-compiled.json": {
+      "sha256": "23feb631b675731ac9ac3db006d1015d75ce6e9c8d145c522bd1b4b200b90ecf",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "4991c8e2096165c0f5e3a6e7df27606a5487b544d62d4260917c0683b0d3af90",
+      "dependency_count": 1466,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "--target=x86_64-unknown-freebsd15.1",
+        "--sysroot=/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/qemu-platform-tests/freebsd-sdk-actual-20261003-r3/sysroot",
+        "-nostdinc++",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/qemu-platform-tests/freebsd-sdk-actual-20261003-r3/sysroot/usr/include/c++/v1",
+        "-fexperimental-library",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "--ld-path=/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/ld.lld",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-freebsd/codec.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-pthread",
+        "-Wl,--trace",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-freebsd/codec"
+      ]
+    },
+    "uwvm2-freebsd/codec-compiled.json": {
+      "sha256": "b32fa290d0efd0e416a1bf851c36cb187eea49e320135a2340ab2081a72eb4cf",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "4991c8e2096165c0f5e3a6e7df27606a5487b544d62d4260917c0683b0d3af90",
+      "dependency_count": 1466,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "--target=x86_64-unknown-freebsd15.1",
+        "--sysroot=/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/qemu-platform-tests/freebsd-sdk-actual-20261003-r3/sysroot",
+        "-nostdinc++",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/qemu-platform-tests/freebsd-sdk-actual-20261003-r3/sysroot/usr/include/c++/v1",
+        "-fexperimental-library",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "--ld-path=/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/ld.lld",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-freebsd/codec.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-pthread",
+        "-Wl,--trace",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-freebsd/codec"
+      ]
+    },
+    "uwvm2-ros-windows/codec-compiled.json": {
+      "sha256": "0cac62310d28f4736c47639d433f380dbf85a7fa5dce2c71c47fb67c6541539d",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "d81e77db3a5672f4a0c5ffbcd465d068a991fce04ee75e0821a32578872f2576",
+      "dependency_count": 1446,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "--target=x86_64-w64-windows-gnu",
+        "--sysroot=/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk",
+        "-nostdinc++",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/include/c++/v1",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/x86_64-w64-mingw32/include",
+        "-rtlib=libgcc",
+        "-unwindlib=libgcc",
+        "-static",
+        "-L/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/x86_64-w64-mingw32/lib",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "--ld-path=/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/ld.lld",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-windows/codec.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-lntdll",
+        "-lws2_32",
+        "-Wl,-verbose",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-windows/codec.exe"
+      ]
+    },
+    "uwvm2-windows/codec-compiled.json": {
+      "sha256": "ba73e2f481690c5565b99b3bb3400b66ff0fc5c95db26f33ebe0b733d3c4016a",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "30436364943e8e44429415988b03ddd05c25d1d1c83acd9532d1da1b9694180a",
+      "dependency_count": 1446,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "--target=x86_64-w64-windows-gnu",
+        "--sysroot=/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk",
+        "-nostdinc++",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/include/c++/v1",
+        "-isystem",
+        "/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/x86_64-w64-mingw32/include",
+        "-rtlib=libgcc",
+        "-unwindlib=libgcc",
+        "-static",
+        "-L/home/macromodel/Documents/uwvm-validation-20260918.PwcF7M/windows-sdk/x86_64-w64-mingw32/lib",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "--ld-path=/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/ld.lld",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-windows/codec.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-lntdll",
+        "-lws2_32",
+        "-Wl,-verbose",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-windows/codec.exe"
+      ]
+    },
+    "uwvm2-ros-linux-post/wasip1_checkpoint_commands-compiled.json": {
+      "sha256": "a749040f09ba4c258ad3939797fac5e49bb65e6908b9a6ec51f90b520d5cd927",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "7f1defba1f8599564fd3f09ff8e7af5d3d66c4e6e7951d0a3851e5bc70507cbf",
+      "dependency_count": 1457,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_checkpoint_commands.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/test/0013.debugger/wasip1_checkpoint_commands.cc",
+        "-L/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-Wl,-rpath,/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_checkpoint_commands"
+      ]
+    },
+    "uwvm2-ros-linux-post/wasip1_portable_checkpoint-compiled.json": {
+      "sha256": "87a65b0369e828ed3ba12d5e4ffa5d598785eff40d0a4e5a435bbab9533f7075",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "aa73c8e15ead3a860cc605e0ab61fe28401844333abc96f77252761c0f8047c3",
+      "dependency_count": 1614,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_portable_checkpoint.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/test/0013.debugger/wasip1_portable_checkpoint.cc",
+        "-L/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-Wl,-rpath,/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_portable_checkpoint"
+      ]
+    },
+    "uwvm2-ros-linux-post/wasip1_rebinding_validation-compiled.json": {
+      "sha256": "eeb8db1b0dcbfc444b0f200cb976dc07c8efff2ea0569e5236900e7fc55a0af4",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "0dadd6fd754ae734800200bef41df78a8437bb779546ff8acdf3904404a0b8dd",
+      "dependency_count": 1620,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_rebinding_validation.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2-ros/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-L/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-Wl,-rpath,/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-post/wasip1_rebinding_validation"
+      ]
+    },
+    "uwvm2-linux-post/wasip1_checkpoint_commands-compiled.json": {
+      "sha256": "88e8f7b9d6b133780275f7cb85be384221918f6cda2af02486b8562e6930167b",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "7f1defba1f8599564fd3f09ff8e7af5d3d66c4e6e7951d0a3851e5bc70507cbf",
+      "dependency_count": 1457,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_checkpoint_commands.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/test/0013.debugger/wasip1_checkpoint_commands.cc",
+        "-L/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-Wl,-rpath,/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_checkpoint_commands"
+      ]
+    },
+    "uwvm2-linux-post/wasip1_portable_checkpoint-compiled.json": {
+      "sha256": "12dc3533b4c6aaf707de8e92dc198c184ceed594139c91c426b0c4d19a5956a1",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "aa73c8e15ead3a860cc605e0ab61fe28401844333abc96f77252761c0f8047c3",
+      "dependency_count": 1614,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_portable_checkpoint.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/test/0013.debugger/wasip1_portable_checkpoint.cc",
+        "-L/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-Wl,-rpath,/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_portable_checkpoint"
+      ]
+    },
+    "uwvm2-linux-post/wasip1_rebinding_validation-compiled.json": {
+      "sha256": "3665db8b34b7df88333ff9a12e192b330ccc87cd10ef3f009173ea280d1e3b0d",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "0dadd6fd754ae734800200bef41df78a8437bb779546ff8acdf3904404a0b8dd",
+      "dependency_count": 1620,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_rebinding_validation.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/uwvm2/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-L/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-Wl,-rpath,/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-post/wasip1_rebinding_validation"
+      ]
+    },
+    "uwvm2-ros-linux-before/wasip1_rebinding_validation-compiled.json": {
+      "sha256": "dcca62697dca35f000ad3d05a3e06dec738755ff1be1f6d1f650a9a07e64d8cf",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "992d071cfb7145eabcbe86097b77e8743b1a3e52337235f6da5051178022f2a9",
+      "dependency_count": 1620,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/before/uwvm2-ros/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/before/uwvm2-ros/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/before/uwvm2-ros/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/before/uwvm2-ros/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-before/wasip1_rebinding_validation.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/before/uwvm2-ros/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-L/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-Wl,-rpath,/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-ros-linux-before/wasip1_rebinding_validation"
+      ]
+    },
+    "uwvm2-linux-before/wasip1_rebinding_validation-compiled.json": {
+      "sha256": "c8614e6dab8dc8ed2e0cde320e246b37f2db00a6261eb317c5f527ee22183a32",
+      "compiler_sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b",
+      "binary_sha256": "992d071cfb7145eabcbe86097b77e8743b1a3e52337235f6da5051178022f2a9",
+      "dependency_count": 1620,
+      "argv": [
+        "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang++",
+        "-std=c++26",
+        "-stdlib=libc++",
+        "-O0",
+        "-g0",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/before/uwvm2/src",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/before/uwvm2/third-parties/fast_io/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/before/uwvm2/third-parties/bizwen/include",
+        "-I/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/before/uwvm2/third-parties/boost_unordered/include",
+        "-MD",
+        "-MF",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-before/wasip1_rebinding_validation.d",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/before/uwvm2/test/0013.debugger/wasip1_rebinding_validation.cc",
+        "-L/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-Wl,-rpath,/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/lib/x86_64-unknown-linux-gnu",
+        "-o",
+        "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/uwvm2-linux-before/wasip1_rebinding_validation"
+      ]
+    }
+  },
+  "superseded_guards": [
+    {
+      "path": "guard-components-before-compile-failure.json",
+      "sha256": "7f340104e7b5dad123fa1dde170ceafc6ff33c01dc78323c0e84e67de93ec07f"
+    },
+    {
+      "path": "guard-components-before-print-failure.json",
+      "sha256": "4ab767e5efb01f85bb8c14d046266cf1592999020ec15cb302033186206796b4"
+    },
+    {
+      "path": "guard-history-components-before-1791257723930856074.json",
+      "sha256": "b49c2dad3fc5b300d3b7ccd64fc844c83fe738a2df4f2843481fc662a3471292"
+    },
+    {
+      "path": "guard-history-components-before-1791257807001907222.json",
+      "sha256": "7f340104e7b5dad123fa1dde170ceafc6ff33c01dc78323c0e84e67de93ec07f"
+    },
+    {
+      "path": "guard-history-components-before-1791257876762949752.json",
+      "sha256": "4ab767e5efb01f85bb8c14d046266cf1592999020ec15cb302033186206796b4"
+    },
+    {
+      "path": "guard-history-syntax-1791258715412989981.json",
+      "sha256": "0c3f1f7638b3ce9ae828ce3ff8204553f808802d33624a84ccd96dde2368282b"
+    },
+    {
+      "path": "guard-history-syntax-1791258765123419994.json",
+      "sha256": "4dde1aad97ab47fa0eeed821bf49dccc60aa074cc74175ccc61d4e3025ea4355"
+    },
+    {
+      "path": "guard-history-syntax-1791258877342946215.json",
+      "sha256": "51b46485e754c3548cc68d48943af119b0aca186fdfa9f92ce081d235a6b9966"
+    },
+    {
+      "path": "guard-history-vm-windows-component-1791258649245940486.json",
+      "sha256": "f9180d3e1106b09032486d7102355ac7b3d3590f3e6e17494cc46ffea3bbb812"
+    }
+  ],
+  "source_snapshots": {
+    "before": {
+      "path": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/before/frozen-inputs.json",
+      "sha256": "f2053b12840141f30ccbdb2569eeb571a25b9024d4fc1840953c23fb1b174364",
+      "files": 6239
+    },
+    "post": {
+      "path": "/tmp/uwvm-wasip1-rebinding-validation-20261006-r16/post/frozen-inputs.json",
+      "sha256": "1895f4dd1ef899fd5a8e9712d98924a195cd8308609ede6b445fa437fcb6f8f3",
+      "files": 6239
+    }
+  },
+  "reminder": "Capture Wasm and WASIp1 at the SAME genuine cooperative stop; whole-instance joint atomic restoration remains separate.",
+  "macos_upload": {
+    "files": 2356,
+    "raw_receipt": "macos-upload-qualified.json",
+    "sha256": "4e99f7fb2503fcc842f65639e1787b2bb9c3db84117923e6cec38e930c0fb50a"
+  },
+  "raw_results_sha256": "9b26a23c4877fb79017d713dc6ba5a4883af3f37efda9f6aa00a10ee3511b993",
+  "raw_results_archive_member": "test-results.json",
+  "evidence_archive": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-rebinding-validation-20261006-r16/source-and-test-evidence.tar.gz",
+    "bytes": 52873778,
+    "sha256": "5df4345cea5ed20297f44de3560bd2d3b2fd9a6142f62ab6f2ac876715e3f1e0",
+    "payloads": 14978,
+    "every_payload_verified": true
+  }
+}

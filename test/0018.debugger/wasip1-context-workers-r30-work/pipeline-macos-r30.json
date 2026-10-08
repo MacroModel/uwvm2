@@ -1,0 +1,292 @@
+[
+  {
+    "label": "cross-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-macos-ordinary-12g-r30.py",
+      "joint-cross-r30",
+      "macos",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 340.25205616699895
+  },
+  {
+    "label": "transfer-uwvm2-fixture.exe",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/fixture.exe",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/fixture.exe"
+    ],
+    "exit": 0,
+    "seconds": 8.140044707997731
+  },
+  {
+    "label": "transfer-uwvm2-environment-group.exe",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/environment-group.exe",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/environment-group.exe"
+    ],
+    "exit": 0,
+    "seconds": 8.161893166998198
+  },
+  {
+    "label": "transfer-uwvm2-checkpoint.wasm",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/checkpoint.wasm",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/checkpoint.wasm"
+    ],
+    "exit": 0,
+    "seconds": 0.14952537499993923
+  },
+  {
+    "label": "transfer-uwvm2-aliases.wasm",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/aliases.wasm",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/aliases.wasm"
+    ],
+    "exit": 0,
+    "seconds": 0.16034262500033947
+  },
+  {
+    "label": "transfer-uwvm2-group-main.wasm",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/group-main.wasm",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/group-main.wasm"
+    ],
+    "exit": 0,
+    "seconds": 0.16986345800251001
+  },
+  {
+    "label": "transfer-uwvm2-group-provider.wasm",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/group-provider.wasm",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/group-provider.wasm"
+    ],
+    "exit": 0,
+    "seconds": 0.1765566249996482
+  },
+  {
+    "label": "transfer-uwvm2-qualified.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/qualified.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/qualified.json"
+    ],
+    "exit": 0,
+    "seconds": 0.20097870800236706
+  },
+  {
+    "label": "transfer-uwvm2-environment-group-qualified.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/environment-group-qualified.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2/environment-group-qualified.json"
+    ],
+    "exit": 0,
+    "seconds": 0.20076908400005777
+  },
+  {
+    "label": "native-uwvm2",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos_native.py",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 19.5889625000018
+  },
+  {
+    "label": "native-evidence-transfer-uwvm2",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/uwvm2-macos-native-evidence.tar.gz",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/uwvm2-macos-native-evidence.json",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/"
+    ],
+    "exit": 0,
+    "seconds": 0.18155495899918606
+  },
+  {
+    "label": "archive-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r30.py",
+      "joint-archive-r30",
+      "macos",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 92.37276929099971
+  },
+  {
+    "label": "cold-uwvm2",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/rehome_product.py",
+      "macos",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 71.08778979100316
+  },
+  {
+    "label": "cross-uwvm2-ros",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r30.py",
+      "joint-cross-r30",
+      "macos",
+      "uwvm2-ros"
+    ],
+    "exit": 0,
+    "seconds": 295.1334952500001
+  },
+  {
+    "label": "transfer-uwvm2-ros-fixture.exe",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/fixture.exe",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/fixture.exe"
+    ],
+    "exit": 0,
+    "seconds": 5.881338082999719
+  },
+  {
+    "label": "transfer-uwvm2-ros-environment-group.exe",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/environment-group.exe",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/environment-group.exe"
+    ],
+    "exit": 0,
+    "seconds": 5.898880875000032
+  },
+  {
+    "label": "transfer-uwvm2-ros-checkpoint.wasm",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/checkpoint.wasm",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/checkpoint.wasm"
+    ],
+    "exit": 0,
+    "seconds": 0.1468290410011832
+  },
+  {
+    "label": "transfer-uwvm2-ros-aliases.wasm",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/aliases.wasm",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/aliases.wasm"
+    ],
+    "exit": 0,
+    "seconds": 0.1540677080010937
+  },
+  {
+    "label": "transfer-uwvm2-ros-group-main.wasm",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/group-main.wasm",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/group-main.wasm"
+    ],
+    "exit": 0,
+    "seconds": 0.1708798330000718
+  },
+  {
+    "label": "transfer-uwvm2-ros-group-provider.wasm",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/group-provider.wasm",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/group-provider.wasm"
+    ],
+    "exit": 0,
+    "seconds": 0.18318612499933806
+  },
+  {
+    "label": "transfer-uwvm2-ros-qualified.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/qualified.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/qualified.json"
+    ],
+    "exit": 0,
+    "seconds": 0.20479804099886678
+  },
+  {
+    "label": "transfer-uwvm2-ros-environment-group-qualified.json",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/environment-group-qualified.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/environment-group-qualified.json"
+    ],
+    "exit": 0,
+    "seconds": 0.2023680409984081
+  },
+  {
+    "label": "native-uwvm2-ros",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos_native.py",
+      "uwvm2-ros"
+    ],
+    "exit": 1,
+    "seconds": 0.26676683299956494
+  }
+]

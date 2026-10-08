@@ -1,0 +1,23 @@
+{
+  "passed": false,
+  "pipeline_step": {
+    "label": "cold-uwvm2",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/rehome_product.py",
+      "macos",
+      "uwvm2"
+    ],
+    "exit": 1,
+    "seconds": 0.24470416700205533
+  },
+  "native_matrix_passed": true,
+  "ramdisk_detached": true,
+  "regional_limit_bytes": 268435456,
+  "existing_cold_bytes": 264492060,
+  "requested_archive_bytes": 45424935,
+  "transfer_started": false,
+  "original_archive_preserved": true,
+  "aggregate_limit_bytes": 2147483648
+}

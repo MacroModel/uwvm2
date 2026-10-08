@@ -1,0 +1,462 @@
+{
+  "schema": "uwvm-mips-n64-kernel-return-retention-v1",
+  "qualification": true,
+  "scope": "Byte-exact completed613/614 archival only;0new compiler/QEMU/Wasm",
+  "archive": "/dev/shm/uwvm-asm-6313e263-current615/build-meta/work/native-mips-n64-kernel-return-evidence615.tar.xz",
+  "archive_sha256": "804fcab3f440ec2d561c886f331b2a86e1757733b994093135b8303c6746693b",
+  "archive_bytes": 840724,
+  "members": {
+    "current613/admission-helper-record.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/admission-helper-record.json",
+      "sha256": "2dacb7e12d97639c615b9090e977eea58dc10d282e299897f33c5e35476e7601",
+      "bytes": 709
+    },
+    "current613/allowed-executables.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/allowed-executables.json",
+      "sha256": "3fbff2010b63fbe0380a740682737d3b81b7f63653bc03f0317905a4458e3806",
+      "bytes": 542
+    },
+    "current613/commands.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/commands.json",
+      "sha256": "0dcde86d111a544e18ec5f97553cf2102a15813ef6734b2a5bee10611d93d961",
+      "bytes": 148
+    },
+    "current613/complete-evidence/MIPS-N64-private-kernel613.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/complete-evidence/MIPS-N64-private-kernel613.log",
+      "sha256": "099c58c7eefd1b38763f4253a75ffc24572c0cd8c576763ebc0b539c1c6d349e",
+      "bytes": 607
+    },
+    "current613/complete-evidence/receipt.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/complete-evidence/receipt.json",
+      "sha256": "3799018e1a19d3e54de445261a8d2d1ed5f4b4b82216945b467ee70a8ebe490e",
+      "bytes": 14346
+    },
+    "current613/images.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/images.json",
+      "sha256": "67a8151c40699efdb31d038d922fe28905b608a1370b14e938e45a03e3cb43c3",
+      "bytes": 2672
+    },
+    "current613/input-hashes.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/input-hashes.json",
+      "sha256": "a25f5f8f75fa8451e2b061417633f6d277f096dae3e79fa4f2ab888c45ca5087",
+      "bytes": 379108
+    },
+    "current613/kernel-return.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/kernel-return.py",
+      "sha256": "0daf9c5fc1f172e1830884632462eebae9a71da15ed05e8ca1c2f255da95c1bd",
+      "bytes": 5519
+    },
+    "current613/landlock-exec.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/landlock-exec.py",
+      "sha256": "77d47489bba1d37d6dae05aad55fe0c86d712e4300d926f71353b9b4c338e0ca",
+      "bytes": 3755
+    },
+    "current613/landlock-probes.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/landlock-probes.json",
+      "sha256": "3860fb5e65f80a5e78d290648908eb86552a51bae5c70efdc36cac7f84cd783b",
+      "bytes": 659
+    },
+    "current613/landlock-ready.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/landlock-ready.json",
+      "sha256": "5773aa38851735d7310b2ee6aae373e920c4ed391d6408b2d41e3e284a80d796",
+      "bytes": 208
+    },
+    "current613/local-source-hashes.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/local-source-hashes.json",
+      "sha256": "ec7f52341830f81217596bf5d45840844fb9628331297657c4d6ef68074d4fbf",
+      "bytes": 1996
+    },
+    "current613/local-source.json.z": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/local-source.json.z",
+      "sha256": "860c0b7702f0f548f7d5dc6eb4164b6478ab7896e1a3abe817a1646d715b5eeb",
+      "bytes": 115383
+    },
+    "current613/qualification.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/qualification.json",
+      "sha256": "95674c7c7df4732eaf4325d989f993fe375e636ed8b147e7b4bbe85c1b27765c",
+      "bytes": 31335
+    },
+    "current613/resource-policy.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/resource-policy.json",
+      "sha256": "36925298e9b18aae6afdf04065713f69d10526df4a23ad2cba39da0318ae591a",
+      "bytes": 3084
+    },
+    "current613/results.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/results.json",
+      "sha256": "73fafe97dfaa6db846b9f4e66542d3dcfeea0be3e6da9d6a03006c93cdfedb6a",
+      "bytes": 24558
+    },
+    "current613/source-manifest.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/source-manifest.json",
+      "sha256": "0974ef98538f20dcd465a6d86ff60b8c8bda205a54245c48ed1944517d18db9b",
+      "bytes": 1155624
+    },
+    "current613/supervisor.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/supervisor.py",
+      "sha256": "fa1634a719e39f2ce96b2a5377b6ec1f60594dad1c49e85590f613b9a7301ed6",
+      "bytes": 13552
+    },
+    "current613/work/source/uwvm2/src/uwvm2/runtime/lib/native_activation.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2/src/uwvm2/runtime/lib/native_activation.h",
+      "sha256": "c36ee7f443e51d87694b98e9e4cf380bb51520ec00d60a09502dbefbd08c494f",
+      "bytes": 16614
+    },
+    "current613/work/source/uwvm2/src/uwvm2/uwvm/debugger/native_linux_context.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2/src/uwvm2/uwvm/debugger/native_linux_context.h",
+      "sha256": "deac1278a512fdea5956ad202c502a28d8e9dce18e54cf4c4641e1e5f850ad25",
+      "bytes": 14690
+    },
+    "current613/work/source/uwvm2/src/uwvm2/uwvm/debugger/native_linux_platform.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2/src/uwvm2/uwvm/debugger/native_linux_platform.h",
+      "sha256": "205f972a1bac601725fc0e88158920f51ce7a4a08ced2ce639f15feed00e9121",
+      "bytes": 811
+    },
+    "current613/work/source/uwvm2/src/uwvm2/uwvm/debugger/native_registers.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2/src/uwvm2/uwvm/debugger/native_registers.h",
+      "sha256": "a890ca6565a0d7cd8f0e1e65976427fb6bb6ee3686691f10f6e81ec2073234dd",
+      "bytes": 27552
+    },
+    "current613/work/source/uwvm2/src/uwvm2/uwvm/debugger/native_step.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2/src/uwvm2/uwvm/debugger/native_step.h",
+      "sha256": "fedeccc5b81bff79f9f94e77273e86fd02396af0ce4b112a7f2447de9c77c26c",
+      "bytes": 56200
+    },
+    "current613/work/source/uwvm2/src/uwvm2/uwvm/debugger/native_step_linux.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2/src/uwvm2/uwvm/debugger/native_step_linux.h",
+      "sha256": "ad6420e5ad6898bea87a61e0504a3ae0a1334e0a7da9c9eee6fc1369da52e125",
+      "bytes": 48199
+    },
+    "current613/work/source/uwvm2/src/uwvm2/uwvm/debugger/posix_abi.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2/src/uwvm2/uwvm/debugger/posix_abi.h",
+      "sha256": "4d8332c5edea06e48ec43ad46d5ea13f1e434928e4bb19a8a9fad56d4d1758fd",
+      "bytes": 3689
+    },
+    "current613/work/source/uwvm2/test/0017.runtime/native_return_mips_n64_kernel.cc": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2/test/0017.runtime/native_return_mips_n64_kernel.cc",
+      "sha256": "7acb469fa902ee64944e8fe134cc0116e651daca9645026e985d1007d0c64895",
+      "bytes": 10870
+    },
+    "current613/work/source/uwvm2-ros/src/uwvm2/runtime/lib/native_activation.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2-ros/src/uwvm2/runtime/lib/native_activation.h",
+      "sha256": "c36ee7f443e51d87694b98e9e4cf380bb51520ec00d60a09502dbefbd08c494f",
+      "bytes": 16614
+    },
+    "current613/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/native_linux_context.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/native_linux_context.h",
+      "sha256": "deac1278a512fdea5956ad202c502a28d8e9dce18e54cf4c4641e1e5f850ad25",
+      "bytes": 14690
+    },
+    "current613/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/native_linux_platform.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/native_linux_platform.h",
+      "sha256": "205f972a1bac601725fc0e88158920f51ce7a4a08ced2ce639f15feed00e9121",
+      "bytes": 811
+    },
+    "current613/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/native_registers.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/native_registers.h",
+      "sha256": "a890ca6565a0d7cd8f0e1e65976427fb6bb6ee3686691f10f6e81ec2073234dd",
+      "bytes": 27552
+    },
+    "current613/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/native_step.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/native_step.h",
+      "sha256": "fedeccc5b81bff79f9f94e77273e86fd02396af0ce4b112a7f2447de9c77c26c",
+      "bytes": 56200
+    },
+    "current613/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/native_step_linux.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/native_step_linux.h",
+      "sha256": "ad6420e5ad6898bea87a61e0504a3ae0a1334e0a7da9c9eee6fc1369da52e125",
+      "bytes": 48199
+    },
+    "current613/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/posix_abi.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/posix_abi.h",
+      "sha256": "4d8332c5edea06e48ec43ad46d5ea13f1e434928e4bb19a8a9fad56d4d1758fd",
+      "bytes": 3689
+    },
+    "current613/work/source/uwvm2-ros/test/0017.runtime/native_return_mips_n64_kernel.cc": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/source/uwvm2-ros/test/0017.runtime/native_return_mips_n64_kernel.cc",
+      "sha256": "7acb469fa902ee64944e8fe134cc0116e651daca9645026e985d1007d0c64895",
+      "bytes": 10870
+    },
+    "current613/work/uwvm2-be-O0": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-be-O0",
+      "sha256": "d187cea0d6cfdb84c919894664e879e3a5b06215aa9ba8f9ee4c7a6542d250ca",
+      "bytes": 245312
+    },
+    "current613/work/uwvm2-be-O0-compile.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-be-O0-compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current613/work/uwvm2-be-O0-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-be-O0-real-QEMU.log",
+      "sha256": "e639822b68da6b0abd66c17081b4d7881c2bde3ab89512315db7f9d07b5f7237",
+      "bytes": 179
+    },
+    "current613/work/uwvm2-be-O0.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-be-O0.d",
+      "sha256": "fc672eb9dae917998cf7bdd962e79fc7730cfd77fcf2fc2f5181ce412c34ee41",
+      "bytes": 154267
+    },
+    "current613/work/uwvm2-be-O2": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-be-O2",
+      "sha256": "1ac077aebdf1462ae31eb1745aac4107bb32f961cb8eb78aa0fe1709798fd41c",
+      "bytes": 80368
+    },
+    "current613/work/uwvm2-be-O2-compile.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-be-O2-compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current613/work/uwvm2-be-O2-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-be-O2-real-QEMU.log",
+      "sha256": "e639822b68da6b0abd66c17081b4d7881c2bde3ab89512315db7f9d07b5f7237",
+      "bytes": 179
+    },
+    "current613/work/uwvm2-be-O2.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-be-O2.d",
+      "sha256": "5305cb464093d24452ae5b861e233a6cd086bc0fc4cc8c54446eacad3f3e4cf6",
+      "bytes": 154682
+    },
+    "current613/work/uwvm2-le-O0": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-le-O0",
+      "sha256": "3e8910e3c17aba300d44f17da8ce82ef973ea0430dff4cdaaf74fc0255ba9e0f",
+      "bytes": 365152
+    },
+    "current613/work/uwvm2-le-O0-compile.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-le-O0-compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current613/work/uwvm2-le-O0-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-le-O0-real-QEMU.log",
+      "sha256": "e639822b68da6b0abd66c17081b4d7881c2bde3ab89512315db7f9d07b5f7237",
+      "bytes": 179
+    },
+    "current613/work/uwvm2-le-O0.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-le-O0.d",
+      "sha256": "c9505409ff4b600f14fd18c4829a1660f7a0e5bd4fc51d3be658bc1774f84d89",
+      "bytes": 159145
+    },
+    "current613/work/uwvm2-le-O2": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-le-O2",
+      "sha256": "100d234eaeb0887d011803d583d471250fabc36ec0f5d69a0c7912267d3a09b0",
+      "bytes": 153032
+    },
+    "current613/work/uwvm2-le-O2-compile.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-le-O2-compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current613/work/uwvm2-le-O2-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-le-O2-real-QEMU.log",
+      "sha256": "e639822b68da6b0abd66c17081b4d7881c2bde3ab89512315db7f9d07b5f7237",
+      "bytes": 179
+    },
+    "current613/work/uwvm2-le-O2.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-le-O2.d",
+      "sha256": "943584511fcb68b16ce59a33c7f7ad6f3b7217ce804f415843c6d93349f3affe",
+      "bytes": 159598
+    },
+    "current613/work/uwvm2-ros-be-O0": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-be-O0",
+      "sha256": "d187cea0d6cfdb84c919894664e879e3a5b06215aa9ba8f9ee4c7a6542d250ca",
+      "bytes": 245312
+    },
+    "current613/work/uwvm2-ros-be-O0-compile.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-be-O0-compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current613/work/uwvm2-ros-be-O0-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-be-O0-real-QEMU.log",
+      "sha256": "e639822b68da6b0abd66c17081b4d7881c2bde3ab89512315db7f9d07b5f7237",
+      "bytes": 179
+    },
+    "current613/work/uwvm2-ros-be-O0.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-be-O0.d",
+      "sha256": "30d69545f32973739208a36c5d5bfb4643ac0a5d8524ab010679ae621a3b6924",
+      "bytes": 155831
+    },
+    "current613/work/uwvm2-ros-be-O2": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-be-O2",
+      "sha256": "1ac077aebdf1462ae31eb1745aac4107bb32f961cb8eb78aa0fe1709798fd41c",
+      "bytes": 80368
+    },
+    "current613/work/uwvm2-ros-be-O2-compile.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-be-O2-compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current613/work/uwvm2-ros-be-O2-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-be-O2-real-QEMU.log",
+      "sha256": "e639822b68da6b0abd66c17081b4d7881c2bde3ab89512315db7f9d07b5f7237",
+      "bytes": 179
+    },
+    "current613/work/uwvm2-ros-be-O2.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-be-O2.d",
+      "sha256": "1eaf2ef2cd32f3512c5108c8d93bdf2d81a124f649ac145883eb16a74db406cb",
+      "bytes": 156246
+    },
+    "current613/work/uwvm2-ros-le-O0": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-le-O0",
+      "sha256": "3e8910e3c17aba300d44f17da8ce82ef973ea0430dff4cdaaf74fc0255ba9e0f",
+      "bytes": 365152
+    },
+    "current613/work/uwvm2-ros-le-O0-compile.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-le-O0-compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current613/work/uwvm2-ros-le-O0-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-le-O0-real-QEMU.log",
+      "sha256": "e639822b68da6b0abd66c17081b4d7881c2bde3ab89512315db7f9d07b5f7237",
+      "bytes": 179
+    },
+    "current613/work/uwvm2-ros-le-O0.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-le-O0.d",
+      "sha256": "87c9b0caa19d2a182a97fffeaf53abf6ec6f4c91f901b7c97a574f85c5f1aac7",
+      "bytes": 160709
+    },
+    "current613/work/uwvm2-ros-le-O2": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-le-O2",
+      "sha256": "100d234eaeb0887d011803d583d471250fabc36ec0f5d69a0c7912267d3a09b0",
+      "bytes": 153032
+    },
+    "current613/work/uwvm2-ros-le-O2-compile.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-le-O2-compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "current613/work/uwvm2-ros-le-O2-real-QEMU.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-le-O2-real-QEMU.log",
+      "sha256": "e639822b68da6b0abd66c17081b4d7881c2bde3ab89512315db7f9d07b5f7237",
+      "bytes": 179
+    },
+    "current613/work/uwvm2-ros-le-O2.d": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current613/build-meta/work/uwvm2-ros-le-O2.d",
+      "sha256": "d481eae138f58b4ddd5d7ea9ac2e56aa6a9e6fd95a7c927e9dd1f0e468721f85",
+      "bytes": 161162
+    },
+    "current614/admission-helper-record.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/admission-helper-record.json",
+      "sha256": "70217fb979188118f2ada70d36348c0dadf2ce350aabc8a20ed51c12b06cce66",
+      "bytes": 709
+    },
+    "current614/allowed-executables.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/allowed-executables.json",
+      "sha256": "3fbff2010b63fbe0380a740682737d3b81b7f63653bc03f0317905a4458e3806",
+      "bytes": 542
+    },
+    "current614/audit.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/audit.py",
+      "sha256": "871d8a513b1054174b982e31322c9d49e23169ccfb437fcb33d551ebb2445460",
+      "bytes": 7293
+    },
+    "current614/commands.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/commands.json",
+      "sha256": "b9be583cec71b24ed16c31a139d7f870cb50ccf6615db1d8a95940bae7959c5e",
+      "bytes": 144
+    },
+    "current614/complete-evidence/MIPS-N64-kernel-independent614.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/complete-evidence/MIPS-N64-kernel-independent614.log",
+      "sha256": "4a189d6329bf3e9e2421dc20321e21e42a1ded9347317132123a80c8f4f870a8",
+      "bytes": 250
+    },
+    "current614/complete-evidence/receipt.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/complete-evidence/receipt.json",
+      "sha256": "5eb3820d1b08b3fd5bcf350ab0e1c3f47859028f22f765b71f05f2247e688122",
+      "bytes": 5857
+    },
+    "current614/landlock-exec.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/landlock-exec.py",
+      "sha256": "e2b36690325a63471dd071a217f6d0569299a0d81916d2b1acd39afdd1028ce3",
+      "bytes": 3755
+    },
+    "current614/landlock-probes.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/landlock-probes.json",
+      "sha256": "825af5fdfe405cf07b3ff6b72c1530bdb61c508acc69f73f8251f44c11fabc6f",
+      "bytes": 659
+    },
+    "current614/landlock-ready.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/landlock-ready.json",
+      "sha256": "c6ff75d66f07cece65896732c6cb4384b6594cf057ac071f3cfe9ba2aff01a73",
+      "bytes": 208
+    },
+    "current614/public-gates.json.z": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/public-gates.json.z",
+      "sha256": "a09689d879209c95e7b56fbfbe17fc1852a0f8cdf7b9de8117b68dd1f6b38dd0",
+      "bytes": 260638
+    },
+    "current614/qualification.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/qualification.json",
+      "sha256": "3e858f11a78fc05331a9df0e71af2d42bee3035471b3ba6b75f04f8cc494f580",
+      "bytes": 11327
+    },
+    "current614/resource-policy.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/resource-policy.json",
+      "sha256": "05827d6c5601cab0e60d51851d686d14b39a0db1873426e84e2c571af0c5d407",
+      "bytes": 3076
+    },
+    "current614/source-manifest.json": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/source-manifest.json",
+      "sha256": "0974ef98538f20dcd465a6d86ff60b8c8bda205a54245c48ed1944517d18db9b",
+      "bytes": 1155624
+    },
+    "current614/supervisor.py": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/supervisor.py",
+      "sha256": "2b2b2f8042040e20e132ba4e96482e6cbbe7e67c5d2f142b143004fa74b90a24",
+      "bytes": 13552
+    },
+    "current614/work/source/uwvm2/src/uwvm2/uwvm/debugger/controller.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/work/source/uwvm2/src/uwvm2/uwvm/debugger/controller.h",
+      "sha256": "ecc2fc287ecf3f000cf0eb0561f78948896ec494f80f3e8434c054019b9ffe94",
+      "bytes": 382894
+    },
+    "current614/work/source/uwvm2/xmake.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/work/source/uwvm2/xmake.lua",
+      "sha256": "da6f23b542bba4c6f0059b9fb4c166ad4a599ebd40b32e9c4bb2ba0f4b9a2b05",
+      "bytes": 52297
+    },
+    "current614/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/controller.h": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/work/source/uwvm2-ros/src/uwvm2/uwvm/debugger/controller.h",
+      "sha256": "ecc2fc287ecf3f000cf0eb0561f78948896ec494f80f3e8434c054019b9ffe94",
+      "bytes": 382894
+    },
+    "current614/work/source/uwvm2-ros/xmake.lua": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/work/source/uwvm2-ros/xmake.lua",
+      "sha256": "42ac6208d816ba47155930c3bb71b239e01419d1f4cf5f5512eaf28bc5327317",
+      "bytes": 50788
+    },
+    "current614/work/uwvm2-be-actual-public-gates.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/work/uwvm2-be-actual-public-gates.log",
+      "sha256": "2f6ab8945ec7a54a3b4f59bcac75679547d1612b13a8a4375145b31fcbbf3f34",
+      "bytes": 39
+    },
+    "current614/work/uwvm2-current-controller-gates.cc": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/work/uwvm2-current-controller-gates.cc",
+      "sha256": "d5a70be8f0d5fa0bc91b4f4d3a86f6c8c131758aa87d581ffecc78059bacb09c",
+      "bytes": 1783
+    },
+    "current614/work/uwvm2-le-actual-public-gates.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/work/uwvm2-le-actual-public-gates.log",
+      "sha256": "7b9a3dbab460339c2cfad03bade3cd64cddfe0a287d4ba45af3281a56c6255cd",
+      "bytes": 42
+    },
+    "current614/work/uwvm2-ros-be-actual-public-gates.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/work/uwvm2-ros-be-actual-public-gates.log",
+      "sha256": "2f6ab8945ec7a54a3b4f59bcac75679547d1612b13a8a4375145b31fcbbf3f34",
+      "bytes": 39
+    },
+    "current614/work/uwvm2-ros-current-controller-gates.cc": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/work/uwvm2-ros-current-controller-gates.cc",
+      "sha256": "d5a70be8f0d5fa0bc91b4f4d3a86f6c8c131758aa87d581ffecc78059bacb09c",
+      "bytes": 1783
+    },
+    "current614/work/uwvm2-ros-le-actual-public-gates.log": {
+      "source": "/dev/shm/uwvm-asm-6313e263-current614/build-meta/work/uwvm2-ros-le-actual-public-gates.log",
+      "sha256": "7b9a3dbab460339c2cfad03bade3cd64cddfe0a287d4ba45af3281a56c6255cd",
+      "bytes": 42
+    }
+  },
+  "all_members_byte_exact": true,
+  "raw_retirement_after_local_recovery_verification_pending": true
+}

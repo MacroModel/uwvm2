@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "final_checks": 36872,
+  "native_abi_checks": 31592,
+  "genuine_llvm_checkpoint_checks": 5280,
+  "rows": [
+    {
+      "repository": "uwvm2",
+      "target": "linux",
+      "checks": 5377,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "linux",
+      "checks": 5377,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "target": "macos",
+      "checks": 4513,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "macos",
+      "checks": 4513,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "target": "windows",
+      "checks": 1393,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "windows",
+      "checks": 1393,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2",
+      "target": "freebsd",
+      "checks": 4513,
+      "passed": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "freebsd",
+      "checks": 4513,
+      "passed": true
+    }
+  ],
+  "full_evidence": {
+    "test-results-complete.json": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-directory-flags-20261006-r11-private-vm/evidence/test-results-complete.json.gz",
+      "gzip_bytes": 4881049,
+      "gzip_sha256": "13c71edfe3da279da34b4fd2ed26930a1ae7fc0bceb1b935230b6abf4879b68d",
+      "uncompressed_sha256": "f5db49b6140718a7fad2488fb7968d5c7549d531f2c542be138cd49c1d652ba3",
+      "verified_decompression": true
+    },
+    "archive-qualification.json": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-directory-flags-20261006-r11-private-vm/evidence/archive-qualification.json.gz",
+      "gzip_bytes": 2168644,
+      "gzip_sha256": "bede9214a0a9bedef55a866feca64d516c667617bfa19f69e110d7aa2db74e83",
+      "uncompressed_sha256": "2bc8464ef741e5fafa073ddd6918b8cfd45fa6522301edf5c3443a19d3cd97db",
+      "verified_decompression": true
+    }
+  },
+  "source_archive": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-directory-flags-20261006-r11-private-vm/evidence/source-evidence.tar.gz",
+    "sha256": "60618383d1e64041e84f9f97745e7e64528a69e3231ddc14af106bc0f3dc0400",
+    "bytes": 40493559,
+    "uid": 1000,
+    "maintenance_helper_limit_bytes": 33554432,
+    "source_archive_qualified_payloads": 44894,
+    "filesystem_reserve_policy_changed": false
+  }
+}

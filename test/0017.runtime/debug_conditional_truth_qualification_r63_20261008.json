@@ -1,0 +1,629 @@
+{
+  "passed": true,
+  "date": "2026-10-08",
+  "scope": "R63 bounded language-typed read-only conditional source breakpoints; original C++/Rust DWARF4/5 actual Linux LLVM-JIT DAP; six-language scalar DATA and 16-target components; no full native language/IDE or full target VM/JIT/DAP parity",
+  "guards": {
+    "build-uwvm2": [
+      {
+        "label": "uwvm2build",
+        "seconds": 247.66247291899344,
+        "rss_peak": 7394435072,
+        "passed": true
+      }
+    ],
+    "dap-uwvm2": [
+      {
+        "label": "uwvm2-unit",
+        "seconds": 2.3777980520098936,
+        "rss_peak": 68734976,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-all",
+        "seconds": 48.171376995989704,
+        "rss_peak": 183898112,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-unwind",
+        "seconds": 46.96091294499638,
+        "rss_peak": 184807424,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-soak",
+        "seconds": 602.0208620400081,
+        "rss_peak": 195551232,
+        "passed": true
+      }
+    ],
+    "live-uwvm2": [
+      {
+        "label": "uwvm2-all",
+        "seconds": 10.910754870987148,
+        "rss_peak": 188485632,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-unwind",
+        "seconds": 10.837491327998578,
+        "rss_peak": 188350464,
+        "passed": true
+      }
+    ],
+    "build-uwvm2-ros": [
+      {
+        "label": "uwvm2-rosbuild",
+        "seconds": 206.57107125400216,
+        "rss_peak": 6091444224,
+        "passed": true
+      }
+    ],
+    "dap-uwvm2-ros": [
+      {
+        "label": "uwvm2-ros-unit",
+        "seconds": 2.461095407998073,
+        "rss_peak": 53022720,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-ros-all",
+        "seconds": 47.67315179800789,
+        "rss_peak": 184528896,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-ros-unwind",
+        "seconds": 47.095340429994394,
+        "rss_peak": 185712640,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-ros-soak",
+        "seconds": 601.5750232950086,
+        "rss_peak": 198705152,
+        "passed": true
+      }
+    ],
+    "live-uwvm2-ros": [
+      {
+        "label": "uwvm2-ros-all",
+        "seconds": 10.882715138010099,
+        "rss_peak": 191676416,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-ros-unwind",
+        "seconds": 10.838324270996964,
+        "rss_peak": 190124032,
+        "passed": true
+      }
+    ],
+    "native-components": [
+      {
+        "label": "uwvm2components",
+        "seconds": 64.99605505898944,
+        "rss_peak": 717897728,
+        "passed": true
+      },
+      {
+        "label": "uwvm2roscomponents",
+        "seconds": 68.98493050099933,
+        "rss_peak": 725585920,
+        "passed": true
+      }
+    ],
+    "baseline": [
+      {
+        "label": "uwvm2-all",
+        "seconds": 5.821359758003382,
+        "rss_peak": 181551104,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-unwind",
+        "seconds": 5.756092276002164,
+        "rss_peak": 186900480,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-ros-all",
+        "seconds": 5.791087311008596,
+        "rss_peak": 188620800,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-ros-unwind",
+        "seconds": 5.741072033008095,
+        "rss_peak": 187559936,
+        "passed": true
+      }
+    ],
+    "cross": [
+      {
+        "label": "qualifiedtypesmatrix",
+        "seconds": 411.99313415600045,
+        "rss_peak": 598044672,
+        "passed": true
+      }
+    ]
+  },
+  "products": {
+    "uwvm2": {
+      "source_id": "sha256:03d12057dd4e230908a848f0eac3b42c44ca12215b17799b88e0331da1fbf7a7",
+      "binary_sha256": "2923cff097b4e5db02e15604fc02f9388f16a0ea9f2d7425c9b800ac6f84a3cc",
+      "binary_bytes": 179197376,
+      "all_product_TUs_fresh": true,
+      "inputs_before_equals_after": true,
+      "actual_bundled_ROS_provider_receipt": null
+    },
+    "uwvm2-ros": {
+      "source_id": "sha256:3cf556bc0787d669fd9ccb4b56fe4ec3af1af73f38e8ba0e330bc46298523b2a",
+      "binary_sha256": "202d32aca5db2c1117a43493052d16a10e960c82cf5fcadb08d8db33462c8ab2",
+      "binary_bytes": 144734544,
+      "all_product_TUs_fresh": true,
+      "inputs_before_equals_after": true,
+      "actual_bundled_ROS_provider_receipt": "/home/macromodel/Documents/uwvm3-implementation/current-language-llvm12-a3-r58/out-uwvm2-ros/product-a1/results.json"
+    }
+  },
+  "native_components": {
+    "uwvm2": {
+      "six_builds_and_six_actual_runs": true,
+      "condition_truth_DATA_checks": 96,
+      "Rust_char_and_Cpp_UTF_regressions": true
+    },
+    "uwvm2-ros": {
+      "six_builds_and_six_actual_runs": true,
+      "condition_truth_DATA_checks": 96,
+      "Rust_char_and_Cpp_UTF_regressions": true
+    }
+  },
+  "baseline": {
+    "uwvm2": {
+      "all": {
+        "sessions": 8,
+        "seconds": 5.035290838000947,
+        "false": 0,
+        "true": 0,
+        "unavailable": 0,
+        "profiles": {
+          "cpp-dwarf4-O1": 2,
+          "cpp-dwarf5-O1": 2,
+          "rust-dwarf4-O1": 2,
+          "rust-dwarf5-O1": 2
+        },
+        "policies": {
+          "instruction": 8
+        }
+      },
+      "unwind": {
+        "sessions": 8,
+        "seconds": 5.009467174997553,
+        "false": 0,
+        "true": 0,
+        "unavailable": 0,
+        "profiles": {
+          "cpp-dwarf4-O1": 2,
+          "cpp-dwarf5-O1": 2,
+          "rust-dwarf4-O1": 2,
+          "rust-dwarf5-O1": 2
+        },
+        "policies": {
+          "unwind": 8
+        }
+      }
+    },
+    "uwvm2-ros": {
+      "all": {
+        "sessions": 8,
+        "seconds": 5.034262001005118,
+        "false": 0,
+        "true": 0,
+        "unavailable": 0,
+        "profiles": {
+          "cpp-dwarf4-O1": 2,
+          "cpp-dwarf5-O1": 2,
+          "rust-dwarf4-O1": 2,
+          "rust-dwarf5-O1": 2
+        },
+        "policies": {
+          "instruction": 8
+        }
+      },
+      "unwind": {
+        "sessions": 8,
+        "seconds": 5.010884207993513,
+        "false": 0,
+        "true": 0,
+        "unavailable": 0,
+        "profiles": {
+          "cpp-dwarf4-O1": 2,
+          "cpp-dwarf5-O1": 2,
+          "rust-dwarf4-O1": 2,
+          "rust-dwarf5-O1": 2
+        },
+        "policies": {
+          "unwind": 8
+        }
+      }
+    }
+  },
+  "DAP": {
+    "uwvm2": {
+      "unit_tests": 497,
+      "phases": {
+        "all": {
+          "sessions": 80,
+          "seconds": 47.35843474000285,
+          "false": 30,
+          "true": 32,
+          "unavailable": 18,
+          "profiles": {
+            "cpp-dwarf4-O1": 22,
+            "cpp-dwarf5-O1": 22,
+            "rust-dwarf4-O1": 18,
+            "rust-dwarf5-O1": 18
+          },
+          "policies": {
+            "instruction": 80
+          }
+        },
+        "unwind": {
+          "sessions": 80,
+          "seconds": 46.25891282700468,
+          "false": 30,
+          "true": 32,
+          "unavailable": 18,
+          "profiles": {
+            "cpp-dwarf4-O1": 22,
+            "cpp-dwarf5-O1": 22,
+            "rust-dwarf4-O1": 18,
+            "rust-dwarf5-O1": 18
+          },
+          "policies": {
+            "unwind": 80
+          }
+        },
+        "soak": {
+          "sessions": 1040,
+          "seconds": 601.2691073569877,
+          "false": 390,
+          "true": 416,
+          "unavailable": 234,
+          "profiles": {
+            "cpp-dwarf4-O1": 286,
+            "cpp-dwarf5-O1": 286,
+            "rust-dwarf4-O1": 234,
+            "rust-dwarf5-O1": 234
+          },
+          "policies": {
+            "instruction": 560,
+            "unwind": 480
+          }
+        }
+      }
+    },
+    "uwvm2-ros": {
+      "unit_tests": 497,
+      "phases": {
+        "all": {
+          "sessions": 80,
+          "seconds": 46.92693742600386,
+          "false": 30,
+          "true": 32,
+          "unavailable": 18,
+          "profiles": {
+            "cpp-dwarf4-O1": 22,
+            "cpp-dwarf5-O1": 22,
+            "rust-dwarf4-O1": 18,
+            "rust-dwarf5-O1": 18
+          },
+          "policies": {
+            "instruction": 80
+          }
+        },
+        "unwind": {
+          "sessions": 80,
+          "seconds": 46.17234151800221,
+          "false": 30,
+          "true": 32,
+          "unavailable": 18,
+          "profiles": {
+            "cpp-dwarf4-O1": 22,
+            "cpp-dwarf5-O1": 22,
+            "rust-dwarf4-O1": 18,
+            "rust-dwarf5-O1": 18
+          },
+          "policies": {
+            "unwind": 80
+          }
+        },
+        "soak": {
+          "sessions": 1040,
+          "seconds": 600.7085709850071,
+          "false": 390,
+          "true": 416,
+          "unavailable": 234,
+          "profiles": {
+            "cpp-dwarf4-O1": 286,
+            "cpp-dwarf5-O1": 286,
+            "rust-dwarf4-O1": 234,
+            "rust-dwarf5-O1": 234
+          },
+          "policies": {
+            "instruction": 560,
+            "unwind": 480
+          }
+        }
+      }
+    }
+  },
+  "live_condition_updates": {
+    "uwvm2": {
+      "all": {
+        "sessions": 16,
+        "seconds": 10.074949962014216,
+        "false": 8,
+        "true": 8,
+        "unavailable": 0,
+        "profiles": {
+          "cpp-dwarf4-O1": 4,
+          "cpp-dwarf5-O1": 4,
+          "rust-dwarf4-O1": 4,
+          "rust-dwarf5-O1": 4
+        },
+        "policies": {
+          "instruction": 16
+        }
+      },
+      "unwind": {
+        "sessions": 16,
+        "seconds": 10.093124919003458,
+        "false": 8,
+        "true": 8,
+        "unavailable": 0,
+        "profiles": {
+          "cpp-dwarf4-O1": 4,
+          "cpp-dwarf5-O1": 4,
+          "rust-dwarf4-O1": 4,
+          "rust-dwarf5-O1": 4
+        },
+        "policies": {
+          "unwind": 16
+        }
+      }
+    },
+    "uwvm2-ros": {
+      "all": {
+        "sessions": 16,
+        "seconds": 10.186189000000013,
+        "false": 8,
+        "true": 8,
+        "unavailable": 0,
+        "profiles": {
+          "cpp-dwarf4-O1": 4,
+          "cpp-dwarf5-O1": 4,
+          "rust-dwarf4-O1": 4,
+          "rust-dwarf5-O1": 4
+        },
+        "policies": {
+          "instruction": 16
+        }
+      },
+      "unwind": {
+        "sessions": 16,
+        "seconds": 10.09861589600041,
+        "false": 8,
+        "true": 8,
+        "unavailable": 0,
+        "profiles": {
+          "cpp-dwarf4-O1": 4,
+          "cpp-dwarf5-O1": 4,
+          "rust-dwarf4-O1": 4,
+          "rust-dwarf5-O1": 4
+        },
+        "policies": {
+          "unwind": 16
+        }
+      }
+    }
+  },
+  "cross": {
+    "architectures": [
+      "aarch64",
+      "armel",
+      "armhf",
+      "i686",
+      "loongarch64",
+      "mips32",
+      "mips32el",
+      "mips64",
+      "mips64el",
+      "ppc32",
+      "ppc64",
+      "ppc64le",
+      "riscv64",
+      "s390x",
+      "sparc64",
+      "x86_64"
+    ],
+    "actual_ELFs": 32,
+    "all_same_stdout_as_native_x86_64": true,
+    "scope": "Condition normalization numeric type/value DATA only; no target full VM/JIT/DAP claim"
+  },
+  "owned_tested_files": {
+    "uwvm2": {
+      "src/uwvm2/uwvm/debugger/controller.h": "f6b1e85891e04f7b3e1d40a0baaab2806b3db56c914451e1784aa2dd80502f73",
+      "test/0017.runtime/debug_source_condition_truth.cc": "18ba1c3ec53b8d4c756091e944c49d427db4e9e346cfa1a8f402ddf0844779d7",
+      "test/0017.runtime/debug_conditional_breakpoint_commands.cc": "513c3e3ba961b80afd08e91ffb1404cfbacaecddca41cb92e3b89f8c52c20eb7",
+      "test/0017.runtime/run_debug_linux_qemu_components.py": "805645de5dcdb31f134aedc208702a2d28709b7c3f58e1882c7e9c74ef53841b",
+      "test/0018.debugger/run_dap_conditional_truth.py": "607f8c51ac2d9ab3c33675b4d4148484eb56c1f48966d23d6bda95315c08556b"
+    },
+    "uwvm2-ros": {
+      "src/uwvm2/uwvm/debugger/controller.h": "f6b1e85891e04f7b3e1d40a0baaab2806b3db56c914451e1784aa2dd80502f73",
+      "test/0017.runtime/debug_source_condition_truth.cc": "18ba1c3ec53b8d4c756091e944c49d427db4e9e346cfa1a8f402ddf0844779d7",
+      "test/0017.runtime/debug_conditional_breakpoint_commands.cc": "513c3e3ba961b80afd08e91ffb1404cfbacaecddca41cb92e3b89f8c52c20eb7",
+      "test/0017.runtime/run_debug_linux_qemu_components.py": "805645de5dcdb31f134aedc208702a2d28709b7c3f58e1882c7e9c74ef53841b",
+      "test/0018.debugger/run_dap_conditional_truth.py": "607f8c51ac2d9ab3c33675b4d4148484eb56c1f48966d23d6bda95315c08556b"
+    }
+  },
+  "helper_overlay": "Main/Baseline driver 36201e4b... retained as originally executed; the final public driver adds live parameter/local and CLI condition update trials and corrects the listing metadata field, qualified in the explicit L snapshot. Runtime controller bytes remain B2.",
+  "totals": {
+    "baseline_false_Boolean_failures": 32,
+    "real_DAP_sessions": 2464,
+    "true_condition_sessions": 992,
+    "false_condition_sessions": 932,
+    "unavailable_condition_sessions": 540,
+    "live_condition_updates": 64,
+    "all_actual_guest_broker_adapter_waits_zero": true
+  },
+  "archive_recovery_for_retired_baseline_products": {
+    "passed": true,
+    "scope": "Only six own closed R48 and R62 full products; R62 32 real condition baseline sessions closed before retirement; original build receipt binary hashes match; archive stream and before/after bytes verified; complete source/SDK/recovery packages retained",
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/conditional-truth-recovery-a1-r63/closed-r48-r62-products.tar.xz",
+    "archive_sha256": "8a4750e77c5cace23df5aad292d49a13166f5c7e593a6e3c628b2b78f2a76c14",
+    "archive_bytes": 142264500,
+    "files": {
+      "rust-characters-full-a3-r62/out-uwvm2/product-a1/uwvm": {
+        "bytes": 179185664,
+        "sha256": "ba954aa06f3bf1804f068aab32bd329487a446dbe15946fdacbe3e73a3248404"
+      },
+      "rust-characters-full-a3-r62/out-uwvm2-ros/product-a1/uwvm": {
+        "bytes": 144722848,
+        "sha256": "80940314156bc556d38a95ea36dcc37c70d839b3cd5208719149abbce0ef92db"
+      },
+      "predicate-full-a2-r48/out-uwvm2/product-a1/uwvm": {
+        "bytes": 178667024,
+        "sha256": "46199669385e55598c1031a10b2af60bb7822f263e0e8e272855aab59a0c66a9"
+      },
+      "predicate-full-a2-r48/out-uwvm2-ros/product-a1/uwvm": {
+        "bytes": 144221520,
+        "sha256": "914183f854438b42baf5d3461be8efa9fa81fcad08b694b3d69e97c4aaddbf09"
+      },
+      "predicate-full-a3-r48/out-uwvm2/product-a1/uwvm": {
+        "bytes": 178669448,
+        "sha256": "14ee0e721eb8d7a43cb433e6cb1570df444449b714fb992333cb032ca1fb50b8"
+      },
+      "predicate-full-a3-r48/out-uwvm2-ros/product-a1/uwvm": {
+        "bytes": 144223880,
+        "sha256": "4ecd339ede8f9ac719d590d5204d74d2f06000068814f4f52b8f0ece9f59c8ba"
+      }
+    }
+  },
+  "remaining": [
+    "Other languages only finite semantics DATA in this round; no new actual C/Objective-C/Go/TinyGo/Zig/AssemblyScript conditional DAP qualification",
+    "Unrestricted expressions/function calls/side effects/pointer truth remain unsupported or unavailable",
+    "Full native debugger/IDE equivalence and target full VM/JIT/DAP remain unqualified",
+    "Rust integer suffixes/raw Unicode/glyph display and prior capability inventory partial/missing rows remain"
+  ],
+  "archive": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/retained-conditional-truth-r63-final/evidence.tar.xz",
+    "bytes": 96712884,
+    "sha256": "95ce37a8c31852c379bd00f91716723a57acdc375c6a5df091ea5c590febd8f5",
+    "logical_files": 108041,
+    "regular_members": 14933,
+    "prior_internal_hardlink_members": 93108,
+    "logical_source_bytes": 2099100325,
+    "all_members_stream_and_before_after_hash_verified": true,
+    "fsync_completed": true,
+    "current_R63_full_VMs_and_objects_included": true,
+    "separate_pinned_recovery_and_upload_archives": [
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/conditional-truth-full-a1-r63/current-local-source.tar.xz",
+        "bytes": 12565432,
+        "sha256": "a215999c0021cbdc8b1c7e3bc9d8c99e80f5830751e1eda6a9216c21d4300af5"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/conditional-truth-recovery-a1-r63/closed-r48-r62-products.tar.xz",
+        "bytes": 142264500,
+        "sha256": "8a4750e77c5cace23df5aad292d49a13166f5c7e593a6e3c628b2b78f2a76c14"
+      }
+    ],
+    "seconds": 85.38072381299571
+  },
+  "local_integration": {
+    "passed": true,
+    "scope": "Original complete B1 captured source plus explicit tested B2 helper corrections and L live driver; later local source changes are listed, preserved, and not covered by R63 product tests",
+    "repositories": {
+      "uwvm2": {
+        "source_id": "sha256:03d12057dd4e230908a848f0eac3b42c44ca12215b17799b88e0331da1fbf7a7",
+        "current_owned_file_hashes": {
+          "src/uwvm2/uwvm/debugger/controller.h": "eedca7b85f25965eb43e6fe49b56bf49dcaaceeaa80da137383429dc5ba854b1",
+          "test/0017.runtime/debug_source_condition_truth.cc": "18ba1c3ec53b8d4c756091e944c49d427db4e9e346cfa1a8f402ddf0844779d7",
+          "test/0017.runtime/debug_conditional_breakpoint_commands.cc": "513c3e3ba961b80afd08e91ffb1404cfbacaecddca41cb92e3b89f8c52c20eb7",
+          "test/0017.runtime/run_debug_linux_qemu_components.py": "805645de5dcdb31f134aedc208702a2d28709b7c3f58e1882c7e9c74ef53841b",
+          "test/0018.debugger/run_dap_conditional_truth.py": "607f8c51ac2d9ab3c33675b4d4148484eb56c1f48966d23d6bda95315c08556b"
+        },
+        "controller_owned_hunks": {
+          "actual_condition_filter": {
+            "tested_sha256": "f352e479eb3084b1a3a30b06a2f75da7ab36084995ea5b2accbf125d8ca2b50b",
+            "current_matches_tested": true
+          },
+          "condition_admission": {
+            "tested_sha256": "ac52d7fca5b57f61a5a034cd8b0db86a1dad0c930d5354777956af9c06050d6a",
+            "current_matches_tested": true
+          }
+        },
+        "later_changed_src": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h",
+          "src/uwvm2/uwvm/debugger/controller.h",
+          "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+        ],
+        "later_new_src": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_full_code_handoff.h"
+        ],
+        "later_removed_src": []
+      },
+      "uwvm2-ros": {
+        "source_id": "sha256:3cf556bc0787d669fd9ccb4b56fe4ec3af1af73f38e8ba0e330bc46298523b2a",
+        "current_owned_file_hashes": {
+          "src/uwvm2/uwvm/debugger/controller.h": "eedca7b85f25965eb43e6fe49b56bf49dcaaceeaa80da137383429dc5ba854b1",
+          "test/0017.runtime/debug_source_condition_truth.cc": "18ba1c3ec53b8d4c756091e944c49d427db4e9e346cfa1a8f402ddf0844779d7",
+          "test/0017.runtime/debug_conditional_breakpoint_commands.cc": "513c3e3ba961b80afd08e91ffb1404cfbacaecddca41cb92e3b89f8c52c20eb7",
+          "test/0017.runtime/run_debug_linux_qemu_components.py": "805645de5dcdb31f134aedc208702a2d28709b7c3f58e1882c7e9c74ef53841b",
+          "test/0018.debugger/run_dap_conditional_truth.py": "607f8c51ac2d9ab3c33675b4d4148484eb56c1f48966d23d6bda95315c08556b"
+        },
+        "controller_owned_hunks": {
+          "actual_condition_filter": {
+            "tested_sha256": "f352e479eb3084b1a3a30b06a2f75da7ab36084995ea5b2accbf125d8ca2b50b",
+            "current_matches_tested": true
+          },
+          "condition_admission": {
+            "tested_sha256": "ac52d7fca5b57f61a5a034cd8b0db86a1dad0c930d5354777956af9c06050d6a",
+            "current_matches_tested": true
+          }
+        },
+        "later_changed_src": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_stack.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_pending_code_ranges.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_activation_api.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_debug_native_caller_api.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_publication_records.h",
+          "src/uwvm2/uwvm/debugger/controller.h",
+          "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+        ],
+        "later_new_src": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_full_code_handoff.h"
+        ],
+        "later_removed_src": []
+      }
+    }
+  }
+}

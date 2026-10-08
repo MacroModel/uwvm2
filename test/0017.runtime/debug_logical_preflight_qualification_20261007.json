@@ -1,0 +1,902 @@
+{
+  "passed": true,
+  "scope": "Native C/C++/C23 logical operands are declaration-checked before values; selected values must agree with inferred representations and authenticated identities. Dead values/extent/arithmetic are not evaluated. Component, actual Wasm32 LLVM metadata, controller frontend and PPC64/x86_64/aarch64 QEMU qualification; no fresh linked full product/live -Rdbg or complete native debugger parity.",
+  "source_cuts": {
+    "uwvm2": "sha256:81e57c2f9b748eeef0a42767c44f4bc81628554a581dc8c3259ddf2f13859dec",
+    "uwvm2-ros": "sha256:5426cc6c3eb851a5802984ca96b653b158357ffc3915bbdcae69083e9cb21fab"
+  },
+  "implementation_hashes": {
+    "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "37afe38293fa1b3ff4999802e251b6a2c232e0583212c8b21641a18bdc470e2e",
+    "test/0017.runtime/debug_source_language_index.cc": "e6461641f04b35a2559f8417211ef49da3da21ff7a84d8534a645603557572f2",
+    "test/0017.runtime/run_debug_linux_qemu_components.py": "145710d7c25c2676705c40ddca6d6e52e936f3dc5cea48b8d57ef339fb292ecc",
+    "test/0017.runtime/fixtures/debug_source_language_numeric_producer.c": "afdc5e0281291646b77acb43162827a8184ab0b8acbf8f8712f4ad2ef1a78a3a",
+    "test/0017.runtime/debug_source_logical_preflight.cc": "cc633073c7a341127c8cf9769b188f9d563da57e6024df7b50eaab1cd69d7b5e",
+    "test/0017.runtime/debug_source_logical_preflight_before.cc": "0585dcb7874c35cf96e2b09344263757462d38f6b8eeaac25299eef855a7bb15",
+    "test/0017.runtime/debug_source_logical_preflight_c.c": "f6f7e33cab1d733b7186bee63e49d31dc77e8536ce316138df1d9f2e640e7c5e",
+    "test/0017.runtime/debug_source_logical_invalid.c": "9540caebd7153d90a645d08b425860d29228e90953f6f6b09fb4fb24b644dad2",
+    "test/0017.runtime/debug_source_exact_narrow.cc": "7bab53c18a87fb5321cefb9524dcb3afa5978514f6d82bb97edfbb3074ad6bcf",
+    "test/0017.runtime/debug_source_language_numeric.cc": "84309df0e30bc59beb6444048b8b1aad102237826f2bc1678395f765ef98869d"
+  },
+  "rows": [
+    {
+      "repository": "uwvm2",
+      "profile": "native",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/native-a1/out-uwvm2/logical-native-a1/results.json",
+      "record_sha256": "f7768bcd97434a7d5898b674efdfa616a8e13bc4a83aec5df407f35ffa7afcea",
+      "passed": true,
+      "phases": 81,
+      "logical_preflight_assertions": 508390,
+      "character_escape_assertions": 652100,
+      "old_character_assertions": 14791,
+      "unary_sizeof_assertions": 149624,
+      "compound_sizeof_regression_assertions": 6325,
+      "rank_assertions": 106985,
+      "primitive_assertions": 60293,
+      "exact_assertions": 17623,
+      "DAP_tests": {
+        "source-frames": 33,
+        "WASIp1-state": 28,
+        "WASIp1-commit-observation": 13
+      },
+      "old_parser_refusals_reproduced_and_fixed": 6
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "actual-LLVM-metadata",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/out-uwvm2/logical-index-a1/results.json",
+      "record_sha256": "a509399220dda2b20736ff59d492c82b467edc698c53f0a1a3f343a8785f4f5a",
+      "passed": true,
+      "phases": 24,
+      "fresh_Wasm_producers": 20,
+      "actual_parser_assertions": 5980,
+      "real_logical_preflight_proofs": 1120,
+      "real_character_escape_proofs": 420,
+      "real_unary_sizeof_proofs": 420,
+      "real_compound_sizeof_proofs": 420,
+      "real_standard_wide_proofs": 140,
+      "independent_Wasm_character_escape_static_assertions": 11320,
+      "independent_Wasm_unary_sizeof_static_assertions": 280,
+      "guest_ABI": "Wasm32",
+      "languages": [
+        "C17",
+        "C23",
+        "C++20",
+        "Objective-C",
+        "Objective-C++"
+      ],
+      "DWARF": [
+        4,
+        5
+      ],
+      "optimization": [
+        0,
+        2
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "controller-frontend",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/frontend-a1/out-uwvm2/controller-frontend-a1/results.json",
+      "record_sha256": "a1676375d5b3f165a6095e0743f5d1531ce37862cda48d3720e37a253a22d0f4",
+      "passed": true,
+      "phases": 2,
+      "modes": [
+        "uwvm-int",
+        "LLVM-JIT"
+      ],
+      "full_product_qualified": false
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/cross-a1/out-uwvm2/logical-cross-a1-ppc64/results.json",
+      "record_sha256": "2cb4efd185822c37bd731b078066291b32cd435b4eb4fc3d52dba96e4cd7804f",
+      "passed": true,
+      "QEMU_components": 6,
+      "target_outputs_equal_native": true,
+      "logical_preflight_assertions": 508390
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "x86_64",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/cross-a1/out-uwvm2/logical-cross-a1-x86_64/results.json",
+      "record_sha256": "b9c617d17d1d3b902e5364683091be8f9df7e7dac47f6c5e11184097fdc00bb1",
+      "passed": true,
+      "QEMU_components": 6,
+      "target_outputs_equal_native": true,
+      "logical_preflight_assertions": 508390
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "aarch64",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/cross-a1/out-uwvm2/logical-cross-a1-aarch64/results.json",
+      "record_sha256": "804e9bfbfaeeefeb1c985fa019773d4087836c986e494fcbec61e7913cf8b0e9",
+      "passed": true,
+      "QEMU_components": 6,
+      "target_outputs_equal_native": true,
+      "logical_preflight_assertions": 508390
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "native",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/native-a1/out-uwvm2-ros/logical-native-a1/results.json",
+      "record_sha256": "d893fab8cbe9227a7f364cc6f1caea2731b78b94db3ea8129415e4e74587e701",
+      "passed": true,
+      "phases": 81,
+      "logical_preflight_assertions": 508390,
+      "character_escape_assertions": 652100,
+      "old_character_assertions": 14791,
+      "unary_sizeof_assertions": 149624,
+      "compound_sizeof_regression_assertions": 6325,
+      "rank_assertions": 106985,
+      "primitive_assertions": 60293,
+      "exact_assertions": 17623,
+      "DAP_tests": {
+        "source-frames": 33,
+        "WASIp1-state": 28,
+        "WASIp1-commit-observation": 13
+      },
+      "old_parser_refusals_reproduced_and_fixed": 6
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "actual-LLVM-metadata",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/out-uwvm2-ros/logical-index-a1/results.json",
+      "record_sha256": "782a91797c722f6e8d899f7896cb15b71f8522af2d6147e73b0cbb96905dbd1a",
+      "passed": true,
+      "phases": 24,
+      "fresh_Wasm_producers": 20,
+      "actual_parser_assertions": 5980,
+      "real_logical_preflight_proofs": 1120,
+      "real_character_escape_proofs": 420,
+      "real_unary_sizeof_proofs": 420,
+      "real_compound_sizeof_proofs": 420,
+      "real_standard_wide_proofs": 140,
+      "independent_Wasm_character_escape_static_assertions": 11320,
+      "independent_Wasm_unary_sizeof_static_assertions": 280,
+      "guest_ABI": "Wasm32",
+      "languages": [
+        "C17",
+        "C23",
+        "C++20",
+        "Objective-C",
+        "Objective-C++"
+      ],
+      "DWARF": [
+        4,
+        5
+      ],
+      "optimization": [
+        0,
+        2
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "controller-frontend",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/frontend-a1/out-uwvm2-ros/controller-frontend-a1/results.json",
+      "record_sha256": "5a529220f9780d341c9b214dbf9485dfb582920d386aad4033df8e91065b0ba2",
+      "passed": true,
+      "phases": 2,
+      "modes": [
+        "uwvm-int",
+        "LLVM-JIT"
+      ],
+      "full_product_qualified": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "ppc64",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/cross-a1/out-uwvm2-ros/logical-cross-a1-ppc64/results.json",
+      "record_sha256": "67aa9cd932d29225ed12dd0b817b1aff262d5ff4f1a37fca12da11f114138174",
+      "passed": true,
+      "QEMU_components": 6,
+      "target_outputs_equal_native": true,
+      "logical_preflight_assertions": 508390
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "x86_64",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/cross-a1/out-uwvm2-ros/logical-cross-a1-x86_64/results.json",
+      "record_sha256": "7d6635907ba4f8ec30dcaedf2951b5376fd3ffd7f159c9c19b19a9be49334990",
+      "passed": true,
+      "QEMU_components": 6,
+      "target_outputs_equal_native": true,
+      "logical_preflight_assertions": 508390
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "aarch64",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/cross-a1/out-uwvm2-ros/logical-cross-a1-aarch64/results.json",
+      "record_sha256": "c8e3eef926a07eba269d68fc5c8daf6e45484ce59eb981efdc4c16dc09123602",
+      "passed": true,
+      "QEMU_components": 6,
+      "target_outputs_equal_native": true,
+      "logical_preflight_assertions": 508390
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "ppc64-unsigned-char-followup",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/cross-a1/out-uwvm2/logical-smoke-a5-ppc64/results.json",
+      "record_sha256": "47b928043c46adb4a2ee6c16964de6e8b935580bf7fa3b85b0b1624a372643e3",
+      "passed": true,
+      "QEMU_components": 1,
+      "target_outputs_equal_native": true,
+      "logical_preflight_assertions": 508390
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "aarch64-unsigned-char-followup",
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/cross-a1/out-uwvm2/logical-smoke-a5-aarch64/results.json",
+      "record_sha256": "1acfe0a6ec98b53e017f4af00111a9677bd5fe512c75b1e701a38e9f9b1cb0b5",
+      "passed": true,
+      "QEMU_components": 1,
+      "target_outputs_equal_native": true,
+      "logical_preflight_assertions": 508390
+    }
+  ],
+  "counts": {
+    "successful_jobs": 14,
+    "retained_earlier_passed_jobs": 15,
+    "retained_failed_test_attempts": 5,
+    "retained_failed_attempt_completed_compiler_executable_phases": 51,
+    "retained_failed_attempt_failed_execution_phases": 2,
+    "retained_failed_attempt_verifier_assertions": 1,
+    "retained_failed_QEMU_new_fixture_executions": 2,
+    "retained_failed_QEMU_other_component_passes": 10,
+    "native_phases": 162,
+    "actual_LLVM_metadata_and_producer_phases": 48,
+    "controller_frontend_phases": 4,
+    "QEMU_components": 38,
+    "QEMU_main_regression_components": 36,
+    "QEMU_unsigned_host_char_followup_components": 2,
+    "fresh_Wasm_producers": 40,
+    "logical_preflight_assertions": 5083900,
+    "real_logical_preflight_metadata_proofs": 2240,
+    "independent_Wasm_logical_static_assertions": 240,
+    "C_logical_static_assertions": 28,
+    "C_logical_source_iterations": 40000,
+    "C_logical_selected_function_calls": 80000,
+    "native_compiler_expected_refusals": 36,
+    "old_incorrect_successes_reproduced_and_fixed": 12,
+    "character_escape_regression_assertions": 1304200,
+    "actual_parser_assertions": 11960,
+    "DAP_total_protocol_tests": 148,
+    "DAP_positive": 595,
+    "DAP_negative": 330,
+    "scalar_property_checks": 1360000,
+    "input_hash_checks": 166931
+  },
+  "resources": {
+    "boot": "d9ee997c-9129-43ea-a0f3-c9785344bba8",
+    "keeper_pid": 9769,
+    "keeper_birth": 16929,
+    "cgroup_bytes": 68719476736,
+    "swap_bytes": 0,
+    "DATA_owned_RSS_budget_bytes": 1073741824,
+    "DATA_owned_RSS_peak_bytes": 791691264,
+    "frontend_owned_RSS_budget_bytes": 17179869184,
+    "frontend_owned_RSS_peak_bytes": 2195857408,
+    "successful_job_seconds": 1216.8216473659995,
+    "earlier_attempt_job_seconds": 1584.4746960240045,
+    "all_test_attempt_job_seconds": 2801.296343390004,
+    "each_class_own_output_budget_bytes": 67108864,
+    "maximum_observed_DATA_output_bytes": 34029564,
+    "maximum_observed_frontend_output_bytes": 5189918,
+    "hard_image_bytes": 17179869184,
+    "arena_free_bytes": 11555725312,
+    "filesystem_id": "12191019222208619510",
+    "no_OOM_events": true
+  },
+  "guards": [
+    {
+      "label": "uwvm2-logical-native",
+      "passed": true,
+      "seconds": 224.4421279490016,
+      "owned_RSS_peak_bytes": 742027264,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 402148,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-logical-native",
+      "passed": true,
+      "seconds": 233.5905132299995,
+      "owned_RSS_peak_bytes": 749101056,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 409479,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-logical-index",
+      "passed": true,
+      "seconds": 32.966935440003,
+      "owned_RSS_peak_bytes": 717676544,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 402140,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-logical-index",
+      "passed": true,
+      "seconds": 33.48404522099736,
+      "owned_RSS_peak_bytes": 718012416,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 403638,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ppc64-logical-cross",
+      "passed": true,
+      "seconds": 90.86704179400112,
+      "owned_RSS_peak_bytes": 778043392,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 411153,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-ppc64-logical-cross",
+      "passed": true,
+      "seconds": 88.82483129799948,
+      "owned_RSS_peak_bytes": 778620928,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 418254,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-x8664-logical-cross",
+      "passed": true,
+      "seconds": 90.81216257800043,
+      "owned_RSS_peak_bytes": 781099008,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 411154,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-x8664-logical-cross",
+      "passed": true,
+      "seconds": 89.19793724299961,
+      "owned_RSS_peak_bytes": 781119488,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 418253,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-aarch64-logical-cross",
+      "passed": true,
+      "seconds": 97.39020377599809,
+      "owned_RSS_peak_bytes": 791691264,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 411152,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-aarch64-logical-cross",
+      "passed": true,
+      "seconds": 95.59805992999827,
+      "owned_RSS_peak_bytes": 791691264,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 418255,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ppc64-logical-smoke",
+      "passed": true,
+      "seconds": 14.84317525699953,
+      "owned_RSS_peak_bytes": 582991872,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 405187,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-aarch64-logical-smoke",
+      "passed": true,
+      "seconds": 15.45795687899954,
+      "owned_RSS_peak_bytes": 588795904,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 405188,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-logical-frontend",
+      "passed": true,
+      "seconds": 54.458214507001685,
+      "owned_RSS_peak_bytes": 2195857408,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 402149,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    },
+    {
+      "label": "uwvm2-ros-logical-frontend",
+      "passed": true,
+      "seconds": 54.88844226400033,
+      "owned_RSS_peak_bytes": 2193440768,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "retirement": {
+        "pid": 403993,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      }
+    }
+  ],
+  "retained_earlier_attempts": [
+    {
+      "attempt": "a1",
+      "label": "uwvm2-logical-native",
+      "passed": false,
+      "seconds": 14.727660821001336,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a1/native-a1/guard-native-a1/receipts.json",
+      "record_sha256": "887fbbe1de5c19b36038f9921b7b7d550fd9c03f612bbd68bba17e14fe13e5dc",
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1
+    },
+    {
+      "attempt": "a1",
+      "label": "uwvm2-logical-index",
+      "passed": true,
+      "seconds": 34.127008759998716,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a1/guard-index-a1/receipts.json",
+      "record_sha256": "45c5c0a210ab1961e48ebbacd2fb24faee3cf3e881eb5901f0a7d6552c61dbd6",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a1",
+      "label": "uwvm2-ros-logical-index",
+      "passed": true,
+      "seconds": 33.7458222919995,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a1/guard-index-a1/receipts.json",
+      "record_sha256": "45c5c0a210ab1961e48ebbacd2fb24faee3cf3e881eb5901f0a7d6552c61dbd6",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a1",
+      "label": "uwvm2-logical-frontend",
+      "passed": true,
+      "seconds": 55.667374806002044,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a1/frontend-a1/guard-frontend-a1/receipts.json",
+      "record_sha256": "27ba74cbd7805de7741bdaf5f6a1c5a34a9f7cbc4e6837ba331db8e027804c24",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a1",
+      "label": "uwvm2-ros-logical-frontend",
+      "passed": true,
+      "seconds": 55.450337666999985,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a1/frontend-a1/guard-frontend-a1/receipts.json",
+      "record_sha256": "27ba74cbd7805de7741bdaf5f6a1c5a34a9f7cbc4e6837ba331db8e027804c24",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a2",
+      "label": "uwvm2-logical-native",
+      "passed": false,
+      "seconds": 102.76069997299783,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a2/native-a1/guard-native-a1/receipts.json",
+      "record_sha256": "5b3a3a4342525828a55a1a6e57378ce222ec1882fedb99341af6e458fd65ce86",
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1
+    },
+    {
+      "attempt": "a2",
+      "label": "uwvm2-logical-index",
+      "passed": true,
+      "seconds": 34.174457937002444,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a2/guard-index-a1/receipts.json",
+      "record_sha256": "71f8872481166fbb95652f7ce56c49630d78c5a5808251e42dc4333c4d0aa042",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a2",
+      "label": "uwvm2-ros-logical-index",
+      "passed": true,
+      "seconds": 33.750035781002225,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a2/guard-index-a1/receipts.json",
+      "record_sha256": "71f8872481166fbb95652f7ce56c49630d78c5a5808251e42dc4333c4d0aa042",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a2",
+      "label": "uwvm2-logical-frontend",
+      "passed": true,
+      "seconds": 56.24558487499962,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a2/frontend-a1/guard-frontend-a1/receipts.json",
+      "record_sha256": "51587cc1733ab4fb5c075c99e98a40e0a0778ae4907f25ca8c49cb4d1279305d",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a2",
+      "label": "uwvm2-ros-logical-frontend",
+      "passed": true,
+      "seconds": 55.72944966000068,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a2/frontend-a1/guard-frontend-a1/receipts.json",
+      "record_sha256": "51587cc1733ab4fb5c075c99e98a40e0a0778ae4907f25ca8c49cb4d1279305d",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a3",
+      "label": "uwvm2-logical-native",
+      "passed": false,
+      "seconds": 220.36231518600107,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a3/native-a1/guard-native-a1/receipts.json",
+      "record_sha256": "cf5afa94735652d20fb5df520a278e385a3459a1d849282ae693415190e14957",
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1
+    },
+    {
+      "attempt": "a3",
+      "label": "uwvm2-logical-index",
+      "passed": true,
+      "seconds": 33.083583625000756,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a3/guard-index-a1/receipts.json",
+      "record_sha256": "87a339adfc726b38403dbdb31ccfafd75ceaa45a80634bc7643113e19da21cb9",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a3",
+      "label": "uwvm2-ros-logical-index",
+      "passed": true,
+      "seconds": 33.40717900200252,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a3/guard-index-a1/receipts.json",
+      "record_sha256": "87a339adfc726b38403dbdb31ccfafd75ceaa45a80634bc7643113e19da21cb9",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a3",
+      "label": "uwvm2-logical-frontend",
+      "passed": true,
+      "seconds": 54.577529482998216,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a3/frontend-a1/guard-frontend-a1/receipts.json",
+      "record_sha256": "5480195d93881778c5a522b1fcebe9ab75f2c89bdc1f285ad66b63bdecf139b4",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a3",
+      "label": "uwvm2-ros-logical-frontend",
+      "passed": true,
+      "seconds": 54.31254772500324,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a3/frontend-a1/guard-frontend-a1/receipts.json",
+      "record_sha256": "5480195d93881778c5a522b1fcebe9ab75f2c89bdc1f285ad66b63bdecf139b4",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a4",
+      "label": "uwvm2-logical-native",
+      "passed": true,
+      "seconds": 222.71403829200062,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a4/native-a1/guard-native-a1/receipts.json",
+      "record_sha256": "00f75ce824b826a4aed9087a969b973fe491a72173f75e3209020acd4dc3c30c",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a4",
+      "label": "uwvm2-ros-logical-native",
+      "passed": true,
+      "seconds": 223.3832851269981,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a4/native-a1/guard-native-a1/receipts.json",
+      "record_sha256": "00f75ce824b826a4aed9087a969b973fe491a72173f75e3209020acd4dc3c30c",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a4",
+      "label": "uwvm2-ppc64-logical-cross",
+      "passed": false,
+      "seconds": 86.37916475999737,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a4/cross-a1/guard-cross-ppc64-uwvm2-a4/receipts.json",
+      "record_sha256": "26c30e03221b669a0030e31cca6edb16eee124539a96bba844d8e0bc2f93f57b",
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1
+    },
+    {
+      "attempt": "a4",
+      "label": "uwvm2-x8664-logical-cross",
+      "passed": true,
+      "seconds": 86.61798128699957,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a4/cross-a1/guard-cross-x86_64-uwvm2-a4/receipts.json",
+      "record_sha256": "0bd26b321923557eb43c93f97ddbad7a2271d44eb38da943c38a2571f5f4cbef",
+      "error": null,
+      "returncode": 0
+    },
+    {
+      "attempt": "a4",
+      "label": "uwvm2-aarch64-logical-cross",
+      "passed": false,
+      "seconds": 93.25863896499868,
+      "record": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a4/cross-a1/guard-cross-aarch64-uwvm2-a4/receipts.json",
+      "record_sha256": "5cf1b9159473c37617f5952f8eac0d54d03f00ed8638fd590165220af95874b2",
+      "error": "RuntimeError: Build command failed: 1",
+      "returncode": 1
+    }
+  ],
+  "failure_explanation": "Five failed earlier jobs are retained: A1 new fixture asserted the wrong internal C predicate category; A2 historical C23 test expected an undeclared dead symbol to succeed; A3 baseline verifier used 3 instead of unavailable=4; A4 PPC64/AArch64 new fixture assigned a signed Wasm plain-char identity to native unsigned char. All production preflight bytes have stayed unchanged since A1. A5 corrects only copied fixture metadata for unsigned host char and freshly repeats every current native, LLVM metadata, frontend and QEMU job. Fifteen earlier jobs passed separately; 51 compiler/executable phases passed in failed native attempts and ten other target components passed in the two failed QEMU jobs.",
+  "remaining": "Exact size_t identity; full source expression language semantics, pointers, overloads/calls/assignments/aliases; full other-language native semantics, live products and remaining architecture parity.",
+  "fresh_full_product_qualified": false,
+  "all_native_debugger_capabilities_implemented": false,
+  "native_logical_declaration_preflight_implemented": true,
+  "shared_numeric_lazy_contract_preserved": true,
+  "all_inputs_after_unchanged": true,
+  "fresh_metadata_guest_bits": [
+    32
+  ],
+  "finite_numeric_model_guest_bits": [
+    32,
+    64
+  ],
+  "references": {
+    "CPP_logical_and": "https://eel.is/c++draft/expr.log.and",
+    "CPP_logical_or": "https://eel.is/c++draft/expr.log.or",
+    "GDB_C_operators": "https://sourceware.org/gdb/current/onlinedocs/gdb.html/C-Operators.html",
+    "C23": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf"
+  },
+  "artifact_collector_followup": {
+    "retained_failed_attempts": 1,
+    "failure_reason": "Old failed-QEMU row has phase log hashes but lacks the success-only stdout_sha256 field. Final collector validates retained phase log hashes directly. No implementation or test-fixture change.",
+    "retained_failed_recipe": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/collect_failed_QEMU_schema_a5.py",
+    "retained_failed_recipe_sha256": "791ce50b1cca3924989ae20a2a7b4293231fc40401e755c0e45e01ee2f575dc6",
+    "failed_guard_sha256": "4f2851497c66109e8635d688afc144c7722038d733d553b9b7f3bec5c82de56d",
+    "failed_collector_seconds": 6.88105433400051,
+    "final_collector_guard": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/logical-preflight-a5/guard-collect-followup-a5/receipts.json"
+  }
+}

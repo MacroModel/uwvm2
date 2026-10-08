@@ -1,0 +1,313 @@
+{
+  "passed": true,
+  "captured_at_utc": "2026-10-07T23:05:31.683910+00:00",
+  "arch": "loongarch64",
+  "completed": 1764,
+  "cold_store_processes": 588,
+  "authenticated_warm_processes": 1176,
+  "cache_paths": [
+    "default",
+    "explicit"
+  ],
+  "signed_reports": [
+    {
+      "repo": "uwvm2",
+      "kind": "cgopt-loong-signed-cli-r3",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-signed-cli-r3/uwvm2-results/summary.json",
+      "sha256": "fe62619360919d817193e1ed0181d9aa20b28d052cf9de813058fbe170eb1c17",
+      "completed": 324,
+      "warm_hit_processes": 216,
+      "profiles": [
+        "full-O1",
+        "full-O2",
+        "full-O3",
+        "lazy-balanced",
+        "lazy-debug",
+        "lazy-light"
+      ],
+      "fixture_count": 9,
+      "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "kind": "cgopt-loong-signed-cli-r3",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-signed-cli-r3/uwvm2-ros-results/summary.json",
+      "sha256": "c4d75b46593eed216388a77563725864563d779e09a011cf0b0593f337576658",
+      "completed": 162,
+      "warm_hit_processes": 108,
+      "profiles": [
+        "full-O1",
+        "full-O2",
+        "full-O3"
+      ],
+      "fixture_count": 9,
+      "product_sha256": "dbfeecb0ff1ad294bd20d3d5999d88bf504c9cf7516ee6e33e22ed1656a86f9b",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "kind": "cgopt-loong-signed-tail-extra-r1",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-signed-tail-extra-r1/uwvm2-results/summary.json",
+      "sha256": "0bd89ac523ae207c9f47f6b1b60df06c6c805502abd86b3aba272ef2ba16be14",
+      "completed": 252,
+      "warm_hit_processes": 168,
+      "profiles": [
+        "full-O1",
+        "full-O2",
+        "full-O3",
+        "lazy-balanced",
+        "lazy-debug",
+        "lazy-light"
+      ],
+      "fixture_count": 7,
+      "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "kind": "cgopt-loong-signed-tail-extra-r1",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-signed-tail-extra-r1/uwvm2-ros-results/summary.json",
+      "sha256": "28373694c44e728371fad244206d2e019192ceb3917a816cc6c5fbe0d3ab33cc",
+      "completed": 126,
+      "warm_hit_processes": 84,
+      "profiles": [
+        "full-O1",
+        "full-O2",
+        "full-O3"
+      ],
+      "fixture_count": 7,
+      "product_sha256": "dbfeecb0ff1ad294bd20d3d5999d88bf504c9cf7516ee6e33e22ed1656a86f9b",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "kind": "cgopt-loong-signed-instruction-r1",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-signed-instruction-r1/uwvm2-results/summary.json",
+      "sha256": "2063122a5fe14235eeaeb7b6d8c45460e04fa2bccefc9425d8fdb1dc899864b5",
+      "completed": 288,
+      "warm_hit_processes": 192,
+      "profiles": [
+        "lazy-balanced-instruction",
+        "lazy-debug-instruction",
+        "lazy-light-instruction"
+      ],
+      "fixture_count": 16,
+      "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "kind": "cgopt-loong-full-instruction-r1",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-full-instruction-r1/uwvm2-results/summary.json",
+      "sha256": "f57906067e5ded6fb6795bd9f150433cc9ca249455c7b23be1f15d2976a7e463",
+      "completed": 288,
+      "warm_hit_processes": 192,
+      "profiles": [
+        "full-O1-instruction",
+        "full-O2-instruction",
+        "full-O3-instruction"
+      ],
+      "fixture_count": 16,
+      "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "kind": "cgopt-loong-full-instruction-r1",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-full-instruction-r1/uwvm2-ros-results/summary.json",
+      "sha256": "5cf7d29e44b2800c9faa3b1f500f3ad29529b5e9fc3c2cf31fdbedddcfb2fafb",
+      "completed": 288,
+      "warm_hit_processes": 192,
+      "profiles": [
+        "full-O1-instruction",
+        "full-O2-instruction",
+        "full-O3-instruction"
+      ],
+      "fixture_count": 16,
+      "product_sha256": "dbfeecb0ff1ad294bd20d3d5999d88bf504c9cf7516ee6e33e22ed1656a86f9b",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "kind": "actual-tiered-numeric",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-t2-signed-r1/results/qualification.json",
+      "sha256": "01b05c21484e75a0a18dbf27d5e4c542662ed909a1199e0c7ca22dcc7b66dc4e",
+      "completed": 36,
+      "warm_hit_processes": 24,
+      "actual_T2_entry_in_every_process": true,
+      "checked_calls_per_process": 4000000,
+      "bit_checks_per_call": 6,
+      "modes": [
+        "lazy",
+        "lazy+verification"
+      ],
+      "optimizations": [
+        1,
+        2,
+        3
+      ],
+      "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    }
+  ],
+  "assembly_rows": 294,
+  "complete_function_extents": 456,
+  "decoded_objects": 366,
+  "assembly_reports": [
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-signed-asm-r1/uwvm2-ros-baseline-results/summary.json",
+      "sha256": "81a6f1e1b36d960d760ce54737c5e34c8b13913e9ad62598d25b345b8214e1c7",
+      "completed": 27,
+      "decoded_objects": 27,
+      "complete_function_extents": 33,
+      "product_sha256": "dbfeecb0ff1ad294bd20d3d5999d88bf504c9cf7516ee6e33e22ed1656a86f9b",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-signed-asm-r1/uwvm2-ros-tail-extra-results/summary.json",
+      "sha256": "ef12002976938c3e105e95fb30d01bc0dc909324615b020da92542e829625647",
+      "completed": 21,
+      "decoded_objects": 21,
+      "complete_function_extents": 42,
+      "product_sha256": "dbfeecb0ff1ad294bd20d3d5999d88bf504c9cf7516ee6e33e22ed1656a86f9b",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-signed-asm-r1/uwvm2-baseline-results/summary.json",
+      "sha256": "8990631099ed6414fe888a6ecd5006aa5f8c507994a6da65bd705c5a9b7bf04b",
+      "completed": 54,
+      "decoded_objects": 54,
+      "complete_function_extents": 66,
+      "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-signed-asm-r1/uwvm2-tail-extra-results/summary.json",
+      "sha256": "ab3a2f23e3f7b9285d2c405a3a39f03c14e3fc89f74f4bd4cf2d5b6a715200dd",
+      "completed": 42,
+      "decoded_objects": 42,
+      "complete_function_extents": 84,
+      "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-full-instruction-asm-r1/uwvm2-ros-results/summary.json",
+      "sha256": "5414d772999bca773d90d3afe94f7746c81c48d5ad417f3e50a32dd482fe6345",
+      "completed": 48,
+      "decoded_objects": 48,
+      "complete_function_extents": 75,
+      "product_sha256": "dbfeecb0ff1ad294bd20d3d5999d88bf504c9cf7516ee6e33e22ed1656a86f9b",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-full-instruction-asm-r1/uwvm2-results/summary.json",
+      "sha256": "38de2b25628c2dd88d6d159aa01075018d11458365ad88ae8488c5c121ccb71d",
+      "completed": 48,
+      "decoded_objects": 48,
+      "complete_function_extents": 75,
+      "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-cold-tail-proof-r1/assembly-results/summary.json",
+      "sha256": "21dff4b433a9d5f569a81ba50698b5484f5b585d0bcd8df9777103a4b75b1560",
+      "completed": 48,
+      "decoded_objects": 114,
+      "complete_function_extents": 75,
+      "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-t2-signed-asm-r2/results/summary.json",
+      "sha256": "a11244849965dcb72e9caf5f10ae9b454902c43cac2eb0070488e693e048c6c4",
+      "completed": 6,
+      "decoded_objects": 12,
+      "complete_function_extents": 6,
+      "product_sha256": "b36108017e9d19a63cee333563fdf21ba91a5cf85ed502b67cc023533a9ac9fb",
+      "source_identities": {
+        "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+        "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+      }
+    }
+  ],
+  "cold_tail_witness": {
+    "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-loong-cold-tail-proof-r1/cold-tail-qualification.json",
+    "sha256": "f8184a3bad9d07d0f06a66c9b145b9c1e9a515365338429997000038e9e11593",
+    "completed": 18,
+    "order": [
+      2,
+      0,
+      1
+    ],
+    "compiler_workers": 0,
+    "cache_objects_per_process": 3
+  },
+  "paired_source_identities": {
+    "uwvm2": "sha256:05753253cfade58b2a20044b4d73fad066b32515f301796960b9356f6806fb5e",
+    "uwvm2-ros": "sha256:43c7b12be0e84605bb1e5417275b2a68c3ac3c143c0a7e24e325bb85a3951922"
+  },
+  "default_cache_policy_changed_by_architecture": false,
+  "T2_supported_repositories": [
+    "uwvm2"
+  ],
+  "ROS_has_tiered": false,
+  "failed_inspector_attempts_preserved": [
+    "cgopt-loong-t2-signed-asm-r1"
+  ],
+  "codegen_observations": {
+    "unfused_f32": "Independent fmul.s and fadd.s in the executed object",
+    "f32x4_nearest": "Explicit vfrintrne.s; five-instruction leaf including address/load/return",
+    "tail": "Restore the physical frame before no-link jr; legitimate cold/helper/trap calls are counted separately",
+    "T2": "Select the three-function full module with loop-reentry symbols, then inspect tiered_core_func_1; T1 uses duplicate function names"
+  },
+  "hardware_efficiency_qualified": false,
+  "all_architecture_qualification_complete": false,
+  "complete_Core3_qualified": false,
+  "scope": "Actual paired R7 signed cache execution and complete selected function disassembly. Full O1/O2/O3 in both instruction and unwind stack policies; main lazy policies in both; actual main numeric T2 O1/O2/O3 with instruction policy. This is LoongArch64 targeted evidence, not all Wasm/Core3/Linux ISAs or hardware throughput."
+}

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "archive": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r31/chain-probe-recoverable.tar.zst",
+  "archive_sha256": "360e6fc2c6f740148e99232618b73a94bf9429cf497908e4dbc5ee6bd189cd34",
+  "payload_sha256": "2fd3798572f1da6e56a51a43b31edd39163a251b98496369d2464b7290919680",
+  "bytes": 167742320,
+  "diagnostic_only": true,
+  "failed_test_result_unchanged": true
+}

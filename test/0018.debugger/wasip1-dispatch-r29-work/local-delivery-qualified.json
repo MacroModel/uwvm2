@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "archive_sha256": "49f707d2d0cd1cf44352d94563730505091b152e6537877b75b9de0abbc3bd0c",
+  "all_payloads_read_back": true,
+  "files": 16,
+  "both_repositories_match": true,
+  "native_program_runs": 48,
+  "counted_assertions": 14392
+}

@@ -1,0 +1,16 @@
+{
+  "passed": false,
+  "stage": "before creating RAM device",
+  "old_physical_reserve_bytes": 2147483648,
+  "observed_free_bytes": 988499968,
+  "native_test_started": false,
+  "device_created": false,
+  "cross_compilation_qualified": true,
+  "repair": {
+    "physical_reserve_bytes": 536870912,
+    "maximum_physical_native_metadata_bytes": 8388608,
+    "entire_ramdisk_capacity_charged_bytes": 1073741824,
+    "unchanged_native_memory_limit_bytes": 2147483648
+  },
+  "explanation": "The RAM profile writes only bounded metadata to the physical filesystem; binaries and fixture data stay on its own 1 GiB RAM device. Preserve physical headroom without treating the disk reserve as the user 2 GiB memory limit."
+}

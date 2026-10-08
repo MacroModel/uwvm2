@@ -1,0 +1,850 @@
+{
+  "round": "R12",
+  "all_required_tests_passed": true,
+  "total_positive_assertions": 72756,
+  "native_os_assertions": 66824,
+  "genuine_portable_assertions": 4016,
+  "genuine_group_assertions": 1916,
+  "negative_assertions": 304,
+  "cached_repeat_assertions": 65536,
+  "direct_state_assertions": 7220,
+  "own_source_sha256": {
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h": "850c75b4037f3060ccd8c32af31cc4b5d2e82932e811d458e683ca77cc2905f8",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h": "43adbaa3748f288450b8580ee80fd397dd682d3eadcb0e60e8b8fda49252eec4",
+    "uwvm2/test/0013.debugger/wasip1_root_selection.cc": "6634a2b4928ba88ed1c880996d755dc562fbb03fc9149537268dc6704112b993",
+    "uwvm2/test/0017.runtime/debug_wasip1_portable_runtime.cc": "b26b3333a4104bd896d9e9f143527855e6d328bf7a75cde999b8c2a62f0d91e7",
+    "uwvm2/test/0017.runtime/fixtures/debug_wasip1_root_choice.wat": "e2c22d79f1f96525eb02be3f5e18861fb7a9accb2214123bab15eac8051fe3fc",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "8bb83e7cddfb3bccfac9c3a3aac4d60954cb01d352043da116f1d6d98a149ff6",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h": "850c75b4037f3060ccd8c32af31cc4b5d2e82932e811d458e683ca77cc2905f8",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h": "43adbaa3748f288450b8580ee80fd397dd682d3eadcb0e60e8b8fda49252eec4",
+    "uwvm2-ros/test/0013.debugger/wasip1_root_selection.cc": "6634a2b4928ba88ed1c880996d755dc562fbb03fc9149537268dc6704112b993",
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_portable_runtime.cc": "b26b3333a4104bd896d9e9f143527855e6d328bf7a75cde999b8c2a62f0d91e7",
+    "uwvm2-ros/test/0017.runtime/fixtures/debug_wasip1_root_choice.wat": "e2c22d79f1f96525eb02be3f5e18861fb7a9accb2214123bab15eac8051fe3fc",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "8bb83e7cddfb3bccfac9c3a3aac4d60954cb01d352043da116f1d6d98a149ff6"
+  },
+  "limitations": [
+    "Windows native directory NONBLOCK remains ENOTSUP",
+    "four-OS native FD-selection ABI qualification; genuine LLVM checkpoint execution on Linux",
+    "Wasm and WASIp1 must capture at the same cooperative stop; this change is not whole-instance joint restore"
+  ],
+  "native": [
+    {
+      "repository": "uwvm2",
+      "target": "linux",
+      "checks": 8352,
+      "cases": 4,
+      "unsupported": 0,
+      "passed": true,
+      "exit": 0,
+      "log": "/tmp/uwvm-wasip1-root-selection-20261006-r12/uwvm2-linux-post/verified.log",
+      "log_sha256": "c98db8981e40e11b6773e0d8e7f7d90fdc94e0d8770be84ccc99d95044cf086c",
+      "compiled": "/tmp/uwvm-wasip1-root-selection-20261006-r12/uwvm2-linux-post/codec-compiled.json"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "linux",
+      "checks": 8352,
+      "cases": 4,
+      "unsupported": 0,
+      "passed": true,
+      "exit": 0,
+      "log": "/tmp/uwvm-wasip1-root-selection-20261006-r12/uwvm2-ros-linux-post/verified.log",
+      "log_sha256": "c98db8981e40e11b6773e0d8e7f7d90fdc94e0d8770be84ccc99d95044cf086c",
+      "compiled": "/tmp/uwvm-wasip1-root-selection-20261006-r12/uwvm2-ros-linux-post/codec-compiled.json"
+    },
+    {
+      "argv": [
+        "/usr/bin/sandbox-exec",
+        "-p",
+        "(version 1)(allow default)(deny process-fork)",
+        "/tmp/uwvm-wasip1-root-selection-20261006-r12/uwvm2-macos/codec",
+        "/tmp/uwvm-wasip1-root-selection-20261006-r12/uwvm2-macos/codec-files-1791239904003757000"
+      ],
+      "exit": 0,
+      "seconds": 0.527153915958479,
+      "sampled_aggregate_peak_rss_bytes": 4210688,
+      "aggregate_peak_upper_bytes": 35241984,
+      "limit_bytes": 2147483648,
+      "identities": [
+        {
+          "pid": 89697,
+          "seconds": 1791239904,
+          "microseconds": 3975,
+          "uid": 501,
+          "pgid": 89697
+        }
+      ],
+      "log": "/tmp/uwvm-wasip1-root-selection-20261006-r12/uwvm2-macos/verified.log",
+      "log_sha256": "c98db8981e40e11b6773e0d8e7f7d90fdc94e0d8770be84ccc99d95044cf086c",
+      "repository": "uwvm2",
+      "target": "macos",
+      "checks": 8352,
+      "cases": 4,
+      "unsupported": 0,
+      "passed": true,
+      "compiled": "/tmp/uwvm-wasip1-root-selection-20261006-r12/uwvm2-macos/codec-compiled.json"
+    },
+    {
+      "argv": [
+        "/usr/bin/sandbox-exec",
+        "-p",
+        "(version 1)(allow default)(deny process-fork)",
+        "/tmp/uwvm-wasip1-root-selection-20261006-r12/uwvm2-ros-macos/codec",
+        "/tmp/uwvm-wasip1-root-selection-20261006-r12/uwvm2-ros-macos/codec-files-1791239909397553000"
+      ],
+      "exit": 0,
+      "seconds": 0.18632074998458847,
+      "sampled_aggregate_peak_rss_bytes": 2752512,
+      "aggregate_peak_upper_bytes": 34455552,
+      "limit_bytes": 2147483648,
+      "identities": [
+        {
+          "pid": 89712,
+          "seconds": 1791239909,
+          "microseconds": 397765,
+          "uid": 501,
+          "pgid": 89712
+        }
+      ],
+      "log": "/tmp/uwvm-wasip1-root-selection-20261006-r12/uwvm2-ros-macos/verified.log",
+      "log_sha256": "c98db8981e40e11b6773e0d8e7f7d90fdc94e0d8770be84ccc99d95044cf086c",
+      "repository": "uwvm2-ros",
+      "target": "macos",
+      "checks": 8352,
+      "cases": 4,
+      "unsupported": 0,
+      "passed": true,
+      "compiled": "/tmp/uwvm-wasip1-root-selection-20261006-r12/uwvm2-ros-macos/codec-compiled.json"
+    },
+    {
+      "repository": "uwvm2",
+      "target": "freebsd",
+      "checks": 8352,
+      "passed": true,
+      "receipt": "/tmp/uwvm-wasip1-root-selection-20261006-r12/vm-freebsd-codec-e2652078/receipt.json",
+      "serial_sha256": "1a883a9463b1115216651997a3a22659efb3525b7e05d4942e7d5e77af80b8a8"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "freebsd",
+      "checks": 8352,
+      "passed": true,
+      "receipt": "/tmp/uwvm-wasip1-root-selection-20261006-r12/vm-freebsd-codec-e2652078/receipt.json",
+      "serial_sha256": "1a883a9463b1115216651997a3a22659efb3525b7e05d4942e7d5e77af80b8a8"
+    },
+    {
+      "repository": "uwvm2",
+      "target": "windows",
+      "checks": 8356,
+      "passed": true,
+      "receipt": "/tmp/uwvm-wasip1-root-selection-20261006-r12/vm-windows-codec-d3d220f2/receipt.json",
+      "serial_sha256": "85341bbb066bdeca46149ccd70a020f9509b35a85808e603b1e01ed0dba673f6"
+    },
+    {
+      "repository": "uwvm2-ros",
+      "target": "windows",
+      "checks": 8356,
+      "passed": true,
+      "receipt": "/tmp/uwvm-wasip1-root-selection-20261006-r12/vm-windows-codec-d3d220f2/receipt.json",
+      "serial_sha256": "85341bbb066bdeca46149ccd70a020f9509b35a85808e603b1e01ed0dba673f6"
+    }
+  ],
+  "runtime": [
+    {
+      "stage": "before",
+      "repository": "uwvm2",
+      "checks": 54,
+      "policy": "instruction",
+      "case": "root-choice",
+      "mode": "save"
+    },
+    {
+      "stage": "before",
+      "repository": "uwvm2",
+      "checks": 22,
+      "policy": "instruction",
+      "case": "root-choice",
+      "mode": "restore"
+    },
+    {
+      "stage": "before",
+      "repository": "uwvm2",
+      "checks": 54,
+      "policy": "unwind",
+      "case": "root-choice",
+      "mode": "save"
+    },
+    {
+      "stage": "before",
+      "repository": "uwvm2",
+      "checks": 22,
+      "policy": "unwind",
+      "case": "root-choice",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 51,
+      "policy": "instruction",
+      "case": "standard",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 83,
+      "policy": "instruction",
+      "case": "standard",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 51,
+      "policy": "unwind",
+      "case": "standard",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 83,
+      "policy": "unwind",
+      "case": "standard",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 52,
+      "policy": "instruction",
+      "case": "sparse-reserved",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 89,
+      "policy": "instruction",
+      "case": "sparse-reserved",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 52,
+      "policy": "unwind",
+      "case": "sparse-reserved",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 89,
+      "policy": "unwind",
+      "case": "sparse-reserved",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 52,
+      "policy": "instruction",
+      "case": "root-alias",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 85,
+      "policy": "instruction",
+      "case": "root-alias",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 52,
+      "policy": "unwind",
+      "case": "root-alias",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 85,
+      "policy": "unwind",
+      "case": "root-alias",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 51,
+      "policy": "instruction",
+      "case": "normalized-path",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 84,
+      "policy": "instruction",
+      "case": "normalized-path",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 51,
+      "policy": "unwind",
+      "case": "normalized-path",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 84,
+      "policy": "unwind",
+      "case": "normalized-path",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 51,
+      "policy": "instruction",
+      "case": "dsync",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 87,
+      "policy": "instruction",
+      "case": "dsync",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 51,
+      "policy": "unwind",
+      "case": "dsync",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 87,
+      "policy": "unwind",
+      "case": "dsync",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 53,
+      "policy": "instruction",
+      "case": "root-flags",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 103,
+      "policy": "instruction",
+      "case": "root-flags",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 53,
+      "policy": "unwind",
+      "case": "root-flags",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 103,
+      "policy": "unwind",
+      "case": "root-flags",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 54,
+      "policy": "instruction",
+      "case": "root-choice",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 109,
+      "policy": "instruction",
+      "case": "root-choice",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 54,
+      "policy": "unwind",
+      "case": "root-choice",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2",
+      "checks": 109,
+      "policy": "unwind",
+      "case": "root-choice",
+      "mode": "restore"
+    },
+    {
+      "stage": "group",
+      "repository": "uwvm2",
+      "checks": 479,
+      "policy": "instruction"
+    },
+    {
+      "stage": "group",
+      "repository": "uwvm2",
+      "checks": 479,
+      "policy": "unwind"
+    },
+    {
+      "stage": "before",
+      "repository": "uwvm2-ros",
+      "checks": 54,
+      "policy": "instruction",
+      "case": "root-choice",
+      "mode": "save"
+    },
+    {
+      "stage": "before",
+      "repository": "uwvm2-ros",
+      "checks": 22,
+      "policy": "instruction",
+      "case": "root-choice",
+      "mode": "restore"
+    },
+    {
+      "stage": "before",
+      "repository": "uwvm2-ros",
+      "checks": 54,
+      "policy": "unwind",
+      "case": "root-choice",
+      "mode": "save"
+    },
+    {
+      "stage": "before",
+      "repository": "uwvm2-ros",
+      "checks": 22,
+      "policy": "unwind",
+      "case": "root-choice",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 51,
+      "policy": "instruction",
+      "case": "standard",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 83,
+      "policy": "instruction",
+      "case": "standard",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 51,
+      "policy": "unwind",
+      "case": "standard",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 83,
+      "policy": "unwind",
+      "case": "standard",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 52,
+      "policy": "instruction",
+      "case": "sparse-reserved",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 89,
+      "policy": "instruction",
+      "case": "sparse-reserved",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 52,
+      "policy": "unwind",
+      "case": "sparse-reserved",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 89,
+      "policy": "unwind",
+      "case": "sparse-reserved",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 52,
+      "policy": "instruction",
+      "case": "root-alias",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 85,
+      "policy": "instruction",
+      "case": "root-alias",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 52,
+      "policy": "unwind",
+      "case": "root-alias",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 85,
+      "policy": "unwind",
+      "case": "root-alias",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 51,
+      "policy": "instruction",
+      "case": "normalized-path",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 84,
+      "policy": "instruction",
+      "case": "normalized-path",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 51,
+      "policy": "unwind",
+      "case": "normalized-path",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 84,
+      "policy": "unwind",
+      "case": "normalized-path",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 51,
+      "policy": "instruction",
+      "case": "dsync",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 87,
+      "policy": "instruction",
+      "case": "dsync",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 51,
+      "policy": "unwind",
+      "case": "dsync",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 87,
+      "policy": "unwind",
+      "case": "dsync",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 53,
+      "policy": "instruction",
+      "case": "root-flags",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 103,
+      "policy": "instruction",
+      "case": "root-flags",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 53,
+      "policy": "unwind",
+      "case": "root-flags",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 103,
+      "policy": "unwind",
+      "case": "root-flags",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 54,
+      "policy": "instruction",
+      "case": "root-choice",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 109,
+      "policy": "instruction",
+      "case": "root-choice",
+      "mode": "restore"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 54,
+      "policy": "unwind",
+      "case": "root-choice",
+      "mode": "save"
+    },
+    {
+      "stage": "post",
+      "repository": "uwvm2-ros",
+      "checks": 109,
+      "policy": "unwind",
+      "case": "root-choice",
+      "mode": "restore"
+    },
+    {
+      "stage": "group",
+      "repository": "uwvm2-ros",
+      "checks": 479,
+      "policy": "instruction"
+    },
+    {
+      "stage": "group",
+      "repository": "uwvm2-ros",
+      "checks": 479,
+      "policy": "unwind"
+    }
+  ],
+  "guards": {
+    "runtime-before-uwvm2": {
+      "owned_peak_aggregate_rss_upper_bytes": 4318470144,
+      "parent_peak_memory_current_bytes": 62631223296,
+      "parent_events_unchanged": true,
+      "limits": {
+        "owned_rss_limit_bytes": 4831838208,
+        "memory.max": "68719476736",
+        "memory.swap.max": "0",
+        "cpuset": "0,2,4,6,16-31"
+      }
+    },
+    "runtime-before-uwvm2-ros": {
+      "owned_peak_aggregate_rss_upper_bytes": 4228513792,
+      "parent_peak_memory_current_bytes": 66497847296,
+      "parent_events_unchanged": true,
+      "limits": {
+        "owned_rss_limit_bytes": 4831838208,
+        "memory.max": "68719476736",
+        "memory.swap.max": "0",
+        "cpuset": "0,2,4,6,16-31"
+      }
+    },
+    "runtime-uwvm2": {
+      "owned_peak_aggregate_rss_upper_bytes": 4327477248,
+      "parent_peak_memory_current_bytes": 67138580480,
+      "parent_events_unchanged": true,
+      "limits": {
+        "owned_rss_limit_bytes": 4831838208,
+        "memory.max": "68719476736",
+        "memory.swap.max": "0",
+        "cpuset": "0,2,4,6,16-31"
+      }
+    },
+    "runtime-uwvm2-ros": {
+      "owned_peak_aggregate_rss_upper_bytes": 4238110720,
+      "parent_peak_memory_current_bytes": 64963747840,
+      "parent_events_unchanged": true,
+      "limits": {
+        "owned_rss_limit_bytes": 4831838208,
+        "memory.max": "68719476736",
+        "memory.swap.max": "0",
+        "cpuset": "0,2,4,6,16-31"
+      }
+    },
+    "components": {
+      "owned_peak_aggregate_rss_upper_bytes": 804020224,
+      "parent_peak_memory_current_bytes": 60012527616,
+      "parent_events_unchanged": true,
+      "limits": {
+        "owned_rss_limit_bytes": 2147483648,
+        "memory.max": "68719476736",
+        "memory.swap.max": "0",
+        "cpuset": "0,2,4,6,16-31"
+      }
+    },
+    "cross-freebsd-component-component": {
+      "owned_peak_aggregate_rss_upper_bytes": 803762176,
+      "parent_peak_memory_current_bytes": 60547219456,
+      "parent_events_unchanged": true,
+      "limits": {
+        "owned_rss_limit_bytes": 6442450944,
+        "memory.max": "68719476736",
+        "memory.swap.max": "0",
+        "cpuset": "0,2,4,6,16-31"
+      }
+    },
+    "cross-windows-component-component": {
+      "owned_peak_aggregate_rss_upper_bytes": 880803840,
+      "parent_peak_memory_current_bytes": 61569736704,
+      "parent_events_unchanged": true,
+      "limits": {
+        "owned_rss_limit_bytes": 6442450944,
+        "memory.max": "68719476736",
+        "memory.swap.max": "0",
+        "cpuset": "0,2,4,6,16-31"
+      }
+    },
+    "vm-freebsd-component-component": {
+      "owned_peak_aggregate_rss_upper_bytes": 1277300736,
+      "parent_peak_memory_current_bytes": 60409548800,
+      "parent_events_unchanged": true,
+      "limits": {
+        "owned_rss_limit_bytes": 6442450944,
+        "memory.max": "68719476736",
+        "memory.swap.max": "0",
+        "cpuset": "0,2,4,6,16-31"
+      }
+    },
+    "vm-windows-component-component": {
+      "owned_peak_aggregate_rss_upper_bytes": 2242846720,
+      "parent_peak_memory_current_bytes": 61143490560,
+      "parent_events_unchanged": true,
+      "limits": {
+        "owned_rss_limit_bytes": 6442450944,
+        "memory.max": "68719476736",
+        "memory.swap.max": "0",
+        "cpuset": "0,2,4,6,16-31"
+      }
+    },
+    "group-uwvm2": {
+      "owned_peak_aggregate_rss_upper_bytes": 2611638272,
+      "parent_peak_memory_current_bytes": 63187496960,
+      "parent_events_unchanged": true,
+      "limits": {
+        "owned_rss_limit_bytes": 3221225472,
+        "memory.max": "68719476736",
+        "memory.swap.max": "0",
+        "cpuset": "0,2,4,6,16-31"
+      }
+    },
+    "group-uwvm2-ros": {
+      "owned_peak_aggregate_rss_upper_bytes": 2607767552,
+      "parent_peak_memory_current_bytes": 63225597952,
+      "parent_events_unchanged": true,
+      "limits": {
+        "owned_rss_limit_bytes": 3221225472,
+        "memory.max": "68719476736",
+        "memory.swap.max": "0",
+        "cpuset": "0,2,4,6,16-31"
+      }
+    }
+  },
+  "source_archive": {
+    "sha256": "be9e66201c18db3c1d6951a877d8d8c1bc8a5a0485f0768ed710631450965f16",
+    "bytes": 94257606,
+    "payloads": 51068,
+    "every_payload_verified": true,
+    "persistent_copy": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-directory-flags-20261006-r11-private-vm/r12-source-evidence.tar.gz",
+      "sha256": "be9e66201c18db3c1d6951a877d8d8c1bc8a5a0485f0768ed710631450965f16",
+      "bytes": 94257606,
+      "verified_copy": true
+    }
+  },
+  "test_archive": {
+    "sha256": "0317ab99566fbd5363d33430ec212fbf6d82d5eb1226c0807b45d31341350549",
+    "bytes": 22275456,
+    "payloads": 303,
+    "every_payload_verified": true,
+    "persistent_copy": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-directory-flags-20261006-r11-private-vm/r12-test-evidence.tar.gz",
+      "bytes": 22275456,
+      "sha256": "0317ab99566fbd5363d33430ec212fbf6d82d5eb1226c0807b45d31341350549",
+      "verified_copy": true
+    }
+  },
+  "complete_results_sha256": "8cccb64dd73d457bf7204b9fa41154f0a1c3205c7e98d9f050e46824251250a0",
+  "patch_sha256": "ffab9422412ae57e080d70b79a1088dae3ae8dff049c4f084831c285aaa64ef9",
+  "macos_compiler_peak_upper_bytes": {
+    "uwvm2": 1662451712,
+    "uwvm2-ros": 1659486208
+  },
+  "failed_attempts_preserved": [
+    "/tmp/uwvm-wasip1-root-selection-20261006-r12/guard-history-collect-1791242748201509404.json",
+    "/tmp/uwvm-wasip1-root-selection-20261006-r12/guard-history-collect-1791242716771025843.json",
+    "/tmp/uwvm-wasip1-root-selection-20261006-r12/guard-history-group-uwvm2-1791242426846572417.json",
+    "/tmp/uwvm-wasip1-root-selection-20261006-r12/guard-history-retire-cold-1791241828124253329.json",
+    "/tmp/uwvm-wasip1-root-selection-20261006-r12/guard-history-vm-freebsd-component-component-1791240183526008360.json"
+  ]
+}

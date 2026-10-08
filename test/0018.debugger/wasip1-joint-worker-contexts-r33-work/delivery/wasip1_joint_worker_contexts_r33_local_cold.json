@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "directory": "/Users/liyinan/Documents/MacroModel/wasip1-r33-owned-cold-evidence",
+  "archives": {
+    "uwvm2-linux-integrated-qualified-products.tar.zst": {
+      "bytes": 58233116,
+      "sha256": "6a8dd8b9c1b9f7df03fe89f73ae70d3c5a4f8ce29d902d85a5534a9279651ca9",
+      "qualification_sha256s": {
+        "uwvm2-linux-integrated": "2461b8d91372c969d379e412215b5e748526aa193197e94f2b87cfdeae84e6ad"
+      },
+      "all_payloads_read_back": true
+    },
+    "uwvm2-windows-qualified-products.tar.zst": {
+      "bytes": 39226684,
+      "sha256": "b796dbe038253bc528dca7f6eea9b8601ae2facd5b322f78aa24c34edcbf536c",
+      "qualification_sha256s": {
+        "uwvm2-windows": "0e58f374f9b1161267262409384ac898b1d214bd893802f09664a00c15e7cf8f"
+      },
+      "all_payloads_read_back": true
+    },
+    "uwvm2-freebsd-qualified-products.tar.zst": {
+      "bytes": 40831633,
+      "sha256": "662aa45009705453694bb7078e075d42da00420db604fc72b6862595fee9f2d5",
+      "qualification_sha256s": {
+        "uwvm2-freebsd": "65134dc0ba8cb9c6a857691eef84bf8332a92264cbfb23ea1e6c787adccc6f85"
+      },
+      "all_payloads_read_back": true
+    },
+    "macos-both-repositories-qualified-products.tar.zst": {
+      "bytes": 64338022,
+      "sha256": "06757f57658d4f3de801e4aa014a5d0466863e26e516d47a2e84b07d4f10a27b",
+      "qualification_sha256s": {
+        "uwvm2-macos": "d141b339fbb189ac36920fb5a554c01088125673383aaf6ad0ae1c85178453b7",
+        "uwvm2-ros-macos": "39dea7da72556d8dd41e41ad8e36acdf29d7b22fce1468c73b187b4bd45810fb"
+      },
+      "all_payloads_read_back": true
+    },
+    "uwvm2-ros-linux-integrated-qualified-products.tar.zst": {
+      "bytes": 53178893,
+      "sha256": "9301c14631d4233b4e445f608ba1925e6da9d3ed091e80728cea80439fc3b9ed",
+      "qualification_sha256s": {
+        "uwvm2-ros-linux-integrated": "39e8b3babb065e26ddbb972d39f23c540e5e454012f8fd2f0071e850953d0c66"
+      },
+      "all_payloads_read_back": true
+    },
+    "uwvm2-ros-windows-qualified-products.tar.zst": {
+      "bytes": 36188614,
+      "sha256": "79cba9cc52c36a395ac9bdcc48cca09a1f123b37c9ff116a8c8d16a46ce595f2",
+      "qualification_sha256s": {
+        "uwvm2-ros-windows": "783f51e5786dd8a0acf8fcbe7c2c4a6f23b5f10f5ae029454ca770ce13edcc33"
+      },
+      "all_payloads_read_back": true
+    },
+    "uwvm2-ros-freebsd-qualified-products.tar.zst": {
+      "bytes": 36833120,
+      "sha256": "170d79028959e5e853f66a35696cd2e702172fa4ef52c69687cbe5a2b11fea68",
+      "qualification_sha256s": {
+        "uwvm2-ros-freebsd": "96fdc0155137e3a1e2c397fcec7bbff557e2f0a44d6f76cfc8a993127c9ec8ed"
+      },
+      "all_payloads_read_back": true
+    }
+  },
+  "all_payloads_read_back": true,
+  "logical_compiled_products": 8,
+  "physical_archive_files": 7,
+  "limit_bytes": 329252864,
+  "bytes": 328830082,
+  "aggregate_limit_bytes": 2147483648,
+  "aggregate_bytes": 2143013758,
+  "memory_upper_bytes": 702038016,
+  "decoder": {
+    "path": "/opt/homebrew/bin/zstd",
+    "sha256": "9b5676aae3cb048cf68e2b40c543d9523db3b4cb911b31861bd5f4fcb050c4b6",
+    "window_limit_bytes": 536870912
+  }
+}

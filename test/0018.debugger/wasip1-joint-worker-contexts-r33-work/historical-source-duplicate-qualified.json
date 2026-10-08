@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "round": 31,
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r31-work/inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r31/inputs.tar.gz",
+      "bytes": 18744681,
+      "sha256": "72ad43c63ebe81ed82583f1878ccb2ea4c03c3997c9f49152bdc1764978a3368",
+      "manifest_sha256": "d81d0f6d08c1fc699031e859ce4135fc8e207094ecfb2acbc40e98161bfd5a9c",
+      "all_payloads_read_back": true
+    },
+    {
+      "round": 32,
+      "local": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r32-work/inputs.tar.gz",
+      "remote": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-joint-worker-contexts-20261007-r32/inputs.tar.gz",
+      "bytes": 19195249,
+      "sha256": "a021f81401d7d2096014520f33fa179061aaf3a05623cb45fb1dd52a407e68db",
+      "manifest_sha256": "ea1734aea48d131bc0edaef08c0f2fcdcf952de686e35232154554fb29f2309b",
+      "all_payloads_read_back": true
+    }
+  ],
+  "memory_upper_bytes": 174669824,
+  "limit_bytes": 2147483648,
+  "no_new_local_archive_copy": true,
+  "original_immutable_source_bytes_preserved": true
+}

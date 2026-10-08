@@ -1,0 +1,3337 @@
+{
+  "schema": 1,
+  "date": "2026-10-06",
+  "overall_native_language_debug_parity_complete": false,
+  "scope": "Paired private local snapshot copier repair; exact frozen full products and finite real debugger regressions; later shared-source changes have component-only qualification.",
+  "production_fix": {
+    "shared_local_copy": "Per-function internal noinline copy body and entry-owned address table replace repeated per-opcode local loads.",
+    "initialization": "Actual current opcode initialization mask; invalid/absent flags select immutable zero storage before dereference.",
+    "bits": "Inline byte copies preserve i32/i64/f32/f64/v128, including signaling NaN bits; canonical 16-byte padding.",
+    "references": "Public locals publish reference nullness; raw checkpoint bytes remain private.",
+    "llvm23_assertion": "An unfinished entry block is checked for a terminator before accessing it.",
+    "asm_scope": "No DISubprogram, Wasm provenance, activation or public safepoint on instrumentation bodies; no VM/host/helper stepping authority.",
+    "io": "Production fix adds no new I/O backend. C++ regression output, files, raw LLVM stream and argument parsing use fast_io."
+  },
+  "cgroup": {
+    "container": "uwvm3-implementation",
+    "container_id": "bec3a6e4e013ba07c1583e46eeb81707c90c59375ae1c208a6bb87cc4f773f45",
+    "boot_id": "fe09fe71-9493-4b3c-9295-694bcadeee5f",
+    "init_pid": 9593,
+    "init_birth": 18401,
+    "memory_max_bytes": 68719476736,
+    "swap_max_bytes": 0,
+    "cpuset": "0,2,4,6,16-31",
+    "test_affinity": "16-31",
+    "all_actual_compilers_VM_QEMU_tests_in_original_cgroup": true,
+    "guards": "Original PIDFD/birth/boot/UID/executable ownership, pressure, RSS, disk, file and log limits retained. Admission for heavy products/Go strengthened; diagnostic RSS budget strengthened.",
+    "foreign_processes_signaled": false,
+    "foreign_sources_reset": false
+  },
+  "repositories": {
+    "uwvm2": {
+      "qualified_full_product_source_id": "sha256:b4262eaefb55119b342f3d54bd420e1d2011b5deb64e5e7e3c2bd837fccd4106",
+      "qualified_source_root": "/tmp/uwvm2-go-startup-20261006-a1/uwvm2",
+      "fresh_main_runtime_host_and_link_passed": true,
+      "new_objects_only": true,
+      "product_sha256": "4eb3d266f16ac7c6ecad37a4bc048467fc3d02470f4da8fe5b14599888829b05",
+      "SDK_record": "/tmp/uwvm2-language-resume-20261005-a1/out-uwvm2-ros/sdk-ros11-a3/results.json",
+      "unit_passed": true,
+      "unit_test_sha256": "d3be2c7cbda41d25ab0ed1100a6d7aa3137970612e50de6172eb49ac4c399bbd",
+      "linear_IR": {
+        "sites": 1024,
+        "locals": 256,
+        "parent_instructions": 3074,
+        "single_numeric_copy_body_instructions": 2817,
+        "single_body_blocks": 1,
+        "actual_slot_copies": 262144
+      },
+      "cross_component_passed": true,
+      "cross_component_profiles": [
+        "x86_64",
+        "aarch64",
+        "i686",
+        "riscv64",
+        "ppc64",
+        "ppc64le",
+        "ppc32",
+        "mips64",
+        "mips64el",
+        "mips32",
+        "mips32el",
+        "sparc64",
+        "loongarch64",
+        "s390x",
+        "armhf",
+        "armel"
+      ],
+      "full_target_Cpp_emitter_ABI_qualified": false,
+      "actual_observation_passed": true,
+      "finite_product_supervision": [
+        {
+          "label": "uwvm2-native-copier-boundary-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459054,
+            459404,
+            459406,
+            459531,
+            459541
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 86458368,
+          "wall_seconds": 0.8251871889988251,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-native-copier-boundary-a1-256",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459054,
+            459404,
+            459406,
+            459541,
+            460241
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 104443904,
+          "wall_seconds": 2.2946260900007474,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-c-32-instruction-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459054,
+            459404,
+            459406,
+            459541,
+            460241
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 205504512,
+          "wall_seconds": 0.9757237650010211,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-c-32-unwind-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459054,
+            459404,
+            459406,
+            459541,
+            460241
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 204292096,
+          "wall_seconds": 0.9250942760008911,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-c-64-instruction-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459054,
+            459404,
+            459406,
+            459541,
+            460241
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 204283904,
+          "wall_seconds": 0.9761217960003705,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-c-64-unwind-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459054,
+            459404,
+            459406,
+            459541,
+            460241
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 149360640,
+          "wall_seconds": 0.9765861699997913,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-cpp-32-instruction-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459054,
+            459404,
+            459406,
+            459541,
+            460241
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 204353536,
+          "wall_seconds": 0.9234590599990042,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-cpp-32-unwind-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459054,
+            459404,
+            459406,
+            459541,
+            460241
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 195493888,
+          "wall_seconds": 0.9249440759995196,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-cpp-64-instruction-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459054,
+            459404,
+            459406,
+            459541,
+            460241
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 147079168,
+          "wall_seconds": 0.9767804019993491,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-cpp-64-unwind-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459054,
+            459404,
+            459406,
+            459541,
+            460241
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 153526272,
+          "wall_seconds": 0.9777950219995546,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-objc-32-instruction-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459054,
+            459404,
+            459406,
+            459541,
+            460241
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 152301568,
+          "wall_seconds": 1.7459627900007035,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-objc-32-unwind-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459054,
+            459404,
+            459406,
+            459541,
+            460241
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 204992512,
+          "wall_seconds": 1.6845742699988477,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-rust-32-instruction-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459404,
+            459406,
+            459541,
+            461701,
+            461710
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 205660160,
+          "wall_seconds": 2.2924229270010983,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-rust-32-unwind-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459404,
+            459406,
+            459541,
+            461701,
+            461710
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 205635584,
+          "wall_seconds": 2.3010026729989477,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-c-32-instruction-source-break-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459404,
+            459406,
+            461701,
+            461710,
+            461899
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 204423168,
+          "wall_seconds": 0.9752569060001406,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-c-32-unwind-source-break-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459404,
+            459406,
+            461701,
+            461710,
+            461899
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 204476416,
+          "wall_seconds": 0.9240709860005154,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-cpp-32-instruction-source-break-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459404,
+            459406,
+            461701,
+            461710,
+            461899
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 204410880,
+          "wall_seconds": 0.8774626810009067,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-cpp-32-unwind-source-break-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459404,
+            459406,
+            461701,
+            461710,
+            461899,
+            462385
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 204419072,
+          "wall_seconds": 0.8753229940011806,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-restored-assemblyscript-instruction-a3",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459404,
+            461701,
+            461710,
+            461899,
+            462500
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 149168128,
+          "wall_seconds": 1.798070890999952,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-restored-assemblyscript-unwind-a3",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            459404,
+            461701,
+            461710,
+            461899,
+            462500
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 204914688,
+          "wall_seconds": 1.839273265999509,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-restored-tinygo-instruction-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            461701,
+            461710,
+            461899,
+            462739
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 205791232,
+          "wall_seconds": 3.2612295340004493,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-restored-tinygo-unwind-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            461710,
+            461899,
+            462902,
+            462914,
+            462944
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 205750272,
+          "wall_seconds": 3.162929100999463,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-restored-zig-instruction-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            461710,
+            461899,
+            462902,
+            462944,
+            463000,
+            463070,
+            463071,
+            463075,
+            463126
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 204607488,
+          "wall_seconds": 1.3377476509995176,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-restored-zig-unwind-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            453310,
+            458901,
+            461710,
+            461899,
+            462902,
+            462944,
+            463000,
+            463070,
+            463071,
+            463126,
+            463261
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 169058304,
+          "wall_seconds": 1.4383256140008598,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-restored-run-to-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            417134,
+            425097,
+            431726,
+            431728,
+            442474,
+            443926,
+            446228,
+            458901,
+            461710,
+            461899,
+            463942,
+            463981,
+            464302,
+            464332
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 115052544,
+          "wall_seconds": 29.475455321999107,
+          "passed": true
+        }
+      ],
+      "ASM_boundaries": {
+        "native-copier-boundary-a1": true,
+        "native-copier-boundary-a1-256": true
+      },
+      "later_shared_source_cut": {
+        "source_id": "sha256:28df1fbf3dec941af52cc0153d0e48059b3dd21b33b79e63ae28bb14f0f25209",
+        "source_root": "/tmp/uwvm2-snapshot-followup-20261006-a1/uwvm2",
+        "native_copier_component_passed": true,
+        "cross_16_components_passed": true,
+        "large_prefix_component_passed": true,
+        "large_local_count": 1001,
+        "public_prefix": 256,
+        "full_product_qualified": false,
+        "scope": "Component DATA only. Full/raw versus public-prefix destination extents, both copy orders, real tail update and sentinels; no full VM or source/ASM lease qualification."
+      }
+    },
+    "uwvm2-ros": {
+      "qualified_full_product_source_id": "sha256:79d3fb5940d9e5db846fb7be0b6660875fa4d0ff437bfbaae8ac71dd5af1681e",
+      "qualified_source_root": "/tmp/uwvm2-go-startup-20261006-a1/uwvm2-ros",
+      "fresh_main_runtime_host_and_link_passed": true,
+      "new_objects_only": true,
+      "product_sha256": "73b750689404173e2952248ac73d1f48ceddd8c5a787fba8f621b0ae2e36e59a",
+      "SDK_record": "/tmp/uwvm2-language-resume-20261005-a1/out-uwvm2-ros/sdk-ros11-a3/results.json",
+      "unit_passed": true,
+      "unit_test_sha256": "d3be2c7cbda41d25ab0ed1100a6d7aa3137970612e50de6172eb49ac4c399bbd",
+      "linear_IR": {
+        "sites": 1024,
+        "locals": 256,
+        "parent_instructions": 3074,
+        "single_numeric_copy_body_instructions": 2817,
+        "single_body_blocks": 1,
+        "actual_slot_copies": 262144
+      },
+      "cross_component_passed": true,
+      "cross_component_profiles": [
+        "x86_64",
+        "aarch64",
+        "i686",
+        "riscv64",
+        "ppc64",
+        "ppc64le",
+        "ppc32",
+        "mips64",
+        "mips64el",
+        "mips32",
+        "mips32el",
+        "sparc64",
+        "loongarch64",
+        "s390x",
+        "armhf",
+        "armel"
+      ],
+      "full_target_Cpp_emitter_ABI_qualified": false,
+      "actual_observation_passed": true,
+      "finite_product_supervision": [
+        {
+          "label": "uwvm2-ros-native-copier-boundary-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            465699,
+            465909,
+            467182,
+            467416,
+            468906,
+            468922,
+            468961
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 85577728,
+          "wall_seconds": 0.8300496800002293,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-native-copier-boundary-a1-256",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            465699,
+            465909,
+            467182,
+            467416,
+            468906,
+            468922,
+            468961,
+            469193,
+            469205,
+            469206,
+            469209
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 103665664,
+          "wall_seconds": 2.2951535009997315,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-c-32-instruction-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            465699,
+            465909,
+            467182,
+            467416,
+            468906,
+            468922,
+            468961,
+            469193,
+            469205,
+            469206
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 171352064,
+          "wall_seconds": 0.8765674440001021,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-c-32-unwind-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469763,
+            469806
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 170590208,
+          "wall_seconds": 0.9242610620003688,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-c-64-instruction-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469763,
+            469806
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 170536960,
+          "wall_seconds": 0.8742795349990047,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-c-64-unwind-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469763,
+            469806
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 170532864,
+          "wall_seconds": 0.9283155659995828,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-cpp-32-instruction-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469763,
+            469806,
+            470353,
+            470356
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 170491904,
+          "wall_seconds": 0.8761324469996907,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-cpp-32-unwind-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470462,
+            470467,
+            470470
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 170602496,
+          "wall_seconds": 0.8819376090013975,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-cpp-64-instruction-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470462,
+            470467,
+            470577
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 170561536,
+          "wall_seconds": 0.8778204589998495,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-cpp-64-unwind-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470462,
+            470577,
+            470648,
+            470689
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 170602496,
+          "wall_seconds": 0.8764241409990063,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-objc-32-instruction-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470462,
+            470577,
+            470812,
+            470815
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 145711104,
+          "wall_seconds": 1.58170629399865,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-objc-32-unwind-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470462,
+            470577,
+            470812,
+            470815
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 156893184,
+          "wall_seconds": 1.582505045000289,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-rust-32-instruction-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470577,
+            471045,
+            471047
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 141004800,
+          "wall_seconds": 2.200266928999554,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-rust-32-unwind-numeric-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470577,
+            471047,
+            471235,
+            471237
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 171057152,
+          "wall_seconds": 2.24399781899956,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-c-32-instruction-source-break-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470577,
+            471047,
+            471235,
+            471237
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 129720320,
+          "wall_seconds": 0.9257656529989617,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-c-32-unwind-source-break-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470577,
+            471047,
+            471455,
+            471457
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 130985984,
+          "wall_seconds": 0.8837657429994579,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-cpp-32-instruction-source-break-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470577,
+            471047,
+            471455,
+            471457,
+            471569
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 130174976,
+          "wall_seconds": 0.8768658480003069,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-cpp-32-unwind-source-break-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470577,
+            471047,
+            471569,
+            471684
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 170024960,
+          "wall_seconds": 0.8766548539988435,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-restored-tinygo-instruction-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470577,
+            471047,
+            471805,
+            471816,
+            471827,
+            471828,
+            471890,
+            471892
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 171266048,
+          "wall_seconds": 3.2165236059991003,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-restored-tinygo-unwind-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470577,
+            471047,
+            472010,
+            472012
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 171327488,
+          "wall_seconds": 3.178563818000839,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-restored-zig-instruction-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470577,
+            472120,
+            472125,
+            472127
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 170274816,
+          "wall_seconds": 1.3365275509986532,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-restored-zig-unwind-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470577,
+            472127,
+            472239,
+            472241
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 170287104,
+          "wall_seconds": 1.33697555100116,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-restored-assemblyscript-instruction-a3",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470577,
+            472127,
+            472357
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 170545152,
+          "wall_seconds": 1.7872907529999793,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-restored-assemblyscript-unwind-a3",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469806,
+            470577,
+            472127
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 140582912,
+          "wall_seconds": 1.6940611250010988,
+          "passed": true
+        },
+        {
+          "label": "uwvm2-ros-restored-run-to-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 0,
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            469704,
+            469705,
+            469806,
+            470577,
+            473128,
+            473655,
+            473776,
+            473778
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 123310080,
+          "wall_seconds": 28.625873250999575,
+          "passed": true
+        }
+      ],
+      "ASM_boundaries": {
+        "native-copier-boundary-a1": true,
+        "native-copier-boundary-a1-256": true
+      },
+      "later_shared_source_cut": {
+        "source_id": "sha256:bae604c0c4a439aa1196e2f0e92350f8ed773eaaeabd9d7c336810a05f04e9b9",
+        "source_root": "/tmp/uwvm2-snapshot-followup-20261006-a1/uwvm2-ros",
+        "native_copier_component_passed": true,
+        "cross_16_components_passed": true,
+        "large_prefix_component_passed": true,
+        "large_local_count": 1001,
+        "public_prefix": 256,
+        "full_product_qualified": false,
+        "scope": "Component DATA only. Full/raw versus public-prefix destination extents, both copy orders, real tail update and sentinels; no full VM or source/ASM lease qualification."
+      }
+    }
+  },
+  "passed_finite_regression_counts": {
+    "numeric": 24,
+    "source_breakpoint": 8,
+    "extra_TinyGo_Zig_AssemblyScript": 12,
+    "source_run_to": 256,
+    "DAP": 468,
+    "actual_checkpoint_captures": 8,
+    "ASM_real_policy_executions": 8
+  },
+  "qualification_limits": {
+    "all_language_features": false,
+    "all_wasm_3_features": false,
+    "all_arch_full_VM_JIT_native_parity": false,
+    "executable_checkpoint_restore": false,
+    "AssemblyScript_typed_variables": false,
+    "standard_Go_Rdbg_passed": false,
+    "language_inventory_unchanged": {
+      "implemented": 14,
+      "partial": 38,
+      "missing": 34,
+      "separate_level": 1,
+      "prohibited_by_scope": 1,
+      "total": 88
+    }
+  },
+  "soak": {
+    "passed": true,
+    "requested_active_seconds": 1800,
+    "completed_rounds": 44,
+    "wall_seconds": 1839.1807258069985,
+    "total_controller_actions": 458656,
+    "total_actual_source_positions": 71280,
+    "host_expression_execution": false,
+    "guest_memory_modified_by_debugger": false,
+    "actual_runs": 1408,
+    "languages": [
+      "C",
+      "C++",
+      "Objective-C",
+      "Rust",
+      "TinyGo",
+      "Zig",
+      "AssemblyScript"
+    ],
+    "repositories": [
+      "uwvm2",
+      "uwvm2-ros"
+    ],
+    "policies": [
+      "instruction",
+      "unwind"
+    ],
+    "standard_Go_included": false,
+    "full_guest_exit_and_worker_join": true,
+    "scope": "Qualified full-product cut, actual actions, excludes idle time; 32 real cases per round. Finite C++64 cases pass separately."
+  },
+  "supervision": {
+    "control-products-a3": [
+      {
+        "label": "uwvm2-product-a3",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          402718,
+          417134,
+          425097,
+          431726,
+          431728,
+          442474,
+          443926,
+          446228,
+          453310,
+          456900,
+          457403,
+          458741
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 7091691520,
+        "wall_seconds": 252.75045752799997,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-ros-product-a3",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          402718,
+          417134,
+          425097,
+          431726,
+          431728,
+          442474,
+          443926,
+          446228,
+          464560,
+          465192,
+          465540,
+          465546,
+          465599
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 5712416768,
+        "wall_seconds": 213.91640135200032,
+        "passed": true
+      }
+    ],
+    "control-dap-a1": [
+      {
+        "label": "uwvm2-dap-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          402718,
+          417134,
+          425097,
+          431726,
+          431727,
+          431728,
+          442474,
+          443926,
+          446228,
+          452042,
+          453310,
+          453678,
+          456900,
+          457196,
+          457249,
+          457263,
+          457276,
+          457277,
+          457403,
+          457523
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 42741760,
+        "wall_seconds": 0.7723735469990061,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-ros-dap-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          402718,
+          417134,
+          425097,
+          431726,
+          431727,
+          431728,
+          442474,
+          443926,
+          446228,
+          452042,
+          453310,
+          453678,
+          456900,
+          457196,
+          457249,
+          457263,
+          457276,
+          457277,
+          457403,
+          457755,
+          457765
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 42631168,
+        "wall_seconds": 0.703606896000565,
+        "passed": true
+      }
+    ],
+    "control-soak-all-language-a1": [
+      {
+        "label": "all-language-soak-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          425097,
+          431726,
+          446228,
+          495325,
+          500519,
+          502857,
+          511568,
+          514550,
+          515988,
+          519940,
+          520211,
+          520801,
+          520828,
+          520835,
+          520859
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 230166528,
+        "wall_seconds": 1842.4304143579993,
+        "passed": true
+      }
+    ],
+    "control-observation-uwvm2-a1": [
+      {
+        "label": "uwvm2-actual-observation-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          402718,
+          425097,
+          431726,
+          443926,
+          446228,
+          465699,
+          465909,
+          467182,
+          467416,
+          467648,
+          467833,
+          467890,
+          467957
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 2468913152,
+        "wall_seconds": 45.97322949699992,
+        "passed": true
+      }
+    ],
+    "control-observation-uwvm2-ros-a1": [
+      {
+        "label": "uwvm2-ros-actual-observation-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          402718,
+          425097,
+          431726,
+          443926,
+          446228,
+          467182,
+          467416,
+          469704,
+          469705,
+          469806,
+          475054,
+          475416,
+          475636,
+          475642,
+          475837,
+          475942,
+          475943,
+          476481,
+          476595,
+          476602,
+          476608,
+          476610
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 2466824192,
+        "wall_seconds": 47.80083632199967,
+        "passed": true
+      }
+    ],
+    "control-snapshot-canonical-a1": [
+      {
+        "label": "uwvm2-snapshot-canonical-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          402718,
+          425097,
+          431726,
+          446228,
+          469705,
+          469806,
+          485862,
+          486855,
+          487111,
+          487687,
+          487798,
+          487904,
+          488012,
+          488238,
+          488413,
+          488430,
+          488641,
+          488721,
+          488722,
+          488723,
+          488724
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 131121152,
+        "wall_seconds": 9.228947315999903,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-ros-snapshot-canonical-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          402718,
+          425097,
+          431726,
+          446228,
+          469705,
+          469806,
+          485862,
+          486855,
+          487111,
+          487687,
+          488238,
+          488852,
+          488894,
+          489024,
+          489111,
+          489305,
+          489316,
+          489317,
+          489319,
+          489328,
+          489436,
+          489459,
+          489460,
+          489493,
+          489495
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 130244608,
+        "wall_seconds": 9.125767880999774,
+        "passed": true
+      }
+    ]
+  },
+  "followup_supervision": {
+    "control-components-a1": [
+      {
+        "label": "uwvm2-snapshot-followup-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          425097,
+          431726,
+          446228,
+          495325,
+          502857,
+          511568,
+          530585,
+          530811,
+          534968,
+          535005,
+          535116
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 2658611200,
+        "wall_seconds": 48.10796985500019,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-ros-snapshot-followup-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          425097,
+          431726,
+          446228,
+          495325,
+          502857,
+          511568,
+          530585,
+          530811,
+          534968,
+          535492,
+          535570
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 2645454848,
+        "wall_seconds": 46.44888000100036,
+        "passed": true
+      }
+    ],
+    "control-cross-a1": [
+      {
+        "label": "uwvm2-snapshot-cross-followup-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          425097,
+          431726,
+          446228,
+          495325,
+          502857,
+          511568,
+          530585,
+          530811,
+          534968,
+          535715,
+          536231
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 133627904,
+        "wall_seconds": 9.371311773998968,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-ros-snapshot-cross-followup-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          425097,
+          431726,
+          446228,
+          495325,
+          502857,
+          511568,
+          530585,
+          530811,
+          534968,
+          535715,
+          536604,
+          536771,
+          536831,
+          536833,
+          536863,
+          536873,
+          536882,
+          536883,
+          536885
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 168501248,
+        "wall_seconds": 9.570417783999801,
+        "passed": true
+      }
+    ],
+    "control-large-prefix-a1": [
+      {
+        "label": "uwvm2-snapshot-large-prefix-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          425097,
+          431726,
+          446228,
+          495325,
+          502857,
+          511568,
+          530585,
+          535715,
+          536604,
+          536930,
+          537357,
+          538101,
+          538110,
+          538129,
+          538159,
+          538169,
+          538170
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 2643472384,
+        "wall_seconds": 47.46991709500071,
+        "passed": true
+      },
+      {
+        "label": "uwvm2-ros-snapshot-large-prefix-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "returncode": 0,
+        "remaining_roster": [
+          9593,
+          344884,
+          425097,
+          431726,
+          446228,
+          495325,
+          502857,
+          511568,
+          530585,
+          536604,
+          537357,
+          538331,
+          538522,
+          538666,
+          538789,
+          539302,
+          539303,
+          539308,
+          539309,
+          539312,
+          539317,
+          539318
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 2631303168,
+        "wall_seconds": 48.159822397001335,
+        "passed": true
+      }
+    ]
+  },
+  "standard_Go": {
+    "passed": false,
+    "producer": "Go 1.27.1 actual Wasip1",
+    "producer_DWARF_present": false,
+    "ordinary_optimized": {
+      "status": "prompt_timeout_180_seconds",
+      "summary": "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2/go-optimized-a1/summary.json",
+      "supervision": [
+        {
+          "label": "uwvm2-go-optimized-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            467416,
+            468922,
+            469704,
+            469705,
+            469763,
+            469806,
+            469813
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 8501555200,
+          "wall_seconds": 181.34013336200042,
+          "passed": false
+        }
+      ]
+    },
+    "ordinary_unoptimized": {
+      "status": "shared_pressure_abort_before_prompt_deadline",
+      "supervision": [
+        {
+          "label": "uwvm2-go-unoptimized-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "error": "AssertionError: ('Shared cgroup less than 1GiB from maximum; stop only this owned build', 67651817472)",
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            443926,
+            446228,
+            467182,
+            469704,
+            469705,
+            469806,
+            476790,
+            477254,
+            477255,
+            477267,
+            477790,
+            477796
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 7129747456,
+          "wall_seconds": 91.62228710700037,
+          "passed": false
+        }
+      ]
+    },
+    "ordinary_explicit_debug_O0": {
+      "status": "prompt_timeout_180_seconds",
+      "supervision": [
+        {
+          "label": "uwvm2-go-optimized-debug-policy-a1",
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "returncode": 1,
+          "error": "RuntimeError: Build command failed: 1",
+          "remaining_roster": [
+            9593,
+            344884,
+            402718,
+            425097,
+            431726,
+            446228,
+            469705,
+            469806,
+            483448,
+            485862,
+            486855,
+            487111,
+            487631,
+            487632,
+            487683,
+            487685,
+            487687,
+            487751
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 162,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 8471838720,
+          "wall_seconds": 181.30154842400043,
+          "passed": false
+        }
+      ],
+      "production_default_changed": false
+    },
+    "ROS_optimized": {
+      "status": "NOT_LAUNCHED",
+      "reason": "Less than 10GiB admission headroom persisted 900 seconds",
+      "admission_receipt": "/tmp/uwvm2-go-startup-20261006-a1/go-ROS-optimized-not-launched-a2.json"
+    },
+    "ROS_unoptimized": {
+      "status": "NOT_LAUNCHED"
+    },
+    "declarations": [
+      {
+        "wasm": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/restored-go-optimized-a1/guest.wasm",
+        "sha256": "699df547a6164a6b2003139c3c0be3d76a22f6176d2b2b92f2212c87786c4bc3",
+        "local_functions": 1252,
+        "maximum_params_plus_locals": 18,
+        "above_256": 0
+      },
+      {
+        "wasm": "/tmp/uwvm2-language-sizeof-20261005-a1/out-uwvm2/restored-language-guests-a3/go/guest.wasm",
+        "sha256": "ab31173ec9927ae0776659fc781cce1e714678fec978c3c9563ee3e8007ef7ee",
+        "local_functions": 1999,
+        "maximum_params_plus_locals": 18,
+        "above_256": 0
+      }
+    ],
+    "bounded_private_diagnostic": {
+      "full_product_qualification": false,
+      "production_policy_changed": false,
+      "last_logged_function": 562,
+      "optimizer_begin_observed": false,
+      "owned_RSS_budget_bytes": 6442450944,
+      "supervision": {
+        "label": "private-go-profile-a1",
+        "memory_events_before": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "error": "AssertionError: ('Shared cgroup less than 1GiB from maximum; stop only this owned build', 67647082496)",
+        "remaining_roster": [
+          9593,
+          344884,
+          425097,
+          431726,
+          446228,
+          495325,
+          502857,
+          511568,
+          514550,
+          515988,
+          519940,
+          526114,
+          526307,
+          526454,
+          526455
+        ],
+        "memory_events_after": {
+          "low": 0,
+          "high": 0,
+          "max": 162,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "aggregate_owned_rss_peak_bytes": 3724640256,
+        "wall_seconds": 44.32954666099977,
+        "passed": false
+      },
+      "inference": "The bounded sample was still emitting functions when shared memory pressure stopped it; this is not a completed Go run or a proof of the only remaining bottleneck."
+    }
+  },
+  "final_cgroup_observation": {
+    "memory.current": "58804416512\n",
+    "memory.max": "68719476736\n",
+    "memory.swap.max": "0\n",
+    "memory.events": "low 0\nhigh 0\nmax 162\noom 0\noom_kill 0\noom_group_kill 0\n"
+  },
+  "memory_events_claim": "Selected qualification supervision starts/ends at max=162, oom=0, oom_kill=0. No claim is made that earlier shared cgroup history had max=0.",
+  "recoverable_old_output_cleanup": {
+    "receipt": "/tmp/uwvm2-go-startup-20261006-a1/archived-old-soak-cleanup-receipt-a1.json",
+    "scope": "Only 5760 archived own previous soak raw files, 157407600 nominal bytes; old summaries, sources, toolchains, products and guest debug inputs retained. No claimed cgroup memory reduction."
+  },
+  "artifacts_sha256": {
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2/product-a3/build-record.json": "a08f72ac43bf4d2c5f65ac937433c6e66517d853292b78c3740fb6e81d7f0303",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2/snapshot-copy-a2/results.json": "308ff6643439cfbf62140e75e1f4e13c0cd09d456df4fef828c4d9891a385828",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2/snapshot-copy-canonical-a1/results.json": "5956d7dbfd02925d2396a628cdd22bbcdff47f66fca4b084003b1ab50de09ecb",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2/actual-observation-a1/results.json": "b0fe958c479220f4386e49cae3250aa20533788ec32690a63db29532c4308fd7",
+    "/tmp/uwvm2-snapshot-followup-20261006-a1/out-uwvm2/snapshot-copy-a1/results.json": "e2f12d5bbec44c26556138775c4e3b4b80069bc7facab416218ec4aeef43e4b3",
+    "/tmp/uwvm2-snapshot-followup-20261006-a1/out-uwvm2/snapshot-copy-canonical-a1/results.json": "ea9c0371323bb0bb7fef311fbb6972e73a82f684d7c182f8c5cb4c683d758af6",
+    "/tmp/uwvm2-snapshot-followup-20261006-a1/out-uwvm2/snapshot-large-prefix-a1/results.json": "058894027a19361650a36448fae00627d3a2cb9ba91e46fb422c0634e528da6f",
+    "/tmp/uwvm2-go-startup-20261006-a1/control-product-regressions-uwvm2-a1/receipts.json": "08234c71f0444e089988527c8ab530c6f64366bca5dcb16df778ff5c94ef93e9",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2/native-copier-boundary-a1/summary.json": "b1699e85463b0e4981a1bb94ec026b0f26f2805907fc828f1f74a52bbf2ba274",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2/native-copier-boundary-a1-256/summary.json": "56cd9dd65a8ec5bfae0813c95dba74a9d1899d4c712ca4de26beb1204a8b041f",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2-ros/product-a3/build-record.json": "0927ff94712a2cbb19138849132f57506a8618506e47d9cc91e7b0ada522f8ca",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2-ros/snapshot-copy-a2/results.json": "e2e30eb9a25e42f87e81d8616d6b53e3d210619d5673db9a9de40554a7a67628",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2-ros/snapshot-copy-canonical-a1/results.json": "0e14b66c2c40e68270fffbe67e8899ee975e166a4bcfb2baf14128fd293bafab",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2-ros/actual-observation-a1/results.json": "3c08f524611598285050803ee5dcfdade5bcf5f8e51d38004edaa757afa096c6",
+    "/tmp/uwvm2-snapshot-followup-20261006-a1/out-uwvm2-ros/snapshot-copy-a1/results.json": "e3aa4edf5e230369ef65910eeb83af72c5dc71ab869b2c807e3d6b55fe998040",
+    "/tmp/uwvm2-snapshot-followup-20261006-a1/out-uwvm2-ros/snapshot-copy-canonical-a1/results.json": "2eae81ce852cfac8e3276d71ba0e864e9623bbaf09beb062c637e2f911ad849a",
+    "/tmp/uwvm2-snapshot-followup-20261006-a1/out-uwvm2-ros/snapshot-large-prefix-a1/results.json": "ad0ae4a0739c808f4be920068f8dc20e834167cf78db7319169b5b572742b8e8",
+    "/tmp/uwvm2-go-startup-20261006-a1/control-product-regressions-uwvm2-ros-a1/receipts.json": "8b354f23ce57dc97d0a758ac5f9fe13d7a7b97129f89f42ff388f47b8d362ade",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2-ros/native-copier-boundary-a1/summary.json": "17aa2298e1117985347eaa7594764fbf43bfed0dd5ca22e6c1dba59997da5d7d",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2-ros/native-copier-boundary-a1-256/summary.json": "de42ea0781309a3666c16647700f4bff80feff16b461154ba96a26be66e8c76d",
+    "/tmp/uwvm2-go-startup-20261006-a1/soak-all-language-a1/summary.json": "f2d0ab553944ed007633852e41f7e51997e7fb20600b877d1a17be7c801cf79d",
+    "/tmp/uwvm2-go-startup-20261006-a1/control-products-a3/receipts.json": "12828a3d6de8f4eb305333e431862b92f4ebe136b80844cfcc5f9bcebdf0d48f",
+    "/tmp/uwvm2-go-startup-20261006-a1/control-dap-a1/receipts.json": "be129fd136d28e7865bb0d35c69bc51b08e36b40f2d3514310fd772ac5326b9d",
+    "/tmp/uwvm2-go-startup-20261006-a1/control-soak-all-language-a1/receipts.json": "8ba6b60741a076decd6e75d4f42d88c07452e039b1c0a9b7f97e697de397f7d5",
+    "/tmp/uwvm2-go-startup-20261006-a1/control-observation-uwvm2-a1/receipts.json": "8034b94c1ce97463b587866c3b61190510672fb4bddeec549753c8c88c1b713b",
+    "/tmp/uwvm2-go-startup-20261006-a1/control-observation-uwvm2-ros-a1/receipts.json": "106538575d33255a0bbc8805cbf141aa16004a7889206861c8ebeb89fad68a6d",
+    "/tmp/uwvm2-go-startup-20261006-a1/control-snapshot-canonical-a1/receipts.json": "363206506716b8ab83e716abba959b7528ac36a510ac0967596241e3e9415c2b",
+    "/tmp/uwvm2-snapshot-followup-20261006-a1/control-components-a1/receipts.json": "e7eb1ebd219d54fbe2024f3a34b8afb8aec1c021b6e7103af48e54942c9ec7cd",
+    "/tmp/uwvm2-snapshot-followup-20261006-a1/control-cross-a1/receipts.json": "716a41b37d91c3a5ebbec4c61e76d57efe82f9530637dd3c87c7497c504ed366",
+    "/tmp/uwvm2-snapshot-followup-20261006-a1/control-large-prefix-a1/receipts.json": "37fdde71a0a86379c21837d73e57a4caf3b8a89e2c5e05157dcf37d3a8a410a1",
+    "/tmp/uwvm2-go-startup-20261006-a1/go-local-declaration-statistics-a1.json": "22723906f3102c24da60b9e38f530c8be4cd1c5d6e2fc420ad4d70c35de4039f",
+    "/tmp/uwvm2-go-profile-20261006-a1/control-go-bounded-a1/receipts.json": "b6efc5c4f28405bdbe0c1656a8a41e97f72c645ffc8543e94502811d3d3a84db",
+    "/tmp/uwvm2-go-profile-20261006-a1/go-optimized-a1/console.log": "b24efaec94c62765ca6ad19e1692ec0e239116ac01b37401fcc009db8304a7cf",
+    "/tmp/uwvm2-go-startup-20261006-a1/control-go-ordinary-optimized-a1/receipts.json": "541b7046a45d30cfc19da1de4446a3dc6a57e0ec8120911c304282b8a53895e1",
+    "/tmp/uwvm2-go-startup-20261006-a1/control-go-ordinary-unoptimized-a1/receipts.json": "46f6fd6e20912f233b0c9716174b79239b7611dc885cb1b7e2cd69947819b81a",
+    "/tmp/uwvm2-go-startup-20261006-a1/control-go-debug-policy-a1/receipts.json": "83e2d236fc62a60dbd23b14b1b8a7ab962db498789160b7da937ec074298bb7d",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2/go-optimized-a1/summary.json": "ddf073df2ccc4d904c9cbd9b444287d96ac734eef1504e45f5ee55276b2114d5",
+    "/tmp/uwvm2-go-startup-20261006-a1/out-uwvm2/go-optimized-debug-policy-a1/summary.json": "1d8e0e1a6e811b78e45cfc052a2cf09d80c80eb45187e8b2362470266a4a9c68",
+    "/tmp/uwvm2-go-startup-20261006-a1/go-ROS-optimized-not-launched-a2.json": "08f24871fdec17165888dc7d67fcbd9c572e2dbcb63cce15a64fed3eb68f16f6",
+    "/tmp/uwvm2-go-startup-20261006-a1/archived-old-soak-cleanup-receipt-a1.json": "f7cd1baceebe526ecfc0dd5d09ce543b7351232423a0dc0dec3625f5c88ee79b"
+  },
+  "local_evidence_archive": {
+    "passed": true,
+    "local_archive": "/tmp/uwvm2-snapshot-followup-20261006/snapshot-copy-evidence-a1.tar.gz",
+    "bytes": 317786956,
+    "sha256": "4ca8e306be39bc60152050bc3189fa02102eacc810606e0ea7e9fbea126447a4",
+    "member_count": 16447,
+    "all_members_byte_verified": true,
+    "member_manifest_sha256": "184ea847cbf89b9f212663a863f77abc3796640f021566f29b5385833fe2e010"
+  },
+  "local_source_drift_observation": {
+    "uwvm2": {
+      "followup_source_id": "sha256:28df1fbf3dec941af52cc0153d0e48059b3dd21b33b79e63ae28bb14f0f25209",
+      "changed_after_followup_cut": [
+        {
+          "path": "src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+          "frozen": "c2824f3cc1012c8c7d2bb3f5ee09b34a10ee6e49fa557f11318c435d1215472c",
+          "current": "b6124a0c8d7751a1cfd149f9bc68d1dec1919c85516358cea9a4e4ca2e16d6f6"
+        },
+        {
+          "path": "src/uwvm2/uwvm/debugger/native_execution_plan.md",
+          "frozen": "807b09f025fbc1db3a9c029664442f9b896c35ac4ad143187a0f00e858da0920",
+          "current": "66ddcda03796e495d33419ab9296705926134a548b370f35c864ace60c72305a"
+        },
+        {
+          "path": "test/0017.runtime/README.debug-native-physical-caller.md",
+          "frozen": "483865e6a5cd7afa9443f2de9e416fea01f54ded70fbca693600c39d5ecc92d3",
+          "current": "c536566fbe05ddc35cac81e14e651663d3100d0c56ed901cebe014861a871669"
+        },
+        {
+          "path": "test/0017.runtime/debug_native_physical_caller_console.cc",
+          "frozen": "c1e2d6cc1c18a1c7ca2d970b0b97c6b1ebb659243e1da8658f34bee90e5f036c",
+          "current": "3a602dde51b06b8455b094008ca0c13e7f056dca71676db611347e4ff626ad95"
+        }
+      ],
+      "copier_files": {
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h": {
+          "frozen": "3c6fcb36d715dd14b4ff220dd0571cf5d22dacf5356cd4480b7822583e0635a6",
+          "current": "3c6fcb36d715dd14b4ff220dd0571cf5d22dacf5356cd4480b7822583e0635a6"
+        },
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_packet_emit.h": {
+          "frozen": "9afb2e16d2dec6e93dc506496f20853d7ec7f101ccf9b3c120bc5aae300eeb2a",
+          "current": "9afb2e16d2dec6e93dc506496f20853d7ec7f101ccf9b3c120bc5aae300eeb2a"
+        },
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_snapshot_copy_emit.h": {
+          "frozen": "61ace18ca70c06c3b6ea2f893432422c1bced2dd69e36fa99bc3bd6961f422f0",
+          "current": "61ace18ca70c06c3b6ea2f893432422c1bced2dd69e36fa99bc3bd6961f422f0"
+        }
+      }
+    },
+    "uwvm2-ros": {
+      "followup_source_id": "sha256:bae604c0c4a439aa1196e2f0e92350f8ed773eaaeabd9d7c336810a05f04e9b9",
+      "changed_after_followup_cut": [
+        {
+          "path": "src/uwvm2/runtime/lib/uwvm_runtime.default.cpp",
+          "frozen": "bc4febdc00a227fe12b3930103ef209194ad2300102d26a8dc78c4238b00a1a0",
+          "current": "687baaed60a56702c5b2a3c07bfd7a293716d520395e7506fcdf581699a34e45"
+        },
+        {
+          "path": "src/uwvm2/uwvm/debugger/native_execution_plan.md",
+          "frozen": "807b09f025fbc1db3a9c029664442f9b896c35ac4ad143187a0f00e858da0920",
+          "current": "66ddcda03796e495d33419ab9296705926134a548b370f35c864ace60c72305a"
+        },
+        {
+          "path": "test/0017.runtime/README.debug-native-physical-caller.md",
+          "frozen": "483865e6a5cd7afa9443f2de9e416fea01f54ded70fbca693600c39d5ecc92d3",
+          "current": "c536566fbe05ddc35cac81e14e651663d3100d0c56ed901cebe014861a871669"
+        },
+        {
+          "path": "test/0017.runtime/debug_native_physical_caller_console.cc",
+          "frozen": "c1e2d6cc1c18a1c7ca2d970b0b97c6b1ebb659243e1da8658f34bee90e5f036c",
+          "current": "3a602dde51b06b8455b094008ca0c13e7f056dca71676db611347e4ff626ad95"
+        }
+      ],
+      "copier_files": {
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_emit.h": {
+          "frozen": "b67d0f6b5db3b6d35d03c124dcc936988fa1a927b755ded5f63df7d6c58644cd",
+          "current": "b67d0f6b5db3b6d35d03c124dcc936988fa1a927b755ded5f63df7d6c58644cd"
+        },
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_checkpoint_packet_emit.h": {
+          "frozen": "9afb2e16d2dec6e93dc506496f20853d7ec7f101ccf9b3c120bc5aae300eeb2a",
+          "current": "9afb2e16d2dec6e93dc506496f20853d7ec7f101ccf9b3c120bc5aae300eeb2a"
+        },
+        "src/uwvm2/runtime/compiler/llvm_jit/compile_all_from_uwvm/translate/single_func_snapshot_copy_emit.h": {
+          "frozen": "61ace18ca70c06c3b6ea2f893432422c1bced2dd69e36fa99bc3bd6961f422f0",
+          "current": "61ace18ca70c06c3b6ea2f893432422c1bced2dd69e36fa99bc3bd6961f422f0"
+        }
+      }
+    }
+  },
+  "report_note": "Full product PASS applies to the qualified source IDs. Later shared-source copier/large-prefix and cross-target component PASS applies to the followup IDs. Changes after either cut are preserved and not silently covered by earlier PASS."
+}

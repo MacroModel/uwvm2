@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "archive_sha256": "196472e48356ba1992bfcd4842f29bebb471f6c35f08e577b222350d8e0cc419",
+  "archive_bytes": 190693,
+  "member_count": 19,
+  "members": {
+    "before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "size": 91270,
+      "sha256": "1ebfe34c8c0002bc5258720191390f450bca00133dda42ba2adb7b53fd0dad56"
+    },
+    "before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": {
+      "size": 90427,
+      "sha256": "470ac18bdfece6c8e9246669a68142b51ad6e7f51041775204656369246e5bab"
+    },
+    "before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": {
+      "size": 12602,
+      "sha256": "c4179985289ee2bcf22cd4f23c9d000517ea8e3e70122e226f727ba1305f2a69"
+    },
+    "before/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h": {
+      "size": 14958,
+      "sha256": "68a8fc6cb3cabddc9c0a5bb15d4fb363cc57fac9eb686fa064600a412d316eac"
+    },
+    "before/uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": {
+      "size": 37026,
+      "sha256": "929115e45365a0beb4b36d87ca6a5783d69ebdae7b18def28c04489198dc1ab6"
+    },
+    "before/uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": {
+      "size": 20365,
+      "sha256": "4f30857cb790013952c3caf4528c18edf049830a2f89685a1143dc64ca75fadb"
+    },
+    "before/uwvm2/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc": {
+      "size": 42643,
+      "sha256": "d9ec55822f68e41ea04dce733103a06e2ea62b2637049bdcb5822338d0b2ae5e"
+    },
+    "before/uwvm2/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc": {
+      "size": 45146,
+      "sha256": "18bba1f578fc2438b6b891b562b2af4b195fb4439c0f7b12432a38e4f41fbb27"
+    },
+    "before/uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": {
+      "size": 54585,
+      "sha256": "1b8dcad3bf054b5f33e9f78ccce18380f6d864e2978b9d07a170b6e0abf2140d"
+    },
+    "before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h": {
+      "size": 91270,
+      "sha256": "1ebfe34c8c0002bc5258720191390f450bca00133dda42ba2adb7b53fd0dad56"
+    },
+    "before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": {
+      "size": 90427,
+      "sha256": "470ac18bdfece6c8e9246669a68142b51ad6e7f51041775204656369246e5bab"
+    },
+    "before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": {
+      "size": 12602,
+      "sha256": "c4179985289ee2bcf22cd4f23c9d000517ea8e3e70122e226f727ba1305f2a69"
+    },
+    "before/uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h": {
+      "size": 14953,
+      "sha256": "42714bc1e2022a0508183690e4ef0bd14cf5a906309803b2a4929584e7e362a9"
+    },
+    "before/uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": {
+      "size": 37026,
+      "sha256": "929115e45365a0beb4b36d87ca6a5783d69ebdae7b18def28c04489198dc1ab6"
+    },
+    "before/uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": {
+      "size": 20365,
+      "sha256": "4f30857cb790013952c3caf4528c18edf049830a2f89685a1143dc64ca75fadb"
+    },
+    "before/uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_instance_runtime.cc": {
+      "size": 42643,
+      "sha256": "d9ec55822f68e41ea04dce733103a06e2ea62b2637049bdcb5822338d0b2ae5e"
+    },
+    "before/uwvm2-ros/test/0017.runtime/debug_checkpoint_complete_preload_runtime.cc": {
+      "size": 45146,
+      "sha256": "18bba1f578fc2438b6b891b562b2af4b195fb4439c0f7b12432a38e4f41fbb27"
+    },
+    "before/uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": {
+      "size": 54585,
+      "sha256": "1b8dcad3bf054b5f33e9f78ccce18380f6d864e2978b9d07a170b6e0abf2140d"
+    },
+    "before.json": {
+      "size": 2547,
+      "sha256": "108d6b7ac8786da34727b6bc6fb334cd4065968237548d57a5d333a7bcc4baf3"
+    }
+  }
+}

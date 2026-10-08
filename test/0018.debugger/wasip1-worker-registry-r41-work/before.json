@@ -1,0 +1,26 @@
+{
+  "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h": {
+    "sha256": "cb0e762c5ee76dbf557cf51c3a0e8b24f49583d815950e1f54946725527d674f",
+    "device": 16777231,
+    "inode": 81514215,
+    "mode": 33188
+  },
+  "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h": {
+    "sha256": "8f9f9f8561ff28c4d4631bbf2e626807bd17b4f6d3daf06b5f0a7aa8bd614766",
+    "device": 16777231,
+    "inode": 81514216,
+    "mode": 33188
+  },
+  "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration.h": {
+    "sha256": "cb0e762c5ee76dbf557cf51c3a0e8b24f49583d815950e1f54946725527d674f",
+    "device": 16777231,
+    "inode": 81514237,
+    "mode": 33188
+  },
+  "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_guest_worker_registration_impl.h": {
+    "sha256": "ff94fc77ff60534f1bc6daad9e3b3493f7af19a95e29557e92bbe0d19caf52cc",
+    "device": 16777231,
+    "inode": 81514238,
+    "mode": 33188
+  }
+}

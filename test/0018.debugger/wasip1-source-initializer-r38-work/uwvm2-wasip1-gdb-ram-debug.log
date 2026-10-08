@@ -1,0 +1,32 @@
+warning: File "/dev/shm/uwvm-checkpoint-r38-1679195/uwvm2-wasip1-debug" auto-loading has been declined by your `auto-load safe-path' set to "$debugdir:$datadir/auto-load".
+To enable execution of this file add
+	add-auto-load-safe-path /dev/shm/uwvm-checkpoint-r38-1679195/uwvm2-wasip1-debug
+line to your configuration file "/home/macromodel/.config/gdb/gdbinit".
+To completely disable this security protection add
+	set auto-load safe-path /
+line to your configuration file "/home/macromodel/.config/gdb/gdbinit".
+For more information about this security protection see the
+"Auto-loading safe path" section in the GDB manual.  E.g., run from the shell:
+	info "(gdb)Auto-loading safe path"
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Program received signal SIGILL, Illegal instruction.
+init_by_page_count () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/object/memory/linear/mmap.h:518
+518	                        ::fast_io::fast_terminate();
+
+Thread 1 (Thread 0x7ffff74fa180 (LWP 1680200) "uwvm2-wasip1-de"):
+#0  init_by_page_count () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/object/memory/linear/mmap.h:518
+#1  0x00005555569dca0f in void uwvm2::uwvm::runtime::initializer::details::initialize_native_memory<uwvm2::object::memory::linear::mmap_memory_t, uwvm2::uwvm::wasm::type::module_memory_limit_t>(uwvm2::object::memory::linear::mmap_memory_t&, uwvm2::uwvm::wasm::type::module_memory_limit_t const&, unsigned long, bool, bool) () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/runtime/initializer/init.h:3313
+#2  0x00005555569d4638 in initialize_from_binfmt_ver1_module_storage_in_context<(uwvm2::uwvm::runtime::initializer::details::initialization_purpose)0, uwvm2::parser::wasm::standard::wasm1::features::wasm1, uwvm2::parser::wasm::standard::wasm1p1::features::wasm1p1> () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/runtime/initializer/init.h:6525
+#3  0x00005555569d0df2 in initialize_from_wasm_file_in_context<(uwvm2::uwvm::runtime::initializer::details::initialization_purpose)0> () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/runtime/initializer/init.h:7990
+#4  0x00005555569c4081 in uwvm2::uwvm::runtime::initializer::details::initialize_from_wasm_file(uwvm2::uwvm::wasm::type::wasm_file_t const&, uwvm2::uwvm::runtime::storage::wasm_module_storage_t&) () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/runtime/initializer/init.h:8011
+#5  0x00005555566f29e8 in initialize_runtime () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/runtime/initializer/init.h:9511
+#6  0x00005555566ebff7 in uwvm2::uwvm::run::prepare_owned_full_cli_source(bool)::{lambda(void*)#1}::operator()(void*) const () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/run/owned_source.h:148
+#7  0x00005555566ebb69 in uwvm2::uwvm::run::prepare_owned_full_cli_source(bool)::{lambda(void*)#1}::__invoke(void*) () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/run/owned_source.h:111
+#8  0x0000555556b27a85 in uwvm2::runtime::lib::(anonymous namespace)::reset_runtime_state_with_source_callback(bool (*)(void*) noexcept, void*)::$_0::operator()() const () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-source-initializer-20261008-r38/syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp:20902
+#9  0x0000555556b27553 in void uwvm2::utils::thread::execution_domain::reset<uwvm2::runtime::lib::(anonymous namespace)::reset_runtime_state_with_source_callback(bool (*)(void*) noexcept, void*)::$_0>(uwvm2::runtime::lib::(anonymous namespace)::reset_runtime_state_with_source_callback(bool (*)(void*) noexcept, void*)::$_0&&) () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/utils/thread/execution_domain.h:382
+#10 0x0000555556ace32b in reset_runtime_state_with_source_callback () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-source-initializer-20261008-r38/syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp:20793
+#11 0x0000555556ace3d3 in uwvm2::runtime::lib::replace_full_source_after_drain_host_api(bool (*)(void*) noexcept, void*) () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-source-initializer-20261008-r38/syntax-overlay-v2/uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.default.cpp:21051
+#12 0x00005555566778e0 in uwvm2::uwvm::run::prepare_owned_full_cli_source(bool) () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v8/uwvm2/src/uwvm2/uwvm/run/owned_source.h:165
+#13 0x0000555556672901 in main () at /home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-source-initializer-20261008-r38/syntax-overlay-v2/uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc:128

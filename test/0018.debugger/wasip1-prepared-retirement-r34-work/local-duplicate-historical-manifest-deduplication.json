@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "all_bytes_and_paths_retained": true,
+  "rows": [
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/delivery-source-inputs.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_joint_worker_contexts_r33_source_inputs.json",
+      "sha256": "e6591cb8bb951a33328e6fe9ae8dffc24b3cb1f78f0b74714e29173b03b5ebf2",
+      "bytes": 2504925,
+      "before_inode": 82815278,
+      "after_inode": 82815314
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-joint-worker-contexts-r33-work/delivery/wasip1_joint_worker_contexts_r33_source_inputs.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_joint_worker_contexts_r33_source_inputs.json",
+      "sha256": "e6591cb8bb951a33328e6fe9ae8dffc24b3cb1f78f0b74714e29173b03b5ebf2",
+      "bytes": 2504925,
+      "before_inode": 82815284,
+      "after_inode": 82815314
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_joint_worker_contexts_r33_source_inputs.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_joint_worker_contexts_r33_source_inputs.json",
+      "sha256": "e6591cb8bb951a33328e6fe9ae8dffc24b3cb1f78f0b74714e29173b03b5ebf2",
+      "bytes": 2504925,
+      "before_inode": 82815333,
+      "after_inode": 82815314
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/inputs.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_private_dispatch_r30_source_inputs.json",
+      "sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848",
+      "bytes": 1232927,
+      "before_inode": 82613556,
+      "after_inode": 82663450
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/delivery/wasip1_private_dispatch_r30_source_inputs.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_private_dispatch_r30_source_inputs.json",
+      "sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848",
+      "bytes": 1232927,
+      "before_inode": 82663395,
+      "after_inode": 82663450
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_private_dispatch_r30_source_inputs.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_private_dispatch_r30_source_inputs.json",
+      "sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848",
+      "bytes": 1232927,
+      "before_inode": 82663469,
+      "after_inode": 82663450
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/inputs.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_private_world_install_r28_source_manifest.json",
+      "sha256": "4a46be13165404991f29fc8e32843e05fe88e84d13bf910336e8ef950ec9d371",
+      "bytes": 1213826,
+      "before_inode": 82446274,
+      "after_inode": 82569445
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-world-install-r28-work/delivery/wasip1_private_world_install_r28_source_manifest.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_private_world_install_r28_source_manifest.json",
+      "sha256": "4a46be13165404991f29fc8e32843e05fe88e84d13bf910336e8ef950ec9d371",
+      "bytes": 1213826,
+      "before_inode": 82569444,
+      "after_inode": 82569445
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_private_world_install_r28_source_manifest.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_private_world_install_r28_source_manifest.json",
+      "sha256": "4a46be13165404991f29fc8e32843e05fe88e84d13bf910336e8ef950ec9d371",
+      "bytes": 1213826,
+      "before_inode": 82569446,
+      "after_inode": 82569445
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_joint_preparation_r27_source_manifest.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_joint_preparation_r27_source_manifest.json",
+      "sha256": "a4113876b763909d56c47ab8c6b5baa7adf53d5bea05c1fab36a450dc6dcd6b1",
+      "bytes": 1150558,
+      "before_inode": 82339867,
+      "after_inode": 82337803
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/inputs.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_private_dispatch_r29_source_manifest.json",
+      "sha256": "194ff28bd7ea121fa338698e9cff6ba427c52fb7522e2fca9ae066ff1433b9be",
+      "bytes": 1232331,
+      "before_inode": 82576043,
+      "after_inode": 82611883
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-dispatch-r29-work/delivery/wasip1_private_dispatch_r29_source_manifest.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_private_dispatch_r29_source_manifest.json",
+      "sha256": "194ff28bd7ea121fa338698e9cff6ba427c52fb7522e2fca9ae066ff1433b9be",
+      "bytes": 1232331,
+      "before_inode": 82611882,
+      "after_inode": 82611883
+    },
+    {
+      "path": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_private_dispatch_r29_source_manifest.json",
+      "canonical": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_private_dispatch_r29_source_manifest.json",
+      "sha256": "194ff28bd7ea121fa338698e9cff6ba427c52fb7522e2fca9ae066ff1433b9be",
+      "bytes": 1232331,
+      "before_inode": 82611884,
+      "after_inode": 82611883
+    }
+  ]
+}

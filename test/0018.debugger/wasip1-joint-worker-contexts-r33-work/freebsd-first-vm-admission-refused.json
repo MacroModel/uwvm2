@@ -1,0 +1,32 @@
+{
+  "passed": false,
+  "stage": "VM admission before any child launch",
+  "pipeline_step": {
+    "label": "vm-freebsd-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r33.py",
+      "joint-vm-r33",
+      "freebsd",
+      "uwvm2"
+    ],
+    "exit": 1,
+    "seconds": 4.3134470829973
+  },
+  "observed_owned_directory": {
+    "logical_bytes": 7592918593,
+    "allocated_bytes": 6563225600,
+    "files": 124315
+  },
+  "test_admission_bytes": 6442450944,
+  "directory_stop_bytes": 7516192768,
+  "vm_started": false,
+  "compiler_qualification_preserved": true,
+  "repair": "Same lossless original compiler-object cache route, no native code changes or altered test limits.",
+  "resource_limits_unchanged": true
+}

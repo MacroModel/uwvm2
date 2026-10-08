@@ -1,0 +1,2383 @@
+{
+  "passed": true,
+  "round": "R59",
+  "scope": "Bounded DW_AT_const_value binary32/binary64 block/fixed/LLVM unsigned LEB target bits; both repositories. Actual producer coverage C/C++ DWARF4/5 O1, instruction/unwind. Complete immutable source products; finite constant-plan DATA on 16 targets. Not full language/IDE/VM-JIT cross architecture parity.",
+  "products": {
+    "uwvm2": {
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-full-a2-r59/out-uwvm2/product-a1/results.json",
+      "receipt_sha256": "1dd66f6dea3118296d2875b44b3eeb03fb5fc1979c21c398a3b0a3b46e1abfc7",
+      "source_id": "sha256:e4e8d55239259631fcbad1972cc40aaeb12ef7446bdf02494a7ddee1958de3fb",
+      "binary_sha256": "49ae04804683114195306a38a3ebddee998bdf390a48ebeccee2749bdc33eaf8",
+      "source_files": 2306,
+      "complete_fresh_TUs": 3,
+      "all_actual_dependencies_closed": true,
+      "ROS_provider": null
+    },
+    "uwvm2-ros": {
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-full-a2-r59/out-uwvm2-ros/product-a1/results.json",
+      "receipt_sha256": "0b291c7f20554cca0a8468f2b2c2441db92ada26f3638e5a46e66f3fa9019c1a",
+      "source_id": "sha256:9c6253e147ceddc4b3ebccd24d19867546e831eb53e627f94b926cedc8b902f3",
+      "binary_sha256": "279aca753000197b1597d0b85f53558dfa3b1185a5cefa63193083f31f267faa",
+      "source_files": 2240,
+      "complete_fresh_TUs": 3,
+      "all_actual_dependencies_closed": true,
+      "ROS_provider": "/home/macromodel/Documents/uwvm3-implementation/current-language-llvm12-a3-r58/out-uwvm2-ros/product-a1/results.json"
+    }
+  },
+  "producers": {
+    "uwvm2": {
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59/out-uwvm2/constants-a1/summary.json",
+      "sha256": "c51fa493740b7580fb134063ad817a468427cdaad39a6c06cebedc0862610ca5",
+      "fixtures": 4,
+      "after_cases": 8,
+      "direct_original_DIE_receipts": 48,
+      "before_control": "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59/out-uwvm2/constants-a1/before-control.json",
+      "before_control_sha256": "405a55b46751b43788977698ce05f83f80fae3c4c077bf4931bc563995d841a2",
+      "before_cases": 8,
+      "before_three_floats_unavailable_on_same_unmodified_Wasm": true
+    },
+    "uwvm2-ros": {
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59/out-uwvm2-ros/constants-a1/summary.json",
+      "sha256": "b8b477671b2e3f1a68c125da737512e8e083e700e8975996c3e470cb25b1b000",
+      "fixtures": 4,
+      "after_cases": 8,
+      "direct_original_DIE_receipts": 48,
+      "before_control": "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59/out-uwvm2-ros/constants-a1/before-control.json",
+      "before_control_sha256": "c06a4c832c25c251810931d3bfb2f29cc5109b76ccad6eefc044f87afbfd1fb9",
+      "before_cases": 8,
+      "before_three_floats_unavailable_on_same_unmodified_Wasm": true
+    }
+  },
+  "DAP": {
+    "uwvm2": {
+      "all": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/out-uwvm2/all-a1/results.json",
+        "sha256": "24ad1cadd27b2aeac7000fba69c0cf4f24de6f8534ad46103bd43a510caa18fc",
+        "sessions": 4,
+        "evaluations": 144,
+        "direct_constant_origins": 48,
+        "elapsed_seconds": 3.511257332007517,
+        "all_original_guest_OS_waits_zero": true,
+        "real_Source_Watch_Hover_pagination_readonly_and_stale_reference_guards": true
+      },
+      "unwind": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/out-uwvm2/unwind-a1/results.json",
+        "sha256": "c9c2ae6c8a8993b1a856002a525caacfe63e978531c2e769be35846aafc2a072",
+        "sessions": 4,
+        "evaluations": 144,
+        "direct_constant_origins": 48,
+        "elapsed_seconds": 3.5014656910061603,
+        "all_original_guest_OS_waits_zero": true,
+        "real_Source_Watch_Hover_pagination_readonly_and_stale_reference_guards": true
+      },
+      "soak": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/out-uwvm2/soak-a1/results.json",
+        "sha256": "bea74351d545894516667d0ca55ffd4bc7616366284a85f860af7fadc5af36dd",
+        "sessions": 536,
+        "evaluations": 19296,
+        "direct_constant_origins": 6432,
+        "elapsed_seconds": 601.804582265002,
+        "all_original_guest_OS_waits_zero": true,
+        "real_Source_Watch_Hover_pagination_readonly_and_stale_reference_guards": true
+      }
+    },
+    "uwvm2-ros": {
+      "all": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/out-uwvm2-ros/all-a1/results.json",
+        "sha256": "203c1e65800abe91d0304ee6bea2d0578f303103eab53e2e1e54e87fe48c92eb",
+        "sessions": 4,
+        "evaluations": 144,
+        "direct_constant_origins": 48,
+        "elapsed_seconds": 3.5071365870098816,
+        "all_original_guest_OS_waits_zero": true,
+        "real_Source_Watch_Hover_pagination_readonly_and_stale_reference_guards": true
+      },
+      "unwind": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/out-uwvm2-ros/unwind-a1/results.json",
+        "sha256": "bea47164606dcf3e926162a7abf7d194effa302a9d480bb9d886b28451da2638",
+        "sessions": 4,
+        "evaluations": 144,
+        "direct_constant_origins": 48,
+        "elapsed_seconds": 3.474352673001704,
+        "all_original_guest_OS_waits_zero": true,
+        "real_Source_Watch_Hover_pagination_readonly_and_stale_reference_guards": true
+      },
+      "soak": {
+        "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/out-uwvm2-ros/soak-a1/results.json",
+        "sha256": "2d559f4bcbd92b997a3778952c01d904ff7e08e830def9fc81cef621fa791669",
+        "sessions": 536,
+        "evaluations": 19296,
+        "direct_constant_origins": 6432,
+        "elapsed_seconds": 600.5756347900024,
+        "all_original_guest_OS_waits_zero": true,
+        "real_Source_Watch_Hover_pagination_readonly_and_stale_reference_guards": true
+      }
+    }
+  },
+  "native_components": {
+    "uwvm2": {
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-components-a2-r59/out-uwvm2/results.json",
+      "sha256": "1d1df6be4e019d2e7b4986f4f3ed6fab0c77e6f24da6cb104de1e98eb80bb11e",
+      "programs": 11,
+      "actual_build_run_rows": 22
+    },
+    "uwvm2-ros": {
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-components-a2-r59/out-uwvm2-ros/results.json",
+      "sha256": "96e6fd9e5daa56d767abe8cbe488f19e7bf4c7a3ab8e3e33390815bcf49ba24c",
+      "programs": 11,
+      "actual_build_run_rows": 22
+    }
+  },
+  "unit_tests_per_repository": 493,
+  "guards": [
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-full-a2-r59/guard-build/receipts.json",
+      "sha256": "116b91650533182ef8bb3169117638ca4f9d30d85d820338885b1c505c4e3701",
+      "commands": 2,
+      "all_original_root_OS_waits_zero": true,
+      "all_owned_descendants_retired": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "bounded_component_admission_disk_free_required_bytes": 3221225472,
+          "label": "uwvm2build",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-full-a2-r59/runner.py",
+            "--repository",
+            "uwvm2",
+            "--phase",
+            "build"
+          ],
+          "argv_sha256": "4195f96946cc6cec33c003af991a0eeb483142b056a8ea2d29e757941b496ef1",
+          "command_file_sha256": "140b9589d8a8d237e4997d12506e1bd47489b852cf083af54d31d9b936ed1947",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-full-a2-r59/uwvm2",
+          "supervisor_sha256": "4926c8a1b4dde328b750e36ac8b2595a734378ea8984e8e2d39bc879455f96a1",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "build_output_file_limit_bytes": 536870912,
+          "log_limit_bytes": 8388608,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.00340068154037e-05,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 52875079680,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 29158825984,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 1073741824,
+          "required_actual_free_bytes": 1073741824,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 385854353,
+          "bounded_component_output_budget_bytes": 2147483648,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-full-a2-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1615369,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1615369,
+            "birth": 7217228,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-full-a2-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 3,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1615369,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1617162,
+            1617760,
+            1617761,
+            1617792,
+            1617793
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 7389315072,
+          "memory_current_after_observation": 46224334848,
+          "wall_seconds": 239.48055784299504,
+          "log_sha256": "5359a1062f68b8de4a0d0dc56e9e9b3d54f864d38733178b1f2f1061467b755a",
+          "passed": true
+        },
+        {
+          "bounded_component_admission_disk_free_required_bytes": 3221225472,
+          "label": "uwvm2-rosbuild",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-full-a2-r59/runner.py",
+            "--repository",
+            "uwvm2-ros",
+            "--phase",
+            "build"
+          ],
+          "argv_sha256": "d860c622e8d4fefc6a35d516cfe8b390a62daebb40461af4c205c362de7c8870",
+          "command_file_sha256": "140b9589d8a8d237e4997d12506e1bd47489b852cf083af54d31d9b936ed1947",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-full-a2-r59/uwvm2",
+          "supervisor_sha256": "4926c8a1b4dde328b750e36ac8b2595a734378ea8984e8e2d39bc879455f96a1",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "build_output_file_limit_bytes": 536870912,
+          "log_limit_bytes": 8388608,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.4710992369800806e-05,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 52882124800,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 28795539456,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 1073741824,
+          "required_actual_free_bytes": 1073741824,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 693560685,
+          "bounded_component_output_budget_bytes": 2147483648,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-full-a2-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1617795,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1617795,
+            "birth": 7241176,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-full-a2-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 3,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1617795,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1617162,
+            1620044,
+            1620242,
+            1621065,
+            1621066,
+            1621246,
+            1621247,
+            1621314,
+            1621315,
+            1621322,
+            1621326
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 6085943296,
+          "memory_current_after_observation": 47301033984,
+          "wall_seconds": 210.15535385499243,
+          "log_sha256": "778770ade9ab153591910917f3f2368a40765f9de478788b8e3033e0f888f5c6",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59/guard-uwvm2/receipts.json",
+      "sha256": "e80788ddef701ef5e0668b138ac0bf109fa7cae5b8dd126d4c7a2b591d059ef8",
+      "commands": 1,
+      "all_original_root_OS_waits_zero": true,
+      "all_owned_descendants_retired": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "bounded_component_admission_disk_free_required_bytes": 1140850688,
+          "label": "uwvm2producer",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59/runner.py",
+            "--repository",
+            "uwvm2",
+            "--phase",
+            "producer"
+          ],
+          "argv_sha256": "cd2a139245935868cf139802a5db20cb91207346ac305d8e2c97de0cc4238ea1",
+          "command_file_sha256": "af2e788febc38cafbe8b6f3f1cc008c3ded0ed0261f65161855cae4566bcbb23",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59",
+          "supervisor_sha256": "01c85c2639cfb24d46f7d69df2ae55fe0b916f6623c19fbf23dda44fe2008870",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 1073741824,
+          "build_output_file_limit_bytes": 8388608,
+          "log_limit_bytes": 1048576,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.536400956567377e-05,
+          "required_shared_memory_spare_bytes": 17179869184,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 49365344256,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 29138882560,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 9288400896,
+          "required_actual_free_bytes": 9288400896,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 5569719,
+          "bounded_component_output_budget_bytes": 67108864,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600,
+            "bounded_slot": true
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1618242,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1618242,
+            "birth": 7245010,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 3,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1618242,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1617162,
+            1617795,
+            1617909,
+            1618207,
+            1618208,
+            1618282,
+            1618510,
+            1618511,
+            1618755,
+            1618756
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 246214656,
+          "memory_current_after_observation": 49360605184,
+          "wall_seconds": 7.407369405991631,
+          "log_sha256": "fb9ff4458422eb0657e99fdcd440da06f9d00905237f13845861dee4fedafdee",
+          "runtime_library_pins_before_after_unchanged": true,
+          "runtime_library_files": 195,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59/guard-ros/receipts.json",
+      "sha256": "fd93b556cc6def49211884d77fe015dc884546b1ddf87f21cfc913585ac229b5",
+      "commands": 1,
+      "all_original_root_OS_waits_zero": true,
+      "all_owned_descendants_retired": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "bounded_component_admission_disk_free_required_bytes": 1140850688,
+          "label": "uwvm2-rosproducer",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59/runner.py",
+            "--repository",
+            "uwvm2-ros",
+            "--phase",
+            "producer"
+          ],
+          "argv_sha256": "5d96eac7cde324b78ceb11d40717d94941604a711fe42d8f1eb183a25ecd9170",
+          "command_file_sha256": "8d42a97fc2dc5637f5d86e14081d39bf3598261e0bef20b6b8606274a4535340",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59",
+          "supervisor_sha256": "01c85c2639cfb24d46f7d69df2ae55fe0b916f6623c19fbf23dda44fe2008870",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 1073741824,
+          "build_output_file_limit_bytes": 8388608,
+          "log_limit_bytes": 1048576,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.1663006413728e-05,
+          "required_shared_memory_spare_bytes": 17179869184,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 47258992640,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 28777816064,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 9288400896,
+          "required_actual_free_bytes": 9288400896,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 11090909,
+          "bounded_component_output_budget_bytes": 67108864,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600,
+            "bounded_slot": true
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1622371,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1622371,
+            "birth": 7268873,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-producer-a2-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 3,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1622371,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1617162,
+            1620044,
+            1622155,
+            1622716,
+            1622717,
+            1622766,
+            1622790
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 220696576,
+          "memory_current_after_observation": 46793723904,
+          "wall_seconds": 7.292717577001895,
+          "log_sha256": "723101e649ce8907433276513b2aaa414f0a22a6199caf6d5e0a4d9a07167108",
+          "runtime_library_pins_before_after_unchanged": true,
+          "runtime_library_files": 195,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-components-a2-r59/guard-components/receipts.json",
+      "sha256": "8167ffc9190711043170c68c85b7f18d3d7df4e42eed7b17f214688d3ad7263b",
+      "commands": 2,
+      "all_original_root_OS_waits_zero": true,
+      "all_owned_descendants_retired": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "bounded_component_admission_disk_free_required_bytes": 3221225472,
+          "label": "uwvm2components",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-components-a2-r59/runner.py",
+            "--repository",
+            "uwvm2",
+            "--phase",
+            "build"
+          ],
+          "argv_sha256": "3af46762f29f0642c784de16877212e6acdf48a4d9ab3845aa99fa39e784588c",
+          "command_file_sha256": "b5b44016198e6d3066059caf74c6e4c229ae726b8c030d0104c4905357a392a3",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-components-a2-r59/uwvm2",
+          "supervisor_sha256": "d23f9d674c8692d41f6605b28ca669a767daea82b2a974d58e623b2d54d43cba",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "build_output_file_limit_bytes": 536870912,
+          "log_limit_bytes": 8388608,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 3.9403996197506785e-05,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 52882649088,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 29008699392,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 1073741824,
+          "required_actual_free_bytes": 1073741824,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 12220479,
+          "bounded_component_output_budget_bytes": 2147483648,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-components-a2-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1618282,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1618282,
+            "birth": 7245018,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-components-a2-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 3,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1618282,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1617162,
+            1617795,
+            1620044,
+            1620174,
+            1620199,
+            1620200,
+            1620233,
+            1620234,
+            1620236,
+            1620240
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 700452864,
+          "memory_current_after_observation": 46666338304,
+          "wall_seconds": 109.46918662599637,
+          "log_sha256": "661c4b7b919735be05ab1c9b40348e79ea2c1615d52709f85fd3a0a43b002348",
+          "passed": true
+        },
+        {
+          "bounded_component_admission_disk_free_required_bytes": 3221225472,
+          "label": "uwvm2roscomponents",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-components-a2-r59/runner.py",
+            "--repository",
+            "uwvm2-ros",
+            "--phase",
+            "build"
+          ],
+          "argv_sha256": "fd3cdc08a9db8d9c87379771bbdc740e035b80a879c2e5a3031458664d5263da",
+          "command_file_sha256": "b5b44016198e6d3066059caf74c6e4c229ae726b8c030d0104c4905357a392a3",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-components-a2-r59/uwvm2",
+          "supervisor_sha256": "d23f9d674c8692d41f6605b28ca669a767daea82b2a974d58e623b2d54d43cba",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 17179869184,
+          "build_output_file_limit_bytes": 536870912,
+          "log_limit_bytes": 8388608,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.3302003177814186e-05,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 51834429440,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 28787179520,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 1073741824,
+          "required_actual_free_bytes": 1073741824,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 26715720,
+          "bounded_component_output_budget_bytes": 2147483648,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-components-a2-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1620242,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1620242,
+            "birth": 7255966,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-components-a2-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 3,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1620242,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1617162,
+            1620044,
+            1621819,
+            1621820,
+            1621895,
+            1621899,
+            1621901,
+            1621902
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 689811456,
+          "memory_current_after_observation": 47049707520,
+          "wall_seconds": 110.58914628598723,
+          "log_sha256": "9a07e680d4f1297f958c7f7a1ab225c9ac5b4d7fbae1a56f273ec592df27c1b6",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-cross-a1-r59/guard-cross/receipts.json",
+      "sha256": "cf6d4b79c0579d726434993e5fdeb3751ab64a295391fc843cdbc433ad17b963",
+      "commands": 1,
+      "all_original_root_OS_waits_zero": true,
+      "all_owned_descendants_retired": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "bounded_component_admission_disk_free_required_bytes": 1140850688,
+          "label": "qualifiedtypesmatrix",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-cross-a1-r59/runner.py"
+          ],
+          "argv_sha256": "bd3df2191f0b6f63060b620ecf77cb94e29df87045a3f4cdc96c3f925b511b02",
+          "command_file_sha256": "947bfdc161b5443125443c7d9c564bfc2426cbc69c08ac7b16bb43d4e76e5bbc",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-cross-a1-r59",
+          "supervisor_sha256": "e505da0b508e8e0b7e54fc9c3848370c557b91552a611c3852346ac84487d154",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 1073741824,
+          "build_output_file_limit_bytes": 8388608,
+          "log_limit_bytes": 1048576,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.536299093160778e-05,
+          "required_shared_memory_spare_bytes": 6442450944,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 52878979072,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 28772614144,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 9288400896,
+          "required_actual_free_bytes": 9288400896,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 26680502,
+          "bounded_component_output_budget_bytes": 67108864,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-cross-a1-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1617162,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1617162,
+            "birth": 7235818,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-cross-a1-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 3,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1617162,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1620044,
+            1622155,
+            1623377,
+            1623665,
+            1623669,
+            1623670,
+            1623671,
+            1623673,
+            1623674
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 582328320,
+          "memory_current_after_observation": 46765342720,
+          "wall_seconds": 361.41559966000204,
+          "log_sha256": "eaf52e7cad80789b9424350144a9437bb722e8762b586ebd79ebb278b5991c22",
+          "runtime_library_pins_before_after_unchanged": true,
+          "runtime_library_files": 195,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/guard-uwvm2/receipts.json",
+      "sha256": "5ec90e02f0c3cabaf67f64301927ea104fe12c6611923572062e96e3765786d9",
+      "commands": 4,
+      "all_original_root_OS_waits_zero": true,
+      "all_owned_descendants_retired": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "bounded_component_admission_disk_free_required_bytes": 1140850688,
+          "label": "uwvm2unit",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/runner.py",
+            "--repository",
+            "uwvm2",
+            "--phase",
+            "unit"
+          ],
+          "argv_sha256": "74ffb3922f801730a40ce23bea19c4052c5f3918cac890bd889478ca59b5e6ce",
+          "command_file_sha256": "87753d5244008a76920996e01a7bda39cad48a517f7dd5cf479da628065f9179",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "supervisor_sha256": "913fe928cf1ead095a064aa234a2aa95358039fb7fa6fdf1126ef66900807e89",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 1073741824,
+          "build_output_file_limit_bytes": 8388608,
+          "log_limit_bytes": 1048576,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.271599755156785e-05,
+          "required_shared_memory_spare_bytes": 6442450944,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 47922888704,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 29020504064,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 9288400896,
+          "required_actual_free_bytes": 9288400896,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 0,
+          "bounded_component_output_budget_bytes": 67108864,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600,
+            "bounded_slot": true
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1619554,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1619554,
+            "birth": 7254085,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 3,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1619554,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1617162,
+            1617795,
+            1618282,
+            1619323,
+            1619429,
+            1619430,
+            1619461,
+            1619462,
+            1619664,
+            1619665
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 65159168,
+          "memory_current_after_observation": 47915204608,
+          "wall_seconds": 2.34759438400215,
+          "log_sha256": "5daa9b1a34f8bff9c344a812d79b471de9bbe9b04cdea6aef9a669684c72cda0",
+          "runtime_library_pins_before_after_unchanged": true,
+          "runtime_library_files": 108,
+          "passed": true
+        },
+        {
+          "bounded_component_admission_disk_free_required_bytes": 1140850688,
+          "label": "uwvm2all",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/runner.py",
+            "--repository",
+            "uwvm2",
+            "--phase",
+            "all"
+          ],
+          "argv_sha256": "456ac0483252c8519ca77ed99dadb2a2ca220a1a554cd7a3bafa08871e47da55",
+          "command_file_sha256": "87753d5244008a76920996e01a7bda39cad48a517f7dd5cf479da628065f9179",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "supervisor_sha256": "913fe928cf1ead095a064aa234a2aa95358039fb7fa6fdf1126ef66900807e89",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 1073741824,
+          "build_output_file_limit_bytes": 8388608,
+          "log_limit_bytes": 1048576,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.651799099519849e-05,
+          "required_shared_memory_spare_bytes": 6442450944,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 48262303744,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 29019684864,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 9288400896,
+          "required_actual_free_bytes": 9288400896,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 126414,
+          "bounded_component_output_budget_bytes": 67108864,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600,
+            "bounded_slot": true
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1619669,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1619669,
+            "birth": 7254326,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 4,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1619669,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1617162,
+            1617795,
+            1618282,
+            1619323,
+            1619461,
+            1619462,
+            1619809,
+            1619810,
+            1619827,
+            1619828
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 165171200,
+          "memory_current_after_observation": 48216752128,
+          "wall_seconds": 4.2469075030094245,
+          "log_sha256": "5513d783ed3fa21ff9c7ddaf54058607a9716dacb07588a41a5f6271df823db9",
+          "runtime_library_pins_before_after_unchanged": true,
+          "runtime_library_files": 108,
+          "passed": true
+        },
+        {
+          "bounded_component_admission_disk_free_required_bytes": 1140850688,
+          "label": "uwvm2unwind",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/runner.py",
+            "--repository",
+            "uwvm2",
+            "--phase",
+            "unwind"
+          ],
+          "argv_sha256": "d6b3196accd40f74fb01990f3e7dfba0071a2edd66d8bf5e4b7ab948a37b4134",
+          "command_file_sha256": "87753d5244008a76920996e01a7bda39cad48a517f7dd5cf479da628065f9179",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "supervisor_sha256": "913fe928cf1ead095a064aa234a2aa95358039fb7fa6fdf1126ef66900807e89",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 1073741824,
+          "build_output_file_limit_bytes": 8388608,
+          "log_limit_bytes": 1048576,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.2674000724218786e-05,
+          "required_shared_memory_spare_bytes": 6442450944,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 48490909696,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 29017001984,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 9288400896,
+          "required_actual_free_bytes": 9288400896,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 252789,
+          "bounded_component_output_budget_bytes": 67108864,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600,
+            "bounded_slot": true
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1619831,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1619831,
+            "birth": 7254756,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 4,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1619831,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1617162,
+            1617795,
+            1618282,
+            1619323,
+            1619809,
+            1619810,
+            1619968,
+            1619969,
+            1619972,
+            1619973
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 161472512,
+          "memory_current_after_observation": 48379838464,
+          "wall_seconds": 4.175195846008137,
+          "log_sha256": "5513d783ed3fa21ff9c7ddaf54058607a9716dacb07588a41a5f6271df823db9",
+          "runtime_library_pins_before_after_unchanged": true,
+          "runtime_library_files": 108,
+          "passed": true
+        },
+        {
+          "bounded_component_admission_disk_free_required_bytes": 1140850688,
+          "label": "uwvm2soak",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/runner.py",
+            "--repository",
+            "uwvm2",
+            "--phase",
+            "soak"
+          ],
+          "argv_sha256": "d3164865a8645b45036ba995ef4bcacd7a081053e26ad8503880186c4e36b210",
+          "command_file_sha256": "87753d5244008a76920996e01a7bda39cad48a517f7dd5cf479da628065f9179",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "supervisor_sha256": "913fe928cf1ead095a064aa234a2aa95358039fb7fa6fdf1126ef66900807e89",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 1073741824,
+          "build_output_file_limit_bytes": 8388608,
+          "log_limit_bytes": 1048576,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.518100467976183e-05,
+          "required_shared_memory_spare_bytes": 6442450944,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 51833905152,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 28728045568,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 9288400896,
+          "required_actual_free_bytes": 9288400896,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 20823990,
+          "bounded_component_output_budget_bytes": 67108864,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600,
+            "bounded_slot": true
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1620044,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1620044,
+            "birth": 7255180,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 4,
+          "verified_completed_protocol_retirement_races": [
+            {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/out-uwvm2/soak-a1/session-0392-c-dwarf4-O1/session-0/source-dap.json",
+              "archive_sha256": "d9c36bed21f15d274b3755d8b5c632bb2c930ad38a8d823857a6cf34764a730d",
+              "all_member_bytes_verified": true,
+              "actual_eof_and_original_guest_wait_verified": true
+            }
+          ],
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1620044,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1623377
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 204369920,
+          "memory_current_after_observation": 46721359872,
+          "wall_seconds": 602.5176420739881,
+          "log_sha256": "33f97a6a08556ab37ab7b16e6bf7ab2631a6e0bb32ce1f7b386b619e14059125",
+          "runtime_library_pins_before_after_unchanged": true,
+          "runtime_library_files": 108,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/guard-ros/receipts.json",
+      "sha256": "ab588901bfc5545be62a4f48c61f27fb680ba9c75847ff24a4ccf45994a8cf03",
+      "commands": 4,
+      "all_original_root_OS_waits_zero": true,
+      "all_owned_descendants_retired": true,
+      "unchanged_OOM": true,
+      "rows": [
+        {
+          "bounded_component_admission_disk_free_required_bytes": 1140850688,
+          "label": "uwvm2-rosunit",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/runner.py",
+            "--repository",
+            "uwvm2-ros",
+            "--phase",
+            "unit"
+          ],
+          "argv_sha256": "64e6c0f85672685c01c4fc4a16d745f9713b42af452fd746b5f368449eb8530a",
+          "command_file_sha256": "c005452f01551de136e53bc52eb38a585d99f79964d3ebced3157b0f10e35081",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "supervisor_sha256": "913fe928cf1ead095a064aa234a2aa95358039fb7fa6fdf1126ef66900807e89",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 1073741824,
+          "build_output_file_limit_bytes": 8388608,
+          "log_limit_bytes": 1048576,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.296499537304044e-05,
+          "required_shared_memory_spare_bytes": 6442450944,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 46933651456,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 28776136704,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 9288400896,
+          "required_actual_free_bytes": 9288400896,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 3082947,
+          "bounded_component_output_budget_bytes": 67108864,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600,
+            "bounded_slot": true
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1622822,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1622822,
+            "birth": 7269679,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 1,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1622822,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1617162,
+            1620044,
+            1622155,
+            1622716,
+            1622717,
+            1622955,
+            1622956,
+            1622957,
+            1622958
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 52908032,
+          "memory_current_after_observation": 46895570944,
+          "wall_seconds": 2.2991675790108275,
+          "log_sha256": "5632f2f879027831a82d89871a7e63ff54278f816ff3595ad63b67473ef06e30",
+          "runtime_library_pins_before_after_unchanged": true,
+          "runtime_library_files": 108,
+          "passed": true
+        },
+        {
+          "bounded_component_admission_disk_free_required_bytes": 1140850688,
+          "label": "uwvm2-rosall",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/runner.py",
+            "--repository",
+            "uwvm2-ros",
+            "--phase",
+            "all"
+          ],
+          "argv_sha256": "3ccf34bc7669b83b495641c917b4bea5027bf6d556231a2cf986b44998500192",
+          "command_file_sha256": "c005452f01551de136e53bc52eb38a585d99f79964d3ebced3157b0f10e35081",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "supervisor_sha256": "913fe928cf1ead095a064aa234a2aa95358039fb7fa6fdf1126ef66900807e89",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 1073741824,
+          "build_output_file_limit_bytes": 8388608,
+          "log_limit_bytes": 1048576,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 5.0066999392583966e-05,
+          "required_shared_memory_spare_bytes": 6442450944,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 47179415552,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 28774805504,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 9288400896,
+          "required_actual_free_bytes": 9288400896,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 3296660,
+          "bounded_component_output_budget_bytes": 67108864,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600,
+            "bounded_slot": true
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1622962,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1622962,
+            "birth": 7269916,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 4,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1622962,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1617162,
+            1620044,
+            1622155,
+            1623152,
+            1623153,
+            1623174,
+            1623175,
+            1623177,
+            1623178
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 166694912,
+          "memory_current_after_observation": 46785875968,
+          "wall_seconds": 4.324011050994159,
+          "log_sha256": "5513d783ed3fa21ff9c7ddaf54058607a9716dacb07588a41a5f6271df823db9",
+          "runtime_library_pins_before_after_unchanged": true,
+          "runtime_library_files": 108,
+          "passed": true
+        },
+        {
+          "bounded_component_admission_disk_free_required_bytes": 1140850688,
+          "label": "uwvm2-rosunwind",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/runner.py",
+            "--repository",
+            "uwvm2-ros",
+            "--phase",
+            "unwind"
+          ],
+          "argv_sha256": "fb63c82f9eb84286649658242fe39965b98f5d68ea132d9d8a2559a3c481ccb0",
+          "command_file_sha256": "c005452f01551de136e53bc52eb38a585d99f79964d3ebced3157b0f10e35081",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "supervisor_sha256": "913fe928cf1ead095a064aa234a2aa95358039fb7fa6fdf1126ef66900807e89",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 1073741824,
+          "build_output_file_limit_bytes": 8388608,
+          "log_limit_bytes": 1048576,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.152399196755141e-05,
+          "required_shared_memory_spare_bytes": 6442450944,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 46962561024,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 28774391808,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 9288400896,
+          "required_actual_free_bytes": 9288400896,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 3510082,
+          "bounded_component_output_budget_bytes": 67108864,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600,
+            "bounded_slot": true
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1623180,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1623180,
+            "birth": 7270354,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 4,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1623180,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1611053,
+            1617162,
+            1620044,
+            1622155,
+            1623177,
+            1623178,
+            1623336,
+            1623337
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 166031360,
+          "memory_current_after_observation": 46829326336,
+          "wall_seconds": 4.182732201006729,
+          "log_sha256": "5513d783ed3fa21ff9c7ddaf54058607a9716dacb07588a41a5f6271df823db9",
+          "runtime_library_pins_before_after_unchanged": true,
+          "runtime_library_files": 108,
+          "passed": true
+        },
+        {
+          "bounded_component_admission_disk_free_required_bytes": 1140850688,
+          "label": "uwvm2-rossoak",
+          "argv": [
+            "python3",
+            "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59/runner.py",
+            "--repository",
+            "uwvm2-ros",
+            "--phase",
+            "soak"
+          ],
+          "argv_sha256": "62d49344baa4baabdd543fc96198c5b34e45d1138cfbed0edc5d7c91975c4179",
+          "command_file_sha256": "c005452f01551de136e53bc52eb38a585d99f79964d3ebced3157b0f10e35081",
+          "source_root": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "supervisor_sha256": "913fe928cf1ead095a064aa234a2aa95358039fb7fa6fdf1126ef66900807e89",
+          "memory_max_bytes": 68719476736,
+          "swap_max_bytes": 0,
+          "aggregate_owned_rss_budget_bytes": 1073741824,
+          "build_output_file_limit_bytes": 8388608,
+          "log_limit_bytes": 1048576,
+          "deadline_seconds": 2400,
+          "memory_events_before": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "admission_wait_seconds": 4.730500222649425e-05,
+          "required_shared_memory_spare_bytes": 6442450944,
+          "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+          "init": {
+            "pid": 11166,
+            "birth": 22661,
+            "ppid": 11141,
+            "state": "S",
+            "uid": [
+              1000,
+              1000,
+              1000,
+              1000
+            ],
+            "rss_bytes": 7020544,
+            "argv": [
+              "sleep",
+              "infinity"
+            ],
+            "exe": "/usr/lib/cargo/bin/coreutils/sleep",
+            "cg": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+            "affinity": [
+              0,
+              2,
+              4,
+              6,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          "init_exe_sha256": "48893b0fb21436b54619db80486e83ef39dfccaf1aefe83dfa00c02d6146e8c0",
+          "maximum_observed_shared_memory_bytes": 50625155072,
+          "shared_memory_abort_threshold_bytes": 67645734912,
+          "host_disk_free_reserve_bytes": 26843545600,
+          "minimum_observed_host_disk_free_bytes": 28706799616,
+          "minimum_free_inodes": 807605,
+          "required_actual_free_inodes": 4096,
+          "bounded_component_disk_reserve_bytes": 9288400896,
+          "required_actual_free_bytes": 9288400896,
+          "minimum_observed_actual_free_bytes": 9303220224,
+          "maximum_observed_own_output_bytes": 26705793,
+          "bounded_component_output_budget_bytes": 67108864,
+          "actual_writable_filesystem": {
+            "fsid": 6932954298881627696,
+            "arena_fsid": 12191019222208619510,
+            "arena": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006",
+            "arena_free_floor_bytes": 9288400896,
+            "host_free_floor_bytes": 26843545600,
+            "bounded_slot": true
+          },
+          "Popen_requested_cwd": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59",
+          "Popen_root_pidfd_creation": {
+            "pid": 1623377,
+            "authority": "this exact unreaped direct Popen child, acquired before any metadata/admission asserts"
+          },
+          "actual_stopped_child_cwd": {
+            "pid": 1623377,
+            "birth": 7270778,
+            "path": "/home/macromodel/Documents/uwvm3-implementation/float-constants-dap-a3-r59"
+          },
+          "supervision_scope": "functional own-process tree only; shared cgroup, no performance qualification",
+          "maximum_live_pidfds": 4,
+          "returncode": 0,
+          "Popen_root_pidfd_retirement": {
+            "pid": 1623377,
+            "pidfd_readable": true,
+            "actual_reaped_returncode": 0
+          },
+          "remaining_roster": [
+            11166,
+            1630820,
+            1631923
+          ],
+          "memory_events_after": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "aggregate_owned_rss_peak_bytes": 206282752,
+          "memory_current_after_observation": 48350134272,
+          "wall_seconds": 601.309220272,
+          "log_sha256": "33f97a6a08556ab37ab7b16e6bf7ab2631a6e0bb32ce1f7b386b619e14059125",
+          "runtime_library_pins_before_after_unchanged": true,
+          "runtime_library_files": 108,
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "cross": {
+    "receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-cross-a1-r59/out-matrix/verification.json",
+    "sha256": "b12082d92e9373e9d0c65b8da2dafe4f311c328cade77d24ce8dedaa59403cb8",
+    "public_receipt": "/home/macromodel/Documents/uwvm3-implementation/float-constants-cross-a1-r59/out-matrix/public/results.json",
+    "public_sha256": "b7640443f58d83860c4944592ead46bf4fd999e845338d498aae083854086cf8",
+    "actual_target_ELF_runs": 32,
+    "architecture_profiles": [
+      "aarch64",
+      "armel",
+      "armhf",
+      "i686",
+      "loongarch64",
+      "mips32",
+      "mips32el",
+      "mips64",
+      "mips64el",
+      "ppc32",
+      "ppc64",
+      "ppc64le",
+      "riscv64",
+      "s390x",
+      "sparc64",
+      "x86_64"
+    ],
+    "scope": "synthetic owned constant-plan DATA; LLVM parser/native VM/JIT/DAP target execution not qualified"
+  },
+  "unchanged_constraints": {
+    "fast_io_little_endian_parse_by_scan_and_print_reused": true,
+    "no_guest_memory_read_for_constant": true,
+    "ASM_remains_guest_context_only": true
+  },
+  "remaining": [
+    "Full native language debugger parity across eight languages",
+    "Actual new direct float metadata paths for Rust/TinyGo/Go/Zig/Objective-C/AssemblyScript",
+    "Other float formats, signed LEB float metadata, strings and aggregate direct constants",
+    "Full target VM/JIT/DAP and module BMI qualification",
+    "uwvm-int full new constant-path execution"
+  ],
+  "archive": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/retained-float-constants-r59-final/evidence.tar.xz",
+    "bytes": 269676708,
+    "sha256": "0619e347c8e9f991c3f507270b1062b9138032ff702509b9018138475394b3fa",
+    "regular_members": 75800,
+    "regular_member_raw_bytes": 2551287483,
+    "all_members_streamed_and_originals_before_after_verified": true,
+    "fsync": true
+  },
+  "archive_preparation_failure": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/retained-float-constants-r59-archive-incomplete-a1/evidence.tar.xz",
+    "bytes": 166687588,
+    "sha256": "e5070dd2a490683ff3281a9480d1ca1e53e8b5de3a154b7228c88704832daa99",
+    "reason": "tarfile gettarinfo cached hard-link inode; aborted before qualification or any source/object deletion; fresh archive forces regular members"
+  },
+  "removed_own_incomplete_archive_bytes": 166687588,
+  "self_cleanup": {
+    "files": 25,
+    "object_files": 24,
+    "bytes": 833771911,
+    "verified_recoverable_from_archive": true,
+    "VM_Wasm_ELF_sources_static_libraries_and_protocol_receipts_kept": true
+  },
+  "final_environment_observation": {
+    "host_free_bytes": 29200461824,
+    "shared_cgroup_memory_current_bytes": 47957118976,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+  },
+  "local_integration": {
+    "paired_owned_hashes": {
+      "src/uwvm2/uwvm/debugger/source_dwarf_constants.h": "41a9bb8d55c3977deb5a60107e42a62b43d7d2ee4ced56339d4f3145c1ab4ccb",
+      "src/uwvm2/uwvm/debugger/source_dwarf_constants.cppm": "c67e055f54e47312593fbd6d8dcb77f0396c68c8f9e844c3b5980399804b68c3",
+      "test/0017.runtime/debug_source_constants.cc": "82beedac4730a141d690daa52c851e74fbf1b5292725786a522085432a39713f",
+      "test/0017.runtime/debug_source_dwarf_qualified_values.cc": "07a3fdb63d6853ba9685eaf857683c6a4143945ac0d90d16640d1120275791ce",
+      "test/0017.runtime/fixtures/debug_language_experience_c.c": "0882f49ef510b0d56bc365e579b05ffef8bd3a790ac2d8ad12c6fbafdfb905c2",
+      "test/0017.runtime/fixtures/debug_language_experience_cpp.cc": "b05a60a39614860533cfed6cbcef88def7a0d4d3d38f75a9cfdae010e17f37e9",
+      "test/0017.runtime/run_debug_language_experience_cli.py": "0130724bd6adec2aa482873834d5adc2eff36064754c82dd0bbc76afba4e1b5c",
+      "test/0018.debugger/run_dap_direct_constants.py": "acb1a02ebc75ddcdbc933be28bea6ab4c6825244b145238b93040247a7e9d3f6"
+    },
+    "later_unqualified_src_observation": {
+      "uwvm2": {
+        "changed": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime.h",
+          "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+        ],
+        "new": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h"
+        ],
+        "removed": []
+      },
+      "uwvm2-ros": {
+        "changed": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_native_owner_loaded_endpoints.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_llvm_full_engine.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime.h",
+          "src/uwvm2/uwvm/debugger/wasip1_checkpoint.md"
+        ],
+        "new": [
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoint_declarations.h",
+          "src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_staged_native_endpoints.h"
+        ],
+        "removed": []
+      }
+    },
+    "scope": "Complete tested immutable source cut, not later peer additions; final DAP driver and DATA component test are separately pinned test overlays"
+  }
+}

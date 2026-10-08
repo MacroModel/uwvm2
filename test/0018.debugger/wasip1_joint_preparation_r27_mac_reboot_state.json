@@ -1,0 +1,9 @@
+{
+  "checked_ram_image_absent": true,
+  "ramdisk_capacity_bytes": 402653184,
+  "old_ram_mount": "/Volumes/UWVMR27DBG",
+  "local_volatile_test_files_lost_after_reboot": true,
+  "claim_manually_detached_after_tests": false,
+  "kern_boottime": "kern.boottime: { sec = 1791355222, usec = 414194 } Wed Oct  7 14:40:22 2026",
+  "preserved_native_evidence": "Original qualified Mach-O archive, all four execution logs and native receipts for each repository were saved to Linux before reboot."
+}

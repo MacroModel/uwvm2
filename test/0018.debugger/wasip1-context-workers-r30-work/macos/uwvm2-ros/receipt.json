@@ -1,0 +1,212 @@
+{
+  "passed": true,
+  "os": "macos",
+  "host_arch": "arm64",
+  "host_os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "execution_arch": "arm64 native",
+  "qualified_sha256": "10d784f00738b40a47736c8c3fd04a94233c5491a101cd2b68c75533c530a78c",
+  "group_qualified_sha256": "3e68b07233e80952b9685d926260acbdb0669d7906376a38072cf7331760ec1b",
+  "binary_sha256": "3a14133b5926bc43c836f71c788b8517524e87bd46897e3acb57b3ffcec24ef7",
+  "group_binary_sha256": "6138aaf0dd6bcd7124ea2e3b5b2c00f31d623e4f1e0c77f86964c2ed2f61053b",
+  "source_manifest_sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848",
+  "input_sha256": {
+    "fixture.exe": "3a14133b5926bc43c836f71c788b8517524e87bd46897e3acb57b3ffcec24ef7",
+    "environment-group.exe": "6138aaf0dd6bcd7124ea2e3b5b2c00f31d623e4f1e0c77f86964c2ed2f61053b",
+    "checkpoint.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794",
+    "aliases.wasm": "ab1da939b0029bbc718d0af9e81fc88d5a7a5271a46b3c25f92e85e3dfe8a7ca",
+    "group-main.wasm": "ee9f33ae640a967785531c581e4baf7f639979669969307c0abefd0c224d1e3a",
+    "group-provider.wasm": "5c97f02af5f14f1b0510590acf42445c5842f5f29e1116d00ec14628ecfd7794"
+  },
+  "execution_sha256": "cc8611119c5eceddcec63f98b4b40ba1111ea0d22d0e42a1c46841842e31242d",
+  "monitor_sha256": "e3f40b6c12239ba136e550671df54f58999e496a9d7287f1fc639db8080d1000",
+  "controller_sha256": "6844aa6a4fd2138a1937bc5e85effa5396e125867c4264b882a691e74b6fb80d",
+  "rows": [
+    {
+      "label": "checkpoint-instruction",
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/fixture.exe",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/checkpoint.wasm",
+        "instruction",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/checkpoint-instruction"
+      ],
+      "checks": 212,
+      "exit": 0,
+      "passed": true,
+      "seconds": 5.200409290999232,
+      "sampled_aggregate_peak_rss_bytes": 128532480,
+      "aggregate_peak_upper_bytes": 291504128,
+      "limit_bytes": 2147483648,
+      "external_controller_reserve_bytes": 134217728,
+      "owned_ramdisk_capacity_bytes": 0,
+      "identities": [
+        {
+          "pid": 45040,
+          "seconds": 1791379783,
+          "microseconds": 332175,
+          "uid": 501,
+          "pgid": 45040
+        }
+      ],
+      "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/checkpoint-instruction.log",
+      "log_sha256": "53aa104e4cb99cc40b630a4c4cb3f76a2b147386eddff56b91e6da34310f1c24",
+      "pid_reaped": true
+    },
+    {
+      "label": "checkpoint-unwind",
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/fixture.exe",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/checkpoint.wasm",
+        "unwind",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/checkpoint-unwind"
+      ],
+      "checks": 212,
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.887416375000612,
+      "sampled_aggregate_peak_rss_bytes": 127713280,
+      "aggregate_peak_upper_bytes": 290684928,
+      "limit_bytes": 2147483648,
+      "external_controller_reserve_bytes": 134217728,
+      "owned_ramdisk_capacity_bytes": 0,
+      "identities": [
+        {
+          "pid": 45053,
+          "seconds": 1791379788,
+          "microseconds": 532803,
+          "uid": 501,
+          "pgid": 45053
+        }
+      ],
+      "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/checkpoint-unwind.log",
+      "log_sha256": "f86ef62fee9dd502cddada19dc8fbd57b9a765741879cc522ced108c92c08903",
+      "pid_reaped": true
+    },
+    {
+      "label": "aliases-instruction",
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/fixture.exe",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/aliases.wasm",
+        "instruction",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/aliases-instruction"
+      ],
+      "checks": 212,
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.0109684580020257,
+      "sampled_aggregate_peak_rss_bytes": 128630784,
+      "aggregate_peak_upper_bytes": 291602432,
+      "limit_bytes": 2147483648,
+      "external_controller_reserve_bytes": 134217728,
+      "owned_ramdisk_capacity_bytes": 0,
+      "identities": [
+        {
+          "pid": 45059,
+          "seconds": 1791379791,
+          "microseconds": 420427,
+          "uid": 501,
+          "pgid": 45059
+        }
+      ],
+      "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/aliases-instruction.log",
+      "log_sha256": "dae8cf4eb9372d48ccf11e3fc2c7dfdd089899ab8db97aecd914881fcb8bf4ca",
+      "pid_reaped": true
+    },
+    {
+      "label": "aliases-unwind",
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/fixture.exe",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/aliases.wasm",
+        "unwind",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/aliases-unwind"
+      ],
+      "checks": 212,
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.9280699160008226,
+      "sampled_aggregate_peak_rss_bytes": 127762432,
+      "aggregate_peak_upper_bytes": 290799616,
+      "limit_bytes": 2147483648,
+      "external_controller_reserve_bytes": 134217728,
+      "owned_ramdisk_capacity_bytes": 0,
+      "identities": [
+        {
+          "pid": 45065,
+          "seconds": 1791379794,
+          "microseconds": 431612,
+          "uid": 501,
+          "pgid": 45065
+        }
+      ],
+      "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/aliases-unwind.log",
+      "log_sha256": "6eb5bff63311e4f0966209b47864896d50629d122284e1831c68d088c17faee9",
+      "pid_reaped": true
+    },
+    {
+      "label": "environment-group-instruction",
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/environment-group.exe",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/group-main.wasm",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/group-provider.wasm",
+        "instruction",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/environment-group-instruction"
+      ],
+      "checks": 483,
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.325582666002447,
+      "sampled_aggregate_peak_rss_bytes": 146735104,
+      "aggregate_peak_upper_bytes": 309739520,
+      "limit_bytes": 2147483648,
+      "external_controller_reserve_bytes": 134217728,
+      "owned_ramdisk_capacity_bytes": 0,
+      "identities": [
+        {
+          "pid": 45077,
+          "seconds": 1791379797,
+          "microseconds": 359916,
+          "uid": 501,
+          "pgid": 45077
+        }
+      ],
+      "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/environment-group-instruction.log",
+      "log_sha256": "93562d6a0f27e861dfc6a96bc49f68c578f73d0f0480f11ba535dee4029282df",
+      "pid_reaped": true
+    },
+    {
+      "label": "environment-group-unwind",
+      "argv": [
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/environment-group.exe",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/group-main.wasm",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/group-provider.wasm",
+        "unwind",
+        "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/environment-group-unwind"
+      ],
+      "checks": 483,
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.7944111249998969,
+      "sampled_aggregate_peak_rss_bytes": 145768448,
+      "aggregate_peak_upper_bytes": 308772864,
+      "limit_bytes": 2147483648,
+      "external_controller_reserve_bytes": 134217728,
+      "owned_ramdisk_capacity_bytes": 0,
+      "identities": [
+        {
+          "pid": 45085,
+          "seconds": 1791379799,
+          "microseconds": 685727,
+          "uid": 501,
+          "pgid": 45085
+        }
+      ],
+      "log": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-context-workers-r30-work/macos/uwvm2-ros/environment-group-unwind.log",
+      "log_sha256": "33e94c126b5d9171e383fc1f21410624a8f2859e14b05ceb45dcdc90b06b2c27",
+      "pid_reaped": true
+    }
+  ],
+  "counted_assertions": 1814,
+  "limit_bytes": 2147483648,
+  "owned_ramdisk_bytes": 0,
+  "nofork_probe_sha256": "06f08929938554e862d37fc43cbf78ef4692f32f849c69b49b9260d8ea6d8ef5",
+  "proof_scope": "private dispatch cache, trace binding and candidate disposal; original world continues; full joint restore/publication/replay remains unavailable"
+}

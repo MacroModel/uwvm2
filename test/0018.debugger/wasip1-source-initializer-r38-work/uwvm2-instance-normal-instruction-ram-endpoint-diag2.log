@@ -1,0 +1,10 @@
+ENDPOINT_LOAD entered bytes=3960008 address_bytes=8 key_nonzero=1
+checkpoint reminder: capture WASIp1 together with Wasm at the same cooperative stop; Wasm-only snapshot omits FD/environment state.
+ENDPOINT_DECL function=0 sites=85 resume=1 adapter=1 type_equal=1 cc_equal=1 typed_cc=18 resume_cc=18 linkage=7
+ENDPOINT_DECL function=1 sites=4119 resume=1 adapter=1 type_equal=1 cc_equal=1 typed_cc=18 resume_cc=18 linkage=7
+ENDPOINT_DECL function=2 sites=2 resume=1 adapter=1 type_equal=1 cc_equal=1 typed_cc=18 resume_cc=18 linkage=7
+ENDPOINT_LOAD entered bytes=17457320 address_bytes=8 key_nonzero=1
+ENDPOINT_LOAD refused_stage=3 bytes=17457320
+ENDPOINT_FREEZE valid=0 attached=1 objects=0 expected=6 seen=0 bodies=0 symbols=0
+WORLD_PREPARATION status=6 resource=3 engine=9 modules=1 engines=0 functions=0 threads=0 frames=0 roots=0 payload=589750 root_scopes=0 root_frames=0 roots_restored=0 workers_started=0 workers_enrolled=0 workers_joined=0 workers_held=0 worker_roots_restored=0 debug_prepared=0 debug_enrolled=0 debug_held=0 debug_tls_restored=0
+debug_checkpoint_complete_instance_runtime FAIL line=450

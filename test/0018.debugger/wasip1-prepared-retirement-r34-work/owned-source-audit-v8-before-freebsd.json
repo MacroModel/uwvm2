@@ -1,0 +1,118 @@
+{
+  "passed": true,
+  "source_manifest_sha256": "171e9f277d349278c53669b49d60d5727f73575fa9847d14dd40a5741924d73f",
+  "owned_source_paths": 22,
+  "rows": [
+    {
+      "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "tested_sha256": "66560ee8c9815c12ef00c6418c94bb73e54b2b1df35ead550074f78a4ef0a82b",
+      "current_sha256": "66560ee8c9815c12ef00c6418c94bb73e54b2b1df35ead550074f78a4ef0a82b"
+    },
+    {
+      "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+      "tested_sha256": "469e2ff4034d9ef92ba334c90eb6a16c50e8e28cc03e487206a2494d05374f27",
+      "current_sha256": "469e2ff4034d9ef92ba334c90eb6a16c50e8e28cc03e487206a2494d05374f27"
+    },
+    {
+      "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h",
+      "tested_sha256": "a08aaa22d6550a7c266615c16b9d8dd045cdcdbadb386ef96e3accc5f56a909a",
+      "current_sha256": "a08aaa22d6550a7c266615c16b9d8dd045cdcdbadb386ef96e3accc5f56a909a"
+    },
+    {
+      "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h",
+      "tested_sha256": "6ee289985cc98277c516e7de709c8a20c266c64acaad2690c78d67f0c7b6b6b6",
+      "current_sha256": "6ee289985cc98277c516e7de709c8a20c266c64acaad2690c78d67f0c7b6b6b6"
+    },
+    {
+      "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+      "tested_sha256": "4ce03877bdf0c4ee928bee92d87b5749d246e774d2dde330b08956fbd49a4908",
+      "current_sha256": "4ce03877bdf0c4ee928bee92d87b5749d246e774d2dde330b08956fbd49a4908"
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h",
+      "tested_sha256": "66560ee8c9815c12ef00c6418c94bb73e54b2b1df35ead550074f78a4ef0a82b",
+      "current_sha256": "66560ee8c9815c12ef00c6418c94bb73e54b2b1df35ead550074f78a4ef0a82b"
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_coherent_data_manager.h",
+      "tested_sha256": "f7cfc9d70ec93051fd300b543fa560b3957db572fe5633c70bf1f134877a4de9",
+      "current_sha256": "f7cfc9d70ec93051fd300b543fa560b3957db572fe5633c70bf1f134877a4de9"
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_state.h",
+      "tested_sha256": "257718f8a4e418ceeeb310eafe7d8ff8378e6ab6dfcd9cbc84b0691cfa4c0892",
+      "current_sha256": "257718f8a4e418ceeeb310eafe7d8ff8378e6ab6dfcd9cbc84b0691cfa4c0892"
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_native_retirement_api.h",
+      "tested_sha256": "6ee289985cc98277c516e7de709c8a20c266c64acaad2690c78d67f0c7b6b6b6",
+      "current_sha256": "6ee289985cc98277c516e7de709c8a20c266c64acaad2690c78d67f0c7b6b6b6"
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h",
+      "tested_sha256": "4ce03877bdf0c4ee928bee92d87b5749d246e774d2dde330b08956fbd49a4908",
+      "current_sha256": "4ce03877bdf0c4ee928bee92d87b5749d246e774d2dde330b08956fbd49a4908"
+    },
+    {
+      "path": "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h",
+      "tested_sha256": "8b0499c94824caaf8d22df740a9c329ad3d4cf234b0b4dc84958735b529037e3",
+      "current_sha256": "8b0499c94824caaf8d22df740a9c329ad3d4cf234b0b4dc84958735b529037e3"
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_cold_resource_api.h",
+      "tested_sha256": "8b0499c94824caaf8d22df740a9c329ad3d4cf234b0b4dc84958735b529037e3",
+      "current_sha256": "8b0499c94824caaf8d22df740a9c329ad3d4cf234b0b4dc84958735b529037e3"
+    },
+    {
+      "path": "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md",
+      "tested_sha256": "bb3f2929b51289938ae49323e3edd021cdc96116d14c2aef7789003184774b6e",
+      "current_sha256": "bb3f2929b51289938ae49323e3edd021cdc96116d14c2aef7789003184774b6e"
+    },
+    {
+      "path": "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md",
+      "tested_sha256": "bb3f2929b51289938ae49323e3edd021cdc96116d14c2aef7789003184774b6e",
+      "current_sha256": "bb3f2929b51289938ae49323e3edd021cdc96116d14c2aef7789003184774b6e"
+    },
+    {
+      "path": "uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc",
+      "tested_sha256": "b8f565e0c85f2266b8a828453e498b67244350d0ccd76c8e83f79fe2c35b461c",
+      "current_sha256": "b8f565e0c85f2266b8a828453e498b67244350d0ccd76c8e83f79fe2c35b461c"
+    },
+    {
+      "path": "uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc",
+      "tested_sha256": "cf2fa16ce35c5c195c7edea78db9ffac17e9e26233da8b2dc3f8ee86d5873905",
+      "current_sha256": "cf2fa16ce35c5c195c7edea78db9ffac17e9e26233da8b2dc3f8ee86d5873905"
+    },
+    {
+      "path": "uwvm2/test/0017.runtime/debug_checkpoint_native_cohort_retirement_runtime.cc",
+      "tested_sha256": "5d9732d51e2154ef7c2ed997a08ba82e12a46a03ceb32c5465c45c46d26afbd9",
+      "current_sha256": "5d9732d51e2154ef7c2ed997a08ba82e12a46a03ceb32c5465c45c46d26afbd9"
+    },
+    {
+      "path": "uwvm2/test/0017.runtime/fixtures/debug_checkpoint_retirement_cohort.wat",
+      "tested_sha256": "b57340213933f3a0530f6e0c3b007eac09a5e2e1a4de75c96801504b54415574",
+      "current_sha256": "b57340213933f3a0530f6e0c3b007eac09a5e2e1a4de75c96801504b54415574"
+    },
+    {
+      "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc",
+      "tested_sha256": "b8f565e0c85f2266b8a828453e498b67244350d0ccd76c8e83f79fe2c35b461c",
+      "current_sha256": "b8f565e0c85f2266b8a828453e498b67244350d0ccd76c8e83f79fe2c35b461c"
+    },
+    {
+      "path": "uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc",
+      "tested_sha256": "cf2fa16ce35c5c195c7edea78db9ffac17e9e26233da8b2dc3f8ee86d5873905",
+      "current_sha256": "cf2fa16ce35c5c195c7edea78db9ffac17e9e26233da8b2dc3f8ee86d5873905"
+    },
+    {
+      "path": "uwvm2-ros/test/0017.runtime/debug_checkpoint_native_cohort_retirement_runtime.cc",
+      "tested_sha256": "5d9732d51e2154ef7c2ed997a08ba82e12a46a03ceb32c5465c45c46d26afbd9",
+      "current_sha256": "5d9732d51e2154ef7c2ed997a08ba82e12a46a03ceb32c5465c45c46d26afbd9"
+    },
+    {
+      "path": "uwvm2-ros/test/0017.runtime/fixtures/debug_checkpoint_retirement_cohort.wat",
+      "tested_sha256": "b57340213933f3a0530f6e0c3b007eac09a5e2e1a4de75c96801504b54415574",
+      "current_sha256": "b57340213933f3a0530f6e0c3b007eac09a5e2e1a4de75c96801504b54415574"
+    }
+  ],
+  "phase": "before FreeBSD native restart"
+}

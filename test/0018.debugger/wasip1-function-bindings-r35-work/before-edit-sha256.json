@@ -1,0 +1,14 @@
+{
+  "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime.h": "66560ee8c9815c12ef00c6418c94bb73e54b2b1df35ead550074f78a4ef0a82b",
+  "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": "090b8304ed9ab8cc2cca9ccae2c383be4d1d68b47151574d7a5f2ad454018a6d",
+  "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": "4ce03877bdf0c4ee928bee92d87b5749d246e774d2dde330b08956fbd49a4908",
+  "uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": "b8f565e0c85f2266b8a828453e498b67244350d0ccd76c8e83f79fe2c35b461c",
+  "uwvm2/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": "cf2fa16ce35c5c195c7edea78db9ffac17e9e26233da8b2dc3f8ee86d5873905",
+  "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "bb3f2929b51289938ae49323e3edd021cdc96116d14c2aef7789003184774b6e",
+  "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime.h": "66560ee8c9815c12ef00c6418c94bb73e54b2b1df35ead550074f78a4ef0a82b",
+  "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_resources.h": "090b8304ed9ab8cc2cca9ccae2c383be4d1d68b47151574d7a5f2ad454018a6d",
+  "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_checkpoint_world_preparation_api.h": "4ce03877bdf0c4ee928bee92d87b5749d246e774d2dde330b08956fbd49a4908",
+  "uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc": "b8f565e0c85f2266b8a828453e498b67244350d0ccd76c8e83f79fe2c35b461c",
+  "uwvm2-ros/test/0017.runtime/debug_wasip1_prepared_retirement_runtime.cc": "cf2fa16ce35c5c195c7edea78db9ffac17e9e26233da8b2dc3f8ee86d5873905",
+  "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "bb3f2929b51289938ae49323e3edd021cdc96116d14c2aef7789003184774b6e"
+}

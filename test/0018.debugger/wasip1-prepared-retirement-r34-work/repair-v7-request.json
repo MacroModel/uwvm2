@@ -1,0 +1,19 @@
+{
+  "parent_manifest_sha256": "daa1fe8f66772e8c6e310b87c36477bac07dbab34aa7c5c9bcc455be72ddab3c",
+  "overlay_manifest_sha256": "c574e5da78b41c247590acc3a334590e53e4440d120e639c3c3761bd62b16814",
+  "delta_sha256": "31e3898f0884ef58586464c9219cc86f7ebadd631676aae76b1143c784b571ff",
+  "new_paths": [
+    "uwvm2/test/0017.runtime/fixtures/debug_checkpoint_retirement_cohort.wat",
+    "uwvm2-ros/test/0017.runtime/fixtures/debug_checkpoint_retirement_cohort.wat"
+  ],
+  "source_files": 8791,
+  "purpose": "Dedicated looping complete-Core input and authentic failure-only diagnostics; library/runtime unchanged; all pause/join deadlines unchanged",
+  "changed_paths": [
+    "uwvm2/test/0017.runtime/fixtures/debug_checkpoint_retirement_cohort.wat",
+    "uwvm2-ros/test/0017.runtime/fixtures/debug_checkpoint_retirement_cohort.wat",
+    "uwvm2/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc",
+    "uwvm2/test/0017.runtime/debug_checkpoint_native_cohort_retirement_runtime.cc",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_prepared_retirement_runtime.cc",
+    "uwvm2-ros/test/0017.runtime/debug_checkpoint_native_cohort_retirement_runtime.cc"
+  ]
+}

@@ -1,0 +1,2239 @@
+{
+  "passed": true,
+  "scope": "R44 finite copied nested Rust variant summaries/array path display; original R41 scoped Linux x86_64 full products; official rustc 1.99.0 new Wasm32 O0 DWARF4/5 fixture",
+  "boot_id": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+  "products": [
+    {
+      "repository": "uwvm2",
+      "source_id": "sha256:7dabb9544e11390246d5657307514c562cfe396c5c113e0dd19b8e8dce2c8c68",
+      "sha256": "cec6f847f61d31d8c722050b665047015265c98273183d472da152d2113ea453",
+      "receipt_sha256": "b3d7da607d374efaeb0d6593b54f3466584f99d0f5f1eaaa5b161677bb6e4ed5",
+      "reused_original_R41_scoped_product": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "source_id": "sha256:615582fe79697513568f5a9404c526f1cb177ed3efb4d38757cb779bb55792b5",
+      "sha256": "c945d07cfb353c2b143f621a1b60c8dba6e2bd2370de70d0d4f6e4685092c03b",
+      "receipt_sha256": "b7991773288c382753d42d74225cc8ad95ce9d6323a5a7ce60b26b4bc24bafb7",
+      "reused_original_R41_scoped_product": true
+    }
+  ],
+  "producers": [
+    {
+      "repository": "uwvm2",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2/out-uwvm2/producer-a1/results.json",
+      "receipt_sha256": "3db1dccf63b81bbb7b357758fa99c8d22504838021b36c1146124aaae2bbfb89",
+      "wasms": [
+        {
+          "profile": "rust-nested-wasm32-dwarf4",
+          "language": "rust",
+          "address_width": 32,
+          "dwarf": 4,
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2/out-uwvm2/producer-a1/rust-nested-wasm32-dwarf4.wasm",
+          "source": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2/uwvm2/test/0017.runtime/fixtures/debug_source_rust_nested_variants_dap.rs",
+          "source_sha256": "9757217624ea13ebffec0a490a334d2363080f04dcf4b4701faa3e9e4bfe604f",
+          "sha256": "98dac43f352b9adb663c2789519653d9d7d0590bbfb078d448762982bdfd220d",
+          "guest_expected": 55
+        },
+        {
+          "profile": "rust-nested-wasm32-dwarf5",
+          "language": "rust",
+          "address_width": 32,
+          "dwarf": 5,
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2/out-uwvm2/producer-a1/rust-nested-wasm32-dwarf5.wasm",
+          "source": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2/uwvm2/test/0017.runtime/fixtures/debug_source_rust_nested_variants_dap.rs",
+          "source_sha256": "9757217624ea13ebffec0a490a334d2363080f04dcf4b4701faa3e9e4bfe604f",
+          "sha256": "48dd8f1066ff3f62a92c07e975056ba7be97992c0c145fbfdf1f1546a7bfaf64",
+          "guest_expected": 55
+        }
+      ],
+      "compiler_argv_and_original_validator_qualified": true,
+      "producer_tool_pin_count": 195
+    },
+    {
+      "repository": "uwvm2-ros",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2/out-uwvm2-ros/producer-a1/results.json",
+      "receipt_sha256": "6b0dbd1047f5e1d59f7c7e679216a64a6ebcedcf5bb970a82530c451ff83e756",
+      "wasms": [
+        {
+          "profile": "rust-nested-wasm32-dwarf4",
+          "language": "rust",
+          "address_width": 32,
+          "dwarf": 4,
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2/out-uwvm2-ros/producer-a1/rust-nested-wasm32-dwarf4.wasm",
+          "source": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2/uwvm2-ros/test/0017.runtime/fixtures/debug_source_rust_nested_variants_dap.rs",
+          "source_sha256": "9757217624ea13ebffec0a490a334d2363080f04dcf4b4701faa3e9e4bfe604f",
+          "sha256": "2e97b5ed1a302a5adfea46827fe530b8abd01a9b7ce2d347f6fa3193a809ad6a",
+          "guest_expected": 55
+        },
+        {
+          "profile": "rust-nested-wasm32-dwarf5",
+          "language": "rust",
+          "address_width": 32,
+          "dwarf": 5,
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2/out-uwvm2-ros/producer-a1/rust-nested-wasm32-dwarf5.wasm",
+          "source": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2/uwvm2-ros/test/0017.runtime/fixtures/debug_source_rust_nested_variants_dap.rs",
+          "source_sha256": "9757217624ea13ebffec0a490a334d2363080f04dcf4b4701faa3e9e4bfe604f",
+          "sha256": "0986148dbe894acfe67a9959b154f00d7ddd0c3de6fa994f0c6153d83a6bf976",
+          "guest_expected": 55
+        }
+      ],
+      "compiler_argv_and_original_validator_qualified": true,
+      "producer_tool_pin_count": 195
+    }
+  ],
+  "unit_tests_per_repository": 413,
+  "unit_suite_files": [
+    {
+      "repository": "uwvm2",
+      "files": [
+        "test_dap_adapter.py",
+        "test_dap_breakpoint_policy.py",
+        "test_dap_deep_frames.py",
+        "test_dap_deep_wasm_path.py",
+        "test_dap_frame_scope_lifetime.py",
+        "test_dap_integer_display.py",
+        "test_dap_native_disassembly.py",
+        "test_dap_native_public_projection.py",
+        "test_dap_native_registers.py",
+        "test_dap_native_window.py",
+        "test_dap_replacement_lifetime.py",
+        "test_dap_source_enums.py",
+        "test_dap_source_frames.py",
+        "test_dap_source_nested_variants.py",
+        "test_dap_source_objects.py",
+        "test_dap_source_scope_objects.py",
+        "test_dap_source_selected_finish.py",
+        "test_dap_source_text.py",
+        "test_dap_source_values.py",
+        "test_dap_source_variants.py",
+        "test_dap_status_publication.py",
+        "test_dap_step_level_inline.py",
+        "test_dap_wasip1_commit_observation.py",
+        "test_dap_wasip1_scope_pages.py",
+        "test_dap_wasip1_state.py",
+        "test_dap_wasm_local_pages.py",
+        "test_dap_wasm_member_pages.py",
+        "test_dap_wasm_memory_pages.py",
+        "test_dap_wasm_memory_writes.py",
+        "test_dap_wasm_query_refresh.py",
+        "test_dap_wasm_scope_pages.py",
+        "test_dap_wasm_state.py",
+        "test_dap_wasm_trap.py"
+      ],
+      "external_controller_packet_runners_not_invoked": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "files": [
+        "test_dap_adapter.py",
+        "test_dap_breakpoint_policy.py",
+        "test_dap_deep_frames.py",
+        "test_dap_deep_wasm_path.py",
+        "test_dap_frame_scope_lifetime.py",
+        "test_dap_integer_display.py",
+        "test_dap_native_disassembly.py",
+        "test_dap_native_public_projection.py",
+        "test_dap_native_registers.py",
+        "test_dap_native_window.py",
+        "test_dap_replacement_lifetime.py",
+        "test_dap_source_enums.py",
+        "test_dap_source_frames.py",
+        "test_dap_source_nested_variants.py",
+        "test_dap_source_objects.py",
+        "test_dap_source_scope_objects.py",
+        "test_dap_source_selected_finish.py",
+        "test_dap_source_text.py",
+        "test_dap_source_values.py",
+        "test_dap_source_variants.py",
+        "test_dap_status_publication.py",
+        "test_dap_step_level_inline.py",
+        "test_dap_wasip1_commit_observation.py",
+        "test_dap_wasip1_scope_pages.py",
+        "test_dap_wasip1_state.py",
+        "test_dap_wasm_local_pages.py",
+        "test_dap_wasm_member_pages.py",
+        "test_dap_wasm_memory_pages.py",
+        "test_dap_wasm_memory_writes.py",
+        "test_dap_wasm_query_refresh.py",
+        "test_dap_wasm_scope_pages.py",
+        "test_dap_wasm_state.py",
+        "test_dap_wasm_trap.py"
+      ],
+      "external_controller_packet_runners_not_invoked": true
+    }
+  ],
+  "totals": {
+    "fixed_nested_Rust_sessions": 69,
+    "before_nested_Rust_sessions": 4,
+    "nested_tree_presentations": 276,
+    "nested_tree_rows": 20976,
+    "selected_branch_checks": 3588,
+    "direct_variant_evaluations": 1449,
+    "owner_summary_checks": 3381,
+    "nested_stale_reference_rejections": 483,
+    "original_R43_Rust_regression_sessions": 4,
+    "C_family_sessions": 32,
+    "TinyGo_sessions": 2,
+    "TinyGo_builtin_comparisons": 180
+  },
+  "sessions": [
+    {
+      "repository": "uwvm2",
+      "phase": "before",
+      "passed": true,
+      "sessions": 2,
+      "elapsed_seconds": 39.670031786001346,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a1-r44/out-uwvm2/before-a1/results.json",
+      "receipt_sha256": "a017fd73f09858471c6eeaf1b4971117627d7de914bbea77a3598646ab338d28",
+      "profiles": [
+        "rust-nested-wasm32-dwarf4",
+        "rust-nested-wasm32-dwarf5"
+      ],
+      "policies": [
+        "instruction"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a1-r44/out-uwvm2/before-a1/session-0000/protocol.tar.xz",
+          "sha256": "6715fa392b6028f82f287775fc413a1d33737fd704ddca3c5a72681a20e3a6e8",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a1-r44/out-uwvm2/before-a1/session-0001/protocol.tar.xz",
+          "sha256": "45fdcbc7a11cf340d4d027a7acc2a08c84636724ca422bbb5f3894e1df8be85f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "instruction",
+      "passed": true,
+      "sessions": 2,
+      "elapsed_seconds": 40.857753905998834,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/instruction-a1/results.json",
+      "receipt_sha256": "f50227ec6c097fa05cb95589b363c3fa98ecec3689c96a37e4776898966e1a5c",
+      "profiles": [
+        "rust-nested-wasm32-dwarf4",
+        "rust-nested-wasm32-dwarf5"
+      ],
+      "policies": [
+        "instruction"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/instruction-a1/session-0000/protocol.tar.xz",
+          "sha256": "1780f11f86ee182a4a370921e81ae985a9564f6b69f7d7786f82707fa9c953a6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/instruction-a1/session-0001/protocol.tar.xz",
+          "sha256": "db1b487d06a1cfcb8d945be95f344106f94d304a763030cbfd7b59bd1a8e1639",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "unwind",
+      "passed": true,
+      "sessions": 2,
+      "elapsed_seconds": 40.97916233599972,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/unwind-a1/results.json",
+      "receipt_sha256": "c5f128a6693c071b62810be12e2d8ac9acc03e71440a43ab2dc0470af86e99b7",
+      "profiles": [
+        "rust-nested-wasm32-dwarf4",
+        "rust-nested-wasm32-dwarf5"
+      ],
+      "policies": [
+        "unwind"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/unwind-a1/session-0000/protocol.tar.xz",
+          "sha256": "6cfc28aecf2a3d5dd2ec1435822a34fd8b555450bf31a3c0df266f485cd6b2f6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/unwind-a1/session-0001/protocol.tar.xz",
+          "sha256": "d9f99b99bda3969a0a4fecfe1047f1a120f81bdde34385bde5c8abd2d769b4b3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "soak",
+      "passed": true,
+      "sessions": 30,
+      "elapsed_seconds": 601.0353248700012,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/results.json",
+      "receipt_sha256": "71cb1cfcbe1cce74c4e60a1e7bbcdf3f4ea75910c01c40ca29d981c2ec226940",
+      "profiles": [
+        "rust-nested-wasm32-dwarf4",
+        "rust-nested-wasm32-dwarf5"
+      ],
+      "policies": [
+        "instruction",
+        "unwind"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0000/protocol.tar.xz",
+          "sha256": "f7453e9c6537d18cf4c14933a247a2f8c105f1f05d844155721e12d2b2e312fb",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0001/protocol.tar.xz",
+          "sha256": "3e2e431aa3f0bbe81f4a7b58241405b48a7f3ea06cb6d19d71560cab1acac866",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0002/protocol.tar.xz",
+          "sha256": "b473c2cc125293e52c8eec6a7fd19d6e943d3007253a324a6f3cc42419780c2a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0003/protocol.tar.xz",
+          "sha256": "6a34f91f40178004e2fb6f95718c83972d128c51f3f4ab98674ecd24d896421b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0004/protocol.tar.xz",
+          "sha256": "ed907b572e696c463925cd4b6a15e77074e3f92ab4333e7853b32239e6240de1",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0005/protocol.tar.xz",
+          "sha256": "f9e1ab630da0bf09ffaa106c039ab7815b92951f50a535a6c25bd37dbc63736f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0006/protocol.tar.xz",
+          "sha256": "37cc503227c9edc3c6adda9d3c8d804a85d3f803d3597e64d5f5032f6ef8009d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0007/protocol.tar.xz",
+          "sha256": "67bef6b7767fd1344cc67c6736ce05a515da97accc14962e972a7c026b37a861",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0008/protocol.tar.xz",
+          "sha256": "aa67a73f5a340e772a680f3427d8ef6be9b160061fdca4d7cf1dc1f36cddf73d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0009/protocol.tar.xz",
+          "sha256": "df4cfe2363f0e85100f939307e571d38483d95d9eea255728b9d19ab646d1415",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0010/protocol.tar.xz",
+          "sha256": "5532a1d37a220e73ec7587155a17abc0dc3c77e86d69b1867cbd01b679120895",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0011/protocol.tar.xz",
+          "sha256": "5f5dd76e4391ab4a2a894a0b087d148923159b1ae3a2515c4a023c52ed0685b8",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0012/protocol.tar.xz",
+          "sha256": "76e1f6658f48aabd2e1ebba79b695b13dc52bbebda65e8976f87f727fb5706c9",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0013/protocol.tar.xz",
+          "sha256": "2d49783695dba05dc3627eb56c1ca78fe93d8a317a72740be3a10a11dd7d07af",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0014/protocol.tar.xz",
+          "sha256": "a1ade80d84fe3cfe78acec93e20681634afad432bcb52abd25c6577f9ffa96d4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0015/protocol.tar.xz",
+          "sha256": "99c12274e8945a44495784c3c6156336e79822e9cb86bbd9b2bbd11d7594b24b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0016/protocol.tar.xz",
+          "sha256": "7ec17efe1d75e66c1f2e735e1f458b2e0c6e9b48e5f8f3e2ca2adcae6c17df0e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0017/protocol.tar.xz",
+          "sha256": "be14a92deeace3a300cd9bf14186a2231f86270a46ba96e56ac9a0e985d12738",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0018/protocol.tar.xz",
+          "sha256": "7d10b5375d44cd0abcb69731cff5ffca9edfb04e0b13d96ad2e9358b8e6b3e8f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0019/protocol.tar.xz",
+          "sha256": "223369b44cd397b63ddbd18c16e4f01b25465c3a3660d8b87369c40e3b41c7f8",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0020/protocol.tar.xz",
+          "sha256": "8f6b731c45a4497138bd880c3884aeba47c6494221902522db5121618901508f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0021/protocol.tar.xz",
+          "sha256": "adc0b15073389ccfe169f1be5ce70de44381ba927cd0cb783792235442a5e869",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0022/protocol.tar.xz",
+          "sha256": "65b4876d3ff78643ef9d63c5f1f44ef638dd6c074eb3aee252e0b940bfd65942",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0023/protocol.tar.xz",
+          "sha256": "12fe7ac0f473e04132ed7cc0cb6939c30afdc0154d6039227ff29915f9f37d3c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0024/protocol.tar.xz",
+          "sha256": "b8a168bedc9a93b3f1843b97d9690cc84599fb240c8b80616d4721d6fffc464c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0025/protocol.tar.xz",
+          "sha256": "40a135e5593d0e066fe401ad1efa521c1c8ccc5f0fd4e6963bf619cc4ffc574e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0026/protocol.tar.xz",
+          "sha256": "cdcaac8f63200594f8037bfb391fdd1a80acd0d4afdce8052729a26de8adf651",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0027/protocol.tar.xz",
+          "sha256": "ded9ba821fb4d38588fab456584ee555f52d2b4a622c528733866510f0949264",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0028/protocol.tar.xz",
+          "sha256": "d504f3016eaa2f64a0d7b3ea782e0ac0bb52570a484b5fb669fb05ab3c1f0241",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/soak-a1/session-0029/protocol.tar.xz",
+          "sha256": "9de8bd9acebd8a0d39ec65421f15ca6ba2135e672cd4e580f073e305f6cc072b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "variants",
+      "passed": true,
+      "sessions": 2,
+      "elapsed_seconds": 31.73927879400071,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/variants-a1/results.json",
+      "receipt_sha256": "e86b9b64f72b2bfed6eb9e3a1a4d3565884ec3424cc69994829c85145eb5bf84",
+      "profiles": [
+        "rust-wasm32-dwarf4",
+        "rust-wasm32-dwarf5"
+      ],
+      "policies": [
+        "instruction"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/variants-a1/session-0000/protocol.tar.xz",
+          "sha256": "1cec015c19f9c2d297d50659d4bab57a80e95f0fc7ff11eb023aadefb8a7dcd6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/variants-a1/session-0001/protocol.tar.xz",
+          "sha256": "476ba1868c8b9c776715ff366c81827d6da78a9ca1ea9b14bd48efee5076956c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "arrays",
+      "passed": true,
+      "sessions": 1,
+      "elapsed_seconds": 6.498776259999431,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/arrays-a1/results.json",
+      "receipt_sha256": "f49963e8ee97e99042f298ef84d5ec4ace97abd2432fc594631646723b87d135",
+      "profiles": [
+        "original-TinyGo-O0-array-text"
+      ],
+      "policies": [
+        "instruction"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/arrays-a1/session-0000/session-0/source-dap.json",
+          "sha256": "9ee90e4296219bda45871195ff74c5b9acc3f45ed6ca05d2cb2190a142393b69",
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "enums",
+      "passed": true,
+      "sessions": 16,
+      "elapsed_seconds": 92.57546933699996,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/results.json",
+      "receipt_sha256": "8d0685034a693386b86267c629ce4ca65dd6c895da43c024ed8cc1034012b0ac",
+      "profiles": [
+        "c-wasm32-dwarf4",
+        "c-wasm32-dwarf5",
+        "c-wasm64-dwarf4",
+        "c-wasm64-dwarf5",
+        "cpp-wasm32-dwarf4",
+        "cpp-wasm32-dwarf5",
+        "cpp-wasm64-dwarf4",
+        "cpp-wasm64-dwarf5",
+        "objc-wasm32-dwarf4",
+        "objc-wasm32-dwarf5",
+        "objc-wasm64-dwarf4",
+        "objc-wasm64-dwarf5",
+        "objcpp-wasm32-dwarf4",
+        "objcpp-wasm32-dwarf5",
+        "objcpp-wasm64-dwarf4",
+        "objcpp-wasm64-dwarf5"
+      ],
+      "policies": [
+        "instruction"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0000/protocol.tar.xz",
+          "sha256": "500ba4c57970bfccc6629514921a99462406bf2a24ea942381e274b2f1899858",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0001/protocol.tar.xz",
+          "sha256": "60154a921d4bf8ddbd96d09b324ca28ff5101e3d530f666e6b618405c0d8a1b5",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0002/protocol.tar.xz",
+          "sha256": "71568b4eb28331ae2eda2825db73962630bdc6f6a340358c79229885c9458d9c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0003/protocol.tar.xz",
+          "sha256": "0144e43907faf49154ffb245e2926b23a8ecc54fdf816bf8b7f543b43847c7d1",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0004/protocol.tar.xz",
+          "sha256": "efcdeabe1b458f5157d522a0c51f9b6aebfcb29c89ab0c51ab6e5e229e2f10b9",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0005/protocol.tar.xz",
+          "sha256": "6fbf47fad5c1b507dad96da612d10ab04e0ebb005b35fdf266492d88fc09215c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0006/protocol.tar.xz",
+          "sha256": "b15c80d959403c0efff4a3293b55a84f32ca9a9c427d2ddda3d2715855cebc88",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0007/protocol.tar.xz",
+          "sha256": "2528cea79fdae58f2b941295e476776cef05d038cdca424bdcdb4181db90ee4b",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0008/protocol.tar.xz",
+          "sha256": "42ab0bdc53c4c9eed5abc57fdffac4ce8f79f600c8e1af699c61436f2f199fc2",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0009/protocol.tar.xz",
+          "sha256": "d2e02393c05cd234e29b5a11a2a0f2f3f20f3866183e520cedc80d57c650d468",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0010/protocol.tar.xz",
+          "sha256": "cdbf5af05168fe81d983332c8ad8c748aaa4c56374521e91fd579dff81462b54",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0011/protocol.tar.xz",
+          "sha256": "c02d3beabe6d97ba9da2a76056b741cc19d39674d3f67620a82b296975d504c6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0012/protocol.tar.xz",
+          "sha256": "e66967f1260ba2fe2c393df19518e4156f928937a5962d6985213c1a494db9b3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0013/protocol.tar.xz",
+          "sha256": "3a41110f1408246dd6a2c7a37d92b00a60e4798b7c1f5d2c6247904d849e0a6f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0014/protocol.tar.xz",
+          "sha256": "a01a01e12d1d3bf312cd8f2e1b6424579fec7dc82446b2005c0a34b8543ec12c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2/enums-a1/session-0015/protocol.tar.xz",
+          "sha256": "547cb1603b15e936b4158c48f7ed011444aec7d5e16f80c09b0dcee86291f610",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "before",
+      "passed": true,
+      "sessions": 2,
+      "elapsed_seconds": 39.95407610999973,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a1-r44/out-uwvm2-ros/before-a1/results.json",
+      "receipt_sha256": "5bbeb0a7c34dbe9b2f9ce3d2e88295ba14d0f13be9a6e0b36cf9a12cf344d7f6",
+      "profiles": [
+        "rust-nested-wasm32-dwarf4",
+        "rust-nested-wasm32-dwarf5"
+      ],
+      "policies": [
+        "instruction"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a1-r44/out-uwvm2-ros/before-a1/session-0000/protocol.tar.xz",
+          "sha256": "e50a53f42f6b7afa4dc81dae45759560dd6104e020bc367d46cef405f93c619a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a1-r44/out-uwvm2-ros/before-a1/session-0001/protocol.tar.xz",
+          "sha256": "bc08fd4de54d374f2c8f1dbbfa2cd6f53cc49287f3529331b66a4e37dc4029e6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "instruction",
+      "passed": true,
+      "sessions": 2,
+      "elapsed_seconds": 41.077749962998496,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/instruction-a1/results.json",
+      "receipt_sha256": "063687594e2bfdad671ab1b1dc2eee97f87f0f3ef3feb335fe6462bc8f037442",
+      "profiles": [
+        "rust-nested-wasm32-dwarf4",
+        "rust-nested-wasm32-dwarf5"
+      ],
+      "policies": [
+        "instruction"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/instruction-a1/session-0000/protocol.tar.xz",
+          "sha256": "833a9a780720cef00e6f2130a5ee64f3ead1f82c742903481f9ce8282131a3ff",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/instruction-a1/session-0001/protocol.tar.xz",
+          "sha256": "6ea075833a548acb5fa00a4dece5d7b41ddf8b472192ae2361253e239d0db4ce",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "unwind",
+      "passed": true,
+      "sessions": 2,
+      "elapsed_seconds": 40.64633544699973,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/unwind-a1/results.json",
+      "receipt_sha256": "42b05757cdc98963a5baa5faf8336d90f3790d2fb7c34488a8f3880212a4172f",
+      "profiles": [
+        "rust-nested-wasm32-dwarf4",
+        "rust-nested-wasm32-dwarf5"
+      ],
+      "policies": [
+        "unwind"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/unwind-a1/session-0000/protocol.tar.xz",
+          "sha256": "a590d2f7f47d1af69818ab8d44de50e3a191ca021f96b04348baf6f9bbf2a93e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/unwind-a1/session-0001/protocol.tar.xz",
+          "sha256": "002ec4d9026b3900351ce78a520ec5f3b04eb78a8c25ee69e7e14c9c7f80f75e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "soak",
+      "passed": true,
+      "sessions": 31,
+      "elapsed_seconds": 616.112460346998,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/results.json",
+      "receipt_sha256": "401ca66409484de98fa6c40deb2a084ec7fa1683e049d0fdaa8e55e65291f864",
+      "profiles": [
+        "rust-nested-wasm32-dwarf4",
+        "rust-nested-wasm32-dwarf5"
+      ],
+      "policies": [
+        "instruction",
+        "unwind"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0000/protocol.tar.xz",
+          "sha256": "8137024bf998e7584c3beb8130157f87f309e8247e73c5c37dac754e8dabc13f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0001/protocol.tar.xz",
+          "sha256": "321712683284da4763a8a42dd7fbd04301b8a8913161f55dc0d01fa8d966d33c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0002/protocol.tar.xz",
+          "sha256": "6714e5588036de916e575e4d1d857b6862ef27e84830c77bb2c49a2b6cb8c5cd",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0003/protocol.tar.xz",
+          "sha256": "b3aecd43914d7d838b978122ef45ffdf8ca573bbf7c32e9ae932d9cdf281b854",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0004/protocol.tar.xz",
+          "sha256": "b82f7982c1e538c5b231dbf08f31688ff4b16e08ae1a1391287cf87e67ff4704",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0005/protocol.tar.xz",
+          "sha256": "7fdf2773fa5164d1a8148511e65897426a6acd89b0003e517b509e4049c9c41d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0006/protocol.tar.xz",
+          "sha256": "55010b922c1f334b20a83baa299f9eaa88d82f7f2a7d2d69666df998b03afe0e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0007/protocol.tar.xz",
+          "sha256": "14555a8560d24553df595a70554246945d73c52ab19c23bd9b171ee29d88fd79",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0008/protocol.tar.xz",
+          "sha256": "af26cd834134ae98e9e122df3033c9fdf1bff676413afb3ac26c1e681e7853c5",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0009/protocol.tar.xz",
+          "sha256": "ec09f2b49095f5185b6038198e439662b27944b4c58d330b3e116c755a5638da",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0010/protocol.tar.xz",
+          "sha256": "f2ce293d56729558a3d42a4cd7db2bb325d9e53f25fe46aafff3ccc60a5e43e6",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0011/protocol.tar.xz",
+          "sha256": "4c0aaa54d27d05312edc824e9ae35247e938695fd2be68f3c03db958107e13bd",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0012/protocol.tar.xz",
+          "sha256": "cc1fbd8e8ca20682067c896e2cb76f1276420d7942c8fb04dc914b1dd3e05622",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0013/protocol.tar.xz",
+          "sha256": "f1a68f47d68d94f885af549aa28790433402e912de26f1a8e2e1ee0ca86de2a4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0014/protocol.tar.xz",
+          "sha256": "97cfdc6ecfa3c6405edcc48b184295015b8bb575cb3a9e039f66e99403fffaa3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0015/protocol.tar.xz",
+          "sha256": "cdf1ba6b5dbe187392326e2836cd48de92d83a3e09222a140a3900862fcd657f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0016/protocol.tar.xz",
+          "sha256": "a36f944d42f5729be9ddc2697c5eeb0de798cbc697fee4537cdab463cee89a7f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0017/protocol.tar.xz",
+          "sha256": "7a48e0d1a0caa3af0e0132823c9c2d37f2ff2d72d3f5929c6e3d316123cc870d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0018/protocol.tar.xz",
+          "sha256": "cacd489700f8caa722e6e8e53ee66d3d5c826f2caeff673f4a77dd588f148c3c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0019/protocol.tar.xz",
+          "sha256": "fc00705971360dc962c79122cffb27c5bef44190bcb8078cd60ce42434207021",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0020/protocol.tar.xz",
+          "sha256": "eb20f140ef2d32f986282b0efcad30b5bd8ee1b8f2f7284d6a33aaaf136eb62a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0021/protocol.tar.xz",
+          "sha256": "d87292ffc86774a760f87e330be245d0bbc68dfe375716b9f64c676c01de9e7a",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0022/protocol.tar.xz",
+          "sha256": "a2a553cd7a517761456d46c61dcad614fa18845a715ee3d73edd09e494f0ec1e",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0023/protocol.tar.xz",
+          "sha256": "a872c6e24a545b46d186d185c0e355939a0958a355ee2343cb4e73c4b83e8325",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0024/protocol.tar.xz",
+          "sha256": "14262ecbfbf5dca8d978e15dbfe0decfa4e81a4f86dfc9dae77b2557e1cd9220",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0025/protocol.tar.xz",
+          "sha256": "1f42975c0e7e301eb573e6ca43c94c5740713f2eb87c1be0cbf2c2c885a73880",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0026/protocol.tar.xz",
+          "sha256": "6236ec5994b9567257d0ac5f33b9adf09a68dbf0bbfda0a1db036f8cde6121ea",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0027/protocol.tar.xz",
+          "sha256": "4e75e1e8aa493b9053ff42c0c68aa49f40ece414e65fdd1a1237a568773603e8",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0028/protocol.tar.xz",
+          "sha256": "0bde09e61aa021f938894d6c0ac2bb3567f89427622adbc5cc9c9e01390349f7",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0029/protocol.tar.xz",
+          "sha256": "a8ed2248d0aa9dd16305b2e98317a1766fba5ea80244a24a6d562adbcf36da67",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/soak-a1/session-0030/protocol.tar.xz",
+          "sha256": "ba9fcb95b939bb4013997f01694dd6961b627014e6d78829f26199243db77b42",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "variants",
+      "passed": true,
+      "sessions": 2,
+      "elapsed_seconds": 32.37407653500122,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/variants-a1/results.json",
+      "receipt_sha256": "01cedd21f4bb62f9f0e7a13bfdcdd165c9f123e8bc5f93bb3541addeb34e1ae7",
+      "profiles": [
+        "rust-wasm32-dwarf4",
+        "rust-wasm32-dwarf5"
+      ],
+      "policies": [
+        "instruction"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/variants-a1/session-0000/protocol.tar.xz",
+          "sha256": "33ada53e8d7929a235b46b83df0fd284f49f0bfd6a037c3d14571ae3d12e2be4",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/variants-a1/session-0001/protocol.tar.xz",
+          "sha256": "de004a119e51de3f10d18836072f1af982430325529c902a7465a4b7acea2993",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "arrays",
+      "passed": true,
+      "sessions": 1,
+      "elapsed_seconds": 6.4800898550020065,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/arrays-a1/results.json",
+      "receipt_sha256": "b965175e1cb9e1bd1f58e6e88b4b51ac996016d7ce0fb44d713cbe359e4c60fc",
+      "profiles": [
+        "original-TinyGo-O0-array-text"
+      ],
+      "policies": [
+        "instruction"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/arrays-a1/session-0000/session-0/source-dap.json",
+          "sha256": "aa05b70d7fd62584afd1ca3c64971b7dd11805b8be85aa634fbb6fc3247cd64f",
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "enums",
+      "passed": true,
+      "sessions": 16,
+      "elapsed_seconds": 90.8940384230009,
+      "receipt_path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/results.json",
+      "receipt_sha256": "6b0d5026b64b404f2f15348bdc02032e18b0cd2d76d0aa5f622bdb964f6e3a55",
+      "profiles": [
+        "c-wasm32-dwarf4",
+        "c-wasm32-dwarf5",
+        "c-wasm64-dwarf4",
+        "c-wasm64-dwarf5",
+        "cpp-wasm32-dwarf4",
+        "cpp-wasm32-dwarf5",
+        "cpp-wasm64-dwarf4",
+        "cpp-wasm64-dwarf5",
+        "objc-wasm32-dwarf4",
+        "objc-wasm32-dwarf5",
+        "objc-wasm64-dwarf4",
+        "objc-wasm64-dwarf5",
+        "objcpp-wasm32-dwarf4",
+        "objcpp-wasm32-dwarf5",
+        "objcpp-wasm64-dwarf4",
+        "objcpp-wasm64-dwarf5"
+      ],
+      "policies": [
+        "instruction"
+      ],
+      "verified_protocols": [
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0000/protocol.tar.xz",
+          "sha256": "281a6226958b348500772d6d8a701875c5db5f53e273ab7e23fc063314c5ae23",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0001/protocol.tar.xz",
+          "sha256": "33d808645d4454a915493b2c10961aeb1c66ff4489b918a3c35143b9045cd314",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0002/protocol.tar.xz",
+          "sha256": "b1a4c70e7df0cf4ebce0a95d1d7c6865be424d0e4db499fdb6559b01212a82f0",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0003/protocol.tar.xz",
+          "sha256": "698daf4c6a869fbde9d6e85c8c042c81cdc4d41f4edf54853c45f5747bd9905c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0004/protocol.tar.xz",
+          "sha256": "3762c3d5431a913f72593b23ff8cf88431b081a41194dbbb2e91e7cef58a493c",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0005/protocol.tar.xz",
+          "sha256": "eeb7505af3fd116f1cf91703716e6b46c78ab661783e3e2b2a6a94f2837b29ea",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0006/protocol.tar.xz",
+          "sha256": "e8835092c803428d90d00364d8cffd56b74abd24da531173497200e6e7cf94be",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0007/protocol.tar.xz",
+          "sha256": "91d499b724c87ad8701b7fe80f072e3a5be8b71378211eb27d059e6a57ba8446",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0008/protocol.tar.xz",
+          "sha256": "c33bc0d2878793977952aaf989d05748b6a3ae2924948a860ad47945b46b66dd",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0009/protocol.tar.xz",
+          "sha256": "98f76b0f42e289c0ceb5cfbd7f32b1add596776b42915e777e187c73b766e6e3",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0010/protocol.tar.xz",
+          "sha256": "a1aa39e67bf01a798c2e112f3c1108735a0e7ecf1e606736ed976ded77e5e44f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0011/protocol.tar.xz",
+          "sha256": "e60457d70237865a69d1c504191d5e6b92fdbfc399ad48c57306eec6cb449f37",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0012/protocol.tar.xz",
+          "sha256": "6a0ff835f36bae25ebe85e2e8e94ec26810ebf352ddb8f554fd0288803b1b7a0",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0013/protocol.tar.xz",
+          "sha256": "197babfc4a5f0b858848e5f7e12289a01bc9e12513a998931370f36bc7c63d5d",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0014/protocol.tar.xz",
+          "sha256": "f0fec5196bd33a695a25ff9ad37a7064074cd4291af297ae3080ed5e200eacb1",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        },
+        {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/out-uwvm2-ros/enums-a1/session-0015/protocol.tar.xz",
+          "sha256": "679939d01cdca150c70555585fdba3855847e5924154c8ff7d19401f5b18fa8f",
+          "all_member_bytes_verified": true,
+          "actual_EOF_returncode_zero": true
+        }
+      ]
+    }
+  ],
+  "guarded_jobs": [
+    {
+      "label": "uwvm2producer",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 1.7758146320011292,
+      "aggregate_owned_rss_peak_bytes": 18558976,
+      "minimum_observed_actual_free_bytes": 9474949120,
+      "maximum_observed_own_output_bytes": 178270,
+      "runtime_library_files": 195,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 435916,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 1
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "df365afc363292e6301b5cfb7785e3edfc60c920af2f37e040585636b9ee4413",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 435916,
+        "birth": 2321316,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a1/guard-producer-uwvm2-a1/receipts.json",
+      "sha256": "7a4de72ca3e404b4abd22d94eeeb07a910bcd901d536f7fe49fee1b5b042f191"
+    },
+    {
+      "label": "uwvm2rosproducer",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 1.7768832450019545,
+      "aggregate_owned_rss_peak_bytes": 23076864,
+      "minimum_observed_actual_free_bytes": 9474940928,
+      "maximum_observed_own_output_bytes": 178270,
+      "runtime_library_files": 195,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 435915,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 1
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "51fbbff0c83a60457378254c8e80446c02fcae2bd85afcfb683a857995f83ce5",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 435915,
+        "birth": 2321315,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a1/guard-producer-uwvm2-ros-a1/receipts.json",
+      "sha256": "23069db11318a92993f36378b8741ba27989398a1eca1ca15c207cf5933ae33b"
+    },
+    {
+      "label": "uwvm2producer",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 1.7865357240007143,
+      "aggregate_owned_rss_peak_bytes": 18526208,
+      "minimum_observed_actual_free_bytes": 9471942656,
+      "maximum_observed_own_output_bytes": 2718236,
+      "runtime_library_files": 195,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 437490,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "0bb37dc72db49c263bef3b344cf548a86ff9f1bfa602fef58d0aeaa0e7b8f202",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 437490,
+        "birth": 2326813,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2/guard-producer-uwvm2-a1/receipts.json",
+      "sha256": "a9fa58bb99830ddee70658d519a0f08689250a6f38dad4243e81a03c2a5e7cfd"
+    },
+    {
+      "label": "uwvm2rosproducer",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 1.8429994649995933,
+      "aggregate_owned_rss_peak_bytes": 18604032,
+      "minimum_observed_actual_free_bytes": 9471938560,
+      "maximum_observed_own_output_bytes": 2718236,
+      "runtime_library_files": 195,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 437489,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "a85f63b2556f0087f10f7c03d903df0c9ccf7e4702c6a40de29664af77754243",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 437489,
+        "birth": 2326809,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2/guard-producer-uwvm2-ros-a1/receipts.json",
+      "sha256": "1f1060808b32f8b16f02350023a8489d48dc444d73c3d188fd1acf2f6a38eb21"
+    },
+    {
+      "label": "uwvm2before",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 40.78473485900031,
+      "aggregate_owned_rss_peak_bytes": 221048832,
+      "minimum_observed_actual_free_bytes": 9465319424,
+      "maximum_observed_own_output_bytes": 1959738,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 439901,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "c171bfcfbfad1acdb92239f3b690d92b9ecde82833055bc837757a4130aa28bd",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 439901,
+        "birth": 2346917,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a1-r44/guard-inspect-uwvm2-a1/receipts.json",
+      "sha256": "22f325829566c7cc3b763184946032e44b67c8be222520deb7bbbee628deae6e"
+    },
+    {
+      "label": "uwvm2rosbefore",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 41.09138064099898,
+      "aggregate_owned_rss_peak_bytes": 220549120,
+      "minimum_observed_actual_free_bytes": 9466068992,
+      "maximum_observed_own_output_bytes": 1219469,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 439897,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "767df9875e5b87d100b2fd32c7ad82b5245012bf085300da816e87c451912331",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 439897,
+        "birth": 2346891,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a1-r44/guard-inspect-uwvm2-ros-a1/receipts.json",
+      "sha256": "c430c134cd2644bfe3590d4560d7bb44c2d4199efe3b06534d3d79e7259fbf1e"
+    },
+    {
+      "label": "uwvm2unit",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 2.997225786002673,
+      "aggregate_owned_rss_peak_bytes": 60256256,
+      "minimum_observed_actual_free_bytes": 9461895168,
+      "maximum_observed_own_output_bytes": 0,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 442369,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "22187d395d3dfdc302cca39344935153b58e9eebedecd46f02cf080bfa165fef",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 442369,
+        "birth": 2369474,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-short-uwvm2-a1/receipts.json",
+      "sha256": "60f706a3294cb1ea86cf42c54db854126bf5c4df0c962d4d120aa7b6161f4843"
+    },
+    {
+      "label": "uwvm2instruction",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 41.95660873399902,
+      "aggregate_owned_rss_peak_bytes": 222687232,
+      "minimum_observed_actual_free_bytes": 9460674560,
+      "maximum_observed_own_output_bytes": 1130646,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 442684,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "22187d395d3dfdc302cca39344935153b58e9eebedecd46f02cf080bfa165fef",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 442684,
+        "birth": 2369846,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-short-uwvm2-a1/receipts.json",
+      "sha256": "60f706a3294cb1ea86cf42c54db854126bf5c4df0c962d4d120aa7b6161f4843"
+    },
+    {
+      "label": "uwvm2unwind",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 42.36994324099942,
+      "aggregate_owned_rss_peak_bytes": 222871552,
+      "minimum_observed_actual_free_bytes": 9459621888,
+      "maximum_observed_own_output_bytes": 1965942,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 443484,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "22187d395d3dfdc302cca39344935153b58e9eebedecd46f02cf080bfa165fef",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 443484,
+        "birth": 2374141,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-short-uwvm2-a1/receipts.json",
+      "sha256": "60f706a3294cb1ea86cf42c54db854126bf5c4df0c962d4d120aa7b6161f4843"
+    },
+    {
+      "label": "uwvm2arrays",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 7.676984924997669,
+      "aggregate_owned_rss_peak_bytes": 321167360,
+      "minimum_observed_actual_free_bytes": 9459208192,
+      "maximum_observed_own_output_bytes": 2250457,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 444577,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "22187d395d3dfdc302cca39344935153b58e9eebedecd46f02cf080bfa165fef",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 444577,
+        "birth": 2378457,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-short-uwvm2-a1/receipts.json",
+      "sha256": "60f706a3294cb1ea86cf42c54db854126bf5c4df0c962d4d120aa7b6161f4843"
+    },
+    {
+      "label": "uwvm2enums",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 93.75285344499935,
+      "aggregate_owned_rss_peak_bytes": 191725568,
+      "minimum_observed_actual_free_bytes": 9455476736,
+      "maximum_observed_own_output_bytes": 4980543,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 444985,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "22187d395d3dfdc302cca39344935153b58e9eebedecd46f02cf080bfa165fef",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 444985,
+        "birth": 2379301,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-short-uwvm2-a1/receipts.json",
+      "sha256": "60f706a3294cb1ea86cf42c54db854126bf5c4df0c962d4d120aa7b6161f4843"
+    },
+    {
+      "label": "uwvm2variants",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 33.00277944300251,
+      "aggregate_owned_rss_peak_bytes": 213929984,
+      "minimum_observed_actual_free_bytes": 9454096384,
+      "maximum_observed_own_output_bytes": 6056657,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 447612,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "22187d395d3dfdc302cca39344935153b58e9eebedecd46f02cf080bfa165fef",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 447612,
+        "birth": 2388760,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-short-uwvm2-a1/receipts.json",
+      "sha256": "60f706a3294cb1ea86cf42c54db854126bf5c4df0c962d4d120aa7b6161f4843"
+    },
+    {
+      "label": "uwvm2rosunit",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 3.22658710199903,
+      "aggregate_owned_rss_peak_bytes": 59314176,
+      "minimum_observed_actual_free_bytes": 9461891072,
+      "maximum_observed_own_output_bytes": 0,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 442367,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "d9de1c803203858f8ce51d0657268fa6dad98e07c0544e565ef2f1c7d62be254",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 442367,
+        "birth": 2369452,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-short-uwvm2-ros-a1/receipts.json",
+      "sha256": "6df4938a119501e9b288d6570ba9fc1c8368eee06001a54cd42aaa74d2a30b90"
+    },
+    {
+      "label": "uwvm2rosinstruction",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 42.123797729000216,
+      "aggregate_owned_rss_peak_bytes": 220839936,
+      "minimum_observed_actual_free_bytes": 9461096448,
+      "maximum_observed_own_output_bytes": 670840,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 442685,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "d9de1c803203858f8ce51d0657268fa6dad98e07c0544e565ef2f1c7d62be254",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 442685,
+        "birth": 2369846,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-short-uwvm2-ros-a1/receipts.json",
+      "sha256": "6df4938a119501e9b288d6570ba9fc1c8368eee06001a54cd42aaa74d2a30b90"
+    },
+    {
+      "label": "uwvm2rosunwind",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 41.95041927299826,
+      "aggregate_owned_rss_peak_bytes": 222380032,
+      "minimum_observed_actual_free_bytes": 9460416512,
+      "maximum_observed_own_output_bytes": 1170969,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 443485,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "d9de1c803203858f8ce51d0657268fa6dad98e07c0544e565ef2f1c7d62be254",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 443485,
+        "birth": 2374152,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-short-uwvm2-ros-a1/receipts.json",
+      "sha256": "6df4938a119501e9b288d6570ba9fc1c8368eee06001a54cd42aaa74d2a30b90"
+    },
+    {
+      "label": "uwvm2rosarrays",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 7.59861407399876,
+      "aggregate_owned_rss_peak_bytes": 320528384,
+      "minimum_observed_actual_free_bytes": 9459675136,
+      "maximum_observed_own_output_bytes": 1796538,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 444572,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "d9de1c803203858f8ce51d0657268fa6dad98e07c0544e565ef2f1c7d62be254",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 444572,
+        "birth": 2378429,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-short-uwvm2-ros-a1/receipts.json",
+      "sha256": "6df4938a119501e9b288d6570ba9fc1c8368eee06001a54cd42aaa74d2a30b90"
+    },
+    {
+      "label": "uwvm2rosenums",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 92.45497625200005,
+      "aggregate_owned_rss_peak_bytes": 190873600,
+      "minimum_observed_actual_free_bytes": 9455558656,
+      "maximum_observed_own_output_bytes": 5080256,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 444978,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "d9de1c803203858f8ce51d0657268fa6dad98e07c0544e565ef2f1c7d62be254",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 444978,
+        "birth": 2379271,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-short-uwvm2-ros-a1/receipts.json",
+      "sha256": "6df4938a119501e9b288d6570ba9fc1c8368eee06001a54cd42aaa74d2a30b90"
+    },
+    {
+      "label": "uwvm2rosvariants",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 33.56130314099937,
+      "aggregate_owned_rss_peak_bytes": 212905984,
+      "minimum_observed_actual_free_bytes": 9454125056,
+      "maximum_observed_own_output_bytes": 6042485,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 447505,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "d9de1c803203858f8ce51d0657268fa6dad98e07c0544e565ef2f1c7d62be254",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 447505,
+        "birth": 2388601,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-short-uwvm2-ros-a1/receipts.json",
+      "sha256": "6df4938a119501e9b288d6570ba9fc1c8368eee06001a54cd42aaa74d2a30b90"
+    },
+    {
+      "label": "uwvm2soak",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 602.4546694809978,
+      "aggregate_owned_rss_peak_bytes": 268869632,
+      "minimum_observed_actual_free_bytes": 9444937728,
+      "maximum_observed_own_output_bytes": 14232772,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 444345,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "5e4ca5abdf14e7c95122b0ba9dd48e6a330a29a21c97288701fa39302e57f47b",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 444345,
+        "birth": 2377849,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-soak-uwvm2-a1/receipts.json",
+      "sha256": "49b8e66cb795f3c31c8023a4fb750813981f972550793406daca9f93e3c82b26"
+    },
+    {
+      "label": "uwvm2rossoak",
+      "passed": true,
+      "returncode": 0,
+      "error": null,
+      "wall_seconds": 617.4512630370009,
+      "aggregate_owned_rss_peak_bytes": 268238848,
+      "minimum_observed_actual_free_bytes": 9445048320,
+      "maximum_observed_own_output_bytes": 13762076,
+      "runtime_library_files": 108,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 444343,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 0
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "0fda7c26fb542c4494bb90f5a8c0e287853e401a87213770792d21a58b4bfe9d",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 444343,
+        "birth": 2377827,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44/guard-soak-uwvm2-ros-a1/receipts.json",
+      "sha256": "0d6cb85933876a8f837a2603b8321036edcc1a6fe795f8bc0f54bcfd20321d21"
+    }
+  ],
+  "successful_guarded_jobs": 18,
+  "original_failed_jobs_preserved": [
+    {
+      "label": "uwvm2producer",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 1.7758146320011292,
+      "aggregate_owned_rss_peak_bytes": 18558976,
+      "minimum_observed_actual_free_bytes": 9474949120,
+      "maximum_observed_own_output_bytes": 178270,
+      "runtime_library_files": 195,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 435916,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 1
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "df365afc363292e6301b5cfb7785e3edfc60c920af2f37e040585636b9ee4413",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 435916,
+        "birth": 2321316,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a1/guard-producer-uwvm2-a1/receipts.json",
+      "sha256": "7a4de72ca3e404b4abd22d94eeeb07a910bcd901d536f7fe49fee1b5b042f191"
+    },
+    {
+      "label": "uwvm2rosproducer",
+      "passed": false,
+      "returncode": 1,
+      "error": "RuntimeError: Build command failed: 1",
+      "wall_seconds": 1.7768832450019545,
+      "aggregate_owned_rss_peak_bytes": 23076864,
+      "minimum_observed_actual_free_bytes": 9474940928,
+      "maximum_observed_own_output_bytes": 178270,
+      "runtime_library_files": 195,
+      "runtime_library_pins_before_after_unchanged": true,
+      "memory_events_before": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory_events_after": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "Popen_root_pidfd_retirement": {
+        "pid": 435915,
+        "pidfd_readable": true,
+        "actual_reaped_returncode": 1
+      },
+      "actual_writable_filesystem": {
+        "fsid": 12191019222208619510
+      },
+      "actual_stopped_child_environment": {
+        "sha256": "51fbbff0c83a60457378254c8e80446c02fcae2bd85afcfb683a857995f83ce5",
+        "capture_presence": {
+          "UWVM2_TEST_CAPTURE_NATIVE_JIT_OBJECT": false
+        },
+        "pid": 435915,
+        "birth": 2321315,
+        "scope": "actual proc environ at stopped pre-exec anchor; native env argv also explicitly unsets capture variable"
+      },
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "path": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a1/guard-producer-uwvm2-ros-a1/receipts.json",
+      "sha256": "23069db11318a92993f36378b8741ba27989398a1eca1ca15c207cf5933ae33b"
+    }
+  ],
+  "closed_cuts": [
+    {
+      "root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a1",
+      "closed_code_pin_count": 6,
+      "all_code_inputs_after_unchanged": true
+    },
+    {
+      "root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-producer-r44-a2",
+      "closed_code_pin_count": 6,
+      "all_code_inputs_after_unchanged": true
+    },
+    {
+      "root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a1-r44",
+      "closed_code_pin_count": 198,
+      "all_code_inputs_after_unchanged": true
+    },
+    {
+      "root": "/home/macromodel/Documents/uwvm3-implementation/debugger-bounded-20261006/rust-nested-dap-a2-r44",
+      "closed_code_pin_count": 202,
+      "all_code_inputs_after_unchanged": true
+    }
+  ],
+  "all_test_inputs_after_unchanged": true,
+  "summary_expected": {
+    "negative": "Carry { payload: Negative { signed: -3 } }",
+    "positive": "Carry { payload: Positive { unsigned: 7 } }",
+    "empty": "Empty",
+    "some": "Wrapped { payload: Some { __0.__0.__0: 13 } }",
+    "none": "Wrapped { payload: None }",
+    "array": "Packet { items[0]: 17, items[1]: 19 }",
+    "deep": "Top { payload: Carry { payload: Negative { signed: -3 } } }"
+  },
+  "summary_limits": {
+    "copied_nodes_per_owner": 64,
+    "shared_nested_path_depth": 8,
+    "shared_nested_values": 32,
+    "utf8_bytes_per_summary": 256,
+    "incomplete_payload": "proven outer case only; every original subtree retained"
+  },
+  "actual_IDE_UI_qualified": false,
+  "optimized_or_general_Rust_layouts_qualified": false,
+  "Rust_Wasm64_qualified": false,
+  "current_whole_workspace_qualified": false,
+  "latest_ROS_LLVM_provider_qualified": false,
+  "full_cross_arch_VM_JIT_DAP_qualified": false,
+  "all_language_native_equivalence_qualified": false,
+  "metadata_grants_new_selector_or_pointer_authority": false,
+  "ASM_guest_context_boundary_unchanged": true,
+  "arena_free_bytes": 9444737024,
+  "original_R41_archive_sha256": "13573ac167d346642b4ace02ff4ab4ea41e5667000ff261e4ef6d0659c5ac738",
+  "original_R42_tools_archive_sha256": "7f1648763c61cb8d4c6cee3800be3637648cefc8f81cf9bb331d3d942239bab3",
+  "original_R43_evidence_archive_sha256": "fb4f5f922f8740fc3105a62294ce6a39f63eb53a7afb9d1cffad35d238388e24"
+}

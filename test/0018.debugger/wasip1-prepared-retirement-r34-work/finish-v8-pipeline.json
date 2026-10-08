@@ -1,0 +1,111 @@
+[
+  {
+    "label": "wait-verified-consolidation",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3 -u -c 'from pathlib import Path\nimport json,time\np=Path('\"'\"'/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-native-v8-products-consolidate-r34-windows-all.json'\"'\"')\nstart=time.monotonic();last=0\nwhile not p.exists():\n    assert time.monotonic()-start<3600\n    if time.monotonic()-last>45:\n        print('\"'\"'waiting for verified V8 native product consolidation'\"'\"',flush=True);last=time.monotonic()\n    time.sleep(2)\nq=json.loads(p.read_text())\nassert q['\"'\"'passed'\"'\"'] and q['\"'\"'actual_root_exit'\"'\"']==0 and all(r['\"'\"'pidfd_retired'\"'\"'] for r in q['\"'\"'retirement'\"'\"'])\nprint('\"'\"'V8 compaction and actual process retirement verified'\"'\"',flush=True)\n'"
+    ],
+    "exit": 0,
+    "seconds": 424.2084392079996
+  },
+  {
+    "label": "linux-windows-freebsd",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/pipeline_v8_linux.py"
+    ],
+    "exit": 1,
+    "seconds": 1095.068964375001
+  },
+  {
+    "label": "wait-verified-historical-compaction-and-custody",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3 -u -c 'from pathlib import Path\nimport json,time\nE=Path('\"'\"'/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17'\"'\"')\npaths=[E/'\"'\"'guard-joint-historical-r29-windows-products-consolidate-r34-windows-all.json'\"'\"',\n    E/'\"'\"'guard-joint-local-inputs-custody-r34-linux-all.json'\"'\"']\nstart=time.monotonic();last=0\nwhile not all(p.exists() for p in paths):\n    assert time.monotonic()-start<3600\n    if time.monotonic()-last>45:\n        print('\"'\"'waiting for historical compaction and original source archive custody proof'\"'\"',flush=True);last=time.monotonic()\n    time.sleep(2)\nfor p in paths:\n    q=json.loads(p.read_text())\n    assert q['\"'\"'passed'\"'\"'] and q['\"'\"'actual_root_exit'\"'\"']==0 and all(r['\"'\"'pidfd_retired'\"'\"'] for r in q['\"'\"'retirement'\"'\"'])\nprint('\"'\"'Historical compaction and original source archive custody physically retired'\"'\"',flush=True)\n'"
+    ],
+    "exit": 0,
+    "seconds": 148.18949037499988
+  },
+  {
+    "label": "linux-windows-freebsd",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/pipeline_v8_linux.py"
+    ],
+    "exit": 0,
+    "seconds": 309.69915291700454
+  },
+  {
+    "label": "cross-macos-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-macos-ordinary-12g-r34.py",
+      "joint-cross-r34",
+      "macos",
+      "uwvm2"
+    ],
+    "exit": 1,
+    "seconds": 237.70226254199952
+  },
+  {
+    "label": "cross-macos-uwvm2",
+    "argv": [
+      "ssh",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75",
+      "python3",
+      "-u",
+      "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-macos-ordinary-12g-r34.py",
+      "joint-cross-r34",
+      "macos",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 146.03166562499973
+  },
+  {
+    "label": "qualification-macos-uwvm2",
+    "argv": [
+      "scp",
+      "-i",
+      "/Users/liyinan/.ssh/id_ed25519",
+      "macromodel@100.123.133.75:/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/products-v8/macos/uwvm2/qualified.json",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/uwvm2-macos-cross-qualified.json"
+    ],
+    "exit": 0,
+    "seconds": 0.20760237499780487
+  },
+  {
+    "label": "native-macos-uwvm2",
+    "argv": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-u",
+      "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/pipeline_macos.py",
+      "uwvm2"
+    ],
+    "exit": 0,
+    "seconds": 339.89090975
+  }
+]

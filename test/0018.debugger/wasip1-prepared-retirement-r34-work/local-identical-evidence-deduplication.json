@@ -1,0 +1,200 @@
+{
+  "passed": true,
+  "both_paths_and_bytes_preserved": true,
+  "only_identical_historical_wasip1_test_evidence": true,
+  "rows": [
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_acknowledgement_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_acknowledgement_test_results.json",
+      "sha256": "f07a7311a6439940adbb3951052d4f58f424796c64d9c8ae42035ad7cee779c8",
+      "bytes": 745646,
+      "prior_primary_inode": 82117625,
+      "prior_ros_inode": 82117628,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_atomic_export_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_atomic_export_test_results.json",
+      "sha256": "d1e6a95c9b8d165b37cb1548af9086775178536186e037a6ba07a907aee58c98",
+      "bytes": 8948416,
+      "prior_primary_inode": 82228666,
+      "prior_ros_inode": 82228669,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_controller_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_controller_test_results.json",
+      "sha256": "97d1ab901b94d9cb309d378765ca58938fd88c532220a6f15f1f4328a0753365",
+      "bytes": 3224534,
+      "prior_primary_inode": 82156420,
+      "prior_ros_inode": 82156423,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_directory_flags_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_directory_flags_test_results.json",
+      "sha256": "00ba2965cf7b1cc02ff8983bcb5bc8000669eed27166ca81ea2135a96e7df779",
+      "bytes": 2476,
+      "prior_primary_inode": 82018013,
+      "prior_ros_inode": 82018015,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_export_cleanup_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_export_cleanup_test_results.json",
+      "sha256": "23ad67d3c5fb82c7857f118747db6d2836ff088215d73a9ca9577cf8131e68fe",
+      "bytes": 4552811,
+      "prior_primary_inode": 82172527,
+      "prior_ros_inode": 82172530,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_fd_slot_reuse_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_fd_slot_reuse_test_results.json",
+      "sha256": "d11598b45fbf65da3357da6d21613ccb800e70d8fe68ee2ebca16d82843bed7f",
+      "bytes": 47669,
+      "prior_primary_inode": 82028468,
+      "prior_ros_inode": 82028471,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_file_close_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_file_close_test_results.json",
+      "sha256": "d3f5ab99de5110d8fa23eb98d1da62072e4da8a487370e616d0992bb9c85017e",
+      "bytes": 2754362,
+      "prior_primary_inode": 82124666,
+      "prior_ros_inode": 82124669,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_linux_bounded_recovery_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_linux_bounded_recovery_test_results.json",
+      "sha256": "d868dcee0059dff4229e884c7f58ee35c681e53942b1c16dda41930e63305817",
+      "bytes": 1236635,
+      "prior_primary_inode": 82101506,
+      "prior_ros_inode": 82101508,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_os_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_os_test_results.json",
+      "sha256": "19807a1c269f98768a1d01127cb07761ced6e57f19473704514c70c728469208",
+      "bytes": 1599882,
+      "prior_primary_inode": 81761571,
+      "prior_ros_inode": 81761573,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_portable_path_admission_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_portable_path_admission_test_results.json",
+      "sha256": "c76a025e27c25a0b27eb678adb400c122eca424e064c01438a38745d498d1f97",
+      "bytes": 4262860,
+      "prior_primary_inode": 82111150,
+      "prior_ros_inode": 82111152,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_rebinding_validation_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_rebinding_validation_test_results.json",
+      "sha256": "a2100d6c4fa7ec6776ef3ab873493af4c587d6c7127daedce521d0ae3adf8bb4",
+      "bytes": 81642,
+      "prior_primary_inode": 82071064,
+      "prior_ros_inode": 82071067,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_recording_label_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_recording_label_test_results.json",
+      "sha256": "c40b6a1c8099bbf18583fb855b3f49413cbec361c365ecc5f7910877e8e5bb1f",
+      "bytes": 581233,
+      "prior_primary_inode": 82047991,
+      "prior_ros_inode": 82047994,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_resource_alias_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_resource_alias_test_results.json",
+      "sha256": "e7d87aee3d177dd2d8d581973f2d9f29c229ffcdb164256a44dc6f49074f95e1",
+      "bytes": 127065,
+      "prior_primary_inode": 82043142,
+      "prior_ros_inode": 82043143,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_root_selection_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_root_selection_test_results.json",
+      "sha256": "0a7c5d6f52f50cfece65b55822015988e9e4b0c2f6f8e220d3b9191ddddd376b",
+      "bytes": 23732,
+      "prior_primary_inode": 82024188,
+      "prior_ros_inode": 82024191,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_sync_flags_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_sync_flags_test_results.json",
+      "sha256": "2a3d76ce621aafd377a20741eee6326882d726ac5d3a97da802beea992e26a47",
+      "bytes": 3814523,
+      "prior_primary_inode": 81988768,
+      "prior_ros_inode": 81988770,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_sync_transition_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_sync_transition_test_results.json",
+      "sha256": "55c5049259af7fde1d7b1c96c24ddc1cdfdb0e3571d485e8bd7d9957f6004900",
+      "bytes": 5868484,
+      "prior_primary_inode": 81993914,
+      "prior_ros_inode": 81993917,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_checkpoint_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_checkpoint_test_results.json",
+      "sha256": "5cfab2a9659b476eff43585a25900d1735bc7e161aa3e16419d0a89598931474",
+      "bytes": 64562,
+      "prior_primary_inode": 81588298,
+      "prior_ros_inode": 81588300,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_cross_jit_checkpoint_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_cross_jit_checkpoint_test_results.json",
+      "sha256": "bab3be7dc9fd2c5f23f15e9e072a69f8761d8aae44977a6b515c9f45b3f95c01",
+      "bytes": 27287,
+      "prior_primary_inode": 82274558,
+      "prior_ros_inode": 82274559,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_edit_acknowledgement_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_edit_acknowledgement_test_results.json",
+      "sha256": "6b6cfe5d09057c246e2af894fee814b9d6fa4d6efcaed56f8a0e30e901c6a0d0",
+      "bytes": 1377047,
+      "prior_primary_inode": 82133895,
+      "prior_ros_inode": 82133898,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_live_integration_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_live_integration_test_results.json",
+      "sha256": "8844d022a4dd237fdb6191841238121be0cb944305f9f7483d1f5aeeb129f5db",
+      "bytes": 56062,
+      "prior_primary_inode": 82246232,
+      "prior_ros_inode": 82246235,
+      "all_bytes_unchanged": true
+    },
+    {
+      "primary": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1_portable_checkpoint_test_results.json",
+      "ros": "/Users/liyinan/Documents/MacroModel/src/uwvm2-ros/test/0018.debugger/wasip1_portable_checkpoint_test_results.json",
+      "sha256": "313a154ff32ab355f6380650c7211e5ce6b311fc2b3c9114c94873108a97b416",
+      "bytes": 614972,
+      "prior_primary_inode": 81791183,
+      "prior_ros_inode": 81791184,
+      "all_bytes_unchanged": true
+    }
+  ],
+  "free_before_bytes": 242937856,
+  "free_after_bytes": 261820416,
+  "memory_upper_bytes": 154304512,
+  "limit_bytes": 2147483648
+}

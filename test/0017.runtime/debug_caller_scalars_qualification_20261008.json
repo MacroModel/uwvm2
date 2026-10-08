@@ -1,0 +1,1221 @@
+{
+  "schema": "uwvm2-caller-scalars-qualification-r56-v1",
+  "created_utc": "2026-10-08T00:32:50.631206+00:00",
+  "passed": true,
+  "scope": "Saved caller frame-relative scalar Source variables and canonical scalar type qualifiers; fresh full LLVM JIT x86_64 Linux products only.",
+  "current_whole_workspace_qualified": false,
+  "latest_ROS_provider_qualified": false,
+  "uwvm_int_full_qualified": false,
+  "full_native_language_parity": false,
+  "full_cross_architecture_VM_JIT_DAP_qualified": false,
+  "new_QEMU_runs_at_R56": 0,
+  "actual_IDE_UI": false,
+  "host_VM_ASM_debugging_prohibited": true,
+  "DAP_unit_tests_per_repository": 473,
+  "source_status_counts_preserved": {
+    "implemented": 14,
+    "partial": 39,
+    "missing": 33,
+    "separate_level": 1,
+    "prohibited_by_scope": 1
+  },
+  "products": [
+    {
+      "repository": "uwvm2",
+      "binary_path": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-full-a2-r56/out-uwvm2/product-a1/uwvm",
+      "binary_sha256": "5822ee3964c52a684a5b4b20843e487b3c7ed0fa92564996c9553c06348e5e35",
+      "bytes": 178699912,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-full-a2-r56/out-uwvm2/product-a1/results.json",
+      "receipt_sha256": "d52d203e2fa6e4df348dfbd0c7e82fea85af7c39a736a1a07692a2adba7ec2fe",
+      "manifest_source_id": "sha256:59e7f0dd4eab8eb9a1fb3813e3f0df3b5a9d7128852cf03788ae72ca78ad5ef7",
+      "actual_dependencies": 3446,
+      "fresh_TUs": 3,
+      "link_returncode": 0,
+      "source_scope": "R54 frozen full source plus only R56 saved-caller Source scalar refinement and canonical scalar type qualifiers",
+      "embedded_label_inherited_from_parent": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "binary_path": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-full-a2-r56/out-uwvm2-ros/product-a1/uwvm",
+      "binary_sha256": "b667d0361748ed8ed90d9356f88150e28807c8e4fe2f382628a9ac4ce18d0a77",
+      "bytes": 144254344,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-full-a2-r56/out-uwvm2-ros/product-a1/results.json",
+      "receipt_sha256": "266ec251c9ad1958bfc9b8302d14edce9745211f8180cda718dd02b244d458a1",
+      "manifest_source_id": "sha256:121086d0858030981ce2ede6fa3892a90a188bc88d0c278bd3c5aab272347120",
+      "actual_dependencies": 3411,
+      "fresh_TUs": 3,
+      "link_returncode": 0,
+      "source_scope": "R54 frozen full source plus only R56 saved-caller Source scalar refinement and canonical scalar type qualifiers",
+      "embedded_label_inherited_from_parent": true
+    }
+  ],
+  "before_controls": [
+    {
+      "repository": "uwvm2",
+      "profile": "c-wasm32-dwarf4-O0",
+      "policy": "instruction",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a4-r56/out-uwvm2/debug-a1/session-0000/results.json",
+      "source_missing_Watch_known": true,
+      "protocol": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a4-r56/out-uwvm2/debug-a1/session-0000/protocol.tar.xz",
+        "bytes": 4664,
+        "sha256": "59b6a09acc4411ecca9285f76903e81d315924871629838abbbba9f811a0a737",
+        "members_stream_verified": true,
+        "original_guest_wait_zero": true,
+        "broker_wait_zero": true,
+        "actual_DAP_EOF_zero": true
+      }
+    },
+    {
+      "repository": "uwvm2",
+      "profile": "c-wasm32-dwarf5-O1",
+      "policy": "unwind",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a4-r56/out-uwvm2/debug-unwind-a1/session-0000/results.json",
+      "source_missing_Watch_known": true,
+      "protocol": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a4-r56/out-uwvm2/debug-unwind-a1/session-0000/protocol.tar.xz",
+        "bytes": 4668,
+        "sha256": "c65de56992581962cddcc8485ae60fa95d80f9963ad420ae21ed74da9a0ecb98",
+        "members_stream_verified": true,
+        "original_guest_wait_zero": true,
+        "broker_wait_zero": true,
+        "actual_DAP_EOF_zero": true
+      }
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "c-wasm32-dwarf4-O0",
+      "policy": "instruction",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a4-r56/out-uwvm2-ros/debug-a1/session-0000/results.json",
+      "source_missing_Watch_known": true,
+      "protocol": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a4-r56/out-uwvm2-ros/debug-a1/session-0000/protocol.tar.xz",
+        "bytes": 4676,
+        "sha256": "c2ade27927ccfa9a10f16ae120d09d844591ab1878f458dd4c929bad507cd017",
+        "members_stream_verified": true,
+        "original_guest_wait_zero": true,
+        "broker_wait_zero": true,
+        "actual_DAP_EOF_zero": true
+      }
+    },
+    {
+      "repository": "uwvm2-ros",
+      "profile": "c-wasm32-dwarf5-O1",
+      "policy": "unwind",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a4-r56/out-uwvm2-ros/debug-unwind-a1/session-0000/results.json",
+      "source_missing_Watch_known": true,
+      "protocol": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a4-r56/out-uwvm2-ros/debug-unwind-a1/session-0000/protocol.tar.xz",
+        "bytes": 4676,
+        "sha256": "1bbb1995226e733f74adc71926d24e2d007e48b068644307c2a44e21106e0ffc",
+        "members_stream_verified": true,
+        "original_guest_wait_zero": true,
+        "broker_wait_zero": true,
+        "actual_DAP_EOF_zero": true
+      }
+    }
+  ],
+  "saved_caller_sessions": 1220,
+  "selected_scalar_evaluations": 58560,
+  "actual_selected_frames_checked": 4880,
+  "regression_sessions": 604,
+  "continuous": [
+    {
+      "repository": "uwvm2",
+      "seconds": 614.126612181004,
+      "sessions": 544,
+      "profiles": 32,
+      "policies": [
+        "instruction",
+        "unwind"
+      ]
+    },
+    {
+      "repository": "uwvm2-ros",
+      "seconds": 614.1443111219996,
+      "sessions": 544,
+      "profiles": 32,
+      "policies": [
+        "instruction",
+        "unwind"
+      ]
+    }
+  ],
+  "retained_failures": [
+    {
+      "stage": "caller-scalars-before-a2-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a2-r56/guard-before/receipts.json",
+      "reason": "The enhanced driver incorrectly required a suffix on the current-frame producer function name; actual current name is source_primitive_probe. Fresh corrected driver closure follows.",
+      "counted_as_final_qualified": false,
+      "all_original_trees_retired": true
+    },
+    {
+      "stage": "caller-scalars-before-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a3-r56/guard-before/receipts.json",
+      "reason": "O1 source breakpoint preceded a volatile floating initializer instruction. The actual Watch value was 0 at that pre-store stop. Fresh original fixture puts its breakpoint on the self-check reads after initialization; no producer bytes are patched.",
+      "counted_as_final_qualified": false,
+      "all_original_trees_retired": true
+    }
+  ],
+  "production_delta": [
+    {
+      "file": "src/uwvm2/uwvm/debugger/controller.h",
+      "old": "        void source_caller_locals_locked(trace_record const& record, source_caller_selection const& chosen,\n            controller_reply& result)",
+      "replacement": "        void source_caller_locals_locked(trace_record const& record, console_command const& command,\n            source_caller_selection const& chosen, controller_reply& result)"
+    },
+    {
+      "file": "src/uwvm2/uwvm/debugger/controller.h",
+      "old": "            { result.source_locals.clear(); result.source_locals_available = false; result.source_frame_caller_unavailable = true;\n              if(result.status == control_error::none) { result.status = control_error::source_location_unmapped; } }\n#else\n            (void)record; (void)chosen; result.status = control_error::source_debug_info_unavailable;",
+      "replacement": "            { result.source_locals.clear(); result.source_locals_available = false; result.source_frame_caller_unavailable = true;\n              if(result.status == control_error::none) { result.status = control_error::source_location_unmapped; } }\n            else if(result.source_locals_available)\n            {\n                // The saved-frame callback has returned and released its runtime\n                // read guard. Reenter the canonical selected-frame transaction\n                // only here, under the unchanged controller-owned pause. Never\n                // nest a runtime lease or substitute current/callee storage.\n                for(auto& value : result.source_locals)\n                {\n                    if(value.kind != source_dwarf::numeric_kind::unavailable ||\n                       (value.reason != source_dwarf::numeric_unavailable_reason::local_not_captured &&\n                        value.reason != source_dwarf::numeric_unavailable_reason::unsupported_plan &&\n                        value.reason != source_dwarf::numeric_unavailable_reason::incomplete_composite)) { continue; }\n                    source_dwarf::source_expression expression{};\n                    expression.root_name = ::fast_io::concat_std(::std::string_view{value.name});\n                    controller_reply resolved{}; resolved.threads = result.threads;\n                    source_expression_locked(record, command, expression, resolved, ::std::addressof(chosen));\n                    if(resolved.status != control_error::none) { continue; }\n                    if(resolved.source_locals_available && resolved.source_locals.size() == 1u &&\n                       resolved.source_locals[0u].identity == value.identity)\n                    { value = ::std::move(resolved.source_locals[0u]); }\n                    else if(resolved.source_object_value_available && resolved.source_object_type.size() == 1u)\n                    {\n                        auto const& node{resolved.source_object_type[0u]};\n                        if(!node.value_available || node.reason != source_dwarf::object_unavailable_reason::none ||\n                           node.kind != source_dwarf::type_kind::scalar || node.scalar_kind == source_dwarf::numeric_kind::unavailable) { continue; }\n                        value.kind = node.scalar_kind; value.bits = node.bits; value.byte_count = node.scalar_bytes;\n                        value.reason = source_dwarf::numeric_unavailable_reason::none;\n                    }\n                }\n            }\n#else\n            (void)record; (void)command; (void)chosen; result.status = control_error::source_debug_info_unavailable;"
+    },
+    {
+      "file": "src/uwvm2/uwvm/debugger/controller.h",
+      "old": "source_caller_locals_locked(record, caller, result)",
+      "replacement": "source_caller_locals_locked(record, command, caller, result)"
+    },
+    {
+      "file": "src/uwvm2/uwvm/debugger/controller.h",
+      "old": "                        value.kind = node.scalar_kind; value.bits = node.bits; value.byte_count = node.scalar_bytes;\n                        value.reason",
+      "replacement": "                        value.type_name = node.type_name;\n                        value.kind = node.scalar_kind; value.bits = node.bits; value.byte_count = node.scalar_bytes;\n                        value.reason"
+    },
+    {
+      "file": "src/uwvm2/uwvm/debugger/controller.h",
+      "old": "                        value.kind=node.scalar_kind;value.bits=node.bits;value.byte_count=node.scalar_bytes;value.reason=source_dwarf::numeric_unavailable_reason::none;",
+      "replacement": "                        value.type_name=node.type_name;\n                        value.kind=node.scalar_kind;value.bits=node.bits;value.byte_count=node.scalar_bytes;value.reason=source_dwarf::numeric_unavailable_reason::none;"
+    }
+  ],
+  "qualification_boundaries": [
+    "Full products overlay only five owned R56 snippets on R54 frozen full source. Actual source manifests, all three fresh TUs, compiler/linker/runtime and historical separately pinned LLVM23 provider are checked. Inherited embedded R51/R53 labels are not a claim about the new source closure.",
+    "Initial saved caller numeric query runs under the actual selected-frame runtime lease; canonical expression refinements start only after that callback has returned. The original controller mutex and unchanged pause remain owned; each refinement reauthenticates the actual caller incarnation/cohort/frame.",
+    "Only unavailable direct-local scalar observations with the three existing refinable reasons enter the canonical actual selected-frame reader. Missing producer locations or unknown bits stay unavailable. Native/host VM context grants no access.",
+    "Read-only Source variables and Watch, hover, variables context agree in value and producer-qualified type for live volatile integer, boolean, float and double objects in the actual caller. Same-name actual callee values are independently different, proving no callee storage substitution in these profiles.",
+    "Both initial and post-step caller/current frames are read. The immediately queued old caller frame, scope and expression are rejected after actual Wasm stepping; fresh caller and current frames reacquire the original values/types. Source pages bind the complete original stop/cohort/module/function/runtime epoch.",
+    "Four C-family front ends, Wasm32/64, DWARF4/5, O0/O1, instruction/unwind policies are finite compiler-original producer coverage. No producer Wasm or DWARF byte is rewritten; source fixture self checks and original guest wait must return zero.",
+    "No full native parity, every language ABI, dynamic Objective-C/Foundation, standard Go/AssemblyScript completeness, all optimized locations, assignment/watchpoints/guest calls or native IDE UI is claimed.",
+    "Existing portable QEMU DATA cases do not qualify the changed full controller or full target VM/JIT/DAP. No new QEMU execution is counted in this controller-only round."
+  ],
+  "intermediate_value_only_witness": {
+    "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a1-r56/out-uwvm2/sample-a1/session-0000/results.json",
+    "protocol": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a1-r56/out-uwvm2/sample-a1/session-0000/protocol.tar.xz",
+      "bytes": 3504,
+      "sha256": "4cadccd7dc4ad6fa098e197eb04ae0dfee0e9ff860e7d4d0391631a0e0d213e5",
+      "members_stream_verified": true,
+      "original_guest_wait_zero": true,
+      "broker_wait_zero": true,
+      "actual_DAP_EOF_zero": true
+    },
+    "qualifier_mismatch_fixed_only_in_final_a2": true
+  },
+  "published_owned_files": {
+    "test/0018.debugger/run_dap_caller_scalars.py": "45135277ede86f022f82ab9fea9015236775439e25ce386ab9664f9746a0d0ef",
+    "test/0017.runtime/fixtures/debug_source_caller_scalars.c": "c188796121a3f507aa810aa02b64a91a75fb98c85e86dbde424c6eeed68a4bcf"
+  },
+  "local_owned_controller_blocks_verified_both_repositories": true,
+  "local_paired_owned_driver_fixture_verified": true,
+  "whole_latest_local_workspaces_qualified": false,
+  "cases": [
+    {
+      "kind": "caller",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-dap-a3-r56",
+      "phase": "debug",
+      "sessions": 1,
+      "elapsed_seconds": 1.0916526330038323,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/out-uwvm2/debug-a1/results.json",
+      "receipt_sha256": "91681cbfca78f7884eb2fe4344d81f75005328585835ce06259ceb48c42c85ea",
+      "evaluations": 48
+    },
+    {
+      "kind": "caller",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-dap-a3-r56",
+      "phase": "debug-unwind",
+      "sessions": 1,
+      "elapsed_seconds": 1.0607725119989482,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/out-uwvm2/debug-unwind-a1/results.json",
+      "receipt_sha256": "396e7969ebc1e966c0c4b2d0bd04121d805e161aa9e595e0240e0cd1c286266a",
+      "evaluations": 48
+    },
+    {
+      "kind": "caller",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-dap-a3-r56",
+      "phase": "all",
+      "sessions": 32,
+      "elapsed_seconds": 27.113995460997103,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/out-uwvm2/all-a1/results.json",
+      "receipt_sha256": "9588081f9a427b78915f178f2a346644ffa973939a57cad33bec687fc54256df",
+      "evaluations": 1536
+    },
+    {
+      "kind": "caller",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-dap-a3-r56",
+      "phase": "unwind",
+      "sessions": 32,
+      "elapsed_seconds": 27.165574047001428,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/out-uwvm2/unwind-a1/results.json",
+      "receipt_sha256": "da604d0e20b1ef24e9c6c834821d87d927abd505ca6a156f46368bc3d9c33f52",
+      "evaluations": 1536
+    },
+    {
+      "kind": "caller",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-soak-uwvm2-a1-r56",
+      "phase": "soak",
+      "sessions": 544,
+      "elapsed_seconds": 614.126612181004,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-soak-uwvm2-a1-r56/out-uwvm2/soak-a1/results.json",
+      "receipt_sha256": "ce88acebd0f59f92fb36338f190b5af42b6d59df1067a428b7a94c296f343cff",
+      "evaluations": 26112
+    },
+    {
+      "kind": "caller-scalars-aggregate-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-aggregate-a1-r56",
+      "phase": "all",
+      "sessions": 32,
+      "elapsed_seconds": 28.39896547299577,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-aggregate-a1-r56/out-uwvm2/all-a1/results.json",
+      "receipt_sha256": "1f687ffa4bf3c9d0de74fed0142c58aae182f7a42d7ce77fbe94eae41150e375",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-aggregate-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-aggregate-a1-r56",
+      "phase": "unwind",
+      "sessions": 32,
+      "elapsed_seconds": 28.20611881899822,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-aggregate-a1-r56/out-uwvm2/unwind-a1/results.json",
+      "receipt_sha256": "a44f3a12ad6070a72b470416fe70e855218cc0b3c1d8fe84b79b07957b27ba23",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-false-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-false-a1-r56",
+      "phase": "all",
+      "sessions": 32,
+      "elapsed_seconds": 28.137869065001723,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-false-a1-r56/out-uwvm2/all-a1/results.json",
+      "receipt_sha256": "1d6d62be7453e1edeea169963928a75c0a916792c708c03e0f0b476370b6120a",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-false-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-false-a1-r56",
+      "phase": "unwind",
+      "sessions": 32,
+      "elapsed_seconds": 27.922832629999903,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-false-a1-r56/out-uwvm2/unwind-a1/results.json",
+      "receipt_sha256": "580d49569747936d144806c51d57629c2ff3f2c421438ba02ead87692589f3d5",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-controls-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-controls-a1-r56",
+      "phase": "instruction",
+      "sessions": 2,
+      "elapsed_seconds": 31.208310713001993,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/out-uwvm2/instruction-a1/results.json",
+      "receipt_sha256": "38c1633e5471c152517237ff8c7794ae74cabc42c0349b9a25e077317c0e271e",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-controls-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-controls-a1-r56",
+      "phase": "unwind",
+      "sessions": 2,
+      "elapsed_seconds": 30.285212730996136,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/out-uwvm2/unwind-a1/results.json",
+      "receipt_sha256": "2183f61a014871bf685aa656080063574224c1b0d2d1509162b5f4e5d507405a",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-controls-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-controls-a1-r56",
+      "phase": "arrays",
+      "sessions": 1,
+      "elapsed_seconds": 7.043372640000598,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/out-uwvm2/arrays-a1/results.json",
+      "receipt_sha256": "55d6070767e1795cd6c55e2443d9327729beff89cbc0dd91104059f2b442ef2b",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-controls-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-controls-a1-r56",
+      "phase": "tinygo-unwind",
+      "sessions": 1,
+      "elapsed_seconds": 6.42987917100254,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/out-uwvm2/tinygo-unwind-a1/results.json",
+      "receipt_sha256": "8442d995f9df48f903a2230ea5d1856fc742dffa2017f59d75df1f427c174d52",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-controls-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-controls-a1-r56",
+      "phase": "controls",
+      "sessions": 16,
+      "elapsed_seconds": 78.98235155099974,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/out-uwvm2/controls-a1/results.json",
+      "receipt_sha256": "e468454c0c253d5e85a9f7331a561febd24392b8d0f43a3e37d4ca3b0af13a01",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-controls-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-controls-a1-r56",
+      "phase": "controls-unwind",
+      "sessions": 16,
+      "elapsed_seconds": 78.66380535500502,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/out-uwvm2/controls-unwind-a1/results.json",
+      "receipt_sha256": "7ae66a04107a556f59b4219f2e3debdf9bd2f501601161a581f83fbd816de7e2",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-float-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-float-a1-r56",
+      "phase": "all",
+      "sessions": 32,
+      "elapsed_seconds": 35.33530839499872,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-float-a1-r56/out-uwvm2/all-a1/results.json",
+      "receipt_sha256": "9f8926c54790ea4237671b5fa9abf2ef6b5815406067b8a43dca9c0adda31e09",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-float-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-float-a1-r56",
+      "phase": "unwind",
+      "sessions": 32,
+      "elapsed_seconds": 35.643858857998566,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-float-a1-r56/out-uwvm2/unwind-a1/results.json",
+      "receipt_sha256": "448110ebd5b4fbfa1c159f9c0a37e7c0696ca0913dba23992cb067bff2d4191a",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-primitives-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-primitives-a1-r56",
+      "phase": "all",
+      "sessions": 32,
+      "elapsed_seconds": 31.68916572300077,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-primitives-a1-r56/out-uwvm2/all-a1/results.json",
+      "receipt_sha256": "77199ef2c214dfd7c22d39e1f1d9c03f554157de598781ce3508798bb1181f28",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-primitives-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-primitives-a1-r56",
+      "phase": "unwind",
+      "sessions": 32,
+      "elapsed_seconds": 31.88661590799893,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-primitives-a1-r56/out-uwvm2/unwind-a1/results.json",
+      "receipt_sha256": "e94f4d1ac56cb04443ae61bf49009f4e41e08243168e3706a481ca32bfb5213d",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-zig-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-zig-a1-r56",
+      "phase": "all",
+      "sessions": 4,
+      "elapsed_seconds": 5.345652402000269,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-zig-a1-r56/out-uwvm2/all-a1/results.json",
+      "receipt_sha256": "845e3c875c65e2f98dbdcf3a9263a4a1a6451006822b3aba9acff11d094026af",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-zig-a1-r56",
+      "repository": "uwvm2",
+      "stage": "caller-scalars-zig-a1-r56",
+      "phase": "unwind",
+      "sessions": 4,
+      "elapsed_seconds": 5.255970796002657,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-zig-a1-r56/out-uwvm2/unwind-a1/results.json",
+      "receipt_sha256": "58ed98a3e9f5cdc3ec3b6b4366c1b85aa7fe7becaaa1c6fc4bbcf7e580bdd78a",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-dap-a3-r56",
+      "phase": "debug",
+      "sessions": 1,
+      "elapsed_seconds": 1.1076138969947351,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/out-uwvm2-ros/debug-a1/results.json",
+      "receipt_sha256": "e3efe44b2029c7821cded71a70cbb4aefbfe541859e67957fd0b45b8d10e1e14",
+      "evaluations": 48
+    },
+    {
+      "kind": "caller",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-dap-a3-r56",
+      "phase": "debug-unwind",
+      "sessions": 1,
+      "elapsed_seconds": 1.0830653060038458,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/out-uwvm2-ros/debug-unwind-a1/results.json",
+      "receipt_sha256": "b31f94f8a0e2f2174ae0da7db2ab9860f1c275ae16faeaea57de2a22c060de08",
+      "evaluations": 48
+    },
+    {
+      "kind": "caller",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-dap-a3-r56",
+      "phase": "all",
+      "sessions": 32,
+      "elapsed_seconds": 27.75039263399958,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/out-uwvm2-ros/all-a1/results.json",
+      "receipt_sha256": "741f3b2308a00c5b34d067730472e78e9140fd1ee233f8df806dd772610a5d8f",
+      "evaluations": 1536
+    },
+    {
+      "kind": "caller",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-dap-a3-r56",
+      "phase": "unwind",
+      "sessions": 32,
+      "elapsed_seconds": 27.256347773000016,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/out-uwvm2-ros/unwind-a1/results.json",
+      "receipt_sha256": "4e4e00b5d103aa2436ced602b64f06484f64ff7b10a66e05904c40c66ba93798",
+      "evaluations": 1536
+    },
+    {
+      "kind": "caller",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-soak-ros-a1-r56",
+      "phase": "soak",
+      "sessions": 544,
+      "elapsed_seconds": 614.1443111219996,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-soak-ros-a1-r56/out-uwvm2-ros/soak-a1/results.json",
+      "receipt_sha256": "a4a214d931126595a672d8bfbee4e89cd1c47cd2b6dc457ea7671fb6ee418442",
+      "evaluations": 26112
+    },
+    {
+      "kind": "caller-scalars-aggregate-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-aggregate-a1-r56",
+      "phase": "all",
+      "sessions": 32,
+      "elapsed_seconds": 28.870361665998644,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-aggregate-a1-r56/out-uwvm2-ros/all-a1/results.json",
+      "receipt_sha256": "f3141f86ec4dbca92b576280e76e99eeaef9c63c2db9f01bb5875fafdafbccc3",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-aggregate-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-aggregate-a1-r56",
+      "phase": "unwind",
+      "sessions": 32,
+      "elapsed_seconds": 28.28629699400335,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-aggregate-a1-r56/out-uwvm2-ros/unwind-a1/results.json",
+      "receipt_sha256": "00a2c0f691f7b4ca4d9e55354fa9675516557d3d475ac2e33dbce6587484e823",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-false-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-false-a1-r56",
+      "phase": "all",
+      "sessions": 32,
+      "elapsed_seconds": 28.264365119001013,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-false-a1-r56/out-uwvm2-ros/all-a1/results.json",
+      "receipt_sha256": "4d7eefec1ae9e10d178ac01e842670df5b96f16c49898b2a66b3fc8c810bf554",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-false-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-false-a1-r56",
+      "phase": "unwind",
+      "sessions": 32,
+      "elapsed_seconds": 27.520471462004934,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-false-a1-r56/out-uwvm2-ros/unwind-a1/results.json",
+      "receipt_sha256": "217c498a8d16c552c6361ef2f38d009b57b00a427ac7e68f83fdd9c72b431d87",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-controls-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-controls-a1-r56",
+      "phase": "instruction",
+      "sessions": 2,
+      "elapsed_seconds": 31.869709935002902,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/out-uwvm2-ros/instruction-a1/results.json",
+      "receipt_sha256": "c53773eb2b7fecb5bebe104097a2c0179a63afe0fccd90a400664bddbae02fd1",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-controls-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-controls-a1-r56",
+      "phase": "unwind",
+      "sessions": 2,
+      "elapsed_seconds": 32.42008553699998,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/out-uwvm2-ros/unwind-a1/results.json",
+      "receipt_sha256": "de561f87ce595a347d025241ae1186cb760c0ca86f6c3f01f15a78378ca04a41",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-controls-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-controls-a1-r56",
+      "phase": "arrays",
+      "sessions": 1,
+      "elapsed_seconds": 6.59920461600268,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/out-uwvm2-ros/arrays-a1/results.json",
+      "receipt_sha256": "8a45e4acaa15dce58c1dc5187801ad48af186e0ebb406c707975236baf9aeb46",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-controls-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-controls-a1-r56",
+      "phase": "tinygo-unwind",
+      "sessions": 1,
+      "elapsed_seconds": 6.220153795999067,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/out-uwvm2-ros/tinygo-unwind-a1/results.json",
+      "receipt_sha256": "ec7336015c69daba35d18647c808d06b0b5d307e3028e1d70360aff09e53877f",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-controls-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-controls-a1-r56",
+      "phase": "controls",
+      "sessions": 16,
+      "elapsed_seconds": 79.16748234499391,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/out-uwvm2-ros/controls-a1/results.json",
+      "receipt_sha256": "e390a900517e975296907a0f7d7aa50f3a4278f98a3a7c23907c4e03fc18d6a6",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-controls-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-controls-a1-r56",
+      "phase": "controls-unwind",
+      "sessions": 16,
+      "elapsed_seconds": 77.0994590449991,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/out-uwvm2-ros/controls-unwind-a1/results.json",
+      "receipt_sha256": "37defa5e6dfb9110f113f83ba49d2434bc2292e4938e8ba20c1583fa0129a82c",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-float-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-float-a1-r56",
+      "phase": "all",
+      "sessions": 32,
+      "elapsed_seconds": 36.276020947996585,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-float-a1-r56/out-uwvm2-ros/all-a1/results.json",
+      "receipt_sha256": "d1694a1bc951547fbadb11a4980c6296e29e65d5c014e694d325043e3639abc0",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-float-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-float-a1-r56",
+      "phase": "unwind",
+      "sessions": 32,
+      "elapsed_seconds": 35.74368879800022,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-float-a1-r56/out-uwvm2-ros/unwind-a1/results.json",
+      "receipt_sha256": "11ae27a967a979d6edc1ddd7af065400e11cf29e896ef95a6e9b41107947dc0d",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-primitives-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-primitives-a1-r56",
+      "phase": "all",
+      "sessions": 32,
+      "elapsed_seconds": 33.874836041999515,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-primitives-a1-r56/out-uwvm2-ros/all-a1/results.json",
+      "receipt_sha256": "917d2d54c26c62d69bc26b45b84277e1fbf94c44ef37f1c5bdc76ea9a908c96d",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-primitives-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-primitives-a1-r56",
+      "phase": "unwind",
+      "sessions": 32,
+      "elapsed_seconds": 31.854485978998127,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-primitives-a1-r56/out-uwvm2-ros/unwind-a1/results.json",
+      "receipt_sha256": "588544369919d220ca21ce4809b5039a7a58851b068de29fd8b50dc29860dae9",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-zig-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-zig-a1-r56",
+      "phase": "all",
+      "sessions": 4,
+      "elapsed_seconds": 5.314712100000179,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-zig-a1-r56/out-uwvm2-ros/all-a1/results.json",
+      "receipt_sha256": "81bf660dd2987d341d77940f32f718f6820b3ac36b5ce32fc89a1258899364bb",
+      "evaluations": 0
+    },
+    {
+      "kind": "caller-scalars-zig-a1-r56",
+      "repository": "uwvm2-ros",
+      "stage": "caller-scalars-zig-a1-r56",
+      "phase": "unwind",
+      "sessions": 4,
+      "elapsed_seconds": 5.378095553998719,
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-zig-a1-r56/out-uwvm2-ros/unwind-a1/results.json",
+      "receipt_sha256": "c1d1592f4de964b3384275c97ad28ea638f05adc883235d5ee27e02c2fd9fe0a",
+      "evaluations": 0
+    }
+  ],
+  "producers": [
+    {
+      "repository": "uwvm2",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-producer-a3-r56/out-uwvm2/producer-a1/results.json",
+      "receipt_sha256": "d6a40bea75269ec4c4e015bc1ddc8a4a4adb07e6def11842e7eff3721d7ec6ad",
+      "unchanged_original_validator_and_DWARF_verification": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-producer-a3-r56/out-uwvm2-ros/producer-a1/results.json",
+      "receipt_sha256": "1d9c379ef093b4fac82ad0bdab6fc639f1e891f9dcbff87b7c458153fdc9ca45",
+      "unchanged_original_validator_and_DWARF_verification": true
+    }
+  ],
+  "guards": [
+    {
+      "stage": "caller-scalars-full-a2-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-full-a2-r56/guard-build/receipts.json",
+      "label": "uwvm2build",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 239.83017741899675,
+      "aggregate_owned_rss_peak_bytes": 7292379136
+    },
+    {
+      "stage": "caller-scalars-full-a2-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-full-a2-r56/guard-build/receipts.json",
+      "label": "uwvm2rosbuild",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 206.14686199499556,
+      "aggregate_owned_rss_peak_bytes": 5934661632
+    },
+    {
+      "stage": "caller-scalars-full-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-full-a1-r56/guard-build/receipts.json",
+      "label": "uwvm2build",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 239.45233973499853,
+      "aggregate_owned_rss_peak_bytes": 7292338176
+    },
+    {
+      "stage": "caller-scalars-full-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-full-a1-r56/guard-build/receipts.json",
+      "label": "uwvm2rosbuild",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 202.90902468699642,
+      "aggregate_owned_rss_peak_bytes": 5934477312
+    },
+    {
+      "stage": "caller-scalars-producer-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-producer-a3-r56/guard-producer/receipts.json",
+      "label": "uwvm2producer",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 3.479408204999345,
+      "aggregate_owned_rss_peak_bytes": 109391872
+    },
+    {
+      "stage": "caller-scalars-producer-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-producer-a3-r56/guard-producer/receipts.json",
+      "label": "uwvm2-rosproducer",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 3.53629914400517,
+      "aggregate_owned_rss_peak_bytes": 104779776
+    },
+    {
+      "stage": "caller-scalars-dap-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/guard-unit/receipts.json",
+      "label": "uwvm2unit",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 2.1431754830045975,
+      "aggregate_owned_rss_peak_bytes": 66629632
+    },
+    {
+      "stage": "caller-scalars-dap-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/guard-unit/receipts.json",
+      "label": "uwvm2rosunit",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 4.686064212000929,
+      "aggregate_owned_rss_peak_bytes": 68251648
+    },
+    {
+      "stage": "caller-scalars-dap-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/guard-smoke/receipts.json",
+      "label": "uwvm2debug",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 1.8264422509964788,
+      "aggregate_owned_rss_peak_bytes": 153931776
+    },
+    {
+      "stage": "caller-scalars-dap-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/guard-smoke/receipts.json",
+      "label": "uwvm2rosdebug",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 4.211112602999492,
+      "aggregate_owned_rss_peak_bytes": 151511040
+    },
+    {
+      "stage": "caller-scalars-dap-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/guard-smoke/receipts.json",
+      "label": "uwvm2debug-unwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 1.844365827004367,
+      "aggregate_owned_rss_peak_bytes": 151736320
+    },
+    {
+      "stage": "caller-scalars-dap-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/guard-smoke/receipts.json",
+      "label": "uwvm2rosdebug-unwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 1.7865185649934574,
+      "aggregate_owned_rss_peak_bytes": 149819392
+    },
+    {
+      "stage": "caller-scalars-dap-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/guard-matrix/receipts.json",
+      "label": "uwvm2all",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 27.774610737003968,
+      "aggregate_owned_rss_peak_bytes": 165273600
+    },
+    {
+      "stage": "caller-scalars-dap-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/guard-matrix/receipts.json",
+      "label": "uwvm2rosall",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 32.235458120005205,
+      "aggregate_owned_rss_peak_bytes": 164823040
+    },
+    {
+      "stage": "caller-scalars-dap-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/guard-matrix/receipts.json",
+      "label": "uwvm2unwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 28.106896659002814,
+      "aggregate_owned_rss_peak_bytes": 167129088
+    },
+    {
+      "stage": "caller-scalars-dap-a3-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-dap-a3-r56/guard-matrix/receipts.json",
+      "label": "uwvm2rosunwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 28.174715782995918,
+      "aggregate_owned_rss_peak_bytes": 165978112
+    },
+    {
+      "stage": "caller-scalars-before-a4-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a4-r56/guard-before/receipts.json",
+      "label": "uwvm2debug",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 1.9997049309968133,
+      "aggregate_owned_rss_peak_bytes": 166899712
+    },
+    {
+      "stage": "caller-scalars-before-a4-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a4-r56/guard-before/receipts.json",
+      "label": "uwvm2rosdebug",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 1.8815633620033623,
+      "aggregate_owned_rss_peak_bytes": 168980480
+    },
+    {
+      "stage": "caller-scalars-before-a4-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a4-r56/guard-before/receipts.json",
+      "label": "uwvm2debug-unwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 1.8597575060048257,
+      "aggregate_owned_rss_peak_bytes": 169811968
+    },
+    {
+      "stage": "caller-scalars-before-a4-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-before-a4-r56/guard-before/receipts.json",
+      "label": "uwvm2rosdebug-unwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 1.8776221790030831,
+      "aggregate_owned_rss_peak_bytes": 149372928
+    },
+    {
+      "stage": "caller-scalars-soak-uwvm2-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-soak-uwvm2-a1-r56/guard-soak/receipts.json",
+      "label": "uwvm2soak",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 614.9955707170011,
+      "aggregate_owned_rss_peak_bytes": 206696448
+    },
+    {
+      "stage": "caller-scalars-soak-ros-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-soak-ros-a1-r56/guard-soak/receipts.json",
+      "label": "uwvm2rossoak",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 614.9790682780003,
+      "aggregate_owned_rss_peak_bytes": 205250560
+    },
+    {
+      "stage": "caller-scalars-aggregate-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-aggregate-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2all",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 29.117859375997796,
+      "aggregate_owned_rss_peak_bytes": 190472192
+    },
+    {
+      "stage": "caller-scalars-aggregate-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-aggregate-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2rosall",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 30.934024671994848,
+      "aggregate_owned_rss_peak_bytes": 187805696
+    },
+    {
+      "stage": "caller-scalars-aggregate-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-aggregate-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2unwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 28.960021491999214,
+      "aggregate_owned_rss_peak_bytes": 188203008
+    },
+    {
+      "stage": "caller-scalars-aggregate-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-aggregate-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2rosunwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 29.122931177000282,
+      "aggregate_owned_rss_peak_bytes": 187179008
+    },
+    {
+      "stage": "caller-scalars-false-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-false-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2all",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 28.98405193600047,
+      "aggregate_owned_rss_peak_bytes": 186593280
+    },
+    {
+      "stage": "caller-scalars-false-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-false-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2rosall",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 29.088034353000694,
+      "aggregate_owned_rss_peak_bytes": 184008704
+    },
+    {
+      "stage": "caller-scalars-false-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-false-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2unwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 28.8232870599968,
+      "aggregate_owned_rss_peak_bytes": 184664064
+    },
+    {
+      "stage": "caller-scalars-false-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-false-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2rosunwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 28.298535784000705,
+      "aggregate_owned_rss_peak_bytes": 185200640
+    },
+    {
+      "stage": "caller-scalars-controls-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2instruction",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 31.924171664002643,
+      "aggregate_owned_rss_peak_bytes": 210190336
+    },
+    {
+      "stage": "caller-scalars-controls-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2unwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 31.123064137005713,
+      "aggregate_owned_rss_peak_bytes": 210747392
+    },
+    {
+      "stage": "caller-scalars-controls-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2arrays",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 7.891568956998526,
+      "aggregate_owned_rss_peak_bytes": 321658880
+    },
+    {
+      "stage": "caller-scalars-controls-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2tinygounwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 7.213307391000853,
+      "aggregate_owned_rss_peak_bytes": 320765952
+    },
+    {
+      "stage": "caller-scalars-controls-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2controls",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 79.83352063200437,
+      "aggregate_owned_rss_peak_bytes": 269619200
+    },
+    {
+      "stage": "caller-scalars-controls-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2controlsunwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 79.42535647500335,
+      "aggregate_owned_rss_peak_bytes": 268083200
+    },
+    {
+      "stage": "caller-scalars-controls-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2-rosinstruction",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 32.55603269200219,
+      "aggregate_owned_rss_peak_bytes": 211275776
+    },
+    {
+      "stage": "caller-scalars-controls-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2-rosunwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 33.24511530500604,
+      "aggregate_owned_rss_peak_bytes": 209981440
+    },
+    {
+      "stage": "caller-scalars-controls-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2-rosarrays",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 7.270506729997578,
+      "aggregate_owned_rss_peak_bytes": 319995904
+    },
+    {
+      "stage": "caller-scalars-controls-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2-rostinygounwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 7.004887939001492,
+      "aggregate_owned_rss_peak_bytes": 320159744
+    },
+    {
+      "stage": "caller-scalars-controls-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2-roscontrols",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 79.89387058799912,
+      "aggregate_owned_rss_peak_bytes": 267603968
+    },
+    {
+      "stage": "caller-scalars-controls-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-controls-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2-roscontrolsunwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 77.76702132499486,
+      "aggregate_owned_rss_peak_bytes": 267628544
+    },
+    {
+      "stage": "caller-scalars-float-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-float-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2all",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 36.073326607001945,
+      "aggregate_owned_rss_peak_bytes": 211234816
+    },
+    {
+      "stage": "caller-scalars-float-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-float-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2-rosall",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 36.98727658200369,
+      "aggregate_owned_rss_peak_bytes": 211599360
+    },
+    {
+      "stage": "caller-scalars-float-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-float-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2unwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 36.441133836997324,
+      "aggregate_owned_rss_peak_bytes": 212090880
+    },
+    {
+      "stage": "caller-scalars-float-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-float-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2-rosunwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 36.478685117996065,
+      "aggregate_owned_rss_peak_bytes": 210644992
+    },
+    {
+      "stage": "caller-scalars-primitives-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-primitives-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2all",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 32.47017173799395,
+      "aggregate_owned_rss_peak_bytes": 203063296
+    },
+    {
+      "stage": "caller-scalars-primitives-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-primitives-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2-rosall",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 34.61997797300137,
+      "aggregate_owned_rss_peak_bytes": 201277440
+    },
+    {
+      "stage": "caller-scalars-primitives-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-primitives-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2unwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 32.72042173299997,
+      "aggregate_owned_rss_peak_bytes": 203059200
+    },
+    {
+      "stage": "caller-scalars-primitives-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-primitives-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2-rosunwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 32.62635150599817,
+      "aggregate_owned_rss_peak_bytes": 198565888
+    },
+    {
+      "stage": "caller-scalars-zig-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-zig-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2all",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 6.107909127997118,
+      "aggregate_owned_rss_peak_bytes": 189333504
+    },
+    {
+      "stage": "caller-scalars-zig-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-zig-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2-rosall",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 6.095594291000452,
+      "aggregate_owned_rss_peak_bytes": 188067840
+    },
+    {
+      "stage": "caller-scalars-zig-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-zig-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2unwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 7.0907056009964435,
+      "aggregate_owned_rss_peak_bytes": 188489728
+    },
+    {
+      "stage": "caller-scalars-zig-a1-r56",
+      "receipt": "/home/macromodel/Documents/uwvm3-implementation/caller-scalars-zig-a1-r56/guard-regression/receipts.json",
+      "label": "uwvm2-rosunwind",
+      "passed": true,
+      "returncode": 0,
+      "wall_seconds": 6.063558219000697,
+      "aggregate_owned_rss_peak_bytes": 189456384
+    }
+  ],
+  "canonical_qualification": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/retained-caller-scalars-r56-final/qualification.json",
+    "sha256": "761446623b0642c6cab4387c4cef618e2f84c5259d9273be41f522524f24305d"
+  },
+  "archive": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/retained-caller-scalars-r56-final/caller-scalars-r56-evidence.tar.xz",
+    "bytes": 14983320,
+    "sha256": "0188efa4ee9eb19719e54f3f35643d9b2c200180eb1c5766f26a652dd00fa964",
+    "members": 12716,
+    "uncompressed_selected_bytes": 170347952,
+    "raw_selection_cap_bytes": 268435456,
+    "all_members_stream_verified": true,
+    "fsync_completed": true
+  },
+  "cleanup": {
+    "deleted_files": 204,
+    "deleted_bytes": 708665824,
+    "only_own_generated_objects": true
+  },
+  "final_resource_observation": {
+    "cgroup": "/sys/fs/cgroup/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope",
+    "memory_current_bytes": 43512164352,
+    "memory_max_bytes": 68719476736,
+    "swap_max_bytes": 0,
+    "memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "host_free_bytes": 35678838784,
+    "owned_r56_root_count": 20,
+    "owned_r56_root_regular_file_bytes": 1072259442,
+    "remaining_own_objects": [],
+    "root_scope_excludes_all_peer_work": true
+  }
+}

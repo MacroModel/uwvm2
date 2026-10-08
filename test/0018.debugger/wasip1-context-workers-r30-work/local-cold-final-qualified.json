@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "directory": "/Users/liyinan/Documents/MacroModel/wasip1-r30-owned-cold-evidence",
+  "archives": {
+    "uwvm2-linux-integrated-qualified-products.tar.gz": {
+      "bytes": 142090944,
+      "sha256": "ac7c538844f5c2ee0317e90f474d8433afdf0f1f2ecbf7dbcf42686c01232765",
+      "qualification_sha256": "f1e583c47c0e4d2d0174d956c1b4deee219edaec74ea3b4aacc065f41ddb6ab3",
+      "all_payloads_read_back": true
+    },
+    "uwvm2-windows-qualified-products.tar.gz": {
+      "bytes": 85134058,
+      "sha256": "1d861e6ae444abcb539e8b2b149028debda03001083e238ee01acd1510d23fe4",
+      "qualification_sha256": "8571f7627baf44ba4c73742c47874e4068213dbcacef5e287123715db9cd3a27",
+      "all_payloads_read_back": true
+    },
+    "uwvm2-freebsd-qualified-products.tar.gz": {
+      "bytes": 86599032,
+      "sha256": "da28e711b65300bcb387d4bdf6adadd9728a3c4434ffaee9eacaf725907c3a64",
+      "qualification_sha256": "34d665a38c0dd044eff54bbb9c5e6211edea94e67ac74a43e14ffa531344fb65",
+      "all_payloads_read_back": true
+    },
+    "uwvm2-macos-qualified-products.tar.gz": {
+      "bytes": 91395890,
+      "sha256": "2250f7bcb1f10cc670e1af40748d4926bab0784071bba8b48a7ad87884901373",
+      "qualification_sha256": "1331d9804ae01c6b52ae15e8cd6c192534dff2b53ec1738d1f407e7ddb0e3dd4",
+      "all_payloads_read_back": true
+    },
+    "uwvm2-ros-linux-integrated-qualified-products.tar.gz": {
+      "bytes": 130671831,
+      "sha256": "6d2bdcf4ee6c1e1e7f5a0b4c80096b2b26367efd25897dcde0b340dddbb4583f",
+      "qualification_sha256": "18c868e032f4227d1d2ae8317c514d06ee50a6ade7649b7586384534086761b4",
+      "all_payloads_read_back": true
+    },
+    "uwvm2-ros-windows-qualified-products.tar.gz": {
+      "bytes": 77426093,
+      "sha256": "ed7360f6479f99fe9860c09c86fc15f13462cb2b7d0419d339d731fc4eed401a",
+      "qualification_sha256": "55bae74220ee557cbbb48d94fdb093cbf7670c4c600d549e8b59482f1b23728d",
+      "all_payloads_read_back": true
+    },
+    "uwvm2-ros-freebsd-qualified-products.tar.gz": {
+      "bytes": 79369474,
+      "sha256": "43c4122f8285982fe9fc2db6c82fb728d2126df376f223e9270ede5cff5a2f04",
+      "qualification_sha256": "b673090d6fdeab4d1d213d24aab2e9aba566ea382d6007fb8c171398aa0fd9bb",
+      "all_payloads_read_back": true
+    },
+    "uwvm2-ros-macos-qualified-products.tar.gz": {
+      "bytes": 78700162,
+      "sha256": "29869129a29fc56b434740106a0a47465e086b57290ed88dba971271b7c88ea3",
+      "qualification_sha256": "9760ffd84ea7dc151f1874433536d03227804fd5f1bf8cfdff21cb723e24e352",
+      "all_payloads_read_back": true
+    }
+  },
+  "all_payloads_read_back": true,
+  "limit_bytes": 1073741824,
+  "bytes": 771387484,
+  "aggregate_limit_bytes": 2147483648,
+  "aggregate_bytes": 1814183676,
+  "memory_upper_bytes": 168902656
+}

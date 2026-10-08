@@ -1,0 +1,13 @@
+{
+  "passed": false,
+  "driver_started": false,
+  "supervisor_exitcode": 1,
+  "stage": "initial admission limits before any child creation",
+  "error": "('shared persistent folder high water', 38670467072)",
+  "resource_peak": {
+    "own_folder": 3929473024,
+    "shared_folder": 38670467072,
+    "group_memory": 39153872896
+  },
+  "qualification": false
+}

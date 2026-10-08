@@ -1,0 +1,591 @@
+{
+  "schema": "uwvm-shared-original-cgroup-owned-pidfd-v1",
+  "argv": [
+    "python3",
+    "/dev/shm/uwvm-asm-6313e263-current609/build-meta/release-lto.py"
+  ],
+  "source_root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/asm-dbg-6313e263/source-current574",
+  "source_manifest_sha256": "0974ef98538f20dcd465a6d86ff60b8c8bda205a54245c48ed1944517d18db9b",
+  "supervisor_sha256": "064c5f878bc17f5559bd34a9c117774b050b1d91f9e12d1ca966043e54840b26",
+  "commands_sha256": "b0a0c527c46908f123b01aa48085c084f5fccca165375622b37658bd855ce2f0",
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+  "memory_max": 68719476736,
+  "swap_max": 0,
+  "all_test_outputs_in_tmpfs": true,
+  "original_shared_folder_ceiling_qualified": false,
+  "new_persistent_test_products": 0,
+  "persistent_write_confinement": "Actual Linux Landlock inherited by all test descendants; writable owned tmpfs and /dev/null only",
+  "landlock_probes_sha256": "a0365664dd79b3b7b25db1b5ff6dfa79d2a0a89924430dcd5d08ee01401b71e8",
+  "original_exclusive_disk_floor_qualified": false,
+  "owned_rss_budget": 6442450944,
+  "rss_peak": 353021952,
+  "resource_peak": {
+    "own_folder": 1179824128,
+    "shared_folder": 45092343808,
+    "group_memory": 48543039488,
+    "persistent_disk_min_free": 31636717568
+  },
+  "resource_policy_sha256": "439f1846cebd1fd4ea141c99d0d0a0777b13fb9af86cd9b1bfe01528fe6f5c33",
+  "elapsed": 53.34749574899615,
+  "foreign_roster_before": [
+    11166,
+    1515909,
+    1517009,
+    1518518,
+    1519443,
+    1519451,
+    1519452,
+    1519455
+  ],
+  "foreign_roster_after": [
+    11166,
+    1515909,
+    1517009,
+    1518518,
+    1520535,
+    1520549,
+    1520553
+  ],
+  "admissions": [
+    {
+      "pid": 1519456,
+      "birth": 6801694,
+      "ppid": 1519266,
+      "state": "R",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 2592768,
+      "cgroup": "0::/user.slice/user-1000.slice/session-10345.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "pid": 1519597,
+      "birth": 6801727,
+      "ppid": 1519456,
+      "state": "R",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 4886528,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "pid": 1519598,
+      "birth": 6801736,
+      "ppid": 1519456,
+      "state": "S",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 68149248,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "pid": 1519599,
+      "birth": 6801737,
+      "ppid": 1519598,
+      "state": "R",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 85417984,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "pid": 1519693,
+      "birth": 6802324,
+      "ppid": 1519456,
+      "state": "S",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 68243456,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "pid": 1519694,
+      "birth": 6802325,
+      "ppid": 1519693,
+      "state": "R",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 182980608,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "pid": 1520030,
+      "birth": 6803531,
+      "ppid": 1519456,
+      "state": "S",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 68251648,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "pid": 1520031,
+      "birth": 6803532,
+      "ppid": 1520030,
+      "state": "R",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 164904960,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "pid": 1520282,
+      "birth": 6804728,
+      "ppid": 1519456,
+      "state": "S",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 68296704,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "pid": 1520283,
+      "birth": 6804728,
+      "ppid": 1520282,
+      "state": "R",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 161558528,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "pid": 1520471,
+      "birth": 6805935,
+      "ppid": 1519456,
+      "state": "S",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 68251648,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "pid": 1520472,
+      "birth": 6805936,
+      "ppid": 1520471,
+      "state": "R",
+      "uid": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "rss": 94171136,
+      "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n",
+      "affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    }
+  ],
+  "executable_history": [
+    {
+      "pid": 1519456,
+      "birth": 6801694,
+      "exe": "/usr/bin/python3.14",
+      "sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700"
+    },
+    {
+      "pid": 1519597,
+      "birth": 6801727,
+      "exe": "/usr/bin/python3.14",
+      "sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700"
+    },
+    {
+      "pid": 1519598,
+      "birth": 6801736,
+      "exe": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang-23",
+      "sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b"
+    },
+    {
+      "pid": 1519599,
+      "birth": 6801737,
+      "exe": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang-23",
+      "sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b"
+    },
+    {
+      "pid": 1519693,
+      "birth": 6802324,
+      "exe": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang-23",
+      "sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b"
+    },
+    {
+      "pid": 1519694,
+      "birth": 6802325,
+      "exe": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang-23",
+      "sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b"
+    },
+    {
+      "pid": 1520030,
+      "birth": 6803531,
+      "exe": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang-23",
+      "sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b"
+    },
+    {
+      "pid": 1520031,
+      "birth": 6803532,
+      "exe": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang-23",
+      "sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b"
+    },
+    {
+      "pid": 1520282,
+      "birth": 6804728,
+      "exe": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang-23",
+      "sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b"
+    },
+    {
+      "pid": 1520283,
+      "birth": 6804728,
+      "exe": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang-23",
+      "sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b"
+    },
+    {
+      "pid": 1520471,
+      "birth": 6805935,
+      "exe": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang-23",
+      "sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b"
+    },
+    {
+      "pid": 1520472,
+      "birth": 6805936,
+      "exe": "/home/macromodel/Documents/tool-chain/x86_64-linux-gnu-llvm/bin/clang-23",
+      "sha256": "0e800e4decf0de00b5ebeefed814b2cf6551d17291a220ee107b5198cd7ca23b"
+    }
+  ],
+  "retirement": [
+    {
+      "pid": 1519456,
+      "birth": 6801694,
+      "pidfd_readable": true
+    },
+    {
+      "pid": 1519597,
+      "birth": 6801727,
+      "pidfd_readable": true
+    },
+    {
+      "pid": 1519598,
+      "birth": 6801736,
+      "pidfd_readable": true
+    },
+    {
+      "pid": 1519599,
+      "birth": 6801737,
+      "pidfd_readable": true
+    },
+    {
+      "pid": 1519693,
+      "birth": 6802324,
+      "pidfd_readable": true
+    },
+    {
+      "pid": 1519694,
+      "birth": 6802325,
+      "pidfd_readable": true
+    },
+    {
+      "pid": 1520030,
+      "birth": 6803531,
+      "pidfd_readable": true
+    },
+    {
+      "pid": 1520031,
+      "birth": 6803532,
+      "pidfd_readable": true
+    },
+    {
+      "pid": 1520282,
+      "birth": 6804728,
+      "pidfd_readable": true
+    },
+    {
+      "pid": 1520283,
+      "birth": 6804728,
+      "pidfd_readable": true
+    },
+    {
+      "pid": 1520471,
+      "birth": 6805935,
+      "pidfd_readable": true
+    },
+    {
+      "pid": 1520472,
+      "birth": 6805936,
+      "pidfd_readable": true
+    }
+  ],
+  "memory_events_before": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "memory_events_after": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "returncode": 0,
+  "error": null,
+  "passed": true,
+  "log_sha256": "8db846f7c2c9732feca7af75c5131127b9feff5eebed1f8c94acf4ccfa1bb0a9"
+}

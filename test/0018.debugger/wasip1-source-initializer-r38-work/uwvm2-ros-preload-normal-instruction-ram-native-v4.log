@@ -1,0 +1,9 @@
+checkpoint reminder: capture WASIp1 together with Wasm at the same cooperative stop; Wasm-only snapshot omits FD/environment state.
+WORLD_PREPARATION status=0 resource=3 engine=0 modules=2 engines=2 functions=5 threads=2 frames=2 roots=12 payload=551614037 root_scopes=2 root_frames=6 roots_restored=1 workers_started=2 workers_enrolled=2 workers_joined=2 workers_held=1 worker_roots_restored=1 debug_prepared=2 debug_enrolled=2 debug_held=1 debug_tls_restored=1
+checkpoint reminder: capture WASIp1 together with Wasm at the same cooperative stop; Wasm-only snapshot omits FD/environment state.
+checkpoint reminder: capture WASIp1 together with Wasm at the same cooperative stop; Wasm-only snapshot omits FD/environment state.
+checkpoint reminder: capture WASIp1 together with Wasm at the same cooperative stop; Wasm-only snapshot omits FD/environment state.
+WORLD_PREPARATION status=0 resource=3 engine=0 modules=2 engines=2 functions=5 threads=2 frames=2 roots=12 payload=551614037 root_scopes=2 root_frames=6 roots_restored=1 workers_started=2 workers_enrolled=2 workers_joined=2 workers_held=1 worker_roots_restored=1 debug_prepared=2 debug_enrolled=2 debug_held=1 debug_tls_restored=1
+checkpoint reminder: capture WASIp1 together with Wasm at the same cooperative stop; Wasm-only snapshot omits FD/environment state.
+checkpoint reminder: capture WASIp1 together with Wasm at the same cooperative stop; Wasm-only snapshot omits FD/environment state.
+CHECKPOINT_COMPLETE_PRELOAD policy=instruction actual_census=2 positive_episodes=2 attempts=2 modules=2 imported_resource_spaces=5 canonical_provider_aliases=1 structures=65 arrays=4 sparse_mem64_pages=2 empty_nonnullable_table64=1 passive_drop_data_elem=1 alias_cycle_exn_trace=1 throw_ref_same_exn_object=1 old_episode_refused=1 whole_restore=0

@@ -1,0 +1,949 @@
+{
+  "passed": true,
+  "round": "R30",
+  "scope": "Genuine FastIO native workers validate candidate WASIp1 per-module memory TLS, nested selection, simultaneous shared environments, restoration and join; custom resolver policy refuses before invocation; both repositories and four native OSes",
+  "source_manifest": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/inputs.json",
+    "sha256": "76daefa677abdd3903f24233aa355e2c78240df867d91a2fc6a34ded5ce92848"
+  },
+  "source_archive": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/inputs.tar.gz",
+    "sha256": "bcbfba7bfe80b841676d35c9dbbd294ac00497faab9ccad1432ac6cddf54a1e9"
+  },
+  "source_freeze": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/input-freeze-qualified.json",
+    "sha256": "ff22f217dd0ecf5b43dbb0b16524af5e0de366f43a57bac3f992173404d5ade6"
+  },
+  "source_cut": "Immutable integration cut with concurrent frame/root and retirement declarations preserved. Later unrelated workspace edits are not covered.",
+  "complete_world_restore": false,
+  "wasip1_portable_wire_changed": false,
+  "portable_migration_requalification": "No new directed OS migration claimed. Prior R26 portable metadata migration remains separate evidence.",
+  "repos": {
+    "uwvm2": {
+      "linux": {
+        "passed": true,
+        "qualification_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-linux-integrated-r30-uwvm2.json",
+          "sha256": "619b9297e2b0ec844ce6113cd02282c97b5e6f275b9deabb225dc6b40b8b31af"
+        },
+        "qualification_guard_sampled_rss_peak": 6762160128,
+        "archive_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r30-linux-integrated-uwvm2.json",
+          "sha256": "b9234553517e95e8689697cb8e723ba41dcfb026b1124f4ebd6f14f9b16b38ca"
+        },
+        "artifact_retirement": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-linux-integrated-product-retirement.json",
+          "sha256": "68f5e301fe669cc791c3be9f15736f6e3caed924ebb4fb25c1e141207daa9740"
+        },
+        "compiled_product_archive": {
+          "path": "/Users/liyinan/Documents/MacroModel/wasip1-r30-owned-cold-evidence/uwvm2-linux-integrated-qualified-products.tar.gz",
+          "sha256": "ac7c538844f5c2ee0317e90f474d8433afdf0f1f2ecbf7dbcf42686c01232765",
+          "recovery_qualification": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-linux-integrated-local-cold-qualified.json",
+            "sha256": "f1e583c47c0e4d2d0174d956c1b4deee219edaec74ea3b4aacc065f41ddb6ab3"
+          }
+        },
+        "cases": [
+          {
+            "fixture": "checkpoint",
+            "policy": "instruction",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/native-instruction.log",
+              "sha256": "36c3e3bf086861c5500fad07aea1bda9b29dfb076873e50cacf9614891899701"
+            }
+          },
+          {
+            "fixture": "checkpoint",
+            "policy": "unwind",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/native-unwind.log",
+              "sha256": "a9ecd455f913745511ce622b716fe2ab1525a4b1c5aba5613d6a70d1c9e59d9f"
+            }
+          },
+          {
+            "fixture": "aliases",
+            "policy": "instruction",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/aliases-instruction.log",
+              "sha256": "20da8d16d5e3d5360556831dd2cf368106bc9b888d51776700f2cf4fbae3a3f7"
+            }
+          },
+          {
+            "fixture": "aliases",
+            "policy": "unwind",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/aliases-unwind.log",
+              "sha256": "ed860f548023ec0a48f35e1b32e6dec23532cad39e881b8d8454bd9799e8b543"
+            }
+          },
+          {
+            "fixture": "environment-group",
+            "policy": "instruction",
+            "checks": 483,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/environment-group-instruction.log",
+              "sha256": "93562d6a0f27e861dfc6a96bc49f68c578f73d0f0480f11ba535dee4029282df"
+            }
+          },
+          {
+            "fixture": "environment-group",
+            "policy": "unwind",
+            "checks": 483,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/environment-group-unwind.log",
+              "sha256": "33e94c126b5d9171e383fc1f21410624a8f2859e14b05ceb45dcdc90b06b2c27"
+            }
+          }
+        ],
+        "group_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/environment-group-qualified.json",
+          "sha256": "aca99b0945c9cab34c85205a8ee885b42af61fd6c801c92abeab882aa3896f8c"
+        },
+        "build_and_test_results": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/results.json",
+          "sha256": "cae3fa434786806989ee84789d694c35528e69b43cc44608825352bd36a96543"
+        },
+        "runtime_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/runtime-qualified.json",
+          "sha256": "c8463ff43e14e550cb5857c32cfcdbdbb871a6753d865a063f26497b9b41f4c0"
+        },
+        "host-api_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/host-api-qualified.json",
+          "sha256": "ab9e599a7da967a2233c5901b28999a76d63fa8ea1cc8e0c4f2ce006521f8ec0"
+        },
+        "fixture_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/fixture-qualified.json",
+          "sha256": "5eb050c178797ae99ddb4ed25f5d6c65541038b6d8d9ac883158d00ef0ef446e"
+        },
+        "default_context_fast_path_regression": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/wasip1-memory-binding-qualified.json",
+          "sha256": "4f452ea0f4fcfba7cc809e1ff95b3f92a8a1dea739f389cbc6beedbfa19ec5d9"
+        },
+        "complete_graph_regressions": [
+          {
+            "fixture": "debug_checkpoint_complete_instance",
+            "policy": "instruction",
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/debug_checkpoint_complete_instance-instruction.log",
+              "sha256": "cf1bada165f306a462ba53eaa502b7e4f7c8311773c292227b6452938902ccf6"
+            }
+          },
+          {
+            "fixture": "debug_checkpoint_complete_instance",
+            "policy": "unwind",
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/debug_checkpoint_complete_instance-unwind.log",
+              "sha256": "548e1330187fdf30a1d139fd85182638d73f71926a176908db09fba979ed2f77"
+            }
+          },
+          {
+            "fixture": "debug_checkpoint_complete_preload",
+            "policy": "instruction",
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/debug_checkpoint_complete_preload-instruction.log",
+              "sha256": "bb51feae4f1d774f83246d6e1b9d44bc912fb30d300a28949f3639daac06d46c"
+            }
+          },
+          {
+            "fixture": "debug_checkpoint_complete_preload",
+            "policy": "unwind",
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2/debug_checkpoint_complete_preload-unwind.log",
+              "sha256": "7afd2cbd780f1620a8ad069a327896180f38524380658eb95cad7d1d51ccb4e3"
+            }
+          }
+        ],
+        "counted_assertions": 1814
+      },
+      "windows": {
+        "passed": true,
+        "qualification_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r30-windows-uwvm2.json",
+          "sha256": "bb1a92d855cc349cbe551b6dc7660e9bbeebd19179008129f01b606aa868620d"
+        },
+        "qualification_guard_sampled_rss_peak": 7349673984,
+        "archive_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r30-windows-uwvm2.json",
+          "sha256": "731e86edf7e1c2170b95a3571f25314b80eaeea87a5237b0df8aa6e4083406a7"
+        },
+        "artifact_retirement": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-windows-product-retirement.json",
+          "sha256": "66debd4d42d00bff4cf3ca5e63fcb4779c07b4f5ca11656a49dfc86ed636374a"
+        },
+        "compiled_product_archive": {
+          "path": "/Users/liyinan/Documents/MacroModel/wasip1-r30-owned-cold-evidence/uwvm2-windows-qualified-products.tar.gz",
+          "sha256": "1d861e6ae444abcb539e8b2b149028debda03001083e238ee01acd1510d23fe4",
+          "recovery_qualification": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-windows-local-cold-qualified.json",
+            "sha256": "8571f7627baf44ba4c73742c47874e4068213dbcacef5e287123715db9cd3a27"
+          }
+        },
+        "cases": [
+          {
+            "label": "uwvm2-checkpoint-instruction",
+            "checks": 207,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-checkpoint-unwind",
+            "checks": 207,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-aliases-instruction",
+            "checks": 207,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-aliases-unwind",
+            "checks": 207,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-environment-group-instruction",
+            "checks": 483,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-environment-group-unwind",
+            "checks": 483,
+            "status": 0
+          }
+        ],
+        "group_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/windows/uwvm2/environment-group-qualified.json",
+          "sha256": "893cce8337b4431163801a142d4e05044b96d3a2f6e876fd67470ba9856e8a00"
+        },
+        "build_and_test_results": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/windows/uwvm2/results.json",
+          "sha256": "f4e8f2787a51dab8f10921912de283356508e9406a30c2f7e7f79a4ebad7c2d5"
+        },
+        "runtime_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/windows/uwvm2/runtime-qualified.json",
+          "sha256": "7b47e2eacc67326da6c85a8f0376b06bbe6695171eb6b8e1dd8c15fce781120f"
+        },
+        "host-api_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/windows/uwvm2/host-api-qualified.json",
+          "sha256": "c8692e0afadca8c6c8e5df1ef8dfbfb28a7ebf36cdfbd45b682fdc30b080be2f"
+        },
+        "fixture_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/windows/uwvm2/qualified.json",
+          "sha256": "9e8327e0ac652345b73bdfe4c2557e20f4bce0883984e0974762f82f3e5b4494"
+        },
+        "native_execution": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/vm-windows-joint-preparation-9539265b/receipt.json",
+          "sha256": "90bbb82104f52e11bae705affe9e634831121a7ad7845437b6714739fb9480c9"
+        },
+        "serial_log": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/vm-windows-joint-preparation-9539265b/serial.log",
+          "sha256": "3ab96a585c75c4282a26cbb155315c928d093d8cbad4401233ea9039a4588b42"
+        },
+        "native_execution_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r30-windows-uwvm2.json",
+          "sha256": "edeb4fb11a33c08f16ba5a05abb5f16e3b246ac0f102da13a9cbf6dd3ceddb7b"
+        },
+        "qemu_guest_ram_bytes": 2147483648,
+        "counted_assertions": 1794
+      },
+      "freebsd": {
+        "passed": true,
+        "qualification_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r30-freebsd-uwvm2.json",
+          "sha256": "a585940f7b71a78260824850d356075b7910ee9aa977acea72a2987abcf6be34"
+        },
+        "qualification_guard_sampled_rss_peak": 6216994816,
+        "archive_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r30-freebsd-uwvm2.json",
+          "sha256": "846b4671a85769a251fd7aaceb8dc631a9fdaa7cabc3d1dad0ea5442b65f72e8"
+        },
+        "artifact_retirement": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-freebsd-product-retirement.json",
+          "sha256": "03abd3a5de3673496d5fd64ded3fa917da976684c95c6493ff6a6af23449bbc4"
+        },
+        "compiled_product_archive": {
+          "path": "/Users/liyinan/Documents/MacroModel/wasip1-r30-owned-cold-evidence/uwvm2-freebsd-qualified-products.tar.gz",
+          "sha256": "da28e711b65300bcb387d4bdf6adadd9728a3c4434ffaee9eacaf725907c3a64",
+          "recovery_qualification": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-freebsd-local-cold-qualified.json",
+            "sha256": "34d665a38c0dd044eff54bbb9c5e6211edea94e67ac74a43e14ffa531344fb65"
+          }
+        },
+        "cases": [
+          {
+            "label": "uwvm2-checkpoint-instruction",
+            "checks": 212,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-checkpoint-unwind",
+            "checks": 212,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-aliases-instruction",
+            "checks": 212,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-aliases-unwind",
+            "checks": 212,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-environment-group-instruction",
+            "checks": 483,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-environment-group-unwind",
+            "checks": 483,
+            "status": 0
+          }
+        ],
+        "group_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2/environment-group-qualified.json",
+          "sha256": "b4367e6636d6d5bd8a56763df33cb9efe79d96d1998e3449e6983b3b754e5207"
+        },
+        "build_and_test_results": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2/results.json",
+          "sha256": "6d1c9cfde5f19007da0adb4b155c395c1f8fc51a50f109a93b1d6ca6a27fbf30"
+        },
+        "runtime_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2/runtime-qualified.json",
+          "sha256": "3913b7d9df46ed9e2c096bb19ccca1703fc930c61d6969a6bd000ba3230c947c"
+        },
+        "host-api_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2/host-api-qualified.json",
+          "sha256": "a561599935bb22868182143d19a2fd18d75f95bd96d4a8d8f8eaf096b3850b47"
+        },
+        "fixture_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2/qualified.json",
+          "sha256": "c52e1f477d06248c857150ffed3d1c500e788e13083fff66b8f8d1c80e0237bb"
+        },
+        "native_execution": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/vm-freebsd-joint-preparation-f5eb1fb1/receipt.json",
+          "sha256": "4b8b7c8a667ef91d74e1eee21a1178b13891c3261eb76705b4bf15ddc67141fe"
+        },
+        "serial_log": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/vm-freebsd-joint-preparation-f5eb1fb1/serial.log",
+          "sha256": "4374194d63b6435d2532dbb73d471b41ef8074281b201239eb9f7bb78efc2d8d"
+        },
+        "native_execution_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r30-freebsd-uwvm2.json",
+          "sha256": "9331953722d578210c949a50778d9608c0923b41cf73efb6089d2ca82f65b349"
+        },
+        "qemu_guest_ram_bytes": 2147483648,
+        "counted_assertions": 1814
+      },
+      "macos": {
+        "passed": true,
+        "qualification_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r30-macos-uwvm2.json",
+          "sha256": "cfaa700f90d2cdd08e028c5663cd247297876e9a889cfb5b427eef55288c3c29"
+        },
+        "qualification_guard_sampled_rss_peak": 8165638144,
+        "archive_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r30-macos-uwvm2.json",
+          "sha256": "a597d18d1e59dc8b029238363e48fa32ba1d06eb815bd55bc993201aaf88ec46"
+        },
+        "artifact_retirement": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-macos-product-retirement.json",
+          "sha256": "942ae90cc934a573ddfe1a3a8e4af7636c0a949bcfd0cf29e15cd75660455713"
+        },
+        "compiled_product_archive": {
+          "path": "/Users/liyinan/Documents/MacroModel/wasip1-r30-owned-cold-evidence/uwvm2-macos-qualified-products.tar.gz",
+          "sha256": "2250f7bcb1f10cc670e1af40748d4926bab0784071bba8b48a7ad87884901373",
+          "recovery_qualification": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-macos-local-cold-qualified.json",
+            "sha256": "1331d9804ae01c6b52ae15e8cd6c192534dff2b53ec1738d1f407e7ddb0e3dd4"
+          }
+        },
+        "cases": [
+          {
+            "label": "checkpoint-instruction",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/checkpoint-instruction.log",
+              "sha256": "53aa104e4cb99cc40b630a4c4cb3f76a2b147386eddff56b91e6da34310f1c24"
+            },
+            "aggregate_peak_upper_bytes": 331169792
+          },
+          {
+            "label": "checkpoint-unwind",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/checkpoint-unwind.log",
+              "sha256": "f86ef62fee9dd502cddada19dc8fbd57b9a765741879cc522ced108c92c08903"
+            },
+            "aggregate_peak_upper_bytes": 329760768
+          },
+          {
+            "label": "aliases-instruction",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/aliases-instruction.log",
+              "sha256": "dae8cf4eb9372d48ccf11e3fc2c7dfdd089899ab8db97aecd914881fcb8bf4ca"
+            },
+            "aggregate_peak_upper_bytes": 330743808
+          },
+          {
+            "label": "aliases-unwind",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/aliases-unwind.log",
+              "sha256": "6eb5bff63311e4f0966209b47864896d50629d122284e1831c68d088c17faee9"
+            },
+            "aggregate_peak_upper_bytes": 330481664
+          },
+          {
+            "label": "environment-group-instruction",
+            "checks": 483,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/environment-group-instruction.log",
+              "sha256": "93562d6a0f27e861dfc6a96bc49f68c578f73d0f0480f11ba535dee4029282df"
+            },
+            "aggregate_peak_upper_bytes": 348045312
+          },
+          {
+            "label": "environment-group-unwind",
+            "checks": 483,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/environment-group-unwind.log",
+              "sha256": "33e94c126b5d9171e383fc1f21410624a8f2859e14b05ceb45dcdc90b06b2c27"
+            },
+            "aggregate_peak_upper_bytes": 346636288
+          }
+        ],
+        "group_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/environment-group-qualified.json",
+          "sha256": "639ff1f4754e77e6c422fe09a6625c001d2549b1ee024c3d2518ba6209a3affd"
+        },
+        "build_and_test_results": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/results.json",
+          "sha256": "c5606570f8fe0b07eff0167790efac95eda493f1a5d9adf270167b91f2aaa377"
+        },
+        "runtime_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/runtime-qualified.json",
+          "sha256": "6faf07d0fe231beb9521d4ce586355c4d2a782825b5c5d6d71db5ab10a658bc5"
+        },
+        "host-api_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/host-api-qualified.json",
+          "sha256": "15020fda07b3ae668465be5d1b047e1989597baf9943092ef60e391ad307db11"
+        },
+        "fixture_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/qualified.json",
+          "sha256": "d1055d7a1a9c59a2750279109220e3276f1cf6e8dcf57c8e58cef2c348bf22b9"
+        },
+        "native_execution": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2/receipt.json",
+          "sha256": "72e40c9251b2c785ea9523251ad914af0295e2f6de212c44098b530e9f167209"
+        },
+        "native_execution_architecture": "arm64 native",
+        "native_memory_limit_bytes": 2147483648,
+        "counted_assertions": 1814
+      }
+    },
+    "uwvm2-ros": {
+      "linux": {
+        "passed": true,
+        "qualification_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-linux-integrated-r30-uwvm2-ros.json",
+          "sha256": "4905b44bcfdae448cde46ed1fec1c6e1f86d24aea6ba2bcd80d003e462941881"
+        },
+        "qualification_guard_sampled_rss_peak": 5954953216,
+        "archive_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r30-linux-integrated-uwvm2-ros.json",
+          "sha256": "7351fd4b176c9bf142818a6bae2624fc3a6cb3fb91c8f2d4ffa0a7ab91ae315f"
+        },
+        "artifact_retirement": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-ros-linux-integrated-product-retirement.json",
+          "sha256": "611cc3b801eeda96c1e4b0bf1fd43835e4de9ab99e5b623320ff816fec76f709"
+        },
+        "compiled_product_archive": {
+          "path": "/Users/liyinan/Documents/MacroModel/wasip1-r30-owned-cold-evidence/uwvm2-ros-linux-integrated-qualified-products.tar.gz",
+          "sha256": "6d2bdcf4ee6c1e1e7f5a0b4c80096b2b26367efd25897dcde0b340dddbb4583f",
+          "recovery_qualification": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-ros-linux-integrated-local-cold-qualified.json",
+            "sha256": "18c868e032f4227d1d2ae8317c514d06ee50a6ade7649b7586384534086761b4"
+          }
+        },
+        "cases": [
+          {
+            "fixture": "checkpoint",
+            "policy": "instruction",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/native-instruction.log",
+              "sha256": "36c3e3bf086861c5500fad07aea1bda9b29dfb076873e50cacf9614891899701"
+            }
+          },
+          {
+            "fixture": "checkpoint",
+            "policy": "unwind",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/native-unwind.log",
+              "sha256": "a9ecd455f913745511ce622b716fe2ab1525a4b1c5aba5613d6a70d1c9e59d9f"
+            }
+          },
+          {
+            "fixture": "aliases",
+            "policy": "instruction",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/aliases-instruction.log",
+              "sha256": "20da8d16d5e3d5360556831dd2cf368106bc9b888d51776700f2cf4fbae3a3f7"
+            }
+          },
+          {
+            "fixture": "aliases",
+            "policy": "unwind",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/aliases-unwind.log",
+              "sha256": "ed860f548023ec0a48f35e1b32e6dec23532cad39e881b8d8454bd9799e8b543"
+            }
+          },
+          {
+            "fixture": "environment-group",
+            "policy": "instruction",
+            "checks": 483,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/environment-group-instruction.log",
+              "sha256": "93562d6a0f27e861dfc6a96bc49f68c578f73d0f0480f11ba535dee4029282df"
+            }
+          },
+          {
+            "fixture": "environment-group",
+            "policy": "unwind",
+            "checks": 483,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/environment-group-unwind.log",
+              "sha256": "33e94c126b5d9171e383fc1f21410624a8f2859e14b05ceb45dcdc90b06b2c27"
+            }
+          }
+        ],
+        "group_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/environment-group-qualified.json",
+          "sha256": "81edb660e22ea87f3084452f175bf3cf96c03278e0f826ad382ece8bb1c05c16"
+        },
+        "build_and_test_results": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/results.json",
+          "sha256": "8fd6187926667b9a0d5f19b0c8122ef25856300a82dd5644b536a9e73b4d320c"
+        },
+        "runtime_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/runtime-qualified.json",
+          "sha256": "98bfd6dfc298fe015f02f37ac3066645c5b3a47e0cf69f5987778e0340835651"
+        },
+        "host-api_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/host-api-qualified.json",
+          "sha256": "5ac85bdd9cbc5a6786c58e933a134a0e78602bae8d38a11df4dfadc82ed1b05a"
+        },
+        "fixture_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/fixture-qualified.json",
+          "sha256": "5774f7b7a203ba8ae8d66e543bdda54ead7a121768b2783f70ebde52ec3f5aae"
+        },
+        "default_context_fast_path_regression": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/wasip1-memory-binding-qualified.json",
+          "sha256": "826de5961e3af2ecc016f15e6d3aa0a1cf0dd1997091a26fde72db212fa67a88"
+        },
+        "complete_graph_regressions": [
+          {
+            "fixture": "debug_checkpoint_complete_instance",
+            "policy": "instruction",
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/debug_checkpoint_complete_instance-instruction.log",
+              "sha256": "cf1bada165f306a462ba53eaa502b7e4f7c8311773c292227b6452938902ccf6"
+            }
+          },
+          {
+            "fixture": "debug_checkpoint_complete_instance",
+            "policy": "unwind",
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/debug_checkpoint_complete_instance-unwind.log",
+              "sha256": "548e1330187fdf30a1d139fd85182638d73f71926a176908db09fba979ed2f77"
+            }
+          },
+          {
+            "fixture": "debug_checkpoint_complete_preload",
+            "policy": "instruction",
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/debug_checkpoint_complete_preload-instruction.log",
+              "sha256": "bb51feae4f1d774f83246d6e1b9d44bc912fb30d300a28949f3639daac06d46c"
+            }
+          },
+          {
+            "fixture": "debug_checkpoint_complete_preload",
+            "policy": "unwind",
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/linux-integrated/uwvm2-ros/debug_checkpoint_complete_preload-unwind.log",
+              "sha256": "7afd2cbd780f1620a8ad069a327896180f38524380658eb95cad7d1d51ccb4e3"
+            }
+          }
+        ],
+        "counted_assertions": 1814
+      },
+      "windows": {
+        "passed": true,
+        "qualification_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r30-windows-uwvm2-ros.json",
+          "sha256": "17089631f35160b95e311c17844dd421fc89f4f6841444b174646abacfc13e3c"
+        },
+        "qualification_guard_sampled_rss_peak": 5404082176,
+        "archive_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r30-windows-uwvm2-ros.json",
+          "sha256": "20c6d6157f2274d0088e1d5c3f37cc84c822d4fa56d88b680668520f8a1cb906"
+        },
+        "artifact_retirement": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-ros-windows-product-retirement.json",
+          "sha256": "5c918c571f6d13c4b15eb31aed59c0f077a0c54fb8f22e09045d555a6f8e998e"
+        },
+        "compiled_product_archive": {
+          "path": "/Users/liyinan/Documents/MacroModel/wasip1-r30-owned-cold-evidence/uwvm2-ros-windows-qualified-products.tar.gz",
+          "sha256": "ed7360f6479f99fe9860c09c86fc15f13462cb2b7d0419d339d731fc4eed401a",
+          "recovery_qualification": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-ros-windows-local-cold-qualified.json",
+            "sha256": "55bae74220ee557cbbb48d94fdb093cbf7670c4c600d549e8b59482f1b23728d"
+          }
+        },
+        "cases": [
+          {
+            "label": "uwvm2-ros-checkpoint-instruction",
+            "checks": 207,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-ros-checkpoint-unwind",
+            "checks": 207,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-ros-aliases-instruction",
+            "checks": 207,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-ros-aliases-unwind",
+            "checks": 207,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-ros-environment-group-instruction",
+            "checks": 483,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-ros-environment-group-unwind",
+            "checks": 483,
+            "status": 0
+          }
+        ],
+        "group_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/windows/uwvm2-ros/environment-group-qualified.json",
+          "sha256": "f7967785eb457dd2a0a2c5871374af2b2d0b287c955a5c29f1d7c016857f83ed"
+        },
+        "build_and_test_results": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/windows/uwvm2-ros/results.json",
+          "sha256": "d1f34b83bd79ec85fc8046c30b485ac9f258005e1c9b13b6746c748e70e7bbe2"
+        },
+        "runtime_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/windows/uwvm2-ros/runtime-qualified.json",
+          "sha256": "8528b233553d7a1f6359fb246b76b85f82df359b8ae9539c7e580955e4e837d7"
+        },
+        "host-api_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/windows/uwvm2-ros/host-api-qualified.json",
+          "sha256": "c40bce9b9f1017d4ed53151e8c92215fcbc021c846b12a9d1a6003a0b1a6f693"
+        },
+        "fixture_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/windows/uwvm2-ros/qualified.json",
+          "sha256": "9a34bc8486042f5b30e004f905ec2ea93528678c13a12a91b9738f67c8480df4"
+        },
+        "native_execution": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/vm-windows-joint-preparation-2feae913/receipt.json",
+          "sha256": "35d01660525436b27f4dcf12c05732d9c41d25d859748bbeca1072fc5df41aaf"
+        },
+        "serial_log": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/vm-windows-joint-preparation-2feae913/serial.log",
+          "sha256": "7d9ea9ea5a17b4e9a6cba0fb380b67d370c93586f903c31c9b8fbbc38343451d"
+        },
+        "native_execution_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r30-windows-uwvm2-ros.json",
+          "sha256": "1f5597abe910abc6756d90c6128994087cb4f7b176613aa4e993f71daa06583b"
+        },
+        "qemu_guest_ram_bytes": 2147483648,
+        "counted_assertions": 1794
+      },
+      "freebsd": {
+        "passed": true,
+        "qualification_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r30-freebsd-uwvm2-ros.json",
+          "sha256": "10b747013cd631d159ceac37cadff76e28be5fbbe623d922b9ad5d56dfe3e508"
+        },
+        "qualification_guard_sampled_rss_peak": 5922803712,
+        "archive_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r30-freebsd-uwvm2-ros.json",
+          "sha256": "43b1a93ad624477748b047b4f3c4ba2ecf0986d71ca46bb333c81f1c2c6df1b4"
+        },
+        "artifact_retirement": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-ros-freebsd-product-retirement.json",
+          "sha256": "a97d57cb424fb71d8fae10191d828da8ef84435a7bc52b2acacabc80e39c6a63"
+        },
+        "compiled_product_archive": {
+          "path": "/Users/liyinan/Documents/MacroModel/wasip1-r30-owned-cold-evidence/uwvm2-ros-freebsd-qualified-products.tar.gz",
+          "sha256": "43c4122f8285982fe9fc2db6c82fb728d2126df376f223e9270ede5cff5a2f04",
+          "recovery_qualification": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-ros-freebsd-local-cold-qualified.json",
+            "sha256": "b673090d6fdeab4d1d213d24aab2e9aba566ea382d6007fb8c171398aa0fd9bb"
+          }
+        },
+        "cases": [
+          {
+            "label": "uwvm2-ros-checkpoint-instruction",
+            "checks": 212,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-ros-checkpoint-unwind",
+            "checks": 212,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-ros-aliases-instruction",
+            "checks": 212,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-ros-aliases-unwind",
+            "checks": 212,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-ros-environment-group-instruction",
+            "checks": 483,
+            "status": 0
+          },
+          {
+            "label": "uwvm2-ros-environment-group-unwind",
+            "checks": 483,
+            "status": 0
+          }
+        ],
+        "group_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2-ros/environment-group-qualified.json",
+          "sha256": "dbbfeca1a34f5af95b6cdc8619a9c1cb6e3c43be6bf3e6e9174a0e42c7a19825"
+        },
+        "build_and_test_results": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2-ros/results.json",
+          "sha256": "f0e74808d3a74ab93dc6b6c441aa50700639be6b4d7f3255b522350441c0cd45"
+        },
+        "runtime_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2-ros/runtime-qualified.json",
+          "sha256": "49e76706f6edd86393507b25cb3b5822931d73150212b525483f7497da92b715"
+        },
+        "host-api_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2-ros/host-api-qualified.json",
+          "sha256": "ac31ea8f4aac992dd1c62d6dde30570e7f21c6226424d1907461e69b03e7b595"
+        },
+        "fixture_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/freebsd/uwvm2-ros/qualified.json",
+          "sha256": "7dfc7edb518784422d41e72d9a6c036aa111df55194bd826454e46e6624327b0"
+        },
+        "native_execution": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/vm-freebsd-joint-preparation-a990d478/receipt.json",
+          "sha256": "d35c41ffe348e7dddbc9beb3045a12cce09653db0a58775b99f30419a83bd548"
+        },
+        "serial_log": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/vm-freebsd-joint-preparation-a990d478/serial.log",
+          "sha256": "213227538e5931e4586838da559ef0d7c9c53bd38a882f4024d8cf95220ea772"
+        },
+        "native_execution_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-vm-r30-freebsd-uwvm2-ros.json",
+          "sha256": "a24bb6b53f35c057a7f6872b3101ffb4ee6f9c23fa358e1875c27179caeae7a9"
+        },
+        "qemu_guest_ram_bytes": 2147483648,
+        "counted_assertions": 1814
+      },
+      "macos": {
+        "passed": true,
+        "qualification_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-cross-r30-macos-uwvm2-ros.json",
+          "sha256": "13f2ce307a781a4e3579e753458ffb73e4a0cd96facfe21cc08e172b650fd5b0"
+        },
+        "qualification_guard_sampled_rss_peak": 6027591680,
+        "archive_guard": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-archive-r30-macos-uwvm2-ros.json",
+          "sha256": "5d293e4ce877ac285ce28ed796ffbce68419c45f511a3cf59dc61ae3b9b0a313"
+        },
+        "artifact_retirement": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-ros-macos-product-retirement.json",
+          "sha256": "f31d1099e2886abd396e8b313478b6dc158f0aabfe078d5a451d4a85f5ac2efd"
+        },
+        "compiled_product_archive": {
+          "path": "/Users/liyinan/Documents/MacroModel/wasip1-r30-owned-cold-evidence/uwvm2-ros-macos-qualified-products.tar.gz",
+          "sha256": "29869129a29fc56b434740106a0a47465e086b57290ed88dba971271b7c88ea3",
+          "recovery_qualification": {
+            "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/uwvm2-ros-macos-local-cold-qualified.json",
+            "sha256": "9760ffd84ea7dc151f1874433536d03227804fd5f1bf8cfdff21cb723e24e352"
+          }
+        },
+        "cases": [
+          {
+            "label": "checkpoint-instruction",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/checkpoint-instruction.log",
+              "sha256": "53aa104e4cb99cc40b630a4c4cb3f76a2b147386eddff56b91e6da34310f1c24"
+            },
+            "aggregate_peak_upper_bytes": 291504128
+          },
+          {
+            "label": "checkpoint-unwind",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/checkpoint-unwind.log",
+              "sha256": "f86ef62fee9dd502cddada19dc8fbd57b9a765741879cc522ced108c92c08903"
+            },
+            "aggregate_peak_upper_bytes": 290684928
+          },
+          {
+            "label": "aliases-instruction",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/aliases-instruction.log",
+              "sha256": "dae8cf4eb9372d48ccf11e3fc2c7dfdd089899ab8db97aecd914881fcb8bf4ca"
+            },
+            "aggregate_peak_upper_bytes": 291602432
+          },
+          {
+            "label": "aliases-unwind",
+            "checks": 212,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/aliases-unwind.log",
+              "sha256": "6eb5bff63311e4f0966209b47864896d50629d122284e1831c68d088c17faee9"
+            },
+            "aggregate_peak_upper_bytes": 290799616
+          },
+          {
+            "label": "environment-group-instruction",
+            "checks": 483,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/environment-group-instruction.log",
+              "sha256": "93562d6a0f27e861dfc6a96bc49f68c578f73d0f0480f11ba535dee4029282df"
+            },
+            "aggregate_peak_upper_bytes": 309739520
+          },
+          {
+            "label": "environment-group-unwind",
+            "checks": 483,
+            "log": {
+              "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/environment-group-unwind.log",
+              "sha256": "33e94c126b5d9171e383fc1f21410624a8f2859e14b05ceb45dcdc90b06b2c27"
+            },
+            "aggregate_peak_upper_bytes": 308772864
+          }
+        ],
+        "group_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/environment-group-qualified.json",
+          "sha256": "3e68b07233e80952b9685d926260acbdb0669d7906376a38072cf7331760ec1b"
+        },
+        "build_and_test_results": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/results.json",
+          "sha256": "d761bdaba9f3da172e8152c1b6709bcfc29c86e65ceb20330f298fa3091b59cb"
+        },
+        "runtime_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/runtime-qualified.json",
+          "sha256": "e076f5803d6c05029ae7c2fbed48ac56933e31b7ee552787ce658ffeb03f3de8"
+        },
+        "host-api_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/host-api-qualified.json",
+          "sha256": "54f3a9c6d50801b80def627fec463c1859a4b54ac321f5c14339f9afd48e3a2f"
+        },
+        "fixture_qualification": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/qualified.json",
+          "sha256": "10d784f00738b40a47736c8c3fd04a94233c5491a101cd2b68c75533c530a78c"
+        },
+        "native_execution": {
+          "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/products/macos/uwvm2-ros/receipt.json",
+          "sha256": "a93540651f711743fda261089e51e9902a91bcbbfb999577c6312cc522a0cf9e"
+        },
+        "native_execution_architecture": "arm64 native",
+        "native_memory_limit_bytes": 2147483648,
+        "counted_assertions": 1814
+      }
+    }
+  },
+  "historical_negative_tests_preserved": true,
+  "group_checks_per_run": 483,
+  "primary_success_verified_native_workers": 96,
+  "primary_success_verified_module_visits": 160,
+  "counted_assertions": 14472,
+  "native_program_runs": 48,
+  "linux_complete_graph_regression_runs": 8,
+  "policy": {
+    "owned_directory": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17",
+    "directory_admission_bytes": 6442450944,
+    "directory_stop_bytes": 7516192768,
+    "directory_logical_stop_bytes": 17179869184,
+    "temporary_stop_bytes": 2147483648,
+    "filesystem_free_reserve_bytes": 34359738368,
+    "file_size_hard_limit_bytes": 1073741824,
+    "shared_cgroup_admission_bytes": 57982058496,
+    "shared_cgroup_stop_bytes": 64424509440,
+    "own_components_rss_stop_bytes": 2147483648,
+    "host_memory_admission_reserve_bytes": 8589934592,
+    "host_memory_running_reserve_bytes": 4294967296,
+    "tmpdir": "owned_directory/tmp",
+    "monitor_interval_seconds": 1,
+    "concurrency": "one suite under task-owned flock",
+    "limit_kind": "8 GiB private ext4 loop image provides a hard filesystem capacity; sampled guards keep additional reserves; RLIMIT_FSIZE enforces each file limit. Thin image allocation grows only with actual use.",
+    "cleanup": "Only explicitly owned disposable artifacts; retain inputs, dependency hashes, logs and reports. VM overlays one at a time, retired on completion after receipt validation. No full history extraction or private toolchain duplication.",
+    "volume_capacity_bytes": 8589934592,
+    "volume_free_reserve_bytes": 536870912,
+    "volume_image_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17.ext4",
+    "volume_inode_admission_reserve": 8192,
+    "volume_inode_running_reserve": 2048
+  },
+  "cold_storage": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-r27-owned-cold-evidence/qualification.json",
+    "sha256": "45516fa9199efc91d41cd480189209351aa1fd63740136c9cad8f91260ae90cb"
+  },
+  "recovered_r29_linux_products": {
+    "qualification": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/historical-r29-local-qualified.json",
+      "sha256": "3fd7721feb81c9b92e02cf85c58eb57a5e31fab267ff8d4b81561d7d215e2439"
+    },
+    "retirement": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/historical-r29-hot-retirement.json",
+      "sha256": "1901ac60f140454a875074a202fa249768aaa69163b9a8075287abc3422088aa"
+    },
+    "cleanup_guard": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/guard-joint-rehome-r29-r30.json",
+      "sha256": "0690d0fc5b087eaef63627f145203d7d942beaf62eb25a22ec323b06a00be633"
+    },
+    "test_admission_refusal": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-context-workers-20261007-r30/storage-admission-refusal-r30.json",
+      "sha256": "afa923a921175a421562001e7fd3b78341ed6f45e048980a68f038da7101bab0"
+    },
+    "windows_vm_started_before_cleanup": false
+  },
+  "local_product_cold": {
+    "directory": "/Users/liyinan/Documents/MacroModel/wasip1-r30-owned-cold-evidence",
+    "checked_limit_bytes": 1073741824,
+    "aggregate_with_historical_region_limit_bytes": 2147483648,
+    "archives": 8,
+    "all_archive_payloads_read_back": true,
+    "guarded_remote_copy_retirement": true
+  },
+  "linux_fast_path_regression_runs": 2,
+  "linux_fast_path_regression_assertions": 20,
+  "remaining_requirements": [
+    "Integrate actual old-world worker retirement/join with joint restoration",
+    "Enroll actual new startup execution workers and install their live roots during complete publication",
+    "Publish the prepared native WASIp1 cache with the complete Wasm world, source, engines and generation; activate per-call module memory under actual restored worker startup",
+    "Qualify actual complete-instance restore/replay; prepared_and_discarded never means restored"
+  ]
+}

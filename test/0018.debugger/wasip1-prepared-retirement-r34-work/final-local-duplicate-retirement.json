@@ -1,0 +1,80 @@
+{
+  "passed": true,
+  "exact_remote_originals_verified": true,
+  "rows": [
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/local-historical-inputs-custody-qualified.json",
+      "remote_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/local-historical-inputs-custody-qualified.json",
+      "bytes": 2575698,
+      "mode": 420,
+      "sha256": "80a046c1d9064958939484f4c1b79ba8cdc8fe5c606f7e2b94473f44fc860290"
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/repaired-inputs.json",
+      "remote_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs.json",
+      "bytes": 1235357,
+      "mode": 420,
+      "sha256": "3f69494ae72f8379e01cf4e3e7a469c22bfd3e104c3fa416f376e6cc731d5a68"
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/repaired-inputs-v2.json",
+      "remote_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v2.json",
+      "bytes": 1235357,
+      "mode": 420,
+      "sha256": "27535550e6e1f6f41316ebdf7f75a457b2b6e89222c2fb7282bf5c8742148ad7"
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/repaired-inputs-v3.json",
+      "remote_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v3.json",
+      "bytes": 1235357,
+      "mode": 420,
+      "sha256": "6b009a46a35696fd68a9827676d5287d5010eb323b69316734f21e75900e747b"
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/repaired-inputs-v4.json",
+      "remote_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v4.json",
+      "bytes": 1235357,
+      "mode": 420,
+      "sha256": "352482281b0da11a598a53d546ab4826a1f68e2188cee07a934f092bdf76031b"
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/repaired-inputs-v5.json",
+      "remote_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v5.json",
+      "bytes": 1235357,
+      "mode": 420,
+      "sha256": "25ddbe02c8a6c73bb4171d66cfdb77ca4f8c439582c7dee010e9071b2125d609"
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/repaired-inputs-v6.json",
+      "remote_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v6.json",
+      "bytes": 1235623,
+      "mode": 420,
+      "sha256": "daa1fe8f66772e8c6e310b87c36477bac07dbab34aa7c5c9bcc455be72ddab3c"
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/repaired-inputs-v7.json",
+      "remote_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repaired-inputs-v7.json",
+      "bytes": 1235917,
+      "mode": 420,
+      "sha256": "c574e5da78b41c247590acc3a334590e53e4440d120e639c3c3761bd62b16814"
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/inputs.json",
+      "remote_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/inputs.json",
+      "bytes": 1235357,
+      "mode": 420,
+      "sha256": "839d02935323faca56f194e84aabfd68786e2d1b64cc9329151c427e0452924f"
+    },
+    {
+      "local_path": "/Users/liyinan/Documents/MacroModel/src/uwvm2/test/0018.debugger/wasip1-prepared-retirement-r34-work/repair-delta-v6.tar.gz",
+      "remote_path": "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/repair-delta-v6.tar.gz",
+      "bytes": 1215145,
+      "mode": 420,
+      "sha256": "c56da61c38784db2f9af552a34fcf32cecd857ee0d0e6a942be57a472865eabe"
+    }
+  ],
+  "unmatched_preserved": [
+    "/home/macromodel/Documents/uwvm3-implementation/wasip1-recovery-20261006-r17/rounds/wasip1-prepared-retirement-20261008-r34/before-status-rollback-repaired-inputs-v5.json"
+  ],
+  "native_execution_claimed": false
+}

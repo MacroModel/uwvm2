@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "exit": 1,
+  "aggregate_peak_upper_bytes": 1255063552,
+  "limit_bytes": 2147483648,
+  "pid_reaped": true,
+  "log_sha256": "06f08929938554e862d37fc43cbf78ef4692f32f849c69b49b9260d8ea6d8ef5"
+}

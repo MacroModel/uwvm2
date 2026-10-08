@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "prior_keys_preserved": 43,
+  "previous_sha256": "86a157f75feb421455294c83f5d6210dfcc25317d9f696c2865fed46908f8ce1",
+  "updated_sha256": "7cd504430f2728acadb4bfb5e0666b5a3ef1aae50465826f14d7fadcd855dfe0",
+  "new_key": "r38_checkpoint_source_initializer",
+  "native_effective_cases": 24,
+  "full_world_restore": false
+}

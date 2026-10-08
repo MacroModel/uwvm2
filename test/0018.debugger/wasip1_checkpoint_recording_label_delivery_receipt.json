@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "source_sha256": {
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h": "b7f76090e112b32e549c5b977f332ff9c87f0bca0ecf8a5bc63d435f6fee7538",
+    "uwvm2/test/0017.runtime/debug_wasip1_portable_runtime.cc": "69a186b09c3d683223455699464274578c7b8f95d6ad76028f668ca043848fb5",
+    "uwvm2/test/0013.debugger/wasip1_recording_labels.cc": "8840ad94406fe1e1c990c6991d5283d18f54e731593edca22decfa8dffc57c12",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "9b74d670cd49c85b374c027602befff488e35ecc08f3eeed256b4009895c0002",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h": "b7f76090e112b32e549c5b977f332ff9c87f0bca0ecf8a5bc63d435f6fee7538",
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_portable_runtime.cc": "69a186b09c3d683223455699464274578c7b8f95d6ad76028f668ca043848fb5",
+    "uwvm2-ros/test/0013.debugger/wasip1_recording_labels.cc": "8840ad94406fe1e1c990c6991d5283d18f54e731593edca22decfa8dffc57c12",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "9b74d670cd49c85b374c027602befff488e35ecc08f3eeed256b4009895c0002"
+  },
+  "report_sha256": "6d58b09175ff0baa1f2507a63200430e0c9f54273aa2ccc5b33837ffbf32cdd6",
+  "results_sha256": "c40b6a1c8099bbf18583fb855b3f49413cbec361c365ecc5f7910877e8e5bb1f",
+  "durable_evidence": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-recording-label-20261006-r15/source-and-test-evidence.tar.gz",
+    "sha256": "61ee8071d5ef2099cafdd3163b6d1fb426b6b3ec71d0c088baa39f1c75a10edd",
+    "bytes": 239749501,
+    "verified_payloads": 513,
+    "nested_source_archive": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-recording-label-20261006-r15/immutable-source-and-macos-evidence.tar.gz",
+      "sha256": "2217a765d8e2d39fb8b8bae2067c0954cdb79f69701489a61eea03acd5136fa3",
+      "bytes": 39594869,
+      "verified_payloads": 18556
+    }
+  },
+  "repository_reports_identical": true
+}

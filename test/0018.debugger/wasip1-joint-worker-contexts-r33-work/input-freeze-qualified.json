@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "files": 8783,
+  "hardlinked_immutable": 8769,
+  "new_files": 14,
+  "manifest_sha256": "b22ea661b18400b72dd73a7c4a80f717a56449fd3575f95b8830641edd3dd15d",
+  "source_archive_sha256": "78bb5a430914decaf9e275ca0bd8d06fb076759ad1f0fd10c2b5132b176cb0e0",
+  "all_payloads_read_back": true,
+  "cgroup": "0::/system.slice/docker-d3b12e6d323a0f28c2408989fff41a1ca1a991e19945919bc870337dd0afae03.scope\n"
+}

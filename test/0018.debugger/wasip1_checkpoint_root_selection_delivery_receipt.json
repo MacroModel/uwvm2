@@ -1,0 +1,46 @@
+{
+  "round": "R12",
+  "all_required_tests_passed": true,
+  "own_current_source_sha256": {
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h": "850c75b4037f3060ccd8c32af31cc4b5d2e82932e811d458e683ca77cc2905f8",
+    "uwvm2/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h": "43adbaa3748f288450b8580ee80fd397dd682d3eadcb0e60e8b8fda49252eec4",
+    "uwvm2/test/0013.debugger/wasip1_root_selection.cc": "6634a2b4928ba88ed1c880996d755dc562fbb03fc9149537268dc6704112b993",
+    "uwvm2/test/0017.runtime/debug_wasip1_portable_runtime.cc": "b26b3333a4104bd896d9e9f143527855e6d328bf7a75cde999b8c2a62f0d91e7",
+    "uwvm2/test/0017.runtime/fixtures/debug_wasip1_root_choice.wat": "e2c22d79f1f96525eb02be3f5e18861fb7a9accb2214123bab15eac8051fe3fc",
+    "uwvm2/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "8bb83e7cddfb3bccfac9c3a3aac4d60954cb01d352043da116f1d6d98a149ff6",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_mount_identity.h": "850c75b4037f3060ccd8c32af31cc4b5d2e82932e811d458e683ca77cc2905f8",
+    "uwvm2-ros/src/uwvm2/runtime/lib/uwvm_runtime_wasip1_portable_environment.h": "43adbaa3748f288450b8580ee80fd397dd682d3eadcb0e60e8b8fda49252eec4",
+    "uwvm2-ros/test/0013.debugger/wasip1_root_selection.cc": "6634a2b4928ba88ed1c880996d755dc562fbb03fc9149537268dc6704112b993",
+    "uwvm2-ros/test/0017.runtime/debug_wasip1_portable_runtime.cc": "b26b3333a4104bd896d9e9f143527855e6d328bf7a75cde999b8c2a62f0d91e7",
+    "uwvm2-ros/test/0017.runtime/fixtures/debug_wasip1_root_choice.wat": "e2c22d79f1f96525eb02be3f5e18861fb7a9accb2214123bab15eac8051fe3fc",
+    "uwvm2-ros/src/uwvm2/uwvm/debugger/wasip1_checkpoint.md": "8bb83e7cddfb3bccfac9c3a3aac4d60954cb01d352043da116f1d6d98a149ff6"
+  },
+  "report_sha256": "797f7f80651d06962834e02375f723b930971b3e780e07bd37363225c393b0e9",
+  "results_sha256": "0a7c5d6f52f50cfece65b55822015988e9e4b0c2f6f8e220d3b9191ddddd376b",
+  "source_archive": {
+    "sha256": "be9e66201c18db3c1d6951a877d8d8c1bc8a5a0485f0768ed710631450965f16",
+    "bytes": 94257606,
+    "payloads": 51068,
+    "every_payload_verified": true,
+    "persistent_copy": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-directory-flags-20261006-r11-private-vm/r12-source-evidence.tar.gz",
+      "sha256": "be9e66201c18db3c1d6951a877d8d8c1bc8a5a0485f0768ed710631450965f16",
+      "bytes": 94257606,
+      "verified_copy": true
+    }
+  },
+  "test_archive": {
+    "sha256": "0317ab99566fbd5363d33430ec212fbf6d82d5eb1226c0807b45d31341350549",
+    "bytes": 22275456,
+    "payloads": 303,
+    "every_payload_verified": true,
+    "persistent_copy": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/wasm3-resume-20260924/builds/wasip1-directory-flags-20261006-r11-private-vm/r12-test-evidence.tar.gz",
+      "bytes": 22275456,
+      "sha256": "0317ab99566fbd5363d33430ec212fbf6d82d5eb1226c0807b45d31341350549",
+      "verified_copy": true
+    }
+  },
+  "both_repositories_byte_identical": true,
+  "other_agents_changes_preserved": true
+}

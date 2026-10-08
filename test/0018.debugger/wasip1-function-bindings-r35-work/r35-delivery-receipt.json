@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "all_delivery_payloads_read_back": true,
+  "delivery_archive_sha256": "2ba56b0fc4dd6acd5c8e1f4d2ab1c780f96ef580871196d30f953b19cabef396",
+  "payload_count": 63,
+  "reports": {
+    "wasip1_function_bindings_r35_test_report.md": "0b4dd79b79db50e05c7f358b75fba1c1745784846c962a7169309f19cc56dfa8",
+    "wasip1_function_bindings_r35_test_report.json": "41fb11d41d8b7f4d996a5ba7a947b8b0a0d3b8f42ec2760eb09671b3d67925d8"
+  },
+  "source_manifest_sha256": "698f46170cdff3edb4037d67c737de6f8aec4bfea6e0bd2772a1158ddaf23baa",
+  "native_r35_executions": 0,
+  "old_native_qualified_round_not_overwritten": true,
+  "environment_backup_sha256": "222fa469fe2e562ac9a65529f7ca16522b7c044b2b3b413b0890fa83e573fc46",
+  "updated_environment_sha256": "f025a93db0705d6b02a2ce47a44de04605da04f0e29901351117e7c52d0fa9a9",
+  "r35_allocated_bytes": 10731520,
+  "analysis_ceiling_bytes": 16777216,
+  "whole_world_restore_complete": false,
+  "timestamp_ns": 1791425603688212387
+}

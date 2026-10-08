@@ -1,0 +1,60 @@
+{
+  "schema": "uwvm-native-finish-riscv64-qualification-v1",
+  "scope": "Linux RV64 GNU ABI and exact recorded QEMU prefix; Wasm owners only",
+  "tested_source_identities": {
+    "uwvm2": "sha256:c8ebd695c94345736d7a4f2cd47981c4931058b75a04ed5599df08000976e976",
+    "uwvm2-ros": "sha256:e976d14e1374275fa21ec6c4968f0f3c4cba8838bafd97cb176064bece24ce44"
+  },
+  "qualified_linux_root": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-rv-finish-20261007-r1",
+  "full_proof": "QUALIFIED127.json",
+  "full_proof_sha256": "619411dbd8623b31aa25d4b4bb03d63f98238d6b87d3f5a62a5fba79054f33c6",
+  "sdk_proof_sha256": "5b113b081410d61b628167711043226139b8364c2055cd5df7528e613f9dd42c",
+  "sdk_changed_members": [
+    "RISCVFrameLowering.cpp.o"
+  ],
+  "sdk_ELF_members": 1648,
+  "successful_selected_commands": 91,
+  "successful_final_closure_audit_commands": 1,
+  "real_VM_sessions": 58,
+  "real_finish_fixture_sessions": 40,
+  "real_CLI_sessions": 18,
+  "real_physical_return_hops": 72,
+  "deep_recursion": 70,
+  "deep_recursive_wrong_SP_and_successor_hits_per_session": 69,
+  "full_interpreter": true,
+  "full_LLVM_JIT": true,
+  "ROS_basic_modes_added": false,
+  "public_native_stack_bytes": 0,
+  "verified_inputs": 30154,
+  "actual_dependency_inputs": 5988,
+  "selected_owned_RSS_peak_bytes": 7077494784,
+  "selected_folder_high_water_bytes": 16153972736,
+  "memory_max_bytes": 68719476736,
+  "memory_swap_max_bytes": 0,
+  "memory_events": {
+    "low": "0",
+    "high": "0",
+    "max": "0",
+    "oom": "0",
+    "oom_kill": "0",
+    "oom_group_kill": "0"
+  },
+  "fixture_RV_equivalence": {
+    "tested129": "d68dbfb0dea133c7239acb31416a5f2861f17f8d9d036600695531f64cb5de44",
+    "current": "19785c5f30c5d99373469b10545b7f49a61a3859035921eee7dfb9b836e35087",
+    "change": "s0 format check is RV64-only; independent architecture SP/FP value and known-bit checks retained",
+    "RV64_behavior": "same: actual Linux RV64 capture sets machine=riscv64",
+    "other_ISAs": "not qualified by this turn"
+  },
+  "limitations": [
+    "Exact tested QEMU prefix and RV64 GNU ABI; alternate guest_base not qualified",
+    "CFA-only metadata never grants a live caller or return event",
+    "No public native SP/FP/stack bytes or VM-code stepping",
+    "Not an all-ISA or all-Wasm-Core-3/thread/language/checkpoint qualification",
+    "source111 cancellation diagnostic used optional !=0; assertions already required no native PC; source126 fixes the label"
+  ],
+  "evidence_archive": "evidence133.tar.gz",
+  "evidence_archive_sha256": "653c388faeb029ed741f8fc6cc50b5e5b2237852e97782c60bc1f738e780d9c0",
+  "evidence_archive_bytes": 12175473,
+  "evidence_archive_completion_record": "DELIVERY134.json"
+}

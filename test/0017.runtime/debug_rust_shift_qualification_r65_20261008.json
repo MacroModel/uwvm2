@@ -1,0 +1,974 @@
+{
+  "passed": true,
+  "round": "R65",
+  "date": "2026-10-08T10:55:54.953128+00:00",
+  "scope": "Rust signed left shift truncation and host-independent arithmetic right shift; complete frozen LLVM-JIT full products with actual Rust/C++ original DWARF4/5 DAP; finite components on 16 Linux architectures",
+  "all_native_capabilities_implemented": false,
+  "current_whole_workspace_qualified": false,
+  "full_cross_architecture_VM_JIT_DAP_qualified": false,
+  "actual_native_GDB_LLDB_execution": false,
+  "actual_IDE_UI": false,
+  "uwvm_int_full_live_debugger_qualified": false,
+  "products": [
+    {
+      "repository": "uwvm2",
+      "source_id": "sha256:6410c4f962308bf958ce3589be68707a72c88f4f0ba4c55b4fbe38ad65c37f13",
+      "binary": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/out-uwvm2/product-a1/uwvm",
+        "bytes": 179226896,
+        "sha256": "89a3c50f92db5b985fe4a96454f069ca07e092e06a1ee97b92fcadbdbe721a51"
+      },
+      "build": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/out-uwvm2/product-a1/results.json",
+        "bytes": 4771010,
+        "sha256": "b7209771f985e7fdc2ff9e54a9d86be861a2dbcaf99d81640b84f2e292420a93"
+      },
+      "all_three_TUs_and_link_fresh": true,
+      "exact_canonical_ROS12_X86_provider": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "source_id": "sha256:2e26c19f2464566e9cc06fc1351429cf15aded2c104737f9bbbb27064a26c67b",
+      "binary": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/out-uwvm2-ros/product-a1/uwvm",
+        "bytes": 144763936,
+        "sha256": "f6612c8d56efab236e3e12ac9c42dcaa851b50f0f2637ba988a1f87e0b3bad2d"
+      },
+      "build": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/out-uwvm2-ros/product-a1/results.json",
+        "bytes": 7016460,
+        "sha256": "3863a5ed36b11fe34a263bcec37b159c8964f10a6b44e271e9af62ea850dcae7"
+      },
+      "all_three_TUs_and_link_fresh": true,
+      "exact_canonical_ROS12_X86_provider": true
+    }
+  ],
+  "guards": [
+    {
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/guard-uwvm2-a1/receipts.json",
+        "bytes": 116190,
+        "sha256": "fd3a802bb294c1e3d14723e34ac8ab157d7daa9229d24c0449149da2d6b6701d"
+      },
+      "commands": [
+        {
+          "label": "uwvm2build",
+          "wall_seconds": 233.38388474600015,
+          "peak_owned_rss_bytes": 7395127296,
+          "minimum_host_free_bytes": 31428689920,
+          "maximum_own_output_bytes": 694260067
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/guard-uwvm2-ros-a1/receipts.json",
+        "bytes": 130953,
+        "sha256": "1f0b3ceaec5651207276cf8e9387cdbcdda148311c1aef10dfe54d9ba4f7c9f9"
+      },
+      "commands": [
+        {
+          "label": "uwvm2-rosbuild",
+          "wall_seconds": 200.55079957499947,
+          "peak_owned_rss_bytes": 6092177408,
+          "minimum_host_free_bytes": 31659991040,
+          "maximum_own_output_bytes": 465404335
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-components-a2-r65/guard-a1/receipts.json",
+        "bytes": 604238,
+        "sha256": "f763481aae7ff10761d44646886cbe53b4bba919c633dfc7d659d0236b755616"
+      },
+      "commands": [
+        {
+          "label": "uwvm2components",
+          "wall_seconds": 77.17536088199995,
+          "peak_owned_rss_bytes": 721838080,
+          "minimum_host_free_bytes": 31874076672,
+          "maximum_own_output_bytes": 14549624
+        },
+        {
+          "label": "uwvm2roscomponents",
+          "wall_seconds": 77.88207709800008,
+          "peak_owned_rss_bytes": 732303360,
+          "minimum_host_free_bytes": 31405252608,
+          "maximum_own_output_bytes": 31364734
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-cross-a2-r65/guard-a1/receipts.json",
+        "bytes": 835978,
+        "sha256": "9091f227db9387e0730a77a0bb6813af823ded11672fbfc92c1bb174dd73bc6d"
+      },
+      "commands": [
+        {
+          "label": "qualifiedtypesmatrix",
+          "wall_seconds": 408.9178328649996,
+          "peak_owned_rss_bytes": 621211648,
+          "minimum_host_free_bytes": 31337816064,
+          "maximum_own_output_bytes": 29984042
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/guard-uwvm2-a1/receipts.json",
+        "bytes": 3485492,
+        "sha256": "6c03a181749a73e5a2017eda72c8af56d0eb9e07cbca7cbe4548770fb4f0c23a"
+      },
+      "commands": [
+        {
+          "label": "uwvm2-unit",
+          "wall_seconds": 2.3236293400004797,
+          "peak_owned_rss_bytes": 72347648,
+          "minimum_host_free_bytes": 31411867648,
+          "maximum_own_output_bytes": 0
+        },
+        {
+          "label": "uwvm2-all",
+          "wall_seconds": 5.4947953090004376,
+          "peak_owned_rss_bytes": 174841856,
+          "minimum_host_free_bytes": 31403593728,
+          "maximum_own_output_bytes": 1197963
+        },
+        {
+          "label": "uwvm2-unwind",
+          "wall_seconds": 5.417212459999973,
+          "peak_owned_rss_bytes": 174825472,
+          "minimum_host_free_bytes": 31402463232,
+          "maximum_own_output_bytes": 1567190
+        },
+        {
+          "label": "uwvm2-conditional-all",
+          "wall_seconds": 46.58350594199965,
+          "peak_owned_rss_bytes": 182972416,
+          "minimum_host_free_bytes": 31389274112,
+          "maximum_own_output_bytes": 1769618
+        },
+        {
+          "label": "uwvm2-conditional-unwind",
+          "wall_seconds": 46.60354796699994,
+          "peak_owned_rss_bytes": 183136256,
+          "minimum_host_free_bytes": 31377911808,
+          "maximum_own_output_bytes": 3038207
+        },
+        {
+          "label": "uwvm2-live-all",
+          "wall_seconds": 9.87735234199954,
+          "peak_owned_rss_bytes": 165355520,
+          "minimum_host_free_bytes": 31373897728,
+          "maximum_own_output_bytes": 3311367
+        },
+        {
+          "label": "uwvm2-live-unwind",
+          "wall_seconds": 9.84233818299981,
+          "peak_owned_rss_bytes": 166998016,
+          "minimum_host_free_bytes": 31372726272,
+          "maximum_own_output_bytes": 3583993
+        },
+        {
+          "label": "uwvm2-suffix-all",
+          "wall_seconds": 62.39312600999983,
+          "peak_owned_rss_bytes": 183451648,
+          "minimum_host_free_bytes": 31367217152,
+          "maximum_own_output_bytes": 5198158
+        },
+        {
+          "label": "uwvm2-suffix-unwind",
+          "wall_seconds": 62.2767222880002,
+          "peak_owned_rss_bytes": 185012224,
+          "minimum_host_free_bytes": 31346683904,
+          "maximum_own_output_bytes": 6934780
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-soak-a1-r65/guard-uwvm2-a1/receipts.json",
+        "bytes": 3869672,
+        "sha256": "a1b83f59db15bdc7412eb748aea0ba3ae11e1a6376b71b9600d0e9a107e392f8"
+      },
+      "commands": [
+        {
+          "label": "uwvm2-soak",
+          "wall_seconds": 601.8116950019994,
+          "peak_owned_rss_bytes": 208121856,
+          "minimum_host_free_bytes": 31275196416,
+          "maximum_own_output_bytes": 22595632
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-before-a1-r65/guard-uwvm2-a1/receipts.json",
+        "bytes": 93577,
+        "sha256": "c2363f8436d9b9be3be80eca2fced7c59e83dee37905f958f73df96cdb1b50e4"
+      },
+      "commands": [
+        {
+          "label": "uwvm2-all",
+          "wall_seconds": 4.675913052999931,
+          "peak_owned_rss_bytes": 169553920,
+          "minimum_host_free_bytes": 32254623744,
+          "maximum_own_output_bytes": 183532
+        },
+        {
+          "label": "uwvm2-unwind",
+          "wall_seconds": 4.495620857999711,
+          "peak_owned_rss_bytes": 171286528,
+          "minimum_host_free_bytes": 32252309504,
+          "maximum_own_output_bytes": 367026
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/guard-uwvm2-ros-a1/receipts.json",
+        "bytes": 3425117,
+        "sha256": "0f7e883a8a1c0a674a4b64cc8cd85c81832420421c342f0155e825585b628e0c"
+      },
+      "commands": [
+        {
+          "label": "uwvm2-ros-unit",
+          "wall_seconds": 2.3033288959995843,
+          "peak_owned_rss_bytes": 53678080,
+          "minimum_host_free_bytes": 31413776384,
+          "maximum_own_output_bytes": 0
+        },
+        {
+          "label": "uwvm2-ros-all",
+          "wall_seconds": 5.553206487000352,
+          "peak_owned_rss_bytes": 176701440,
+          "minimum_host_free_bytes": 31403704320,
+          "maximum_own_output_bytes": 439481
+        },
+        {
+          "label": "uwvm2-ros-unwind",
+          "wall_seconds": 5.3679593020006,
+          "peak_owned_rss_bytes": 177618944,
+          "minimum_host_free_bytes": 31402352640,
+          "maximum_own_output_bytes": 1468657
+        },
+        {
+          "label": "uwvm2-ros-conditional-all",
+          "wall_seconds": 46.641424790999736,
+          "peak_owned_rss_bytes": 186085376,
+          "minimum_host_free_bytes": 31389274112,
+          "maximum_own_output_bytes": 1681493
+        },
+        {
+          "label": "uwvm2-ros-conditional-unwind",
+          "wall_seconds": 46.58519171399985,
+          "peak_owned_rss_bytes": 187117568,
+          "minimum_host_free_bytes": 31377801216,
+          "maximum_own_output_bytes": 2937279
+        },
+        {
+          "label": "uwvm2-ros-live-all",
+          "wall_seconds": 9.782940025999778,
+          "peak_owned_rss_bytes": 169742336,
+          "minimum_host_free_bytes": 31373897728,
+          "maximum_own_output_bytes": 3254420
+        },
+        {
+          "label": "uwvm2-ros-live-unwind",
+          "wall_seconds": 9.8344058699995,
+          "peak_owned_rss_bytes": 167530496,
+          "minimum_host_free_bytes": 31373078528,
+          "maximum_own_output_bytes": 3559364
+        },
+        {
+          "label": "uwvm2-ros-suffix-all",
+          "wall_seconds": 62.4975929379998,
+          "peak_owned_rss_bytes": 186368000,
+          "minimum_host_free_bytes": 31367217152,
+          "maximum_own_output_bytes": 5198158
+        },
+        {
+          "label": "uwvm2-ros-suffix-unwind",
+          "wall_seconds": 62.51020750599946,
+          "peak_owned_rss_bytes": 187670528,
+          "minimum_host_free_bytes": 31346683904,
+          "maximum_own_output_bytes": 6934780
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-soak-a1-r65/guard-uwvm2-ros-a1/receipts.json",
+        "bytes": 3768005,
+        "sha256": "d50dac669c950c55557f1c20d3613ec1c28b05737ffae1fd235c4780977932e4"
+      },
+      "commands": [
+        {
+          "label": "uwvm2-ros-soak",
+          "wall_seconds": 601.9279859399994,
+          "peak_owned_rss_bytes": 210378752,
+          "minimum_host_free_bytes": 31275196416,
+          "maximum_own_output_bytes": 22595632
+        }
+      ]
+    },
+    {
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-before-a1-r65/guard-uwvm2-ros-a1/receipts.json",
+        "bytes": 91317,
+        "sha256": "fb3b70f7221827ae1dc0d8a41f8b1b7f619667b33792066a698cf71fde665fa9"
+      },
+      "commands": [
+        {
+          "label": "uwvm2-ros-all",
+          "wall_seconds": 4.4690182140002435,
+          "peak_owned_rss_bytes": 173080576,
+          "minimum_host_free_bytes": 32253804544,
+          "maximum_own_output_bytes": 183532
+        },
+        {
+          "label": "uwvm2-ros-unwind",
+          "wall_seconds": 4.537893994999649,
+          "peak_owned_rss_bytes": 172871680,
+          "minimum_host_free_bytes": 32252309504,
+          "maximum_own_output_bytes": 367026
+        }
+      ]
+    }
+  ],
+  "unit": [
+    {
+      "repository": "uwvm2",
+      "count": 499,
+      "log": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/guard-uwvm2-a1/uwvm2-unit.log",
+        "bytes": 859,
+        "sha256": "bb05ab3899c3ed92490fc1bc0c0db75af6b8fb65781920d9c73d340bc6d0a61a"
+      }
+    },
+    {
+      "repository": "uwvm2-ros",
+      "count": 499,
+      "log": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/guard-uwvm2-ros-a1/uwvm2-ros-unit.log",
+        "bytes": 859,
+        "sha256": "07602702ae0513630cd3267da7b50bd35f82a98605a00b05d80a11283ce659f8"
+      }
+    }
+  ],
+  "components": [
+    {
+      "repository": "uwvm2",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-components-a2-r65/out-uwvm2/results.json",
+        "bytes": 4174376,
+        "sha256": "8be6c1645029f962945c68c4d94c9f3d10b55db44d357634a9c9ec2575269442"
+      },
+      "native_compiler_oracle": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-components-a2-r65/out-uwvm2/compiler-oracle-a1/results.json",
+        "bytes": 379456,
+        "sha256": "e796af22bb020648073ea5fdd48282f9ed8f07229459a8923f78a38afbc3f8d1"
+      },
+      "components": 7,
+      "Rust_numeric_checks": 3328,
+      "compiler_positive_witnesses": 9163,
+      "compiler_negative_witnesses": 57,
+      "literal_cases": 3000,
+      "shift_cases": 6096,
+      "exhaustive_i8_cases": 4096,
+      "actual_rustc_target": "wasm32-unknown-unknown",
+      "native_Linux_Rust_std_executed": false
+    },
+    {
+      "repository": "uwvm2-ros",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-components-a2-r65/out-uwvm2-ros/results.json",
+        "bytes": 6426463,
+        "sha256": "3368b8e8581d23df9032d63b0df5b346305d340acb9b6991f628b20699265801"
+      },
+      "native_compiler_oracle": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-components-a2-r65/out-uwvm2-ros/compiler-oracle-a1/results.json",
+        "bytes": 380311,
+        "sha256": "54143117821665576ddd8a83d079d5b5613fcfd3e103ce43060e80dd7d40b522"
+      },
+      "components": 7,
+      "Rust_numeric_checks": 3328,
+      "compiler_positive_witnesses": 9163,
+      "compiler_negative_witnesses": 57,
+      "literal_cases": 3000,
+      "shift_cases": 6096,
+      "exhaustive_i8_cases": 4096,
+      "actual_rustc_target": "wasm32-unknown-unknown",
+      "native_Linux_Rust_std_executed": false
+    }
+  ],
+  "cross": {
+    "receipt": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-cross-a2-r65/out-matrix/public/results.json",
+      "bytes": 5981721,
+      "sha256": "6e59377c8f3282e4d1fc9433a5ea40b0cd293c9847f880a76ed3197469aca7cd"
+    },
+    "target_ELFs": 32,
+    "architectures": [
+      "aarch64",
+      "armel",
+      "armhf",
+      "i686",
+      "loongarch64",
+      "mips32",
+      "mips32el",
+      "mips64",
+      "mips64el",
+      "ppc32",
+      "ppc64",
+      "ppc64le",
+      "riscv64",
+      "s390x",
+      "sparc64",
+      "x86_64"
+    ],
+    "same_x86_64_stdout": true,
+    "checks_per_ELF": 3328,
+    "full_target_VM_JIT_DAP": false
+  },
+  "phases": [
+    {
+      "repository": "uwvm2",
+      "phase": "all",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2/all-a1/results.json",
+        "bytes": 43864,
+        "sha256": "9d8ce77b61421a4eb3dfe829e75d123a57d9e79fe22688719913da648b202573"
+      },
+      "sessions": 4,
+      "seconds": 4.707085360999372,
+      "conditions": {},
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 1368,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "unwind",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2/unwind-a1/results.json",
+        "bytes": 43845,
+        "sha256": "30c5930a5cbbf94c9eae8efbecb039d23b35b395141e7d9cc80d6aab5485df4c"
+      },
+      "sessions": 4,
+      "seconds": 4.6412244749999445,
+      "conditions": {},
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 1368,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "conditional-all",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2/conditional-all-a1/results.json",
+        "bytes": 101328,
+        "sha256": "2ab1b55e23bcb0765dced159e4f9f68622c3aeae24b2dc13c26ddc8812c769b8"
+      },
+      "sessions": 80,
+      "seconds": 45.89779300000009,
+      "conditions": {
+        "false": 30,
+        "true": 32,
+        "unavailable": 18
+      },
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 0,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "conditional-unwind",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2/conditional-unwind-a1/results.json",
+        "bytes": 100928,
+        "sha256": "0356d06612ed1d15e45f4e17794b52e0d0e8ec3a8f105cd4f54686dd6c9aa7f2"
+      },
+      "sessions": 80,
+      "seconds": 45.79794661300002,
+      "conditions": {
+        "false": 30,
+        "true": 32,
+        "unavailable": 18
+      },
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 0,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "live-all",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2/live-all-a1/results.json",
+        "bytes": 31928,
+        "sha256": "a896a443a48f19aaa6559050bdcb6e31143edce2081fea83dc83e271cee8b254"
+      },
+      "sessions": 16,
+      "seconds": 9.156599251999978,
+      "conditions": {
+        "true": 8,
+        "false": 8
+      },
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 0,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "live-unwind",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2/live-unwind-a1/results.json",
+        "bytes": 31848,
+        "sha256": "0b38cf25769f73a015c0a861c64f68511d7cff071282efe46a96698bbc55040a"
+      },
+      "sessions": 16,
+      "seconds": 9.015466836999622,
+      "conditions": {
+        "true": 8,
+        "false": 8
+      },
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 0,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "suffix-all",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2/suffix-all-a1/results.json",
+        "bytes": 132099,
+        "sha256": "6a8bd8e118c3cf5edb21bf17c679b3e7ecf993a0ee6b0f144ba7cd068ae14561"
+      },
+      "sessions": 108,
+      "seconds": 61.615665657000136,
+      "conditions": {
+        "false": 32,
+        "true": 52,
+        "unavailable": 24
+      },
+      "Rust_shift_condition_sessions": 64,
+      "evaluations": 0,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "suffix-unwind",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2/suffix-unwind-a1/results.json",
+        "bytes": 131558,
+        "sha256": "0b1ed6b60766a53f61f8167a6c16e003eeb4a3a004a92b164c1424dda6dd1341"
+      },
+      "sessions": 108,
+      "seconds": 61.41998851900007,
+      "conditions": {
+        "false": 32,
+        "true": 52,
+        "unavailable": 24
+      },
+      "Rust_shift_condition_sessions": 64,
+      "evaluations": 0,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "soak",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-soak-a1-r65/out-uwvm2/soak-a1/results.json",
+        "bytes": 2986382,
+        "sha256": "76e9632bfabe19746cabbdc9903727d732918dab016d5299405cd047944f5913"
+      },
+      "sessions": 412,
+      "seconds": 601.0035344749995,
+      "conditions": {},
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 140904,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "all",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2-ros/all-a1/results.json",
+        "bytes": 44176,
+        "sha256": "7fe67e0c26e04a756da5c9824f12174f4726ad62c6fca331fb3da7f490b04d5a"
+      },
+      "sessions": 4,
+      "seconds": 4.742087245999755,
+      "conditions": {},
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 1368,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "unwind",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2-ros/unwind-a1/results.json",
+        "bytes": 44157,
+        "sha256": "bc6efebbb5a38ef5062556411ab9e18c8a67d09d0bf9c41c75267e95583df65f"
+      },
+      "sessions": 4,
+      "seconds": 4.6515910360003545,
+      "conditions": {},
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 1368,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "conditional-all",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2-ros/conditional-all-a1/results.json",
+        "bytes": 101632,
+        "sha256": "1bb857eba7f25f3357f8bf9ec5cddd427dcdf8c6d39a36e0955e948de3c52331"
+      },
+      "sessions": 80,
+      "seconds": 45.93277860499984,
+      "conditions": {
+        "false": 30,
+        "true": 32,
+        "unavailable": 18
+      },
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 0,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "conditional-unwind",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2-ros/conditional-unwind-a1/results.json",
+        "bytes": 101233,
+        "sha256": "d45d665c097bf12349856d76f6a6b5ec52e202fcce83a0eea6dbf9e015fe2c8a"
+      },
+      "sessions": 80,
+      "seconds": 45.752046298000096,
+      "conditions": {
+        "false": 30,
+        "true": 32,
+        "unavailable": 18
+      },
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 0,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "live-all",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2-ros/live-all-a1/results.json",
+        "bytes": 32232,
+        "sha256": "d5bff62eeff4dcd1fb591e3f144b817282196045719ad94910fd1bf8edaac203"
+      },
+      "sessions": 16,
+      "seconds": 9.040954152999802,
+      "conditions": {
+        "true": 8,
+        "false": 8
+      },
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 0,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "live-unwind",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2-ros/live-unwind-a1/results.json",
+        "bytes": 32150,
+        "sha256": "a5215c0bbbc273975e1e96926851adcce35af6e9eb00c6e9c6afb7b8bf036be3"
+      },
+      "sessions": 16,
+      "seconds": 9.0614673150003,
+      "conditions": {
+        "true": 8,
+        "false": 8
+      },
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 0,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "suffix-all",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2-ros/suffix-all-a1/results.json",
+        "bytes": 132402,
+        "sha256": "c31a7ae342e808922c07abac0bbb7ccbf941257a605e37489c0266478d09ff5c"
+      },
+      "sessions": 108,
+      "seconds": 61.67675811200024,
+      "conditions": {
+        "false": 32,
+        "true": 52,
+        "unavailable": 24
+      },
+      "Rust_shift_condition_sessions": 64,
+      "evaluations": 0,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "suffix-unwind",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-dap-a1-r65/out-uwvm2-ros/suffix-unwind-a1/results.json",
+        "bytes": 131862,
+        "sha256": "ab33e9c8159b9ce3735ee9d2334b7cd46f0433b546048474ecaecdd685a433c6"
+      },
+      "sessions": 108,
+      "seconds": 61.66500388300028,
+      "conditions": {
+        "false": 32,
+        "true": 52,
+        "unavailable": 24
+      },
+      "Rust_shift_condition_sessions": 64,
+      "evaluations": 0,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "soak",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-soak-a1-r65/out-uwvm2-ros/soak-a1/results.json",
+        "bytes": 2986694,
+        "sha256": "f9b0679ce7cf77c79a26e8e877cd073f0c07c754b32f3b8b421bef51cec8d164"
+      },
+      "sessions": 412,
+      "seconds": 601.0826835870002,
+      "conditions": {},
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 140904,
+      "original_waits_and_EOF_verified": true
+    }
+  ],
+  "baseline": [
+    {
+      "repository": "uwvm2",
+      "phase": "all",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-before-a1-r65/out-uwvm2/all-a1/results.json",
+        "bytes": 43930,
+        "sha256": "1b2ea3c8064bb4bf714d2c964d9a14a36aa851163ab59d2371775ad75700ed58"
+      },
+      "sessions": 4,
+      "seconds": 3.788989997000499,
+      "conditions": {},
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 432,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2",
+      "phase": "unwind",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-before-a1-r65/out-uwvm2/unwind-a1/results.json",
+        "bytes": 43911,
+        "sha256": "756aaf89de16c04d7c987461427b0043bbccd6cc1a4623d07248ac6f289ee096"
+      },
+      "sessions": 4,
+      "seconds": 3.7559977980008625,
+      "conditions": {},
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 432,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "all",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-before-a1-r65/out-uwvm2-ros/all-a1/results.json",
+        "bytes": 44242,
+        "sha256": "8860ef4b472ae3f6b2144891ae90a72f9a08d2ac9bc1f62e779fb7177f442256"
+      },
+      "sessions": 4,
+      "seconds": 3.799701828000252,
+      "conditions": {},
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 432,
+      "original_waits_and_EOF_verified": true
+    },
+    {
+      "repository": "uwvm2-ros",
+      "phase": "unwind",
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-before-a1-r65/out-uwvm2-ros/unwind-a1/results.json",
+        "bytes": 44223,
+        "sha256": "96c7dbcd5906bfd5f4da57d86eeecf4c83968b038300df6601de46752d929911"
+      },
+      "sessions": 4,
+      "seconds": 3.7697086779999154,
+      "conditions": {},
+      "Rust_shift_condition_sessions": 0,
+      "evaluations": 432,
+      "original_waits_and_EOF_verified": true
+    }
+  ],
+  "totals": {
+    "real_DAP_sessions": 1656,
+    "numeric_DAP_sessions": 840,
+    "conditional_DAP_sessions": 816,
+    "Rust_shift_condition_sessions": 256,
+    "baseline_sessions": 16,
+    "compiler_parser_cases": 18192,
+    "shift_cases": 12192,
+    "all_waits_PIDFD_EOF_passed": true,
+    "all_guard_memory_events_zero": true
+  },
+  "case_matrix": {
+    "valid": 78,
+    "invalid": 59,
+    "valid_shift_added": 28,
+    "invalid_shift_added": 16
+  },
+  "test_overlay": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-components-a2-r65/explicit-test-overlay.json",
+    "bytes": 261,
+    "sha256": "78af8a8c81fd585d0c0d9e3e1d4920a804949731b3279a5a991083f42f0999c5"
+  },
+  "source_review": {
+    "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/source-review.json",
+    "bytes": 1677,
+    "sha256": "99ba8c7a37d2b803e33f30df66bb1ffd7a9f395444cec9809dd887cab9d88ca1"
+  },
+  "local_integration": {
+    "passed": true,
+    "paired_owned_bytes_equal": true,
+    "production_frozen_own_file_unchanged": true,
+    "explicit_test_only_overlay": "test/0017.runtime/debug_source_rust_numeric_literal.cc",
+    "repositories": {
+      "uwvm2": {
+        "source_id": "sha256:6410c4f962308bf958ce3589be68707a72c88f4f0ba4c55b4fbe38ad65c37f13",
+        "own": {
+          "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "b1868d4c714c37696b1add4f3d2c1b242f49c5366a284f041226afcf29843c99",
+          "test/0017.runtime/debug_source_rust_numeric_literal.cc": "b0198d31bc055a56ac56621e488cc6b16d6c9184fe2cc97d1788d046b37d4981",
+          "test/0017.runtime/run_debug_rust_numeric.py": "552143d8b407e6e6725b8468b5e6cf08dcf6c8be7e0fb160d1264b20da67ea2a",
+          "test/0018.debugger/dap_rust_numeric_cases.json": "6b82348119420ad2b8e9b11834fc7b49343709565fbce91d005624765c6fb31c",
+          "test/0018.debugger/run_dap_rust_shift_conditions_r65.py": "3318dd2a25ac5dfe9b05e8d6b101561816e77189e3c26a25347f43b2df87a1fc"
+        },
+        "after_freeze_drift": [
+          {
+            "path": "test/0017.runtime/debug_source_rust_numeric_literal.cc",
+            "frozen": "ace690e2ffa6e43416b8e7f8a757da7d0caabf3c77a15a251d09f32071a95fa5",
+            "current": "b0198d31bc055a56ac56621e488cc6b16d6c9184fe2cc97d1788d046b37d4981",
+            "own_test_overlay": true
+          }
+        ],
+        "full_current_workspace_qualified": false,
+        "peer_changes_preserved": true
+      },
+      "uwvm2-ros": {
+        "source_id": "sha256:2e26c19f2464566e9cc06fc1351429cf15aded2c104737f9bbbb27064a26c67b",
+        "own": {
+          "src/uwvm2/uwvm/debugger/source_scalar_expression.h": "b1868d4c714c37696b1add4f3d2c1b242f49c5366a284f041226afcf29843c99",
+          "test/0017.runtime/debug_source_rust_numeric_literal.cc": "b0198d31bc055a56ac56621e488cc6b16d6c9184fe2cc97d1788d046b37d4981",
+          "test/0017.runtime/run_debug_rust_numeric.py": "552143d8b407e6e6725b8468b5e6cf08dcf6c8be7e0fb160d1264b20da67ea2a",
+          "test/0018.debugger/dap_rust_numeric_cases.json": "6b82348119420ad2b8e9b11834fc7b49343709565fbce91d005624765c6fb31c",
+          "test/0018.debugger/run_dap_rust_shift_conditions_r65.py": "3318dd2a25ac5dfe9b05e8d6b101561816e77189e3c26a25347f43b2df87a1fc"
+        },
+        "after_freeze_drift": [
+          {
+            "path": "test/0017.runtime/debug_source_rust_numeric_literal.cc",
+            "frozen": "ace690e2ffa6e43416b8e7f8a757da7d0caabf3c77a15a251d09f32071a95fa5",
+            "current": "b0198d31bc055a56ac56621e488cc6b16d6c9184fe2cc97d1788d046b37d4981",
+            "own_test_overlay": true
+          }
+        ],
+        "full_current_workspace_qualified": false,
+        "peer_changes_preserved": true
+      }
+    }
+  },
+  "remaining": [
+    "i128/u128 carriers",
+    "general compound literal inference",
+    "native Rust primitive type display and complete syntax/casts",
+    "Rust default DWARF5 debug_names producer verification",
+    "other language/runtime/IDE native parity",
+    "full target VM/JIT/DAP parity",
+    "uwvm-int full native-style live language debugger; Rdbg is LLVM-only"
+  ],
+  "superseded": {
+    "first_component_test_build_failed_fast_io_dynamic_C_string_format": true,
+    "failed_receipt": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-components-a1-r65/guard-a1/receipts.json",
+      "bytes": 41151,
+      "sha256": "82ea9a04aad47facedf69950cc4dd6e722b38e4f0cc0d3f1ef5e0acf7b9bd5dd"
+    },
+    "corrected_explicit_test_only_overlay": {
+      "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-components-a2-r65/explicit-test-overlay.json",
+      "bytes": 261,
+      "sha256": "78af8a8c81fd585d0c0d9e3e1d4920a804949731b3279a5a991083f42f0999c5"
+    },
+    "failed_slice_not_counted_in_PASS": true
+  },
+  "archive": {
+    "passed": true,
+    "archive": "/home/macromodel/Documents/uwvm3-implementation/retained-rust-shift-r65-final/evidence.tar.xz",
+    "bytes": 121068372,
+    "sha256": "4bcc6e0f79603be058c9e52f71bc65c05c48f389f4e357002885b8a5e1d1b211",
+    "logical_files": 61756,
+    "regular_files": 17276,
+    "prior_internal_hardlinks": 44480,
+    "logical_member_bytes": 1531294946,
+    "all_member_stream_verified": true,
+    "all_original_before_after_bytes_verified": true,
+    "fsync_completed": true,
+    "current_R65_full_VM_binaries_in_main_archive": true,
+    "all_six_fresh_R65_objects_in_main_archive": true,
+    "source_transports_and_old_recovery_archives_separately_pinned": true
+  },
+  "current_output_retention": {
+    "passed": true,
+    "action": "kept_all_current_fresh_objects",
+    "raw_object_pruning_completed": false,
+    "retired_raw_bytes": 0,
+    "files_kept": 6,
+    "bytes_kept": 356302128,
+    "reason": "Optional pruning stopped before mutation because /proc/3192/fd/0 was not readable; global FD closure was not claimed",
+    "all_six_objects_verified_in_main_archive": true,
+    "own_current_VMs_kept": true,
+    "peer_files_touched": false,
+    "rows": [
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/out-uwvm2-ros/product-a1/runtime.o",
+        "bytes": 100403104,
+        "sha256": "54fea1482ef5aafcd662800a16c06b520af0a70a160c8e35a4c2d40dd5da6a0c"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/out-uwvm2-ros/product-a1/main.o",
+        "bytes": 47910512,
+        "sha256": "b4879b949506437a5d910c4d3ebd51d673d07f5ee3e500d23665e5012bc12850"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/out-uwvm2-ros/product-a1/host.o",
+        "bytes": 6878784,
+        "sha256": "c1f9324e84e23bcc1c3e4bee888fff76407bca3e0877f36ead5fd19a760f5e04"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/out-uwvm2/product-a1/runtime.o",
+        "bytes": 145655720,
+        "sha256": "215f114a0ea5f9b3fabec5797e27f984fe148c8ef5853688fe42c4fffa1e6c9f"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/out-uwvm2/product-a1/main.o",
+        "bytes": 48573456,
+        "sha256": "4ddb970c2336bf5e614d44511c7c30b3aa67adea84cfdd95f4e4d8313a4a0838"
+      },
+      {
+        "path": "/home/macromodel/Documents/uwvm3-implementation/rust-shift-full-a1-r65/out-uwvm2/product-a1/host.o",
+        "bytes": 6880552,
+        "sha256": "7a809a9af74a35a6438c89d5d028465bf513d0cdaf7554fac1a0cb67cecca907"
+      }
+    ],
+    "host_free_bytes": 30995189760
+  },
+  "publication_scope": "R65 qualified frozen production source; explicit fast_io test overlay; no qualification of later whole working-tree changes"
+}

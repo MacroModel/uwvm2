@@ -1,0 +1,1231 @@
+{
+  "schema": 1,
+  "passed": true,
+  "scope": "Frozen R13 paired Linux MIPS64EL R2 interpreter-only products; twelve exact combine/delay-local macro sets per repository, matching runtime/host/main translation units and link definitions. Main full/lazy/verified-lazy; ROS full only. Retained fourteen old-boot products plus ten actual new-boot products and independently validated SIMD supplement. Host C++ O1 only; no LLVM-JIT, fusion-selection assembly, full Core3 or hardware-speed qualification.",
+  "source_identities": {
+    "uwvm2": "sha256:d68895f7c34545ab78b7ef53470e9cb6062a97c027904897105d00e536156746",
+    "uwvm2-ros": "sha256:a5298a08a9a22327fc8cc474ff67ad1f303994ecf67bba40b2679bd5e194b90b"
+  },
+  "counts": {
+    "exact_macro_combinations_per_repository": 12,
+    "qualified_products": 24,
+    "retained_old_boot_products": 14,
+    "new_boot_products": 10,
+    "baseline_semantic_processes": 6144,
+    "high_memory_processes": 624,
+    "SIMD_unary_supplement_processes": 480,
+    "SIMD_unary_supplement_lane_checks": 34560,
+    "total_runtime_processes": 7248,
+    "actual_compile_and_runtime_cgroup_commands": 24,
+    "actual_supplement_cgroup_commands": 24
+  },
+  "compile_time_axes": {
+    "combine": [
+      "none",
+      "soft",
+      "heavy",
+      "extra"
+    ],
+    "delay_local": [
+      "none",
+      "soft",
+      "heavy"
+    ]
+  },
+  "actual_qualified_variants": {
+    "uwvm2": [
+      "extra-heavy",
+      "extra-none",
+      "extra-soft",
+      "heavy-heavy",
+      "heavy-none",
+      "heavy-soft",
+      "none-heavy",
+      "none-none",
+      "none-soft",
+      "soft-heavy",
+      "soft-none",
+      "soft-soft"
+    ],
+    "uwvm2-ros": [
+      "extra-heavy",
+      "extra-none",
+      "extra-soft",
+      "heavy-heavy",
+      "heavy-none",
+      "heavy-soft",
+      "none-heavy",
+      "none-none",
+      "none-soft",
+      "soft-heavy",
+      "soft-none",
+      "soft-soft"
+    ]
+  },
+  "actual_compile_runtime_products": [
+    {
+      "repo": "uwvm2",
+      "variant": "none-none",
+      "macros": [],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-none-none-config.json",
+      "build_configuration_sha256": "8c6fab4d6ac9a2c8da88601bebb851c854a45cc8c78f6745d5030095a5cb05c3",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/none-none/complete-qualification.json",
+      "complete_qualification_sha256": "7fb0c3012a272db108a4d44b387bb81ad7f12e46e04c1a09b932daa9eac1dd61",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/000-uwvm2-none-none/receipts.json",
+      "receipt_sha256": "afa0c79358d83a7c3a2ebbf48b22338fd6c36cbda738c5bf829c1c75a2a96cca",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/none-none/uwvm",
+      "product_sha256": "88d9dd1aff6e8deff66fdbe4625557e32d79b1b43466c4f2eef89e144de18f3c",
+      "semantic_runs": 384,
+      "high_runs": 39
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "none-none",
+      "macros": [],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-ros-none-none-config.json",
+      "build_configuration_sha256": "887f8b45c6874185b689ca933528698f02c8a6ea99e72da25da26c2ef5ae3f90",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/none-none/complete-qualification.json",
+      "complete_qualification_sha256": "6b2904d9ecb205a25d4b0343cc86a13dec4b822454722dd87a1b124d0e9b0625",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/001-uwvm2-ros-none-none/receipts.json",
+      "receipt_sha256": "494a0c7e6a9ebc779ecbe73b97beb54baa2a23114f8d136cf008c25cfd163015",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/none-none/uwvm",
+      "product_sha256": "58cb644d28a721fcfb2852ebb20eb76385a9c2377eae028e046b171d696416ac",
+      "semantic_runs": 128,
+      "high_runs": 13
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "none-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-none-soft-config.json",
+      "build_configuration_sha256": "186d3f4c0bdea2fceec37047512bc4721e4e27dafd186d31892a34438e34269c",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/none-soft/complete-qualification.json",
+      "complete_qualification_sha256": "f09d9065b15ad126bc8bf0cdde1f411a7281c4ddb50f69a8771309cebb949ea3",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/002-uwvm2-none-soft/receipts.json",
+      "receipt_sha256": "623e6e445499557972f1fe6b59b1d17ad8ea5d7c0a5a5af5cf4ce863b9a68e97",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/none-soft/uwvm",
+      "product_sha256": "2a3ed34ee734bb96d1f0c5fea9224672215b641da34ea6fdceef3111a55e3ff6",
+      "semantic_runs": 384,
+      "high_runs": 39
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "none-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-ros-none-soft-config.json",
+      "build_configuration_sha256": "70fff0905d0623729fb9826c5dd567c17b016b09c650940b0c4eecb4094f8326",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/none-soft/complete-qualification.json",
+      "complete_qualification_sha256": "5d64790f90babd0e52b8d45c14332d9f3325b9f005787b3d6491ffc78812674d",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/003-uwvm2-ros-none-soft/receipts.json",
+      "receipt_sha256": "015bcc2d85f48562548cca7b24b198d978920ee498eb617b89bd737832ff9542",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/none-soft/uwvm",
+      "product_sha256": "7362891d06fd0966138a66b3e9ffd12532e88c7eba4d7d80e1ddee68fda169f1",
+      "semantic_runs": 128,
+      "high_runs": 13
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "none-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-none-heavy-config.json",
+      "build_configuration_sha256": "f26ffeb23b5bacef226cb5717f07efa1875c55a4850cf676c9105812ec33e62c",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/none-heavy/complete-qualification.json",
+      "complete_qualification_sha256": "659af0ca9d301a4325e20bce8968a6568df2459010b3b35342d7b880409d7c5e",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/004-uwvm2-none-heavy/receipts.json",
+      "receipt_sha256": "68481ceafbec1993547a23efce7bbeb974424c9be0bb38a532317690427689f8",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/none-heavy/uwvm",
+      "product_sha256": "e026e63d9aac15c962ac9a7fc0eb3b9e565877e3cc588d4187d69455d98ac4b7",
+      "semantic_runs": 384,
+      "high_runs": 39
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "none-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-ros-none-heavy-config.json",
+      "build_configuration_sha256": "7559c567a829642059276a9f1a6c123010a9cf5f92b7e28f032aa5f140358441",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/none-heavy/complete-qualification.json",
+      "complete_qualification_sha256": "1b1613a4de066e3274a724b005b80e07d565d3bc2a6c5ad26c4e9b67a866e1b4",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/005-uwvm2-ros-none-heavy/receipts.json",
+      "receipt_sha256": "77192e7cbd225b84750632654645da033776e995c88f844bbb43b02a7737a0fc",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/none-heavy/uwvm",
+      "product_sha256": "0a314bb0a69931ce9920e721180bbe23e702fb6d599cb84b3d52fc2989a854a7",
+      "semantic_runs": 128,
+      "high_runs": 13
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "soft-none",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-soft-none-config.json",
+      "build_configuration_sha256": "c1f7ff617db187d52c8e207804f00ca5480638de761b1889459fc5dcee5ab50f",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/soft-none/complete-qualification.json",
+      "complete_qualification_sha256": "cb4cdeba16998fd096ff9dbee57a0682b0c281ab741150c0d5f19f16c01cd747",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/006-uwvm2-soft-none/receipts.json",
+      "receipt_sha256": "dea632823fc500d0a2018daedbcd04ec69b80285537cb6ec407347fbddd449e3",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/soft-none/uwvm",
+      "product_sha256": "af42921df087e283cc0dc6849f52f4ab0f72acf93fc17886658f8eab62219315",
+      "semantic_runs": 384,
+      "high_runs": 39
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "soft-none",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-ros-soft-none-config.json",
+      "build_configuration_sha256": "8f5839cc727ac48ac417b95aa4579b2cd622d3d8e025831c44ae0ec6f5a04d78",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/soft-none/complete-qualification.json",
+      "complete_qualification_sha256": "046d47f16a028d8816d5a3c07058a8d3be7ee03e8a0f011dfcd3346d23028b8d",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/007-uwvm2-ros-soft-none/receipts.json",
+      "receipt_sha256": "bd8ee898cdce3d972bd75e56c562a5b13eb702157c887bf4f7f809199a18956c",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/soft-none/uwvm",
+      "product_sha256": "c01c33bb1b51fab585454554766e0fdd54512e63a53c05aa9ec075f22618a245",
+      "semantic_runs": 128,
+      "high_runs": 13
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "soft-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-soft-soft-config.json",
+      "build_configuration_sha256": "ec47af194c84cc9dcd1f5b8b765ddba23f426a45d54454d8f6938cd468f76b8d",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/soft-soft/complete-qualification.json",
+      "complete_qualification_sha256": "81ff4bd9d3a3e8f70b4640b3cdb248dd5eb3bf3dd27b10a547870204a26fe750",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/008-uwvm2-soft-soft/receipts.json",
+      "receipt_sha256": "5d521fc902f779bfc18fadf175c2671253e2ef6edbad5ed59898cb2a55fcd08c",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/soft-soft/uwvm",
+      "product_sha256": "26e31f5b67089dafc9ac408b296df220360aa519e2cd56aca4d75cc7f6d25eef",
+      "semantic_runs": 384,
+      "high_runs": 39
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "soft-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-ros-soft-soft-config.json",
+      "build_configuration_sha256": "95a6917fddcbbb414a6e04f0cc1e5b524b81fa48d72378c90b7fa0d7403acc23",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/soft-soft/complete-qualification.json",
+      "complete_qualification_sha256": "b823fed77e0797751585a6233eecd6b2588a19cae3d68a6ef4fbac77675f816a",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/009-uwvm2-ros-soft-soft/receipts.json",
+      "receipt_sha256": "e559f2d8a22bf575028b5e9f0d9c94e3de884312b7cf3ff704a9dd17233c5901",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/soft-soft/uwvm",
+      "product_sha256": "8d8d154386e58235525b6ceb52166df4ef2917c1a122be4e87aed2d2feccf0b3",
+      "semantic_runs": 128,
+      "high_runs": 13
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "soft-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-soft-heavy-config.json",
+      "build_configuration_sha256": "c5bb8ffc363a9a3bc8491a86449184b54dbfb079103931cba5be5851cc19bdd2",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/soft-heavy/complete-qualification.json",
+      "complete_qualification_sha256": "999a19d3b3ba58c472971d365013a1fe46a68603a0f5de5f0d8fe0eb0ba468c1",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/010-uwvm2-soft-heavy/receipts.json",
+      "receipt_sha256": "e75a4f4077a543b518433ae35c5c975218668cbfbaf1ed9c88d8ffb966bb1b34",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/soft-heavy/uwvm",
+      "product_sha256": "6c9ff53fdc5f2822bbe06464ccd615dd1dc76817f2ff3119723c606c6c1c14d5",
+      "semantic_runs": 384,
+      "high_runs": 39
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "soft-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-ros-soft-heavy-config.json",
+      "build_configuration_sha256": "fed80bf20a5234eab091a0aef9b07b79cf89dc90d0c706a7c428873b2ce8ae91",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/soft-heavy/complete-qualification.json",
+      "complete_qualification_sha256": "d06c8b825b101721cbdd405503fd4e46889690ae6737872ed30c16c6aedbbeac",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/011-uwvm2-ros-soft-heavy/receipts.json",
+      "receipt_sha256": "ca3fcc674e39ba42d93f96da64eebc23150c5f09ff5ab5c515617283fb6c8180",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/soft-heavy/uwvm",
+      "product_sha256": "da79ca779a3eca2e9584f1d3dccdb84d7970069554f67a1eb787837bbae4bce8",
+      "semantic_runs": 128,
+      "high_runs": 13
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "heavy-none",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-heavy-none-config.json",
+      "build_configuration_sha256": "092344ac42ec63a7c0f99f8f660ecf3b93e4cea16d897334870d6db691052688",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/heavy-none/complete-qualification.json",
+      "complete_qualification_sha256": "8ddcc64039e3a71fbb40f8fddd06b6c4c24083fed34d4543f03a3dbd08e71d3c",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/012-uwvm2-heavy-none/receipts.json",
+      "receipt_sha256": "824a12e57823b49aaac2dff751023f85d1d35adeb43c073c9f10848647505969",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2/heavy-none/uwvm",
+      "product_sha256": "5b6e98dd2fb1f57bfec5008e9ea3527707e24b749dffff3a7fb8c070efa59d02",
+      "semantic_runs": 384,
+      "high_runs": 39
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "heavy-none",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/uwvm2-ros-heavy-none-config.json",
+      "build_configuration_sha256": "1dfab7e6b94acf3e339b2be70af413281544bfedb5019f7ff3b7bb13f2613ac7",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/heavy-none/complete-qualification.json",
+      "complete_qualification_sha256": "204430ea0ba4858482ce37266d13c3cb1061247a89e5e92de7a840293d0b0811",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/cgopt-mips64el-r13-exact-int-r1-evidence/013-uwvm2-ros-heavy-none/receipts.json",
+      "receipt_sha256": "16dd368c76d74b9601a22dc8202852f1f8012256f757274664aff22db664b331",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-r1/products/uwvm2-ros/heavy-none/uwvm",
+      "product_sha256": "a00292e1cba545ba30e18b8bd8e6a54ed3c4d0a6a1fb9ff6d5dd120ef2e5d080",
+      "semantic_runs": 128,
+      "high_runs": 13
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "heavy-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/uwvm2-heavy-soft-config.json",
+      "build_configuration_sha256": "7b1b858b2986eacc4ef1e33159f058c8bf434922f105ea737143154047e4a7fd",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2/heavy-soft/complete-qualification.json",
+      "complete_qualification_sha256": "b829d69ba6d0d37a98c4d91bc158beace85cc13be337192dc0c4e46896e90b70",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/cgopt-mips64el-r13-exact-int-reboot-r3-evidence/000-uwvm2-heavy-soft/receipts.json",
+      "receipt_sha256": "dee8a71229a60224fd30e1e0fdc18c80d047f26edbe2f5d29c630a877b3aa5d3",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2/heavy-soft/uwvm",
+      "product_sha256": "b0d2eff26e8676a322743d505b8919b1a9cea70b89094192d55b5c2dac072827",
+      "semantic_runs": 384,
+      "high_runs": 39
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "heavy-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/uwvm2-ros-heavy-soft-config.json",
+      "build_configuration_sha256": "afb6f143292ae6822c08ad56638c961a86f72f3545e34a4ebd53fb82500e3490",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2-ros/heavy-soft/complete-qualification.json",
+      "complete_qualification_sha256": "78932cbc3fe73ef1fab6cfa2d5c82ef0ae3e39804306759e8dd2aea609a9ac45",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/cgopt-mips64el-r13-exact-int-reboot-r3-evidence/001-uwvm2-ros-heavy-soft/receipts.json",
+      "receipt_sha256": "5c53cd4a3ff1ab8913fd710ae010f997455266be46790c3887b1d04ab9247469",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2-ros/heavy-soft/uwvm",
+      "product_sha256": "63a3ede192fa26a94481c50d1ee7629ec28867e05b07b1b982b9e872ebf5043f",
+      "semantic_runs": 128,
+      "high_runs": 13
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "heavy-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/uwvm2-heavy-heavy-config.json",
+      "build_configuration_sha256": "f619eb08db4522d5186f9d3c3bee5de5c7993f48247748967c4c110dfecf0de9",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2/heavy-heavy/complete-qualification.json",
+      "complete_qualification_sha256": "a83863290e2f73e4d1624a9f10f6abcfbc5bee8fec7dcb6eb8a7e95bf58c884f",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/cgopt-mips64el-r13-exact-int-reboot-r3-evidence/002-uwvm2-heavy-heavy/receipts.json",
+      "receipt_sha256": "6fcce1dd1e5207ba6d5662a51d7bdce79100be90e92b8b2e4425a0b84278a9e8",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2/heavy-heavy/uwvm",
+      "product_sha256": "e73c3e77259b65a9a2a579b0daeff2419ed8e3beeee75334b4b2be93f2dc33aa",
+      "semantic_runs": 384,
+      "high_runs": 39
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "heavy-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/uwvm2-ros-heavy-heavy-config.json",
+      "build_configuration_sha256": "231ddf0f14653d10eb35b2107ac9dadf26eab70f91b919d77ebf1e7c01ed1745",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2-ros/heavy-heavy/complete-qualification.json",
+      "complete_qualification_sha256": "fdd158ab5c67125ab001633497590a57b19bf60253fa34887aee0bab3d132382",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/cgopt-mips64el-r13-exact-int-reboot-r3-evidence/003-uwvm2-ros-heavy-heavy/receipts.json",
+      "receipt_sha256": "8ce40e74a7953309ce3d4d5925eb1bafee2ebff0d7187b63c52b73f066024cc5",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2-ros/heavy-heavy/uwvm",
+      "product_sha256": "d69f53c7563748e2dc7ddad0a75b709098f81a9d33f248e5db7fc070c4603789",
+      "semantic_runs": 128,
+      "high_runs": 13
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "extra-none",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/uwvm2-extra-none-config.json",
+      "build_configuration_sha256": "863d6965cb134e37d3d2ce6d7cc51ff1eeb57af4cfc981825dcfc9a1bf9024ad",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2/extra-none/complete-qualification.json",
+      "complete_qualification_sha256": "1c09d2edb161d210b2fe7afc6f051854737610e19ad6795ffc6b75ce294c5c1a",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/cgopt-mips64el-r13-exact-int-reboot-r3-evidence/004-uwvm2-extra-none/receipts.json",
+      "receipt_sha256": "0a1eae96da3e8b6f7bc98d27c11bc6306c63ee207a5dd1b1d9573e4aeb764f5e",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2/extra-none/uwvm",
+      "product_sha256": "94e5041c9f23419d61f3410428abd2d2afd6d9571f8b351280c2ab6a2c7a4eea",
+      "semantic_runs": 384,
+      "high_runs": 39
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "extra-none",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/uwvm2-ros-extra-none-config.json",
+      "build_configuration_sha256": "40d8ad5146233751345244d187bb8abb60bd915c20986dcfbe4d28481281deba",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2-ros/extra-none/complete-qualification.json",
+      "complete_qualification_sha256": "e5c239cba98ace94a7703e3934cc0c3080b99bedacd799a994ee746a559183d0",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/cgopt-mips64el-r13-exact-int-reboot-r3-evidence/005-uwvm2-ros-extra-none/receipts.json",
+      "receipt_sha256": "c9556a965a7d333c379e0911b4eaa502fc930882b14872282bd424d875e7d80f",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2-ros/extra-none/uwvm",
+      "product_sha256": "b62c0695d71e4d2f81fc07d60813d53d53035ffccbd2f706152752a2f3d2ffa2",
+      "semantic_runs": 128,
+      "high_runs": 13
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "extra-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/uwvm2-extra-soft-config.json",
+      "build_configuration_sha256": "8bd5222dfc727822fae0dc42f477664b54970b9eefe1b448ace4d8e29c584b3f",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2/extra-soft/complete-qualification.json",
+      "complete_qualification_sha256": "0c6117424d93a7e1378b084746bb135e9ca800c24aca70c1382ed31ad0ad102c",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/cgopt-mips64el-r13-exact-int-reboot-r3-evidence/006-uwvm2-extra-soft/receipts.json",
+      "receipt_sha256": "2b8b408420c2d01b65f7cc8c615c3cfe740ed421e752f4c2d1168c9c7fa64ea0",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2/extra-soft/uwvm",
+      "product_sha256": "2044077f5a89c78ede64a62446ca48762e111a7c664c5c7b27ecd75c931413fb",
+      "semantic_runs": 384,
+      "high_runs": 39
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "extra-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/uwvm2-ros-extra-soft-config.json",
+      "build_configuration_sha256": "ebae28531050e80be8f10f1b5ca2777e0d8c2585099b2672d95a1612c3fe9330",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2-ros/extra-soft/complete-qualification.json",
+      "complete_qualification_sha256": "7dfd13503d4ef0bc8ab1831a2477ffa7007bab55458f112668e7ba08e9684bbc",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/cgopt-mips64el-r13-exact-int-reboot-r3-evidence/007-uwvm2-ros-extra-soft/receipts.json",
+      "receipt_sha256": "87e2cfa0cb6ad21102e8057ce728ea59de5f20f1f2ea2470ba561b9d2e9c3b50",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2-ros/extra-soft/uwvm",
+      "product_sha256": "eb495231d7fca80ed0607b0e513c680c622b0f5b78524f9e373d4638a7df618a",
+      "semantic_runs": 128,
+      "high_runs": 13
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "extra-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/uwvm2-extra-heavy-config.json",
+      "build_configuration_sha256": "295be24484a0f6a57714d05ee59490e2082378c9d19787c29a4126b045f7e83e",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2/extra-heavy/complete-qualification.json",
+      "complete_qualification_sha256": "57763e6926530b489c0e78fbd99e03efc37378bfa87af64c7d6ba1194f298550",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/cgopt-mips64el-r13-exact-int-reboot-r3-evidence/008-uwvm2-extra-heavy/receipts.json",
+      "receipt_sha256": "63c8230bf2c76e761b82185563b3c642c2163efcac6828dc1aaa0a24ec3e24c7",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2/extra-heavy/uwvm",
+      "product_sha256": "030b326c07f1a0e9d1a5a8009d8839429e3ea47e42fdc4a89c7557089746ba55",
+      "semantic_runs": 384,
+      "high_runs": 39
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "extra-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "stage": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3",
+      "build_configuration": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/uwvm2-ros-extra-heavy-config.json",
+      "build_configuration_sha256": "ae26ca83252f6627fbbdc968398095322f792d123259d2808949756f36ee469f",
+      "complete_qualification": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2-ros/extra-heavy/complete-qualification.json",
+      "complete_qualification_sha256": "7e2c14a952c4d58774d7b667609236a8a8b49529d363ce2063465b559520b4b7",
+      "receipt": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/cgopt-mips64el-r13-exact-int-reboot-r3-evidence/009-uwvm2-ros-extra-heavy/receipts.json",
+      "receipt_sha256": "c7d016a2ddd6380c7435d14ae96ab374c837525ab900fc3a4060a5356dd99c03",
+      "product": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-reboot-r3/products/uwvm2-ros/extra-heavy/uwvm",
+      "product_sha256": "702ff7ceea8728ce5a2ed3056711fe327b539338bbbe7e87dc59a353bacfc898",
+      "semantic_runs": 128,
+      "high_runs": 13
+    }
+  ],
+  "SIMD_supplement": [
+    {
+      "repo": "uwvm2",
+      "variant": "none-none",
+      "macros": [],
+      "product_sha256": "88d9dd1aff6e8deff66fdbe4625557e32d79b1b43466c4f2eef89e144de18f3c",
+      "runtime_processes": 30,
+      "lane_checks": 2160,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2/none-none/qualification.json",
+        "sha256": "61c4b5f7e337f1ff6f75a97a0fd5b399e4531992cfeb4bf9e5dfe502dab8bf0e"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-none-none-config.json",
+        "sha256": "d83241c09418162af14b744b8b05dd5e8e6c7f7d1e2d99690b816fd20366b4b9"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/000-uwvm2-none-none/receipts.json",
+        "sha256": "03c05ec0d890fad09c77a5ba13766c5e51a71be9a9b01493fad92e601f750d0e"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "none-none",
+      "macros": [],
+      "product_sha256": "58cb644d28a721fcfb2852ebb20eb76385a9c2377eae028e046b171d696416ac",
+      "runtime_processes": 10,
+      "lane_checks": 720,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2-ros/none-none/qualification.json",
+        "sha256": "5e8de703cf684e9d2ed45ae51102cf734d85dccfe8d3bb9f75783f403f0fceb1"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-ros-none-none-config.json",
+        "sha256": "bece8172565a7b11195bb7ba68816ad21bed314d2db394056a7752d6bc8cf1ed"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/001-uwvm2-ros-none-none/receipts.json",
+        "sha256": "39624ac0afb414f50e19ffa5d86e7053692ba0acdfe0987320f4a8086fc91a23"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "none-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "product_sha256": "2a3ed34ee734bb96d1f0c5fea9224672215b641da34ea6fdceef3111a55e3ff6",
+      "runtime_processes": 30,
+      "lane_checks": 2160,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2/none-soft/qualification.json",
+        "sha256": "8658f5575fb9fbac0f632a034d6eab496a7261f33b20cbd9e037986a0a4c8ee9"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-none-soft-config.json",
+        "sha256": "64216ca98561bbecd4c3accf0364045bdd16bee214e75a2281eaf71c2610b525"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/002-uwvm2-none-soft/receipts.json",
+        "sha256": "4064b6b0c8da87bbc6772a1acf98f72b4c025ff07463d2f2c73148d930ead22d"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "none-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "product_sha256": "7362891d06fd0966138a66b3e9ffd12532e88c7eba4d7d80e1ddee68fda169f1",
+      "runtime_processes": 10,
+      "lane_checks": 720,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2-ros/none-soft/qualification.json",
+        "sha256": "e442cf6da46c048ff8fab176a04557ef10da4b68f4ad7368d4a433802082de1b"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-ros-none-soft-config.json",
+        "sha256": "9cf6275ac55ae325c38a34bd60787f98ee243de29749ce1db16ac29f493f8e1b"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/003-uwvm2-ros-none-soft/receipts.json",
+        "sha256": "5795505f631f6168f3140ab634ba0005a732a505d8e4be0a6bb531f4381994b7"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "none-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "product_sha256": "e026e63d9aac15c962ac9a7fc0eb3b9e565877e3cc588d4187d69455d98ac4b7",
+      "runtime_processes": 30,
+      "lane_checks": 2160,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2/none-heavy/qualification.json",
+        "sha256": "627aea66c1f86ab7847ffb037aebcef61384530d9f3a87b920553679892eb3b1"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-none-heavy-config.json",
+        "sha256": "eaaa66ae00b9517b8ad0d4275a37ec823e11302e36821e0f858ec3aff82644c8"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/004-uwvm2-none-heavy/receipts.json",
+        "sha256": "8e57aeb834ae27813f7ff95c67000e4463aa820ec855c65d399ef7a089e5086b"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "none-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "product_sha256": "0a314bb0a69931ce9920e721180bbe23e702fb6d599cb84b3d52fc2989a854a7",
+      "runtime_processes": 10,
+      "lane_checks": 720,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2-ros/none-heavy/qualification.json",
+        "sha256": "66576951c7bba93337322782ffc5aa276eb6a2af00a1d4851838cd90675be4c7"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-ros-none-heavy-config.json",
+        "sha256": "c2591e525039326decbc7e3d2edf0ff97e63332bdc4b8c10007f011f972e9c01"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/005-uwvm2-ros-none-heavy/receipts.json",
+        "sha256": "11a328aa791b1556980fe9749616a78bec6683a9b288e73db26429a6348e4c30"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "soft-none",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS"
+      ],
+      "product_sha256": "af42921df087e283cc0dc6849f52f4ab0f72acf93fc17886658f8eab62219315",
+      "runtime_processes": 30,
+      "lane_checks": 2160,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2/soft-none/qualification.json",
+        "sha256": "66c7cdf0ad202c219427930b53d3e7a314a707a095b63b617325135e222aa66a"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-soft-none-config.json",
+        "sha256": "47819a186a22bdd2c8f8aa6f6d6f18674a951cf644b2cb17c06eb8d03e392ba1"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/006-uwvm2-soft-none/receipts.json",
+        "sha256": "5a4d994617961dc184abe9bb602db81a7d73fb0d52b4632c946fd4cb715cfb1e"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "soft-none",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS"
+      ],
+      "product_sha256": "c01c33bb1b51fab585454554766e0fdd54512e63a53c05aa9ec075f22618a245",
+      "runtime_processes": 10,
+      "lane_checks": 720,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2-ros/soft-none/qualification.json",
+        "sha256": "6d19bbc16e8cacc88abdfd6d3c29a10bc1f54ac007e5aa292d8429c5502bb229"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-ros-soft-none-config.json",
+        "sha256": "b84523bd1d315087140e0cb580eef7d0e868b1a2d13f307e817c5643db6e76b4"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/007-uwvm2-ros-soft-none/receipts.json",
+        "sha256": "7537c9e34b525750d5f4139551006232a4ac4e3048928b55a3a024765c80596b"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "soft-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "product_sha256": "26e31f5b67089dafc9ac408b296df220360aa519e2cd56aca4d75cc7f6d25eef",
+      "runtime_processes": 30,
+      "lane_checks": 2160,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2/soft-soft/qualification.json",
+        "sha256": "87c882dac2914c13ae5a16aff0c4a9a9fce60f2c5d06f322a82cb719e2222b7c"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-soft-soft-config.json",
+        "sha256": "dc0c342e27f771fbc6a93331afed06fe6cce75c3180bed3b0b23685ae15e757d"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/008-uwvm2-soft-soft/receipts.json",
+        "sha256": "9cd0a43c6e16ceaeb772805251d3389189ef8e12a6096d52192289244eb163ca"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "soft-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "product_sha256": "8d8d154386e58235525b6ceb52166df4ef2917c1a122be4e87aed2d2feccf0b3",
+      "runtime_processes": 10,
+      "lane_checks": 720,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2-ros/soft-soft/qualification.json",
+        "sha256": "b719949a6f2fd2f94d68f4d052e5153c36d8b23a8059fca51805a604e27694b7"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-ros-soft-soft-config.json",
+        "sha256": "51cd07273ec28f68eae9a69e6c002f30d3f2681c1d7c88dd737b617a6570961e"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/009-uwvm2-ros-soft-soft/receipts.json",
+        "sha256": "1d9b160f2ab5a21813e02e23f6b199df36f511c6d3f565b10fb65a860a1580d4"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "soft-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "product_sha256": "6c9ff53fdc5f2822bbe06464ccd615dd1dc76817f2ff3119723c606c6c1c14d5",
+      "runtime_processes": 30,
+      "lane_checks": 2160,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2/soft-heavy/qualification.json",
+        "sha256": "4c6a627d1d75fa17cb1669ba46a8805699db35f9316a934569b0d4772a49f0fb"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-soft-heavy-config.json",
+        "sha256": "11d3a91d4b456a7b73f71ffdcefc85de040b2f34cce8005ddf410a90e4e991d5"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/010-uwvm2-soft-heavy/receipts.json",
+        "sha256": "e7ec1cf12a5f8067bf038d4b15d4d5943a11c41e47344bb0d8a4118491e0fa3e"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "soft-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "product_sha256": "da79ca779a3eca2e9584f1d3dccdb84d7970069554f67a1eb787837bbae4bce8",
+      "runtime_processes": 10,
+      "lane_checks": 720,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2-ros/soft-heavy/qualification.json",
+        "sha256": "9fecacde5d25d77d5e14e8e385621e29137ada058cad502faa881b5bfba56f01"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-ros-soft-heavy-config.json",
+        "sha256": "cf5b2e76a2fb6955b1a09ac8d984ef6008fd6961d367513778709f5e524a183c"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/011-uwvm2-ros-soft-heavy/receipts.json",
+        "sha256": "6c7144176d6fbe6b6ec9cb91401a3f854a586206f5246493c385a46abc33e448"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "heavy-none",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS"
+      ],
+      "product_sha256": "5b6e98dd2fb1f57bfec5008e9ea3527707e24b749dffff3a7fb8c070efa59d02",
+      "runtime_processes": 30,
+      "lane_checks": 2160,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2/heavy-none/qualification.json",
+        "sha256": "5a5be104e94c9b1d910711f96eadf0c90699b54028db5817e61e400fb330c726"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-heavy-none-config.json",
+        "sha256": "7b4fba1ea32e9dc257b2bb175fea13f81c66666323321d55b084084baf040e06"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/012-uwvm2-heavy-none/receipts.json",
+        "sha256": "4c78d6c62b2ac8c9021f1582f6f4b7e31a6a28e7801d6b6443823426e1a7fbaa"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "heavy-none",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS"
+      ],
+      "product_sha256": "a00292e1cba545ba30e18b8bd8e6a54ed3c4d0a6a1fb9ff6d5dd120ef2e5d080",
+      "runtime_processes": 10,
+      "lane_checks": 720,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2-ros/heavy-none/qualification.json",
+        "sha256": "c30e6bcc9994713f9d68766acf1a0f8ff4deac50554ace691162aa328795421c"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-ros-heavy-none-config.json",
+        "sha256": "56feccc05b354118ca8da6bda334b6d1a67d75aceabf1420561f852514ae51c2"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/013-uwvm2-ros-heavy-none/receipts.json",
+        "sha256": "2031658a6d4c81e7f2184736c78691655adeae2a1fa035cfd3f44e4867634d2a"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "heavy-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "product_sha256": "b0d2eff26e8676a322743d505b8919b1a9cea70b89094192d55b5c2dac072827",
+      "runtime_processes": 30,
+      "lane_checks": 2160,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2/heavy-soft/qualification.json",
+        "sha256": "6a89bdd85f25fde3a885377feeb74596a16f99ea6ab7d30e88bc7158ac35e161"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-heavy-soft-config.json",
+        "sha256": "38c400cef2545f36c5b8f380d8428928c9a382ef6e32ef5e2f6cac172697c54a"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/014-uwvm2-heavy-soft/receipts.json",
+        "sha256": "7bab9831815d27717a638dd06a17329b299afd7d2de7ebca6430bc5fbb2cb6a8"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "heavy-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "product_sha256": "63a3ede192fa26a94481c50d1ee7629ec28867e05b07b1b982b9e872ebf5043f",
+      "runtime_processes": 10,
+      "lane_checks": 720,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2-ros/heavy-soft/qualification.json",
+        "sha256": "71ff54d6745871f310f509646cafc9a15250a8fa2b7919e4d302cb9b9ac43be6"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-ros-heavy-soft-config.json",
+        "sha256": "04c9d8049425e1633df04e9b8e263930a719ad42900b296b31704302b0e9e564"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/015-uwvm2-ros-heavy-soft/receipts.json",
+        "sha256": "71597b8e046b4a11ee35c2e60610316c90eab5ad3b9bf75465fb50a0e4b1593c"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "heavy-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "product_sha256": "e73c3e77259b65a9a2a579b0daeff2419ed8e3beeee75334b4b2be93f2dc33aa",
+      "runtime_processes": 30,
+      "lane_checks": 2160,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2/heavy-heavy/qualification.json",
+        "sha256": "db69cfe761d550d1c227ae5072937dee632883cf872097f73079642297be82ca"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-heavy-heavy-config.json",
+        "sha256": "ae7b887b91adfccebe4d0284105d7043fb4b8922b71f3e67a835290dab839e00"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/016-uwvm2-heavy-heavy/receipts.json",
+        "sha256": "a91bf329723025d72af8a8cf4156cc2c0875f655d63bd0055d40a02b85893368"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "heavy-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "product_sha256": "d69f53c7563748e2dc7ddad0a75b709098f81a9d33f248e5db7fc070c4603789",
+      "runtime_processes": 10,
+      "lane_checks": 720,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2-ros/heavy-heavy/qualification.json",
+        "sha256": "f004eab634a505b590b0fd562abab6363a4635d71b6e577608497de4e394df4c"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-ros-heavy-heavy-config.json",
+        "sha256": "064f6da596d0aa830474d0d4d90598cf87a2c3cd9b61492104922c6e3f4cd71c"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/017-uwvm2-ros-heavy-heavy/receipts.json",
+        "sha256": "cd237395bcbde0cf442eddd44c7644b4b803fd62dd3f0b966ce1150190f5b6da"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "extra-none",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS"
+      ],
+      "product_sha256": "94e5041c9f23419d61f3410428abd2d2afd6d9571f8b351280c2ab6a2c7a4eea",
+      "runtime_processes": 30,
+      "lane_checks": 2160,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2/extra-none/qualification.json",
+        "sha256": "37cf747207f2bb43646447570e4170d69851a3f465b8b986215f113eeb5f78e3"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-extra-none-config.json",
+        "sha256": "1b26173f21f8fc752d3e44398d5b337a01d8ab3b314afe54d5eac02b156327c1"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/018-uwvm2-extra-none/receipts.json",
+        "sha256": "0c111ecddd0ff138d31a1019e0d984162a2f6caeaf1b2da17548858409ac40ef"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "extra-none",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS"
+      ],
+      "product_sha256": "b62c0695d71e4d2f81fc07d60813d53d53035ffccbd2f706152752a2f3d2ffa2",
+      "runtime_processes": 10,
+      "lane_checks": 720,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2-ros/extra-none/qualification.json",
+        "sha256": "75e8d632b5f8e4a5673ce87c89817758dfdba12023390b69baf88d535c08a8f8"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-ros-extra-none-config.json",
+        "sha256": "3c51cbe3a851d2460568162b88db6270f7b0ad6a048102bd4c48141f638903b3"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/019-uwvm2-ros-extra-none/receipts.json",
+        "sha256": "d157ab84b0ce9712aad93d00408e6063dc24b9f7d4771e2b92f65e0f37a97248"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "extra-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "product_sha256": "2044077f5a89c78ede64a62446ca48762e111a7c664c5c7b27ecd75c931413fb",
+      "runtime_processes": 30,
+      "lane_checks": 2160,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2/extra-soft/qualification.json",
+        "sha256": "423f80ce7e3ebdcbe89b648f8e200af77bccbbefcaf06ec8ab43d1fe1b4e9985"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-extra-soft-config.json",
+        "sha256": "f646a69fa17a920e20ee8b8a2dcb5ce37c36f9d9240eb2cbe1e78c2456d0213f"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/020-uwvm2-extra-soft/receipts.json",
+        "sha256": "9e6f259d5105e48b0e59ac1a4bf71f79eef2cf978df6e72813ddde61d4e58d6a"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "extra-soft",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT"
+      ],
+      "product_sha256": "eb495231d7fca80ed0607b0e513c680c622b0f5b78524f9e373d4638a7df618a",
+      "runtime_processes": 10,
+      "lane_checks": 720,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2-ros/extra-soft/qualification.json",
+        "sha256": "478a3b0257a9b39c1119374f40296fbc1f1aa55479ae2d7fd15cc72145be14f4"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-ros-extra-soft-config.json",
+        "sha256": "16a5376a4668f53195ca50a4e22862538629f8cde9dd9f3955ba94509166aed7"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/021-uwvm2-ros-extra-soft/receipts.json",
+        "sha256": "663bc358b7032964a3caffe9072d687bb586cee4db8d0e99948f5fc3abdef8e7"
+      }
+    },
+    {
+      "repo": "uwvm2",
+      "variant": "extra-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "product_sha256": "030b326c07f1a0e9d1a5a8009d8839429e3ea47e42fdc4a89c7557089746ba55",
+      "runtime_processes": 30,
+      "lane_checks": 2160,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2/extra-heavy/qualification.json",
+        "sha256": "893865ceadbc46777b2b4e73b27bc56bb69eabcd3452b6442a0ffba3dac628bb"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-extra-heavy-config.json",
+        "sha256": "9598e8bad66cc1cde90b0f5b2df4efd7e2096f7f8b5ea0d9450a9d9f06330216"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/022-uwvm2-extra-heavy/receipts.json",
+        "sha256": "dadb648e3ce3674b1ac786991db9831f5ab1f68ff27a67ba3ab06e30192c48dc"
+      }
+    },
+    {
+      "repo": "uwvm2-ros",
+      "variant": "extra-heavy",
+      "macros": [
+        "UWVM_ENABLE_UWVM_INT_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_EXTRA_HEAVY_COMBINE_OPS",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_SOFT",
+        "UWVM_ENABLE_UWVM_INT_DELAY_LOCAL_HEAVY"
+      ],
+      "product_sha256": "702ff7ceea8728ce5a2ed3056711fe327b539338bbbe7e87dc59a353bacfc898",
+      "runtime_processes": 10,
+      "lane_checks": 720,
+      "qualification": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/products/uwvm2-ros/extra-heavy/qualification.json",
+        "sha256": "4599d3f02e11c1264ef3c14d84dea38d12496143cf694745db1641db8d79cf1b"
+      },
+      "configuration": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/uwvm2-ros-extra-heavy-config.json",
+        "sha256": "023c0cb2a5ddba951c864dec8d412fac93311565a9ce1e7ced2889d0bf910631"
+      },
+      "receipt": {
+        "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/023-uwvm2-ros-extra-heavy/receipts.json",
+        "sha256": "751446323166f2809008237ba0ad693144bba4fbaa1f1c06001e066e2325f299"
+      }
+    }
+  ],
+  "prerequisite_qualification": {
+    "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/prerequisite-qualification.json",
+    "sha256": "de3ecfdb42b2838007da164e0bc8b86257241fb248a546b4e2cc8475703ecd1e"
+  },
+  "actual_supplement_receipts": [
+    {
+      "label": "uwvm2-none-none",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/000-uwvm2-none-none/receipts.json",
+      "sha256": "03c05ec0d890fad09c77a5ba13766c5e51a71be9a9b01493fad92e601f750d0e"
+    },
+    {
+      "label": "uwvm2-ros-none-none",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/001-uwvm2-ros-none-none/receipts.json",
+      "sha256": "39624ac0afb414f50e19ffa5d86e7053692ba0acdfe0987320f4a8086fc91a23"
+    },
+    {
+      "label": "uwvm2-none-soft",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/002-uwvm2-none-soft/receipts.json",
+      "sha256": "4064b6b0c8da87bbc6772a1acf98f72b4c025ff07463d2f2c73148d930ead22d"
+    },
+    {
+      "label": "uwvm2-ros-none-soft",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/003-uwvm2-ros-none-soft/receipts.json",
+      "sha256": "5795505f631f6168f3140ab634ba0005a732a505d8e4be0a6bb531f4381994b7"
+    },
+    {
+      "label": "uwvm2-none-heavy",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/004-uwvm2-none-heavy/receipts.json",
+      "sha256": "8e57aeb834ae27813f7ff95c67000e4463aa820ec855c65d399ef7a089e5086b"
+    },
+    {
+      "label": "uwvm2-ros-none-heavy",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/005-uwvm2-ros-none-heavy/receipts.json",
+      "sha256": "11a328aa791b1556980fe9749616a78bec6683a9b288e73db26429a6348e4c30"
+    },
+    {
+      "label": "uwvm2-soft-none",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/006-uwvm2-soft-none/receipts.json",
+      "sha256": "5a4d994617961dc184abe9bb602db81a7d73fb0d52b4632c946fd4cb715cfb1e"
+    },
+    {
+      "label": "uwvm2-ros-soft-none",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/007-uwvm2-ros-soft-none/receipts.json",
+      "sha256": "7537c9e34b525750d5f4139551006232a4ac4e3048928b55a3a024765c80596b"
+    },
+    {
+      "label": "uwvm2-soft-soft",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/008-uwvm2-soft-soft/receipts.json",
+      "sha256": "9cd0a43c6e16ceaeb772805251d3389189ef8e12a6096d52192289244eb163ca"
+    },
+    {
+      "label": "uwvm2-ros-soft-soft",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/009-uwvm2-ros-soft-soft/receipts.json",
+      "sha256": "1d9b160f2ab5a21813e02e23f6b199df36f511c6d3f565b10fb65a860a1580d4"
+    },
+    {
+      "label": "uwvm2-soft-heavy",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/010-uwvm2-soft-heavy/receipts.json",
+      "sha256": "e7ec1cf12a5f8067bf038d4b15d4d5943a11c41e47344bb0d8a4118491e0fa3e"
+    },
+    {
+      "label": "uwvm2-ros-soft-heavy",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/011-uwvm2-ros-soft-heavy/receipts.json",
+      "sha256": "6c7144176d6fbe6b6ec9cb91401a3f854a586206f5246493c385a46abc33e448"
+    },
+    {
+      "label": "uwvm2-heavy-none",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/012-uwvm2-heavy-none/receipts.json",
+      "sha256": "4c78d6c62b2ac8c9021f1582f6f4b7e31a6a28e7801d6b6443823426e1a7fbaa"
+    },
+    {
+      "label": "uwvm2-ros-heavy-none",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/013-uwvm2-ros-heavy-none/receipts.json",
+      "sha256": "2031658a6d4c81e7f2184736c78691655adeae2a1fa035cfd3f44e4867634d2a"
+    },
+    {
+      "label": "uwvm2-heavy-soft",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/014-uwvm2-heavy-soft/receipts.json",
+      "sha256": "7bab9831815d27717a638dd06a17329b299afd7d2de7ebca6430bc5fbb2cb6a8"
+    },
+    {
+      "label": "uwvm2-ros-heavy-soft",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/015-uwvm2-ros-heavy-soft/receipts.json",
+      "sha256": "71597b8e046b4a11ee35c2e60610316c90eab5ad3b9bf75465fb50a0e4b1593c"
+    },
+    {
+      "label": "uwvm2-heavy-heavy",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/016-uwvm2-heavy-heavy/receipts.json",
+      "sha256": "a91bf329723025d72af8a8cf4156cc2c0875f655d63bd0055d40a02b85893368"
+    },
+    {
+      "label": "uwvm2-ros-heavy-heavy",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/017-uwvm2-ros-heavy-heavy/receipts.json",
+      "sha256": "cd237395bcbde0cf442eddd44c7644b4b803fd62dd3f0b966ce1150190f5b6da"
+    },
+    {
+      "label": "uwvm2-extra-none",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/018-uwvm2-extra-none/receipts.json",
+      "sha256": "0c111ecddd0ff138d31a1019e0d984162a2f6caeaf1b2da17548858409ac40ef"
+    },
+    {
+      "label": "uwvm2-ros-extra-none",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/019-uwvm2-ros-extra-none/receipts.json",
+      "sha256": "d157ab84b0ce9712aad93d00408e6063dc24b9f7d4771e2b92f65e0f37a97248"
+    },
+    {
+      "label": "uwvm2-extra-soft",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/020-uwvm2-extra-soft/receipts.json",
+      "sha256": "9e6f259d5105e48b0e59ac1a4bf71f79eef2cf978df6e72813ddde61d4e58d6a"
+    },
+    {
+      "label": "uwvm2-ros-extra-soft",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/021-uwvm2-ros-extra-soft/receipts.json",
+      "sha256": "663bc358b7032964a3caffe9072d687bb586cee4db8d0e99948f5fc3abdef8e7"
+    },
+    {
+      "label": "uwvm2-extra-heavy",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/022-uwvm2-extra-heavy/receipts.json",
+      "sha256": "dadb648e3ce3674b1ac786991db9831f5ab1f68ff27a67ba3ab06e30192c48dc"
+    },
+    {
+      "label": "uwvm2-ros-extra-heavy",
+      "path": "/home/macromodel/Documents/uwvm-debug-recovery-20261006-r2/wasm-core3-debug-20261007-r1/cgopt-mips64el-r13-exact-int-simd-reboot-r2/cgopt-mips64el-r13-exact-int-simd-reboot-r2-evidence/023-uwvm2-ros-extra-heavy/receipts.json",
+      "sha256": "751446323166f2809008237ba0ad693144bba4fbaa1f1c06001e066e2325f299"
+    }
+  ],
+  "host_compiler_optimization": "O1",
+  "LLVM_JIT_enabled": false,
+  "effective_delay_note": "Delay-local requires combine in the translator; requested delay flags with combine=none do not establish active delay-local optimization.",
+  "selected_fusion_assembly_qualified": false,
+  "all_current_working_tree_qualified": false,
+  "complete_Core3_requested_threads_qualified": false,
+  "all_architecture_ABI_qualified": false,
+  "hardware_throughput_qualified": false
+}

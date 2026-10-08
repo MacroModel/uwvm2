@@ -1,0 +1,18 @@
+{
+  "allocated_bytes": 6517395456,
+  "logical_bytes": 8054374960,
+  "files": 159785,
+  "host_available_bytes": 30215487488,
+  "volume_available_bytes": 1906794496,
+  "original_native_admission_bytes": 6442450944,
+  "original_host_reserve_bytes": 34359738368,
+  "r35_analysis_allocated_bytes": 9818112,
+  "r35_analysis_ceiling_bytes": 16777216,
+  "boot_id": "c8d3550f-3a19-40d7-8507-a76c2045ace5",
+  "timestamp_ns": 1791425389137066784,
+  "native_admitted": false,
+  "refusal_reasons": [
+    "owned_directory_above_original_6GiB_admission",
+    "host_disk_below_original_32GiB_reserve"
+  ]
+}
